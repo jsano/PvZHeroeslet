@@ -34,11 +34,27 @@ public class Card : MonoBehaviour
     public Class _class;
     public Trait[] traits;
 
+    public int cost;
+    public int atk;
+    public int HP;
+    private int maxHP;
+
+    public int armor;
+    public bool strikethrough;
+    public bool deadly;
+    public bool frenzy;
+    public bool teamUp;
+    public int overshoot;
+
+    [HideInInspector] public int row;
+    [HideInInspector] public int col;
+
     // Start is called before the first frame update
     void Start()
     {
+        maxHP = HP;
         //play animation
-        transform.parent.BroadcastMessage("OnPlay", this);
+        transform.parent.BroadcastMessage("OnCardPlay", this);
     }
 
     // Update is called once per frame
@@ -47,19 +63,50 @@ public class Card : MonoBehaviour
         
     }
 
-    protected void OnPlay(Card played)
+    /// <summary>
+    /// Called whenever a card is played
+    /// </summary>
+    /// <param name="played"> The card that was played </param>
+    protected void OnCardPlay(Card played)
     {
         
     }
 
-    protected void OnAttack()
+    /// <summary>
+    /// Called whenever a card on the field attacks something
+    /// </summary>
+    /// <param name="source"> The card that attacked </param>
+    /// <param name="recipient"> The card that received damage </param>
+    protected void OnCardAttack(Card source, Card recipient)
     {
 
     }
 
-    protected void OnDeath()
+    /// <summary>
+    /// Called whenever a card on the field dies
+    /// </summary>
+    /// <param name="died"> The card that died </param>
+    protected void OnCardDeath(Card died)
     {
+        if (died == this) Destroy(gameObject);
+    }
 
+    public void Attack()
+    {
+        //attack opponent card in col
+        transform.parent.BroadcastMessage("OnCardAttack", this);
+    }
+
+    public void ReceiveDamage(int dmg)
+    {
+        HP -= dmg;
+        if (HP <= 0) transform.parent.BroadcastMessage("OnCardDeath", this);
+    }
+
+    public void Heal(int amount, bool raiseCap)
+    {
+        HP += amount;
+        if (raiseCap) maxHP += amount;
     }
 
 }
