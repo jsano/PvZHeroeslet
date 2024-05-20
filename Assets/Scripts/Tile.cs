@@ -30,16 +30,10 @@ public class Tile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.selecting != null && BC.bounds.Contains((Vector2) cam.ScreenToWorldPoint(Input.mousePosition)) && planted == null)
+        if (transform.position.y < 0 && GameManager.Instance.selecting != null && BC.bounds.Contains((Vector2) cam.ScreenToWorldPoint(Input.mousePosition)) && planted == null)
         {
             SR.color = new Color(SR.color.r, SR.color.g, SR.color.b, 1);
         } else SR.color = new Color(SR.color.r, SR.color.g, SR.color.b, 0);
-    }
-
-    public void Place(Card card)
-    {
-        card.transform.position = transform.position;
-        planted = card;
     }
 
 }

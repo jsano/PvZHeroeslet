@@ -31,7 +31,7 @@ public class HandCard : MonoBehaviour, IEndDragHandler, IDragHandler, IPointerDo
         {
             if (t.GetComponent<BoxCollider2D>().bounds.Contains((Vector2) cam.ScreenToWorldPoint(eventData.position)))
             {
-                GameManager.Instance.PlayCardRpc(ID, t.row, t.col);
+                GameManager.Instance.PlayCardRpc(ID, t.row, t.col, GameManager.Instance.team);
                 Destroy(gameObject);
                 return;
             }

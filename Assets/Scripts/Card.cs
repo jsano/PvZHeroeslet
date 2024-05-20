@@ -66,23 +66,25 @@ public class Card : NetworkBehaviour
         
     }
 
-    public override void OnNetworkSpawn()
-    {
-        base.OnNetworkSpawn();
-        if (team != GameManager.Instance.team) Tile.opponentTiles[row, col].Place(this);
-        else Tile.tileObjects[row, col].Place(this);
-    }
-
     private void CallLeftToRight(string methodName)
     {
         MethodInfo m = typeof(Card).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+        NetworkList<int> z = GameManager.Instance.zombies;
+        NetworkList<int> p = GameManager.Instance.plants;
+        Tile[,] first = Tile.tileObjects;
+        Tile[,] second = Tile.opponentTiles;
+        if (GameManager.Instance.team == Team.Plant)
+        {
+            first = Tile.opponentTiles;
+            second = Tile.tileObjects;
+        }
         for (int i = 0; i < 5; i++)
         {
-            if (Tile.tileObjects[1, i].planted != null) m.Invoke(Tile.tileObjects[1, i].planted, new[] { this });
-            if (Tile.tileObjects[0, i].planted != null) m.Invoke(Tile.tileObjects[0, i].planted, new[] { this });
+            if (z[1 + 2*i] != -1) m.Invoke(first[1, i].planted, new[] { this });
+            if (z[2*i] != -1) m.Invoke(first[0, i].planted, new[] { this });
 
-            if (Tile.opponentTiles[1, i].planted != null) m.Invoke(Tile.opponentTiles[1, i].planted, new[] { this });
-            if (Tile.opponentTiles[0, i].planted != null) m.Invoke(Tile.opponentTiles[0, i].planted, new[] { this });
+            if (p[1 + 2*i] != -1) m.Invoke(second[1, i].planted, new[] { this });
+            if (p[2*i] != -1) m.Invoke(second[0, i].planted, new[] { this });
         }
     }
 
@@ -92,7 +94,7 @@ public class Card : NetworkBehaviour
     /// <param name="played"> The card that was played </param>
     protected void OnCardPlay(Card played)
     {
-        
+        Debug.Log(row + " " + col);
     }
 
     /// <summary>
