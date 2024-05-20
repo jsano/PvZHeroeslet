@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Unity.Multiplayer.Samples.Utilities;
 using Unity.Netcode;
 using UnityEngine;
@@ -56,7 +57,7 @@ public class Card : NetworkBehaviour
     {
         maxHP = HP;
         //play animation
-        transform.parent.BroadcastMessage("OnCardPlay", this);
+        CallLeftToRight("OnCardPlay");
     }
 
     // Update is called once per frame
@@ -68,9 +69,21 @@ public class Card : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        Debug.Log(row + " " + col);
-        if (!IsOwner) Tile.opponentTiles[row, col].Place(this);
+        if (team != GameManager.Instance.team) Tile.opponentTiles[row, col].Place(this);
         else Tile.tileObjects[row, col].Place(this);
+    }
+
+    private void CallLeftToRight(string methodName)
+    {
+        MethodInfo m = typeof(Card).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+        for (int i = 0; i < 5; i++)
+        {
+            if (Tile.tileObjects[1, i].planted != null) m.Invoke(Tile.tileObjects[1, i].planted, new[] { this });
+            if (Tile.tileObjects[0, i].planted != null) m.Invoke(Tile.tileObjects[0, i].planted, new[] { this });
+
+            if (Tile.opponentTiles[1, i].planted != null) m.Invoke(Tile.opponentTiles[1, i].planted, new[] { this });
+            if (Tile.opponentTiles[0, i].planted != null) m.Invoke(Tile.opponentTiles[0, i].planted, new[] { this });
+        }
     }
 
     /// <summary>
@@ -104,13 +117,13 @@ public class Card : NetworkBehaviour
     public void Attack()
     {
         //attack opponent card in col
-        transform.parent.BroadcastMessage("OnCardAttack", this);
+        CallLeftToRight("OnCardAttack");
     }
 
     public void ReceiveDamage(int dmg)
     {
         HP -= dmg;
-        if (HP <= 0) transform.parent.BroadcastMessage("OnCardDeath", this);
+        if (HP <= 0) CallLeftToRight("OnCardDeath");
     }
 
     public void Heal(int amount, bool raiseCap)

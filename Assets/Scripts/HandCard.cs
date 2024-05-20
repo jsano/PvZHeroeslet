@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -30,9 +31,7 @@ public class HandCard : MonoBehaviour, IEndDragHandler, IDragHandler, IPointerDo
         {
             if (t.GetComponent<BoxCollider2D>().bounds.Contains((Vector2) cam.ScreenToWorldPoint(eventData.position)))
             {
-                Card card = Instantiate(AllCards.Instance.cards[ID], GameObject.Find("PlayedCards").transform).GetComponent<Card>();
-                card.row = t.row;
-                card.col = t.col;
+                GameManager.Instance.PlayCardRpc(ID, t.row, t.col);
                 Destroy(gameObject);
                 return;
             }

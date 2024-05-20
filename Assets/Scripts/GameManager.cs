@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
 
     private static GameManager instance;
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     private int turn;
     private int phase; // 0 = prep, 1 = zombie, 2 = plant, 3 = zombie trick, 4 = fight
     private int remaining;
+    public Card.Team team; 
 
     public HandCard selecting;
 
@@ -24,6 +26,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         turn = 1;
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        if (!IsHost) team = Card.Team.Plant;
+        else team = Card.Team.Zombie;
     }
 
     // Update is called once per frame
@@ -35,6 +44,15 @@ public class GameManager : MonoBehaviour
     public void End()
     {
         phase += 1;
+    }
+
+    [Rpc(SendTo.Server)]
+    public void PlayCardRpc(int ID, int row, int col)
+    {
+        Card card = Instantiate(AllCards.Instance.cards[ID]).GetComponent<Card>();
+        card.row = row;
+        card.col = col;
+        card.GetComponent<NetworkObject>().Spawn();
     }
 
 }
