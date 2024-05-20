@@ -14,7 +14,7 @@ public class HandCard : MonoBehaviour, IEndDragHandler, IDragHandler, IPointerDo
     {
         transform.localScale = Vector3.one * 1.2f;
         startPos = transform.position;
-        GameManager.selecting = this;
+        GameManager.Instance.selecting = this;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -25,14 +25,12 @@ public class HandCard : MonoBehaviour, IEndDragHandler, IDragHandler, IPointerDo
     public void OnEndDrag(PointerEventData eventData)
     {
         transform.localScale = Vector3.one;
-        GameManager.selecting = null;
+        GameManager.Instance.selecting = null;
         foreach (Tile t in Tile.tileObjects)
         {
             if (t.GetComponent<BoxCollider2D>().bounds.Contains((Vector2) cam.ScreenToWorldPoint(eventData.position)))
             {
                 Card card = Instantiate(AllCards.Instance.cards[ID], GameObject.Find("PlayedCards").transform).GetComponent<Card>();
-                card.transform.position = t.transform.position;
-                t.planted = card;
                 card.row = t.row;
                 card.col = t.col;
                 Destroy(gameObject);

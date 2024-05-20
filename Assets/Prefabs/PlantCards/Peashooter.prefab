@@ -7,9 +7,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1812251758246606002, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3004665349
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      propertyPath: HP
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      propertyPath: atk
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      propertyPath: cost
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Name
-      value: Card
+      value: Peashooter
       objectReference: {fileID: 0}
     - target: {fileID: 8010029174977732602, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_RootOrder
@@ -55,5 +71,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4852ea787390f874db96ee6c2987019b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}

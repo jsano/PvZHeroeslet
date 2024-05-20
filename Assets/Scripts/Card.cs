@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Multiplayer.Samples.Utilities;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Card : MonoBehaviour
+public class Card : NetworkBehaviour
 {
 
     public enum Team
@@ -63,6 +65,14 @@ public class Card : MonoBehaviour
         
     }
 
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        Debug.Log(row + " " + col);
+        if (!IsOwner) Tile.opponentTiles[row, col].Place(this);
+        else Tile.tileObjects[row, col].Place(this);
+    }
+
     /// <summary>
     /// Called whenever a card is played
     /// </summary>
@@ -107,6 +117,7 @@ public class Card : MonoBehaviour
     {
         HP += amount;
         if (raiseCap) maxHP += amount;
+        else HP = Mathf.Min(maxHP, HP);
     }
 
 }
