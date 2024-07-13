@@ -65,7 +65,7 @@ public class Card : NetworkBehaviour
         hpUI = transform.Find("HP").GetComponent<TextMeshProUGUI>();
         hpUI.text = HP + "";
         //play animation
-        CallLeftToRight("OnCardPlay");
+        CallLeftToRight("OnCardPlay", null);
     }
 
     // Update is called once per frame
@@ -74,7 +74,7 @@ public class Card : NetworkBehaviour
         
     }
 
-    private void CallLeftToRight(string methodName)
+    private void CallLeftToRight(string methodName, Card arg) //probably ienumerator??
     {
         MethodInfo m = typeof(Card).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
         NetworkList<int> z = GameManager.Instance.zombies;
@@ -86,13 +86,15 @@ public class Card : NetworkBehaviour
             first = Tile.opponentTiles;
             second = Tile.tileObjects;
         }
+
+        Object[] args = methodName == "OnCardAttack" ? new[] { this, arg } : new[] { this };
         for (int i = 0; i < 5; i++)
         {
-            if (z[1 + 2*i] != -1) m.Invoke(first[1, i].planted, new[] { this });
-            if (z[2*i] != -1) m.Invoke(first[0, i].planted, new[] { this });
+            if (first[1, i].planted != null) m.Invoke(first[1, i].planted, args);
+            if (first[0, i].planted != null) m.Invoke(first[0, i].planted, args);
 
-            if (p[1 + 2*i] != -1) m.Invoke(second[1, i].planted, new[] { this });
-            if (p[2*i] != -1) m.Invoke(second[0, i].planted, new[] { this });
+            if (second[1, i].planted != null) m.Invoke(second[1, i].planted, args);
+            if (second[0, i].planted != null) m.Invoke(second[0, i].planted, args);
         }
     }
 
@@ -121,19 +123,35 @@ public class Card : NetworkBehaviour
     /// <param name="died"> The card that died </param>
     protected void OnCardDeath(Card died)
     {
-        if (died == this) Destroy(gameObject);
+
     }
 
     public void Attack()
     {
-        //attack opponent card in col
-        CallLeftToRight("OnCardAttack");
+        Tile[,] target = Tile.tileObjects;
+        if (GameManager.Instance.team == team) target = Tile.opponentTiles;
+        Card target1;
+        if (target[1, col].planted != null) target1 = target[1, col].planted;
+        else if (target[0, col].planted != null) target1 = target[0, col].planted;
+        else target1 = this; //temp
+        target1.ReceiveDamage(atk);
+        //play animation
+        CallLeftToRight("OnCardAttack", target1);
     }
 
-    public void ReceiveDamage(int dmg)
-    {
+    private void ReceiveDamage(int dmg)
+    {Debug.Log(gameObject.GetInstanceID() + " " + row + " " + col + " got hit for " + dmg);
         HP -= dmg;
-        if (HP <= 0) CallLeftToRight("OnCardDeath");
+        hpUI.text = Mathf.Max(0, HP) + "";
+    }
+    
+    public void DieIf0()
+    {
+        if (HP <= 0)
+        {
+            CallLeftToRight("OnCardDeath", null);
+            Destroy(gameObject);
+        }
     }
 
     public void Heal(int amount, bool raiseCap)
@@ -141,6 +159,7 @@ public class Card : NetworkBehaviour
         HP += amount;
         if (raiseCap) maxHP += amount;
         else HP = Mathf.Min(maxHP, HP);
+        hpUI.text = HP + "";
     }
 
 }

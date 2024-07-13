@@ -26,6 +26,8 @@ public class GameManager : NetworkBehaviour
     private int remaining;
     public Card.Team team;
 
+    [HideInInspector] public bool playingAnimation = false;
+
     public Button go;
     public GameObject phaseText;
     public HandCard selecting;
@@ -38,6 +40,7 @@ public class GameManager : NetworkBehaviour
         plants = new NetworkList<int>();
         zombies = new NetworkList<int>();
         handCards = transform.Find("HandCards");
+        handCards.GetChild(1).GetComponent<HandCard>().ID = 1; //temp
         NM = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         NM.OnConnectionEvent += P2Joined;
         turn = 1;
@@ -101,6 +104,52 @@ public class GameManager : NetworkBehaviour
                 foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = false;
             }
         }
+
+        if (phase == 4) StartCoroutine(Combat());
+    }
+
+    private IEnumerator Combat()
+    {
+        for (int col = 0; col < 5; col++)
+        {
+            for (int row = 0; row < 2; row++)
+            {
+                if (team == Card.Team.Zombie)
+                {
+                    if (Tile.tileObjects[row, col].planted != null) Tile.tileObjects[row, col].planted.Attack();
+                    yield return new WaitUntil(() => playingAnimation == false);
+                    if (Tile.opponentTiles[row, col].planted != null) Tile.opponentTiles[row, col].planted.Attack();
+                }
+                else
+                {
+                    if (Tile.opponentTiles[row, col].planted != null) Tile.opponentTiles[row, col].planted.Attack();                    
+                    yield return new WaitUntil(() => playingAnimation == false);
+                    if (Tile.tileObjects[row, col].planted != null) Tile.tileObjects[row, col].planted.Attack();
+                }
+            }
+            yield return new WaitUntil(() => playingAnimation == false);
+            for (int col1 = 0; col1 < 5; col1++) for (int row1 = 0; row1 < 2; row1++)
+                {
+                    if (team == Card.Team.Zombie)
+                    {
+                        if (Tile.tileObjects[row1, col1].planted != null) Tile.tileObjects[row1, col1].planted.DieIf0();
+                        yield return new WaitUntil(() => playingAnimation == false);
+                        if (Tile.opponentTiles[row1, col1].planted != null) Tile.opponentTiles[row1, col1].planted.DieIf0();
+                    }
+                    else
+                    {
+                        if (Tile.opponentTiles[row1, col1].planted != null) Tile.opponentTiles[row1, col1].planted.DieIf0();
+                        yield return new WaitUntil(() => playingAnimation == false);
+                        if (Tile.tileObjects[row1, col1].planted != null) Tile.tileObjects[row1, col1].planted.DieIf0();
+                    }
+                }
+        }
+
+        turn += 1;
+        remaining = turn;
+        phase = 0;
+        //draw card
+        if (IsServer) EndRpc();
     }
 
     [Rpc(SendTo.Server)]
