@@ -11,8 +11,11 @@ public class HandCard : MonoBehaviour, IEndDragHandler, IDragHandler, IPointerDo
     private Camera cam;
     private Vector2 startPos;
 
+    public bool interactable = false;
+
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (!interactable) return;
         transform.localScale = Vector3.one * 1.2f;
         startPos = transform.position;
         GameManager.Instance.selecting = this;
@@ -20,11 +23,13 @@ public class HandCard : MonoBehaviour, IEndDragHandler, IDragHandler, IPointerDo
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (!interactable) return;
         transform.position = (Vector2) cam.ScreenToWorldPoint(eventData.position);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (!interactable) return;
         transform.localScale = Vector3.one;
         GameManager.Instance.selecting = null;
         foreach (Tile t in Tile.tileObjects)

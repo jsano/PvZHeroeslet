@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using TMPro;
 using Unity.Multiplayer.Samples.Utilities;
 using Unity.Netcode;
 using UnityEngine;
@@ -52,10 +53,17 @@ public class Card : NetworkBehaviour
     [HideInInspector] public int row;
     [HideInInspector] public int col;
 
+    private TextMeshProUGUI atkUI;
+    private TextMeshProUGUI hpUI;
+
     // Start is called before the first frame update
     void Start()
     {
         maxHP = HP;
+        atkUI = transform.Find("ATK").GetComponent<TextMeshProUGUI>();
+        atkUI.text = atk + "";
+        hpUI = transform.Find("HP").GetComponent<TextMeshProUGUI>();
+        hpUI.text = HP + "";
         //play animation
         CallLeftToRight("OnCardPlay");
     }

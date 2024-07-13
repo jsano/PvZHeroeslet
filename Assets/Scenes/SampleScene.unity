@@ -1755,6 +1755,10 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 867155595
       objectReference: {fileID: 0}
+    - target: {fileID: -5492554058049680718, guid: dbc0ad597a14ec64a8a7e14b2a25bd50, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 4293253088
+      objectReference: {fileID: 0}
     - target: {fileID: 2197700514928520116, guid: dbc0ad597a14ec64a8a7e14b2a25bd50, type: 3}
       propertyPath: m_Name
       value: GameManager
