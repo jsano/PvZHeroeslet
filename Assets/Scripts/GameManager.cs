@@ -16,10 +16,13 @@ public class GameManager : NetworkBehaviour
     {
         if (instance != null && instance != this) Destroy(gameObject);
         else instance = this;
-    }
 
-    public NetworkList<int> plants = new NetworkList<int>();
-    public NetworkList<int> zombies = new NetworkList<int>();
+		plants = new NetworkList<int>();
+		zombies = new NetworkList<int>();
+	}
+
+    public NetworkList<int> plants;
+    public NetworkList<int> zombies;
 
     private int turn;
     private int phase; // 0 = prep, 1 = zombie, 2 = plant, 3 = zombie trick, 4 = fight
@@ -37,7 +40,6 @@ public class GameManager : NetworkBehaviour
     void Start()
     {
         handCards = transform.Find("HandCards");
-        handCards.GetChild(1).GetComponent<HandCard>().ID = 1; //temp
         NetworkManager.OnClientConnectedCallback += P2Joined;
         turn = 1;
     }

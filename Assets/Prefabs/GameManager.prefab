@@ -481,8 +481,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1222204128
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 867155595
+  InScenePlacedSourceGlobalObjectIdHash: 4293253088
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -503,6 +503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 0
+  playingAnimation: 0
   go: {fileID: 1942807385}
   phaseText: {fileID: 5006087966748392106}
   selecting: {fileID: 0}
@@ -712,6 +713,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1936256281}
     m_Modifications:
+    - target: {fileID: -2421797454232802490, guid: f706ad66195a2dd4ea9db6303c535826, type: 3}
+      propertyPath: ID
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3073203788100394026, guid: f706ad66195a2dd4ea9db6303c535826, type: 3}
       propertyPath: m_Name
       value: HandCard (1)

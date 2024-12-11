@@ -7,11 +7,12 @@ using UnityEngine.EventSystems;
 public class HandCard : MonoBehaviour, IEndDragHandler, IDragHandler, IPointerDownHandler
 {
 
-    [HideInInspector] public int ID;
+    public int ID;
     private Camera cam;
     private Vector2 startPos;
 
     public bool interactable = false;
+    public SpriteRenderer image;
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -48,6 +49,7 @@ public class HandCard : MonoBehaviour, IEndDragHandler, IDragHandler, IPointerDo
     void Start()
     {
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+        image.sprite = AllCards.Instance.cards[ID].GetComponent<SpriteRenderer>().sprite;
     }
 
     // Update is called once per frame

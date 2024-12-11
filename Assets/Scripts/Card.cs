@@ -130,11 +130,11 @@ public class Card : NetworkBehaviour
     {
         Tile[,] target = Tile.tileObjects;
         if (GameManager.Instance.team == team) target = Tile.opponentTiles;
-        Card target1;
+        Card target1 = null;
         if (target[1, col].planted != null) target1 = target[1, col].planted;
         else if (target[0, col].planted != null) target1 = target[0, col].planted;
-        else target1 = this; //temp
-        target1.ReceiveDamage(atk);
+        //else target1 = this; //temp
+        if (target1 != null) target1.ReceiveDamage(atk);
         //play animation
         CallLeftToRight("OnCardAttack", target1);
     }
