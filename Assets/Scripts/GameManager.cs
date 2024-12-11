@@ -18,8 +18,8 @@ public class GameManager : NetworkBehaviour
         else instance = this;
     }
 
-    public NetworkList<int> plants;
-    public NetworkList<int> zombies;
+    public NetworkList<int> plants = new NetworkList<int>();
+    public NetworkList<int> zombies = new NetworkList<int>();
 
     private int turn;
     private int phase; // 0 = prep, 1 = zombie, 2 = plant, 3 = zombie trick, 4 = fight
@@ -32,23 +32,20 @@ public class GameManager : NetworkBehaviour
     public GameObject phaseText;
     public HandCard selecting;
     private Transform handCards;
-    private NetworkManager NM;
 
     // Start is called before the first frame update
     void Start()
     {
-        plants = new NetworkList<int>();
-        zombies = new NetworkList<int>();
         handCards = transform.Find("HandCards");
         handCards.GetChild(1).GetComponent<HandCard>().ID = 1; //temp
-        NM = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
-        NM.OnConnectionEvent += P2Joined;
+        NetworkManager.OnClientConnectedCallback += P2Joined;
         turn = 1;
     }
 
-    private void P2Joined(NetworkManager manager, ConnectionEventData data)
+    private void P2Joined(ulong data)
     {
-        if (IsServer) return;
+        Debug.Log("Client " + data + " connected");
+		if (IsServer) return;
         EndRpc();
     }
 
@@ -61,7 +58,7 @@ public class GameManager : NetworkBehaviour
         if (!IsServer) return;
         for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++) plants.Add(-1);
         for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++) zombies.Add(-1);
-    }
+	}
 
     // Update is called once per frame
     void Update()
