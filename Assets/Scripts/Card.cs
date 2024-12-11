@@ -104,7 +104,7 @@ public class Card : NetworkBehaviour
     /// <param name="played"> The card that was played </param>
     protected void OnCardPlay(Card played)
     {
-        Debug.Log(row + " " + col);
+        //Debug.Log(row + " " + col);
     }
 
     /// <summary>
@@ -126,21 +126,31 @@ public class Card : NetworkBehaviour
 
     }
 
-    public void Attack()
+    public IEnumerator Attack()
     {
         Tile[,] target = Tile.tileObjects;
         if (GameManager.Instance.team == team) target = Tile.opponentTiles;
         Card target1 = null;
         if (target[1, col].planted != null) target1 = target[1, col].planted;
         else if (target[0, col].planted != null) target1 = target[0, col].planted;
-        //else target1 = this; //temp
         if (target1 != null) target1.ReceiveDamage(atk);
-        //play animation
+        else
+        {
+            if (team == GameManager.Instance.team) GameManager.Instance.opponent.ReceiveDamage(atk);
+            else GameManager.Instance.player.ReceiveDamage(atk);
+        }
+        int until = GameManager.Instance.playingAnimations;
+        GameManager.Instance.playingAnimations += 1;
+        // animation
+        yield return new WaitForSeconds(1);
+        GameManager.Instance.playingAnimations -= 1;
+        //
+        yield return new WaitUntil(() => GameManager.Instance.playingAnimations == until);
         CallLeftToRight("OnCardAttack", target1);
     }
 
     private void ReceiveDamage(int dmg)
-    {Debug.Log(gameObject.GetInstanceID() + " " + row + " " + col + " got hit for " + dmg);
+    {Debug.Log(row + " " + col + " got hit for " + dmg);
         HP -= dmg;
         hpUI.text = Mathf.Max(0, HP) + "";
     }

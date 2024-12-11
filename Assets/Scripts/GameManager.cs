@@ -21,7 +21,7 @@ public class GameManager : NetworkBehaviour
 		zombies = new NetworkList<int>();
 	}
 
-    public NetworkList<int> plants;
+    public NetworkList<int> plants; // for when the game becomes 1 authoritative server with 2 clients
     public NetworkList<int> zombies;
 
     private int turn;
@@ -29,12 +29,15 @@ public class GameManager : NetworkBehaviour
     private int remaining;
     public Card.Team team;
 
-    [HideInInspector] public bool playingAnimation = false;
+    [HideInInspector] public int playingAnimations = 0; // MAYBE have it all be yield return coroutines
 
     public Button go;
     public GameObject phaseText;
     public HandCard selecting;
     private Transform handCards;
+
+    [HideInInspector] public Hero player;
+    [HideInInspector] public Hero opponent;
 
     // Start is called before the first frame update
     void Start()
@@ -54,8 +57,21 @@ public class GameManager : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        if (IsHost) team = Card.Team.Plant;
-        else team = Card.Team.Zombie;
+        if (IsHost)
+        {
+            team = Card.Team.Plant;
+            player = GameObject.Find("Green Shadow").GetComponent<Hero>(); //temp
+			opponent = GameObject.Find("Super Brainz").GetComponent<Hero>();
+			
+		}
+        else
+        {
+            team = Card.Team.Zombie;
+			opponent = GameObject.Find("Green Shadow").GetComponent<Hero>(); //temp
+			player = GameObject.Find("Super Brainz").GetComponent<Hero>();
+		}
+        player.transform.position = new Vector2(0, -3);
+        opponent.transform.position = new Vector2(0, 3);
         
         if (!IsServer) return;
         for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++) plants.Add(-1);
@@ -115,32 +131,38 @@ public class GameManager : NetworkBehaviour
             {
                 if (team == Card.Team.Zombie)
                 {
-                    if (Tile.tileObjects[row, col].planted != null) Tile.tileObjects[row, col].planted.Attack();
-                    yield return new WaitUntil(() => playingAnimation == false);
-                    if (Tile.opponentTiles[row, col].planted != null) Tile.opponentTiles[row, col].planted.Attack();
-                }
+                    int until = playingAnimations;
+                    if (Tile.tileObjects[row, col].planted != null) yield return Tile.tileObjects[row, col].planted.Attack();                    
+                    yield return new WaitUntil(() => playingAnimations == until);
+                    if (Tile.opponentTiles[row, col].planted != null) yield return Tile.opponentTiles[row, col].planted.Attack();
+					yield return new WaitUntil(() => playingAnimations == until);
+				}
                 else
                 {
-                    if (Tile.opponentTiles[row, col].planted != null) Tile.opponentTiles[row, col].planted.Attack();                    
-                    yield return new WaitUntil(() => playingAnimation == false);
-                    if (Tile.tileObjects[row, col].planted != null) Tile.tileObjects[row, col].planted.Attack();
-                }
+                    int until = playingAnimations;
+                    if (Tile.opponentTiles[row, col].planted != null) yield return Tile.opponentTiles[row, col].planted.Attack();                    
+                    yield return new WaitUntil(() => playingAnimations == until);
+                    if (Tile.tileObjects[row, col].planted != null) yield return Tile.tileObjects[row, col].planted.Attack();
+					yield return new WaitUntil(() => playingAnimations == until);
+				}
             }
-            yield return new WaitUntil(() => playingAnimation == false);
             for (int col1 = 0; col1 < 5; col1++) for (int row1 = 0; row1 < 2; row1++)
                 {
                     if (team == Card.Team.Zombie)
                     {
+                        int until = playingAnimations;
                         if (Tile.tileObjects[row1, col1].planted != null) Tile.tileObjects[row1, col1].planted.DieIf0();
-                        yield return new WaitUntil(() => playingAnimation == false);
+                        yield return new WaitUntil(() => playingAnimations == until);
                         if (Tile.opponentTiles[row1, col1].planted != null) Tile.opponentTiles[row1, col1].planted.DieIf0();
                     }
                     else
                     {
+                        int until = playingAnimations;
                         if (Tile.opponentTiles[row1, col1].planted != null) Tile.opponentTiles[row1, col1].planted.DieIf0();
-                        yield return new WaitUntil(() => playingAnimation == false);
+                        yield return new WaitUntil(() => playingAnimations == until);
                         if (Tile.tileObjects[row1, col1].planted != null) Tile.tileObjects[row1, col1].planted.DieIf0();
-                    }
+						yield return new WaitUntil(() => playingAnimations == until);
+					}
                 }
         }
 

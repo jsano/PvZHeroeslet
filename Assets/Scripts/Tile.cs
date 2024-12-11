@@ -33,7 +33,8 @@ public class Tile : MonoBehaviour
         if (transform.position.y < 0 && GameManager.Instance.selecting != null && BC.bounds.Contains((Vector2) cam.ScreenToWorldPoint(Input.mousePosition)) && planted == null)
         {
             SR.color = new Color(SR.color.r, SR.color.g, SR.color.b, 1);
-        } else SR.color = new Color(SR.color.r, SR.color.g, SR.color.b, 0);
+        }
+        else SR.color = new Color(SR.color.r, SR.color.g, SR.color.b, 0);
     }
 
 }
