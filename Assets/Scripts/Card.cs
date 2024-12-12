@@ -65,7 +65,7 @@ public class Card : NetworkBehaviour
         hpUI = transform.Find("HP").GetComponent<TextMeshProUGUI>();
         hpUI.text = HP + "";
         //play animation
-        CallLeftToRight("OnCardPlay", null);
+        StartCoroutine(CallLeftToRight("OnCardPlay", null));
     }
 
     // Update is called once per frame
@@ -74,7 +74,7 @@ public class Card : NetworkBehaviour
         
     }
 
-    private void CallLeftToRight(string methodName, Card arg) //probably ienumerator??
+    private IEnumerator CallLeftToRight(string methodName, Card arg)
     {
         MethodInfo m = typeof(Card).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
         NetworkList<int> z = GameManager.Instance.zombies;
@@ -90,11 +90,11 @@ public class Card : NetworkBehaviour
         Object[] args = methodName == "OnCardAttack" ? new[] { this, arg } : new[] { this };
         for (int i = 0; i < 5; i++)
         {
-            if (first[1, i].planted != null) m.Invoke(first[1, i].planted, args);
-            if (first[0, i].planted != null) m.Invoke(first[0, i].planted, args);
+            if (first[1, i].planted != null) yield return StartCoroutine(methodName, first[1, i].planted);//, args);
+            if (first[0, i].planted != null) yield return StartCoroutine(methodName, first[0, i].planted);
 
-            if (second[1, i].planted != null) m.Invoke(second[1, i].planted, args);
-            if (second[0, i].planted != null) m.Invoke(second[0, i].planted, args);
+			if (second[1, i].planted != null) yield return StartCoroutine(methodName, second[1, i].planted);
+			if (second[0, i].planted != null) yield return StartCoroutine(methodName, second[0, i].planted);
         }
     }
 
@@ -102,9 +102,9 @@ public class Card : NetworkBehaviour
     /// Called whenever a card is played
     /// </summary>
     /// <param name="played"> The card that was played </param>
-    protected void OnCardPlay(Card played)
+    protected virtual IEnumerator OnCardPlay(Card played)
     {
-        //Debug.Log(row + " " + col);
+        yield return null;
     }
 
     /// <summary>
@@ -112,18 +112,18 @@ public class Card : NetworkBehaviour
     /// </summary>
     /// <param name="source"> The card that attacked </param>
     /// <param name="recipient"> The card that received damage </param>
-    protected void OnCardAttack(Card source, Card recipient)
+    protected virtual IEnumerator OnCardAttack(Card source)//, Card recipient)
     {
-
+        yield return null;
     }
 
     /// <summary>
     /// Called whenever a card on the field dies
     /// </summary>
     /// <param name="died"> The card that died </param>
-    protected void OnCardDeath(Card died)
+    protected virtual IEnumerator OnCardDeath(Card died)
     {
-
+        yield return null;
     }
 
     public IEnumerator Attack()
@@ -146,7 +146,7 @@ public class Card : NetworkBehaviour
         GameManager.Instance.playingAnimations -= 1;
         //
         yield return new WaitUntil(() => GameManager.Instance.playingAnimations == until);
-        CallLeftToRight("OnCardAttack", target1);
+        yield return CallLeftToRight("OnCardAttack", target1);
     }
 
     private void ReceiveDamage(int dmg)
@@ -155,13 +155,14 @@ public class Card : NetworkBehaviour
         hpUI.text = Mathf.Max(0, HP) + "";
     }
     
-    public void DieIf0()
+    public IEnumerator DieIf0()
     {
         if (HP <= 0)
         {
-            CallLeftToRight("OnCardDeath", null);
+            yield return CallLeftToRight("OnCardDeath", null);
             Destroy(gameObject);
         }
+        yield return null;
     }
 
     public void Heal(int amount, bool raiseCap)
@@ -171,5 +172,11 @@ public class Card : NetworkBehaviour
         else HP = Mathf.Min(maxHP, HP);
         hpUI.text = HP + "";
     }
+
+	public void RaiseAttack(int amount)
+	{
+		atk += amount;
+		atkUI.text = atk + "";
+	}
 
 }

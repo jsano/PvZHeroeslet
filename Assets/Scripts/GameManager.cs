@@ -32,8 +32,6 @@ public class GameManager : NetworkBehaviour
     private int remaining;
     public Card.Team team;
 
-    [HideInInspector] public int playingAnimations = 0; // MAYBE have it all be yield return coroutines
-
     public Button go;
     public GameObject phaseText;
     public HandCard selecting;
@@ -59,6 +57,7 @@ public class GameManager : NetworkBehaviour
 
     private void P2Joined(ulong data)
     {
+        if (data == NetworkManager.ServerClientId) return;
         Debug.Log("Client " + data + " connected");
 		if (IsHost)
 		{
@@ -139,37 +138,26 @@ public class GameManager : NetworkBehaviour
             {
                 if (team == Card.Team.Zombie)
                 {
-                    int until = playingAnimations;
                     if (Tile.tileObjects[row, col].planted != null) yield return Tile.tileObjects[row, col].planted.Attack();                    
-                    yield return new WaitUntil(() => playingAnimations == until);
                     if (Tile.opponentTiles[row, col].planted != null) yield return Tile.opponentTiles[row, col].planted.Attack();
-					yield return new WaitUntil(() => playingAnimations == until);
 				}
                 else
                 {
-                    int until = playingAnimations;
                     if (Tile.opponentTiles[row, col].planted != null) yield return Tile.opponentTiles[row, col].planted.Attack();                    
-                    yield return new WaitUntil(() => playingAnimations == until);
                     if (Tile.tileObjects[row, col].planted != null) yield return Tile.tileObjects[row, col].planted.Attack();
-					yield return new WaitUntil(() => playingAnimations == until);
 				}
             }
             for (int col1 = 0; col1 < 5; col1++) for (int row1 = 0; row1 < 2; row1++)
                 {
                     if (team == Card.Team.Zombie)
                     {
-                        int until = playingAnimations;
-                        if (Tile.tileObjects[row1, col1].planted != null) Tile.tileObjects[row1, col1].planted.DieIf0();
-                        yield return new WaitUntil(() => playingAnimations == until);
-                        if (Tile.opponentTiles[row1, col1].planted != null) Tile.opponentTiles[row1, col1].planted.DieIf0();
+                        if (Tile.tileObjects[row1, col1].planted != null) yield return Tile.tileObjects[row1, col1].planted.DieIf0();
+                        if (Tile.opponentTiles[row1, col1].planted != null) yield return Tile.opponentTiles[row1, col1].planted.DieIf0();
                     }
                     else
                     {
-                        int until = playingAnimations;
-                        if (Tile.opponentTiles[row1, col1].planted != null) Tile.opponentTiles[row1, col1].planted.DieIf0();
-                        yield return new WaitUntil(() => playingAnimations == until);
-                        if (Tile.tileObjects[row1, col1].planted != null) Tile.tileObjects[row1, col1].planted.DieIf0();
-						yield return new WaitUntil(() => playingAnimations == until);
+                        if (Tile.opponentTiles[row1, col1].planted != null) yield return Tile.opponentTiles[row1, col1].planted.DieIf0();
+                        if (Tile.tileObjects[row1, col1].planted != null) yield return Tile.tileObjects[row1, col1].planted.DieIf0();
 					}
                 }
         }

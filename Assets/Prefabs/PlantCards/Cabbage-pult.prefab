@@ -115,5 +115,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+--- !u!1 &6897621430999443371 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+  m_PrefabInstance: {fileID: 8623729776806643045}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-4727676825280506715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6897621430999443371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6a5766cb53e63840baae723e1df1031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  team: 0
+  type: 0
+  _class: 0
+  traits: 
+  cost: 1
+  atk: 1
+  HP: 1
+  armor: 0
+  strikethrough: 0
+  deadly: 0
+  frenzy: 0
+  teamUp: 0
+  overshoot: 0
+  row: 0
+  col: 0
