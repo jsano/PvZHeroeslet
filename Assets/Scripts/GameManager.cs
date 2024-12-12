@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using SerializableCallback;
-using System.Reflection;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -36,6 +35,7 @@ public class GameManager : NetworkBehaviour
     public Team team;
 
     public Button go;
+    private LTDescr goTween;
     public GameObject phaseText;
     public HandCard selecting;
     private Transform handCards;
@@ -100,36 +100,24 @@ public class GameManager : NetworkBehaviour
     {
         string[] pnames = new string[] { "", "Zombies\nPlay", "Plants\nPlay", "Zombie\nTricks", "FIGHT!" };
         phase += 1;
-        phaseText.GetComponent<TextMeshProUGUI>().text = pnames[phase];
-        LeanTween.scale(phaseText, Vector3.one, 0.5f).setEaseOutBack();
-        LeanTween.scale(phaseText, Vector3.zero, 0.5f).setEaseInBack().setDelay(1.5f);
 
+        phaseText.GetComponent<TextMeshProUGUI>().text = pnames[phase];
+        if (goTween != null && LeanTween.isTweening(goTween.id)) LeanTween.cancel(goTween.id);
+        phaseText.transform.localScale = Vector3.zero;
+        goTween = LeanTween.scale(phaseText, Vector3.one, 0.5f).setEaseOutBack().setOnComplete(() => LeanTween.scale(phaseText, Vector3.zero, 0.5f).setEaseInBack().setDelay(1));
+
+        DisableHandCards();
         if (team == Team.Plant)
         {
-            if (phase == 2)
-            {
-                go.interactable = true;
-                foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = true;
-            }
-            else
-            {
-                go.interactable = false;
-                foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = false;
-            }
+            if (phase == 2) go.interactable = true;
+            else go.interactable = false;
         }
         else
         {
-            if (phase == 1 || phase == 3)
-            {
-                go.interactable = true;
-                foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = true;
-            }
-            else
-            {
-                go.interactable = false;
-                foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = false;
-            }
+            if (phase == 1 || phase == 3) go.interactable = true;
+            else go.interactable = false;
         }
+        EnablePlayableHandCards();
 
         if (phase == 4) StartCoroutine(Combat());
     }
@@ -137,6 +125,7 @@ public class GameManager : NetworkBehaviour
     private IEnumerator Combat()
     {
         yield return new WaitForSeconds(1);
+
 		Tile[,] first = Tile.tileObjects;
 		Tile[,] second = Tile.opponentTiles;
 		if (team == Team.Plant)
@@ -195,5 +184,58 @@ public class GameManager : NetworkBehaviour
             Tile.tileObjects[row, col].planted = card;
         }
     }
+
+	public static IEnumerator CallLeftToRight(string methodName, Damagable arg)
+	{
+		Tile[,] first = Tile.tileObjects;
+		Tile[,] second = Tile.opponentTiles;
+		if (Instance.team == Team.Plant)
+		{
+			first = Tile.opponentTiles;
+			second = Tile.tileObjects;
+		}
+
+		for (int i = 0; i < 5; i++)
+		{
+			if (first[1, i].planted != null) yield return first[1, i].planted.StartCoroutine(methodName, arg);
+			if (first[0, i].planted != null) yield return first[0, i].planted.StartCoroutine(methodName, arg);
+
+			if (second[1, i].planted != null) yield return second[1, i].planted.StartCoroutine(methodName, arg);
+			if (second[0, i].planted != null) yield return second[0, i].planted.StartCoroutine(methodName, arg);
+		}
+	}
+
+    public void DisableHandCards()
+    {
+        foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = false;
+    }
+
+    public void EnablePlayableHandCards()
+    {
+		if (team == Team.Plant)
+		{
+			if (phase == 2) foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = true;
+			else foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = false;
+		}
+		else
+		{
+            if (phase == 1)
+            {
+                foreach (Transform t in handCards)
+                {
+                    if (AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type == Card.Type.Unit) t.GetComponent<HandCard>().interactable = true;
+                    else t.GetComponent<HandCard>().interactable = false;
+                }
+            }
+            else if (phase == 3)
+            {
+				foreach (Transform t in handCards)
+				{
+					if (AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type == Card.Type.Unit) t.GetComponent<HandCard>().interactable = false;
+					else t.GetComponent<HandCard>().interactable = true;
+				}
+			}
+		}
+	}
 
 }

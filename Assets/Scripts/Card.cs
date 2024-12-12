@@ -64,33 +64,13 @@ public class Card : Damagable
         hpUI = transform.Find("HP").GetComponent<TextMeshProUGUI>();
         hpUI.text = HP + "";
         //play animation
-        StartCoroutine(CallLeftToRight("OnCardPlay", this));
+        StartCoroutine(GameManager.CallLeftToRight("OnCardPlay", this));
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    public static IEnumerator CallLeftToRight(string methodName, Damagable arg)
-    {
-        Tile[,] first = Tile.tileObjects;
-        Tile[,] second = Tile.opponentTiles;
-        if (GameManager.Instance.team == Team.Plant)
-        {
-            first = Tile.opponentTiles;
-            second = Tile.tileObjects;
-        }
-
-        for (int i = 0; i < 5; i++)
-        {
-            if (first[1, i].planted != null) yield return first[1, i].planted.StartCoroutine(methodName, arg);
-            if (first[0, i].planted != null) yield return first[0, i].planted.StartCoroutine(methodName, arg);
-
-			if (second[1, i].planted != null) yield return second[1, i].planted.StartCoroutine(methodName, arg);
-			if (second[0, i].planted != null) yield return second[0, i].planted.StartCoroutine(methodName, arg);
-        }
     }
 
     /// <summary>
@@ -152,8 +132,8 @@ public class Card : Damagable
         //
         if (dealt > 0)
         {
-            yield return CallLeftToRight("OnCardAttack", this);
-		    yield return CallLeftToRight("OnCardHurt", target1);
+            yield return GameManager.CallLeftToRight("OnCardAttack", this);
+		    yield return GameManager.CallLeftToRight("OnCardHurt", target1);
         }
 	}
 
@@ -169,7 +149,7 @@ public class Card : Damagable
     {
         if (HP <= 0)
         {
-            yield return CallLeftToRight("OnCardDeath", this);
+            yield return GameManager.CallLeftToRight("OnCardDeath", this);
             Destroy(gameObject);
         }
         yield return null;

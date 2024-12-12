@@ -55,7 +55,8 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     // Update is called once per frame
     void Update()
     {
-        
+        if (!interactable) image.material.color = Color.gray;
+        else image.material.color = Color.white;
     }
 
 }
