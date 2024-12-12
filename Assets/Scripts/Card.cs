@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using TMPro;
-using Unity.Multiplayer.Samples.Utilities;
-using Unity.Netcode;
 using UnityEngine;
 
-public class Card : NetworkBehaviour
+public class Card : Damagable
 {
 
     public enum Team
@@ -55,10 +52,12 @@ public class Card : NetworkBehaviour
 
     private TextMeshProUGUI atkUI;
     private TextMeshProUGUI hpUI;
+    private SpriteRenderer SR;
 
     // Start is called before the first frame update
     void Start()
     {
+        SR = GetComponent<SpriteRenderer>();
         maxHP = HP;
         atkUI = transform.Find("ATK").GetComponent<TextMeshProUGUI>();
         atkUI.text = atk + "";
@@ -74,9 +73,8 @@ public class Card : NetworkBehaviour
         
     }
 
-    private IEnumerator CallLeftToRight(string methodName, Card arg)
+    public static IEnumerator CallLeftToRight(string methodName, Damagable arg)
     {
-        MethodInfo m = typeof(Card).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
         Tile[,] first = Tile.tileObjects;
         Tile[,] second = Tile.opponentTiles;
         if (GameManager.Instance.team == Team.Plant)
@@ -117,7 +115,7 @@ public class Card : NetworkBehaviour
 	/// Called whenever a card on the field is hurt
 	/// </summary>
 	/// <param name="hurt"> The card that received damage </param>
-	protected virtual IEnumerator OnCardHurt(Card hurt)
+	protected virtual IEnumerator OnCardHurt(Damagable hurt)
 	{
 		yield return null;
 	}
@@ -131,22 +129,26 @@ public class Card : NetworkBehaviour
         yield return null;
     }
 
+    protected virtual IEnumerator OnTurnStart()
+    {
+        yield return null;
+    }
+
     public IEnumerator Attack()
     {
         Tile[,] target = Tile.tileObjects;
         if (GameManager.Instance.team == team) target = Tile.opponentTiles;
-        int dealt = 0;
-        Card target1 = null;
+        Damagable target1 = null;
         if (target[1, col].planted != null) target1 = target[1, col].planted;
         else if (target[0, col].planted != null) target1 = target[0, col].planted;
-        if (target1 != null) dealt = target1.ReceiveDamage(atk);
-        else
+        if (target1 == null) 
         {
-            if (team == GameManager.Instance.team) dealt = GameManager.Instance.opponent.ReceiveDamage(atk);
-            else dealt = GameManager.Instance.player.ReceiveDamage(atk);
+            if (team == GameManager.Instance.team) target1 = GameManager.Instance.opponent;
+            else target1 = GameManager.Instance.player;
         }
-        // animation
-        yield return new WaitForSeconds(1);
+		int dealt = target1.ReceiveDamage(atk);
+		// animation
+		yield return new WaitForSeconds(1);
         //
         if (dealt > 0)
         {
@@ -155,11 +157,12 @@ public class Card : NetworkBehaviour
         }
 	}
 
-    private int ReceiveDamage(int dmg)
+    public override int ReceiveDamage(int dmg)
     {//Debug.Log(row + " " + col + " got hit for " + dmg);
         HP -= dmg;
         hpUI.text = Mathf.Max(0, HP) + "";
-        return dmg;
+		if (dmg > 0) StartCoroutine(HitVisual());
+		return dmg;
     }
     
     public IEnumerator DieIf0()
@@ -184,6 +187,13 @@ public class Card : NetworkBehaviour
 	{
 		atk += amount;
 		atkUI.text = atk + "";
+	}
+
+	private IEnumerator HitVisual()
+	{
+		SR.material.color = new Color(1, 0.8f, 0.8f, 0.8f);
+		yield return new WaitForSeconds(0.1f);
+		SR.material.color = Color.white;
 	}
 
 }

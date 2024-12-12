@@ -4,7 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class HandCard : MonoBehaviour, IEndDragHandler, IDragHandler, IPointerDownHandler
+public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
 
     public int ID;
@@ -28,7 +28,7 @@ public class HandCard : MonoBehaviour, IEndDragHandler, IDragHandler, IPointerDo
         transform.position = (Vector2) cam.ScreenToWorldPoint(eventData.position);
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    public void OnPointerUp(PointerEventData eventData)
     {
         if (!interactable) return;
         transform.localScale = Vector3.one;

@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SerializableCallback;
+using System.Reflection;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
+using static Card;
 
 public class GameManager : NetworkBehaviour
 {
@@ -30,7 +33,7 @@ public class GameManager : NetworkBehaviour
     private int turn;
     private int phase; // 0 = prep, 1 = zombie, 2 = plant, 3 = zombie trick, 4 = fight
     private int remaining;
-    public Card.Team team;
+    public Team team;
 
     public Button go;
     public GameObject phaseText;
@@ -61,14 +64,14 @@ public class GameManager : NetworkBehaviour
         Debug.Log("Client " + data + " connected");
 		if (IsHost)
 		{
-			team = Card.Team.Plant;
+			team = Team.Plant;
 			player = GameObject.Find("Green Shadow").GetComponent<Hero>(); //temp
 			opponent = GameObject.Find("Super Brainz").GetComponent<Hero>();
 
 		}
 		else
 		{
-			team = Card.Team.Zombie;
+			team = Team.Zombie;
 			opponent = GameObject.Find("Green Shadow").GetComponent<Hero>(); //temp
 			player = GameObject.Find("Super Brainz").GetComponent<Hero>();
 		}
@@ -80,7 +83,7 @@ public class GameManager : NetworkBehaviour
 		{
 			GameObject c = Instantiate(handcardPrefab, handCards);
 			c.transform.localPosition = new Vector2(i * 1.5f, 0);
-			c.GetComponent<HandCard>().ID = (team == Card.Team.Zombie ? AllCards.Instance.cards.Length / 2 + i : i);
+			c.GetComponent<HandCard>().ID = (team == Team.Zombie ? AllCards.Instance.cards.Length / 2 + i : i);
 		}
 		if (IsServer) return;
         EndRpc();
@@ -101,7 +104,7 @@ public class GameManager : NetworkBehaviour
         LeanTween.scale(phaseText, Vector3.one, 0.5f).setEaseOutBack();
         LeanTween.scale(phaseText, Vector3.zero, 0.5f).setEaseInBack().setDelay(1.5f);
 
-        if (team == Card.Team.Plant)
+        if (team == Team.Plant)
         {
             if (phase == 2)
             {
@@ -134,53 +137,49 @@ public class GameManager : NetworkBehaviour
     private IEnumerator Combat()
     {
         yield return new WaitForSeconds(1);
+		Tile[,] first = Tile.tileObjects;
+		Tile[,] second = Tile.opponentTiles;
+		if (team == Team.Plant)
+		{
+			first = Tile.opponentTiles;
+			second = Tile.tileObjects;
+		}
         for (int col = 0; col < 5; col++)
-        {
-            for (int row = 0; row < 2; row++)
-            {
-                if (team == Card.Team.Zombie)
-                {
-                    if (Tile.tileObjects[row, col].planted != null) yield return Tile.tileObjects[row, col].planted.Attack();                    
-                    if (Tile.opponentTiles[row, col].planted != null) yield return Tile.opponentTiles[row, col].planted.Attack();
-				}
-                else
-                {
-                    if (Tile.opponentTiles[row, col].planted != null) yield return Tile.opponentTiles[row, col].planted.Attack();                    
-                    if (Tile.tileObjects[row, col].planted != null) yield return Tile.tileObjects[row, col].planted.Attack();
-				}
-            }
-            for (int col1 = 0; col1 < 5; col1++) for (int row1 = 0; row1 < 2; row1++)
-                {
-                    if (team == Card.Team.Zombie)
-                    {
-                        if (Tile.tileObjects[row1, col1].planted != null) yield return Tile.tileObjects[row1, col1].planted.DieIf0();
-                        if (Tile.opponentTiles[row1, col1].planted != null) yield return Tile.opponentTiles[row1, col1].planted.DieIf0();
-                    }
-                    else
-                    {
-                        if (Tile.opponentTiles[row1, col1].planted != null) yield return Tile.opponentTiles[row1, col1].planted.DieIf0();
-                        if (Tile.tileObjects[row1, col1].planted != null) yield return Tile.tileObjects[row1, col1].planted.DieIf0();
-					}
-                }
-        }
+		{
+			if (first[1, col].planted != null) yield return first[1, col].planted.Attack();
+			if (first[0, col].planted != null) yield return first[0, col].planted.Attack();
+
+			if (second[1, col].planted != null) yield return second[1, col].planted.Attack();
+			if (second[0, col].planted != null) yield return second[0, col].planted.Attack();
+
+			for (int col1 = 0; col1 < 5; col1++)
+			{
+				if (first[1, col1].planted != null) yield return first[1, col1].planted.DieIf0();
+				if (first[0, col1].planted != null) yield return first[0, col1].planted.DieIf0();
+
+				if (second[1, col1].planted != null) yield return second[1, col1].planted.DieIf0();
+				if (second[0, col1].planted != null) yield return second[0, col1].planted.DieIf0();
+			}
+		}
 
         turn += 1;
         remaining = turn;
         phase = 0;
         //draw card
-        if (IsServer) EndRpc();
+        yield return CallLeftToRight("OnTurnStart", null);
+		if (IsServer) EndRpc();
     }
 
     [Rpc(SendTo.Server)]
-    public void PlayCardRpc(int ID, int row, int col, Card.Team team)
+    public void PlayCardRpc(int ID, int row, int col, Team team)
     {
-        if (team == Card.Team.Plant) plants[row + 2*col] = ID;
+        if (team == Team.Plant) plants[row + 2*col] = ID;
         else zombies[row + 2*col] = ID;
         PositionCardRpc(ID, row, col, team);
     }
 
     [Rpc(SendTo.ClientsAndHost)]
-    private void PositionCardRpc(int ID, int row, int col, Card.Team team)
+    private void PositionCardRpc(int ID, int row, int col, Team team)
     {
         Card card = Instantiate(AllCards.Instance.cards[ID]).GetComponent<Card>();
         card.row = row;
