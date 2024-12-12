@@ -11,7 +11,7 @@ public class HandCard : MonoBehaviour, IEndDragHandler, IDragHandler, IPointerDo
     private Camera cam;
     private Vector2 startPos;
 
-    public bool interactable = false;
+    [HideInInspector] public bool interactable = false;
     public SpriteRenderer image;
 
     public void OnPointerDown(PointerEventData eventData)

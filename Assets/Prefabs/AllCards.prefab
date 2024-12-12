@@ -46,4 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards:
   - {fileID: 196874616353379560, guid: d7c416ce5041b9e4ea8f259c72067828, type: 3}
+  - {fileID: 5820563717396998813, guid: 92cb68ede7e600e46abbaa8348edb73d, type: 3}
   - {fileID: 6377264207035512179, guid: 0d163c56bb2166044b5ad4d4e2258282, type: 3}
+  - {fileID: 6377264207035512179, guid: 2ff0678dc9cede94a84655c464a8ddc7, type: 3}

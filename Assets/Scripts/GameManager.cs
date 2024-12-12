@@ -19,6 +19,9 @@ public class GameManager : NetworkBehaviour
 
 		plants = new NetworkList<int>();
 		zombies = new NetworkList<int>();
+        
+        handCards = transform.Find("HandCards");
+        turn = 1;
 	}
 
     public NetworkList<int> plants; // for when the game becomes 1 authoritative server with 2 clients
@@ -35,54 +38,59 @@ public class GameManager : NetworkBehaviour
     public GameObject phaseText;
     public HandCard selecting;
     private Transform handCards;
+    public GameObject handcardPrefab;
 
     [HideInInspector] public Hero player;
     [HideInInspector] public Hero opponent;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        handCards = transform.Find("HandCards");
-        NetworkManager.OnClientConnectedCallback += P2Joined;
-        turn = 1;
-    }
-
-    private void P2Joined(ulong data)
-    {
-        Debug.Log("Client " + data + " connected");
-		if (IsServer) return;
-        EndRpc();
-    }
-
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        if (IsHost)
-        {
-            team = Card.Team.Plant;
-            player = GameObject.Find("Green Shadow").GetComponent<Hero>(); //temp
-			opponent = GameObject.Find("Super Brainz").GetComponent<Hero>();
-			
-		}
-        else
-        {
-            team = Card.Team.Zombie;
-			opponent = GameObject.Find("Green Shadow").GetComponent<Hero>(); //temp
-			player = GameObject.Find("Super Brainz").GetComponent<Hero>();
-		}
-        player.transform.position = new Vector2(0, -3);
-        opponent.transform.position = new Vector2(0, 3);
-        
+
         if (!IsServer) return;
         for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++) plants.Add(-1);
         for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++) zombies.Add(-1);
 	}
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        NetworkManager.OnClientConnectedCallback += P2Joined;
+	}
+
+    private void P2Joined(ulong data)
+    {
+        Debug.Log("Client " + data + " connected");
+		if (IsHost)
+		{
+			team = Card.Team.Plant;
+			player = GameObject.Find("Green Shadow").GetComponent<Hero>(); //temp
+			opponent = GameObject.Find("Super Brainz").GetComponent<Hero>();
+
+		}
+		else
+		{
+			team = Card.Team.Zombie;
+			opponent = GameObject.Find("Green Shadow").GetComponent<Hero>(); //temp
+			player = GameObject.Find("Super Brainz").GetComponent<Hero>();
+		}
+        player.transform.position = new Vector2(0, -3);
+		opponent.transform.position = new Vector2(0, 3.5f);
+
+		for (int i = 0; i < 2; i++)
+		{
+			GameObject c = Instantiate(handcardPrefab, handCards);
+			c.transform.localPosition = new Vector2(i * 1.5f, 0);
+			c.GetComponent<HandCard>().ID = (team == Card.Team.Zombie ? AllCards.Instance.cards.Length / 2 + i : i);
+		}
+		if (IsServer) return;
+        EndRpc();
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
-    }
+		
+	}
 
     [Rpc(SendTo.ClientsAndHost)]
     public void EndRpc()
