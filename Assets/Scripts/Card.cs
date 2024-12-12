@@ -65,7 +65,7 @@ public class Card : NetworkBehaviour
         hpUI = transform.Find("HP").GetComponent<TextMeshProUGUI>();
         hpUI.text = HP + "";
         //play animation
-        StartCoroutine(CallLeftToRight("OnCardPlay", null));
+        StartCoroutine(CallLeftToRight("OnCardPlay", this));
     }
 
     // Update is called once per frame
@@ -77,8 +77,6 @@ public class Card : NetworkBehaviour
     private IEnumerator CallLeftToRight(string methodName, Card arg)
     {
         MethodInfo m = typeof(Card).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
-        NetworkList<int> z = GameManager.Instance.zombies;
-        NetworkList<int> p = GameManager.Instance.plants;
         Tile[,] first = Tile.tileObjects;
         Tile[,] second = Tile.opponentTiles;
         if (GameManager.Instance.team == Team.Plant)
@@ -87,14 +85,13 @@ public class Card : NetworkBehaviour
             second = Tile.tileObjects;
         }
 
-        Object[] args = methodName == "OnCardAttack" ? new[] { this, arg } : new[] { this };
         for (int i = 0; i < 5; i++)
         {
-            if (first[1, i].planted != null) yield return StartCoroutine(methodName, first[1, i].planted);//, args);
-            if (first[0, i].planted != null) yield return StartCoroutine(methodName, first[0, i].planted);
+            if (first[1, i].planted != null) yield return first[1, i].planted.StartCoroutine(methodName, arg);
+            if (first[0, i].planted != null) yield return first[0, i].planted.StartCoroutine(methodName, arg);
 
-			if (second[1, i].planted != null) yield return StartCoroutine(methodName, second[1, i].planted);
-			if (second[0, i].planted != null) yield return StartCoroutine(methodName, second[0, i].planted);
+			if (second[1, i].planted != null) yield return second[1, i].planted.StartCoroutine(methodName, arg);
+			if (second[0, i].planted != null) yield return second[0, i].planted.StartCoroutine(methodName, arg);
         }
     }
 
@@ -111,17 +108,25 @@ public class Card : NetworkBehaviour
     /// Called whenever a card on the field attacks something
     /// </summary>
     /// <param name="source"> The card that attacked </param>
-    /// <param name="recipient"> The card that received damage </param>
-    protected virtual IEnumerator OnCardAttack(Card source)//, Card recipient)
+    protected virtual IEnumerator OnCardAttack(Card source)
     {
         yield return null;
     }
 
-    /// <summary>
-    /// Called whenever a card on the field dies
-    /// </summary>
-    /// <param name="died"> The card that died </param>
-    protected virtual IEnumerator OnCardDeath(Card died)
+	/// <summary>
+	/// Called whenever a card on the field is hurt
+	/// </summary>
+	/// <param name="hurt"> The card that received damage </param>
+	protected virtual IEnumerator OnCardHurt(Card hurt)
+	{
+		yield return null;
+	}
+
+	/// <summary>
+	/// Called whenever a card on the field dies
+	/// </summary>
+	/// <param name="died"> The card that died </param>
+	protected virtual IEnumerator OnCardDeath(Card died)
     {
         yield return null;
     }
@@ -130,36 +135,38 @@ public class Card : NetworkBehaviour
     {
         Tile[,] target = Tile.tileObjects;
         if (GameManager.Instance.team == team) target = Tile.opponentTiles;
+        int dealt = 0;
         Card target1 = null;
         if (target[1, col].planted != null) target1 = target[1, col].planted;
         else if (target[0, col].planted != null) target1 = target[0, col].planted;
-        if (target1 != null) target1.ReceiveDamage(atk);
+        if (target1 != null) dealt = target1.ReceiveDamage(atk);
         else
         {
-            if (team == GameManager.Instance.team) GameManager.Instance.opponent.ReceiveDamage(atk);
-            else GameManager.Instance.player.ReceiveDamage(atk);
+            if (team == GameManager.Instance.team) dealt = GameManager.Instance.opponent.ReceiveDamage(atk);
+            else dealt = GameManager.Instance.player.ReceiveDamage(atk);
         }
-        int until = GameManager.Instance.playingAnimations;
-        GameManager.Instance.playingAnimations += 1;
         // animation
         yield return new WaitForSeconds(1);
-        GameManager.Instance.playingAnimations -= 1;
         //
-        yield return new WaitUntil(() => GameManager.Instance.playingAnimations == until);
-        yield return CallLeftToRight("OnCardAttack", target1);
-    }
+        if (dealt > 0)
+        {
+            yield return CallLeftToRight("OnCardAttack", this);
+		    yield return CallLeftToRight("OnCardHurt", target1);
+        }
+	}
 
-    private void ReceiveDamage(int dmg)
-    {Debug.Log(row + " " + col + " got hit for " + dmg);
+    private int ReceiveDamage(int dmg)
+    {//Debug.Log(row + " " + col + " got hit for " + dmg);
         HP -= dmg;
         hpUI.text = Mathf.Max(0, HP) + "";
+        return dmg;
     }
     
     public IEnumerator DieIf0()
     {
         if (HP <= 0)
         {
-            yield return CallLeftToRight("OnCardDeath", null);
+            yield return CallLeftToRight("OnCardDeath", this);
             Destroy(gameObject);
         }
         yield return null;

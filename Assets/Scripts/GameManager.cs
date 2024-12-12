@@ -74,6 +74,7 @@ public class GameManager : NetworkBehaviour
 		}
         player.transform.position = new Vector2(0, -3);
 		opponent.transform.position = new Vector2(0, 3.5f);
+        opponent.GetComponent<SpriteRenderer>().sortingOrder = -1;
 
 		for (int i = 0; i < 2; i++)
 		{
@@ -132,6 +133,7 @@ public class GameManager : NetworkBehaviour
 
     private IEnumerator Combat()
     {
+        yield return new WaitForSeconds(1);
         for (int col = 0; col < 5; col++)
         {
             for (int row = 0; row < 2; row++)

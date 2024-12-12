@@ -23,10 +23,11 @@ public class Hero : NetworkBehaviour
         
     }
 
-	public void ReceiveDamage(int dmg)
+	public int ReceiveDamage(int dmg)
 	{
 		HP -= dmg;
 		hpUI.text = Mathf.Max(0, HP) + "";
+		return dmg;
 	}
 
 }
