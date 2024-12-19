@@ -29,9 +29,9 @@ public class GameManager : NetworkBehaviour
     public NetworkList<int> plants; // for when the game becomes 1 authoritative server with 2 clients
     public NetworkList<int> zombies;
 
-    private int turn;
+    private int turn = 1;
     private int phase; // 0 = prep, 1 = zombie, 2 = plant, 3 = zombie trick, 4 = fight
-    private int remaining;
+    private int remaining = 1;
     public Team team;
 
     public Button go;
@@ -82,10 +82,18 @@ public class GameManager : NetworkBehaviour
 		for (int i = 0; i < 2; i++)
 		{
 			GameObject c = Instantiate(handcardPrefab, handCards);
+			c.SetActive(false);
 			c.transform.localPosition = new Vector2(i * 1.5f, 0);
 			c.GetComponent<HandCard>().ID = (team == Team.Zombie ? AllCards.Instance.cards.Length / 2 + i : i);
+            c.SetActive(true);
 		}
 		if (IsServer) return;
+        StartCoroutine(Wait1Frame());
+    }
+
+    private IEnumerator Wait1Frame()
+    {
+        yield return null;
         EndRpc();
     }
 
@@ -160,19 +168,22 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    public void PlayCardRpc(int ID, int row, int col, Team team)
+    public void PlayCardRpc(HandCard.mods mods, int row, int col, Team team)
     {
-        if (team == Team.Plant) plants[row + 2*col] = ID;
-        else zombies[row + 2*col] = ID;
-        PositionCardRpc(ID, row, col, team);
+        //if (team == Team.Plant) plants[row + 2*col] = ID;
+        //else zombies[row + 2*col] = ID;
+        PositionCardRpc(mods, row, col, team);
     }
 
     [Rpc(SendTo.ClientsAndHost)]
-    private void PositionCardRpc(int ID, int row, int col, Team team)
+    private void PositionCardRpc(HandCard.mods mods, int row, int col, Team team)
     {
-        Card card = Instantiate(AllCards.Instance.cards[ID]).GetComponent<Card>();
+        Card card = Instantiate(AllCards.Instance.cards[mods.ID]).GetComponent<Card>();
         card.row = row;
         card.col = col;
+        card.atk = mods.atk;
+        card.HP = mods.hp;
+        //abilities...
         if (team != this.team)
         {
             card.transform.position = Tile.opponentTiles[row, col].transform.position;
@@ -214,8 +225,11 @@ public class GameManager : NetworkBehaviour
     {
 		if (team == Team.Plant)
 		{
-			if (phase == 2) foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = true;
-			else foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = false;
+            if (phase == 2)
+            {
+                foreach (Transform t in handCards) if (t.GetComponent<HandCard>().GetCost() <= remaining) t.GetComponent<HandCard>().interactable = true;
+            }
+            else foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = false;
 		}
 		else
 		{
@@ -223,7 +237,11 @@ public class GameManager : NetworkBehaviour
             {
                 foreach (Transform t in handCards)
                 {
-                    if (AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type == Card.Type.Unit) t.GetComponent<HandCard>().interactable = true;
+                    if (AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type == Card.Type.Unit)
+                    {
+                        Debug.Log(t.GetComponent<HandCard>().GetCost());
+						if (t.GetComponent<HandCard>().GetCost() <= remaining) t.GetComponent<HandCard>().interactable = true;
+                    }
                     else t.GetComponent<HandCard>().interactable = false;
                 }
             }
@@ -231,11 +249,21 @@ public class GameManager : NetworkBehaviour
             {
 				foreach (Transform t in handCards)
 				{
-					if (AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type == Card.Type.Unit) t.GetComponent<HandCard>().interactable = false;
-					else t.GetComponent<HandCard>().interactable = true;
+                    if (AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type == Card.Type.Unit)
+                    {
+						if (t.GetComponent<HandCard>().GetCost() <= remaining) t.GetComponent<HandCard>().interactable = false;
+                    }
+                    else t.GetComponent<HandCard>().interactable = true;
 				}
 			}
 		}
 	}
+
+    public void UpdateBrains(int change)
+    {
+        remaining += change;
+        DisableHandCards();
+        EnablePlayableHandCards();
+    }
 
 }

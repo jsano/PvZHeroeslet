@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -13,6 +14,26 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
     [HideInInspector] public bool interactable = false;
     public SpriteRenderer image;
+
+    [Serializable]
+    public struct mods : INetworkSerializable
+    {
+        public int atk;
+        public int hp;
+        public string abilities;
+        public int ID;
+        public int cost;
+
+		public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+		{
+			serializer.SerializeValue(ref atk);
+			serializer.SerializeValue(ref hp);
+			serializer.SerializeValue(ref abilities);
+            serializer.SerializeValue(ref ID);
+			serializer.SerializeValue(ref cost);
+		}
+	}
+    private mods Mods;
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -37,8 +58,9 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         {
             if (t.GetComponent<BoxCollider2D>().bounds.Contains((Vector2) cam.ScreenToWorldPoint(eventData.position)))
             {
-                GameManager.Instance.PlayCardRpc(ID, t.row, t.col, GameManager.Instance.team);
-                Destroy(gameObject);
+                GameManager.Instance.PlayCardRpc(Mods, t.row, t.col, GameManager.Instance.team);
+				GameManager.Instance.UpdateBrains(-Mods.cost);
+				Destroy(gameObject);
                 return;
             }
         }
@@ -49,7 +71,13 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     void Start()
     {
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
-        image.sprite = AllCards.Instance.cards[ID].GetComponent<SpriteRenderer>().sprite;
+        Card orig = AllCards.Instance.cards[ID];
+		image.sprite = orig.GetComponent<SpriteRenderer>().sprite;
+        Mods.hp = orig.HP;
+        Mods.atk = orig.atk;
+        Mods.abilities = "";
+        Mods.ID = ID;
+        Mods.cost = orig.cost;
     }
 
     // Update is called once per frame
@@ -57,6 +85,11 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     {
         if (!interactable) image.material.color = Color.gray;
         else image.material.color = Color.white;
+    }
+
+    public int GetCost()
+    {
+        return Mods.cost;
     }
 
 }
