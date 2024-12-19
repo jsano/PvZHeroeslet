@@ -2,19 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Hero : Damagable
 {
 
     public int HP = 20;
-	private TextMeshProUGUI hpUI;
+	public TextMeshProUGUI hpUI;
 	private SpriteRenderer SR;
+	public Image blockMeter;
+	private int block;
 
 	// Start is called before the first frame update
 	void Start()
     {
 		SR = GetComponent<SpriteRenderer>();
-		hpUI = transform.Find("HP").GetComponent<TextMeshProUGUI>();
 		hpUI.text = HP + "";
 	}
 
@@ -26,9 +28,26 @@ public class Hero : Damagable
 
 	public override int ReceiveDamage(int dmg)
 	{
-		HP -= dmg;
-		hpUI.text = Mathf.Max(0, HP) + "";
-		StartCoroutine(HitVisual());
+		if (dmg == 1) block += 1;
+		else if (dmg <= 3) block += 2;
+		else block += 3;
+		blockMeter.fillAmount = block/8f;
+		if (block >= 8)
+		{
+			Debug.Log("BLOCK");
+			block = 0;
+			blockMeter.fillAmount = 0;
+		}
+		else
+		{
+			HP -= dmg;
+			hpUI.text = Mathf.Max(0, HP) + "";
+			if (HP <= 0)
+			{
+				Debug.Log("DEAD");
+			}
+			else StartCoroutine(HitVisual());
+		}
 		return dmg;
 	}
 

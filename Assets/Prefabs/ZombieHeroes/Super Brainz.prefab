@@ -11,8 +11,16 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 08b6e2d6bdee8e2418810a73072b0e89, type: 3}
+    - target: {fileID: -9058245760563841667, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -8904429603227625006, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: GlobalObjectIdHash
+      value: 1395867822
+      objectReference: {fileID: 0}
+    - target: {fileID: -8904429603227625006, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 1838010055
       objectReference: {fileID: 0}
     - target: {fileID: 901512774672382457, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
@@ -62,6 +70,10 @@ PrefabInstance:
     - target: {fileID: 5654879218325174664, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5841119399238982147, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}

@@ -40,6 +40,7 @@ public class GameManager : NetworkBehaviour
     public HandCard selecting;
     private Transform handCards;
     public GameObject handcardPrefab;
+    public TextMeshProUGUI remainingText;
 
     [HideInInspector] public Hero player;
     [HideInInspector] public Hero opponent;
@@ -78,6 +79,7 @@ public class GameManager : NetworkBehaviour
         player.transform.position = new Vector2(0, -3);
 		opponent.transform.position = new Vector2(0, 3.5f);
         opponent.GetComponent<SpriteRenderer>().sortingOrder = -1;
+        opponent.transform.Find("HeroUI").position *= new Vector2(-1, 1);
 
 		for (int i = 0; i < 2; i++)
 		{
@@ -161,6 +163,7 @@ public class GameManager : NetworkBehaviour
 
         turn += 1;
         remaining = turn;
+        UpdateBrains(0);
         phase = 0;
         //draw card
         yield return CallLeftToRight("OnTurnStart", null);
@@ -239,7 +242,6 @@ public class GameManager : NetworkBehaviour
                 {
                     if (AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type == Card.Type.Unit)
                     {
-                        Debug.Log(t.GetComponent<HandCard>().GetCost());
 						if (t.GetComponent<HandCard>().GetCost() <= remaining) t.GetComponent<HandCard>().interactable = true;
                     }
                     else t.GetComponent<HandCard>().interactable = false;
@@ -262,6 +264,7 @@ public class GameManager : NetworkBehaviour
     public void UpdateBrains(int change)
     {
         remaining += change;
+        remainingText.text = remaining + "";
         DisableHandCards();
         EnablePlayableHandCards();
     }
