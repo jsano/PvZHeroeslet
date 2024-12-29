@@ -7,4 +7,8 @@ public abstract class Damagable : NetworkBehaviour
 {
 	public abstract int ReceiveDamage(int dmg);
 
+	public abstract void Heal(int amount, bool raiseCap);
+
+	public abstract bool isDamaged();
+
 }

@@ -8,6 +8,7 @@ public class Hero : Damagable
 {
 
     public int HP = 20;
+	private int maxHP;
 	public TextMeshProUGUI hpUI;
 	private SpriteRenderer SR;
 	public Image blockMeter;
@@ -18,6 +19,7 @@ public class Hero : Damagable
     {
 		SR = GetComponent<SpriteRenderer>();
 		hpUI.text = HP + "";
+		maxHP = HP;
 	}
 
     // Update is called once per frame
@@ -51,11 +53,24 @@ public class Hero : Damagable
 		return dmg;
 	}
 
+	public override void Heal(int amount, bool raiseCap)
+	{
+		HP += amount;
+		if (raiseCap) maxHP += amount;
+		else HP = Mathf.Min(maxHP, HP);
+		hpUI.text = HP + "";
+	}
+
 	private IEnumerator HitVisual()
 	{
 		SR.material.color = new Color(1, 0.8f, 0.8f, 0.8f);
 		yield return new WaitForSeconds(0.1f);
 		SR.material.color = Color.white;
+	}
+
+	public override bool isDamaged()
+	{
+		return HP < maxHP;
 	}
 
 }

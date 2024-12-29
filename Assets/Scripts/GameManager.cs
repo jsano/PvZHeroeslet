@@ -290,4 +290,11 @@ public class GameManager : NetworkBehaviour
         else Tile.opponentTiles[row, col].planted.Heal(amount, raiseCap);
 	}
 
+	[Rpc(SendTo.ClientsAndHost)]
+	public void HealHeroRpc(Team tteam, int amount, bool raiseCap)
+	{
+		if (tteam == team) player.Heal(amount, raiseCap);
+		else opponent.Heal(amount, raiseCap);
+	}
+
 }

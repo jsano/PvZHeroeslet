@@ -157,7 +157,7 @@ public class Card : Damagable
         yield return null;
     }
 
-    public void Heal(int amount, bool raiseCap)
+    public override void Heal(int amount, bool raiseCap)
     {
         HP += amount;
         if (raiseCap) maxHP += amount;
@@ -177,5 +177,10 @@ public class Card : Damagable
 		yield return new WaitForSeconds(0.1f);
 		SR.material.color = Color.white;
 	}
+
+    public override bool isDamaged()
+    {
+        return HP < maxHP;
+    }
 
 }
