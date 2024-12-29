@@ -81,7 +81,7 @@ public class GameManager : NetworkBehaviour
         opponent.GetComponent<SpriteRenderer>().sortingOrder = -1;
         opponent.transform.Find("HeroUI").position *= new Vector2(-1, 1);
 
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < AllCards.Instance.cards.Length / 2; i++)
 		{
 			GameObject c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
@@ -268,5 +268,19 @@ public class GameManager : NetworkBehaviour
         DisableHandCards();
         EnablePlayableHandCards();
     }
+
+	[Rpc(SendTo.ClientsAndHost)]
+	public void RaiseAttackRpc(Team tteam, int row, int col, int amount)
+	{
+        if (tteam == team) Tile.tileObjects[row, col].planted.RaiseAttack(amount);
+        else Tile.opponentTiles[row, col].planted.RaiseAttack(amount);
+	}
+
+	[Rpc(SendTo.ClientsAndHost)]
+	public void HealRpc(Team tteam, int row, int col, int amount, bool raiseCap)
+	{
+		if (tteam == team) Tile.tileObjects[row, col].planted.Heal(amount, raiseCap);
+        else Tile.opponentTiles[row, col].planted.Heal(amount, raiseCap);
+	}
 
 }
