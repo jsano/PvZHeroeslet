@@ -286,15 +286,16 @@ public class GameManager : NetworkBehaviour
 	[Rpc(SendTo.ClientsAndHost)]
 	public void HealRpc(Team tteam, int row, int col, int amount, bool raiseCap)
 	{
-		if (tteam == team) Tile.tileObjects[row, col].planted.Heal(amount, raiseCap);
-        else Tile.opponentTiles[row, col].planted.Heal(amount, raiseCap);
-	}
-
-	[Rpc(SendTo.ClientsAndHost)]
-	public void HealHeroRpc(Team tteam, int amount, bool raiseCap)
-	{
-		if (tteam == team) player.Heal(amount, raiseCap);
-		else opponent.Heal(amount, raiseCap);
+        if (tteam == team)
+        {
+            if (row == -1 && col == -1) player.Heal(amount, raiseCap);
+            else Tile.tileObjects[row, col].planted.Heal(amount, raiseCap);
+        }
+        else
+        {
+			if (row == -1 && col == -1) opponent.Heal(amount, raiseCap);
+			else Tile.opponentTiles[row, col].planted.Heal(amount, raiseCap);
+        }
 	}
 
 }

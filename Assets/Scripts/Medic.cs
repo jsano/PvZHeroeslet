@@ -5,56 +5,37 @@ using UnityEngine;
 public class Medic : Card
 {
 
-	private bool selecting = true;
-	private List<Tile> choices = new List<Tile>();
-	private Camera cam;
-
 	protected override IEnumerator OnCardPlay(Card played)
 	{
 		if (played == this)
 		{
 			GameManager.Instance.go.interactable = false;
 			GameManager.Instance.DisableHandCards();
-			cam = GameObject.Find("Main Camera").GetComponent<Camera>();
 			for (int row = 0; row < 2; row++)
 			{
 				for (int col = 0; col < 5; col++)
 				{
 					if (Tile.tileObjects[row, col].planted != null && Tile.tileObjects[row, col].planted.isDamaged())
 					{
-						choices.Add(Tile.tileObjects[row, col]);
+						choices.Add(Tile.tileObjects[row, col].planted.GetComponent<BoxCollider2D>());
 					}
 				}
 			}
-			yield return new WaitUntil(() => selecting == false);
-			GameManager.Instance.go.interactable = true;
-			GameManager.Instance.EnablePlayableHandCards();
+			if (GameManager.Instance.player.isDamaged()) choices.Add(GameManager.Instance.player.GetComponent<BoxCollider2D>());
+			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
+			if (choices.Count >= 2) selecting = true;			
 		}
 		yield return null;
 	}
 
-	void Update()
+	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
-		if (selecting)
-		{
-			if (Input.GetMouseButtonDown(0))
-			{
-				foreach (Tile tile in choices)
-				{
-					if (tile.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)cam.ScreenToWorldPoint(Input.mousePosition)))
-					{
-						GameManager.Instance.HealRpc(team, tile.row, tile.col, 4, false);
-						selecting = false;
-						return;
-					}
-				}
-				if (GameManager.Instance.player.isDamaged() && GameManager.Instance.player.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)cam.ScreenToWorldPoint(Input.mousePosition)))
-				{
-					GameManager.Instance.HealHeroRpc(team, 4, false);
-					selecting = false;
-				}
-			}
-		}
+		yield return new WaitForSeconds(1);
+		Card c = bc.GetComponent<Card>();
+		if (c == null) GameManager.Instance.HealRpc(team, -1, -1, 4, false);
+		else GameManager.Instance.HealRpc(team, c.row, c.col, 4, false);
+		GameManager.Instance.go.interactable = true;
+		GameManager.Instance.EnablePlayableHandCards();
 	}
 
 }

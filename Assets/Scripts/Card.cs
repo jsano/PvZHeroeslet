@@ -55,10 +55,15 @@ public class Card : Damagable
     private TextMeshProUGUI hpUI;
     private SpriteRenderer SR;
 
-    // Start is called before the first frame update
-    void Start()
+    protected bool selecting;
+	protected List<BoxCollider2D> choices = new();
+	private Camera cam;
+
+	// Start is called before the first frame update
+	void Start()
     {
-        SR = GetComponent<SpriteRenderer>();
+		cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+		SR = GetComponent<SpriteRenderer>();
         maxHP = HP;
         atkUI = transform.Find("ATK").GetComponent<TextMeshProUGUI>();
         atkUI.text = atk + "";
@@ -68,17 +73,36 @@ public class Card : Damagable
         StartCoroutine(GameManager.CallLeftToRight("OnCardPlay", this));
     }
 
-    // Update is called once per frame
-    void Update()
+	// Update is called once per frame
+	void Update()
+	{
+		if (selecting)
+        {
+			if (Input.GetMouseButtonDown(0))
+			{
+				foreach (BoxCollider2D bc in choices)
+				{
+					if (bc.bounds.Contains((Vector2)cam.ScreenToWorldPoint(Input.mousePosition)))
+					{
+                        StartCoroutine(OnSelection(bc));
+						selecting = false;
+						break;
+					}
+				}
+			}
+		}
+	}
+
+    protected virtual IEnumerator OnSelection(BoxCollider2D bc)
     {
-        
+        yield return null;
     }
 
-    /// <summary>
-    /// Called whenever a card is played
-    /// </summary>
-    /// <param name="played"> The card that was played </param>
-    protected virtual IEnumerator OnCardPlay(Card played)
+	/// <summary>
+	/// Called whenever a card is played
+	/// </summary>
+	/// <param name="played"> The card that was played </param>
+	protected virtual IEnumerator OnCardPlay(Card played)
     {
         yield return null;
     }
