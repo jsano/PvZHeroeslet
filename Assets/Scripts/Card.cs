@@ -46,6 +46,7 @@ public class Card : Damagable
     public bool frenzy;
     public bool teamUp;
     public int overshoot;
+    public bool doubleStrike;
 
     [HideInInspector] public int row;
     [HideInInspector] public int col;
@@ -139,6 +140,7 @@ public class Card : Damagable
 
     public override int ReceiveDamage(int dmg)
     {//Debug.Log(row + " " + col + " got hit for " + dmg);
+        dmg -= armor;
         HP -= dmg;
         hpUI.text = Mathf.Max(0, HP) + "";
 		if (dmg > 0) StartCoroutine(HitVisual());

@@ -81,12 +81,13 @@ public class GameManager : NetworkBehaviour
         opponent.GetComponent<SpriteRenderer>().sortingOrder = -1;
         opponent.transform.Find("HeroUI").position *= new Vector2(-1, 1);
 
-		for (int i = 0; i < AllCards.Instance.cards.Length / 2; i++)
+        int num = AllCards.Instance.cards.Length / 2;
+		for (int i = 0; i < num; i++)
 		{
 			GameObject c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
-			c.transform.localPosition = new Vector2(i * 1.5f, 0);
-			c.GetComponent<HandCard>().ID = (team == Team.Zombie ? AllCards.Instance.cards.Length / 2 + i : i);
+			c.transform.localPosition = new Vector2(-(num-1)/2 + i, 0);
+			c.GetComponent<HandCard>().ID = (team == Team.Zombie ? num + i : i);
             c.SetActive(true);
 		}
 		if (IsServer) return;
@@ -159,6 +160,12 @@ public class GameManager : NetworkBehaviour
 				if (second[1, col1].planted != null) yield return second[1, col1].planted.DieIf0();
 				if (second[0, col1].planted != null) yield return second[0, col1].planted.DieIf0();
 			}
+
+			if (first[1, col].planted != null && first[1, col].planted.doubleStrike) yield return first[1, col].planted.Attack();
+			if (first[0, col].planted != null && first[0, col].planted.doubleStrike) yield return first[0, col].planted.Attack();
+
+			if (second[1, col].planted != null && second[1, col].planted.doubleStrike) yield return second[1, col].planted.Attack();
+			if (second[0, col].planted != null && second[0, col].planted.doubleStrike) yield return second[0, col].planted.Attack();
 		}
 
         turn += 1;

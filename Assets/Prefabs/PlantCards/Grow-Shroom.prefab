@@ -127,7 +127,7 @@ MonoBehaviour:
   type: 0
   _class: 0
   traits: 
-  cost: 0
+  cost: 3
   atk: 2
   HP: 1
   armor: 0
