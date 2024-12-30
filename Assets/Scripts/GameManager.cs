@@ -37,7 +37,6 @@ public class GameManager : NetworkBehaviour
     public Button go;
     private LTDescr goTween;
     public GameObject phaseText;
-    public HandCard selecting;
     private Transform handCards;
     public GameObject handcardPrefab;
     public TextMeshProUGUI remainingText;
@@ -178,32 +177,46 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    public void PlayCardRpc(HandCard.mods mods, int row, int col, Team team)
+    public void PlayCardRpc(HandCard.FinalStats fs, int row, int col, Team team)
     {
         //if (team == Team.Plant) plants[row + 2*col] = ID;
         //else zombies[row + 2*col] = ID;
-        PositionCardRpc(mods, row, col, team);
+        PositionCardRpc(fs, row, col, team);
     }
 
     [Rpc(SendTo.ClientsAndHost)]
-    private void PositionCardRpc(HandCard.mods mods, int row, int col, Team team)
+    private void PositionCardRpc(HandCard.FinalStats fs, int row, int col, Team team)
     {
-        Card card = Instantiate(AllCards.Instance.cards[mods.ID]).GetComponent<Card>();
+        Card card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
         card.row = row;
         card.col = col;
-        card.atk = mods.atk;
-        card.HP = mods.hp;
+        card.atk = fs.atk;
+        card.HP = fs.hp;
         //abilities...
         if (team != this.team)
         {
-            card.transform.position = Tile.opponentTiles[row, col].transform.position;
-            Tile.opponentTiles[row, col].planted = card;
+            Tile to = Tile.opponentTiles[row, col];
+			card.transform.position = to.transform.position;
+            if (to.planted != null)
+            {
+                Tile.opponentTiles[1 - row, col].planted = to.planted;
+                to.planted.row = 1 - row;
+                to.planted.transform.position = Tile.opponentTiles[1 - row, col].transform.position;
+            }
+            to.planted = card;
         }
         else
         {
-            card.transform.position = Tile.tileObjects[row, col].transform.position;
-            Tile.tileObjects[row, col].planted = card;
-        }
+			Tile to = Tile.tileObjects[row, col];
+			card.transform.position = to.transform.position;
+			if (to.planted != null)
+			{
+				Tile.tileObjects[1 - row, col].planted = to.planted;
+				to.planted.row = 1 - row;
+				to.planted.transform.position = Tile.tileObjects[1 - row, col].transform.position;
+			}
+			to.planted = card;
+		}
     }
 
 	public static IEnumerator CallLeftToRight(string methodName, Damagable arg)

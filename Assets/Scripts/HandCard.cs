@@ -9,14 +9,16 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 {
 
     public int ID;
+    private Card orig;
     private Camera cam;
     private Vector2 startPos;
+	private List<Tile> validTiles = new();
 
-    [HideInInspector] public bool interactable = false;
+	[HideInInspector] public bool interactable = false;
     public SpriteRenderer image;
 
     [Serializable]
-    public struct mods : INetworkSerializable
+    public struct FinalStats : INetworkSerializable
     {
         public int atk;
         public int hp;
@@ -33,35 +35,56 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 			serializer.SerializeValue(ref cost);
 		}
 	}
-    private mods Mods;
+    private FinalStats finalStats;
 
     public void OnPointerDown(PointerEventData eventData)
     {
         if (!interactable) return;
         transform.localScale = Vector3.one * 1.2f;
         startPos = transform.position;
-        GameManager.Instance.selecting = this;
+
+        validTiles.Clear();
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                if (j == 4 && !finalStats.abilities.Contains("amphibious") && !orig.amphibious) continue;
+                /*if (i == 1 && !finalStats.abilities.Contains("teamup") && !orig.teamUp && (Tile.tileObjects[0, j].planted == null || !Tile.tileObjects[0, j].planted.teamUp)) continue;
+                if (i == 0 && Tile.tileObjects[0, j].planted != null && !Tile.tileObjects[0, j].planted.teamUp) continue;
+				if (i == 0 && Tile.tileObjects[1, j].planted != null && !Tile.tileObjects[1, j].planted.teamUp) continue;*/
+                if (Tile.tileObjects[0, j].planted != null && Tile.tileObjects[1, j].planted != null) continue;
+				bool hasTeamup = false;
+				if (Tile.tileObjects[0, j].planted != null && Tile.tileObjects[0, j].planted.teamUp) hasTeamup = true;
+                if (Tile.tileObjects[1, j].planted != null && Tile.tileObjects[1, j].planted.teamUp) hasTeamup = true;
+                if (hasTeamup || finalStats.abilities.Contains("teamup") || orig.teamUp) validTiles.Add(Tile.tileObjects[i, j]);
+                else if (i == 0 && Tile.tileObjects[0, j].planted == null) validTiles.Add(Tile.tileObjects[i, j]);
+			}
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (!interactable) return;
         transform.position = (Vector2) cam.ScreenToWorldPoint(eventData.position);
-    }
+		foreach (Tile t in validTiles)
+		{
+            if (t.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)cam.ScreenToWorldPoint(eventData.position))) t.ToggleHighlight(true);
+            else t.ToggleHighlight(false);
+		}
+	}
 
     public void OnPointerUp(PointerEventData eventData)
     {
         if (!interactable) return;
         transform.localScale = Vector3.one;
-        GameManager.Instance.selecting = null;
-        foreach (Tile t in Tile.tileObjects)
+        foreach (Tile t in validTiles)
         {
+            t.ToggleHighlight(false);
             if (t.GetComponent<BoxCollider2D>().bounds.Contains((Vector2) cam.ScreenToWorldPoint(eventData.position)))
             {
-                GameManager.Instance.PlayCardRpc(Mods, t.row, t.col, GameManager.Instance.team);
-				GameManager.Instance.UpdateBrains(-Mods.cost);
+                GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col, GameManager.Instance.team);
+				GameManager.Instance.UpdateBrains(-finalStats.cost);
 				Destroy(gameObject);
-                return;
             }
         }
         transform.position = startPos;
@@ -71,13 +94,13 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     void Start()
     {
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
-        Card orig = AllCards.Instance.cards[ID];
+        orig = AllCards.Instance.cards[ID];
 		image.sprite = orig.GetComponent<SpriteRenderer>().sprite;
-        Mods.hp = orig.HP;
-        Mods.atk = orig.atk;
-        Mods.abilities = "";
-        Mods.ID = ID;
-        Mods.cost = orig.cost;
+        finalStats.hp = orig.HP;
+        finalStats.atk = orig.atk;
+        finalStats.abilities = "";
+		finalStats.ID = ID;
+        finalStats.cost = orig.cost;
     }
 
     // Update is called once per frame
@@ -89,7 +112,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
     public int GetCost()
     {
-        return Mods.cost;
+        return finalStats.cost;
     }
 
 }

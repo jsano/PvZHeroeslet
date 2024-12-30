@@ -33,13 +33,14 @@ public class Card : Damagable
     public Team team;
     public Type type;
     public Class _class;
-    public Trait[] traits;
+    public List<Trait> traits;
 
     public int cost;
     public int atk;
     public int HP;
     private int maxHP;
 
+    public bool amphibious;
     public int armor;
     public bool strikethrough;
     public bool deadly;
@@ -59,6 +60,9 @@ public class Card : Damagable
 	protected List<BoxCollider2D> choices = new();
 	private Camera cam;
 
+	protected Tile[,] localAllyTiles;
+	protected Tile[,] localOpponentTiles;
+
 	// Start is called before the first frame update
 	void Start()
     {
@@ -69,6 +73,15 @@ public class Card : Damagable
         atkUI.text = atk + "";
         hpUI = transform.Find("HP").GetComponent<TextMeshProUGUI>();
         hpUI.text = HP + "";
+        if (team == GameManager.Instance.team)
+        {
+            localAllyTiles = Tile.tileObjects;
+            localOpponentTiles = Tile.opponentTiles;
+        } else
+        {
+            localAllyTiles = Tile.opponentTiles;
+            localOpponentTiles = Tile.tileObjects;
+        }
         //play animation
         StartCoroutine(GameManager.CallLeftToRight("OnCardPlay", this));
     }
@@ -150,24 +163,23 @@ public class Card : Damagable
 
     public IEnumerator Attack()
     {
-        Tile[,] target = Tile.tileObjects;
-        if (GameManager.Instance.team == team) target = Tile.opponentTiles;
-        Damagable target1 = null;
-        if (target[1, col].planted != null) target1 = target[1, col].planted;
-        else if (target[0, col].planted != null) target1 = target[0, col].planted;
-        if (target1 == null) 
+        if (atk <= 0) yield break;
+        Damagable target = null;
+        if (localOpponentTiles[1, col].planted != null) target = localOpponentTiles[1, col].planted;
+        else if (localOpponentTiles[0, col].planted != null) target = localOpponentTiles[0, col].planted;
+        if (target == null) 
         {
-            if (team == GameManager.Instance.team) target1 = GameManager.Instance.opponent;
-            else target1 = GameManager.Instance.player;
+            if (team == GameManager.Instance.team) target = GameManager.Instance.opponent;
+            else target = GameManager.Instance.player;
         }
-		int dealt = target1.ReceiveDamage(atk);
+		int dealt = target.ReceiveDamage(atk);
 		// animation
 		yield return new WaitForSeconds(1);
         //
         if (dealt > 0)
         {
             yield return GameManager.CallLeftToRight("OnCardAttack", this);
-		    yield return GameManager.CallLeftToRight("OnCardHurt", target1);
+		    yield return GameManager.CallLeftToRight("OnCardHurt", target);
         }
 	}
 
