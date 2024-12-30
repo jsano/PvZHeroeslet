@@ -7,7 +7,7 @@ public class Medic : Card
 
 	protected override IEnumerator OnCardPlay(Card played)
 	{
-		if (played == this)
+		if (played == this && GameManager.Instance.team == team)
 		{
 			GameManager.Instance.go.interactable = false;
 			GameManager.Instance.DisableHandCards();

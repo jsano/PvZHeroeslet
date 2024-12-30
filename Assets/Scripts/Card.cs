@@ -134,7 +134,16 @@ public class Card : Damagable
         yield return null;
     }
 
-    protected virtual IEnumerator OnTurnStart()
+	/// <summary>
+	/// Called whenever a card on the field moves
+	/// </summary>
+	/// <param name="moved"> The card that moved </param>
+	protected virtual IEnumerator OnCardMoved(Card moved)
+	{
+		yield return null;
+	}
+
+	protected virtual IEnumerator OnTurnStart()
     {
         yield return null;
     }
