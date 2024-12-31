@@ -252,6 +252,7 @@ public class GameManager : NetworkBehaviour
 			if (Tile.plantTiles[1, i].planted != null) yield return Tile.plantTiles[1, i].planted.StartCoroutine(methodName, arg);
 			if (Tile.plantTiles[0, i].planted != null) yield return Tile.plantTiles[0, i].planted.StartCoroutine(methodName, arg);
 		}
+        yield return null;
 	}
 
     public void DisableHandCards()

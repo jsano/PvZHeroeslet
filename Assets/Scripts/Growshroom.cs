@@ -5,9 +5,9 @@ using UnityEngine;
 public class Growshroom : Card
 {
 
-	protected override IEnumerator OnCardPlay(Card played)
+	protected override IEnumerator OnThisPlay()
 	{
-		if (played == this && GameManager.Instance.team == team)
+		if (GameManager.Instance.team == team)
 		{
 			GameManager.Instance.go.interactable = false;
 			GameManager.Instance.DisableHandCards();
@@ -21,10 +21,10 @@ public class Growshroom : Card
 					}
 				}
 			}
-			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
+			if (choices.Count == 1) yield return OnSelection(choices[0]);
 			if (choices.Count >= 2) selecting = true;
 		}
-		yield return null;
+		yield return base.OnThisPlay();
 	}
 
 	protected override IEnumerator OnSelection(BoxCollider2D bc)

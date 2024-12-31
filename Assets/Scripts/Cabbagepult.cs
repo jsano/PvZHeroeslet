@@ -5,20 +5,17 @@ using UnityEngine;
 public class Cabbagepult : Card
 {
 
-	protected override IEnumerator OnCardPlay(Card played)
+	protected override IEnumerator OnThisPlay()
 	{
-		if (played == this)
+		if (col == 0)
 		{
-			if (col == 0)
-			{
-				GameManager.Instance.DisableHandCards();
-				yield return new WaitForSeconds(1);
-				Heal(1, true);
-				RaiseAttack(1);
-				GameManager.Instance.EnablePlayableHandCards();
-			}
+			GameManager.Instance.DisableHandCards();
+			yield return new WaitForSeconds(1);
+			Heal(1, true);
+			RaiseAttack(1);
+			GameManager.Instance.EnablePlayableHandCards();
 		}
-		yield return null;
+		yield return base.OnThisPlay();
 	}
 
 }

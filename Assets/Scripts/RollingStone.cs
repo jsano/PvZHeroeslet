@@ -9,9 +9,8 @@ public class RollingStone : Card
 	{
 		GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
-		Destroy(gameObject);
-		Debug.Log(Tile.plantTiles[row, col].planted);
 		yield return Tile.plantTiles[row, col].planted.DieIf0(true);
+		Destroy(gameObject);
 		GameManager.Instance.EnablePlayableHandCards();
 		yield return base.OnThisPlay();
 	}
