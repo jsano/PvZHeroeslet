@@ -12,7 +12,7 @@ public class Torchwood : Card
 	{
 		if (played == this)
 		{
-			Card temp = localAllyTiles[0, col].planted;
+			Card temp = Tile.plantTiles[0, col].planted;
 			if (temp != null && temp.traits.Contains(Trait.Pea))
 			{
 				temp.RaiseAttack(2);
@@ -40,7 +40,7 @@ public class Torchwood : Card
 		{
 			if (buffing != null) buffing.RaiseAttack(-2);
 			buffing = null;
-			StartCoroutine(OnCardPlay(localAllyTiles[1 - row, col].planted));
+			StartCoroutine(OnCardPlay(Tile.plantTiles[1 - row, col].planted));
 		}
 		if (moved == buffing)
 		{

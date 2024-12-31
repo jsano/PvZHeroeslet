@@ -15,9 +15,9 @@ public class Medic : Card
 			{
 				for (int col = 0; col < 5; col++)
 				{
-					if (Tile.tileObjects[row, col].planted != null && Tile.tileObjects[row, col].planted.isDamaged())
+					if (Tile.zombieTiles[row, col].planted != null && Tile.zombieTiles[row, col].planted.isDamaged())
 					{
-						choices.Add(Tile.tileObjects[row, col].planted.GetComponent<BoxCollider2D>());
+						choices.Add(Tile.zombieTiles[row, col].planted.GetComponent<BoxCollider2D>());
 					}
 				}
 			}

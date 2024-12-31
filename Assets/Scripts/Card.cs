@@ -60,9 +60,6 @@ public class Card : Damagable
 	protected List<BoxCollider2D> choices = new();
 	private Camera cam;
 
-	protected Tile[,] localAllyTiles;
-	protected Tile[,] localOpponentTiles;
-
 	// Start is called before the first frame update
 	void Start()
     {
@@ -73,15 +70,6 @@ public class Card : Damagable
         atkUI.text = atk + "";
         hpUI = transform.Find("HP").GetComponent<TextMeshProUGUI>();
         hpUI.text = HP + "";
-        if (team == GameManager.Instance.team)
-        {
-            localAllyTiles = Tile.tileObjects;
-            localOpponentTiles = Tile.opponentTiles;
-        } else
-        {
-            localAllyTiles = Tile.opponentTiles;
-            localOpponentTiles = Tile.tileObjects;
-        }
         //play animation
         StartCoroutine(GameManager.CallLeftToRight("OnCardPlay", this));
     }
@@ -165,8 +153,9 @@ public class Card : Damagable
     {
         if (atk <= 0) yield break;
         Damagable target = null;
-        if (localOpponentTiles[1, col].planted != null) target = localOpponentTiles[1, col].planted;
-        else if (localOpponentTiles[0, col].planted != null) target = localOpponentTiles[0, col].planted;
+        Tile[,] opponentTiles = team == Team.Plant ? Tile.zombieTiles : Tile.plantTiles;
+        if (opponentTiles[1, col].planted != null) target = opponentTiles[1, col].planted;
+        else if (opponentTiles[0, col].planted != null) target = opponentTiles[0, col].planted;
         if (target == null) 
         {
             if (team == GameManager.Instance.team) target = GameManager.Instance.opponent;

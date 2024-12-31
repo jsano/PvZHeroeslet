@@ -80,7 +80,12 @@ public class GameManager : NetworkBehaviour
         opponent.GetComponent<SpriteRenderer>().sortingOrder = -1;
         opponent.transform.Find("HeroUI").position *= new Vector2(-1, 1);
 
-        int num = AllCards.Instance.cards.Length / 2;
+		foreach (Transform t in GameObject.Find("Tiles").transform)
+		{
+            t.GetComponent<Tile>().AssignSide();
+		}
+
+		int num = AllCards.Instance.cards.Length / 2;
 		for (int i = 0; i < num; i++)
 		{
 			GameObject c = Instantiate(handcardPrefab, handCards);
@@ -136,35 +141,25 @@ public class GameManager : NetworkBehaviour
     {
         yield return new WaitForSeconds(1);
 
-		Tile[,] first = Tile.tileObjects;
-		Tile[,] second = Tile.opponentTiles;
-		if (team == Team.Plant)
-		{
-			first = Tile.opponentTiles;
-			second = Tile.tileObjects;
-		}
         for (int col = 0; col < 5; col++)
 		{
-			if (first[1, col].planted != null) yield return first[1, col].planted.Attack();
-			if (first[0, col].planted != null) yield return first[0, col].planted.Attack();
+			if (Tile.zombieTiles[0, col].planted != null) yield return Tile.zombieTiles[0, col].planted.Attack();
 
-			if (second[1, col].planted != null) yield return second[1, col].planted.Attack();
-			if (second[0, col].planted != null) yield return second[0, col].planted.Attack();
+			if (Tile.plantTiles[1, col].planted != null) yield return Tile.plantTiles[1, col].planted.Attack();
+			if (Tile.plantTiles[0, col].planted != null) yield return Tile.plantTiles[0, col].planted.Attack();
 
 			for (int col1 = 0; col1 < 5; col1++)
 			{
-				if (first[1, col1].planted != null) yield return first[1, col1].planted.DieIf0();
-				if (first[0, col1].planted != null) yield return first[0, col1].planted.DieIf0();
+				if (Tile.zombieTiles[0, col1].planted != null) yield return Tile.zombieTiles[0, col1].planted.DieIf0();
 
-				if (second[1, col1].planted != null) yield return second[1, col1].planted.DieIf0();
-				if (second[0, col1].planted != null) yield return second[0, col1].planted.DieIf0();
+				if (Tile.plantTiles[1, col1].planted != null) yield return Tile.plantTiles[1, col1].planted.DieIf0();
+				if (Tile.plantTiles[0, col1].planted != null) yield return Tile.plantTiles[0, col1].planted.DieIf0();
 			}
 
-			if (first[1, col].planted != null && first[1, col].planted.doubleStrike) yield return first[1, col].planted.Attack();
-			if (first[0, col].planted != null && first[0, col].planted.doubleStrike) yield return first[0, col].planted.Attack();
+			if (Tile.zombieTiles[0, col].planted != null && Tile.zombieTiles[0, col].planted.doubleStrike) yield return Tile.zombieTiles[0, col].planted.Attack();
 
-			if (second[1, col].planted != null && second[1, col].planted.doubleStrike) yield return second[1, col].planted.Attack();
-			if (second[0, col].planted != null && second[0, col].planted.doubleStrike) yield return second[0, col].planted.Attack();
+			if (Tile.plantTiles[1, col].planted != null && Tile.plantTiles[1, col].planted.doubleStrike) yield return Tile.plantTiles[1, col].planted.Attack();
+			if (Tile.plantTiles[0, col].planted != null && Tile.plantTiles[0, col].planted.doubleStrike) yield return Tile.plantTiles[0, col].planted.Attack();
 		}
 
         turn += 1;
@@ -177,15 +172,15 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    public void PlayCardRpc(HandCard.FinalStats fs, int row, int col, Team team)
+    public void PlayCardRpc(HandCard.FinalStats fs, int row, int col)
     {
         //if (team == Team.Plant) plants[row + 2*col] = ID;
         //else zombies[row + 2*col] = ID;
-        PositionCardRpc(fs, row, col, team);
+        PositionCardRpc(fs, row, col);
     }
 
     [Rpc(SendTo.ClientsAndHost)]
-    private void PositionCardRpc(HandCard.FinalStats fs, int row, int col, Team team)
+    private void PositionCardRpc(HandCard.FinalStats fs, int row, int col)
     {
         Card card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
         card.row = row;
@@ -193,27 +188,27 @@ public class GameManager : NetworkBehaviour
         card.atk = fs.atk;
         card.HP = fs.hp;
         //abilities...
-        if (team != this.team)
+        if (card.team == Team.Zombie)
         {
-            Tile to = Tile.opponentTiles[row, col];
+            Tile to = Tile.zombieTiles[row, col];
 			card.transform.position = to.transform.position;
             if (to.planted != null)
             {
-                Tile.opponentTiles[1 - row, col].planted = to.planted;
+                Tile.zombieTiles[1 - row, col].planted = to.planted;
                 to.planted.row = 1 - row;
-                to.planted.transform.position = Tile.opponentTiles[1 - row, col].transform.position;
+                to.planted.transform.position = Tile.zombieTiles[1 - row, col].transform.position;
             }
             to.planted = card;
         }
         else
         {
-			Tile to = Tile.tileObjects[row, col];
+			Tile to = Tile.plantTiles[row, col];
 			card.transform.position = to.transform.position;
 			if (to.planted != null)
 			{
-				Tile.tileObjects[1 - row, col].planted = to.planted;
+				Tile.plantTiles[1 - row, col].planted = to.planted;
 				to.planted.row = 1 - row;
-				to.planted.transform.position = Tile.tileObjects[1 - row, col].transform.position;
+				to.planted.transform.position = Tile.plantTiles[1 - row, col].transform.position;
 			}
 			to.planted = card;
 		}
@@ -221,21 +216,12 @@ public class GameManager : NetworkBehaviour
 
 	public static IEnumerator CallLeftToRight(string methodName, Damagable arg)
 	{
-		Tile[,] first = Tile.tileObjects;
-		Tile[,] second = Tile.opponentTiles;
-		if (Instance.team == Team.Plant)
-		{
-			first = Tile.opponentTiles;
-			second = Tile.tileObjects;
-		}
-
 		for (int i = 0; i < 5; i++)
 		{
-			if (first[1, i].planted != null) yield return first[1, i].planted.StartCoroutine(methodName, arg);
-			if (first[0, i].planted != null) yield return first[0, i].planted.StartCoroutine(methodName, arg);
+			if (Tile.zombieTiles[0, i].planted != null) yield return Tile.zombieTiles[0, i].planted.StartCoroutine(methodName, arg);
 
-			if (second[1, i].planted != null) yield return second[1, i].planted.StartCoroutine(methodName, arg);
-			if (second[0, i].planted != null) yield return second[0, i].planted.StartCoroutine(methodName, arg);
+			if (Tile.plantTiles[1, i].planted != null) yield return Tile.plantTiles[1, i].planted.StartCoroutine(methodName, arg);
+			if (Tile.plantTiles[0, i].planted != null) yield return Tile.plantTiles[0, i].planted.StartCoroutine(methodName, arg);
 		}
 	}
 
@@ -292,22 +278,22 @@ public class GameManager : NetworkBehaviour
 	[Rpc(SendTo.ClientsAndHost)]
 	public void RaiseAttackRpc(Team tteam, int row, int col, int amount)
 	{
-        if (tteam == team) Tile.tileObjects[row, col].planted.RaiseAttack(amount);
-        else Tile.opponentTiles[row, col].planted.RaiseAttack(amount);
+        if (tteam == Team.Plant) Tile.plantTiles[row, col].planted.RaiseAttack(amount);
+        else Tile.zombieTiles[row, col].planted.RaiseAttack(amount);
 	}
 
 	[Rpc(SendTo.ClientsAndHost)]
 	public void HealRpc(Team tteam, int row, int col, int amount, bool raiseCap)
 	{
-        if (tteam == team)
+        if (row == -1 && col == -1)
         {
-            if (row == -1 && col == -1) player.Heal(amount, raiseCap);
-            else Tile.tileObjects[row, col].planted.Heal(amount, raiseCap);
+            if (tteam == team) player.Heal(amount, raiseCap);
+            else opponent.Heal(amount, raiseCap);
         }
-        else
+        else 
         {
-			if (row == -1 && col == -1) opponent.Heal(amount, raiseCap);
-			else Tile.opponentTiles[row, col].planted.Heal(amount, raiseCap);
+            if (tteam == Team.Plant) Tile.plantTiles[row, col].planted.Heal(amount, raiseCap);
+			else Tile.zombieTiles[row, col].planted.Heal(amount, raiseCap);
         }
 	}
 

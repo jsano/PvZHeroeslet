@@ -12,6 +12,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     private Card orig;
     private Camera cam;
     private Vector2 startPos;
+    private Tile[,] tileObjects;
 	private List<Tile> validTiles = new();
 
 	[HideInInspector] public bool interactable = false;
@@ -49,15 +50,12 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             for (int j = 0; j < 5; j++)
             {
                 if (j == 4 && !finalStats.abilities.Contains("amphibious") && !orig.amphibious) continue;
-                /*if (i == 1 && !finalStats.abilities.Contains("teamup") && !orig.teamUp && (Tile.tileObjects[0, j].planted == null || !Tile.tileObjects[0, j].planted.teamUp)) continue;
-                if (i == 0 && Tile.tileObjects[0, j].planted != null && !Tile.tileObjects[0, j].planted.teamUp) continue;
-				if (i == 0 && Tile.tileObjects[1, j].planted != null && !Tile.tileObjects[1, j].planted.teamUp) continue;*/
-                if (Tile.tileObjects[0, j].planted != null && Tile.tileObjects[1, j].planted != null) continue;
+                if (tileObjects[0, j].planted != null && tileObjects[1, j].planted != null) continue;
 				bool hasTeamup = false;
-				if (Tile.tileObjects[0, j].planted != null && Tile.tileObjects[0, j].planted.teamUp) hasTeamup = true;
-                if (Tile.tileObjects[1, j].planted != null && Tile.tileObjects[1, j].planted.teamUp) hasTeamup = true;
-                if (hasTeamup || finalStats.abilities.Contains("teamup") || orig.teamUp) validTiles.Add(Tile.tileObjects[i, j]);
-                else if (i == 0 && Tile.tileObjects[0, j].planted == null) validTiles.Add(Tile.tileObjects[i, j]);
+				if (tileObjects[0, j].planted != null && tileObjects[0, j].planted.teamUp) hasTeamup = true;
+                if (tileObjects[1, j].planted != null && tileObjects[1, j].planted.teamUp) hasTeamup = true;
+                if (hasTeamup || finalStats.abilities.Contains("teamup") || orig.teamUp) validTiles.Add(tileObjects[i, j]);
+                else if (i == 0 && tileObjects[0, j].planted == null) validTiles.Add(tileObjects[i, j]);
 			}
         }
     }
@@ -82,7 +80,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             t.ToggleHighlight(false);
             if (t.GetComponent<BoxCollider2D>().bounds.Contains((Vector2) cam.ScreenToWorldPoint(eventData.position)))
             {
-                GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col, GameManager.Instance.team);
+                GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col);
 				GameManager.Instance.UpdateBrains(-finalStats.cost);
 				Destroy(gameObject);
             }
@@ -101,6 +99,9 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         finalStats.abilities = "";
 		finalStats.ID = ID;
         finalStats.cost = orig.cost;
+
+        if (GameManager.Instance.team == Card.Team.Plant) tileObjects = Tile.plantTiles;
+        else tileObjects = Tile.zombieTiles;
     }
 
     // Update is called once per frame

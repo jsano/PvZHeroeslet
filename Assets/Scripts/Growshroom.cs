@@ -15,9 +15,9 @@ public class Growshroom : Card
 			{
 				for (int col = 0; col < 5; col++)
 				{
-					if (Tile.tileObjects[row, col].planted != null && Tile.tileObjects[row, col].planted != this)
+					if (Tile.plantTiles[row, col].planted != null && Tile.plantTiles[row, col].planted != this)
 					{
-						choices.Add(Tile.tileObjects[row, col].planted.GetComponent<BoxCollider2D>());
+						choices.Add(Tile.plantTiles[row, col].planted.GetComponent<BoxCollider2D>());
 					}
 				}
 			}
