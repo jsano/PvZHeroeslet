@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Hero : Damagable
 {
 
+	public Card.Team team;
     public int HP = 20;
 	private int maxHP;
 	public TextMeshProUGUI hpUI;

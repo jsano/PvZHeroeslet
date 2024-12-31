@@ -16,6 +16,7 @@ public class Tile : MonoBehaviour
 	/// The zombie tiles, which will be at the top or bottom depending on the user team
 	/// </summary>
 	public static Tile[,] zombieTiles = new Tile[2, 5];
+    [HideInInspector] public bool isPlantTile;
 
     [HideInInspector] public Card planted;
 
@@ -37,13 +38,29 @@ public class Tile : MonoBehaviour
     {
         if (transform.position.y < 0)
         {
-            if (GameManager.Instance.team == Card.Team.Plant) plantTiles[row, col] = this;
-            else zombieTiles[row, col] = this;
+            if (GameManager.Instance.team == Card.Team.Plant)
+            {
+                plantTiles[row, col] = this;
+                isPlantTile = true;
+            }
+            else
+            {
+                zombieTiles[row, col] = this;
+                isPlantTile = false;
+            }
         }
         else
         {
-			if (GameManager.Instance.team == Card.Team.Plant) zombieTiles[row, col] = this;
-			else plantTiles[row, col] = this;
+            if (GameManager.Instance.team == Card.Team.Plant)
+            {
+                zombieTiles[row, col] = this;
+                isPlantTile = false;
+            }
+            else
+            {
+                plantTiles[row, col] = this;
+                isPlantTile = true;
+            }
 		}
     }
 

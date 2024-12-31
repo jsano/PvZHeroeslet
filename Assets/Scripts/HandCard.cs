@@ -13,7 +13,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     private Camera cam;
     private Vector2 startPos;
     private Tile[,] tileObjects;
-	private List<Tile> validTiles = new();
+	private List<BoxCollider2D> validChoices = new();
 
 	[HideInInspector] public bool interactable = false;
     public SpriteRenderer image;
@@ -44,19 +44,38 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         transform.localScale = Vector3.one * 1.2f;
         startPos = transform.position;
 
-        validTiles.Clear();
-        for (int i = 0; i < 2; i++)
+        validChoices.Clear();
+        /*if (orig.target == Card.Target.PlantsAndHero) {
+            if (GameManager.Instance.team == Card.Team.Plant) validChoices.Add(GameManager.Instance.player.GetComponent<BoxCollider2D>());
+            else validChoices.Add(GameManager.Instance.opponent.GetComponent<BoxCollider2D>());
+		}
+		if (orig.target == Card.Target.ZombiesAndHero)
+		{
+			if (GameManager.Instance.team == Card.Team.Plant) validChoices.Add(GameManager.Instance.opponent.GetComponent<BoxCollider2D>());
+			else validChoices.Add(GameManager.Instance.player.GetComponent<BoxCollider2D>());
+		}*/
+        if (orig.type == Card.Type.Trick)
         {
-            for (int j = 0; j < 5; j++)
+			foreach (Tile t in Tile.plantTiles) validChoices.Add(t.GetComponent<BoxCollider2D>());
+			foreach (Tile t in Tile.zombieTiles) validChoices.Add(t.GetComponent<BoxCollider2D>());
+			validChoices.Add(GameManager.Instance.player.GetComponent<BoxCollider2D>());
+			validChoices.Add(GameManager.Instance.opponent.GetComponent<BoxCollider2D>());
+		}
+        else
+        {
+            for (int i = 0; i < 2; i++)
             {
-                if (j == 4 && !finalStats.abilities.Contains("amphibious") && !orig.amphibious) continue;
-                if (tileObjects[0, j].planted != null && tileObjects[1, j].planted != null) continue;
-				bool hasTeamup = false;
-				if (tileObjects[0, j].planted != null && tileObjects[0, j].planted.teamUp) hasTeamup = true;
-                if (tileObjects[1, j].planted != null && tileObjects[1, j].planted.teamUp) hasTeamup = true;
-                if (hasTeamup || finalStats.abilities.Contains("teamup") || orig.teamUp) validTiles.Add(tileObjects[i, j]);
-                else if (i == 0 && tileObjects[0, j].planted == null) validTiles.Add(tileObjects[i, j]);
-			}
+                for (int j = 0; j < 5; j++)
+                {
+                    if (j == 4 && !finalStats.abilities.Contains("amphibious") && !orig.amphibious) continue;
+                    if (tileObjects[0, j].planted != null && tileObjects[1, j].planted != null) continue;
+				    bool hasTeamup = false;
+				    if (tileObjects[0, j].planted != null && tileObjects[0, j].planted.teamUp) hasTeamup = true;
+                    if (tileObjects[1, j].planted != null && tileObjects[1, j].planted.teamUp) hasTeamup = true;
+                    if (hasTeamup || finalStats.abilities.Contains("teamup") || orig.teamUp) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
+                    else if (i == 0 && tileObjects[0, j].planted == null) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
+			    }
+            }
         }
     }
 
@@ -64,9 +83,15 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     {
         if (!interactable) return;
         transform.position = (Vector2) cam.ScreenToWorldPoint(eventData.position);
-		foreach (Tile t in validTiles)
+		foreach (BoxCollider2D bc in validChoices)
 		{
-            if (t.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)cam.ScreenToWorldPoint(eventData.position))) t.ToggleHighlight(true);
+            Tile t = bc.GetComponent<Tile>();
+            if (t == null) continue; // TODO: change
+            if (bc.bounds.Contains((Vector2)cam.ScreenToWorldPoint(eventData.position)))
+            {
+                if (orig.type == Card.Type.Unit || orig.IsValidTarget(bc)) t.ToggleHighlight(true);
+                else t.ToggleHighlight(false);
+			}
             else t.ToggleHighlight(false);
 		}
 	}
@@ -75,12 +100,17 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     {
         if (!interactable) return;
         transform.localScale = Vector3.one;
-        foreach (Tile t in validTiles)
+        foreach (BoxCollider2D bc in validChoices)
         {
-            t.ToggleHighlight(false);
-            if (t.GetComponent<BoxCollider2D>().bounds.Contains((Vector2) cam.ScreenToWorldPoint(eventData.position)))
+            Tile t = bc.GetComponent<Tile>();
+			if (t != null) t.ToggleHighlight(false);
+            if (bc.bounds.Contains((Vector2) cam.ScreenToWorldPoint(eventData.position)))
             {
-                GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col);
+                if (orig.type == Card.Type.Unit) GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col);
+                else if (orig.IsValidTarget(bc)) {
+                    if (t == null) GameManager.Instance.PlayTrickRpc(finalStats, -1, -1, t.GetComponent<Hero>().team == Card.Team.Plant);
+					GameManager.Instance.PlayTrickRpc(finalStats, t.row, t.col, t.isPlantTile);
+                }
 				GameManager.Instance.UpdateBrains(-finalStats.cost);
 				Destroy(gameObject);
             }
@@ -100,6 +130,13 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 		finalStats.ID = ID;
         finalStats.cost = orig.cost;
 
+        /*if (orig.type == Card.Type.Trick)
+        {
+            if (orig.target == Card.Target.Plants || orig.target == Card.Target.PlantsAndHero) tileObjects = Tile.plantTiles;
+            else if (orig.target == Card.Target.Zombies || orig.target == Card.Target.ZombiesAndHero) tileObjects = Tile.zombieTiles;
+        }
+        else
+        {*/
         if (GameManager.Instance.team == Card.Team.Plant) tileObjects = Tile.plantTiles;
         else tileObjects = Tile.zombieTiles;
     }

@@ -150,10 +150,10 @@ public class GameManager : NetworkBehaviour
 
 			for (int col1 = 0; col1 < 5; col1++)
 			{
-				if (Tile.zombieTiles[0, col1].planted != null) yield return Tile.zombieTiles[0, col1].planted.DieIf0();
+				if (Tile.zombieTiles[0, col1].planted != null) yield return Tile.zombieTiles[0, col1].planted.DieIf0(false);
 
-				if (Tile.plantTiles[1, col1].planted != null) yield return Tile.plantTiles[1, col1].planted.DieIf0();
-				if (Tile.plantTiles[0, col1].planted != null) yield return Tile.plantTiles[0, col1].planted.DieIf0();
+				if (Tile.plantTiles[1, col1].planted != null) yield return Tile.plantTiles[1, col1].planted.DieIf0(false);
+				if (Tile.plantTiles[0, col1].planted != null) yield return Tile.plantTiles[0, col1].planted.DieIf0(false);
 			}
 
 			if (Tile.zombieTiles[0, col].planted != null && Tile.zombieTiles[0, col].planted.doubleStrike) yield return Tile.zombieTiles[0, col].planted.Attack();
@@ -213,6 +213,35 @@ public class GameManager : NetworkBehaviour
 			to.planted = card;
 		}
     }
+
+	[Rpc(SendTo.Server)]
+	public void PlayTrickRpc(HandCard.FinalStats fs, int row, int col, bool isPlantTarget)
+	{
+		//if (team == Team.Plant) plants[row + 2*col] = ID;
+		//else zombies[row + 2*col] = ID;
+		PositionTrickRpc(fs, row, col, isPlantTarget);
+	}
+
+	[Rpc(SendTo.ClientsAndHost)]
+	private void PositionTrickRpc(HandCard.FinalStats fs, int row, int col, bool isPlantTarget)
+	{
+		Card card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
+		card.row = row;
+		card.col = col;
+		card.atk = fs.atk;
+		card.HP = fs.hp;
+		if (!isPlantTarget)
+		{
+            //if (row == -1 && col == -1) card.transform.position = (isPlantTarget ? ) TODO: handle heroes (maybe have player/opponent -> plant/zombie hero)
+			Tile to = Tile.zombieTiles[row, col];
+			card.transform.position = to.transform.position;
+		}
+		else
+		{
+			Tile to = Tile.plantTiles[row, col];
+			card.transform.position = to.transform.position;
+		}
+	}
 
 	public static IEnumerator CallLeftToRight(string methodName, Damagable arg)
 	{

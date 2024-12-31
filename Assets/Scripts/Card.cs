@@ -29,9 +29,24 @@ public class Card : Damagable
         Pea,
         Nut
     }
+    /*
+    /// <summary>
+    /// Only applicable to tricks
+    /// </summary>
+    public enum Target
+    {
+        NA,
+        Plants,
+        Zombies,
+        PlantsAndHero,
+        ZombiesAndHero,
+        PlantColumns,
+        ZombieColumns
+    }*/
 
     public Team team;
     public Type type;
+    //public Target target;
     public Class _class;
     public List<Trait> traits;
 
@@ -71,7 +86,7 @@ public class Card : Damagable
         hpUI = transform.Find("HP").GetComponent<TextMeshProUGUI>();
         hpUI.text = HP + "";
         //play animation
-        StartCoroutine(GameManager.CallLeftToRight("OnCardPlay", this));
+        StartCoroutine(OnThisPlay());
     }
 
 	// Update is called once per frame
@@ -98,6 +113,18 @@ public class Card : Damagable
     {
         yield return null;
     }
+
+	/// <summary>
+	/// Called right when this card is played. Base method calls OnCardPlay left to right
+	/// </summary>
+	/// <param name="played"> The card that was played </param>
+	protected virtual IEnumerator OnThisPlay()
+	{
+        GameManager.Instance.DisableHandCards();
+		yield return GameManager.CallLeftToRight("OnCardPlay", this);
+		GameManager.Instance.EnablePlayableHandCards();
+	}
+
 
 	/// <summary>
 	/// Called whenever a card is played
@@ -181,9 +208,9 @@ public class Card : Damagable
 		return dmg;
     }
     
-    public IEnumerator DieIf0()
+    public IEnumerator DieIf0(bool force)
     {
-        if (HP <= 0)
+        if (HP <= 0 || force)
         {
             yield return GameManager.CallLeftToRight("OnCardDeath", this);
             Destroy(gameObject);
@@ -215,6 +242,11 @@ public class Card : Damagable
     public override bool isDamaged()
     {
         return HP < maxHP;
+    }
+
+    public virtual bool IsValidTarget(BoxCollider2D bc)
+    {
+        return true;
     }
 
 }
