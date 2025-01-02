@@ -14,7 +14,7 @@ public class Hero : Damagable
 	private SpriteRenderer SR;
 	public Image blockMeter;
 	private int block;
-	[HideInInspector] public bool blocked;
+	[HideInInspector] public bool blocked = false;
 
 	// Start is called before the first frame update
 	void Start()

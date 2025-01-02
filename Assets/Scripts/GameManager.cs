@@ -150,8 +150,8 @@ public class GameManager : NetworkBehaviour
 
 			if (Tile.plantTiles[1, col].planted != null) yield return Tile.plantTiles[1, col].planted.Attack();
 			if (Tile.plantTiles[0, col].planted != null) yield return Tile.plantTiles[0, col].planted.Attack();
-            Debug.Log("1");
-            yield return CallLeftToRight("DieIf0", null);
+            
+            yield return CheckDeaths();
 
             if (zombieHero.blocked)
             {
@@ -169,8 +169,7 @@ public class GameManager : NetworkBehaviour
                 }
 				yield return new WaitUntil(() => waitingOnBlock == false);
             }
-            Debug.Log("2");
-			yield return CallLeftToRight("DieIf0", null);
+			yield return CheckDeaths();
 			if (plantHero.blocked)
             {
                 plantHero.blocked = false;
@@ -186,8 +185,7 @@ public class GameManager : NetworkBehaviour
 				}
 				yield return new WaitUntil(() => waitingOnBlock == false);
             }
-            Debug.Log("3");
-			yield return CallLeftToRight("DieIf0", null);
+			yield return CheckDeaths();
 
 			if (Tile.zombieTiles[0, col].planted != null && Tile.zombieTiles[0, col].planted.doubleStrike) yield return Tile.zombieTiles[0, col].planted.Attack();
 
@@ -203,6 +201,17 @@ public class GameManager : NetworkBehaviour
         yield return CallLeftToRight("OnTurnStart", null);
 		if (IsServer) EndRpc();
     }
+
+    // For whatever reason CallLeftToRight("DieIfZero") breaks???
+    public IEnumerator CheckDeaths()
+    {
+		for (int col1 = 0; col1 < 5; col1++)
+		{
+			if (Tile.zombieTiles[0, col1].planted != null) yield return Tile.zombieTiles[0, col1].planted.DieIfZero();
+			if (Tile.plantTiles[1, col1].planted != null) yield return Tile.plantTiles[1, col1].planted.DieIfZero();
+			if (Tile.plantTiles[0, col1].planted != null) yield return Tile.plantTiles[0, col1].planted.DieIfZero();
+		}
+	}
 
     [Rpc(SendTo.Server)]
     public void PlayCardRpc(HandCard.FinalStats fs, int row, int col)
@@ -301,7 +310,19 @@ public class GameManager : NetworkBehaviour
         yield return null;
 	}
 
-    public void DisableHandCards()
+	public static IEnumerator CallLeftToRight(string methodName)
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			if (Tile.zombieTiles[0, i].planted != null) yield return Tile.zombieTiles[0, i].planted.StartCoroutine(methodName);
+
+			if (Tile.plantTiles[1, i].planted != null) yield return Tile.plantTiles[1, i].planted.StartCoroutine(methodName);
+			if (Tile.plantTiles[0, i].planted != null) yield return Tile.plantTiles[0, i].planted.StartCoroutine(methodName);
+		}
+		yield return null;
+	}
+
+	public void DisableHandCards()
     {
         foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = false;
     }

@@ -121,10 +121,11 @@ public class Card : Damagable
 	protected virtual IEnumerator OnThisPlay()
 	{
         GameManager.Instance.DisableHandCards();
-		yield return GameManager.CallLeftToRight("DieIf0", null);
-		yield return GameManager.CallLeftToRight("OnCardPlay", this);
+        yield return GameManager.Instance.CheckDeaths();
+        yield return GameManager.CallLeftToRight("OnCardPlay", this);
 		GameManager.Instance.EnablePlayableHandCards();
         GameManager.Instance.waitingOnBlock = false;
+        if (type == Type.Trick) Destroy(gameObject);
 	}
 
 
@@ -210,7 +211,7 @@ public class Card : Damagable
 		return dmg;
     }
     
-    public IEnumerator DieIf0()
+    public IEnumerator DieIfZero()
     {
         if (HP <= 0)
         {

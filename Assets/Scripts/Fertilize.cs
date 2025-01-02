@@ -11,7 +11,6 @@ public class Fertilize : Card
 		yield return new WaitForSeconds(1);
 		Tile.plantTiles[row, col].planted.RaiseAttack(3);
 		Tile.plantTiles[row, col].planted.Heal(3, true);
-		Destroy(gameObject);
 		//GameManager.Instance.EnablePlayableHandCards();
 		yield return base.OnThisPlay();
 	}
