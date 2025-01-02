@@ -41,8 +41,8 @@ public class GameManager : NetworkBehaviour
     public GameObject handcardPrefab;
     public TextMeshProUGUI remainingText;
 
-    [HideInInspector] public Hero player;
-    [HideInInspector] public Hero opponent;
+    [HideInInspector] public Hero plantHero;
+    [HideInInspector] public Hero zombieHero;
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
@@ -62,23 +62,24 @@ public class GameManager : NetworkBehaviour
     {
         if (data == NetworkManager.ServerClientId) return;
         Debug.Log("Client " + data + " connected");
-		if (IsHost)
+		plantHero = GameObject.Find("Green Shadow").GetComponent<Hero>(); //temp
+		zombieHero = GameObject.Find("Super Brainz").GetComponent<Hero>();
+        if (IsHost)
 		{
 			team = Team.Plant;
-			player = GameObject.Find("Green Shadow").GetComponent<Hero>(); //temp
-			opponent = GameObject.Find("Super Brainz").GetComponent<Hero>();
-
+			plantHero.transform.position = new Vector2(0, -3);
+		    zombieHero.transform.position = new Vector2(0, 3.5f);
+            zombieHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
+            zombieHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
 		}
 		else
 		{
 			team = Team.Zombie;
-			opponent = GameObject.Find("Green Shadow").GetComponent<Hero>(); //temp
-			player = GameObject.Find("Super Brainz").GetComponent<Hero>();
+			zombieHero.transform.position = new Vector2(0, -3);
+			plantHero.transform.position = new Vector2(0, 3.5f);
+			plantHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
+			plantHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
 		}
-        player.transform.position = new Vector2(0, -3);
-		opponent.transform.position = new Vector2(0, 3.5f);
-        opponent.GetComponent<SpriteRenderer>().sortingOrder = -1;
-        opponent.transform.Find("HeroUI").position *= new Vector2(-1, 1);
 
 		foreach (Transform t in GameObject.Find("Tiles").transform)
 		{
@@ -232,14 +233,21 @@ public class GameManager : NetworkBehaviour
 		card.HP = fs.hp;
 		if (!isPlantTarget)
 		{
-            //if (row == -1 && col == -1) card.transform.position = (isPlantTarget ? ) TODO: handle heroes (maybe have player/opponent -> plant/zombie hero)
-			Tile to = Tile.zombieTiles[row, col];
-			card.transform.position = to.transform.position;
+            if (row == -1 && col == -1) card.transform.position = zombieHero.transform.position;
+            else
+            {
+                Tile to = Tile.zombieTiles[row, col];
+			    card.transform.position = to.transform.position;
+            }
 		}
 		else
 		{
-			Tile to = Tile.plantTiles[row, col];
-			card.transform.position = to.transform.position;
+            if (row == -1 && col == -1) card.transform.position = plantHero.transform.position;
+            else
+            {
+				Tile to = Tile.plantTiles[row, col];
+			    card.transform.position = to.transform.position;
+            }
 		}
 	}
 
@@ -317,8 +325,8 @@ public class GameManager : NetworkBehaviour
 	{
         if (row == -1 && col == -1)
         {
-            if (tteam == team) player.Heal(amount, raiseCap);
-            else opponent.Heal(amount, raiseCap);
+            if (tteam == Team.Plant) plantHero.Heal(amount, raiseCap);
+            else zombieHero.Heal(amount, raiseCap);
         }
         else 
         {

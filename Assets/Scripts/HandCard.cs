@@ -58,8 +58,8 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         {
 			foreach (Tile t in Tile.plantTiles) validChoices.Add(t.GetComponent<BoxCollider2D>());
 			foreach (Tile t in Tile.zombieTiles) validChoices.Add(t.GetComponent<BoxCollider2D>());
-			validChoices.Add(GameManager.Instance.player.GetComponent<BoxCollider2D>());
-			validChoices.Add(GameManager.Instance.opponent.GetComponent<BoxCollider2D>());
+			validChoices.Add(GameManager.Instance.plantHero.GetComponent<BoxCollider2D>());
+			validChoices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
 		}
         else
         {

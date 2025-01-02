@@ -185,8 +185,8 @@ public class Card : Damagable
         else if (opponentTiles[0, col].planted != null) target = opponentTiles[0, col].planted;
         if (target == null) 
         {
-            if (team == GameManager.Instance.team) target = GameManager.Instance.opponent;
-            else target = GameManager.Instance.player;
+            if (team == Team.Plant) target = GameManager.Instance.zombieHero;
+            else target = GameManager.Instance.plantHero;
         }
 		int dealt = target.ReceiveDamage(atk);
 		// animation
