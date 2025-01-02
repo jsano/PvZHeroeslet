@@ -45,15 +45,6 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         startPos = transform.position;
 
         validChoices.Clear();
-        /*if (orig.target == Card.Target.PlantsAndHero) {
-            if (GameManager.Instance.team == Card.Team.Plant) validChoices.Add(GameManager.Instance.player.GetComponent<BoxCollider2D>());
-            else validChoices.Add(GameManager.Instance.opponent.GetComponent<BoxCollider2D>());
-		}
-		if (orig.target == Card.Target.ZombiesAndHero)
-		{
-			if (GameManager.Instance.team == Card.Team.Plant) validChoices.Add(GameManager.Instance.opponent.GetComponent<BoxCollider2D>());
-			else validChoices.Add(GameManager.Instance.player.GetComponent<BoxCollider2D>());
-		}*/
         if (orig.type == Card.Type.Trick)
         {
 			foreach (Tile t in Tile.plantTiles) validChoices.Add(t.GetComponent<BoxCollider2D>());
@@ -120,6 +111,13 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                     Destroy(gameObject);
                 }
             }
+        }
+        if (GameManager.Instance.waitingOnBlock && transform.parent.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)cam.ScreenToWorldPoint(eventData.position)))
+        {
+            
+            startPos = cam.ScreenToWorldPoint(eventData.position);
+            interactable = false;
+            GameManager.Instance.HoldTrickRpc();
         }
         transform.position = startPos;
     }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using SerializableCallback;
 using TMPro;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static Card;
@@ -43,7 +44,8 @@ public class GameManager : NetworkBehaviour
 
     [HideInInspector] public Hero plantHero;
     [HideInInspector] public Hero zombieHero;
-    public override void OnNetworkSpawn()
+	[HideInInspector] public bool waitingOnBlock = false;
+	public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
 
@@ -148,14 +150,44 @@ public class GameManager : NetworkBehaviour
 
 			if (Tile.plantTiles[1, col].planted != null) yield return Tile.plantTiles[1, col].planted.Attack();
 			if (Tile.plantTiles[0, col].planted != null) yield return Tile.plantTiles[0, col].planted.Attack();
+            Debug.Log("1");
+            yield return CallLeftToRight("DieIf0", null);
 
-			for (int col1 = 0; col1 < 5; col1++)
-			{
-				if (Tile.zombieTiles[0, col1].planted != null) yield return Tile.zombieTiles[0, col1].planted.DieIf0(false);
+            if (zombieHero.blocked)
+            {
+                zombieHero.blocked = false;
+                waitingOnBlock = true;
+                if (team == Team.Zombie)
+                {
+                    GameObject c = Instantiate(handcardPrefab, handCards);
+				    c.SetActive(false);
+				    c.transform.localPosition = new Vector2(0, 3);
+				    c.GetComponent<HandCard>().ID = 10; //temp
+					c.GetComponent<HandCard>().interactable = true;
 
-				if (Tile.plantTiles[1, col1].planted != null) yield return Tile.plantTiles[1, col1].planted.DieIf0(false);
-				if (Tile.plantTiles[0, col1].planted != null) yield return Tile.plantTiles[0, col1].planted.DieIf0(false);
-			}
+					c.SetActive(true);
+                }
+				yield return new WaitUntil(() => waitingOnBlock == false);
+            }
+            Debug.Log("2");
+			yield return CallLeftToRight("DieIf0", null);
+			if (plantHero.blocked)
+            {
+                plantHero.blocked = false;
+				waitingOnBlock = true;
+				if (team == Team.Plant)
+				{
+					GameObject c = Instantiate(handcardPrefab, handCards);
+					c.SetActive(false);
+					c.transform.localPosition = new Vector2(0, 3);
+					c.GetComponent<HandCard>().ID = 5; //temp
+					c.GetComponent<HandCard>().interactable = true;
+					c.SetActive(true);
+				}
+				yield return new WaitUntil(() => waitingOnBlock == false);
+            }
+            Debug.Log("3");
+			yield return CallLeftToRight("DieIf0", null);
 
 			if (Tile.zombieTiles[0, col].planted != null && Tile.zombieTiles[0, col].planted.doubleStrike) yield return Tile.zombieTiles[0, col].planted.Attack();
 
@@ -249,6 +281,12 @@ public class GameManager : NetworkBehaviour
 			    card.transform.position = to.transform.position;
             }
 		}
+	}
+
+	[Rpc(SendTo.ClientsAndHost)]
+	public void HoldTrickRpc()
+	{
+        waitingOnBlock = false;
 	}
 
 	public static IEnumerator CallLeftToRight(string methodName, Damagable arg)

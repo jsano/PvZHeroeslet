@@ -121,8 +121,10 @@ public class Card : Damagable
 	protected virtual IEnumerator OnThisPlay()
 	{
         GameManager.Instance.DisableHandCards();
+		yield return GameManager.CallLeftToRight("DieIf0", null);
 		yield return GameManager.CallLeftToRight("OnCardPlay", this);
 		GameManager.Instance.EnablePlayableHandCards();
+        GameManager.Instance.waitingOnBlock = false;
 	}
 
 
@@ -208,9 +210,9 @@ public class Card : Damagable
 		return dmg;
     }
     
-    public IEnumerator DieIf0(bool force)
+    public IEnumerator DieIf0()
     {
-        if (HP <= 0 || force)
+        if (HP <= 0)
         {
             yield return GameManager.CallLeftToRight("OnCardDeath", this);
             Destroy(gameObject);
@@ -218,7 +220,13 @@ public class Card : Damagable
         yield return null;
     }
 
-    public override void Heal(int amount, bool raiseCap)
+	public IEnumerator Destroy()
+	{
+		yield return GameManager.CallLeftToRight("OnCardDeath", this);
+		Destroy(gameObject);
+	}
+
+	public override void Heal(int amount, bool raiseCap)
     {
         HP += amount;
         if (raiseCap) maxHP += amount;
