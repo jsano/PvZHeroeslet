@@ -133,11 +133,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 0
-  traits: 
+  _class: 8
+  tribes: 1b000000
   cost: 4
   atk: 3
   HP: 3
+  amphibious: 0
   armor: 0
   strikethrough: 0
   deadly: 0

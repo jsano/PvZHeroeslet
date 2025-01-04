@@ -133,8 +133,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 1
-  _class: 0
-  traits: 
+  _class: 8
+  tribes: 
   cost: 1
   atk: 0
   HP: 0

@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1812251758246606002, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1185492464
+      value: 2609495616
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: HP
@@ -149,11 +149,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 0
   type: 0
-  _class: 0
-  traits: 
+  _class: 2
+  tribes: 0f000000
   cost: 1
   atk: 1
   HP: 1
+  amphibious: 0
   armor: 0
   strikethrough: 0
   deadly: 0

@@ -15,6 +15,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grow-Shroom
       objectReference: {fileID: 0}
+    - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.9725
+      objectReference: {fileID: 0}
+    - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.0375
+      objectReference: {fileID: 0}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -125,16 +133,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 0
   type: 0
-  _class: 0
-  traits: 
+  _class: 2
+  tribes: 13000000
   cost: 3
   atk: 2
   HP: 1
+  amphibious: 0
   armor: 0
   strikethrough: 0
   deadly: 0
   frenzy: 0
   teamUp: 0
   overshoot: 0
+  doubleStrike: 0
   row: 0
   col: 0

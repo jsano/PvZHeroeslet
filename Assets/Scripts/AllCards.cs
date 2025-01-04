@@ -16,16 +16,21 @@ public class AllCards : MonoBehaviour
         else instance = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public static int RandomFromTribe(params Card.Tribe[] tribe)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        List<int> possible = new();
+        for (int i = 0; i < Instance.cards.Length; i++)
+        {
+			foreach (Card.Tribe t in tribe)
+			{
+                if (Instance.cards[i].tribes.Contains(t))
+                {
+                    possible.Add(i);
+                    break;
+                }
+			}
+        }
+        return possible[Random.Range(0, possible.Count)];
     }
 
 }

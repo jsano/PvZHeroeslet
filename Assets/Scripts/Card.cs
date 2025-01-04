@@ -20,35 +20,60 @@ public class Card : Damagable
 
     public enum Class
     {
+        Guardian,
+        Kabloom,
         MegaGrow,
-        Guardian
+        Smarty,
+        Solar,
+        Beastly,
+        Brainy,
+        Crazy,
+        Hearty,
+        Sneaky
     }
 
-    public enum Trait
+    public enum Tribe
     {
+        Animal,
+        Barrel,
+        Bean,
+        Berry,
+        Cactus,
+        Corn,
+        Dancing,
+        Dragon,
+        Flower,
+        Flytrap,
+        Fruit,
+        Gargantuar,
+        Gourmet,
+        History,
+        Imp,
+        Leafy,
+        Mime,
+        Monster,
+        Moss,
+        Mushroom,
+        Mustache,
+        Nut,
+        Party,
         Pea,
-        Nut
+        Pet,
+        Pinecone,
+        Pirate,
+        Professional,
+        Root,
+        Science,
+        Seed,
+        Sports,
+        Squash,
+        Tree
     }
-    /*
-    /// <summary>
-    /// Only applicable to tricks
-    /// </summary>
-    public enum Target
-    {
-        NA,
-        Plants,
-        Zombies,
-        PlantsAndHero,
-        ZombiesAndHero,
-        PlantColumns,
-        ZombieColumns
-    }*/
 
     public Team team;
     public Type type;
-    //public Target target;
     public Class _class;
-    public List<Trait> traits;
+    public List<Tribe> tribes;
 
     public int cost;
     public int atk;
@@ -56,13 +81,19 @@ public class Card : Damagable
     private int maxHP;
 
     public bool amphibious;
+    public bool antihero;
     public int armor;
-    public bool strikethrough;
+    public bool bullseye;
     public bool deadly;
-    public bool frenzy;
-    public bool teamUp;
-    public int overshoot;
     public bool doubleStrike;
+    public bool frenzy;
+    public bool gravestone;
+    public bool hunt;
+    public int overshoot;
+    public int splash;
+    public bool strikethrough;
+    public bool teamUp;
+    public bool untrickable;
 
     [HideInInspector] public int row;
     [HideInInspector] public int col;
