@@ -101,6 +101,7 @@ public class Card : Damagable
     private TextMeshProUGUI atkUI;
     private TextMeshProUGUI hpUI;
     private SpriteRenderer SR;
+    private Sprite baseSprite;
 
     protected bool selecting;
 	protected List<BoxCollider2D> choices = new();
@@ -111,13 +112,23 @@ public class Card : Damagable
     {
 		cam = GameObject.Find("Main Camera").GetComponent<Camera>();
 		SR = GetComponent<SpriteRenderer>();
+        baseSprite = SR.sprite;
         maxHP = HP;
         atkUI = transform.Find("ATK").GetComponent<TextMeshProUGUI>();
         atkUI.text = atk + "";
         hpUI = transform.Find("HP").GetComponent<TextMeshProUGUI>();
         hpUI.text = HP + "";
-        //play animation
-        StartCoroutine(OnThisPlay());
+        if (gravestone)
+        {
+            SR.sprite = AllCards.Instance.gravestoneSprite;
+            atkUI.gameObject.SetActive(false);
+            hpUI.gameObject.SetActive(false);
+        }
+		else
+		{
+            //play animation
+		    StartCoroutine(OnThisPlay());
+		}
     }
 
 	// Update is called once per frame
@@ -146,7 +157,7 @@ public class Card : Damagable
     }
 
 	/// <summary>
-	/// Called right when this card is played. Base method calls OnCardPlay left to right
+	/// Called right when this card is played. Base method calls OnCardPlay left to right and then enables handcards
 	/// </summary>
 	/// <param name="played"> The card that was played </param>
 	protected virtual IEnumerator OnThisPlay()
@@ -212,7 +223,7 @@ public class Card : Damagable
 
     public IEnumerator Attack()
     {
-        if (atk <= 0) yield break;
+        if (atk <= 0 || gravestone) yield break;
         Damagable target = null;
         Tile[,] opponentTiles = team == Team.Plant ? Tile.zombieTiles : Tile.plantTiles;
         if (opponentTiles[1, col].planted != null) target = opponentTiles[1, col].planted;
@@ -287,6 +298,16 @@ public class Card : Damagable
     public virtual bool IsValidTarget(BoxCollider2D bc)
     {
         return true;
+    }
+
+    public IEnumerator Reveal()
+    {
+        gravestone = false;
+		SR.sprite = baseSprite;
+		atkUI.gameObject.SetActive(true);
+		hpUI.gameObject.SetActive(true);
+        //play animation
+	    yield return OnThisPlay();
     }
 
 }

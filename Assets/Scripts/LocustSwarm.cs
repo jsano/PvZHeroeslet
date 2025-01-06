@@ -10,7 +10,6 @@ public class LocustSwarm : Card
 		GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
 		yield return Tile.plantTiles[row, col].planted.Destroy();
-		GameManager.Instance.EnablePlayableHandCards();
 		yield return base.OnThisPlay();
 	}
 

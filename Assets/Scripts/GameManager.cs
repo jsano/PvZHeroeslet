@@ -88,7 +88,7 @@ public class GameManager : NetworkBehaviour
             t.GetComponent<Tile>().AssignSide();
 		}
 
-        int[] pcards = new int[] { 6, 7, 8, 9, 10 };
+        int[] pcards = new int[] { 0, 1, 2, 3, 4 };
         int[] zcards = new int[] { 16, 17, 18, 19, 20 };
 		for (int i = 0; i < pcards.Length; i++)
 		{
@@ -117,6 +117,11 @@ public class GameManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     public void EndRpc()
     {
+        StartCoroutine(EndRpcHelper());
+    }
+
+    private IEnumerator EndRpcHelper()
+    {
         string[] pnames = new string[] { "", "Zombies\nPlay", "Plants\nPlay", "Zombie\nTricks", "FIGHT!" };
         phase += 1;
 
@@ -126,16 +131,17 @@ public class GameManager : NetworkBehaviour
         goTween = LeanTween.scale(phaseText, Vector3.one, 0.5f).setEaseOutBack().setOnComplete(() => LeanTween.scale(phaseText, Vector3.zero, 0.5f).setEaseInBack().setDelay(1));
 
         DisableHandCards();
-        if (team == Team.Plant)
+        if (phase == 3)
         {
-            if (phase == 2) go.interactable = true;
-            else go.interactable = false;
-        }
-        else
-        {
-            if (phase == 1 || phase == 3) go.interactable = true;
-            else go.interactable = false;
-        }
+			for (int col = 0; col < 5; col++)
+			{
+				Card c = Tile.zombieTiles[0, col].planted;
+				if (c != null && c.gravestone)
+				{
+					yield return c.Reveal();
+				}
+			}
+		}
         EnablePlayableHandCards();
 
         if (phase == 4) StartCoroutine(Combat());
@@ -326,7 +332,8 @@ public class GameManager : NetworkBehaviour
 	public void DisableHandCards()
     {
         foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = false;
-    }
+		go.interactable = false;
+	}
 
     public void EnablePlayableHandCards()
     {
@@ -362,6 +369,17 @@ public class GameManager : NetworkBehaviour
                     else t.GetComponent<HandCard>().interactable = true;
 				}
 			}
+		}
+
+		if (team == Team.Plant)
+		{
+			if (phase == 2) go.interactable = true;
+			else go.interactable = false;
+		}
+		else
+		{
+			if (phase == 1 || phase == 3) go.interactable = true;
+			else go.interactable = false;
 		}
 	}
 

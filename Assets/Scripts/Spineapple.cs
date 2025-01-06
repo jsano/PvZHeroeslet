@@ -20,7 +20,6 @@ public class Spineapple : Card
 				}
 			}
 		}
-		GameManager.Instance.EnablePlayableHandCards();
 		yield return base.OnThisPlay();
 	}
 

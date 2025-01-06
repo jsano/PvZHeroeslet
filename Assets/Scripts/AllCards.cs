@@ -9,8 +9,9 @@ public class AllCards : MonoBehaviour
     public static AllCards Instance { get { return instance; } }
 
     public Card[] cards;
+	public Sprite gravestoneSprite;
 
-    void Awake()
+	void Awake()
     {
         if (instance != null && instance != this) Destroy(gameObject);
         else instance = this;

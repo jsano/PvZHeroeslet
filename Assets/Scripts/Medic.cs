@@ -9,7 +9,6 @@ public class Medic : Card
 	{
 		if (GameManager.Instance.team == team)
 		{
-			GameManager.Instance.go.interactable = false;
 			GameManager.Instance.DisableHandCards();
 			for (int row = 0; row < 2; row++)
 			{
@@ -23,7 +22,11 @@ public class Medic : Card
 			}
 			if (GameManager.Instance.zombieHero.isDamaged()) choices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
 			if (choices.Count == 1) yield return OnSelection(choices[0]);
-			if (choices.Count >= 2) selecting = true;			
+			if (choices.Count >= 2)
+			{
+				selecting = true;
+				yield return new WaitUntil(() => selecting == false);
+			}
 		}
 		yield return base.OnThisPlay();
 	}
@@ -34,8 +37,6 @@ public class Medic : Card
 		Card c = bc.GetComponent<Card>();
 		if (c == null) GameManager.Instance.HealRpc(team, -1, -1, 4, false);
 		else GameManager.Instance.HealRpc(team, c.row, c.col, 4, false);
-		GameManager.Instance.go.interactable = true;
-		GameManager.Instance.EnablePlayableHandCards();
 	}
 
 }

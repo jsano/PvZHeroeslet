@@ -65,5 +65,6 @@ MonoBehaviour:
   - {fileID: 6377264207035512179, guid: 09cd49d3e563beb43b7ce27ddebbae34, type: 3}
   - {fileID: 6843723116940597701, guid: a31794d197dba8d4fa5c70db62977c33, type: 3}
   - {fileID: 5374134217801927462, guid: fb3c50b0d3e279541974cc49075ce765, type: 3}
+  - {fileID: -5391783725939641013, guid: 4bb6cc2b8b14e9b4c8050bf5617052df, type: 3}
   - {fileID: 6377264207035512179, guid: 0d163c56bb2166044b5ad4d4e2258282, type: 3}
-  - {fileID: -6842920400365230131, guid: e916ad80a524f2d46807f8fceb666cbc, type: 3}
+  gravestoneSprite: {fileID: 21300000, guid: 978d1c81078a4b1439fb28657a2dd034, type: 3}

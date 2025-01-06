@@ -7,11 +7,9 @@ public class Fertilize : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		//GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
 		Tile.plantTiles[row, col].planted.RaiseAttack(3);
 		Tile.plantTiles[row, col].planted.Heal(3, true);
-		//GameManager.Instance.EnablePlayableHandCards();
 		yield return base.OnThisPlay();
 	}
 
