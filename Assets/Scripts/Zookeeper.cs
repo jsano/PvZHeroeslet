@@ -1,0 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Zookeeper : Card
+{
+
+	protected override IEnumerator OnCardPlay(Card played)
+	{
+		if (played != this)
+		{
+			if (played.tribes.Contains(Tribe.Pet))
+			{
+				for (int col = 0; col < 5; col++)
+				{
+					Card c = Tile.zombieTiles[0, col].planted;
+					if (c != null && c.tribes.Contains(Tribe.Pet))
+					{
+						c.RaiseAttack(1);
+					}
+				}
+			}
+		}
+		yield return null;
+	}
+
+}
