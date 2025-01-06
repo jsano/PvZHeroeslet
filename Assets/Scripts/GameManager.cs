@@ -33,6 +33,7 @@ public class GameManager : NetworkBehaviour
     private int turn = 1;
     private int phase; // 0 = prep, 1 = zombie, 2 = plant, 3 = zombie trick, 4 = fight
     private int remaining = 1;
+    private int opponentRemaining = 1;
     public Team team;
 
     public Button go;
@@ -41,8 +42,9 @@ public class GameManager : NetworkBehaviour
     private Transform handCards;
     public GameObject handcardPrefab;
     public TextMeshProUGUI remainingText;
+	public TextMeshProUGUI opponentRemainingText;
 
-    [HideInInspector] public Hero plantHero;
+	[HideInInspector] public Hero plantHero;
     [HideInInspector] public Hero zombieHero;
 	[HideInInspector] public bool waitingOnBlock = false;
 	public override void OnNetworkSpawn()
@@ -88,8 +90,8 @@ public class GameManager : NetworkBehaviour
             t.GetComponent<Tile>().AssignSide();
 		}
 
-        int[] pcards = new int[] { 0, 1, 2, 3, 4 };
-        int[] zcards = new int[] { 16, 17, 18, 19, 20 };
+        int[] pcards = new int[] { 0, 1, 2, 3, 4, 5 };
+        int[] zcards = new int[] { 16, 17, 18, 19, 20, 21 };
 		for (int i = 0; i < pcards.Length; i++)
 		{
 			GameObject c = Instantiate(handcardPrefab, handCards);
@@ -138,6 +140,8 @@ public class GameManager : NetworkBehaviour
 				Card c = Tile.zombieTiles[0, col].planted;
 				if (c != null && c.gravestone)
 				{
+					opponentRemaining -= c.playedCost;
+					opponentRemainingText.text = opponentRemaining + "";
 					yield return c.Reveal();
 				}
 			}
@@ -202,8 +206,10 @@ public class GameManager : NetworkBehaviour
 
         turn += 1;
         remaining = turn;
-        UpdateBrains(0);
-        phase = 0;
+		opponentRemaining = turn;
+		UpdateBrains(0);
+		opponentRemainingText.text = opponentRemaining + "";
+		phase = 0;
         //draw card
         yield return CallLeftToRight("OnTurnStart", null);
 		if (IsServer) EndRpc();
@@ -231,7 +237,7 @@ public class GameManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     private void PositionCardRpc(HandCard.FinalStats fs, int row, int col)
     {
-        Card card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
+		Card card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
         card.row = row;
         card.col = col;
         card.atk = fs.atk;
@@ -261,6 +267,19 @@ public class GameManager : NetworkBehaviour
 			}
 			to.planted = card;
 		}
+
+        if (card.team != team)
+        {
+            if (!card.gravestone)
+            {
+				opponentRemaining -= fs.cost;
+				opponentRemainingText.text = opponentRemaining + "";
+			} else card.playedCost = fs.cost;
+        }
+        else
+        {
+            UpdateBrains(-fs.cost);
+        }
     }
 
 	[Rpc(SendTo.Server)]
@@ -296,6 +315,16 @@ public class GameManager : NetworkBehaviour
 				Tile to = Tile.plantTiles[row, col];
 			    card.transform.position = to.transform.position;
             }
+		}
+
+		if (card.team != team)
+		{
+			opponentRemaining -= fs.cost;
+			opponentRemainingText.text = opponentRemaining + "";
+		}
+		else
+		{
+			UpdateBrains(-fs.cost);
 		}
 	}
 
@@ -362,11 +391,11 @@ public class GameManager : NetworkBehaviour
             {
 				foreach (Transform t in handCards)
 				{
-                    if (AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type == Card.Type.Unit)
+                    if (AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type == Card.Type.Trick)
                     {
-						if (t.GetComponent<HandCard>().GetCost() <= remaining) t.GetComponent<HandCard>().interactable = false;
+						if (t.GetComponent<HandCard>().GetCost() <= remaining) t.GetComponent<HandCard>().interactable = true;
                     }
-                    else t.GetComponent<HandCard>().interactable = true;
+                    else t.GetComponent<HandCard>().interactable = false;
 				}
 			}
 		}

@@ -100,14 +100,12 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                 if (orig.type == Card.Type.Unit)
                 {
                     GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col);
-					GameManager.Instance.UpdateBrains(-finalStats.cost);
 					Destroy(gameObject);
 				}
                 else if (orig.IsValidTarget(bc))
                 {
                     if (t == null) GameManager.Instance.PlayTrickRpc(finalStats, -1, -1, t.GetComponent<Hero>().team == Card.Team.Plant);
                     else GameManager.Instance.PlayTrickRpc(finalStats, t.row, t.col, t.isPlantTile);
-                    GameManager.Instance.UpdateBrains(-finalStats.cost);
                     Destroy(gameObject);
                 }
             }

@@ -34,4 +34,17 @@ public class AllCards : MonoBehaviour
         return possible[Random.Range(0, possible.Count)];
     }
 
+	public static int RandomFromCost(int cost, Card.Team team)
+	{
+		List<int> possible = new();
+		for (int i = 0; i < Instance.cards.Length; i++)
+		{
+			if (Instance.cards[i].team == team && Instance.cards[i].cost == cost)
+			{
+				possible.Add(i);
+			}
+		}
+		return possible[Random.Range(0, possible.Count)];
+	}
+
 }

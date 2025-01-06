@@ -97,6 +97,7 @@ public class Card : Damagable
 
     [HideInInspector] public int row;
     [HideInInspector] public int col;
+    [HideInInspector] public int playedCost;
 
     private TextMeshProUGUI atkUI;
     private TextMeshProUGUI hpUI;
@@ -246,6 +247,7 @@ public class Card : Damagable
 
     public override int ReceiveDamage(int dmg, bool bullseye = false)
     {//Debug.Log(row + " " + col + " got hit for " + dmg);
+        if (gravestone) return 0;
         dmg -= armor;
         HP -= dmg;
         hpUI.text = Mathf.Max(0, HP) + "";
@@ -271,6 +273,7 @@ public class Card : Damagable
 
 	public override void Heal(int amount, bool raiseCap)
     {
+        if (gravestone) return;
         HP += amount;
         if (raiseCap) maxHP += amount;
         else HP = Mathf.Min(maxHP, HP);
@@ -279,6 +282,7 @@ public class Card : Damagable
 
 	public void RaiseAttack(int amount)
 	{
+        if (gravestone) return;
 		atk += amount;
 		atkUI.text = atk + "";
 	}
