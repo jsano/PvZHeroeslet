@@ -222,7 +222,7 @@ public class Card : Damagable
             if (team == Team.Plant) target = GameManager.Instance.zombieHero;
             else target = GameManager.Instance.plantHero;
         }
-		int dealt = target.ReceiveDamage(atk);
+		int dealt = target.ReceiveDamage(atk, bullseye);
 		// animation
 		yield return new WaitForSeconds(1);
         //
@@ -233,7 +233,7 @@ public class Card : Damagable
         }
 	}
 
-    public override int ReceiveDamage(int dmg)
+    public override int ReceiveDamage(int dmg, bool bullseye = false)
     {//Debug.Log(row + " " + col + " got hit for " + dmg);
         dmg -= armor;
         HP -= dmg;

@@ -30,12 +30,15 @@ public class Hero : Damagable
         
     }
 
-	public override int ReceiveDamage(int dmg)
+	public override int ReceiveDamage(int dmg, bool bullseye = false)
 	{
-		if (dmg == 1) block += 1;
-		else if (dmg <= 3) block += 2;
-		else block += 3;
-		blockMeter.fillAmount = block/8f;
+		if (!bullseye)
+		{
+			if (dmg == 1) block += 1;
+			else if (dmg <= 3) block += 2;
+			else block += 3;
+			blockMeter.fillAmount = block/8f;
+		}
 		if (block >= 8)
 		{
 			blocked = true;

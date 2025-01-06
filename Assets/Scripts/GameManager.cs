@@ -88,13 +88,14 @@ public class GameManager : NetworkBehaviour
             t.GetComponent<Tile>().AssignSide();
 		}
 
-		int num = AllCards.Instance.cards.Length / 2;
-		for (int i = 0; i < num; i++)
+        int[] pcards = new int[] { 6, 7, 8, 9, 10 };
+        int[] zcards = new int[] { 11, 12, 13, 14, 15 };
+		for (int i = 0; i < pcards.Length; i++)
 		{
 			GameObject c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
-			c.transform.localPosition = new Vector2(-(num-1)/2 + i, 0);
-			c.GetComponent<HandCard>().ID = (team == Team.Zombie ? num + i : i);
+			c.transform.localPosition = new Vector2(-(pcards.Length-1)/2 + i, 0);
+			c.GetComponent<HandCard>().ID = (team == Team.Zombie ? zcards[i] : pcards[i]);
             c.SetActive(true);
 		}
 		if (IsServer) return;
