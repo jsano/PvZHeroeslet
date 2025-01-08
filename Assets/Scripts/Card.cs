@@ -94,6 +94,7 @@ public class Card : Damagable
     public bool strikethrough;
     public bool teamUp;
     public bool untrickable;
+    public bool nextDoor;
 
     [HideInInspector] public int row;
     [HideInInspector] public int col;
@@ -107,6 +108,8 @@ public class Card : Damagable
     protected bool selecting;
 	protected List<BoxCollider2D> choices = new();
 	private Camera cam;
+
+    private bool frozen;
 
 	// Start is called before the first frame update
 	void Start()
@@ -158,7 +161,7 @@ public class Card : Damagable
     }
 
 	/// <summary>
-	/// Called right when this card is played. Base method calls OnCardPlay left to right and then enables handcards
+	/// Called right when this card is played. Base method checks for deaths, calls OnCardPlay left to right, and then enables handcards
 	/// </summary>
 	/// <param name="played"> The card that was played </param>
 	protected virtual IEnumerator OnThisPlay()
@@ -217,32 +220,80 @@ public class Card : Damagable
 		yield return null;
 	}
 
+	/// <summary>
+	/// Called whenever a card on the field gets frozen
+	/// </summary>
+	/// <param name="frozen"> The card that froze </param>
+	protected virtual IEnumerator OnCardFreeze(Card frozen)
+	{
+		yield return null;
+	}
+
 	protected virtual IEnumerator OnTurnStart()
     {
         yield return null;
     }
 
-    public IEnumerator Attack()
+    public virtual IEnumerator Attack()
     {
+        if (frozen)
+        {
+            yield return new WaitForSeconds(1);
+            frozen = false;
+            SR.material.color = Color.white;
+            yield break;
+        }
         if (atk <= 0 || gravestone) yield break;
-        Damagable target = null;
-        Tile[,] opponentTiles = team == Team.Plant ? Tile.zombieTiles : Tile.plantTiles;
-        if (opponentTiles[1, col].planted != null) target = opponentTiles[1, col].planted;
-        else if (opponentTiles[0, col].planted != null) target = opponentTiles[0, col].planted;
-        if (target == null) 
+        if (!nextDoor)
         {
-            if (team == Team.Plant) target = GameManager.Instance.zombieHero;
-            else target = GameManager.Instance.plantHero;
-        }
-		int dealt = target.ReceiveDamage(atk, bullseye);
-		// animation
-		yield return new WaitForSeconds(1);
-        //
-        if (dealt > 0)
-        {
+            Damagable target = null;
+            Tile[,] opponentTiles = team == Team.Plant ? Tile.zombieTiles : Tile.plantTiles;
+            if (opponentTiles[1, col].planted != null) target = opponentTiles[1, col].planted;
+            else if (opponentTiles[0, col].planted != null) target = opponentTiles[0, col].planted;
+            if (target == null) 
+            {
+                if (team == Team.Plant) target = GameManager.Instance.zombieHero;
+                else target = GameManager.Instance.plantHero;
+            }
+		    int dealt = target.ReceiveDamage(atk, bullseye);
+		    // animation
+		    yield return new WaitForSeconds(1);
+            //
             yield return GameManager.CallLeftToRight("OnCardAttack", this);
-		    yield return GameManager.CallLeftToRight("OnCardHurt", target);
+            if (dealt > 0)
+            {    
+		        yield return GameManager.CallLeftToRight("OnCardHurt", target);
+            }
         }
+        else
+        {
+			Damagable[] target = new Damagable[]{ null, null, null };
+			Tile[,] opponentTiles = team == Team.Plant ? Tile.zombieTiles : Tile.plantTiles;
+            for (int i = -1; i <= 1; i++)
+            {
+                if (col + i < 0 || col + i > 4) continue;
+                if (opponentTiles[1, col+i].planted != null) target[i+1] = opponentTiles[1, col+i].planted;
+			    else if (opponentTiles[0, col+i].planted != null) target[i+1] = opponentTiles[0, col+i].planted;
+			    if (target[i+1] == null)
+			    {
+				    if (team == Team.Plant) target[i+1] = GameManager.Instance.zombieHero;
+				    else target[i+1] = GameManager.Instance.plantHero;
+			    }
+            }
+            int[] dealt = new int[3];
+            for (int i = 0; i < 3; i++) if (target[i] != null) dealt[i] = target[i].ReceiveDamage(atk, bullseye);
+			// animation
+			yield return new WaitForSeconds(1);
+			//
+            yield return GameManager.CallLeftToRight("OnCardAttack", this);
+			for (int i = 0; i < 3; i++)
+            {
+                if (dealt[i] > 0)
+			    {   
+				    yield return GameManager.CallLeftToRight("OnCardHurt", target[i]);
+			    }
+            }
+		}
 	}
 
     public override int ReceiveDamage(int dmg, bool bullseye = false)
@@ -312,6 +363,13 @@ public class Card : Damagable
 		hpUI.gameObject.SetActive(true);
         //play animation
 	    yield return OnThisPlay();
+    }
+
+    public IEnumerator Freeze()
+    {
+        frozen = true;
+        SR.material.color = Color.blue;
+        yield return GameManager.CallLeftToRight("OnCardFreeze", this);
     }
 
 }

@@ -1,0 +1,20 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Snowdrop : Card
+{
+
+	protected override IEnumerator OnCardFreeze(Card frozen)
+	{
+		if (frozen.team == Team.Zombie)
+		{
+			yield return new WaitForSeconds(1);
+			RaiseAttack(2);
+			Heal(2, true);
+		}
+		yield return null;
+	}
+
+}
+
