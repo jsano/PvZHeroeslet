@@ -90,7 +90,7 @@ public class GameManager : NetworkBehaviour
             t.GetComponent<Tile>().AssignSide();
 		}
 
-        int[] pcards = new int[] { 0, 1, 2, 3, 4, 5 };
+        int[] pcards = new int[] { 11, 12, 13, 14, 15, 5 };
         int[] zcards = new int[] { 16, 17, 18, 19, 20, 21 };
 		for (int i = 0; i < pcards.Length; i++)
 		{

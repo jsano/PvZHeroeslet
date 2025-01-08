@@ -104,7 +104,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 				}
                 else if (orig.IsValidTarget(bc))
                 {
-                    if (t == null) GameManager.Instance.PlayTrickRpc(finalStats, -1, -1, t.GetComponent<Hero>().team == Card.Team.Plant);
+                    if (t == null) GameManager.Instance.PlayTrickRpc(finalStats, -1, -1, bc.GetComponent<Hero>().team == Card.Team.Plant);
                     else GameManager.Instance.PlayTrickRpc(finalStats, t.row, t.col, t.isPlantTile);
                     Destroy(gameObject);
                 }
