@@ -38,6 +38,19 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 	}
     private FinalStats finalStats;
 
+    public static FinalStats MakeDefaultFS(int id)
+    {
+		Card c = AllCards.Instance.cards[id];
+		return new FinalStats()
+		{
+			hp = c.HP,
+			atk = c.atk,
+			abilities = "",
+			ID = id,
+			cost = c.cost,
+		};
+	}
+
     public void OnPointerDown(PointerEventData eventData)
     {
         if (!interactable) return;

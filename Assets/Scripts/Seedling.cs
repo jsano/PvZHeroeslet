@@ -11,15 +11,7 @@ public class Seedling : Card
 		if (GameManager.Instance.team == team)
 		{
 			int newCard = AllCards.RandomFromCost(Team.Plant, 1, 0, 1, 2, 3, 4, 5, 6);
-			Card c = AllCards.Instance.cards[newCard];
-			GameManager.Instance.PlayCardRpc(new HandCard.FinalStats()
-			{
-				hp = c.HP,
-				atk = c.atk,
-				abilities = "",
-				ID = newCard,
-				cost = c.cost,
-			}, row, col);
+			GameManager.Instance.PlayCardRpc(HandCard.MakeDefaultFS(newCard), row, col, true);
 		}
 		Destroy(gameObject);
 	}

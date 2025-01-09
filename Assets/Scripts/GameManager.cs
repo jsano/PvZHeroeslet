@@ -90,8 +90,8 @@ public class GameManager : NetworkBehaviour
             t.GetComponent<Tile>().AssignSide();
 		}
 
-        int[] pcards = new int[] { 21, 17, 18, 19, 20 };
-        int[] zcards = new int[] { 26, 27, 28, 29, 30 };
+        int[] pcards = new int[] { 15, 17, 18, 19, 21 };
+        int[] zcards = new int[] { 26, 37, 38, 39, 40 };
 		for (int i = 0; i < pcards.Length; i++)
 		{
 			GameObject c = Instantiate(handcardPrefab, handCards);
@@ -175,7 +175,6 @@ public class GameManager : NetworkBehaviour
 				    c.transform.localPosition = new Vector2(0, 3);
 				    c.GetComponent<HandCard>().ID = 10; //temp
 					c.GetComponent<HandCard>().interactable = true;
-
 					c.SetActive(true);
                 }
 				yield return new WaitUntil(() => waitingOnBlock == false);
@@ -227,15 +226,15 @@ public class GameManager : NetworkBehaviour
 	}
 
     [Rpc(SendTo.Server)]
-    public void PlayCardRpc(HandCard.FinalStats fs, int row, int col)
+    public void PlayCardRpc(HandCard.FinalStats fs, int row, int col, bool free=false)
     {
         //if (team == Team.Plant) plants[row + 2*col] = ID;
         //else zombies[row + 2*col] = ID;
-        PositionCardRpc(fs, row, col);
+        PositionCardRpc(fs, row, col, free);
     }
 
     [Rpc(SendTo.ClientsAndHost)]
-    private void PositionCardRpc(HandCard.FinalStats fs, int row, int col)
+    private void PositionCardRpc(HandCard.FinalStats fs, int row, int col, bool free=false)
     {
 		Card card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
         card.row = row;
@@ -270,15 +269,18 @@ public class GameManager : NetworkBehaviour
 
         if (card.team != team)
         {
-            if (!card.gravestone)
-            {
-				opponentRemaining -= fs.cost;
-				opponentRemainingText.text = opponentRemaining + "";
-			} else card.playedCost = fs.cost;
+			if (!free)
+			{
+				if (!card.gravestone)
+				{
+					opponentRemaining -= fs.cost;
+					opponentRemainingText.text = opponentRemaining + "";
+				} else card.playedCost = fs.cost;
+			}
         }
         else
         {
-            UpdateBrains(-fs.cost);
+            if (!free) UpdateBrains(-fs.cost);
         }
     }
 
