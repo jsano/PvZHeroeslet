@@ -6,6 +6,7 @@ public class BerryBlast : Card
 {
 	protected override IEnumerator OnThisPlay()
 	{
+		GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
 		if (row == -1 && col == -1) GameManager.Instance.zombieHero.ReceiveDamage(3);
 		else Tile.zombieTiles[row, col].planted.ReceiveDamage(3);

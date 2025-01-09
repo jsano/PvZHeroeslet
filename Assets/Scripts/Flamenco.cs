@@ -7,6 +7,7 @@ public class Flamenco : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
+		GameManager.Instance.DisableHandCards();
 		int dmg = 0;
 		for (int i = 0; i < 5; i++)
 		{

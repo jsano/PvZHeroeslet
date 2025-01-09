@@ -81,7 +81,8 @@ public class Card : Damagable
     private int maxHP;
 
     public bool amphibious;
-    public bool antihero;
+    public int antihero;
+    private bool AHactive;
     public int armor;
     public bool bullseye;
     public bool deadly;
@@ -169,6 +170,7 @@ public class Card : Damagable
         GameManager.Instance.DisableHandCards();
         yield return GameManager.Instance.CheckDeaths();
         yield return GameManager.CallLeftToRight("OnCardPlay", this);
+        yield return GameManager.Instance.HandleHeroBlocks();
 		GameManager.Instance.EnablePlayableHandCards();
         GameManager.Instance.waitingOnBlock = false;
         if (type == Type.Trick) Destroy(gameObject);
@@ -181,6 +183,14 @@ public class Card : Damagable
 	/// <param name="played"> The card that was played </param>
 	protected virtual IEnumerator OnCardPlay(Card played)
     {
+        if (antihero > 0)
+        {
+            if (AHactive && GetTarget(col).GetComponent<Card>() != null)
+            {
+                AHactive = false;
+                atk -= antihero;
+            }
+		}
         yield return null;
     }
 
@@ -208,7 +218,15 @@ public class Card : Damagable
 	/// <param name="died"> The card that died </param>
 	protected virtual IEnumerator OnCardDeath(Card died)
     {
-        yield return null;
+		if (antihero > 0)
+		{
+			if (!AHactive && GetTarget(col).GetComponent<Hero>() != null)
+			{
+				AHactive = true;
+				atk += antihero;
+			}
+		}
+		yield return null;
     }
 
 	/// <summary>
@@ -217,6 +235,19 @@ public class Card : Damagable
 	/// <param name="moved"> The card that moved </param>
 	protected virtual IEnumerator OnCardMoved(Card moved)
 	{
+		if (antihero > 0)
+		{
+			if (AHactive && GetTarget(col).GetComponent<Card>() != null)
+			{
+				AHactive = false;
+				atk -= antihero;
+			}
+			if (!AHactive && GetTarget(col).GetComponent<Hero>() != null)
+			{
+				AHactive = true;
+				atk += antihero;
+			}
+		}
 		yield return null;
 	}
 
@@ -246,15 +277,7 @@ public class Card : Damagable
         if (atk <= 0 || gravestone) yield break;
         if (!nextDoor)
         {
-            Damagable target = null;
-            Tile[,] opponentTiles = team == Team.Plant ? Tile.zombieTiles : Tile.plantTiles;
-            if (opponentTiles[1, col].planted != null) target = opponentTiles[1, col].planted;
-            else if (opponentTiles[0, col].planted != null) target = opponentTiles[0, col].planted;
-            if (target == null) 
-            {
-                if (team == Team.Plant) target = GameManager.Instance.zombieHero;
-                else target = GameManager.Instance.plantHero;
-            }
+            Damagable target = GetTarget(col);
 		    int dealt = target.ReceiveDamage(atk, bullseye);
 		    // animation
 		    yield return new WaitForSeconds(1);
@@ -268,17 +291,10 @@ public class Card : Damagable
         else
         {
 			Damagable[] target = new Damagable[]{ null, null, null };
-			Tile[,] opponentTiles = team == Team.Plant ? Tile.zombieTiles : Tile.plantTiles;
             for (int i = -1; i <= 1; i++)
             {
                 if (col + i < 0 || col + i > 4) continue;
-                if (opponentTiles[1, col+i].planted != null) target[i+1] = opponentTiles[1, col+i].planted;
-			    else if (opponentTiles[0, col+i].planted != null) target[i+1] = opponentTiles[0, col+i].planted;
-			    if (target[i+1] == null)
-			    {
-				    if (team == Team.Plant) target[i+1] = GameManager.Instance.zombieHero;
-				    else target[i+1] = GameManager.Instance.plantHero;
-			    }
+                target[i+1] = GetTarget(col + i);
             }
             int[] dealt = new int[3];
             for (int i = 0; i < 3; i++) if (target[i] != null) dealt[i] = target[i].ReceiveDamage(atk, bullseye);
@@ -371,5 +387,14 @@ public class Card : Damagable
         SR.material.color = Color.blue;
         yield return GameManager.CallLeftToRight("OnCardFreeze", this);
     }
+
+    private Damagable GetTarget(int col)
+    {
+		Tile[,] opponentTiles = team == Team.Plant ? Tile.zombieTiles : Tile.plantTiles;
+		if (opponentTiles[1, col].planted != null) return opponentTiles[1, col].planted;
+		if (opponentTiles[0, col].planted != null) return opponentTiles[0, col].planted;
+		if (team == Team.Plant) return GameManager.Instance.zombieHero;
+        return GameManager.Instance.plantHero;
+	}
 
 }

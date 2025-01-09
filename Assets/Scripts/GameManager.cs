@@ -164,38 +164,7 @@ public class GameManager : NetworkBehaviour
             
             yield return CheckDeaths();
 
-            if (zombieHero.blocked)
-            {
-                zombieHero.blocked = false;
-                waitingOnBlock = true;
-                if (team == Team.Zombie)
-                {
-                    GameObject c = Instantiate(handcardPrefab, handCards);
-				    c.SetActive(false);
-				    c.transform.localPosition = new Vector2(0, 3);
-				    c.GetComponent<HandCard>().ID = 10; //temp
-					c.GetComponent<HandCard>().interactable = true;
-					c.SetActive(true);
-                }
-				yield return new WaitUntil(() => waitingOnBlock == false);
-            }
-			yield return CheckDeaths();
-			if (plantHero.blocked)
-            {
-                plantHero.blocked = false;
-				waitingOnBlock = true;
-				if (team == Team.Plant)
-				{
-					GameObject c = Instantiate(handcardPrefab, handCards);
-					c.SetActive(false);
-					c.transform.localPosition = new Vector2(0, 3);
-					c.GetComponent<HandCard>().ID = 5; //temp
-					c.GetComponent<HandCard>().interactable = true;
-					c.SetActive(true);
-				}
-				yield return new WaitUntil(() => waitingOnBlock == false);
-            }
-			yield return CheckDeaths();
+            yield return HandleHeroBlocks();
 
 			if (Tile.zombieTiles[0, col].planted != null && Tile.zombieTiles[0, col].planted.doubleStrike) yield return Tile.zombieTiles[0, col].planted.Attack();
 
@@ -442,6 +411,42 @@ public class GameManager : NetworkBehaviour
             if (tteam == Team.Plant) Tile.plantTiles[row, col].planted.Heal(amount, raiseCap);
 			else Tile.zombieTiles[row, col].planted.Heal(amount, raiseCap);
         }
+	}
+
+	public IEnumerator HandleHeroBlocks()
+	{
+		if (zombieHero.blocked)
+		{
+			zombieHero.blocked = false;
+			waitingOnBlock = true;
+			if (team == Team.Zombie)
+			{
+				GameObject c = Instantiate(handcardPrefab, handCards);
+				c.SetActive(false);
+				c.transform.localPosition = new Vector2(0, 3);
+				c.GetComponent<HandCard>().ID = 10; //temp
+				c.GetComponent<HandCard>().interactable = true;
+				c.SetActive(true);
+			}
+			yield return new WaitUntil(() => waitingOnBlock == false);
+		}
+		yield return CheckDeaths();
+		if (plantHero.blocked)
+		{
+			plantHero.blocked = false;
+			waitingOnBlock = true;
+			if (team == Team.Plant)
+			{
+				GameObject c = Instantiate(handcardPrefab, handCards);
+				c.SetActive(false);
+				c.transform.localPosition = new Vector2(0, 3);
+				c.GetComponent<HandCard>().ID = 5; //temp
+				c.GetComponent<HandCard>().interactable = true;
+				c.SetActive(true);
+			}
+			yield return new WaitUntil(() => waitingOnBlock == false);
+		}
+		yield return CheckDeaths();
 	}
 
 }
