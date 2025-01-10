@@ -96,7 +96,7 @@ public class GameManager : NetworkBehaviour
 		{
 			GameObject c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
-			c.transform.localPosition = new Vector2(-(pcards.Length-1)/2 + i, 0);
+			c.transform.localPosition = new Vector2(1.2f * (-(pcards.Length-1)/2 + i), 0);
 			c.GetComponent<HandCard>().ID = (team == Team.Zombie ? zcards[i] : pcards[i]);
             c.SetActive(true);
 		}

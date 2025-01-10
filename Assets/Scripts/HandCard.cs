@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,8 +20,10 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
 	[HideInInspector] public bool interactable = false;
     public SpriteRenderer image;
+	public TextMeshProUGUI atkUI;
+	public TextMeshProUGUI hpUI;
 
-    [Serializable]
+	[Serializable]
     public struct FinalStats : INetworkSerializable
     {
         public int atk;
@@ -159,7 +162,18 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     {
         if (!interactable) image.material.color = Color.gray;
         else image.material.color = Color.white;
-    }
+
+        if (orig.type == Card.Type.Trick)
+        {
+			atkUI.text = "";
+			hpUI.text = "";
+        }
+        else
+        {
+            atkUI.text = finalStats.atk + "";
+		    hpUI.text = finalStats.hp + "";
+        }
+	}
 
     public int GetCost()
     {
