@@ -140,5 +140,8 @@ MonoBehaviour:
   strikethrough: 0
   teamUp: 0
   untrickable: 0
+  nextDoor: 0
+  description: 'When played: Plants with no attack get +2 attack'
   row: 0
   col: 0
+  playedCost: 0

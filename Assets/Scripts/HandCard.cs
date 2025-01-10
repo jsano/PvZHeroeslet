@@ -15,6 +15,8 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     private Tile[,] tileObjects;
 	private List<BoxCollider2D> validChoices = new();
 
+    private CardInfo cardInfo;
+
 	[HideInInspector] public bool interactable = false;
     public SpriteRenderer image;
 
@@ -55,7 +57,6 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     {
         if (!interactable) return;
         transform.localScale = Vector3.one * 1.2f;
-        startPos = transform.position;
 
         validChoices.Clear();
         if (orig.type == Card.Type.Trick)
@@ -102,6 +103,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (Vector3.Distance(transform.position, startPos) < 0.1) StartCoroutine(cardInfo.Show(AllCards.Instance.cards[ID]));
         if (!interactable) return;
         transform.localScale = Vector3.one;
         foreach (BoxCollider2D bc in validChoices)
@@ -130,7 +132,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             interactable = false;
             GameManager.Instance.HoldTrickRpc();
         }
-        transform.position = startPos;
+		transform.position = startPos;
     }
 
     // Start is called before the first frame update
@@ -145,16 +147,12 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 		finalStats.ID = ID;
         finalStats.cost = orig.cost;
 
-        /*if (orig.type == Card.Type.Trick)
-        {
-            if (orig.target == Card.Target.Plants || orig.target == Card.Target.PlantsAndHero) tileObjects = Tile.plantTiles;
-            else if (orig.target == Card.Target.Zombies || orig.target == Card.Target.ZombiesAndHero) tileObjects = Tile.zombieTiles;
-        }
-        else
-        {*/
         if (GameManager.Instance.team == Card.Team.Plant) tileObjects = Tile.plantTiles;
         else tileObjects = Tile.zombieTiles;
-    }
+
+		cardInfo = FindObjectOfType<CardInfo>(true).GetComponent<CardInfo>();
+		startPos = transform.position;
+	}
 
     // Update is called once per frame
     void Update()

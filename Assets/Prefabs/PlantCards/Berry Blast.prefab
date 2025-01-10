@@ -152,6 +152,8 @@ MonoBehaviour:
   strikethrough: 0
   teamUp: 0
   untrickable: 0
+  nextDoor: 0
+  description: Do 3 damage
   row: 0
   col: 0
   playedCost: 0

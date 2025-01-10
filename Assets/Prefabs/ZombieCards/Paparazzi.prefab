@@ -140,6 +140,8 @@ MonoBehaviour:
   strikethrough: 0
   teamUp: 0
   untrickable: 0
+  nextDoor: 0
+  description: This gets +1 attack +1 HP when you play a Trick
   row: 0
   col: 0
   playedCost: 0

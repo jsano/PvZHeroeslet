@@ -141,6 +141,7 @@ MonoBehaviour:
   teamUp: 0
   untrickable: 0
   nextDoor: 0
+  description: 'When played: Do 2 damage to the plant hero for each Dancing zombie'
   row: 0
   col: 0
   playedCost: 0

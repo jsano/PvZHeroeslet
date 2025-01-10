@@ -140,6 +140,8 @@ MonoBehaviour:
   strikethrough: 0
   teamUp: 0
   untrickable: 0
+  nextDoor: 0
+  description: This gets +2 attack +2 HP when a zombie gets frozen
   row: 0
   col: 0
   playedCost: 0

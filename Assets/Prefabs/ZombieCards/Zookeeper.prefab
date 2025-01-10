@@ -140,5 +140,8 @@ MonoBehaviour:
   strikethrough: 0
   teamUp: 0
   untrickable: 0
+  nextDoor: 0
+  description: When you play a Pet, all Pets get +1 attack
   row: 0
   col: 0
+  playedCost: 0

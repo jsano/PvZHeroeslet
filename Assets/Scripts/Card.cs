@@ -404,7 +404,7 @@ public class Card : Damagable
 
 	void OnMouseDown()
 	{
-        cardInfo.Show(this);
+        StartCoroutine(cardInfo.Show(this));
 	}
 
 }

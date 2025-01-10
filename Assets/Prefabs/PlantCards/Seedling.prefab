@@ -136,6 +136,9 @@ MonoBehaviour:
   strikethrough: 0
   teamUp: 0
   untrickable: 0
+  nextDoor: 0
+  description: 'Start of turn: This transforms into a random plant that costs up
+    to 6 sun'
   row: 0
   col: 0
   playedCost: 0
