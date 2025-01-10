@@ -97,6 +97,8 @@ public class Card : Damagable
     public bool untrickable;
     public bool nextDoor;
 
+    public string description;
+
     [HideInInspector] public int row;
     [HideInInspector] public int col;
     [HideInInspector] public int playedCost;
@@ -111,6 +113,8 @@ public class Card : Damagable
 	private Camera cam;
 
     private bool frozen;
+
+    private CardInfo cardInfo;
 
 	// Start is called before the first frame update
 	void Start()
@@ -134,7 +138,8 @@ public class Card : Damagable
             //play animation
 		    StartCoroutine(OnThisPlay());
 		}
-    }
+		cardInfo = FindObjectOfType<CardInfo>(true).GetComponent<CardInfo>();
+	}
 
 	// Update is called once per frame
 	void Update()
@@ -395,6 +400,11 @@ public class Card : Damagable
 		if (opponentTiles[0, col].planted != null) return opponentTiles[0, col].planted;
 		if (team == Team.Plant) return GameManager.Instance.zombieHero;
         return GameManager.Instance.plantHero;
+	}
+
+	void OnMouseDown()
+	{
+        cardInfo.Show(this);
 	}
 
 }

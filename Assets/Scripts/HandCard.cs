@@ -77,7 +77,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 				    if (tileObjects[0, j].planted != null && tileObjects[0, j].planted.teamUp) hasTeamup = true;
                     if (tileObjects[1, j].planted != null && tileObjects[1, j].planted.teamUp) hasTeamup = true;
                     if (hasTeamup || finalStats.abilities.Contains("teamup") || orig.teamUp) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
-                    else if (i == 0 && tileObjects[0, j].planted == null) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
+                    else if (i == 0 && tileObjects[0, j].planted == null && tileObjects[1, j].planted == null) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
 			    }
             }
         }

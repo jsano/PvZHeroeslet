@@ -90,8 +90,8 @@ public class GameManager : NetworkBehaviour
             t.GetComponent<Tile>().AssignSide();
 		}
 
-        int[] pcards = new int[] { 15, 17, 18, 19, 21 };
-        int[] zcards = new int[] { 26, 37, 38, 39, 40 };
+        int[] pcards = new int[] { 1, 2, 3, 4, 5 };
+        int[] zcards = new int[] { 37, 37, 38, 39, 40 };
 		for (int i = 0; i < pcards.Length; i++)
 		{
 			GameObject c = Instantiate(handcardPrefab, handCards);
