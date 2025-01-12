@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5841119399238982147}
-  - component: {fileID: -8904429603227625006}
   - component: {fileID: 3301991882423044987}
   - component: {fileID: -9058245760563841667}
   - component: {fileID: -8361248227295556588}
@@ -41,27 +40,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &-8904429603227625006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 901512774672382457}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1498764740
-  InScenePlacedSourceGlobalObjectIdHash: 1498764740
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &3301991882423044987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,9 +52,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecfdc20ac9493ac448c74e06103f20b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 0
   HP: 20
   hpUI: {fileID: 2960550511376748428}
   blockMeter: {fileID: 2300728247404797493}
+  blocked: 0
 --- !u!212 &-9058245760563841667
 SpriteRenderer:
   m_ObjectHideFlags: 0

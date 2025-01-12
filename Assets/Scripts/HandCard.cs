@@ -22,6 +22,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     public SpriteRenderer image;
 	public TextMeshProUGUI atkUI;
 	public TextMeshProUGUI hpUI;
+    public TextMeshProUGUI costUI;
 
 	[Serializable]
     public struct FinalStats : INetworkSerializable
@@ -173,6 +174,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             atkUI.text = finalStats.atk + "";
 		    hpUI.text = finalStats.hp + "";
         }
+        costUI.text = finalStats.cost + "";
 	}
 
     public int GetCost()

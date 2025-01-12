@@ -11,6 +11,8 @@ public class CardInfo : MonoBehaviour
 	public Image image;
 	public TextMeshProUGUI atk;
 	public TextMeshProUGUI HP;
+	public TextMeshProUGUI cost;
+	public TextMeshProUGUI cardClass;
 	public TextMeshProUGUI cardName;
 	public TextMeshProUGUI tribes;
 	public TextMeshProUGUI description;
@@ -40,6 +42,8 @@ public class CardInfo : MonoBehaviour
 			atk.text = "";
 			HP.text = "";
 		}
+		cost.text = baseCard.cost + "";
+		cardClass.text = Enum.GetName(typeof(Card.Class), baseCard._class);
 		cardName.text = baseCard.name;
 
 		tribes.text = "";

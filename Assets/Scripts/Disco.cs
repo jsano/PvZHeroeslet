@@ -30,7 +30,7 @@ public class Disco : Card
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
 		//yield return new WaitForSeconds(1);
-		GameManager.Instance.PlayCardRpc(HandCard.MakeDefaultFS(36), bc.GetComponent<Tile>().row, bc.GetComponent<Tile>().col, true);
+		GameManager.Instance.PlayCardRpc(HandCard.MakeDefaultFS(AllCards.NameToID("Backup Dancer")), bc.GetComponent<Tile>().row, bc.GetComponent<Tile>().col, true);
 		yield return null;
 		selected = true;
 	}

@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using SerializableCallback;
 using TMPro;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static Card;
@@ -91,7 +89,7 @@ public class GameManager : NetworkBehaviour
 		}
 
         int[] pcards = new int[] { 4, 23, 24, 25, 2 };
-        int[] zcards = new int[] { 36, 47, 48, 49, 50 };
+        int[] zcards = new int[] { 44, 47, 48, 49, 50 };
 		for (int i = 0; i < pcards.Length; i++)
 		{
 			GameObject c = Instantiate(handcardPrefab, handCards);

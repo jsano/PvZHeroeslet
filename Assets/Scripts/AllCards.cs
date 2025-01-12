@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Card;
+using static Unity.VisualScripting.Member;
 
 public class AllCards : MonoBehaviour
 {
@@ -49,6 +51,18 @@ public class AllCards : MonoBehaviour
 			}
 		}
 		return possible[Random.Range(0, possible.Count)];
+	}
+
+	public static int NameToID(string name)
+	{
+		for (int i = 0; i < Instance.cards.Length; i++)
+		{
+			if (Instance.cards[i].name == name)
+			{
+				return i;
+			}
+		}
+		return -1;
 	}
 
 }
