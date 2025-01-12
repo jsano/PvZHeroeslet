@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Card;
-using static Unity.VisualScripting.Member;
 
 public class AllCards : MonoBehaviour
 {
