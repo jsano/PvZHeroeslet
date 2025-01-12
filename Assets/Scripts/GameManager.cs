@@ -90,8 +90,8 @@ public class GameManager : NetworkBehaviour
             t.GetComponent<Tile>().AssignSide();
 		}
 
-        int[] pcards = new int[] { 1, 2, 3, 4, 5 };
-        int[] zcards = new int[] { 37, 37, 38, 39, 40 };
+        int[] pcards = new int[] { 4, 23, 24, 25, 26 };
+        int[] zcards = new int[] { 36, 37, 38, 39, 40 };
 		for (int i = 0; i < pcards.Length; i++)
 		{
 			GameObject c = Instantiate(handcardPrefab, handCards);
@@ -140,8 +140,7 @@ public class GameManager : NetworkBehaviour
 				Card c = Tile.zombieTiles[0, col].planted;
 				if (c != null && c.gravestone)
 				{
-					opponentRemaining -= c.playedCost;
-					opponentRemainingText.text = opponentRemaining + "";
+					if (c.team != team) UpdateRemaining(-c.playedCost, Team.Zombie);
 					yield return c.Reveal();
 				}
 			}
@@ -175,8 +174,8 @@ public class GameManager : NetworkBehaviour
         turn += 1;
         remaining = turn;
 		opponentRemaining = turn;
-		UpdateBrains(0);
-		opponentRemainingText.text = opponentRemaining + "";
+		UpdateRemaining(0, Team.Plant);
+		UpdateRemaining(0, Team.Zombie);
 		phase = 0;
         //draw card
         yield return CallLeftToRight("OnTurnStart", null);
@@ -242,14 +241,13 @@ public class GameManager : NetworkBehaviour
 			{
 				if (!card.gravestone)
 				{
-					opponentRemaining -= fs.cost;
-					opponentRemainingText.text = opponentRemaining + "";
+					UpdateRemaining(-fs.cost, card.team);
 				} else card.playedCost = fs.cost;
 			}
         }
         else
         {
-            if (!free) UpdateBrains(-fs.cost);
+            if (!free) UpdateRemaining(-fs.cost, team);
         }
     }
 
@@ -288,15 +286,7 @@ public class GameManager : NetworkBehaviour
             }
 		}
 
-		if (card.team != team)
-		{
-			opponentRemaining -= fs.cost;
-			opponentRemainingText.text = opponentRemaining + "";
-		}
-		else
-		{
-			UpdateBrains(-fs.cost);
-		}
+		UpdateRemaining(-fs.cost, card.team);
 	}
 
 	[Rpc(SendTo.ClientsAndHost)]
@@ -383,12 +373,20 @@ public class GameManager : NetworkBehaviour
 		}
 	}
 
-    public void UpdateBrains(int change)
+    public void UpdateRemaining(int change, Team team)
     {
-        remaining += change;
-        remainingText.text = remaining + "";
-        DisableHandCards();
-        EnablePlayableHandCards();
+		if (team == this.team)
+		{
+			remaining += change;
+			remainingText.text = remaining + "";
+			DisableHandCards();
+			EnablePlayableHandCards();
+		}
+		else
+		{
+			opponentRemaining += change;
+			opponentRemainingText.text = opponentRemaining + "";
+		}
     }
 
 	[Rpc(SendTo.ClientsAndHost)]
