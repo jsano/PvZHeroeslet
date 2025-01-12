@@ -25,7 +25,7 @@ public class Medic : Card
 			if (choices.Count >= 2)
 			{
 				selecting = true;
-				yield return new WaitUntil(() => selecting == false);
+				yield return new WaitUntil(() => selected == true);
 			}
 		}
 		yield return base.OnThisPlay();
@@ -37,6 +37,7 @@ public class Medic : Card
 		Card c = bc.GetComponent<Card>();
 		if (c == null) GameManager.Instance.HealRpc(team, -1, -1, 4, false);
 		else GameManager.Instance.HealRpc(team, c.row, c.col, 4, false);
+		selected = true;
 	}
 
 }

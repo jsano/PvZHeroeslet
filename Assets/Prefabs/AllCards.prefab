@@ -91,4 +91,9 @@ MonoBehaviour:
   - {fileID: 6377264207035512179, guid: 654fed7cfc9d8bf40a2149279921f30b, type: 3}
   - {fileID: -6183984993846023371, guid: e847a92bab7a4a24099104a203c03caa, type: 3}
   - {fileID: -2377502996900695111, guid: 49deb0166b43bdc43bf6079c1b0f0886, type: 3}
+  - {fileID: 6377264207035512179, guid: b2ec2a9fa0e290f4a8190a67e9422a2c, type: 3}
+  - {fileID: 6377264207035512179, guid: b85ad0a1e2ec0bb4db30963e838f1ed2, type: 3}
+  - {fileID: 8692259356616735638, guid: 8e37bbb24779f2846bfc6032f6f8840e, type: 3}
+  - {fileID: 6377264207035512179, guid: d738f54bf9402734e87b0c6dc26a1d04, type: 3}
+  - {fileID: 6377264207035512179, guid: c1df6a3c8aea634418ec106acc538e47, type: 3}
   gravestoneSprite: {fileID: 21300000, guid: 978d1c81078a4b1439fb28657a2dd034, type: 3}

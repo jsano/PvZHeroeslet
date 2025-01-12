@@ -86,6 +86,7 @@ public class Card : Damagable
     public int armor;
     public bool bullseye;
     public bool deadly;
+    private bool hitByDeadly;
     public bool doubleStrike;
     public bool frenzy;
     public bool gravestone;
@@ -109,6 +110,7 @@ public class Card : Damagable
     private Sprite baseSprite;
 
     protected bool selecting;
+    protected bool selected;
 	protected List<BoxCollider2D> choices = new();
 	private Camera cam;
 
@@ -152,8 +154,8 @@ public class Card : Damagable
 				{
 					if (bc.bounds.Contains((Vector2)cam.ScreenToWorldPoint(Input.mousePosition)))
 					{
+                        selecting = false;
                         StartCoroutine(OnSelection(bc));
-						selecting = false;
 						break;
 					}
 				}
@@ -164,7 +166,7 @@ public class Card : Damagable
     protected virtual IEnumerator OnSelection(BoxCollider2D bc)
     {
         yield return null;
-    }
+	}
 
 	/// <summary>
 	/// Called right when this card is played. Base method checks for deaths, calls OnCardPlay left to right, and then enables handcards
@@ -193,8 +195,13 @@ public class Card : Damagable
             if (AHactive && GetTarget(col).GetComponent<Card>() != null)
             {
                 AHactive = false;
-                atk -= antihero;
+                RaiseAttack(-antihero);
             }
+			if (!AHactive && GetTarget(col).GetComponent<Hero>() != null)
+			{
+				AHactive = true;
+				RaiseAttack(antihero);
+			}
 		}
         yield return null;
     }
@@ -228,7 +235,7 @@ public class Card : Damagable
 			if (!AHactive && GetTarget(col).GetComponent<Hero>() != null)
 			{
 				AHactive = true;
-				atk += antihero;
+				RaiseAttack(antihero);
 			}
 		}
 		yield return null;
@@ -245,12 +252,12 @@ public class Card : Damagable
 			if (AHactive && GetTarget(col).GetComponent<Card>() != null)
 			{
 				AHactive = false;
-				atk -= antihero;
+				RaiseAttack(-antihero);
 			}
 			if (!AHactive && GetTarget(col).GetComponent<Hero>() != null)
 			{
 				AHactive = true;
-				atk += antihero;
+				RaiseAttack(antihero);
 			}
 		}
 		yield return null;
@@ -283,7 +290,7 @@ public class Card : Damagable
         if (!nextDoor)
         {
             Damagable target = GetTarget(col);
-		    int dealt = target.ReceiveDamage(atk, bullseye);
+            int dealt = target.ReceiveDamage(atk, bullseye, deadly);
 		    // animation
 		    yield return new WaitForSeconds(1);
             //
@@ -302,7 +309,7 @@ public class Card : Damagable
                 target[i+1] = GetTarget(col + i);
             }
             int[] dealt = new int[3];
-            for (int i = 0; i < 3; i++) if (target[i] != null) dealt[i] = target[i].ReceiveDamage(atk, bullseye);
+            for (int i = 0; i < 3; i++) if (target[i] != null) dealt[i] = target[i].ReceiveDamage(atk, bullseye, deadly);
 			// animation
 			yield return new WaitForSeconds(1);
 			//
@@ -317,19 +324,23 @@ public class Card : Damagable
 		}
 	}
 
-    public override int ReceiveDamage(int dmg, bool bullseye = false)
+    public override int ReceiveDamage(int dmg, bool bullseye = false, bool deadly = false)
     {//Debug.Log(row + " " + col + " got hit for " + dmg);
         if (gravestone) return 0;
         dmg -= armor;
         HP -= dmg;
         hpUI.text = Mathf.Max(0, HP) + "";
-		if (dmg > 0) StartCoroutine(HitVisual());
+        if (dmg > 0)
+        {
+            StartCoroutine(HitVisual());
+            if (deadly) hitByDeadly = true;
+        }
 		return dmg;
     }
     
     public IEnumerator DieIfZero()
     {
-        if (HP <= 0)
+        if (HP <= 0 || hitByDeadly)
         {
             yield return GameManager.CallLeftToRight("OnCardDeath", this);
             Destroy(gameObject);
@@ -404,7 +415,17 @@ public class Card : Damagable
 
 	void OnMouseDown()
 	{
-        StartCoroutine(cardInfo.Show(this));
+		for (int row = 0; row < 2; row++)
+		{
+			for (int col = 0; col < 5; col++)
+			{
+                Card c;
+                if (GameManager.Instance.team == Team.Plant) c = Tile.plantTiles[row, col].planted;
+                else c = Tile.zombieTiles[row, col].planted;
+				if (c != null && c.selecting) return;
+			}
+		}
+		StartCoroutine(cardInfo.Show(this));
 	}
 
 }

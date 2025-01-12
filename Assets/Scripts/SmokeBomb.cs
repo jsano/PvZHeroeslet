@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Disco : Card
+public class SmokeBomb : Card
 {
 
 	protected override IEnumerator OnThisPlay()
@@ -12,7 +12,7 @@ public class Disco : Card
 			GameManager.Instance.DisableHandCards();
 			for (int col = 0; col < 5; col++)
 			{
-				if (Tile.zombieTiles[0, col].planted == null)
+				if (Tile.zombieTiles[0, col].planted == null && (col != 5 || Tile.zombieTiles[0, this.col].planted.amphibious))
 				{
 					choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
 				}
@@ -29,10 +29,22 @@ public class Disco : Card
 
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
-		//yield return new WaitForSeconds(1);
-		GameManager.Instance.PlayCardRpc(HandCard.MakeDefaultFS(36), bc.GetComponent<Tile>().row, bc.GetComponent<Tile>().col, true);
-		yield return null;
+		yield return new WaitForSeconds(1);
+		Tile t = bc.GetComponent<Tile>();
+		GameManager.Instance.RaiseAttackRpc(team, row, col, 1);
+		GameManager.Instance.MoveRpc(team, row, col, t.row, t.col);
+		yield return GameManager.CallLeftToRight("OnCardMoved", this);
 		selected = true;
+	}
+
+	public override bool IsValidTarget(BoxCollider2D bc)
+	{
+		Tile t = bc.GetComponent<Tile>();
+		if (t == null) return false;
+		Card c = t.planted;
+		if (c == null) return false;
+		if (c.team == Team.Zombie) return true;
+		return false;
 	}
 
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class Damagable : NetworkBehaviour
 {
-	public abstract int ReceiveDamage(int dmg, bool bullseye = false);
+	public abstract int ReceiveDamage(int dmg, bool bullseye = false, bool deadly = false);
 
 	public abstract void Heal(int amount, bool raiseCap);
 

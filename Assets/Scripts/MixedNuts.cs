@@ -14,8 +14,8 @@ public class MixedNuts : Card
 			{
 				GameManager.Instance.DisableHandCards();
 				yield return new WaitForSeconds(1);
-				c.RaiseAttack(2);
-				c.Heal(2, true);
+				RaiseAttack(2);
+				Heal(2, true);
 				break;
 			}
 		}

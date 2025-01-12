@@ -24,7 +24,7 @@ public class Growshroom : Card
 			if (choices.Count >= 2)
 			{
 				selecting = true;
-				yield return new WaitUntil(() => selecting == false);
+				yield return new WaitUntil(() => selected == true);
 			}
 		}
 		yield return base.OnThisPlay();
@@ -36,6 +36,7 @@ public class Growshroom : Card
 		Card c = bc.GetComponent<Card>();
 		GameManager.Instance.RaiseAttackRpc(team, c.row, c.col, 2);
 		GameManager.Instance.HealRpc(team, c.row, c.col, 2, true);
+		selected = true;
 	}
 
 }

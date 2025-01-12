@@ -90,8 +90,8 @@ public class GameManager : NetworkBehaviour
             t.GetComponent<Tile>().AssignSide();
 		}
 
-        int[] pcards = new int[] { 4, 23, 24, 25, 26 };
-        int[] zcards = new int[] { 36, 37, 38, 39, 40 };
+        int[] pcards = new int[] { 4, 23, 24, 25, 2 };
+        int[] zcards = new int[] { 36, 47, 48, 49, 50 };
 		for (int i = 0; i < pcards.Length; i++)
 		{
 			GameObject c = Instantiate(handcardPrefab, handCards);
@@ -293,6 +293,31 @@ public class GameManager : NetworkBehaviour
 	public void HoldTrickRpc()
 	{
         waitingOnBlock = false;
+	}
+
+	[Rpc(SendTo.ClientsAndHost)]
+	public void MoveRpc(Team tteam, int row, int col, int nrow, int ncol)
+	{
+		Card c;
+		if (tteam == Team.Plant)
+		{
+			c = Tile.plantTiles[row, col].planted;
+			Tile.plantTiles[row, col].planted = null;
+			Tile.plantTiles[nrow, ncol].planted = c;
+			c.row = nrow;
+			c.col = ncol;
+			c.transform.position = Tile.plantTiles[nrow, ncol].transform.position;
+		}
+		else
+		{
+			c = Tile.zombieTiles[row, col].planted;
+			Tile.zombieTiles[row, col].planted = null;
+			Tile.zombieTiles[nrow, ncol].planted = c;
+			c.row = nrow;
+			c.col = ncol;
+			c.transform.position = Tile.zombieTiles[nrow, ncol].transform.position;
+		}
+		if (tteam != team) StartCoroutine(CallLeftToRight("OnCardMoved", c)); //THE MOVING TEAM SHOULD YIELD BREAK THEIR OWN CALL (TODO: maybe rework???)
 	}
 
 	public static IEnumerator CallLeftToRight(string methodName, Damagable arg)

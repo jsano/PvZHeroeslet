@@ -30,7 +30,7 @@ public class Hero : Damagable
         
     }
 
-	public override int ReceiveDamage(int dmg, bool bullseye = false)
+	public override int ReceiveDamage(int dmg, bool bullseye = false, bool deadly = false)
 	{
 		if (!bullseye)
 		{
