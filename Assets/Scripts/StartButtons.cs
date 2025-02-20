@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
+using Unity.Services.Multiplayer;
 
 public class StartButtons : NetworkBehaviour
 {
@@ -17,6 +18,14 @@ public class StartButtons : NetworkBehaviour
     {
         NetworkManager.Singleton.StartClient();
         SceneManager.LoadScene("SampleScene");
+    }
+
+    public void StartGame()
+    {
+        Debug.Log(NetworkManager.Singleton.IsHost);
+        if (NetworkManager.Singleton.IsHost)
+            NetworkManager.SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        else SceneManager.LoadScene("SampleScene");
     }
 
 }

@@ -140,7 +140,7 @@ public class Card : Damagable
             //play animation
 		    StartCoroutine(OnThisPlay());
 		}
-		cardInfo = FindObjectOfType<CardInfo>(true).GetComponent<CardInfo>();
+		cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
 	}
 
 	// Update is called once per frame

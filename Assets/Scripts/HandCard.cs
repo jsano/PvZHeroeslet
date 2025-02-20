@@ -154,7 +154,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         if (GameManager.Instance.team == Card.Team.Plant) tileObjects = Tile.plantTiles;
         else tileObjects = Tile.zombieTiles;
 
-		cardInfo = FindObjectOfType<CardInfo>(true).GetComponent<CardInfo>();
+		cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
 		startPos = transform.position;
 	}
 
