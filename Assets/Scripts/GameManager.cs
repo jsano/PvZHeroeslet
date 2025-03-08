@@ -57,14 +57,18 @@ public class GameManager : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        NetworkManager.OnConnectionEvent += P2Joined;
+		if (IsHost) NetworkManager.OnConnectionEvent += P2Joined;
+		else Setup();
 	}
 
-    private void P2Joined(NetworkManager nm, ConnectionEventData data)
-    {
-		Debug.Log("p2joined");
-        if (data.ClientId == NetworkManager.ServerClientId) return;
-        Debug.Log("Client " + data.ClientId + " connected");
+	private void P2Joined(NetworkManager nm, ConnectionEventData data)
+	{
+		Debug.Log(data.EventType + " " + data.ClientId);
+		Setup();
+	}
+
+	private void Setup()
+	{
 		plantHero = GameObject.Find("Green Shadow").GetComponent<Hero>(); //temp
 		zombieHero = GameObject.Find("Super Brainz").GetComponent<Hero>();
         if (IsHost)

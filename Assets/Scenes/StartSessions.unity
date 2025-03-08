@@ -1209,7 +1209,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 300}
+  m_SizeDelta: {x: 350, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &620241285
 MonoBehaviour:
@@ -1562,50 +1562,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 886527114}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &838696909
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 838696911}
-  - component: {fileID: 838696910}
-  m_Layer: 0
-  m_Name: UserAccounts
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &838696910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838696909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 867c0ef4cb6391c4ba81717dc2081f9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &838696911
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838696909}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &848055007
@@ -2418,7 +2374,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 180
+  m_Spacing: 75
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
@@ -2508,8 +2464,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 975470784}
   m_HandleRect: {fileID: 975470783}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4016,6 +3972,9 @@ MonoBehaviour:
   WidgetConfiguration: {fileID: 11400000, guid: 9b0370df80b5d964296a13a6fd54eab5, type: 2}
   JoiningSession:
     m_PersistentCalls:
+      m_Calls: []
+  JoinedSession:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 886527121}
         m_TargetAssemblyTypeName: StartButtons, Assembly-CSharp
@@ -4029,9 +3988,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  JoinedSession:
-    m_PersistentCalls:
-      m_Calls: []
   FailedToJoinSession:
     m_PersistentCalls:
       m_Calls: []
@@ -4425,4 +4381,3 @@ SceneRoots:
   - {fileID: 815139933}
   - {fileID: 85244717}
   - {fileID: 1952513406}
-  - {fileID: 838696911}

@@ -10,7 +10,7 @@ public class StartButtons : NetworkBehaviour
     public void StartHost()
     {
         NetworkManager.Singleton.StartHost();
-        NetworkManager.SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        NetworkManager.Singleton.SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
         
     }
 
@@ -22,10 +22,8 @@ public class StartButtons : NetworkBehaviour
 
     public void StartGame()
     {
-        Debug.Log(NetworkManager.Singleton.IsHost);
         if (NetworkManager.Singleton.IsHost)
             NetworkManager.SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
-        else SceneManager.LoadScene("SampleScene");
     }
 
 }
