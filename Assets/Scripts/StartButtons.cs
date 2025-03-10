@@ -10,13 +10,8 @@ public class StartButtons : NetworkBehaviour
     
     public void ChangeScene(string scene)
     {
-        SceneManager.LoadScene(scene);
-    }
-
-    public void StartGame()
-    {
         if (NetworkManager.Singleton.IsHost)
-            NetworkManager.SceneManager.LoadScene("Game", LoadSceneMode.Single);
+            NetworkManager.SceneManager.LoadScene(scene, LoadSceneMode.Single);
     }
 
 }

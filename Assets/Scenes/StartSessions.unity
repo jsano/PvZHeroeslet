@@ -1560,8 +1560,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 886527114}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &848055007
@@ -1873,7 +1872,7 @@ RectTransform:
   - {fileID: 716316004}
   - {fileID: 620241284}
   - {fileID: 1245952231}
-  m_Father: {fileID: 815139933}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3978,14 +3977,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 886527121}
         m_TargetAssemblyTypeName: StartButtons, Assembly-CSharp
-        m_MethodName: StartGame
-        m_Mode: 1
+        m_MethodName: ChangeScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Lobby
           m_BoolArgument: 0
         m_CallState: 2
   FailedToJoinSession:
@@ -4379,5 +4378,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 815139933}
+  - {fileID: 886527114}
   - {fileID: 85244717}
   - {fileID: 1952513406}

@@ -45,21 +45,7 @@ public class GameManager : NetworkBehaviour
     {
 		UserAccounts.GameStats.PlantHero = 0; //temp
 		UserAccounts.GameStats.ZombieHero = 15;
-        if (IsHost) NetworkManager.OnConnectionEvent += P2Joined;
-		else Setup();
-	}
-
-	private void P2Joined(NetworkManager nm, ConnectionEventData data)
-	{
-		if (data.EventType == ConnectionEvent.PeerConnected)
-		{
-			Debug.Log(data.EventType + " " + data.ClientId);
-			Setup();
-		}
-	}
-
-	private void Setup()
-	{
+        
 		plantHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.PlantHero]).GetComponent<Hero>();
 		zombieHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.ZombieHero]).GetComponent<Hero>();
         if (IsHost)
