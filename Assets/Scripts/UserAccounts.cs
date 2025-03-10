@@ -13,7 +13,7 @@ public class UserAccounts : MonoBehaviour
 
     public static class GameStats
     {
-        public static int[] Deck { get; set; }
+		public static List<int> Deck = new List<int>();
         public static int PlantHero { get; set; }
         public static int[] Superpowers { get; set; }
 

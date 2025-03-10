@@ -17,16 +17,10 @@ public class GameManager : NetworkBehaviour
     {
         if (instance != null && instance != this) Destroy(gameObject);
         else instance = this;
-
-		plants = new NetworkList<int>();
-		zombies = new NetworkList<int>();
         
         handCards = transform.Find("HandCards");
         turn = 1;
 	}
-
-    public NetworkList<int> plants; // for when the game becomes 1 authoritative server with 2 clients
-    public NetworkList<int> zombies;
 
     private int turn = 1;
     private int phase; // 0 = prep, 1 = zombie, 2 = plant, 3 = zombie trick, 4 = fight
@@ -45,19 +39,11 @@ public class GameManager : NetworkBehaviour
 	[HideInInspector] public Hero plantHero;
     [HideInInspector] public Hero zombieHero;
 	[HideInInspector] public bool waitingOnBlock = false;
-	public override void OnNetworkSpawn()
-    {
-        base.OnNetworkSpawn();
-
-        if (!IsServer) return;
-        for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++) plants.Add(-1);
-        for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++) zombies.Add(-1);
-	}
-
+	
     // Start is called before the first frame update
     void Start()
     {
-		UserAccounts.GameStats.PlantHero = 0;
+		UserAccounts.GameStats.PlantHero = 0; //temp
 		UserAccounts.GameStats.ZombieHero = 15;
         if (IsHost) NetworkManager.OnConnectionEvent += P2Joined;
 		else Setup();
@@ -65,8 +51,11 @@ public class GameManager : NetworkBehaviour
 
 	private void P2Joined(NetworkManager nm, ConnectionEventData data)
 	{
-		Debug.Log(data.EventType + " " + data.ClientId);
-		Setup();
+		if (data.EventType == ConnectionEvent.PeerConnected)
+		{
+			Debug.Log(data.EventType + " " + data.ClientId);
+			Setup();
+		}
 	}
 
 	private void Setup()
@@ -81,7 +70,7 @@ public class GameManager : NetworkBehaviour
             zombieHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
             zombieHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
 
-			UserAccounts.GameStats.Deck = new int[] { 4, 23, 24, 25, 2 };
+			UserAccounts.GameStats.Deck = new List<int>(new int[] { 4, 23, 24, 25, 2 }); //temp
 		}
 		else
 		{
@@ -91,7 +80,7 @@ public class GameManager : NetworkBehaviour
 			plantHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
 			plantHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
 
-            UserAccounts.GameStats.Deck = new int[] { 44, 47, 48, 49, 50 };
+            UserAccounts.GameStats.Deck = new List<int>(new int[] { 44, 47, 48, 49, 50 });
         }
 
 		foreach (Transform t in GameObject.Find("Tiles").transform)
@@ -99,13 +88,19 @@ public class GameManager : NetworkBehaviour
             t.GetComponent<Tile>().AssignSide();
 		}
 
-		for (int i = 0; i < UserAccounts.GameStats.Deck.Length; i++)
+		var deck = UserAccounts.GameStats.Deck;
+        for (int n = deck.Count - 1; n > 0; n--)
+        {
+            int k = UnityEngine.Random.Range(0, n + 1);
+            int temp = deck[n];
+            deck[n] = deck[k];
+            deck[k] = temp;
+        }
+
+		for (int i = 0; i < 4; i++)
 		{
-			GameObject c = Instantiate(handcardPrefab, handCards);
-			c.SetActive(false);
-			c.transform.localPosition = new Vector2(1.2f * (-(UserAccounts.GameStats.Deck.Length-1)/2 + i), 0);
-			c.GetComponent<HandCard>().ID = UserAccounts.GameStats.Deck[i];
-            c.SetActive(true);
+			StartCoroutine(GainHandCard(UserAccounts.GameStats.Deck[0]));
+			UserAccounts.GameStats.Deck.RemoveAt(0);
 		}
 		if (IsServer) return;
         StartCoroutine(Wait1Frame());
@@ -117,11 +112,18 @@ public class GameManager : NetworkBehaviour
         EndRpc();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-		
-	}
+    public IEnumerator GainHandCard(int id)
+	{
+        GameObject c = Instantiate(handcardPrefab, handCards);
+        c.SetActive(false);
+		for (int i = 0; i < handCards.childCount; i++)
+		{
+			handCards.GetChild(i).transform.localPosition = new Vector2(1.2f * (-(handCards.childCount - 1) / 2f + i), 0);
+		}
+        c.GetComponent<HandCard>().ID = id;
+        c.SetActive(true);
+		yield return CallLeftToRight("OnCardDraw", null);
+    }
 
     [Rpc(SendTo.ClientsAndHost)]
     public void EndRpc()
@@ -184,7 +186,10 @@ public class GameManager : NetworkBehaviour
 		UpdateRemaining(0, Team.Plant);
 		UpdateRemaining(0, Team.Zombie);
 		phase = 0;
-        //draw card
+
+        yield return GainHandCard(UserAccounts.GameStats.Deck[0]);
+        UserAccounts.GameStats.Deck.RemoveAt(0);
+
         yield return CallLeftToRight("OnTurnStart", null);
 		if (IsServer) EndRpc();
     }

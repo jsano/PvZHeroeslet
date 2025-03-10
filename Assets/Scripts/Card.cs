@@ -278,6 +278,11 @@ public class Card : Damagable
         yield return null;
     }
 
+    protected virtual IEnumerator OnCardDraw()
+    {
+        yield return null;
+    }
+
     public virtual IEnumerator Attack()
     {
         if (frozen)
