@@ -9,7 +9,8 @@ public class AllCards : MonoBehaviour
     public static AllCards Instance { get { return instance; } }
 
     public Card[] cards;
-	public Sprite gravestoneSprite;
+    public Hero[] heroes;
+    public Sprite gravestoneSprite;
 
 	void Awake()
     {

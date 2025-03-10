@@ -57,7 +57,9 @@ public class GameManager : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		if (IsHost) NetworkManager.OnConnectionEvent += P2Joined;
+		UserAccounts.GameStats.PlantHero = 0;
+		UserAccounts.GameStats.ZombieHero = 15;
+        if (IsHost) NetworkManager.OnConnectionEvent += P2Joined;
 		else Setup();
 	}
 
@@ -69,8 +71,8 @@ public class GameManager : NetworkBehaviour
 
 	private void Setup()
 	{
-		plantHero = GameObject.Find("Green Shadow").GetComponent<Hero>(); //temp
-		zombieHero = GameObject.Find("Super Brainz").GetComponent<Hero>();
+		plantHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.PlantHero]).GetComponent<Hero>();
+		zombieHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.ZombieHero]).GetComponent<Hero>();
         if (IsHost)
 		{
 			team = Team.Plant;
@@ -78,6 +80,8 @@ public class GameManager : NetworkBehaviour
 		    zombieHero.transform.position = new Vector2(0, 3.5f);
             zombieHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
             zombieHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
+
+			UserAccounts.GameStats.Deck = new int[] { 4, 23, 24, 25, 2 };
 		}
 		else
 		{
@@ -86,21 +90,21 @@ public class GameManager : NetworkBehaviour
 			plantHero.transform.position = new Vector2(0, 3.5f);
 			plantHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
 			plantHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
-		}
+
+            UserAccounts.GameStats.Deck = new int[] { 44, 47, 48, 49, 50 };
+        }
 
 		foreach (Transform t in GameObject.Find("Tiles").transform)
 		{
             t.GetComponent<Tile>().AssignSide();
 		}
 
-        int[] pcards = new int[] { 4, 23, 24, 25, 2 };
-        int[] zcards = new int[] { 44, 47, 48, 49, 50 };
-		for (int i = 0; i < pcards.Length; i++)
+		for (int i = 0; i < UserAccounts.GameStats.Deck.Length; i++)
 		{
 			GameObject c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
-			c.transform.localPosition = new Vector2(1.2f * (-(pcards.Length-1)/2 + i), 0);
-			c.GetComponent<HandCard>().ID = (team == Team.Zombie ? zcards[i] : pcards[i]);
+			c.transform.localPosition = new Vector2(1.2f * (-(UserAccounts.GameStats.Deck.Length-1)/2 + i), 0);
+			c.GetComponent<HandCard>().ID = UserAccounts.GameStats.Deck[i];
             c.SetActive(true);
 		}
 		if (IsServer) return;

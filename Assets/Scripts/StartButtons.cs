@@ -7,23 +7,16 @@ using Unity.Services.Multiplayer;
 
 public class StartButtons : NetworkBehaviour
 {
-    public void StartHost()
+    
+    public void ChangeScene(string scene)
     {
-        NetworkManager.Singleton.StartHost();
-        NetworkManager.Singleton.SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
-        
-    }
-
-    public void StartClient()
-    {
-        NetworkManager.Singleton.StartClient();
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(scene);
     }
 
     public void StartGame()
     {
         if (NetworkManager.Singleton.IsHost)
-            NetworkManager.SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+            NetworkManager.SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
 }

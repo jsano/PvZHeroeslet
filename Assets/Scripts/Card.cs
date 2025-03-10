@@ -79,6 +79,7 @@ public class Card : Damagable
     public int atk;
     public int HP;
     private int maxHP;
+    private bool died;
 
     public bool amphibious;
     public int antihero;
@@ -342,6 +343,7 @@ public class Card : Damagable
     {
         if (HP <= 0 || hitByDeadly)
         {
+            died = true;
             yield return GameManager.CallLeftToRight("OnCardDeath", this);
             Destroy(gameObject);
         }
@@ -350,6 +352,7 @@ public class Card : Damagable
 
 	public IEnumerator Destroy()
 	{
+        died = true;
 		yield return GameManager.CallLeftToRight("OnCardDeath", this);
 		Destroy(gameObject);
 	}
@@ -407,8 +410,8 @@ public class Card : Damagable
     private Damagable GetTarget(int col)
     {
 		Tile[,] opponentTiles = team == Team.Plant ? Tile.zombieTiles : Tile.plantTiles;
-		if (opponentTiles[1, col].planted != null) return opponentTiles[1, col].planted;
-		if (opponentTiles[0, col].planted != null) return opponentTiles[0, col].planted;
+		if (opponentTiles[1, col].planted != null && !opponentTiles[1, col].planted.died) return opponentTiles[1, col].planted;
+		if (opponentTiles[0, col].planted != null && !opponentTiles[0, col].planted.died) return opponentTiles[0, col].planted;
 		if (team == Team.Plant) return GameManager.Instance.zombieHero;
         return GameManager.Instance.plantHero;
 	}

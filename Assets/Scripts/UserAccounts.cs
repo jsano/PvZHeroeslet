@@ -11,7 +11,16 @@ using Unity.Services.CloudSave.Models.Data.Player;
 public class UserAccounts : MonoBehaviour
 {
 
-	async void Awake()
+    public static class GameStats
+    {
+        public static int[] Deck { get; set; }
+        public static int PlantHero { get; set; }
+        public static int[] Superpowers { get; set; }
+
+		public static int ZombieHero { get; set; }
+    }
+
+    async void Awake()
 	{
 		try
 		{

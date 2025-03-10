@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5501796299591528504}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-8738557770508617356
 MonoBehaviour:
@@ -96,4 +96,27 @@ MonoBehaviour:
   - {fileID: 8692259356616735638, guid: 8e37bbb24779f2846bfc6032f6f8840e, type: 3}
   - {fileID: 6377264207035512179, guid: d738f54bf9402734e87b0c6dc26a1d04, type: 3}
   - {fileID: 6377264207035512179, guid: c1df6a3c8aea634418ec106acc538e47, type: 3}
+  heroes:
+  - {fileID: 4799469182913931560, guid: d809300a0693002439dc1cea576d721f, type: 3}
+  - {fileID: 4799469182913931560, guid: 340b973624309f649927088a2d2135cb, type: 3}
+  - {fileID: 4799469182913931560, guid: 7feb4898090930c41a32ee0d8a786b3d, type: 3}
+  - {fileID: 4799469182913931560, guid: c2581a1dc609c7544829614242d54d3b, type: 3}
+  - {fileID: 4799469182913931560, guid: 83a82f7b5ecdf754d9a50cebb38355ae, type: 3}
+  - {fileID: 4799469182913931560, guid: 3e003b64b61f98e4eb5e9b7f545521df, type: 3}
+  - {fileID: 4799469182913931560, guid: b52fee68189930640a961d9237dd7e50, type: 3}
+  - {fileID: 4799469182913931560, guid: 38ce7ec28b012014e917af881851c915, type: 3}
+  - {fileID: 4799469182913931560, guid: 00141913607d7c242b1af2b2758a5d37, type: 3}
+  - {fileID: 4799469182913931560, guid: 4d52371aa21b13b46b131ff222d5976d, type: 3}
+  - {fileID: 4799469182913931560, guid: 42f1fb8e093dca84499de15b6a7048de, type: 3}
+  - {fileID: 5580416763383033049, guid: a9c8f33364fe1804aa11ecd89548eb3b, type: 3}
+  - {fileID: 5580416763383033049, guid: 058f5e293e37d144eb01dd278c7b3fdc, type: 3}
+  - {fileID: 5580416763383033049, guid: 8674e4eb7eea4e144b3afa6bebbe7cde, type: 3}
+  - {fileID: 5580416763383033049, guid: 1aa098b360abbd440871edaa76367f2a, type: 3}
+  - {fileID: 5580416763383033049, guid: e36f6b1d108995b46bee0844b18fa8b7, type: 3}
+  - {fileID: 5580416763383033049, guid: 2fce4dd90237e3549afc701df6cfb9fa, type: 3}
+  - {fileID: 5580416763383033049, guid: 31c8398f79bc42a4abb2d983f756af63, type: 3}
+  - {fileID: 5580416763383033049, guid: 1445b5816837a4e419c06a9832ddf4cb, type: 3}
+  - {fileID: 5580416763383033049, guid: 746201e4010bd064892054858521faf9, type: 3}
+  - {fileID: 5580416763383033049, guid: be6605f6bb4f9604c9fb33019863886f, type: 3}
+  - {fileID: 5580416763383033049, guid: 7222ad1993a823149ad8db87ab5937e6, type: 3}
   gravestoneSprite: {fileID: 21300000, guid: 978d1c81078a4b1439fb28657a2dd034, type: 3}

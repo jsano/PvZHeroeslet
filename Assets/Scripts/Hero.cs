@@ -8,6 +8,7 @@ public class Hero : Damagable
 {
 
 	public Card.Team team;
+    public Card.Class[] classes;
     public int HP = 20;
 	private int maxHP;
 	public TextMeshProUGUI hpUI;
