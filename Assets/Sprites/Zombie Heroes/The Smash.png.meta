@@ -1,10 +1,7 @@
 fileFormatVersion: 2
-guid: 1d87eead7aee09e40930b167271b2289
+guid: fb14b92446ef0f24aa69564cd826e501
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -8191180099453012612
-    second: latest (10)_0
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: latest (10)_0
+      name: spinner-loading-dots-icon-512x51_0
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
-        width: 301
-        height: 305
+        x: 58
+        y: 344
+        width: 110
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +125,140 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c75bad82915135e80800000000000000
-      internalID: -8191180099453012612
+      spriteID: c62abe81f2279da70800000000000000
+      internalID: 8852232089180545644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spinner-loading-dots-icon-512x51_1
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 403
+        width: 110
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd219c3d3aa9a77f0800000000000000
+      internalID: -614008370759134500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spinner-loading-dots-icon-512x51_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 201
+        width: 109
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b1c44a59bb245a90800000000000000
+      internalID: -7326182618741554767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spinner-loading-dots-icon-512x51_3
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 201
+        width: 109
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fac8b3fd8dad72580800000000000000
+      internalID: -8851865917580407633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spinner-loading-dots-icon-512x51_4
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 58
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcdb9709d5d0b1550800000000000000
+      internalID: 6132510013102079437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spinner-loading-dots-icon-512x51_5
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 0
+        width: 110
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c93e4a5701745ab60800000000000000
+      internalID: 7756684069234336668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spinner-loading-dots-icon-512x51_6
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 58
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe6b459e1f3670fb0800000000000000
+      internalID: -4681663396975429905
       vertices: []
       indices: 
       edges: []
@@ -148,7 +277,13 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      latest (10)_0: -8191180099453012612
+      spinner-loading-dots-icon-512x51_0: 8852232089180545644
+      spinner-loading-dots-icon-512x51_1: -614008370759134500
+      spinner-loading-dots-icon-512x51_2: -7326182618741554767
+      spinner-loading-dots-icon-512x51_3: -8851865917580407633
+      spinner-loading-dots-icon-512x51_4: 6132510013102079437
+      spinner-loading-dots-icon-512x51_5: 7756684069234336668
+      spinner-loading-dots-icon-512x51_6: -4681663396975429905
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
