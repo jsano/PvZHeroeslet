@@ -80,10 +80,7 @@ public class GameManager : NetworkBehaviour
             deck[k] = temp;
         }
 
-		for (int i = 0; i < 4; i++)
-		{
-			StartCoroutine(DrawCard());
-		}
+		StartCoroutine(DrawCard(4));
 		if (IsServer) return;
         StartCoroutine(Wait1Frame());
     }

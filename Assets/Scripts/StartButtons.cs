@@ -19,4 +19,29 @@ public class StartButtons : NetworkBehaviour
         SceneManager.LoadScene(scene, LoadSceneMode.Single);
     }
 
+    // DEBUG ===
+    public void StartHost()
+    {
+        NetworkManager.Singleton.StartHost();
+        UserAccounts.GameStats.PlantHero = 0;
+        UserAccounts.GameStats.ZombieHero = 15;
+        NetworkManager.OnConnectionEvent += P2Joined;
+    }
+
+    public void StartClient()
+    {
+        UserAccounts.GameStats.PlantHero = 0;
+        UserAccounts.GameStats.ZombieHero = 15;
+        NetworkManager.Singleton.StartClient();
+    }
+
+    private void P2Joined(NetworkManager nm, ConnectionEventData data)
+    {
+        if (data.EventType == ConnectionEvent.PeerConnected)
+        {
+            NetworkManager.SceneManager.LoadScene("Game", LoadSceneMode.Single);
+        }
+    }
+    // ===
+
 }
