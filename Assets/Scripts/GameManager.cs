@@ -82,8 +82,7 @@ public class GameManager : NetworkBehaviour
 
 		for (int i = 0; i < 4; i++)
 		{
-			StartCoroutine(GainHandCard(UserAccounts.GameStats.Deck[0]));
-			UserAccounts.GameStats.Deck.RemoveAt(0);
+			StartCoroutine(DrawCard());
 		}
 		if (IsServer) return;
         StartCoroutine(Wait1Frame());
@@ -93,6 +92,15 @@ public class GameManager : NetworkBehaviour
     {
         yield return null;
         EndRpc();
+    }
+
+	public IEnumerator DrawCard(int count = 1)
+	{
+		for (int i = 0; i < count; i++)
+		{
+			yield return GainHandCard(UserAccounts.GameStats.Deck[0]);
+			UserAccounts.GameStats.Deck.RemoveAt(0);
+		}
     }
 
     public IEnumerator GainHandCard(int id)
@@ -170,8 +178,7 @@ public class GameManager : NetworkBehaviour
 		UpdateRemaining(0, Team.Zombie);
 		phase = 0;
 
-        yield return GainHandCard(UserAccounts.GameStats.Deck[0]);
-        UserAccounts.GameStats.Deck.RemoveAt(0);
+        yield return DrawCard();
 
         yield return CallLeftToRight("OnTurnStart", null);
 		if (IsServer) EndRpc();

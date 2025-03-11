@@ -18,6 +18,7 @@ public class LobbyManager : NetworkBehaviour
     public GameObject code;
 
     private int chosenTeam; // 0: plant, 1: zombie, 2: either
+    private int opponentChosenTeam;
     private Team team;
     private List<LobbyUIButton> bans = new();
     private int hero;
@@ -77,7 +78,7 @@ public class LobbyManager : NetworkBehaviour
         if (phase == 0)
         {
             foreach (Transform t in teamUI.transform) t.GetComponent<Button>().interactable = false;
-            LockInTeamRpc(chosenTeam);
+            LockInTeamRpc(IsHost, chosenTeam);
         }
         else if (phase == 1)
         {
@@ -93,8 +94,10 @@ public class LobbyManager : NetworkBehaviour
 
     
     [Rpc(SendTo.ClientsAndHost)]
-    private void LockInTeamRpc(int team)
+    private void LockInTeamRpc(bool host, int team)
     {
+        if (IsHost != host) opponentChosenTeam = team;
+
         ready += 1;
         if (ready == 2)
         {
@@ -102,16 +105,18 @@ public class LobbyManager : NetworkBehaviour
             phase += 1;
             if (IsHost)
             {
-                if (chosenTeam == team)
+                if (chosenTeam == opponentChosenTeam)
                 {
                     bool roll = UnityEngine.Random.Range(0, 2) == 0;
-                    ForceAssignTeamRpc(true, roll);
-                    ForceAssignTeamRpc(false, !roll);
+                    AssignTeamRpc(true, roll);
+                    AssignTeamRpc(false, !roll);
                 }
                 else
                 {
-                    if (chosenTeam == 2) ForceAssignTeamRpc(true, team == 0 ? false : true);
-                    if (team == 2) ForceAssignTeamRpc(false, chosenTeam == 0 ? false : true);
+                    if (chosenTeam == 2) AssignTeamRpc(true, opponentChosenTeam == 0 ? false : true);
+                    else AssignTeamRpc(true, chosenTeam == 0 ? true : false);
+                    if (opponentChosenTeam == 2) AssignTeamRpc(false, chosenTeam == 0 ? false : true);
+                    else AssignTeamRpc(false, opponentChosenTeam == 0 ? true : false);
                 }
                 TeamAssignCompleteRpc();
             }
@@ -125,7 +130,7 @@ public class LobbyManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.ClientsAndHost)]
-    private void ForceAssignTeamRpc(bool host, bool plant)
+    private void AssignTeamRpc(bool host, bool plant)
     {
         if (IsHost == host)
         {
