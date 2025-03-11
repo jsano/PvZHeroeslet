@@ -42,10 +42,7 @@ public class GameManager : NetworkBehaviour
 	
     // Start is called before the first frame update
     void Start()
-    {
-		UserAccounts.GameStats.PlantHero = 0; //temp
-		UserAccounts.GameStats.ZombieHero = 15;
-        
+    {        
 		plantHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.PlantHero]).GetComponent<Hero>();
 		zombieHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.ZombieHero]).GetComponent<Hero>();
         if (IsHost)

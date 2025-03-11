@@ -11,6 +11,7 @@ public class LobbyManager : NetworkBehaviour
     public TextMeshProUGUI title;
     public GameObject loading;
     public GameObject teamUI;
+    public GameObject note;
     public GameObject banUI;
     public GameObject chooseUI;
     public Button lockIn;
@@ -19,6 +20,7 @@ public class LobbyManager : NetworkBehaviour
     private int chosenTeam; // 0: plant, 1: zombie, 2: either
     private Team team;
     private List<LobbyUIButton> bans = new();
+    private int hero;
 
     private int ready = 0;
     private int phase = 0; // 0: team, 1: ban, 2: deck, 3: start
@@ -45,14 +47,16 @@ public class LobbyManager : NetworkBehaviour
         loading.SetActive(false);
         code.SetActive(false);
         teamUI.SetActive(true);
+        note.SetActive(true);
         lockIn.gameObject.SetActive(true);
         title.text = "Choose your team...";
     }
 
     private void BanPhase()
     {
-        LeanTween.moveLocalX(teamUI, -500, 0.5f);
-        LeanTween.moveLocalX(banUI, 0, 0.5f);
+        LeanTween.moveLocalX(teamUI, -500, 0.5f).setEaseOutQuad();
+        LeanTween.moveLocalX(note, -500, 0.5f).setEaseOutQuad();
+        LeanTween.moveLocalX(banUI, 0, 0.5f).setEaseOutQuad();
         if (team == Team.Plant) banUI.transform.Find("BansZ").gameObject.SetActive(true);
         else banUI.transform.Find("BansP").gameObject.SetActive(true);
         title.text = "Choose your bans...";
@@ -60,7 +64,7 @@ public class LobbyManager : NetworkBehaviour
 
     private void ChoosePhase()
     {
-        LeanTween.moveLocalX(banUI, -500, 0.5f);
+        LeanTween.moveLocalX(banUI, -500, 0.5f).setEaseOutQuad();
         LeanTween.moveLocalX(chooseUI, 0, 0.5f).setEaseOutQuad();
         if (team == Team.Plant) chooseUI.transform.Find("ChooseP").gameObject.SetActive(true);
         else chooseUI.transform.Find("ChooseZ").gameObject.SetActive(true);
@@ -83,7 +87,7 @@ public class LobbyManager : NetworkBehaviour
         else if (phase == 2)
         {
             foreach (Transform _t in chooseUI.transform) foreach (Transform t in _t.Find("Heroes")) t.GetComponent<Button>().interactable = false;
-            LockInGameRpc();
+            LockInGameRpc(IsHost, hero);
         }
     }
 
@@ -152,8 +156,13 @@ public class LobbyManager : NetworkBehaviour
     }
     
     [Rpc(SendTo.ClientsAndHost)]
-    private void LockInGameRpc()
+    private void LockInGameRpc(bool host, int id)
     {
+        if (IsHost != host)
+        {
+            if (team == Team.Plant) UserAccounts.GameStats.ZombieHero = id;
+            else UserAccounts.GameStats.PlantHero = id;
+        }
         ready += 1;
         if (ready == 2)
         {
@@ -187,8 +196,11 @@ public class LobbyManager : NetworkBehaviour
 
     public void ChooseButton(LobbyUIButton b)
     {
-        //useraccounts stuff here
+        if (team == Team.Plant) UserAccounts.GameStats.PlantHero = b.ID;
+        else UserAccounts.GameStats.ZombieHero = b.ID;
+        hero = b.ID;
 
+        //todo: lead to deck
         lockIn.interactable = true;
     }
 
