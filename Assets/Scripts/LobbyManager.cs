@@ -16,6 +16,7 @@ public class LobbyManager : NetworkBehaviour
     public Button lockIn;
     public GameObject code;
 
+    private int chosenTeam; // 0: plant, 1: zombie, 2: either
     private Team team;
     private List<LobbyUIButton> bans = new();
 
@@ -69,25 +70,62 @@ public class LobbyManager : NetworkBehaviour
     public void LockedIn()
     {
         lockIn.interactable = false;
-        if (phase == 0) foreach (Transform t in teamUI.transform) t.GetComponent<Button>().interactable = false;
-        if (phase == 1) foreach (Transform _t in banUI.transform) foreach (Transform t in _t) t.GetComponent<Button>().interactable = false;
-        if (phase == 2) foreach (Transform _t in chooseUI.transform) foreach (Transform t in _t.Find("Heroes")) t.GetComponent<Button>().interactable = false;
-
-        if (phase == 1) LockInBanRpc(bans[0].ID, bans[1].ID, IsHost);
-        else LockInRpc();
+        if (phase == 0)
+        {
+            foreach (Transform t in teamUI.transform) t.GetComponent<Button>().interactable = false;
+            LockInTeamRpc(chosenTeam);
+        }
+        else if (phase == 1)
+        {
+            foreach (Transform _t in banUI.transform) foreach (Transform t in _t) t.GetComponent<Button>().interactable = false;
+            LockInBanRpc(bans[0].ID, bans[1].ID, IsHost);
+        }
+        else if (phase == 2)
+        {
+            foreach (Transform _t in chooseUI.transform) foreach (Transform t in _t.Find("Heroes")) t.GetComponent<Button>().interactable = false;
+            LockInGameRpc();
+        }
     }
 
+    
     [Rpc(SendTo.ClientsAndHost)]
-    private void LockInRpc()
+    private void LockInTeamRpc(int team)
     {
         ready += 1;
         if (ready == 2)
         {
             ready = 0;
             phase += 1;
-            if (phase == 1) BanPhase();
-            if (phase == 2) ChoosePhase();
-            if (phase == 3) GetComponent<StartButtons>().ChangeNetworkScene("Game");
+            if (IsHost)
+            {
+                if (chosenTeam == team)
+                {
+                    bool roll = UnityEngine.Random.Range(0, 2) == 0;
+                    ForceAssignTeamRpc(true, roll);
+                    ForceAssignTeamRpc(false, !roll);
+                }
+                else
+                {
+                    if (chosenTeam == 2) ForceAssignTeamRpc(true, team == 0 ? false : true);
+                    if (team == 2) ForceAssignTeamRpc(false, chosenTeam == 0 ? false : true);
+                }
+                TeamAssignCompleteRpc();
+            }
+        }
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void TeamAssignCompleteRpc()
+    {
+        BanPhase();
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void ForceAssignTeamRpc(bool host, bool plant)
+    {
+        if (IsHost == host)
+        {
+            team = plant ? Team.Plant : Team.Zombie;
         }
     }
 
@@ -109,15 +147,23 @@ public class LobbyManager : NetworkBehaviour
         {
             ready = 0;
             phase += 1;
-            if (phase == 1) BanPhase();
-            if (phase == 2) ChoosePhase();
-            if (phase == 3) GetComponent<StartButtons>().ChangeNetworkScene("Game");
+            ChoosePhase();
+        }
+    }
+    
+    [Rpc(SendTo.ClientsAndHost)]
+    private void LockInGameRpc()
+    {
+        ready += 1;
+        if (ready == 2)
+        {
+            GetComponent<StartButtons>().ChangeNetworkScene("Game");
         }
     }
 
-    public void TeamButton(bool plant)
+    public void TeamButton(int t)
     {
-        team = plant ? Team.Plant : Team.Zombie;
+        chosenTeam = t;
         lockIn.interactable = true;
     }
     
