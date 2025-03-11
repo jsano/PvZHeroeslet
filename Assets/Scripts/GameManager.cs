@@ -56,7 +56,7 @@ public class GameManager : NetworkBehaviour
             zombieHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
             zombieHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
 
-			UserAccounts.GameStats.Deck = new List<int>(new int[] { 4, 23, 24, 25, 2 }); //temp
+			UserAccounts.GameStats.Deck = new List<int>(new int[] { 4, 23, 24, 25, 2, 5 }); //temp
 		}
 		else
 		{
@@ -66,7 +66,7 @@ public class GameManager : NetworkBehaviour
 			plantHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
 			plantHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
 
-            UserAccounts.GameStats.Deck = new List<int>(new int[] { 44, 47, 48, 49, 50 });
+            UserAccounts.GameStats.Deck = new List<int>(new int[] { 44, 47, 48, 49, 50, 44 });
         }
 
 		foreach (Transform t in GameObject.Find("Tiles").transform)

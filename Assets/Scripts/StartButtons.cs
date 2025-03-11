@@ -8,10 +8,15 @@ using Unity.Services.Multiplayer;
 public class StartButtons : NetworkBehaviour
 {
     
-    public void ChangeScene(string scene)
+    public void ChangeNetworkScene(string scene)
     {
         if (NetworkManager.Singleton.IsHost)
             NetworkManager.SceneManager.LoadScene(scene, LoadSceneMode.Single);
+    }
+
+    public void ChangeScene(string scene)
+    {
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
     }
 
 }
