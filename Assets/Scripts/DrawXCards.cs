@@ -10,7 +10,7 @@ public class DrawXCards : Card
     protected override IEnumerator OnThisPlay()
     {
         yield return new WaitForSeconds(1);
-        yield return GameManager.Instance.DrawCard(count);
+        yield return GameManager.Instance.DrawCard(team, count);
         yield return base.OnThisPlay();
     }
 

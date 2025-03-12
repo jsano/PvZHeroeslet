@@ -5,11 +5,14 @@ using UnityEngine;
 public class BananasaurusRex : Card
 {
 
-	protected override IEnumerator OnCardDraw()
+	protected override IEnumerator OnCardDraw(Team team)
 	{
-		yield return new WaitForSeconds(1);
-		RaiseAttack(1);
-		Heal(1, true);
+		if (team == this.team)
+		{
+			yield return new WaitForSeconds(1);
+			RaiseAttack(1);
+			Heal(1, true);
+		}
 	}
 
 }

@@ -56,11 +56,11 @@ public class GameManager : NetworkBehaviour
 			UserAccounts.GameStats.Deck = new List<int>(new int[] {
                 AllCards.NameToID("Wall-nut"),
                 AllCards.NameToID("Pineclone"),
-                AllCards.NameToID("Brainana"),
+                AllCards.NameToID("Flourish"),
                 AllCards.NameToID("Winter Melon"),
-                AllCards.NameToID("Kernel Corn"),
+                AllCards.NameToID("Bananasaurus Rex"),
                 AllCards.NameToID("The Great Zucchini"),
-                0,0 }); //temp
+                0,0,0,0 }); //temp
 		}
 		else
 		{
@@ -76,8 +76,8 @@ public class GameManager : NetworkBehaviour
                 AllCards.NameToID("Pied Piper"),
                 AllCards.NameToID("Lurch for Lunch"),
                 AllCards.NameToID("Bungee Plumber"),
-				50,
-				44,44 });
+				AllCards.NameToID("Fun-Dead Raiser"),
+                44,44,44,44 });
         }
 
 		foreach (Transform t in GameObject.Find("Tiles").transform)
@@ -99,32 +99,39 @@ public class GameManager : NetworkBehaviour
 
 	private IEnumerator Mulligan()
 	{
-		yield return DrawCard(4);
+		yield return DrawCard(team, 4);
 		if (IsServer) yield break;
         yield return null;
 		EndRpc();
 	}
 
-	public IEnumerator DrawCard(int count = 1)
+	public IEnumerator DrawCard(Team t, int count = 1)
 	{
 		for (int i = 0; i < count; i++)
 		{
-			yield return GainHandCard(UserAccounts.GameStats.Deck[0]);
-			UserAccounts.GameStats.Deck.RemoveAt(0);
-		}
+            if (team == t)
+			{
+				yield return GainHandCard(t, UserAccounts.GameStats.Deck[0]);
+				UserAccounts.GameStats.Deck.RemoveAt(0);
+			}
+			else yield return CallLeftToRight("OnCardDraw", t);
+        }
     }
 
-    public IEnumerator GainHandCard(int id)
+    public IEnumerator GainHandCard(Team t, int id)
 	{
-		GameObject c = Instantiate(handcardPrefab, handCards);
-        c.SetActive(false);
-		for (int i = 0; i < handCards.childCount; i++)
+		if (team == t)
 		{
-			handCards.GetChild(i).transform.localPosition = new Vector2(1.2f * (-(handCards.childCount - 1) / 2f + i), 0);
+			GameObject c = Instantiate(handcardPrefab, handCards);
+			c.SetActive(false);
+			for (int i = 0; i < handCards.childCount; i++)
+			{
+				handCards.GetChild(i).transform.localPosition = new Vector2(1.2f * (-(handCards.childCount - 1) / 2f + i), 0);
+			}
+			c.GetComponent<HandCard>().ID = id;
+			c.SetActive(true);
 		}
-        c.GetComponent<HandCard>().ID = id;
-        c.SetActive(true);
-		yield return CallLeftToRight("OnCardDraw", null);
+		yield return CallLeftToRight("OnCardDraw", t);
     }
 
     [Rpc(SendTo.ClientsAndHost)]
@@ -180,7 +187,11 @@ public class GameManager : NetworkBehaviour
 
 			if (Tile.plantTiles[1, col].planted != null && Tile.plantTiles[1, col].planted.doubleStrike) yield return Tile.plantTiles[1, col].planted.Attack();
 			if (Tile.plantTiles[0, col].planted != null && Tile.plantTiles[0, col].planted.doubleStrike) yield return Tile.plantTiles[0, col].planted.Attack();
-		}
+
+            yield return CheckDeaths();
+
+            yield return HandleHeroBlocks();
+        }
 
         turn += 1;
         remaining = turn;
@@ -189,7 +200,8 @@ public class GameManager : NetworkBehaviour
 		UpdateRemaining(0, Team.Zombie);
 		phase = 0;
 
-        yield return DrawCard();
+        yield return DrawCard(Team.Zombie);
+        yield return DrawCard(Team.Plant);
 
         yield return CallLeftToRight("OnTurnStart", null);
 		if (IsServer) EndRpc();
@@ -321,7 +333,7 @@ public class GameManager : NetworkBehaviour
         else StartCoroutine(Tile.zombieTiles[row, col].planted.Freeze());
     }
 
-    public static IEnumerator CallLeftToRight(string methodName, Damagable arg)
+    public static IEnumerator CallLeftToRight(string methodName, object arg)
 	{
 		for (int i = 0; i < 5; i++)
 		{
