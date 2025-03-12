@@ -177,7 +177,7 @@ MonoBehaviour:
   teamUp: 0
   untrickable: 0
   nextDoor: 0
-  description: 'When played: Damage the Zombie Hero for half their health'
+  description: 'When played: Damage the zombie hero for half their health'
   row: 0
   col: 0
   playedCost: 0

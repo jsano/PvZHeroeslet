@@ -99,6 +99,7 @@ public class Card : Damagable
     public bool teamUp;
     public bool untrickable;
     public bool nextDoor;
+    public bool freeze;
 
     public string description;
 
@@ -309,18 +310,14 @@ public class Card : Damagable
             yield break;
         }
         if (atk <= 0 || gravestone) yield break;
-        if (!nextDoor)
+        if (!nextDoor && splash == 0)
         {
             Damagable target = GetTarget(col);
-            int dealt = target.ReceiveDamage(atk, bullseye, deadly);
+            yield return target.ReceiveDamage(atk, bullseye, deadly, freeze);
 		    // animation
 		    yield return new WaitForSeconds(1);
             //
             yield return GameManager.CallLeftToRight("OnCardAttack", this);
-            if (dealt > 0)
-            {    
-		        yield return GameManager.CallLeftToRight("OnCardHurt", target);
-            }
         }
         else
         {
@@ -328,36 +325,31 @@ public class Card : Damagable
             for (int i = -1; i <= 1; i++)
             {
                 if (col + i < 0 || col + i > 4) continue;
-                target[i+1] = GetTarget(col + i);
+                if (splash > 0 && i != 0) target[i+1] = Tile.zombieTiles[0, col + i].planted;
+                else target[i+1] = GetTarget(col + i);
             }
             int[] dealt = new int[3];
-            for (int i = 0; i < 3; i++) if (target[i] != null) dealt[i] = target[i].ReceiveDamage(atk, bullseye, deadly);
+            for (int i = 0; i < 3; i++) if (target[i] != null) yield return target[i].ReceiveDamage(atk, bullseye, deadly, freeze);
 			// animation
 			yield return new WaitForSeconds(1);
 			//
             yield return GameManager.CallLeftToRight("OnCardAttack", this);
-			for (int i = 0; i < 3; i++)
-            {
-                if (dealt[i] > 0)
-			    {   
-				    yield return GameManager.CallLeftToRight("OnCardHurt", target[i]);
-			    }
-            }
 		}
 	}
 
-    public override int ReceiveDamage(int dmg, bool bullseye = false, bool deadly = false)
+    public override IEnumerator ReceiveDamage(int dmg, bool bullseye = false, bool deadly = false, bool freeze = false)
     {//Debug.Log(row + " " + col + " got hit for " + dmg);
-        if (gravestone) return 0;
+        if (gravestone) yield break;
         dmg -= armor;
         HP -= dmg;
         hpUI.text = Mathf.Max(0, HP) + "";
         if (dmg > 0)
         {
-            StartCoroutine(HitVisual());
+            yield return HitVisual();
             if (deadly) hitByDeadly = true;
+            yield return GameManager.CallLeftToRight("OnCardHurt", this);
+            if (freeze) yield return Freeze();
         }
-		return dmg;
     }
     
     public IEnumerator DieIfZero()

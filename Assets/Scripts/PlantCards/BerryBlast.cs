@@ -8,8 +8,8 @@ public class BerryBlast : Card
 	{
 		GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
-		if (row == -1 && col == -1) GameManager.Instance.zombieHero.ReceiveDamage(3);
-		else Tile.zombieTiles[row, col].planted.ReceiveDamage(3);
+		if (row == -1 && col == -1) yield return GameManager.Instance.zombieHero.ReceiveDamage(3);
+		else yield return Tile.zombieTiles[row, col].planted.ReceiveDamage(3);
 		yield return base.OnThisPlay();
 	}
 

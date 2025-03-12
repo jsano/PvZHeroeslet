@@ -31,7 +31,7 @@ public class Hero : Damagable
         
     }
 
-	public override int ReceiveDamage(int dmg, bool bullseye = false, bool deadly = false)
+	public override IEnumerator ReceiveDamage(int dmg, bool bullseye = false, bool deadly = false, bool freeze = false)
 	{
 		if (team == Card.Team.Plant)
 			for (int col = 0; col < 5; col++)
@@ -40,7 +40,7 @@ public class Hero : Damagable
 				{
 					if (Tile.plantTiles[row, col].planted != null && Tile.plantTiles[row, col].planted.name.Contains("Soul Patch"))
 					{
-						return Tile.plantTiles[row, col].planted.ReceiveDamage(dmg);
+						yield return Tile.plantTiles[row, col].planted.ReceiveDamage(dmg);
 					}
 				}
 			}
@@ -68,7 +68,6 @@ public class Hero : Damagable
 			}
 			else StartCoroutine(HitVisual());
 		}
-		return dmg;
 	}
 
 	public override void Heal(int amount, bool raiseCap=false)

@@ -2,18 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KernelCorn : Card
+public class Brainana : Card
 {
 
 	protected override IEnumerator OnThisPlay()
 	{
 		GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
-		for (int col = 0; col < 5; col++)
-		{
-			if (Tile.zombieTiles[0, col].planted != null) yield return Tile.zombieTiles[0, col].planted.ReceiveDamage(4);
-		}
-
+		GameManager.Instance.UpdateRemaining(-100, Team.Zombie);
 		yield return base.OnThisPlay();
 	}
 

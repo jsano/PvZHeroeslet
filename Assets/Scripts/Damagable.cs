@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class Damagable : MonoBehaviour
 {
-	public abstract int ReceiveDamage(int dmg, bool bullseye = false, bool deadly = false);
+	public abstract IEnumerator ReceiveDamage(int dmg, bool bullseye = false, bool deadly = false, bool freeze = false);
 
 	public abstract void Heal(int amount, bool raiseCap);
 

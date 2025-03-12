@@ -13,7 +13,7 @@ public class WallnutBowling : Card
         int heroDmg = 0;
 		for (int i = 1; i < 4; i++)
 		{
-			if (Tile.zombieTiles[0, i].planted != null) Tile.zombieTiles[0, i].planted.ReceiveDamage(6);
+			if (Tile.zombieTiles[0, i].planted != null) yield return Tile.zombieTiles[0, i].planted.ReceiveDamage(6);
 			else heroDmg += 6;
 
 			if (Tile.CanPlantInCol(i, Tile.plantTiles, true, false))
@@ -24,7 +24,7 @@ public class WallnutBowling : Card
                 todo.Add(card);
             }
 		}
-		GameManager.Instance.zombieHero.ReceiveDamage(heroDmg);
+		yield return GameManager.Instance.zombieHero.ReceiveDamage(heroDmg);
 
         foreach (Card c in todo)
         {

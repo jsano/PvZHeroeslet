@@ -9,7 +9,7 @@ public class DandyLionKing : Card
 	{
 		GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
-		GameManager.Instance.zombieHero.ReceiveDamage((int)Mathf.Floor(GameManager.Instance.zombieHero.HP / 2));
+		yield return GameManager.Instance.zombieHero.ReceiveDamage((int)Mathf.Floor(GameManager.Instance.zombieHero.HP / 2));
 
 		yield return base.OnThisPlay();
 	}

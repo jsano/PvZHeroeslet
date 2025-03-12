@@ -56,10 +56,10 @@ public class GameManager : NetworkBehaviour
 			UserAccounts.GameStats.Deck = new List<int>(new int[] {
                 AllCards.NameToID("Wall-nut"),
                 AllCards.NameToID("Pineclone"),
-                AllCards.NameToID("Doubled Mint"),
-                AllCards.NameToID("Sunflower"),
-                AllCards.NameToID("Muscle Sprout"),
-                AllCards.NameToID("Bananasaurus Rex"),
+                AllCards.NameToID("Brainana"),
+                AllCards.NameToID("Winter Melon"),
+                AllCards.NameToID("Kernel Corn"),
+                AllCards.NameToID("Snow Pea"),
                 0,0 }); //temp
 		}
 		else
@@ -74,8 +74,9 @@ public class GameManager : NetworkBehaviour
                 AllCards.NameToID("Disco"),
                 AllCards.NameToID("Smoke Bomb"),
                 AllCards.NameToID("Pied Piper"),
-                AllCards.NameToID("Lurch for Lunch"), 
-				50, 
+                AllCards.NameToID("Lurch for Lunch"),
+                AllCards.NameToID("Bungee Plumber"),
+				50,
 				44,44 });
         }
 
@@ -313,7 +314,14 @@ public class GameManager : NetworkBehaviour
 		if (tteam != team) StartCoroutine(CallLeftToRight("OnCardMoved", c)); //THE MOVING TEAM SHOULD YIELD BREAK THEIR OWN CALL (TODO: maybe rework???)
 	}
 
-	public static IEnumerator CallLeftToRight(string methodName, Damagable arg)
+    [Rpc(SendTo.ClientsAndHost)]
+    public void FreezeRpc(Team tteam, int row, int col)
+    {
+        if (tteam == Team.Plant) StartCoroutine(Tile.plantTiles[row, col].planted.Freeze()); //TODO: asynchronous
+        else StartCoroutine(Tile.zombieTiles[row, col].planted.Freeze());
+    }
+
+    public static IEnumerator CallLeftToRight(string methodName, Damagable arg)
 	{
 		for (int i = 0; i < 5; i++)
 		{
@@ -396,6 +404,7 @@ public class GameManager : NetworkBehaviour
 		if (team == this.team)
 		{
 			remaining += change;
+			remaining = Mathf.Max(remaining, 0);
 			remainingText.text = remaining + "";
 			DisableHandCards();
 			EnablePlayableHandCards();
@@ -403,7 +412,8 @@ public class GameManager : NetworkBehaviour
 		else
 		{
 			opponentRemaining += change;
-			opponentRemainingText.text = opponentRemaining + "";
+            opponentRemaining = Mathf.Max(opponentRemaining, 0);
+            opponentRemainingText.text = opponentRemaining + "";
 		}
     }
 
