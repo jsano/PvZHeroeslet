@@ -177,7 +177,7 @@ MonoBehaviour:
   teamUp: 0
   untrickable: 0
   nextDoor: 0
-  description: 'When played: Transform all Plants into Pineclones'
+  description: 'When played: Transform all plants into Pineclones'
   row: 0
   col: 0
   playedCost: 0
