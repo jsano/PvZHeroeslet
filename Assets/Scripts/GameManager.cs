@@ -59,7 +59,7 @@ public class GameManager : NetworkBehaviour
                 AllCards.NameToID("Brainana"),
                 AllCards.NameToID("Winter Melon"),
                 AllCards.NameToID("Kernel Corn"),
-                AllCards.NameToID("Snow Pea"),
+                AllCards.NameToID("The Great Zucchini"),
                 0,0 }); //temp
 		}
 		else

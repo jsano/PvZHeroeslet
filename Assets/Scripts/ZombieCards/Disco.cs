@@ -10,7 +10,7 @@ public class Disco : Card
 		if (GameManager.Instance.team == team)
 		{
 			GameManager.Instance.DisableHandCards();
-			for (int col = 0; col < 5; col++)
+			for (int col = 0; col < 4; col++)
 			{
 				if (Tile.zombieTiles[0, col].planted == null)
 				{
@@ -30,8 +30,8 @@ public class Disco : Card
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
 		//yield return new WaitForSeconds(1);
-		GameManager.Instance.PlayCardRpc(HandCard.MakeDefaultFS(AllCards.NameToID("Backup Dancer")), bc.GetComponent<Tile>().row, bc.GetComponent<Tile>().col, true);
 		Tile t = bc.GetComponent<Tile>();
+		GameManager.Instance.PlayCardRpc(HandCard.MakeDefaultFS(AllCards.NameToID("Backup Dancer")), t.row, t.col, true);
         yield return new WaitUntil(() => t.planted != null && t.planted.playState == PlayState.OnThisPlayed);
         selected = true;
 	}
