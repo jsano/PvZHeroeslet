@@ -120,6 +120,9 @@ public class Card : Damagable
 
     private CardInfo cardInfo;
 
+    public enum PlayState { Waiting, ReadyForOnThisPlay, OnThisPlayed};
+    [HideInInspector] public PlayState playState = PlayState.ReadyForOnThisPlay;
+
 	// Start is called before the first frame update
 	void Start()
     {
@@ -140,10 +143,17 @@ public class Card : Damagable
 		else
 		{
             //play animation
-		    StartCoroutine(OnThisPlay());
+		    StartCoroutine(WaitForOnThisPlay());
 		}
 		cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
 	}
+
+    private IEnumerator WaitForOnThisPlay()
+    {
+        yield return new WaitUntil(() => playState == PlayState.ReadyForOnThisPlay);
+        Debug.Log("ready for on this play " + col);
+        yield return OnThisPlay();
+    }
 
 	// Update is called once per frame
 	void Update()
@@ -182,6 +192,7 @@ public class Card : Damagable
         yield return GameManager.Instance.HandleHeroBlocks();
 		GameManager.Instance.EnablePlayableHandCards();
         GameManager.Instance.waitingOnBlock = false;
+        playState = PlayState.OnThisPlayed;
         if (type == Type.Trick) Destroy(gameObject);
 	}
 
@@ -363,7 +374,7 @@ public class Card : Damagable
 		Destroy(gameObject);
 	}
 
-	public override void Heal(int amount, bool raiseCap)
+	public override void Heal(int amount, bool raiseCap=false)
     {
         if (gravestone) return;
         HP += amount;

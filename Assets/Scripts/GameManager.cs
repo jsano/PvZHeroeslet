@@ -58,7 +58,7 @@ public class GameManager : NetworkBehaviour
                 AllCards.NameToID("Mixed Nuts"),
                 AllCards.NameToID("Wall-nut Bowling"),
                 AllCards.NameToID("Sunflower"),
-                AllCards.NameToID("Flourish"), 
+                AllCards.NameToID("Poppin' Poppies"), 
 				5,5 }); //temp
 		}
 		else

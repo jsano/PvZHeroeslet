@@ -59,7 +59,7 @@ public class Hero : Damagable
 		return dmg;
 	}
 
-	public override void Heal(int amount, bool raiseCap)
+	public override void Heal(int amount, bool raiseCap=false)
 	{
 		HP += amount;
 		if (raiseCap) maxHP += amount;

@@ -8,7 +8,9 @@ public class WallnutBowling : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		int heroDmg = 0;
+
+        List<Card> todo = new();
+        int heroDmg = 0;
 		for (int i = 1; i < 4; i++)
 		{
 			if (Tile.zombieTiles[0, i].planted != null) Tile.zombieTiles[0, i].planted.ReceiveDamage(6);
@@ -18,11 +20,19 @@ public class WallnutBowling : Card
 			{
 				Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Wall-nut")]).GetComponent<Card>();
 				Tile.plantTiles[1, i].Plant(card);
-			}
+                card.playState = PlayState.Waiting;
+                todo.Add(card);
+            }
 		}
 		GameManager.Instance.zombieHero.ReceiveDamage(heroDmg);
 
-		yield return base.OnThisPlay();
+        foreach (Card c in todo)
+        {
+            c.playState = PlayState.ReadyForOnThisPlay;
+            yield return new WaitUntil(() => c.playState == PlayState.OnThisPlayed);
+        }
+
+        yield return base.OnThisPlay();
 	}
 
 }
