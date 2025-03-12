@@ -55,7 +55,7 @@ public class GameManager : NetworkBehaviour
 
 			UserAccounts.GameStats.Deck = new List<int>(new int[] {
                 AllCards.NameToID("Wall-nut"),
-                AllCards.NameToID("Dandy Lion King"),
+                AllCards.NameToID("Pineclone"),
                 AllCards.NameToID("Wall-nut Bowling"),
                 AllCards.NameToID("Sunflower"),
                 AllCards.NameToID("Poppin' Poppies"), 

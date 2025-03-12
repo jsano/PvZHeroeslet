@@ -36,7 +36,7 @@ public class Hero : Damagable
 		if (team == Card.Team.Plant)
 			for (int col = 0; col < 5; col++)
 			{
-				for (int row = 0; row < 1; row++)
+				for (int row = 0; row < 2; row++)
 				{
 					if (Tile.plantTiles[row, col].planted != null && Tile.plantTiles[row, col].planted.name.Contains("Soul Patch"))
 					{
