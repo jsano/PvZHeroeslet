@@ -74,6 +74,7 @@ public class Card : Damagable
     public Type type;
     public Class _class;
     public List<Tribe> tribes;
+    public bool token;
 
     public int cost;
     public int atk;

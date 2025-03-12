@@ -63,6 +63,10 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         startPos = transform.position;
         transform.localScale = Vector3.one * 1.2f;
 
+        GetComponent<SpriteRenderer>().sortingOrder += 10;
+        image.sortingOrder += 10;
+        atkUI.transform.parent.GetComponent<Canvas>().sortingOrder += 10;
+
         validChoices.Clear();
         if (orig.type == Card.Type.Trick)
         {
@@ -77,13 +81,11 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    if (j == 4 && !finalStats.abilities.Contains("amphibious") && !orig.amphibious) continue;
-                    if (tileObjects[0, j].planted != null && tileObjects[1, j].planted != null) continue;
-				    bool hasTeamup = false;
-				    if (tileObjects[0, j].planted != null && tileObjects[0, j].planted.teamUp) hasTeamup = true;
-                    if (tileObjects[1, j].planted != null && tileObjects[1, j].planted.teamUp) hasTeamup = true;
-                    if (hasTeamup || finalStats.abilities.Contains("teamup") || orig.teamUp) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
-                    else if (i == 0 && tileObjects[0, j].planted == null && tileObjects[1, j].planted == null) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
+                    if (Tile.CanPlantInCol(j, tileObjects, finalStats.abilities.Contains("teamup") || orig.teamUp, finalStats.abilities.Contains("amphibious") || orig.amphibious))
+                    {
+                        if (i == 0 || i == 1 && (finalStats.abilities.Contains("teamup") || orig.teamUp)) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
+                    }
+                        
 			    }
             }
         }
@@ -111,6 +113,10 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         if (Vector3.Distance(transform.position, startPos) < 0.1) StartCoroutine(cardInfo.Show(AllCards.Instance.cards[ID]));
         if (!interactable) return;
         transform.localScale = Vector3.one;
+        GetComponent<SpriteRenderer>().sortingOrder -= 10;
+        image.sortingOrder -= 10;
+        atkUI.transform.parent.GetComponent<Canvas>().sortingOrder -= 10;
+
         foreach (BoxCollider2D bc in validChoices)
         {
             Tile t = bc.GetComponent<Tile>();

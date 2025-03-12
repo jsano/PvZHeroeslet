@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static HandCard;
 
 public class Tile : MonoBehaviour
 {
@@ -70,6 +71,18 @@ public class Tile : MonoBehaviour
         c.row = row;
         c.col = col;
         c.transform.position = transform.position;
+    }
+
+    public static bool CanPlantInCol(int col, Tile[,] tileObjects, bool teamUp, bool amphibious)
+    {
+        if (col == 4 && !amphibious) return false;
+        if (tileObjects[0, col].planted != null && tileObjects[1, col].planted != null) return false;
+        if (tileObjects[0, col].planted == null && tileObjects[1, col].planted == null) return true;
+        bool hasTeamup = false;
+        if (tileObjects[0, col].planted != null && tileObjects[0, col].planted.teamUp) hasTeamup = true;
+        if (tileObjects[1, col].planted != null && tileObjects[1, col].planted.teamUp) hasTeamup = true;
+        if (hasTeamup || teamUp) return true;
+        return false;
     }
 
     public void ToggleHighlight(bool on)

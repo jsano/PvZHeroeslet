@@ -142,6 +142,7 @@ MonoBehaviour:
   type: 1
   _class: 0
   tribes: 15000000
+  token: 0
   cost: 9
   atk: 0
   HP: 0
