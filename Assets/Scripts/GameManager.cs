@@ -53,7 +53,13 @@ public class GameManager : NetworkBehaviour
             zombieHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
             zombieHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
 
-			UserAccounts.GameStats.Deck = new List<int>(new int[] { 4, 23, 24, 25, 2, 5 }); //temp
+			UserAccounts.GameStats.Deck = new List<int>(new int[] {
+                AllCards.NameToID("Wall-nut"),
+                AllCards.NameToID("Mixed Nuts"),
+                AllCards.NameToID("Wall-nut Bowling"),
+                AllCards.NameToID("Sunflower"),
+                AllCards.NameToID("Flourish"), 
+				5,5 }); //temp
 		}
 		else
 		{
@@ -63,7 +69,13 @@ public class GameManager : NetworkBehaviour
 			plantHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
 			plantHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
 
-            UserAccounts.GameStats.Deck = new List<int>(new int[] { 44, 47, 48, 49, 50, 44 });
+            UserAccounts.GameStats.Deck = new List<int>(new int[] {
+                AllCards.NameToID("Disco"),
+                AllCards.NameToID("Smoke Bomb"),
+                AllCards.NameToID("Pied Piper"),
+                AllCards.NameToID("Lurch for Lunch"), 
+				50, 
+				44,44 });
         }
 
 		foreach (Transform t in GameObject.Find("Tiles").transform)
@@ -80,16 +92,16 @@ public class GameManager : NetworkBehaviour
             deck[k] = temp;
         }
 
-		StartCoroutine(DrawCard(4));
-		if (IsServer) return;
-        StartCoroutine(Wait1Frame());
+		StartCoroutine(Mulligan());
     }
 
-    private IEnumerator Wait1Frame()
-    {
+	private IEnumerator Mulligan()
+	{
+		yield return DrawCard(4);
+		if (IsServer) yield break;
         yield return null;
-        EndRpc();
-    }
+		EndRpc();
+	}
 
 	public IEnumerator DrawCard(int count = 1)
 	{
@@ -102,7 +114,7 @@ public class GameManager : NetworkBehaviour
 
     public IEnumerator GainHandCard(int id)
 	{
-        GameObject c = Instantiate(handcardPrefab, handCards);
+		GameObject c = Instantiate(handcardPrefab, handCards);
         c.SetActive(false);
 		for (int i = 0; i < handCards.childCount; i++)
 		{
@@ -204,34 +216,21 @@ public class GameManager : NetworkBehaviour
     private void PositionCardRpc(HandCard.FinalStats fs, int row, int col, bool free=false)
     {
 		Card card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
-        card.row = row;
-        card.col = col;
         card.atk = fs.atk;
         card.HP = fs.hp;
         //abilities...
         if (card.team == Team.Zombie)
         {
-            Tile to = Tile.zombieTiles[row, col];
-			card.transform.position = to.transform.position;
-            if (to.planted != null)
-            {
-                Tile.zombieTiles[1 - row, col].planted = to.planted;
-                to.planted.row = 1 - row;
-                to.planted.transform.position = Tile.zombieTiles[1 - row, col].transform.position;
-            }
-            to.planted = card;
+			Tile.zombieTiles[row, col].Plant(card);
         }
         else
         {
 			Tile to = Tile.plantTiles[row, col];
-			card.transform.position = to.transform.position;
 			if (to.planted != null)
 			{
-				Tile.plantTiles[1 - row, col].planted = to.planted;
-				to.planted.row = 1 - row;
-				to.planted.transform.position = Tile.plantTiles[1 - row, col].transform.position;
+				Tile.plantTiles[1 - row, col].Plant(to.planted);
 			}
-			to.planted = card;
+			to.Plant(card);
 		}
 
         if (card.team != team)
@@ -302,19 +301,13 @@ public class GameManager : NetworkBehaviour
 		{
 			c = Tile.plantTiles[row, col].planted;
 			Tile.plantTiles[row, col].planted = null;
-			Tile.plantTiles[nrow, ncol].planted = c;
-			c.row = nrow;
-			c.col = ncol;
-			c.transform.position = Tile.plantTiles[nrow, ncol].transform.position;
+			Tile.plantTiles[nrow, ncol].Plant(c);
 		}
 		else
 		{
 			c = Tile.zombieTiles[row, col].planted;
 			Tile.zombieTiles[row, col].planted = null;
-			Tile.zombieTiles[nrow, ncol].planted = c;
-			c.row = nrow;
-			c.col = ncol;
-			c.transform.position = Tile.zombieTiles[nrow, ncol].transform.position;
+			Tile.zombieTiles[nrow, ncol].Plant(c);
 		}
 		if (tteam != team) StartCoroutine(CallLeftToRight("OnCardMoved", c)); //THE MOVING TEAM SHOULD YIELD BREAK THEIR OWN CALL (TODO: maybe rework???)
 	}

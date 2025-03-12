@@ -23,6 +23,7 @@ public class StartButtons : NetworkBehaviour
     public void StartHost()
     {
         NetworkManager.Singleton.StartHost();
+        GameObject.Find("Client").SetActive(false);
         UserAccounts.GameStats.PlantHero = 0;
         UserAccounts.GameStats.ZombieHero = 15;
         NetworkManager.OnConnectionEvent += P2Joined;

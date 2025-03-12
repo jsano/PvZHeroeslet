@@ -60,6 +60,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     public void OnPointerDown(PointerEventData eventData)
     {
         if (!interactable) return;
+        startPos = transform.position;
         transform.localScale = Vector3.one * 1.2f;
 
         validChoices.Clear();
@@ -155,7 +156,6 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         else tileObjects = Tile.zombieTiles;
 
 		cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
-		startPos = transform.position;
 	}
 
     // Update is called once per frame

@@ -375,6 +375,7 @@ public class Card : Damagable
 	{
         if (gravestone) return;
 		atk += amount;
+        atk = Mathf.Max(0, atk);
 		atkUI.text = atk + "";
 	}
 

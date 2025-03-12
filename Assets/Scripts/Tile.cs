@@ -64,6 +64,14 @@ public class Tile : MonoBehaviour
 		}
     }
 
+    public void Plant(Card c)
+    {
+        planted = c;
+        c.row = row;
+        c.col = col;
+        c.transform.position = transform.position;
+    }
+
     public void ToggleHighlight(bool on)
     {
         SR.color = new Color(SR.color.r, SR.color.g, SR.color.b, on ? 1 : 0);
