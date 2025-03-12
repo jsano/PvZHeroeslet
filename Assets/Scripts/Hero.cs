@@ -33,7 +33,19 @@ public class Hero : Damagable
 
 	public override int ReceiveDamage(int dmg, bool bullseye = false, bool deadly = false)
 	{
-		if (!bullseye)
+		if (team == Card.Team.Plant)
+			for (int col = 0; col < 5; col++)
+			{
+				for (int row = 0; row < 1; row++)
+				{
+					if (Tile.plantTiles[row, col].planted != null && Tile.plantTiles[row, col].planted.name.Contains("Soul Patch"))
+					{
+						return Tile.plantTiles[row, col].planted.ReceiveDamage(dmg);
+					}
+				}
+			}
+
+        if (!bullseye)
 		{
 			if (dmg == 1) block += 1;
 			else if (dmg <= 3) block += 2;

@@ -121,6 +121,10 @@ public class Card : Damagable
     private CardInfo cardInfo;
 
     public enum PlayState { Waiting, ReadyForOnThisPlay, OnThisPlayed};
+    /// <summary>
+    /// By default, cards immediately call OnThisPlay. If spawned by a parent (ex. Poppin Poppies) the parent must wait for OnThisPlayed.
+    /// If a parent spawns multiple, it should set all children to Waiting and eventually to ReadyForOnThisPlay one at a time
+    /// </summary>
     [HideInInspector] public PlayState playState = PlayState.ReadyForOnThisPlay;
 
 	// Start is called before the first frame update
@@ -151,7 +155,7 @@ public class Card : Damagable
     private IEnumerator WaitForOnThisPlay()
     {
         yield return new WaitUntil(() => playState == PlayState.ReadyForOnThisPlay);
-        Debug.Log("ready for on this play " + col);
+        //Debug.Log("ready for on this play " + col);
         yield return OnThisPlay();
     }
 

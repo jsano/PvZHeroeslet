@@ -31,8 +31,9 @@ public class Disco : Card
 	{
 		//yield return new WaitForSeconds(1);
 		GameManager.Instance.PlayCardRpc(HandCard.MakeDefaultFS(AllCards.NameToID("Backup Dancer")), bc.GetComponent<Tile>().row, bc.GetComponent<Tile>().col, true);
-		yield return null;
-		selected = true;
+		Tile t = bc.GetComponent<Tile>();
+        yield return new WaitUntil(() => t.planted != null && t.planted.playState == PlayState.OnThisPlayed);
+        selected = true;
 	}
 
 }
