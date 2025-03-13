@@ -9,7 +9,7 @@ public class Squash : Card
 	{
 		GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
-		yield return Tile.zombieTiles[row, col].planted.Destroy();
+		Tile.zombieTiles[row, col].planted.Destroy();
 		yield return base.OnThisPlay();
 	}
 

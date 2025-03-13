@@ -148,7 +148,7 @@ public class Card : Damagable
 		else
 		{
             //play animation
-		    StartCoroutine(WaitForOnThisPlay());
+		    StartCoroutine(OnThisPlay());
 		}
 		cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
 	}
@@ -191,14 +191,16 @@ public class Card : Damagable
 	/// <param name="played"> The card that was played </param>
 	protected virtual IEnumerator OnThisPlay()
 	{
-        GameManager.Instance.DisableHandCards();
-        yield return GameManager.Instance.CheckDeaths();
-        yield return GameManager.CallLeftToRight("OnCardPlay", this);
+        GameManager.Instance.TriggerEvent("OnCardPlay", this);
+        yield return GameManager.Instance.ProcessEvents();
         yield return GameManager.Instance.HandleHeroBlocks();
-		GameManager.Instance.EnablePlayableHandCards();
         GameManager.Instance.waitingOnBlock = false;
         playState = PlayState.OnThisPlayed;
-        if (type == Type.Trick) Destroy(gameObject);
+        if (type == Type.Trick)
+        {
+            yield return new WaitForSeconds(0.5f);
+            gameObject.SetActive(false);
+        }
 	}
 
 
@@ -256,7 +258,11 @@ public class Card : Damagable
 				RaiseAttack(antihero);
 			}
 		}
-		yield return null;
+        if (died == this)
+        {
+            yield return new WaitForSeconds(0.5f);
+            Destroy(gameObject);
+        }
     }
 
 	/// <summary>
@@ -317,7 +323,7 @@ public class Card : Damagable
 		    // animation
 		    yield return new WaitForSeconds(1);
             //
-            yield return GameManager.CallLeftToRight("OnCardAttack", this);
+            GameManager.Instance.TriggerEvent("OnCardAttack", this);
         }
         else
         {
@@ -333,7 +339,7 @@ public class Card : Damagable
 			// animation
 			yield return new WaitForSeconds(1);
 			//
-            yield return GameManager.CallLeftToRight("OnCardAttack", this);
+            GameManager.Instance.TriggerEvent("OnCardAttack", this);
 		}
 	}
 
@@ -347,27 +353,20 @@ public class Card : Damagable
         {
             yield return HitVisual();
             if (deadly) hitByDeadly = true;
-            yield return GameManager.CallLeftToRight("OnCardHurt", this);
-            if (freeze) yield return Freeze();
+            GameManager.Instance.TriggerEvent("OnCardHurt", this);
+            if (freeze) Freeze();
         }
-    }
-    
-    public IEnumerator DieIfZero()
-    {
-        if (HP <= 0 || hitByDeadly)
+        if (!GameManager.Instance.laneCombatting && (HP <= 0 || hitByDeadly))
         {
             died = true;
-            yield return GameManager.CallLeftToRight("OnCardDeath", this);
-            Destroy(gameObject);
+            GameManager.Instance.TriggerEvent("OnCardDeath", this);
         }
-        yield return null;
     }
 
-	public IEnumerator Destroy()
+	public void Destroy()
 	{
         died = true;
-		yield return GameManager.CallLeftToRight("OnCardDeath", this);
-		Destroy(gameObject);
+		GameManager.Instance.TriggerEvent("OnCardDeath", this);
 	}
 
 	public override void Heal(int amount, bool raiseCap=false)
@@ -414,11 +413,11 @@ public class Card : Damagable
 	    yield return OnThisPlay();
     }
 
-    public IEnumerator Freeze()
+    public void Freeze()
     {
         frozen = true;
         SR.material.color = Color.blue;
-        yield return GameManager.CallLeftToRight("OnCardFreeze", this);
+        GameManager.Instance.TriggerEvent("OnCardFreeze", this);
     }
 
     private Damagable GetTarget(int col)

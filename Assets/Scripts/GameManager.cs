@@ -39,7 +39,51 @@ public class GameManager : NetworkBehaviour
 	[HideInInspector] public Hero plantHero;
     [HideInInspector] public Hero zombieHero;
 	[HideInInspector] public bool waitingOnBlock = false;
-	
+    [HideInInspector] public bool laneCombatting = false;
+
+    public class GameEvent
+	{
+		public string methodName;
+		public object arg;
+
+		public GameEvent(string _methodName, object _arg)
+		{
+			methodName = _methodName;
+			arg = _arg;
+		}
+	}
+    private Stack<GameEvent> eventQueue = new();
+    private bool isProcessingEvents;
+
+    public void TriggerEvent(string methodName, object arg)
+    {
+        eventQueue.Push(new GameEvent(methodName, arg));
+    }
+
+    public IEnumerator ProcessEvents()
+    {
+		yield return null;
+        isProcessingEvents = true;
+        DisableHandCards();
+
+		for (int col = 0; col < 5; col++)
+		{
+            if (Tile.zombieTiles[0, col].planted != null) yield return Tile.zombieTiles[0, col].planted.ReceiveDamage(0);
+            if (Tile.plantTiles[1, col].planted != null) yield return Tile.plantTiles[1, col].planted.ReceiveDamage(0);
+            if (Tile.plantTiles[0, col].planted != null) yield return Tile.plantTiles[0, col].planted.ReceiveDamage(0);
+        }
+
+        while (eventQueue.Count > 0)
+        {
+            GameEvent currentEvent = eventQueue.Pop();
+            Debug.Log(currentEvent.methodName + " " +  eventQueue.Count);
+            yield return CallLeftToRight(currentEvent.methodName, currentEvent.arg);
+            //yield return new WaitForSeconds(0.2f);
+        }
+        isProcessingEvents = false;
+        EnablePlayableHandCards();
+    }
+
     // Start is called before the first frame update
     void Start()
     {        
@@ -99,26 +143,26 @@ public class GameManager : NetworkBehaviour
 
 	private IEnumerator Mulligan()
 	{
-		yield return DrawCard(team, 4);
+		DrawCard(team, 4);
+		yield return ProcessEvents();
 		if (IsServer) yield break;
-        yield return null;
 		EndRpc();
 	}
 
-	public IEnumerator DrawCard(Team t, int count = 1)
+	public void DrawCard(Team t, int count = 1)
 	{
 		for (int i = 0; i < count; i++)
 		{
             if (team == t)
 			{
-				yield return GainHandCard(t, UserAccounts.GameStats.Deck[0]);
+				GainHandCard(t, UserAccounts.GameStats.Deck[0]);
 				UserAccounts.GameStats.Deck.RemoveAt(0);
 			}
-			else yield return CallLeftToRight("OnCardDraw", t);
+			else TriggerEvent("OnCardDraw", t);
         }
     }
 
-    public IEnumerator GainHandCard(Team t, int id)
+    public void GainHandCard(Team t, int id)
 	{
 		if (team == t)
 		{
@@ -131,7 +175,7 @@ public class GameManager : NetworkBehaviour
 			c.GetComponent<HandCard>().ID = id;
 			c.SetActive(true);
 		}
-		yield return CallLeftToRight("OnCardDraw", t);
+		TriggerEvent("OnCardDraw", t);
     }
 
     [Rpc(SendTo.ClientsAndHost)]
@@ -174,12 +218,15 @@ public class GameManager : NetworkBehaviour
 
         for (int col = 0; col < 5; col++)
 		{
+			laneCombatting = true;
 			if (Tile.zombieTiles[0, col].planted != null) yield return Tile.zombieTiles[0, col].planted.Attack();
 
 			if (Tile.plantTiles[1, col].planted != null) yield return Tile.plantTiles[1, col].planted.Attack();
 			if (Tile.plantTiles[0, col].planted != null) yield return Tile.plantTiles[0, col].planted.Attack();
-            
-            yield return CheckDeaths();
+
+			laneCombatting = false;
+
+			yield return ProcessEvents();
 
             yield return HandleHeroBlocks();
 
@@ -188,7 +235,7 @@ public class GameManager : NetworkBehaviour
 			if (Tile.plantTiles[1, col].planted != null && Tile.plantTiles[1, col].planted.doubleStrike) yield return Tile.plantTiles[1, col].planted.Attack();
 			if (Tile.plantTiles[0, col].planted != null && Tile.plantTiles[0, col].planted.doubleStrike) yield return Tile.plantTiles[0, col].planted.Attack();
 
-            yield return CheckDeaths();
+            yield return ProcessEvents();
 
             yield return HandleHeroBlocks();
         }
@@ -200,23 +247,15 @@ public class GameManager : NetworkBehaviour
 		UpdateRemaining(0, Team.Zombie);
 		phase = 0;
 
-        yield return DrawCard(Team.Zombie);
-        yield return DrawCard(Team.Plant);
+		TriggerEvent("OnTurnStart", null);
+        yield return ProcessEvents();
 
-        yield return CallLeftToRight("OnTurnStart", null);
+        DrawCard(Team.Zombie);
+        DrawCard(Team.Plant);
+
+		yield return ProcessEvents();
 		if (IsServer) EndRpc();
     }
-
-    // For whatever reason CallLeftToRight("DieIfZero") breaks???
-    public IEnumerator CheckDeaths()
-    {
-		for (int col1 = 0; col1 < 5; col1++)
-		{
-			if (Tile.zombieTiles[0, col1].planted != null) yield return Tile.zombieTiles[0, col1].planted.DieIfZero();
-			if (Tile.plantTiles[1, col1].planted != null) yield return Tile.plantTiles[1, col1].planted.DieIfZero();
-			if (Tile.plantTiles[0, col1].planted != null) yield return Tile.plantTiles[0, col1].planted.DieIfZero();
-		}
-	}
 
     [Rpc(SendTo.Server)]
     public void PlayCardRpc(HandCard.FinalStats fs, int row, int col, bool free=false)
@@ -261,6 +300,8 @@ public class GameManager : NetworkBehaviour
         {
             if (!free) UpdateRemaining(-fs.cost, team);
         }
+
+		//StartCoroutine(ProcessEvents());
     }
 
 	[Rpc(SendTo.Server)]
@@ -299,7 +340,9 @@ public class GameManager : NetworkBehaviour
 		}
 
 		UpdateRemaining(-fs.cost, card.team);
-	}
+
+        //StartCoroutine(ProcessEvents());
+    }
 
 	[Rpc(SendTo.ClientsAndHost)]
 	public void HoldTrickRpc()
@@ -323,14 +366,18 @@ public class GameManager : NetworkBehaviour
 			Tile.zombieTiles[row, col].planted = null;
 			Tile.zombieTiles[nrow, ncol].Plant(c);
 		}
-		if (tteam != team) StartCoroutine(CallLeftToRight("OnCardMoved", c)); //THE MOVING TEAM SHOULD YIELD BREAK THEIR OWN CALL (TODO: maybe rework???)
-	}
+		if (tteam != team) TriggerEvent("OnCardMoved", c);
+
+        StartCoroutine(ProcessEvents());
+    }
 
     [Rpc(SendTo.ClientsAndHost)]
     public void FreezeRpc(Team tteam, int row, int col)
     {
-        if (tteam == Team.Plant) StartCoroutine(Tile.plantTiles[row, col].planted.Freeze()); //TODO: asynchronous
-        else StartCoroutine(Tile.zombieTiles[row, col].planted.Freeze());
+        if (tteam == Team.Plant) Tile.plantTiles[row, col].planted.Freeze();
+        else Tile.zombieTiles[row, col].planted.Freeze();
+
+        StartCoroutine(ProcessEvents());
     }
 
     public static IEnumerator CallLeftToRight(string methodName, object arg)
@@ -468,7 +515,7 @@ public class GameManager : NetworkBehaviour
 			}
 			yield return new WaitUntil(() => waitingOnBlock == false);
 		}
-		yield return CheckDeaths();
+		//yield return CheckDeaths();
 		if (plantHero.blocked)
 		{
 			plantHero.blocked = false;
@@ -484,7 +531,7 @@ public class GameManager : NetworkBehaviour
 			}
 			yield return new WaitUntil(() => waitingOnBlock == false);
 		}
-		yield return CheckDeaths();
+		//yield return CheckDeaths();
 	}
 
 }

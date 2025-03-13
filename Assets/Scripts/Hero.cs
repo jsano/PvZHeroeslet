@@ -52,7 +52,7 @@ public class Hero : Damagable
 			else block += 3;
 			blockMeter.fillAmount = block/8f;
 		}
-		if (block >= 8)
+		if (block >= 8 && !bullseye)
 		{
 			blocked = true;
 			block = 0;
@@ -67,7 +67,9 @@ public class Hero : Damagable
 				Debug.Log("DEAD");
 			}
 			else StartCoroutine(HitVisual());
-		}
+
+            GameManager.Instance.TriggerEvent("OnCardHurt", this);
+        }
 	}
 
 	public override void Heal(int amount, bool raiseCap=false)

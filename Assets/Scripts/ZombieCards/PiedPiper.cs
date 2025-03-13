@@ -23,7 +23,6 @@ public class PiedPiper : Card
 				c1.RaiseAttack(-1);
 				c1.Heal(-1, true);
 			}
-			yield return GameManager.Instance.CheckDeaths();
 		}
 		yield return base.OnThisPlay();
 	}
