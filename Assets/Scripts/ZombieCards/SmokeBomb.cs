@@ -33,7 +33,6 @@ public class SmokeBomb : Card
 		Tile t = bc.GetComponent<Tile>();
 		GameManager.Instance.RaiseAttackRpc(team, row, col, 1);
 		GameManager.Instance.MoveRpc(team, row, col, t.row, t.col);
-		yield return GameManager.CallLeftToRight("OnCardMoved", this);
     }
 
 	public override bool IsValidTarget(BoxCollider2D bc)

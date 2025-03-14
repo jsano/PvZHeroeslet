@@ -7,10 +7,10 @@ public class PoppinPoppies : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		yield return new WaitForSeconds(1);
+        GameManager.Instance.DisableHandCards();
+        yield return new WaitForSeconds(1);
 
-		List<Card> todo = new();
-		for (int i = -1; i <= 1; i++)
+		for (int i = 1; i >= -1; i--)
 		{
             if (col + i < 0 || col + i > 4) continue;
             
@@ -18,10 +18,10 @@ public class PoppinPoppies : Card
 			{
 				Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Lil' Buddy")]).GetComponent<Card>();
 				Tile.plantTiles[1, col + i].Plant(card);
-				todo.Add(card);
 			}
 		}
 
+		yield return null;
 		yield return base.OnThisPlay();
 	}
 

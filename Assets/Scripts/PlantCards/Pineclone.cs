@@ -15,8 +15,7 @@ public class Pineclone : Card
         }
 		GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
-        List<Card> todo = new();
-        for (int col = 0; col < 5; col++)
+        for (int col = 4; col >= 0; col--)
         {
             for (int row = 0; row < 2; row++)
 			{
@@ -26,11 +25,11 @@ public class Pineclone : Card
                     Pineclone card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Pineclone")]).GetComponent<Pineclone>();
                     Tile.plantTiles[row, col].Plant(card);
                     card.suppress = true;
-                    todo.Add(card);
                 }
 			}
 		}
 
+        yield return null;
         yield return base.OnThisPlay();
 	}
 

@@ -80,7 +80,7 @@ public class Card : Damagable
     public int atk;
     public int HP;
     private int maxHP;
-    private bool died;
+    public bool died { get; private set; }
 
     public bool amphibious;
     public int antihero;
@@ -140,7 +140,8 @@ public class Card : Damagable
 		else
 		{
             //play animation
-		    StartCoroutine(OnThisPlay());
+            GameManager.Instance.TriggerEvent("OnCardPlay", this);
+            StartCoroutine(OnThisPlay());
 		}
 		cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
 	}
@@ -176,7 +177,6 @@ public class Card : Damagable
 	/// <param name="played"> The card that was played </param>
 	protected virtual IEnumerator OnThisPlay()
 	{
-        GameManager.Instance.TriggerEvent("OnCardPlay", this);
         yield return new WaitUntil(() => GameManager.Instance.selecting == false);
         yield return GameManager.Instance.ProcessEvents();
         yield return GameManager.Instance.HandleHeroBlocks();
@@ -334,17 +334,17 @@ public class Card : Damagable
         dmg -= armor;
         HP -= dmg;
         hpUI.text = Mathf.Max(0, HP) + "";
+        if ((HP <= 0 || hitByDeadly))
+        {
+            died = true;
+            GameManager.Instance.TriggerEvent("OnCardDeath", this);
+        }
         if (dmg > 0)
         {
             yield return HitVisual();
             if (deadly) hitByDeadly = true;
             GameManager.Instance.TriggerEvent("OnCardHurt", this);
             if (freeze) Freeze();
-        }
-        if (!GameManager.Instance.laneCombatting && (HP <= 0 || hitByDeadly))
-        {
-            died = true;
-            GameManager.Instance.TriggerEvent("OnCardDeath", this);
         }
     }
 
@@ -395,7 +395,8 @@ public class Card : Damagable
 		atkUI.gameObject.SetActive(true);
 		hpUI.gameObject.SetActive(true);
         //play animation
-	    yield return OnThisPlay();
+        GameManager.Instance.TriggerEvent("OnCardPlay", this);
+        yield return OnThisPlay();
     }
 
     public void Freeze()

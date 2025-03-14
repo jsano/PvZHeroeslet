@@ -65,22 +65,28 @@ public class GameManager : NetworkBehaviour
 		yield return null;
         DisableHandCards();
 
-		for (int col = 0; col < 5; col++)
+		/*for (int col = 0; col < 5; col++)
 		{
             if (Tile.zombieTiles[0, col].planted != null) yield return Tile.zombieTiles[0, col].planted.ReceiveDamage(0);
             if (Tile.plantTiles[1, col].planted != null) yield return Tile.plantTiles[1, col].planted.ReceiveDamage(0);
             if (Tile.plantTiles[0, col].planted != null) yield return Tile.plantTiles[0, col].planted.ReceiveDamage(0);
-        }
+        }*/
 
         while (eventStack.Count > 0)
         {
             GameEvent currentEvent = eventStack.Pop();
-            Debug.Log(currentEvent.methodName + " " + currentEvent.arg + " " + eventStack.Count);
+            string n = "";
+            try { n = ((Card)currentEvent.arg).gameObject.name + ""; }
+            catch (Exception) { }
+            string col = "";
+			try { col = ((Card)currentEvent.arg).GetComponent<Card>().col + "";}
+			catch (Exception) { }
+            Debug.Log(currentEvent.methodName + " from " + n + " at column " + col + " -- Remaining: " + eventStack.Count);
             yield return CallLeftToRight(currentEvent.methodName, currentEvent.arg);
             //yield return new WaitForSeconds(0.2f);
         }
         EnablePlayableHandCards();
-    }
+	}
 
     // Start is called before the first frame update
     void Start()
@@ -96,9 +102,9 @@ public class GameManager : NetworkBehaviour
             zombieHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
 
 			UserAccounts.GameStats.Deck = new List<int>(new int[] {
-                AllCards.NameToID("Wall-nut"),
+                AllCards.NameToID("Poppin' Poppies"),
                 AllCards.NameToID("Pineclone"),
-                AllCards.NameToID("Flourish"),
+                AllCards.NameToID("Wall-nut Bowling"),
                 AllCards.NameToID("Winter Melon"),
                 AllCards.NameToID("Bananasaurus Rex"),
                 AllCards.NameToID("The Great Zucchini"),
@@ -118,7 +124,7 @@ public class GameManager : NetworkBehaviour
                 AllCards.NameToID("Smoke Bomb"),
                 AllCards.NameToID("Pied Piper"),
                 AllCards.NameToID("Lurch for Lunch"),
-                AllCards.NameToID("Bungee Plumber"),
+                AllCards.NameToID("Disco"),
 				AllCards.NameToID("Fun-Dead Raiser"),
                 44,44,44,44 });
         }
@@ -277,12 +283,7 @@ public class GameManager : NetworkBehaviour
         }
         else
         {
-			Tile to = Tile.plantTiles[row, col];
-			if (to.planted != null)
-			{
-				Tile.plantTiles[1 - row, col].Plant(to.planted);
-			}
-			to.Plant(card);
+			Tile.plantTiles[row, col].Plant(card);
 		}
 
         if (card.team != team)

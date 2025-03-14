@@ -67,6 +67,7 @@ public class Tile : MonoBehaviour
 
     public void Plant(Card c)
     {
+        if (planted != null) plantTiles[1 - row, col].Plant(planted);
         planted = c;
         c.row = row;
         c.col = col;

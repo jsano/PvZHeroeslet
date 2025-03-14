@@ -29,10 +29,9 @@ public class WinterMelon : Card
 
     protected override IEnumerator OnSelection(BoxCollider2D bc)
     {
+        yield return new WaitForSeconds(1);
         Card c = bc.GetComponent<Card>();
         GameManager.Instance.FreezeRpc(c.team, c.row, c.col);
-        yield return null;
-        GameManager.Instance.selecting = false;
     }
 
 }
