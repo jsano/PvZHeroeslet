@@ -18,15 +18,8 @@ public class PoppinPoppies : Card
 			{
 				Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Lil' Buddy")]).GetComponent<Card>();
 				Tile.plantTiles[1, col + i].Plant(card);
-				card.playState = PlayState.Waiting;
 				todo.Add(card);
 			}
-		}
-
-		foreach (Card c in todo)
-		{
-			c.playState = PlayState.ReadyForOnThisPlay;
-			yield return new WaitUntil(() => c.playState == PlayState.OnThisPlayed);
 		}
 
 		yield return base.OnThisPlay();

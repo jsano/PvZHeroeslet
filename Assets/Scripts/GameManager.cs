@@ -40,6 +40,7 @@ public class GameManager : NetworkBehaviour
     [HideInInspector] public Hero zombieHero;
 	[HideInInspector] public bool waitingOnBlock = false;
     [HideInInspector] public bool laneCombatting = false;
+    [HideInInspector] public bool selecting = false;
 
     public class GameEvent
 	{
@@ -52,18 +53,16 @@ public class GameManager : NetworkBehaviour
 			arg = _arg;
 		}
 	}
-    private Stack<GameEvent> eventQueue = new();
-    private bool isProcessingEvents;
+    private Stack<GameEvent> eventStack = new();
 
     public void TriggerEvent(string methodName, object arg)
     {
-        eventQueue.Push(new GameEvent(methodName, arg));
+        eventStack.Push(new GameEvent(methodName, arg));
     }
 
     public IEnumerator ProcessEvents()
     {
 		yield return null;
-        isProcessingEvents = true;
         DisableHandCards();
 
 		for (int col = 0; col < 5; col++)
@@ -73,14 +72,13 @@ public class GameManager : NetworkBehaviour
             if (Tile.plantTiles[0, col].planted != null) yield return Tile.plantTiles[0, col].planted.ReceiveDamage(0);
         }
 
-        while (eventQueue.Count > 0)
+        while (eventStack.Count > 0)
         {
-            GameEvent currentEvent = eventQueue.Pop();
-            Debug.Log(currentEvent.methodName + " " +  eventQueue.Count);
+            GameEvent currentEvent = eventStack.Pop();
+            Debug.Log(currentEvent.methodName + " " + currentEvent.arg + " " + eventStack.Count);
             yield return CallLeftToRight(currentEvent.methodName, currentEvent.arg);
             //yield return new WaitForSeconds(0.2f);
         }
-        isProcessingEvents = false;
         EnablePlayableHandCards();
     }
 
@@ -104,6 +102,7 @@ public class GameManager : NetworkBehaviour
                 AllCards.NameToID("Winter Melon"),
                 AllCards.NameToID("Bananasaurus Rex"),
                 AllCards.NameToID("The Great Zucchini"),
+                AllCards.NameToID("Grow-shroom"),
                 0,0,0,0 }); //temp
 		}
 		else
@@ -301,10 +300,11 @@ public class GameManager : NetworkBehaviour
             if (!free) UpdateRemaining(-fs.cost, team);
         }
 
-		//StartCoroutine(ProcessEvents());
+        selecting = false;
+        //StartCoroutine(ProcessEvents());
     }
 
-	[Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server)]
 	public void PlayTrickRpc(HandCard.FinalStats fs, int row, int col, bool isPlantTarget)
 	{
 		//if (team == Team.Plant) plants[row + 2*col] = ID;
@@ -341,6 +341,7 @@ public class GameManager : NetworkBehaviour
 
 		UpdateRemaining(-fs.cost, card.team);
 
+        selecting = false;
         //StartCoroutine(ProcessEvents());
     }
 
@@ -366,9 +367,10 @@ public class GameManager : NetworkBehaviour
 			Tile.zombieTiles[row, col].planted = null;
 			Tile.zombieTiles[nrow, ncol].Plant(c);
 		}
-		if (tteam != team) TriggerEvent("OnCardMoved", c);
+		TriggerEvent("OnCardMoved", c);
 
-        StartCoroutine(ProcessEvents());
+        if (selecting) selecting = false;
+        else StartCoroutine(ProcessEvents());
     }
 
     [Rpc(SendTo.ClientsAndHost)]
@@ -377,7 +379,8 @@ public class GameManager : NetworkBehaviour
         if (tteam == Team.Plant) Tile.plantTiles[row, col].planted.Freeze();
         else Tile.zombieTiles[row, col].planted.Freeze();
 
-        StartCoroutine(ProcessEvents());
+		if (selecting) selecting = false;
+        else StartCoroutine(ProcessEvents());
     }
 
     public static IEnumerator CallLeftToRight(string methodName, object arg)
@@ -481,7 +484,9 @@ public class GameManager : NetworkBehaviour
 	{
         if (tteam == Team.Plant) Tile.plantTiles[row, col].planted.RaiseAttack(amount);
         else Tile.zombieTiles[row, col].planted.RaiseAttack(amount);
-	}
+
+        selecting = false;
+    }
 
 	[Rpc(SendTo.ClientsAndHost)]
 	public void HealRpc(Team tteam, int row, int col, int amount, bool raiseCap)
@@ -496,7 +501,9 @@ public class GameManager : NetworkBehaviour
             if (tteam == Team.Plant) Tile.plantTiles[row, col].planted.Heal(amount, raiseCap);
 			else Tile.zombieTiles[row, col].planted.Heal(amount, raiseCap);
         }
-	}
+
+        selecting = false;
+    }
 
 	public IEnumerator HandleHeroBlocks()
 	{

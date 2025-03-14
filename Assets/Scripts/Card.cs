@@ -112,21 +112,13 @@ public class Card : Damagable
     private SpriteRenderer SR;
     private Sprite baseSprite;
 
-    protected bool selecting;
-    protected bool selected;
+    protected bool selected = true;
 	protected List<BoxCollider2D> choices = new();
 	private Camera cam;
 
     private bool frozen;
 
     private CardInfo cardInfo;
-
-    public enum PlayState { Waiting, ReadyForOnThisPlay, OnThisPlayed};
-    /// <summary>
-    /// By default, cards immediately call OnThisPlay. If spawned by a parent (ex. Poppin Poppies) the parent must wait for OnThisPlayed.
-    /// If a parent spawns multiple, it should set all children to Waiting and eventually to ReadyForOnThisPlay one at a time
-    /// </summary>
-    [HideInInspector] public PlayState playState = PlayState.ReadyForOnThisPlay;
 
 	// Start is called before the first frame update
 	void Start()
@@ -153,17 +145,10 @@ public class Card : Damagable
 		cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
 	}
 
-    private IEnumerator WaitForOnThisPlay()
-    {
-        yield return new WaitUntil(() => playState == PlayState.ReadyForOnThisPlay);
-        //Debug.Log("ready for on this play " + col);
-        yield return OnThisPlay();
-    }
-
 	// Update is called once per frame
 	void Update()
 	{
-		if (selecting)
+		if (GameManager.Instance.selecting && !selected)
         {
 			if (Input.GetMouseButtonDown(0))
 			{
@@ -171,9 +156,9 @@ public class Card : Damagable
 				{
 					if (bc.bounds.Contains((Vector2)cam.ScreenToWorldPoint(Input.mousePosition)))
 					{
-                        selecting = false;
                         StartCoroutine(OnSelection(bc));
-						break;
+                        selected = true;
+                        break;
 					}
 				}
 			}
@@ -192,10 +177,10 @@ public class Card : Damagable
 	protected virtual IEnumerator OnThisPlay()
 	{
         GameManager.Instance.TriggerEvent("OnCardPlay", this);
+        yield return new WaitUntil(() => GameManager.Instance.selecting == false);
         yield return GameManager.Instance.ProcessEvents();
         yield return GameManager.Instance.HandleHeroBlocks();
         GameManager.Instance.waitingOnBlock = false;
-        playState = PlayState.OnThisPlayed;
         if (type == Type.Trick)
         {
             yield return new WaitForSeconds(0.5f);
@@ -438,7 +423,7 @@ public class Card : Damagable
                 Card c;
                 if (GameManager.Instance.team == Team.Plant) c = Tile.plantTiles[row, col].planted;
                 else c = Tile.zombieTiles[row, col].planted;
-				if (c != null && c.selecting) return;
+				if (c != null && GameManager.Instance.selecting) return;
 			}
 		}
 		StartCoroutine(cardInfo.Show(this));

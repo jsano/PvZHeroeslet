@@ -20,17 +20,10 @@ public class WallnutBowling : Card
 			{
 				Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Wall-nut")]).GetComponent<Card>();
 				Tile.plantTiles[1, i].Plant(card);
-                card.playState = PlayState.Waiting;
                 todo.Add(card);
             }
 		}
 		yield return GameManager.Instance.zombieHero.ReceiveDamage(heroDmg);
-
-        foreach (Card c in todo)
-        {
-            c.playState = PlayState.ReadyForOnThisPlay;
-            yield return new WaitUntil(() => c.playState == PlayState.OnThisPlayed);
-        }
 
         yield return base.OnThisPlay();
 	}

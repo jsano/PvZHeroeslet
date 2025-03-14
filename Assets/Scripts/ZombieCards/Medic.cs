@@ -21,13 +21,13 @@ public class Medic : Card
 				}
 			}
 			if (GameManager.Instance.zombieHero.isDamaged()) choices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
-			if (choices.Count == 1) yield return OnSelection(choices[0]);
+			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
 			if (choices.Count >= 2)
 			{
-				selecting = true;
-				yield return new WaitUntil(() => selected == true);
+				selected = false;
 			}
 		}
+		GameManager.Instance.selecting = true;
 		yield return base.OnThisPlay();
 	}
 
@@ -37,7 +37,6 @@ public class Medic : Card
 		Card c = bc.GetComponent<Card>();
 		if (c == null) GameManager.Instance.HealRpc(team, -1, -1, 4, false);
 		else GameManager.Instance.HealRpc(team, c.row, c.col, 4, false);
-		selected = true;
-	}
+    }
 
 }

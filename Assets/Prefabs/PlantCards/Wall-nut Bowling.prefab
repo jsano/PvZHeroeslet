@@ -143,7 +143,7 @@ MonoBehaviour:
   _class: 0
   tribes: 15000000
   token: 0
-  cost: 9
+  cost: 1
   atk: 0
   HP: 0
   amphibious: 0
@@ -161,6 +161,7 @@ MonoBehaviour:
   teamUp: 0
   untrickable: 0
   nextDoor: 0
+  freeze: 0
   description: Make a Wall-Nut in each Ground lane. Attack for 6 damage in those
     lanes
   row: 0

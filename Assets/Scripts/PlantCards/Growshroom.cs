@@ -20,13 +20,13 @@ public class Growshroom : Card
 					}
 				}
 			}
-			if (choices.Count == 1) yield return OnSelection(choices[0]);
+			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
 			if (choices.Count >= 2)
 			{
-				selecting = true;
-				yield return new WaitUntil(() => selected == true);
+				selected = false;
 			}
 		}
+		GameManager.Instance.selecting = true;
 		yield return base.OnThisPlay();
 	}
 
@@ -36,7 +36,6 @@ public class Growshroom : Card
 		Card c = bc.GetComponent<Card>();
 		GameManager.Instance.RaiseAttackRpc(team, c.row, c.col, 2);
 		GameManager.Instance.HealRpc(team, c.row, c.col, 2, true);
-		selected = true;
-	}
+    }
 
 }

@@ -17,13 +17,13 @@ public class SmokeBomb : Card
 					choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
 				}
 			}
-			if (choices.Count == 1) yield return OnSelection(choices[0]);
+			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
 			if (choices.Count >= 2)
 			{
-				selecting = true;
-				yield return new WaitUntil(() => selected == true);
+				selected = false;
 			}
 		}
+		GameManager.Instance.selecting = true;
 		yield return base.OnThisPlay();
 	}
 
@@ -34,8 +34,7 @@ public class SmokeBomb : Card
 		GameManager.Instance.RaiseAttackRpc(team, row, col, 1);
 		GameManager.Instance.MoveRpc(team, row, col, t.row, t.col);
 		yield return GameManager.CallLeftToRight("OnCardMoved", this);
-		selected = true;
-	}
+    }
 
 	public override bool IsValidTarget(BoxCollider2D bc)
 	{

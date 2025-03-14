@@ -20,10 +20,10 @@ public class WinterMelon : Card
             if (choices.Count == 1) yield return OnSelection(choices[0]);
             if (choices.Count >= 2)
             {
-                selecting = true;
-                yield return new WaitUntil(() => selected == true);
+                selected = false;
             }
         }
+        GameManager.Instance.selecting = true;
         yield return base.OnThisPlay();
     }
 
@@ -32,7 +32,7 @@ public class WinterMelon : Card
         Card c = bc.GetComponent<Card>();
         GameManager.Instance.FreezeRpc(c.team, c.row, c.col);
         yield return null;
-        selected = true;
+        GameManager.Instance.selecting = false;
     }
 
 }

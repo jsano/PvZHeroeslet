@@ -25,18 +25,11 @@ public class Pineclone : Card
 					Destroy(Tile.plantTiles[row, col].planted.gameObject);
                     Pineclone card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Pineclone")]).GetComponent<Pineclone>();
                     Tile.plantTiles[row, col].Plant(card);
-                    card.playState = PlayState.Waiting;
                     card.suppress = true;
                     todo.Add(card);
                 }
 			}
 		}
-
-        foreach (Card c in todo)
-        {
-            c.playState = PlayState.ReadyForOnThisPlay;
-            yield return new WaitUntil(() => c.playState == PlayState.OnThisPlayed);
-        }
 
         yield return base.OnThisPlay();
 	}

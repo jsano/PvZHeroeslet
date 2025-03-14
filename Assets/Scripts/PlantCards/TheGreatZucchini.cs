@@ -27,17 +27,10 @@ public class TheGreatZucchini : Card
             string[] options = new string[] { "Baseball", "Cardboard Robot", "Backup Dancer", "Imp", "Skunk Punk" };
             if (GameManager.Instance.team == team) GameManager.Instance.PlayCardRpc(HandCard.MakeDefaultFS(AllCards.NameToID(options[Random.Range(0, options.Length)])), t.row, t.col, true);
             else yield return new WaitUntil(() => t.planted != null);
-            t.planted.playState = PlayState.Waiting;
             todo.Add(t.planted);
         }
 
         foreach (Card c in toDestroy) Destroy(c.gameObject);
-
-        foreach (Card c in todo)
-        {
-            c.playState = PlayState.ReadyForOnThisPlay;
-            yield return new WaitUntil(() => c.playState == PlayState.OnThisPlayed);
-        }
 
         yield return base.OnThisPlay();
 	}

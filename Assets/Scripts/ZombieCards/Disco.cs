@@ -17,23 +17,21 @@ public class Disco : Card
 					choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
 				}
 			}
-			if (choices.Count == 1) yield return OnSelection(choices[0]);
+			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
 			if (choices.Count >= 2)
 			{
-				selecting = true;
-				yield return new WaitUntil(() => selected == true);
+				selected = false;
 			}
 		}
+		GameManager.Instance.selecting = true;
 		yield return base.OnThisPlay();
 	}
 
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
-		//yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(1);
 		Tile t = bc.GetComponent<Tile>();
 		GameManager.Instance.PlayCardRpc(HandCard.MakeDefaultFS(AllCards.NameToID("Backup Dancer")), t.row, t.col, true);
-        yield return new WaitUntil(() => t.planted != null && t.planted.playState == PlayState.OnThisPlayed);
-        selected = true;
-	}
+    }
 
 }
