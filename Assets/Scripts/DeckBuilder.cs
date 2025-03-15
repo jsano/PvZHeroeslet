@@ -17,8 +17,7 @@ public class DeckBuilder : MonoBehaviour
         }
     }
 
-    [HideInInspector]
-    public string deckName;
+    public static string deckName;
     private Deck deck;
     public Transform deckCards;
     public Transform allDeckCards;
@@ -41,14 +40,24 @@ public class DeckBuilder : MonoBehaviour
 
     public void Add(int id)
     {
-        deck.cards.Add(id, deck.cards.TryGetValue(id, out int count) ? count + 1 : 1);
-
+        if (deck.cards.TryGetValue(id, out int count)) deck.cards[id] = count + 1;
+        else deck.cards[id] = 1;
+        DeckCard d = Instantiate(deckCardPrefab, deckCards).GetComponent<DeckCard>();
+        d.ID = id;
     }
 
     public void Remove(int id)
     {
-        deck.cards.Add(id, deck.cards.TryGetValue(id, out int count) ? count - 1 : 0);
-
+        if (deck.cards.TryGetValue(id, out int count)) deck.cards[id] = count - 1;
+        else deck.cards[id] = 0;
+        foreach (Transform t in deckCards)
+        {
+            if (t.GetComponent<DeckCard>().ID == id)
+            {
+                Destroy(t.gameObject);
+                break;
+            }
+        }
     }
 
     public void Confirm()

@@ -22,7 +22,7 @@ public class UserAccounts : MonoBehaviour
 		public static int ZombieHero { get; set; }
     }
 
-	public static Dictionary<string, Deck> allDecks;
+	public static Dictionary<string, Deck> allDecks = new();
 
     async void Awake()
 	{

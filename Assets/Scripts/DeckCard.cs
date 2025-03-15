@@ -10,7 +10,7 @@ public class DeckCard : MonoBehaviour
     private DeckBuilder DB;
     public Button add;
     public Button remove;
-    public SpriteRenderer image;
+    public Image image;
     public TextMeshProUGUI atkUI;
     public TextMeshProUGUI hpUI;
     public TextMeshProUGUI costUI;
@@ -20,6 +20,11 @@ public class DeckCard : MonoBehaviour
     {
         cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
         DB = FindAnyObjectByType<DeckBuilder>(FindObjectsInactive.Include).GetComponent<DeckBuilder>();
+        Card orig = AllCards.Instance.cards[ID];
+        image.sprite = orig.GetComponent<SpriteRenderer>().sprite;
+        atkUI.text = orig.atk + "";
+        hpUI.text = orig.HP + "";
+        costUI.text = orig.cost + "";
     }
 
     public void Add()

@@ -1392,10 +1392,6 @@ PrefabInstance:
       value: AllCards
       objectReference: {fileID: 0}
     - target: {fileID: 6719227132149184662, guid: 2c80ceb71fa62ca41b6a8268c4526e4d, type: 3}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6719227132149184662, guid: 2c80ceb71fa62ca41b6a8268c4526e4d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
