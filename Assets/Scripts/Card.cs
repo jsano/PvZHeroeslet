@@ -120,8 +120,6 @@ public class Card : Damagable
 
     private CardInfo cardInfo;
 
-    [HideInInspector] public bool hidden;
-
 	// Start is called before the first frame update
 	void Start()
     {
@@ -143,20 +141,10 @@ public class Card : Damagable
 		{
             //play animation
             if (type == Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
-            StartCoroutine(WaitForShow());
+            StartCoroutine(OnThisPlay());
 		}
 		cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
 	}
-
-    private IEnumerator WaitForShow()
-    {
-        SR.sortingLayerID = 0;
-        GetComponent<Canvas>().sortingLayerID = 0;
-        yield return new WaitUntil(() => hidden == false);
-        SR.sortingLayerName = "Card";
-        GetComponent<Canvas>().sortingLayerID = SR.sortingLayerID;
-        yield return OnThisPlay();
-    }
 
 	// Update is called once per frame
 	void Update()

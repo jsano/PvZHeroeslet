@@ -41,7 +41,6 @@ public class GameManager : NetworkBehaviour
 	[HideInInspector] public bool waitingOnBlock = false;
     [HideInInspector] public bool laneCombatting = false;
     [HideInInspector] public bool selecting = false;
-    [HideInInspector] public int spawning = 0;
 
     private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnCardDeath", 1 }, { "OnCardHurt", 2 }, { "OnCardAttack", 3 } };
     public class GameEvent

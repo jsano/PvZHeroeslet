@@ -7,6 +7,8 @@ using Unity.Services.Authentication;
 using System.Threading.Tasks;
 using Unity.Services.CloudSave;
 using Unity.Services.CloudSave.Models.Data.Player;
+using static DeckBuilder;
+using Newtonsoft.Json;
 
 public class UserAccounts : MonoBehaviour
 {
@@ -19,6 +21,8 @@ public class UserAccounts : MonoBehaviour
 
 		public static int ZombieHero { get; set; }
     }
+
+	public static Dictionary<string, Deck> allDecks;
 
     async void Awake()
 	{
@@ -33,6 +37,7 @@ public class UserAccounts : MonoBehaviour
 			Debug.LogException(e);
 		}
 		SetupEvents();
+		allDecks = JsonConvert.DeserializeObject<Dictionary<string, Deck>>(PlayerPrefs.GetString("Decks"));
 		DontDestroyOnLoad(gameObject);
 	}
 
