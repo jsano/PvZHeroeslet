@@ -120,6 +120,8 @@ public class Card : Damagable
 
     private CardInfo cardInfo;
 
+    [HideInInspector] public bool hidden;
+
 	// Start is called before the first frame update
 	void Start()
     {
@@ -140,11 +142,21 @@ public class Card : Damagable
 		else
 		{
             //play animation
-            GameManager.Instance.TriggerEvent("OnCardPlay", this);
-            StartCoroutine(OnThisPlay());
+            if (type == Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
+            StartCoroutine(WaitForShow());
 		}
 		cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
 	}
+
+    private IEnumerator WaitForShow()
+    {
+        SR.sortingLayerID = 0;
+        GetComponent<Canvas>().sortingLayerID = 0;
+        yield return new WaitUntil(() => hidden == false);
+        SR.sortingLayerName = "Card";
+        GetComponent<Canvas>().sortingLayerID = SR.sortingLayerID;
+        yield return OnThisPlay();
+    }
 
 	// Update is called once per frame
 	void Update()
@@ -179,6 +191,11 @@ public class Card : Damagable
 	{
         yield return new WaitUntil(() => GameManager.Instance.selecting == false);
         yield return GameManager.Instance.ProcessEvents();
+        if (type == Type.Trick)
+        {
+            GameManager.Instance.TriggerEvent("OnCardPlay", this);
+            yield return GameManager.Instance.ProcessEvents();
+        }
         yield return GameManager.Instance.HandleHeroBlocks();
         GameManager.Instance.waitingOnBlock = false;
         if (type == Type.Trick)
@@ -334,17 +351,17 @@ public class Card : Damagable
         dmg -= armor;
         HP -= dmg;
         hpUI.text = Mathf.Max(0, HP) + "";
-        if ((HP <= 0 || hitByDeadly))
-        {
-            died = true;
-            GameManager.Instance.TriggerEvent("OnCardDeath", this);
-        }
         if (dmg > 0)
         {
             yield return HitVisual();
             if (deadly) hitByDeadly = true;
             GameManager.Instance.TriggerEvent("OnCardHurt", this);
             if (freeze) Freeze();
+        }
+        if ((HP <= 0 || hitByDeadly))
+        {
+            died = true;
+            GameManager.Instance.TriggerEvent("OnCardDeath", this);
         }
     }
 
@@ -361,6 +378,11 @@ public class Card : Damagable
         if (raiseCap) maxHP += amount;
         else HP = Mathf.Min(maxHP, HP);
         hpUI.text = HP + "";
+        if (HP <= 0)
+        {
+            died = true;
+            GameManager.Instance.TriggerEvent("OnCardDeath", this);
+        }
     }
 
 	public void RaiseAttack(int amount)

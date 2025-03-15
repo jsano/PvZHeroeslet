@@ -13,7 +13,8 @@ public class Pineclone : Card
             yield return base.OnThisPlay();
             yield break;
         }
-		GameManager.Instance.DisableHandCards();
+        Debug.Log("here");
+        GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
         for (int col = 4; col >= 0; col--)
         {
@@ -21,7 +22,8 @@ public class Pineclone : Card
 			{
 				if (Tile.plantTiles[row, col].planted != null && Tile.plantTiles[row, col].planted != this)
 				{
-					Destroy(Tile.plantTiles[row, col].planted.gameObject);
+                    Debug.Log("new pineclone");
+                    Destroy(Tile.plantTiles[row, col].planted.gameObject);
                     Pineclone card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Pineclone")]).GetComponent<Pineclone>();
                     Tile.plantTiles[row, col].Plant(card);
                     card.suppress = true;

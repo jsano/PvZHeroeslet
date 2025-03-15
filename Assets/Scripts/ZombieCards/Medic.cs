@@ -7,19 +7,20 @@ public class Medic : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
+		for (int row = 0; row < 2; row++)
+		{
+			for (int col = 0; col < 5; col++)
+			{
+				if (Tile.zombieTiles[row, col].planted != null && Tile.zombieTiles[row, col].planted.isDamaged())
+				{
+					choices.Add(Tile.zombieTiles[row, col].planted.GetComponent<BoxCollider2D>());
+				}
+			}
+		}
 		if (GameManager.Instance.team == team)
 		{
 			GameManager.Instance.DisableHandCards();
-			for (int row = 0; row < 2; row++)
-			{
-				for (int col = 0; col < 5; col++)
-				{
-					if (Tile.zombieTiles[row, col].planted != null && Tile.zombieTiles[row, col].planted.isDamaged())
-					{
-						choices.Add(Tile.zombieTiles[row, col].planted.GetComponent<BoxCollider2D>());
-					}
-				}
-			}
+			
 			if (GameManager.Instance.zombieHero.isDamaged()) choices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
 			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
 			if (choices.Count >= 2)
@@ -27,7 +28,7 @@ public class Medic : Card
 				selected = false;
 			}
 		}
-		GameManager.Instance.selecting = true;
+        if (choices.Count > 0) GameManager.Instance.selecting = true;
 		yield return base.OnThisPlay();
 	}
 

@@ -41,7 +41,9 @@ public class GameManager : NetworkBehaviour
 	[HideInInspector] public bool waitingOnBlock = false;
     [HideInInspector] public bool laneCombatting = false;
     [HideInInspector] public bool selecting = false;
+    [HideInInspector] public int spawning = 0;
 
+    private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnCardDeath", 1 }, { "OnCardHurt", 2 }, { "OnCardAttack", 3 } };
     public class GameEvent
 	{
 		public string methodName;
@@ -53,28 +55,44 @@ public class GameManager : NetworkBehaviour
 			arg = _arg;
 		}
 	}
-    private Stack<GameEvent> eventStack = new();
+    private List<GameEvent> eventStack = new();
+	private bool isProcessing;
 
     public void TriggerEvent(string methodName, object arg)
     {
-        eventStack.Push(new GameEvent(methodName, arg));
+		try
+		{
+			int i;
+			for (i = 0; i < eventStack.Count; i++)
+			{
+				if (!priority.ContainsKey(methodName)) break;
+				if (!priority.ContainsKey(eventStack[i].methodName)) continue;
+				if (priority[eventStack[i].methodName] < priority[methodName]) continue;
+				if (priority[eventStack[i].methodName] == priority[methodName])
+				{
+					if (((Damagable)eventStack[i].arg).GetComponent<Hero>() != null) continue;
+					if (((Damagable)eventStack[i].arg).GetComponent<Card>().col > ((Damagable)arg).GetComponent<Card>().col) continue;
+					if (((Damagable)eventStack[i].arg).GetComponent<Card>().col == ((Damagable)arg).GetComponent<Card>().col)
+						if (((Damagable)eventStack[i].arg).GetComponent<Card>().team == Team.Plant) continue;
+				}
+				break;
+			}
+			eventStack.Insert(i, new GameEvent(methodName, arg));
+		}
+		catch (Exception) { Debug.Log("ERROR " + " " + methodName + " " + arg);}
     }
 
     public IEnumerator ProcessEvents()
     {
+		if (isProcessing) yield break;
+		isProcessing = true;
 		yield return null;
         DisableHandCards();
 
-		/*for (int col = 0; col < 5; col++)
-		{
-            if (Tile.zombieTiles[0, col].planted != null) yield return Tile.zombieTiles[0, col].planted.ReceiveDamage(0);
-            if (Tile.plantTiles[1, col].planted != null) yield return Tile.plantTiles[1, col].planted.ReceiveDamage(0);
-            if (Tile.plantTiles[0, col].planted != null) yield return Tile.plantTiles[0, col].planted.ReceiveDamage(0);
-        }*/
-
         while (eventStack.Count > 0)
         {
-            GameEvent currentEvent = eventStack.Pop();
+            GameEvent currentEvent = eventStack[^1];
+			eventStack.RemoveAt(eventStack.Count - 1);
             string n = "";
             try { n = ((Card)currentEvent.arg).gameObject.name + ""; }
             catch (Exception) { }
@@ -85,6 +103,7 @@ public class GameManager : NetworkBehaviour
             yield return CallLeftToRight(currentEvent.methodName, currentEvent.arg);
             //yield return new WaitForSeconds(0.2f);
         }
+		isProcessing = false;
         EnablePlayableHandCards();
 	}
 
@@ -109,7 +128,7 @@ public class GameManager : NetworkBehaviour
                 AllCards.NameToID("Bananasaurus Rex"),
                 AllCards.NameToID("The Great Zucchini"),
                 AllCards.NameToID("Grow-shroom"),
-                0,0,0,0 }); //temp
+                0 }); //temp
 		}
 		else
 		{
@@ -126,7 +145,7 @@ public class GameManager : NetworkBehaviour
                 AllCards.NameToID("Lurch for Lunch"),
                 AllCards.NameToID("Disco"),
 				AllCards.NameToID("Fun-Dead Raiser"),
-                44,44,44,44 });
+                44 });
         }
 
 		foreach (Transform t in GameObject.Find("Tiles").transform)
