@@ -27,6 +27,16 @@ public class DeckBuilder : MonoBehaviour
     void Start()
     {
         deck = UserAccounts.allDecks[deckName];
+
+        foreach (int id in deck.cards.Keys)
+        {
+            for (int i = 0; i < deck.cards[id]; i++)
+            {
+                DeckCard d = Instantiate(deckCardPrefab, deckCards).GetComponent<DeckCard>();
+                d.ID = id;
+            }
+        }
+
         for (int i = 0; i < AllCards.Instance.cards.Length; i++)
         {
             Card c = AllCards.Instance.cards[i];
@@ -40,7 +50,11 @@ public class DeckBuilder : MonoBehaviour
 
     public void Add(int id)
     {
-        if (deck.cards.TryGetValue(id, out int count)) deck.cards[id] = count + 1;
+        if (deck.cards.TryGetValue(id, out int count))
+        {
+            if (count >= 4) return;
+            deck.cards[id] = count + 1;
+        }
         else deck.cards[id] = 1;
         DeckCard d = Instantiate(deckCardPrefab, deckCards).GetComponent<DeckCard>();
         d.ID = id;
@@ -49,7 +63,11 @@ public class DeckBuilder : MonoBehaviour
     public void Remove(int id)
     {
         if (deck.cards.TryGetValue(id, out int count)) deck.cards[id] = count - 1;
-        else deck.cards[id] = 0;
+        else
+        {
+            deck.cards[id] = 0;
+            return;
+        }
         foreach (Transform t in deckCards)
         {
             if (t.GetComponent<DeckCard>().ID == id)
