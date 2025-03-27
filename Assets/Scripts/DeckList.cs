@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -33,14 +34,14 @@ public class DeckList : MonoBehaviour
     public void Remove(string name)
     {
         UserAccounts.allDecks.Remove(name);
+        PlayerPrefs.SetString("Decks", JsonConvert.SerializeObject(UserAccounts.allDecks));
         Start();
     }
 
     public void LoadDeck(string name)
     {
         DeckBuilder.deckName = name;
-        Debug.Log(CollectionToString(UserAccounts.allDecks.Keys));
-        Debug.Log(CollectionToString(UserAccounts.allDecks.Values));
+        //Debug.Log(CollectionToString(UserAccounts.allDecks.Values));
         SceneManager.LoadScene("DeckBuilder", LoadSceneMode.Single);
     }
 
@@ -49,7 +50,7 @@ public class DeckList : MonoBehaviour
         string result = "";
         foreach (var item in myList)
         {
-            if (myList is IDictionary) result += CollectionToString(myList) + "   ";
+            if (item is DeckBuilder.Deck) result += CollectionToString(((DeckBuilder.Deck)item).cards) + "  ";
             else result += item.ToString() + "  ";
         }
         return result;
