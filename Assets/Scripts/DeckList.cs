@@ -6,12 +6,19 @@ using UnityEngine.SceneManagement;
 public class DeckList : MonoBehaviour
 {
 
-    public int ID;
+    private int ID = -1;
     public GameObject deckButtonPrefab;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        GameObject.Find("Heroes").transform.GetChild(0).GetComponent<DeckListButton>().OnClick();
+    }
+
+    public void Show(int newID)
+    {
+        if (ID == newID) return;
+        ID = newID;
         foreach (Transform t in transform) if (!t.gameObject.name.Contains("New")) Destroy(t.gameObject);
         foreach (string name in UserAccounts.allDecks.Keys)
         {

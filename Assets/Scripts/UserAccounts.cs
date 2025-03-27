@@ -24,8 +24,17 @@ public class UserAccounts : MonoBehaviour
 
 	public static Dictionary<string, Deck> allDecks = new();
 
+    private static UserAccounts instance;
+
     async void Awake()
 	{
+		if (instance != null && instance != this)
+		{
+			Destroy(gameObject);
+			return;
+		}
+		else instance = this;
+
 		try
 		{
             var options = new InitializationOptions();
