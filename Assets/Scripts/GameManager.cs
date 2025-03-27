@@ -22,6 +22,7 @@ public class GameManager : NetworkBehaviour
         turn = 1;
 	}
 
+	private List<int> deck = new();
     private int turn = 1;
     private int phase; // 0 = prep, 1 = zombie, 2 = plant, 3 = zombie trick, 4 = fight
     private int remaining = 1;
@@ -111,23 +112,13 @@ public class GameManager : NetworkBehaviour
     {        
 		plantHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.PlantHero]).GetComponent<Hero>();
 		zombieHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.ZombieHero]).GetComponent<Hero>();
-        if (IsHost)
+        if (AllCards.Instance.heroes[UserAccounts.allDecks[UserAccounts.GameStats.DeckName].heroID].team == Team.Plant)
 		{
 			team = Team.Plant;
 			plantHero.transform.position = new Vector2(0, -3);
 		    zombieHero.transform.position = new Vector2(0, 3.5f);
             zombieHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
             zombieHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
-
-			UserAccounts.GameStats.Deck = new List<int>(new int[] {
-                AllCards.NameToID("Poppin' Poppies"),
-                AllCards.NameToID("Pineclone"),
-                AllCards.NameToID("Wall-nut Bowling"),
-                AllCards.NameToID("Winter Melon"),
-                AllCards.NameToID("Bananasaurus Rex"),
-                AllCards.NameToID("The Great Zucchini"),
-                AllCards.NameToID("Grow-shroom"),
-                0 }); //temp
 		}
 		else
 		{
@@ -136,15 +127,6 @@ public class GameManager : NetworkBehaviour
 			plantHero.transform.position = new Vector2(0, 3.5f);
 			plantHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
 			plantHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
-
-            UserAccounts.GameStats.Deck = new List<int>(new int[] {
-                AllCards.NameToID("Disco"),
-                AllCards.NameToID("Smoke Bomb"),
-                AllCards.NameToID("Pied Piper"),
-                AllCards.NameToID("Lurch for Lunch"),
-                AllCards.NameToID("Disco"),
-				AllCards.NameToID("Fun-Dead Raiser"),
-                44 });
         }
 
 		foreach (Transform t in GameObject.Find("Tiles").transform)
@@ -152,7 +134,10 @@ public class GameManager : NetworkBehaviour
             t.GetComponent<Tile>().AssignSide();
 		}
 
-		var deck = UserAccounts.GameStats.Deck;
+		foreach (int card in UserAccounts.allDecks[UserAccounts.GameStats.DeckName].cards.Keys)
+		{
+			for (int count = 0; count < UserAccounts.allDecks[UserAccounts.GameStats.DeckName].cards[card]; count++) deck.Add(card);
+        }
         for (int n = deck.Count - 1; n > 0; n--)
         {
             int k = UnityEngine.Random.Range(0, n + 1);
@@ -178,8 +163,8 @@ public class GameManager : NetworkBehaviour
 		{
             if (team == t)
 			{
-				GainHandCard(t, UserAccounts.GameStats.Deck[0]);
-				UserAccounts.GameStats.Deck.RemoveAt(0);
+				GainHandCard(t, deck[0]);
+				deck.RemoveAt(0);
 			}
 			else TriggerEvent("OnCardDraw", t);
         }

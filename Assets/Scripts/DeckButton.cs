@@ -7,6 +7,8 @@ public class DeckButton : MonoBehaviour
 
     [HideInInspector]
     public string deckName;
+    [HideInInspector]
+    public bool forLobby;
     private DeckList DL;
     private Image image;
     public TextMeshProUGUI nameText;
@@ -16,7 +18,7 @@ public class DeckButton : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        DL = transform.parent.GetComponent<DeckList>();
+        if (!forLobby) DL = transform.parent.GetComponent<DeckList>();
         image = GetComponent<Image>();
         nameText.text = deckName;
     }
@@ -29,6 +31,12 @@ public class DeckButton : MonoBehaviour
 
     public void OnClick()
     {
+        if (forLobby)
+        {
+            UserAccounts.GameStats.DeckName = deckName;
+            transform.parent.parent.gameObject.SetActive(false);
+            return;
+        }
         if (deleting)
         {
             DL.Remove(deckName);

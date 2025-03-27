@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
@@ -25,6 +26,9 @@ public class LobbyManager : NetworkBehaviour
 
     private int ready = 0;
     private int phase = 0; // 0: team, 1: ban, 2: deck, 3: start
+
+    public GameObject decksPanel;
+    public GameObject deckButtonPrefab;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -205,7 +209,30 @@ public class LobbyManager : NetworkBehaviour
         else UserAccounts.GameStats.ZombieHero = b.ID;
         hero = b.ID;
 
-        //todo: lead to deck
+        foreach (Transform _t in chooseUI.transform) foreach (Transform t in _t.Find("Heroes"))
+            {
+                LobbyUIButton l = t.GetComponent<LobbyUIButton>();
+                if (l.selected && l.ID != b.ID) t.GetComponent<LobbyUIButton>().Toggle();
+            }
+
+        foreach (Transform t in decksPanel.transform) Destroy(t.gameObject);
+        decksPanel.transform.parent.gameObject.SetActive(true);
+        foreach (string name in UserAccounts.allDecks.Keys)
+        {
+            if (UserAccounts.allDecks[name].heroID == b.ID)
+            {
+                DeckButton d = Instantiate(deckButtonPrefab, decksPanel.transform).GetComponent<DeckButton>();
+                d.deckName = name;
+                d.forLobby = true;
+                d.transform.SetAsFirstSibling();
+            }
+        }
+        StartCoroutine(WaitForDeck());
+    }
+
+    private IEnumerator WaitForDeck()
+    {
+        yield return new WaitUntil(() => UserAccounts.GameStats.DeckName != null);
         lockIn.interactable = true;
     }
 
