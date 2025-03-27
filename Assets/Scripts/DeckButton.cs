@@ -34,7 +34,7 @@ public class DeckButton : MonoBehaviour
         if (forLobby)
         {
             UserAccounts.GameStats.DeckName = deckName;
-            transform.parent.parent.gameObject.SetActive(false);
+            FindAnyObjectByType<LobbyManager>(FindObjectsInactive.Include).GetComponent<LobbyManager>().ChoseDeck();
             return;
         }
         if (deleting)

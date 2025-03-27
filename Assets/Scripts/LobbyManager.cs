@@ -91,7 +91,7 @@ public class LobbyManager : NetworkBehaviour
         }
         else if (phase == 2)
         {
-            foreach (Transform _t in chooseUI.transform) foreach (Transform t in _t.Find("Heroes")) t.GetComponent<Button>().interactable = false;
+            foreach (Transform _t in chooseUI.transform) foreach (Transform t in _t) t.GetComponent<Button>().interactable = false;
             LockInGameRpc(IsHost, hero);
         }
     }
@@ -147,7 +147,7 @@ public class LobbyManager : NetworkBehaviour
     {
         if (isHost != IsHost)
         {
-            foreach (Transform _t in chooseUI.transform) foreach (Transform t in _t.Find("Heroes"))
+            foreach (Transform _t in chooseUI.transform) foreach (Transform t in _t)
             {
                 LobbyUIButton b = t.GetComponent<LobbyUIButton>();
                 if (b.ID == ban1 || b.ID == ban2) b.Disable();
@@ -209,12 +209,6 @@ public class LobbyManager : NetworkBehaviour
         else UserAccounts.GameStats.ZombieHero = b.ID;
         hero = b.ID;
 
-        foreach (Transform _t in chooseUI.transform) foreach (Transform t in _t.Find("Heroes"))
-            {
-                LobbyUIButton l = t.GetComponent<LobbyUIButton>();
-                if (l.selected && l.ID != b.ID) t.GetComponent<LobbyUIButton>().Toggle();
-            }
-
         foreach (Transform t in decksPanel.transform) Destroy(t.gameObject);
         decksPanel.transform.parent.gameObject.SetActive(true);
         foreach (string name in UserAccounts.allDecks.Keys)
@@ -227,12 +221,17 @@ public class LobbyManager : NetworkBehaviour
                 d.transform.SetAsFirstSibling();
             }
         }
-        StartCoroutine(WaitForDeck());
     }
 
-    private IEnumerator WaitForDeck()
+    public void ChoseDeck()
     {
-        yield return new WaitUntil(() => UserAccounts.GameStats.DeckName != null);
+        foreach (Transform _t in chooseUI.transform) foreach (Transform t in _t)
+        {
+            LobbyUIButton l = t.GetComponent<LobbyUIButton>();
+            if (UserAccounts.allDecks[UserAccounts.GameStats.DeckName].heroID == l.ID && !l.selected) l.Toggle();
+            if (UserAccounts.allDecks[UserAccounts.GameStats.DeckName].heroID != l.ID && l.selected) l.Toggle();
+        }
+        decksPanel.transform.parent.gameObject.SetActive(false);
         lockIn.interactable = true;
     }
 

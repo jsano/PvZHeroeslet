@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 6204720493988652804}
   - component: {fileID: 2509261060401057345}
   m_Layer: 5
-  m_Name: Heroes
+  m_Name: ChooseZ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6204720493988652804
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24,7 +24,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 215540047067340952}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -40,7 +40,7 @@ RectTransform:
   - {fileID: 4219561927803215940}
   - {fileID: 8232049113232381245}
   - {fileID: 1975487207868859679}
-  m_Father: {fileID: 7753857587003130316}
+  m_Father: {fileID: 6723726513115793990}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -231,8 +231,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1075562707599593403}
-  - {fileID: 7753857587003130316}
+  - {fileID: 5500930284142934164}
+  - {fileID: 6204720493988652804}
   m_Father: {fileID: 8682707681392661881}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2647,12 +2647,12 @@ GameObject:
   - component: {fileID: 5500930284142934164}
   - component: {fileID: 2029702033982122251}
   m_Layer: 5
-  m_Name: Heroes
+  m_Name: ChooseP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5500930284142934164
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2660,7 +2660,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6296421612128900228}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2676,7 +2676,7 @@ RectTransform:
   - {fileID: 5950659574876153287}
   - {fileID: 2619984546127559449}
   - {fileID: 2148962289165653034}
-  m_Father: {fileID: 1075562707599593403}
+  m_Father: {fileID: 6723726513115793990}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2782,42 +2782,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &6814682802695125546
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7753857587003130316}
-  m_Layer: 5
-  m_Name: ChooseZ
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &7753857587003130316
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6814682802695125546}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6204720493988652804}
-  m_Father: {fileID: 6723726513115793990}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7237486840336108847
 GameObject:
   m_ObjectHideFlags: 0
@@ -3116,42 +3080,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &8864634712494454792
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1075562707599593403}
-  m_Layer: 5
-  m_Name: ChooseP
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1075562707599593403
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8864634712494454792}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5500930284142934164}
-  m_Father: {fileID: 6723726513115793990}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &9216583469932188380
 GameObject:
   m_ObjectHideFlags: 0
@@ -3601,12 +3529,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -3616,17 +3552,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 8845288683674136660}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 8845288683674136660}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -4205,12 +4161,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -4220,17 +4184,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 9124891042689294034}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 9124891042689294034}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -4511,12 +4495,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -4526,17 +4518,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 6983854829651547666}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 6983854829651547666}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -5276,12 +5288,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -5291,17 +5311,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 6314984006993509156}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 6314984006993509156}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -5888,12 +5928,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -5903,17 +5951,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 6648248609124191566}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 6648248609124191566}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -6041,12 +6109,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -6056,17 +6132,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 4630055148088649448}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 4630055148088649448}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -6194,12 +6290,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -6209,17 +6313,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 5024722874868135391}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 5024722874868135391}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -6500,12 +6624,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -6515,17 +6647,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 3609139166011032495}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 3609139166011032495}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -6653,12 +6805,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -6668,17 +6828,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 3586174252348626077}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 3586174252348626077}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -6806,12 +6986,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -6821,17 +7009,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 3987187046337567580}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 3987187046337567580}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -7112,12 +7320,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -7127,17 +7343,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 4428064170642684880}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 4428064170642684880}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -7257,12 +7493,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -7272,17 +7516,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 4371361171704116801}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 4371361171704116801}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -7410,12 +7674,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -7425,17 +7697,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2387339585623450924}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 2387339585623450924}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -7716,12 +8008,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -7731,17 +8031,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2790971759123581062}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 2790971759123581062}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -7869,12 +8189,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -7884,17 +8212,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2960281727267370698}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 2960281727267370698}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -8175,12 +8523,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -8190,17 +8546,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 3435677506318772223}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 3435677506318772223}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -8328,12 +8704,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -8343,17 +8727,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1321161120874531730}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 1321161120874531730}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -8481,12 +8885,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -8496,17 +8908,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1595208569160059084}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 1595208569160059084}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -8634,12 +9066,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -8649,17 +9089,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2169809047312159863}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 2169809047312159863}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -8787,12 +9247,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -8802,17 +9270,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2084931885188626131}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 2084931885188626131}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -9399,12 +9887,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -9414,17 +9910,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 651550153481779896}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 651550153481779896}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
@@ -9552,12 +10068,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1775388917686202094}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -9567,17 +10091,37 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: LobbyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 644501393385378705}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 644501393385378705}
+    - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LobbyUIButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1915950155009266717, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LobbyUIButton, Assembly-CSharp
