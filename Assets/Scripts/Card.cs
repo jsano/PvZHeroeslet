@@ -140,7 +140,7 @@ public class Card : Damagable
 		else
 		{
             //play animation
-            if (type == Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
+            if (type == Type.Trick) GameManager.Instance.TriggerEvent("OnCardPlay", this);
             StartCoroutine(OnThisPlay());
 		}
 		cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
@@ -177,13 +177,9 @@ public class Card : Damagable
 	/// <param name="played"> The card that was played </param>
 	protected virtual IEnumerator OnThisPlay()
 	{
-        yield return new WaitUntil(() => GameManager.Instance.selecting == false);
+        if (GameManager.Instance.selecting) yield return new WaitUntil(() => GameManager.Instance.selecting == false);
+        if (type == Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
         yield return GameManager.Instance.ProcessEvents();
-        if (type == Type.Trick)
-        {
-            GameManager.Instance.TriggerEvent("OnCardPlay", this);
-            yield return GameManager.Instance.ProcessEvents();
-        }
         yield return GameManager.Instance.HandleHeroBlocks();
         GameManager.Instance.waitingOnBlock = false;
         if (type == Type.Trick)
@@ -213,15 +209,6 @@ public class Card : Damagable
 				RaiseAttack(antihero);
 			}
 		}
-        yield return null;
-    }
-
-    /// <summary>
-    /// Called whenever a card on the field attacks something
-    /// </summary>
-    /// <param name="source"> The card that attacked </param>
-    protected virtual IEnumerator OnCardAttack(Card source)
-    {
         yield return null;
     }
 
@@ -311,9 +298,6 @@ public class Card : Damagable
             Damagable target = GetTarget(col);
             yield return target.ReceiveDamage(atk, bullseye, deadly, freeze);
 		    // animation
-		    yield return new WaitForSeconds(1);
-            //
-            GameManager.Instance.TriggerEvent("OnCardAttack", this);
         }
         else
         {
@@ -327,9 +311,6 @@ public class Card : Damagable
             int[] dealt = new int[3];
             for (int i = 0; i < 3; i++) if (target[i] != null) yield return target[i].ReceiveDamage(atk, bullseye, deadly, freeze);
 			// animation
-			yield return new WaitForSeconds(1);
-			//
-            GameManager.Instance.TriggerEvent("OnCardAttack", this);
 		}
 	}
 
@@ -405,7 +386,6 @@ public class Card : Damagable
 		atkUI.gameObject.SetActive(true);
 		hpUI.gameObject.SetActive(true);
         //play animation
-        GameManager.Instance.TriggerEvent("OnCardPlay", this);
         yield return OnThisPlay();
     }
 

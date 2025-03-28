@@ -21,7 +21,6 @@ public class PoppinPoppies : Card
 			}
 		}
 
-		yield return null;
 		yield return base.OnThisPlay();
 	}
 

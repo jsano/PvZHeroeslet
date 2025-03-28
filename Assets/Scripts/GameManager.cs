@@ -43,16 +43,18 @@ public class GameManager : NetworkBehaviour
     [HideInInspector] public bool laneCombatting = false;
     [HideInInspector] public bool selecting = false;
 
-    private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnCardDeath", 1 }, { "OnCardHurt", 2 }, { "OnCardAttack", 3 } };
+    private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnCardDeath", 1 }, { "OnCardHurt", 2 }, { "OnCardFreeze", 3 } };
     public class GameEvent
 	{
 		public string methodName;
 		public object arg;
+		public int time;
 
 		public GameEvent(string _methodName, object _arg)
 		{
 			methodName = _methodName;
 			arg = _arg;
+			time = Time.frameCount;
 		}
 	}
     private List<GameEvent> eventStack = new();
@@ -65,6 +67,7 @@ public class GameManager : NetworkBehaviour
 			int i;
 			for (i = 0; i < eventStack.Count; i++)
 			{
+				if (methodName == eventStack[i].methodName && eventStack[i].time < Time.frameCount) continue;
 				if (!priority.ContainsKey(methodName)) break;
 				if (!priority.ContainsKey(eventStack[i].methodName)) continue;
 				if (priority[eventStack[i].methodName] < priority[methodName]) continue;
@@ -99,7 +102,7 @@ public class GameManager : NetworkBehaviour
             string col = "";
 			try { col = ((Card)currentEvent.arg).GetComponent<Card>().col + "";}
 			catch (Exception) { }
-            Debug.Log(currentEvent.methodName + " from " + n + " at column " + col + " -- Remaining: " + eventStack.Count);
+            Debug.Log(currentEvent.time + " " + currentEvent.methodName + " from " + n + " at column " + col + " -- Remaining: " + eventStack.Count);
             yield return CallLeftToRight(currentEvent.methodName, currentEvent.arg);
             //yield return new WaitForSeconds(0.2f);
         }

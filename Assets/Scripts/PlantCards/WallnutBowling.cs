@@ -27,7 +27,6 @@ public class WallnutBowling : Card
             }
         }
 
-        yield return null;
         yield return base.OnThisPlay();
 	}
 
