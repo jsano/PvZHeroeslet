@@ -131,7 +131,7 @@ MonoBehaviour:
   _class: 3
   tribes: 0a000000
   token: 0
-  cost: 1
+  cost: 6
   atk: 4
   HP: 5
   amphibious: 0

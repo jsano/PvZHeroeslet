@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 2f1510f9a1016464eb6c75e39baa5351, type: 3}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9186367323209674846, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Pivot.x
@@ -182,4 +182,3 @@ MonoBehaviour:
   row: 0
   col: 0
   playedCost: 0
-  playState: 1

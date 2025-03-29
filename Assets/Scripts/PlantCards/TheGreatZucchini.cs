@@ -30,7 +30,6 @@ public class TheGreatZucchini : Card
 
         foreach (Card c in toDestroy) Destroy(c.gameObject);
 
-        yield return null;
         yield return base.OnThisPlay();
 	}
 

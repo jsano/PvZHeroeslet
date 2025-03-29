@@ -43,7 +43,7 @@ public class GameManager : NetworkBehaviour
     [HideInInspector] public bool laneCombatting = false;
     [HideInInspector] public bool selecting = false;
 
-    private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnCardDeath", 1 }, { "OnCardHurt", 2 }, { "OnCardFreeze", 3 } };
+    private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnCardDeath", 1 }, { "OnCardFreeze", 2 }, { "OnCardHurt", 3 } };
     public class GameEvent
 	{
 		public string methodName;
@@ -57,7 +57,14 @@ public class GameManager : NetworkBehaviour
 			time = Time.frameCount;
 		}
 	}
-    private List<GameEvent> eventStack = new();
+
+    /// <summary>
+	/// Events are processed in a stack structure.
+	/// Higher priority events should be processed first.
+	/// For the same events, the one that happened later should be processed first.
+	/// For the same events at the same moment in time, process them left to right.
+	/// </summary>
+	private List<GameEvent> eventStack = new();
 	private bool isProcessing;
 
     public void TriggerEvent(string methodName, object arg)

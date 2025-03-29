@@ -11,7 +11,7 @@ public class KernelCorn : Card
 		yield return new WaitForSeconds(1);
 		for (int col = 0; col < 5; col++)
 		{
-			if (Tile.zombieTiles[0, col].planted != null) yield return Tile.zombieTiles[0, col].planted.ReceiveDamage(4);
+			if (Tile.zombieTiles[0, col].planted != null) StartCoroutine(Tile.zombieTiles[0, col].planted.ReceiveDamage(4));
 		}
 
 		yield return base.OnThisPlay();

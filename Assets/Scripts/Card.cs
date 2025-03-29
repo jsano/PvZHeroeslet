@@ -322,15 +322,16 @@ public class Card : Damagable
         hpUI.text = Mathf.Max(0, HP) + "";
         if (dmg > 0)
         {
-            yield return HitVisual();
-            if (deadly) hitByDeadly = true;
             GameManager.Instance.TriggerEvent("OnCardHurt", this);
+            if (deadly) hitByDeadly = true;
+            if (HP <= 0 || hitByDeadly)
+            {
+                died = true;
+                GameManager.Instance.TriggerEvent("OnCardDeath", this);
+            }
+
+            yield return HitVisual();
             if (freeze) Freeze();
-        }
-        if ((HP <= 0 || hitByDeadly))
-        {
-            died = true;
-            GameManager.Instance.TriggerEvent("OnCardDeath", this);
         }
     }
 
