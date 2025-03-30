@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -214,8 +215,8 @@ public class Card : Damagable
 	/// <summary>
 	/// Called whenever a card on the field is hurt
 	/// </summary>
-	/// <param name="hurt"> The card that received damage </param>
-	protected virtual IEnumerator OnCardHurt(Damagable hurt)
+	/// <param name="hurt"> [The card that received damage, the card that dealt the damage] </param>
+	protected virtual IEnumerator OnCardHurt(Tuple<Damagable, Card> hurt)
 	{
 		yield return null;
 	}
@@ -295,7 +296,7 @@ public class Card : Damagable
         if (!nextDoor && splash == 0)
         {
             Damagable target = GetTarget(col);
-            yield return target.ReceiveDamage(atk, bullseye, deadly, freeze);
+            yield return target.ReceiveDamage(atk, this, bullseye, deadly, freeze);
 		    // animation
         }
         else
@@ -308,12 +309,12 @@ public class Card : Damagable
                 else target[i+1] = GetTarget(col + i);
             }
             int[] dealt = new int[3];
-            for (int i = 0; i < 3; i++) if (target[i] != null) yield return target[i].ReceiveDamage(atk, bullseye, deadly, freeze);
+            for (int i = 0; i < 3; i++) if (target[i] != null) yield return target[i].ReceiveDamage(atk, this, bullseye, deadly, freeze);
 			// animation
 		}
 	}
 
-    public override IEnumerator ReceiveDamage(int dmg, bool bullseye = false, bool deadly = false, bool freeze = false)
+    public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false)
     {//Debug.Log(row + " " + col + " got hit for " + dmg);
         if (gravestone) yield break;
         dmg -= armor;
@@ -321,7 +322,7 @@ public class Card : Damagable
         hpUI.text = Mathf.Max(0, HP) + "";
         if (dmg > 0)
         {
-            GameManager.Instance.TriggerEvent("OnCardHurt", this);
+            GameManager.Instance.TriggerEvent("OnCardHurt", new Tuple<Damagable, Card>(this, source));
             if (deadly) hitByDeadly = true;
             if (HP <= 0 || hitByDeadly)
             {

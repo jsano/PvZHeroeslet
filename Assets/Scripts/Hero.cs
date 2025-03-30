@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -30,7 +31,7 @@ public class Hero : Damagable
         
     }
 
-	public override IEnumerator ReceiveDamage(int dmg, bool bullseye = false, bool deadly = false, bool freeze = false)
+	public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false)
 	{
 		if (team == Card.Team.Plant)
 			for (int col = 0; col < 5; col++)
@@ -39,7 +40,7 @@ public class Hero : Damagable
 				{
 					if (Tile.plantTiles[row, col].planted != null && Tile.plantTiles[row, col].planted.name.Contains("Soul Patch"))
 					{
-						yield return Tile.plantTiles[row, col].planted.ReceiveDamage(dmg);
+						yield return Tile.plantTiles[row, col].planted.ReceiveDamage(dmg, source);
 					}
 				}
 			}
@@ -67,7 +68,7 @@ public class Hero : Damagable
 			}
 			else StartCoroutine(HitVisual());
 
-            GameManager.Instance.TriggerEvent("OnCardHurt", this);
+            GameManager.Instance.TriggerEvent("OnCardHurt", new Tuple<Damagable, Card>(this, source));
         }
 	}
 

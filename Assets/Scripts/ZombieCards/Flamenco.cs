@@ -14,7 +14,7 @@ public class Flamenco : Card
 			if (Tile.zombieTiles[0, i].planted != null && Tile.zombieTiles[0, i].planted.tribes.Contains(Tribe.Dancing)) dmg += 2;
 		}
 		yield return new WaitForSeconds(1);
-		yield return GameManager.Instance.plantHero.ReceiveDamage(dmg);
+		yield return GameManager.Instance.plantHero.ReceiveDamage(dmg, this);
 		yield return base.OnThisPlay();
 	}
 

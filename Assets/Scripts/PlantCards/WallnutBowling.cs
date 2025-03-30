@@ -13,10 +13,10 @@ public class WallnutBowling : Card
         int heroDmg = 0;
 		for (int i = 3; i >= 1; i--)
 		{
-			if (Tile.zombieTiles[0, i].planted != null) yield return Tile.zombieTiles[0, i].planted.ReceiveDamage(6);
+			if (Tile.zombieTiles[0, i].planted != null) yield return Tile.zombieTiles[0, i].planted.ReceiveDamage(6, this);
 			else heroDmg += 6;
 		}
-		yield return GameManager.Instance.zombieHero.ReceiveDamage(heroDmg);
+		yield return GameManager.Instance.zombieHero.ReceiveDamage(heroDmg, this);
 
         for (int i = 1; i <= 3; i++)
         {

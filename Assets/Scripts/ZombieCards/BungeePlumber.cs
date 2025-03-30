@@ -8,8 +8,8 @@ public class BungeePlumber : Card
 	{
 		GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
-		if (row == -1 && col == -1) yield return GameManager.Instance.plantHero.ReceiveDamage(2);
-		else yield return Tile.plantTiles[row, col].planted.ReceiveDamage(2);
+		if (row == -1 && col == -1) yield return GameManager.Instance.plantHero.ReceiveDamage(2, this);
+		else yield return Tile.plantTiles[row, col].planted.ReceiveDamage(2, this);
 		yield return base.OnThisPlay();
 	}
 
