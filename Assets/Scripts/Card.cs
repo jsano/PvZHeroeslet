@@ -180,7 +180,6 @@ public class Card : Damagable
         if (GameManager.Instance.selecting) yield return new WaitUntil(() => GameManager.Instance.selecting == false);
         if (type == Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
         yield return GameManager.Instance.ProcessEvents();
-        yield return GameManager.Instance.HandleHeroBlocks();
         GameManager.Instance.waitingOnBlock = false;
         if (type == Type.Trick)
         {

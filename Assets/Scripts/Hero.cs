@@ -15,7 +15,6 @@ public class Hero : Damagable
 	private SpriteRenderer SR;
 	public Image blockMeter;
 	private int block;
-	[HideInInspector] public bool blocked = false;
 
 	// Start is called before the first frame update
 	void Start()
@@ -54,8 +53,8 @@ public class Hero : Damagable
 		}
 		if (block >= 8 && !bullseye)
 		{
-			blocked = true;
-			block = 0;
+            GameManager.Instance.TriggerEvent("OnBlock", this);
+            block = 0;
 			blockMeter.fillAmount = 0;
 		}
 		else

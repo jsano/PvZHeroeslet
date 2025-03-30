@@ -24,7 +24,7 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(0));
         UserAccounts.allDecks["temp10"].cards = new() {
-            { AllCards.NameToID("Snow Pea"), 1 },
+            { AllCards.NameToID("Snow Pea"), 2 },
             { AllCards.NameToID("Pineclone"), 1 },
             { AllCards.NameToID("Sunflower"), 2 },
             { AllCards.NameToID("Bananasaurus Rex"), 1 },
@@ -48,7 +48,7 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Disco"), 2 },
             { AllCards.NameToID("Flamenco"), 1 },
             { AllCards.NameToID("Smoke Bomb"), 1 },
-            { AllCards.NameToID("Pied Piper"), 1 },
+            { AllCards.NameToID("Pied Piper"), 2 },
             { AllCards.NameToID("Lurch for Lunch"), 1 },
             { AllCards.NameToID("Fun-Dead Raiser"), 1 },
         };

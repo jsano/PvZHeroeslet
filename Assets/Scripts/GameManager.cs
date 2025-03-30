@@ -24,6 +24,7 @@ public class GameManager : NetworkBehaviour
 
 	private List<int> deck = new();
     private int turn = 1;
+	private int nextTurnReady;
     private int phase; // 0 = prep, 1 = zombie, 2 = plant, 3 = zombie trick, 4 = fight
     private int remaining = 1;
     private int opponentRemaining = 1;
@@ -40,10 +41,9 @@ public class GameManager : NetworkBehaviour
 	[HideInInspector] public Hero plantHero;
     [HideInInspector] public Hero zombieHero;
 	[HideInInspector] public bool waitingOnBlock = false;
-    [HideInInspector] public bool laneCombatting = false;
     [HideInInspector] public bool selecting = false;
 
-    private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnCardDeath", 1 }, { "OnCardFreeze", 2 }, { "OnCardHurt", 3 } };
+    private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnBlock", 1 }, { "OnCardDeath", 2 }, { "OnCardFreeze", 3 }, { "OnCardHurt", 4 } };
     public class GameEvent
 	{
 		public string methodName;
@@ -103,6 +103,13 @@ public class GameManager : NetworkBehaviour
         {
             GameEvent currentEvent = eventStack[^1];
 			eventStack.RemoveAt(eventStack.Count - 1);
+
+			if (currentEvent.methodName == "OnBlock")
+			{
+				yield return HandleHeroBlocks((Hero)currentEvent.arg);
+				continue;
+			}
+
             string n = "";
             try { n = ((Card)currentEvent.arg).gameObject.name + ""; }
             catch (Exception) { }
@@ -163,7 +170,6 @@ public class GameManager : NetworkBehaviour
 	{
 		DrawCard(team, 4);
 		yield return ProcessEvents();
-		if (IsServer) yield break;
 		EndRpc();
 	}
 
@@ -205,6 +211,14 @@ public class GameManager : NetworkBehaviour
     private IEnumerator EndRpcHelper()
     {
         string[] pnames = new string[] { "", "Zombies\nPlay", "Plants\nPlay", "Zombie\nTricks", "FIGHT!" };
+
+		if (phase == 0 || phase == 4)
+		{
+			nextTurnReady += 1;
+			if (nextTurnReady < 2) yield break;
+			nextTurnReady = 0;
+		}
+
         phase += 1;
 
         phaseText.GetComponent<TextMeshProUGUI>().text = pnames[phase];
@@ -236,17 +250,12 @@ public class GameManager : NetworkBehaviour
 
         for (int col = 0; col < 5; col++)
 		{
-			laneCombatting = true;
 			if (Tile.zombieTiles[0, col].planted != null) yield return Tile.zombieTiles[0, col].planted.Attack();
 
 			if (Tile.plantTiles[1, col].planted != null) yield return Tile.plantTiles[1, col].planted.Attack();
 			if (Tile.plantTiles[0, col].planted != null) yield return Tile.plantTiles[0, col].planted.Attack();
 
-			laneCombatting = false;
-
 			yield return ProcessEvents();
-
-            yield return HandleHeroBlocks();
 
 			if (Tile.zombieTiles[0, col].planted != null && Tile.zombieTiles[0, col].planted.doubleStrike) yield return Tile.zombieTiles[0, col].planted.Attack();
 
@@ -254,8 +263,6 @@ public class GameManager : NetworkBehaviour
 			if (Tile.plantTiles[0, col].planted != null && Tile.plantTiles[0, col].planted.doubleStrike) yield return Tile.plantTiles[0, col].planted.Attack();
 
             yield return ProcessEvents();
-
-            yield return HandleHeroBlocks();
         }
 
         turn += 1;
@@ -272,7 +279,7 @@ public class GameManager : NetworkBehaviour
         DrawCard(Team.Plant);
 
 		yield return ProcessEvents();
-		if (IsServer) EndRpc();
+		EndRpc();
     }
 
     [Rpc(SendTo.Server)]
@@ -519,40 +526,19 @@ public class GameManager : NetworkBehaviour
         selecting = false;
     }
 
-	public IEnumerator HandleHeroBlocks()
+	public IEnumerator HandleHeroBlocks(Hero h)
 	{
-		if (zombieHero.blocked)
+		waitingOnBlock = true;
+		if (team == h.team)
 		{
-			zombieHero.blocked = false;
-			waitingOnBlock = true;
-			if (team == Team.Zombie)
-			{
-				GameObject c = Instantiate(handcardPrefab, handCards);
-				c.SetActive(false);
-				c.transform.localPosition = new Vector2(0, 3);
-				c.GetComponent<HandCard>().ID = 10; //temp
-				c.GetComponent<HandCard>().interactable = true;
-				c.SetActive(true);
-			}
-			yield return new WaitUntil(() => waitingOnBlock == false);
+			GameObject c = Instantiate(handcardPrefab, handCards);
+			c.SetActive(false);
+			c.transform.localPosition = new Vector2(0, 3);
+			c.GetComponent<HandCard>().ID = 5; //temp
+			c.GetComponent<HandCard>().interactable = true;
+			c.SetActive(true);
 		}
-		//yield return CheckDeaths();
-		if (plantHero.blocked)
-		{
-			plantHero.blocked = false;
-			waitingOnBlock = true;
-			if (team == Team.Plant)
-			{
-				GameObject c = Instantiate(handcardPrefab, handCards);
-				c.SetActive(false);
-				c.transform.localPosition = new Vector2(0, 3);
-				c.GetComponent<HandCard>().ID = 5; //temp
-				c.GetComponent<HandCard>().interactable = true;
-				c.SetActive(true);
-			}
-			yield return new WaitUntil(() => waitingOnBlock == false);
-		}
-		//yield return CheckDeaths();
+		yield return new WaitUntil(() => waitingOnBlock == false);
 	}
 
 }
