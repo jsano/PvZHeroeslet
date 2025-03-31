@@ -265,6 +265,9 @@ public class GameManager : NetworkBehaviour
             yield return ProcessEvents();
         }
 
+        TriggerEvent("OnTurnEnd", null);
+        yield return ProcessEvents();
+
         turn += 1;
         remaining = turn;
 		opponentRemaining = turn;

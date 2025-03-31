@@ -29,7 +29,7 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Sunflower"), 2 },
             { AllCards.NameToID("Bananasaurus Rex"), 1 },
             { AllCards.NameToID("The Great Zucchini"), 1 },
-            { AllCards.NameToID("Kernel Corn"), 1 },
+            { AllCards.NameToID("Three-headed Chomper"), 1 },
         };
 
         NetworkManager.Singleton.StartHost();

@@ -278,6 +278,11 @@ public class Card : Damagable
         yield return null;
     }
 
+    protected virtual IEnumerator OnTurnEnd()
+    {
+        yield return null;
+    }
+
     protected virtual IEnumerator OnCardDraw(Team team)
     {
         yield return null;
