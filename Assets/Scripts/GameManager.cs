@@ -42,6 +42,7 @@ public class GameManager : NetworkBehaviour
     [HideInInspector] public Hero zombieHero;
 	[HideInInspector] public bool waitingOnBlock = false;
     [HideInInspector] public bool selecting = false;
+	[HideInInspector] public int currentlySpawningCards = 0;
 
     private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnBlock", 1 }, { "OnCardDeath", 2 }, { "OnCardFreeze", 3 }, { "OnCardHurt", 4 } };
     public class GameEvent

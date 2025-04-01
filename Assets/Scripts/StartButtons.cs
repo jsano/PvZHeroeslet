@@ -24,12 +24,12 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(0));
         UserAccounts.allDecks["temp10"].cards = new() {
-            { AllCards.NameToID("Briar Rose"), 2 },
+            { AllCards.NameToID("Cornucopia"), 2 },
             { AllCards.NameToID("Pineclone"), 1 },
             { AllCards.NameToID("Sunflower"), 2 },
             { AllCards.NameToID("Bananasaurus Rex"), 1 },
             { AllCards.NameToID("The Great Zucchini"), 1 },
-            { AllCards.NameToID("Three-headed Chomper"), 1 },
+            { AllCards.NameToID("Poppin' Poppies"), 1 },
         };
 
         NetworkManager.Singleton.StartHost();

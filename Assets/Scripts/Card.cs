@@ -121,8 +121,13 @@ public class Card : Damagable
 
     private CardInfo cardInfo;
 
-	// Start is called before the first frame update
-	void Start()
+    void Awake()
+    {
+        if (!gravestone) GameManager.Instance.currentlySpawningCards += 1;
+    }
+
+    // Start is called before the first frame update
+    void Start()
     {
 		cam = GameObject.Find("Main Camera").GetComponent<Camera>();
 		SR = GetComponent<SpriteRenderer>();
@@ -179,6 +184,8 @@ public class Card : Damagable
 	protected virtual IEnumerator OnThisPlay()
 	{
         if (GameManager.Instance.selecting) yield return new WaitUntil(() => GameManager.Instance.selecting == false);
+        GameManager.Instance.currentlySpawningCards -= 1;
+        yield return new WaitUntil(() => GameManager.Instance.currentlySpawningCards == 0);
         if (type == Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
         yield return GameManager.Instance.ProcessEvents();
         GameManager.Instance.waitingOnBlock = false;
@@ -391,6 +398,7 @@ public class Card : Damagable
 		SR.sprite = baseSprite;
 		atkUI.gameObject.SetActive(true);
 		hpUI.gameObject.SetActive(true);
+        GameManager.Instance.currentlySpawningCards += 1;
         //play animation
         yield return OnThisPlay();
     }
