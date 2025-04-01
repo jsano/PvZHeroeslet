@@ -222,8 +222,8 @@ public class Card : Damagable
 	/// <summary>
 	/// Called whenever a card on the field is hurt
 	/// </summary>
-	/// <param name="hurt"> [The card that received damage, the card that dealt the damage] </param>
-	protected virtual IEnumerator OnCardHurt(Tuple<Damagable, Card> hurt)
+	/// <param name="hurt"> [The card that received damage, the card that dealt the damage, the final amount dealt] </param>
+	protected virtual IEnumerator OnCardHurt(Tuple<Damagable, Card, int> hurt)
 	{
 		yield return null;
 	}
@@ -334,7 +334,7 @@ public class Card : Damagable
         hpUI.text = Mathf.Max(0, HP) + "";
         if (dmg > 0)
         {
-            GameManager.Instance.TriggerEvent("OnCardHurt", new Tuple<Damagable, Card>(this, source));
+            GameManager.Instance.TriggerEvent("OnCardHurt", new Tuple<Damagable, Card, int>(this, source, dmg));
             if (deadly) hitByDeadly = true;
             if (HP <= 0 || hitByDeadly)
             {

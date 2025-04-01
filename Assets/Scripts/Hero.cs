@@ -68,7 +68,7 @@ public class Hero : Damagable
 			}
 			else StartCoroutine(HitVisual());
 
-            GameManager.Instance.TriggerEvent("OnCardHurt", new Tuple<Damagable, Card>(this, source));
+            GameManager.Instance.TriggerEvent("OnCardHurt", new Tuple<Damagable, Card, int>(this, source, dmg));
         }
 	}
 

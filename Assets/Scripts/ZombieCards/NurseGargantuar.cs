@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BriarRose : Card
+public class NurseGargantuar : Card
 {
 
 	protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int> hurt)
 	{
-		if (hurt.Item1.GetComponent<Card>() != null && ((Card)hurt.Item1).tribes.Contains(Tribe.Flower) && !hurt.Item2.died)
+		if (hurt.Item2.tribes.Contains(Tribe.Gargantuar))
 		{
 			GameManager.Instance.DisableHandCards();
 			yield return new WaitForSeconds(1);
-			hurt.Item2.Destroy();
+			GameManager.Instance.zombieHero.Heal(hurt.Item3);
 		}
 		yield return base.OnCardHurt(hurt);
 	}
