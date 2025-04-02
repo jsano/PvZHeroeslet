@@ -83,7 +83,9 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                 {
                     if (Tile.CanPlantInCol(j, tileObjects, finalStats.abilities.Contains("teamup") || orig.teamUp, finalStats.abilities.Contains("amphibious") || orig.amphibious))
                     {
-                        if (i == 0 || i == 1 && (finalStats.abilities.Contains("teamup") || orig.teamUp || tileObjects[0, j].planted != null && tileObjects[0, j].planted.teamUp)) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
+                        if (i == 0 || 
+                            i == 1 && (finalStats.abilities.Contains("teamup") || orig.teamUp || tileObjects[0, j].planted != null && tileObjects[0, j].planted.teamUp))
+                            validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
                     }
                         
 			    }

@@ -305,11 +305,13 @@ public class Card : Damagable
             yield break;
         }
         if (atk <= 0 || gravestone) yield break;
+
+        yield return new WaitForSeconds(0.5f);
+        // animation
         if (!nextDoor && splash == 0)
         {
             Damagable target = GetTarget(col);
             yield return target.ReceiveDamage(atk, this, bullseye, deadly, freeze);
-            // animation
             if (frenzy && target.GetComponent<Card>() != null) GameManager.Instance.frenzyInfo = new Tuple<Card, Card>(this, (Card)target);
         }
         else
@@ -321,9 +323,7 @@ public class Card : Damagable
                 if (splash > 0 && i != 0) target[i+1] = Tile.zombieTiles[0, col + i].planted;
                 else target[i+1] = GetTarget(col + i);
             }
-            int[] dealt = new int[3];
             for (int i = 0; i < 3; i++) if (target[i] != null) yield return target[i].ReceiveDamage(atk, this, bullseye, deadly, freeze);
-			// animation
 		}
 	}
 

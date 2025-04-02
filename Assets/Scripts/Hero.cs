@@ -80,6 +80,14 @@ public class Hero : Damagable
 		hpUI.text = HP + "";
 	}
 
+	public int StealBlock(int amount)
+	{
+		amount = Math.Min(block, amount);
+        block -= amount;
+        blockMeter.fillAmount = block / 8f;
+		return amount;
+    }
+
 	private IEnumerator HitVisual()
 	{
 		SR.material.color = new Color(1, 0.8f, 0.8f, 0.8f);
