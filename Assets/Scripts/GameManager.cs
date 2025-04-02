@@ -96,7 +96,7 @@ public class GameManager : NetworkBehaviour
 			eventStack.Insert(i, new GameEvent(methodName, arg));
 		}
 		catch (Exception) { Debug.Log("ERROR " + " " + methodName + " " + arg);}
-    }
+	}
 
     public IEnumerator ProcessEvents()
     {
@@ -116,13 +116,10 @@ public class GameManager : NetworkBehaviour
 				continue;
 			}
 
-            string n = "";
-            try { n = ((Card)currentEvent.arg).gameObject.name + ""; }
-            catch (Exception) { }
             string col = "";
 			try { col = ((Card)currentEvent.arg).GetComponent<Card>().col + "";}
 			catch (Exception) { }
-            Debug.Log(currentEvent.time + " " + currentEvent.methodName + " from " + n + " at column " + col + " -- Remaining: " + eventStack.Count);
+            Debug.Log(currentEvent.time + " " + currentEvent.methodName + " from " + currentEvent.arg + " at column " + col + " -- Remaining: " + eventStack.Count);
             yield return CallLeftToRight(currentEvent.methodName, currentEvent.arg);
             //yield return new WaitForSeconds(0.2f);
         }
