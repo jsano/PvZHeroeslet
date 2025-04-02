@@ -43,6 +43,10 @@ public class GameManager : NetworkBehaviour
 	[HideInInspector] public bool waitingOnBlock = false;
     [HideInInspector] public bool selecting = false;
 	[HideInInspector] public int currentlySpawningCards = 0;
+	/// <summary>
+	/// [Card with frenzy, card being attacked]
+	/// </summary>
+    [HideInInspector] public Tuple<Card, Card> frenzyInfo;
 
     private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnBlock", 1 }, { "OnCardDeath", 2 }, { "OnCardFreeze", 3 }, { "OnCardHurt", 4 } };
     public class GameEvent
@@ -256,7 +260,20 @@ public class GameManager : NetworkBehaviour
 			if (Tile.plantTiles[1, col].planted != null) yield return Tile.plantTiles[1, col].planted.Attack();
 			if (Tile.plantTiles[0, col].planted != null) yield return Tile.plantTiles[0, col].planted.Attack();
 
+			bool frenzyActivate = false;
+			if (frenzyInfo != null) if (frenzyInfo.Item2.died) frenzyActivate = true;
+
 			yield return ProcessEvents();
+
+			while (frenzyActivate)
+			{
+				Card temp = frenzyInfo.Item1;
+				frenzyInfo = null;
+				frenzyActivate = false;
+				yield return temp.Attack();
+                if (frenzyInfo != null) if (frenzyInfo.Item2.died) frenzyActivate = true;
+                yield return ProcessEvents();
+			}
 
 			if (Tile.zombieTiles[0, col].planted != null && Tile.zombieTiles[0, col].planted.doubleStrike) yield return Tile.zombieTiles[0, col].planted.Attack();
 

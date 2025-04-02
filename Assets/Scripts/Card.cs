@@ -309,7 +309,8 @@ public class Card : Damagable
         {
             Damagable target = GetTarget(col);
             yield return target.ReceiveDamage(atk, this, bullseye, deadly, freeze);
-		    // animation
+            // animation
+            if (frenzy && target.GetComponent<Card>() != null) GameManager.Instance.frenzyInfo = new Tuple<Card, Card>(this, (Card)target);
         }
         else
         {
