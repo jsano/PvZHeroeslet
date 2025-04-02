@@ -196,7 +196,9 @@ public class GameManager : NetworkBehaviour
 	{
 		if (team == t)
 		{
-			GameObject c = Instantiate(handcardPrefab, handCards);
+			GameObject c;
+			if (AllCards.Instance.cards[id].specialHandCard != null) c = Instantiate(AllCards.Instance.cards[id].specialHandCard, handCards);
+            else c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
 			for (int i = 0; i < handCards.childCount; i++)
 			{
@@ -428,7 +430,7 @@ public class GameManager : NetworkBehaviour
         else StartCoroutine(ProcessEvents());
     }
 
-    public static IEnumerator CallLeftToRight(string methodName, object arg)
+    private IEnumerator CallLeftToRight(string methodName, object arg)
 	{
 		for (int i = 0; i < 5; i++)
 		{
@@ -437,19 +439,8 @@ public class GameManager : NetworkBehaviour
 			if (Tile.plantTiles[1, i].planted != null) yield return Tile.plantTiles[1, i].planted.StartCoroutine(methodName, arg);
 			if (Tile.plantTiles[0, i].planted != null) yield return Tile.plantTiles[0, i].planted.StartCoroutine(methodName, arg);
 		}
+		foreach (Transform h in handCards) h.GetComponent<HandCard>().StartCoroutine(methodName, arg);
         yield return null;
-	}
-
-	public static IEnumerator CallLeftToRight(string methodName)
-	{
-		for (int i = 0; i < 5; i++)
-		{
-			if (Tile.zombieTiles[0, i].planted != null) yield return Tile.zombieTiles[0, i].planted.StartCoroutine(methodName);
-
-			if (Tile.plantTiles[1, i].planted != null) yield return Tile.plantTiles[1, i].planted.StartCoroutine(methodName);
-			if (Tile.plantTiles[0, i].planted != null) yield return Tile.plantTiles[0, i].planted.StartCoroutine(methodName);
-		}
-		yield return null;
 	}
 
 	public void DisableHandCards()

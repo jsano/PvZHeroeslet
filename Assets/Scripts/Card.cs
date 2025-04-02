@@ -108,6 +108,7 @@ public class Card : Damagable
     [HideInInspector] public int col;
     [HideInInspector] public int playedCost;
 
+    public GameObject specialHandCard;
     private TextMeshProUGUI atkUI;
     private TextMeshProUGUI hpUI;
     private SpriteRenderer SR;

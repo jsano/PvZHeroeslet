@@ -190,4 +190,70 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         return finalStats.cost;
     }
 
+    public void ChangeCost(int amount)
+    {
+        finalStats.cost += amount;
+        costUI.text = finalStats.cost + "";
+    }
+
+    /// <summary>
+	/// Called whenever a card is played
+	/// </summary>
+	/// <param name="played"> The card that was played </param>
+	protected virtual IEnumerator OnCardPlay(Card played)
+    {
+        yield return null;
+    }
+
+    /// <summary>
+    /// Called whenever a card on the field is hurt
+    /// </summary>
+    /// <param name="hurt"> [The card that received damage, the card that dealt the damage, the final amount dealt] </param>
+    protected virtual IEnumerator OnCardHurt(Tuple<Damagable, Card, int> hurt)
+    {
+        yield return null;
+    }
+
+    /// <summary>
+    /// Called whenever a card on the field dies
+    /// </summary>
+    /// <param name="died"> The card that died </param>
+    protected virtual IEnumerator OnCardDeath(Card died)
+    {
+        yield return null;
+    }
+
+    /// <summary>
+    /// Called whenever a card on the field moves
+    /// </summary>
+    /// <param name="moved"> The card that moved </param>
+    protected virtual IEnumerator OnCardMoved(Card moved)
+    {
+        yield return null;
+    }
+
+    /// <summary>
+    /// Called whenever a card on the field gets frozen
+    /// </summary>
+    /// <param name="frozen"> The card that froze </param>
+    protected virtual IEnumerator OnCardFreeze(Card frozen)
+    {
+        yield return null;
+    }
+
+    protected virtual IEnumerator OnTurnStart()
+    {
+        yield return null;
+    }
+
+    protected virtual IEnumerator OnTurnEnd()
+    {
+        yield return null;
+    }
+
+    protected virtual IEnumerator OnCardDraw(Card.Team team)
+    {
+        yield return null;
+    }
+
 }
