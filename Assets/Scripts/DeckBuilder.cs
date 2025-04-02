@@ -40,7 +40,7 @@ public class DeckBuilder : MonoBehaviour
         for (int i = 0; i < AllCards.Instance.cards.Length; i++)
         {
             Card c = AllCards.Instance.cards[i];
-            if (AllCards.Instance.heroes[deck.heroID].classes[0] == c._class || AllCards.Instance.heroes[deck.heroID].classes[1] == c._class)
+            if (!c.token && (AllCards.Instance.heroes[deck.heroID].classes[0] == c._class || AllCards.Instance.heroes[deck.heroID].classes[1] == c._class))
             {
                 DeckCard d = Instantiate(deckCardPrefab, allDeckCards).GetComponent<DeckCard>();
                 d.ID = i;

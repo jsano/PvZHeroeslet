@@ -15,9 +15,9 @@ public class DeckList : MonoBehaviour
         GameObject.Find("Heroes").transform.GetChild(0).GetComponent<DeckListButton>().OnClick();
     }
 
-    public void Show(int newID)
+    public void Show(int newID, bool force=false)
     {
-        if (ID == newID) return;
+        if (ID == newID && !force) return;
         ID = newID;
         foreach (Transform t in transform) if (!t.gameObject.name.Contains("New")) Destroy(t.gameObject);
         foreach (string name in UserAccounts.allDecks.Keys)
@@ -42,7 +42,7 @@ public class DeckList : MonoBehaviour
     {
         UserAccounts.allDecks.Remove(name);
         PlayerPrefs.SetString("Decks", JsonConvert.SerializeObject(UserAccounts.allDecks));
-        Start();
+        Show(ID, true);
     }
 
     public void LoadDeck(string name)
