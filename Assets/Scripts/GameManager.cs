@@ -47,8 +47,9 @@ public class GameManager : NetworkBehaviour
 	/// [Card with frenzy, card being attacked]
 	/// </summary>
     [HideInInspector] public Tuple<Card, Card> frenzyInfo;
+    [HideInInspector] public bool allowZombieCards = false;
 
-    private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnBlock", 1 }, { "OnCardDeath", 2 }, { "OnCardFreeze", 3 }, { "OnCardHurt", 4 } };
+    private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnBlock", 1 }, { "OnCardDeath", 2 }, { "OnCardFreeze", 3 }, { "OnCardHurt", 4 }, { "OnCardDraw", 5 } };
     public class GameEvent
 	{
 		public string methodName;
@@ -83,7 +84,7 @@ public class GameManager : NetworkBehaviour
 				if (!priority.ContainsKey(methodName)) break;
 				if (!priority.ContainsKey(eventStack[i].methodName)) continue;
 				if (priority[eventStack[i].methodName] < priority[methodName]) continue;
-				if (priority[eventStack[i].methodName] == priority[methodName])
+				if (priority[eventStack[i].methodName] == priority[methodName] && methodName != "OnCardDraw")
 				{
 					if (((Damagable)eventStack[i].arg).GetComponent<Hero>() != null) continue;
 					if (((Damagable)eventStack[i].arg).GetComponent<Card>().col > ((Damagable)arg).GetComponent<Card>().col) continue;
@@ -292,6 +293,7 @@ public class GameManager : NetworkBehaviour
 		UpdateRemaining(0, Team.Plant);
 		UpdateRemaining(0, Team.Zombie);
 		phase = 0;
+		allowZombieCards = false;
 
 		TriggerEvent("OnTurnStart", null);
         yield return ProcessEvents();
@@ -343,6 +345,7 @@ public class GameManager : NetworkBehaviour
         }
 
         selecting = false;
+		allowZombieCards = false;
         //StartCoroutine(ProcessEvents());
     }
 
@@ -482,7 +485,7 @@ public class GameManager : NetworkBehaviour
             {
 				foreach (Transform t in handCards)
 				{
-                    if (AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type == Card.Type.Trick)
+                    if (AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type == Card.Type.Trick || allowZombieCards)
                     {
 						if (t.GetComponent<HandCard>().GetCost() <= remaining) t.GetComponent<HandCard>().interactable = true;
                     }

@@ -27,7 +27,7 @@ public class CardInfo : MonoBehaviour
 		Card baseCard = source;
 		foreach (Card c in AllCards.Instance.cards)
 		{
-			if (source.name.Substring(0, source.name.IndexOf("(")) == c.name)
+			if (source.name == c.name || source.name.Substring(0, source.name.IndexOf("(")) == c.name)
 			{
 				baseCard = c;
 				break;
