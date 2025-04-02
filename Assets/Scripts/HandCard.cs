@@ -196,6 +196,18 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         costUI.text = finalStats.cost + "";
     }
 
+    public void ChangeAttack(int amount)
+    {
+        finalStats.atk += amount;
+        atkUI.text = finalStats.atk + "";
+    }
+
+    public void ChangeHP(int amount)
+    {
+        finalStats.hp += amount;
+        hpUI.text = finalStats.hp + "";
+    }
+
     /// <summary>
 	/// Called whenever a card is played
 	/// </summary>

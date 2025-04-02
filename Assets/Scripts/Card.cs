@@ -338,7 +338,7 @@ public class Card : Damagable
         {
             GameManager.Instance.TriggerEvent("OnCardHurt", new Tuple<Damagable, Card, int>(this, source, dmg));
             if (deadly) hitByDeadly = true;
-            if (HP <= 0 || hitByDeadly)
+            if ((HP <= 0 || hitByDeadly) && !died)
             {
                 died = true;
                 GameManager.Instance.TriggerEvent("OnCardDeath", this);

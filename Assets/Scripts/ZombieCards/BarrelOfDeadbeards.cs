@@ -14,7 +14,7 @@ public class BarrelOfDeadbeards : Card
 			for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++)
 				{
 					if (Tile.plantTiles[i, j].planted != null) StartCoroutine(Tile.plantTiles[i, j].planted.ReceiveDamage(1, this));
-                    if (Tile.zombieTiles[i, j].planted != null) StartCoroutine(Tile.zombieTiles[i, j].planted.ReceiveDamage(1, this));
+                    if (Tile.zombieTiles[i, j].planted != null && Tile.zombieTiles[i, j].planted != this) StartCoroutine(Tile.zombieTiles[i, j].planted.ReceiveDamage(1, this));
                 }
             Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Captain Deadbeard")]).GetComponent<Card>();
 			Tile.zombieTiles[row, col].planted = null;
