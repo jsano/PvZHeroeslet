@@ -25,14 +25,15 @@ public class CardInfo : MonoBehaviour
 		yield return null;
 		transform.parent.gameObject.SetActive(true);
 		Card baseCard = source;
-		foreach (Card c in AllCards.Instance.cards)
-		{
-			if (source.name == c.name || source.name.Substring(0, source.name.IndexOf("(")) == c.name)
+		if (source.name.IndexOf("(") >= 0)
+			foreach (Card c in AllCards.Instance.cards)
 			{
-				baseCard = c;
-				break;
+				if (source.name.Substring(0, source.name.IndexOf("(")) == c.name)
+				{
+					baseCard = c;
+					break;
+				}
 			}
-		}
 
 		image.sprite = baseCard.GetComponent<SpriteRenderer>().sprite;
 		atk.text = baseCard.atk + "";
