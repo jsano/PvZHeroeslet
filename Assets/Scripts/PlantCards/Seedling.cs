@@ -10,7 +10,7 @@ public class Seedling : Card
 		yield return new WaitForSeconds(1);
 		if (GameManager.Instance.team == team)
 		{
-			int newCard = AllCards.RandomFromCost(Team.Plant, 1, 0, 1, 2, 3, 4, 5, 6);
+			int newCard = AllCards.RandomFromCost(Team.Plant, (0, 1, 2, 3, 4, 5, 6), true);
 			GameManager.Instance.PlayCardRpc(HandCard.MakeDefaultFS(newCard), row, col, true);
 		}
 		Destroy(gameObject);
