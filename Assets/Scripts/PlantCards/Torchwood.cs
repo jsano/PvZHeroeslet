@@ -24,14 +24,14 @@ public class Torchwood : Card
 			played.RaiseAttack(2);
 			buffing = played;
 		}
-		yield return null;
+		yield return base.OnCardPlay(played);
 	}
 
 	protected override IEnumerator OnCardDeath(Card died)
 	{
 		if (died == this) if (buffing != null) buffing.RaiseAttack(-2);
 		if (died == buffing) buffing = null;
-		yield return null;
+		yield return base.OnCardDeath(died);
 	}
 
 	protected override IEnumerator OnCardMoved(Card moved)
@@ -47,7 +47,7 @@ public class Torchwood : Card
 			moved.RaiseAttack(-2);
 			buffing = null;
 		}
-		yield return null;
+		yield return base.OnCardMoved(moved);
 	}
 
 }
