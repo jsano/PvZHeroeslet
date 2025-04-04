@@ -14,7 +14,6 @@ public class MixedupGravedigger: Card
 		else
 		{
 			activated = true;
-			GameManager.Instance.DisableHandCards();
 			List<int> columns = new();
 			List<Card> zombies = new();
 			for (int col = 0; col < 5; col++)

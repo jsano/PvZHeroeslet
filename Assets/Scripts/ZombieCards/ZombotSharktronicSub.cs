@@ -10,7 +10,6 @@ public class ZombotSharktronicSub : Card
 	{
 		if (hurt.Item1.GetComponent<Card>() != null && ((Card)hurt.Item1).team == Team.Plant)
 		{
-			GameManager.Instance.DisableHandCards();
 			yield return new WaitForSeconds(1);
 			((Card)hurt.Item1).Destroy();
 		}
@@ -21,7 +20,6 @@ public class ZombotSharktronicSub : Card
     {
         if (died.team == Team.Plant)
         {
-            GameManager.Instance.DisableHandCards();
             yield return new WaitForSeconds(1);
             RaiseAttack(1);
         }

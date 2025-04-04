@@ -9,7 +9,6 @@ public class SmokeBomb : Card
 	{
 		if (GameManager.Instance.team == team)
 		{
-			GameManager.Instance.DisableHandCards();
 			for (int col = 0; col < 5; col++)
 			{
 				if (Tile.zombieTiles[0, col].planted == null && (col != 5 || Tile.zombieTiles[0, this.col].planted.amphibious))

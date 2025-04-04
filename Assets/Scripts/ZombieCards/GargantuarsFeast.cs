@@ -7,7 +7,6 @@ public class GargantuarsFeast : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
 		if (GameManager.Instance.team == team)
 		{

@@ -7,7 +7,6 @@ public class DandyLionKing : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
 		yield return GameManager.Instance.zombieHero.ReceiveDamage((int)Mathf.Floor(GameManager.Instance.zombieHero.HP / 2), this);
 

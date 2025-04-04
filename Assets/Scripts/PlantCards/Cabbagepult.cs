@@ -9,7 +9,6 @@ public class Cabbagepult : Card
 	{
 		if (col == 0)
 		{
-			GameManager.Instance.DisableHandCards();
 			yield return new WaitForSeconds(1);
 			Heal(1, true);
 			RaiseAttack(1);

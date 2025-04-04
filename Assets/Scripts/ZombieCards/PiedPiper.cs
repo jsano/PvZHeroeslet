@@ -11,7 +11,6 @@ public class PiedPiper : Card
 		Card c1 = Tile.plantTiles[1, col].planted;
 		if (c != null || c1 != null)
 		{
-			GameManager.Instance.DisableHandCards();
 			yield return new WaitForSeconds(1);
 			if (c != null)
 			{

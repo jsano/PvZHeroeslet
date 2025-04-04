@@ -7,7 +7,6 @@ public class KernelCorn : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
 		for (int col = 0; col < 5; col++)
 		{

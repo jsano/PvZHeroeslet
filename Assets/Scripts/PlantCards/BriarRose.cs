@@ -10,7 +10,6 @@ public class BriarRose : Card
 	{
 		if (hurt.Item1.GetComponent<Card>() != null && ((Card)hurt.Item1).tribes.Contains(Tribe.Flower) && hurt.Item2 != null && !hurt.Item2.died)
 		{
-			GameManager.Instance.DisableHandCards();
 			yield return new WaitForSeconds(1);
 			hurt.Item2.Destroy();
 		}

@@ -9,7 +9,7 @@ public class BarrelOfDeadbeards : Card
 	{
 		if (died == this)
 		{
-			GameManager.Instance.DisableHandCards();
+			//GameManager.Instance.DisableHandCards();
 			yield return new WaitForSeconds(1);
 			for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++)
 				{

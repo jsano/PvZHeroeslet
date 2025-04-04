@@ -7,7 +7,6 @@ public class PoppinPoppies : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-        GameManager.Instance.DisableHandCards();
         yield return new WaitForSeconds(1);
 
 		for (int i = 1; i >= -1; i--)

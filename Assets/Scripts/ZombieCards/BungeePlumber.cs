@@ -6,7 +6,6 @@ public class BungeePlumber : Card
 {
 	protected override IEnumerator OnThisPlay()
 	{
-		GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
 		if (row == -1 && col == -1) yield return GameManager.Instance.plantHero.ReceiveDamage(2, this);
 		else yield return Tile.plantTiles[row, col].planted.ReceiveDamage(2, this);

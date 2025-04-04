@@ -7,7 +7,6 @@ public class Buffshroom : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
 		for (int row = 0; row < 2; row++)
 		{

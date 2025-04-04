@@ -7,7 +7,6 @@ public class RollingStone : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
 		Tile.plantTiles[row, col].planted.Destroy();
 		yield return base.OnThisPlay();

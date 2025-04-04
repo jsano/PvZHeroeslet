@@ -18,9 +18,7 @@ public class Medic : Card
 			}
 		}
 		if (GameManager.Instance.team == team)
-		{
-			GameManager.Instance.DisableHandCards();
-			
+		{			
 			if (GameManager.Instance.zombieHero.isDamaged()) choices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
 			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
 			if (choices.Count >= 2)

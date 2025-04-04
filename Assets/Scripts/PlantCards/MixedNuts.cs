@@ -12,7 +12,6 @@ public class MixedNuts : Card
 			Card c = Tile.plantTiles[row, col].planted;
 			if (c != null && c.teamUp)
 			{
-				GameManager.Instance.DisableHandCards();
 				yield return new WaitForSeconds(1);
 				RaiseAttack(2);
 				Heal(2, true);

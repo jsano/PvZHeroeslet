@@ -13,7 +13,6 @@ public class Pineclone : Card
             yield return base.OnThisPlay();
             yield break;
         }
-        GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
         for (int col = 4; col >= 0; col--)
         {

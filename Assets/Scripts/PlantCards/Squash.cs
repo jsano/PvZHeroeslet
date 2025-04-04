@@ -7,7 +7,6 @@ public class Squash : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
 		Tile.zombieTiles[row, col].planted.Destroy();
 		yield return base.OnThisPlay();

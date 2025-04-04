@@ -7,7 +7,6 @@ public class WannabeHero : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
 		GameManager.Instance.zombieHero.Heal(3);
 		Heal(GameManager.Instance.zombieHero.HP, true);

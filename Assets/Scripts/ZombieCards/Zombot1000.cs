@@ -7,7 +7,6 @@ public class Zombot1000 : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		GameManager.Instance.DisableHandCards();
 		yield return new WaitForSeconds(1);
 		for (int i = 0; i < 5; i++)
 		{

@@ -19,7 +19,7 @@ public class Growshroom : Card
 		}
 		if (GameManager.Instance.team == team)
 		{
-			GameManager.Instance.DisableHandCards();
+			//GameManager.Instance.DisableHandCards();
 			
 			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
 			if (choices.Count >= 2)

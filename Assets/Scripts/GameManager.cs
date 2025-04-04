@@ -332,19 +332,7 @@ public class GameManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     private void PositionCardRpc(HandCard.FinalStats fs, int row, int col, bool free=false)
     {
-		Card card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
-        card.atk = fs.atk;
-        card.HP = fs.hp;
-        //abilities...
-        if (card.team == Team.Zombie)
-        {
-			Tile.zombieTiles[row, col].Plant(card);
-        }
-        else
-        {
-			Tile.plantTiles[row, col].Plant(card);
-		}
-
+		Card card = AllCards.Instance.cards[fs.ID];
         if (card.team != team)
         {
 			if (!free)
@@ -359,6 +347,19 @@ public class GameManager : NetworkBehaviour
         {
             if (!free) UpdateRemaining(-fs.cost, team);
         }
+		
+		card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
+        card.atk = fs.atk;
+        card.HP = fs.hp;
+        //abilities...
+        if (card.team == Team.Zombie)
+        {
+			Tile.zombieTiles[row, col].Plant(card);
+        }
+        else
+        {
+			Tile.plantTiles[row, col].Plant(card);
+		}
 
         selecting = false;
 		allowZombieCards = false;
@@ -407,9 +408,10 @@ public class GameManager : NetworkBehaviour
     }
 
 	[Rpc(SendTo.ClientsAndHost)]
-	public void HoldTrickRpc()
+	public void HoldTrickRpc(Team t)
 	{
         waitingOnBlock = false;
+		TriggerEvent("OnCardDraw", t);
 	}
 
 	[Rpc(SendTo.ClientsAndHost)]
@@ -469,7 +471,11 @@ public class GameManager : NetworkBehaviour
 		{
             if (phase == 2)
             {
-                foreach (Transform t in handCards) if (t.GetComponent<HandCard>().GetCost() <= remaining) t.GetComponent<HandCard>().interactable = true;
+				foreach (Transform t in handCards)
+				{
+					if (t.GetComponent<HandCard>().GetCost() <= remaining) t.GetComponent<HandCard>().interactable = true;
+					else t.GetComponent<HandCard>().interactable = false;
+                }
             }
             else foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = false;
 		}
@@ -479,10 +485,8 @@ public class GameManager : NetworkBehaviour
             {
                 foreach (Transform t in handCards)
                 {
-                    if (AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type == Card.Type.Unit)
-                    {
-						if (t.GetComponent<HandCard>().GetCost() <= remaining) t.GetComponent<HandCard>().interactable = true;
-                    }
+                    if (AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type == Card.Type.Unit && t.GetComponent<HandCard>().GetCost() <= remaining)
+						t.GetComponent<HandCard>().interactable = true;
                     else t.GetComponent<HandCard>().interactable = false;
                 }
             }
@@ -490,14 +494,13 @@ public class GameManager : NetworkBehaviour
             {
 				foreach (Transform t in handCards)
 				{
-                    if (AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type == Card.Type.Trick || allowZombieCards)
-                    {
-						if (t.GetComponent<HandCard>().GetCost() <= remaining) t.GetComponent<HandCard>().interactable = true;
-                    }
+                    if ((AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type == Card.Type.Trick || allowZombieCards) &&
+						t.GetComponent<HandCard>().GetCost() <= remaining) t.GetComponent<HandCard>().interactable = true;
                     else t.GetComponent<HandCard>().interactable = false;
 				}
 			}
-		}
+            else foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = false;
+        }
 
 		if (team == Team.Plant)
 		{
@@ -518,8 +521,8 @@ public class GameManager : NetworkBehaviour
 			remaining += change;
 			remaining = Mathf.Max(remaining, 0);
 			remainingText.text = remaining + "";
-			DisableHandCards();
-			EnablePlayableHandCards();
+			//DisableHandCards();
+			//EnablePlayableHandCards();
 		}
 		else
 		{

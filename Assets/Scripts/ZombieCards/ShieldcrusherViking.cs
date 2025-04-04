@@ -10,7 +10,6 @@ public class ShieldcrusherViking : Card
 	{
 		if (hurt.Item2 == this && hurt.Item1 == GameManager.Instance.plantHero)
 		{
-			GameManager.Instance.DisableHandCards();
 			yield return new WaitForSeconds(1);
 			GameManager.Instance.plantHero.StealBlock(10);
 		}

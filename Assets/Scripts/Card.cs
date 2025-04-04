@@ -128,7 +128,12 @@ public class Card : Damagable
 
     void Awake()
     {
-        if (!gravestone) GameManager.Instance.currentlySpawningCards += 1;
+        if (!gravestone)
+        {
+            GameManager.Instance.currentlySpawningCards += 1;
+            GameManager.Instance.DisableHandCards();
+        }
+        else GameManager.Instance.EnablePlayableHandCards();
     }
 
     // Start is called before the first frame update
@@ -410,6 +415,7 @@ public class Card : Damagable
 		hpUI.gameObject.SetActive(true);
         GameManager.Instance.currentlySpawningCards += 1;
         //play animation
+        GameManager.Instance.DisableHandCards();
         yield return OnThisPlay();
     }
 

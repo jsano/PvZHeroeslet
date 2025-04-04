@@ -6,9 +6,7 @@ public class TheGreatZucchini : Card
 {
 
 	protected override IEnumerator OnThisPlay()
-	{
-		GameManager.Instance.DisableHandCards();
-		
+	{		
         List<Card> toDestroy = new();
         for (int col = 4; col >= 0; col--)
         {

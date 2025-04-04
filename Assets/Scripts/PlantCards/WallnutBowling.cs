@@ -7,7 +7,6 @@ public class WallnutBowling : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-        GameManager.Instance.DisableHandCards();
         yield return new WaitForSeconds(1);
 
         int heroDmg = 0;

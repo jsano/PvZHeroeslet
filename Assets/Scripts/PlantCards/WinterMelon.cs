@@ -15,9 +15,7 @@ public class WinterMelon : Card
             }
         }
         if (GameManager.Instance.team == team)
-        {
-            GameManager.Instance.DisableHandCards();
-            
+        {            
             if (choices.Count == 1) yield return OnSelection(choices[0]);
             if (choices.Count >= 2)
             {
