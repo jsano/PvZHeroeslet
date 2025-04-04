@@ -79,8 +79,10 @@ public class Card : Damagable
 
     public int cost;
     public int atk;
+    private int baseAtk;
     public int HP;
     private int maxHP;
+    private int baseHP;
     public bool died { get; private set; }
 
     public bool amphibious;
@@ -134,22 +136,19 @@ public class Card : Damagable
 		SR = GetComponent<SpriteRenderer>();
         baseSprite = SR.sprite;
         maxHP = HP;
+        baseHP = HP;
+        baseAtk = atk;
         atkUI = transform.Find("ATK").GetComponent<TextMeshProUGUI>();
         atkUI.text = atk + "";
         hpUI = transform.Find("HP").GetComponent<TextMeshProUGUI>();
         hpUI.text = HP + "";
-        if (gravestone)
+        if (gravestone) Hide();
+        else
         {
-            SR.sprite = AllCards.Instance.gravestoneSprite;
-            atkUI.gameObject.SetActive(false);
-            hpUI.gameObject.SetActive(false);
-        }
-		else
-		{
             //play animation
             if (type == Type.Trick) GameManager.Instance.TriggerEvent("OnCardPlay", this);
             StartCoroutine(OnThisPlay());
-		}
+        }
 		cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
 	}
 
@@ -189,6 +188,7 @@ public class Card : Damagable
         yield return new WaitUntil(() => GameManager.Instance.currentlySpawningCards == 0);
         if (type == Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
         yield return GameManager.Instance.ProcessEvents();
+        playedCost = 0;
         GameManager.Instance.waitingOnBlock = false;
         if (type == Type.Trick)
         {
@@ -352,6 +352,7 @@ public class Card : Damagable
 	public void Destroy()
 	{
         died = true;
+        if (gravestone && team != GameManager.Instance.team) GameManager.Instance.UpdateRemaining(playedCost, team);
 		GameManager.Instance.TriggerEvent("OnCardDeath", this);
 	}
 
@@ -405,6 +406,16 @@ public class Card : Damagable
         yield return OnThisPlay();
     }
 
+    public void Hide()
+    {
+        atk = baseAtk;
+        HP = baseHP;
+        gravestone = true;
+        SR.sprite = AllCards.Instance.gravestoneSprite;
+        atkUI.gameObject.SetActive(false);
+        hpUI.gameObject.SetActive(false);
+    }
+
     public void Freeze()
     {
         frozen = true;
@@ -433,7 +444,7 @@ public class Card : Damagable
 				if (c != null && GameManager.Instance.selecting) return;
 			}
 		}
-		StartCoroutine(cardInfo.Show(this));
+		if (GameManager.Instance.team == Team.Zombie || !gravestone) StartCoroutine(cardInfo.Show(this));
 	}
 
 }

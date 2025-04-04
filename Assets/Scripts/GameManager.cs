@@ -48,6 +48,7 @@ public class GameManager : NetworkBehaviour
 	/// </summary>
     [HideInInspector] public Tuple<Card, Card> frenzyInfo;
     [HideInInspector] public bool allowZombieCards = false;
+	public List<string> shuffledList { get; private set; }
 
     private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnBlock", 1 }, { "OnCardDeath", 2 }, { "OnCardFreeze", 3 }, { "OnCardHurt", 4 }, { "OnCardDraw", 5 } };
     public class GameEvent
@@ -552,5 +553,12 @@ public class GameManager : NetworkBehaviour
 		}
 		yield return new WaitUntil(() => waitingOnBlock == false);
 	}
+
+    [Rpc(SendTo.ClientsAndHost)]
+    public void StoreRpc(string list)
+    {
+		string[] list1 = list.Split(" - ");
+		shuffledList = new(list1);
+    }
 
 }
