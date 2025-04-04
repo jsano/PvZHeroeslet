@@ -221,7 +221,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     /// Called whenever a card on the field is hurt
     /// </summary>
     /// <param name="hurt"> [The card that received damage, the card that dealt the damage, the final amount dealt] </param>
-    protected virtual IEnumerator OnCardHurt(Tuple<Damagable, Card, int> hurt)
+    protected virtual IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
     {
         yield return null;
     }

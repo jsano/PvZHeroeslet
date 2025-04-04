@@ -6,7 +6,7 @@ using UnityEngine;
 public class ZombotSharktronicSub : Card
 {
 
-	protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int> hurt)
+	protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
 	{
 		if (hurt.Item1.GetComponent<Card>() != null && ((Card)hurt.Item1).team == Team.Plant)
 		{

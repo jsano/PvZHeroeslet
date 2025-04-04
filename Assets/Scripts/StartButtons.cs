@@ -29,8 +29,9 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Pineclone"), 1 },
             { AllCards.NameToID("Zapricot"), 2 },
             { AllCards.NameToID("Bananasaurus Rex"), 1 },
-            { AllCards.NameToID("Seedling"), 1 },
+            { AllCards.NameToID("Sting Bean"), 1 },
             { AllCards.NameToID("Poppin' Poppies"), 1 },
+            { AllCards.NameToID("Threepeater"), 1 }
         };
 
         NetworkManager.Singleton.StartHost();
@@ -46,7 +47,7 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(15));
         UserAccounts.allDecks["temp11"].cards = new() {
-            { AllCards.NameToID("Barrel of Deadbeards"), 2 },
+            { AllCards.NameToID("Mini-Ninja"), 2 },
             { AllCards.NameToID("Wannabe Hero"), 2 },
             { AllCards.NameToID("Smoke Bomb"), 1 },
             { AllCards.NameToID("Pied Piper"), 2 },

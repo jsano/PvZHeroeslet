@@ -31,7 +31,7 @@ public class Hero : Damagable
         
     }
 
-	public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false)
+	public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1)
 	{
 		if (team == Card.Team.Plant)
 			for (int col = 0; col < 5; col++)
@@ -77,7 +77,7 @@ public class Hero : Damagable
 			}
 			else StartCoroutine(HitVisual());
 
-            GameManager.Instance.TriggerEvent("OnCardHurt", new Tuple<Damagable, Card, int>(this, source, dmg));
+            GameManager.Instance.TriggerEvent("OnCardHurt", new Tuple<Damagable, Card, int, int>(this, source, dmg, heroCol));
         }
 	}
 

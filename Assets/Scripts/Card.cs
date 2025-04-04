@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -206,12 +207,12 @@ public class Card : Damagable
     {
         if (antihero > 0)
         {
-            if (AHactive && GetTarget(col).GetComponent<Card>() != null)
+            if (AHactive && GetTargets(col)[0].GetComponent<Card>() != null)
             {
                 AHactive = false;
                 RaiseAttack(-antihero);
             }
-			if (!AHactive && GetTarget(col).GetComponent<Hero>() != null)
+			if (!AHactive && GetTargets(col)[0].GetComponent<Hero>() != null)
 			{
 				AHactive = true;
 				RaiseAttack(antihero);
@@ -224,7 +225,7 @@ public class Card : Damagable
 	/// Called whenever a card on the field is hurt
 	/// </summary>
 	/// <param name="hurt"> [The card that received damage, the card that dealt the damage, the final amount dealt] </param>
-	protected virtual IEnumerator OnCardHurt(Tuple<Damagable, Card, int> hurt)
+	protected virtual IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
 	{
 		yield return null;
 	}
@@ -237,7 +238,7 @@ public class Card : Damagable
     {
 		if (antihero > 0)
 		{
-			if (!AHactive && GetTarget(col).GetComponent<Hero>() != null)
+			if (!AHactive && GetTargets(col)[0].GetComponent<Hero>() != null)
 			{
 				AHactive = true;
 				RaiseAttack(antihero);
@@ -258,12 +259,12 @@ public class Card : Damagable
 	{
 		if (antihero > 0)
 		{
-			if (AHactive && GetTarget(col).GetComponent<Card>() != null)
+			if (AHactive && GetTargets(col)[0].GetComponent<Card>() != null)
 			{
 				AHactive = false;
 				RaiseAttack(-antihero);
 			}
-			if (!AHactive && GetTarget(col).GetComponent<Hero>() != null)
+			if (!AHactive && GetTargets(col)[0].GetComponent<Hero>() != null)
 			{
 				AHactive = true;
 				RaiseAttack(antihero);
@@ -311,24 +312,28 @@ public class Card : Damagable
         // animation
         if (!nextDoor && splash == 0)
         {
-            Damagable target = GetTarget(col);
-            yield return target.ReceiveDamage(atk, this, bullseye, deadly, freeze);
-            if (frenzy && target.GetComponent<Card>() != null) GameManager.Instance.frenzyInfo = new Tuple<Card, Card>(this, (Card)target);
+            List<Damagable> targets = GetTargets(col);
+            foreach (Damagable c in targets) StartCoroutine(c.ReceiveDamage(atk, this, bullseye, deadly, freeze));
+            yield return null;
+            if (frenzy)
+            {
+                foreach (Damagable c in targets) if (c.GetComponent<Card>() != null && c.GetComponent<Card>().died) GameManager.Instance.frenzyActivate = this;
+            }
         }
         else
         {
-			Damagable[] target = new Damagable[]{ null, null, null };
+            List<Damagable>[] targets = new List<Damagable>[] { null, null, null };
             for (int i = -1; i <= 1; i++)
             {
                 if (col + i < 0 || col + i > 4) continue;
-                if (splash > 0 && i != 0) target[i+1] = Tile.zombieTiles[0, col + i].planted;
-                else target[i+1] = GetTarget(col + i);
+                if (splash > 0 && i != 0) targets[i + 1] = new() { Tile.zombieTiles[0, col + i].planted };
+                else targets[i+1] = GetTargets(col + i);
             }
-            for (int i = 0; i < 3; i++) if (target[i] != null) yield return target[i].ReceiveDamage(atk, this, bullseye, deadly, freeze);
-		}
+            for (int i = 0; i < 3; i++) if (targets[i] != null) foreach (Damagable c in targets[i]) StartCoroutine(c.ReceiveDamage(atk, this, bullseye, deadly, freeze, col + i - 1));
+        }
 	}
 
-    public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false)
+    public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1)
     {//Debug.Log(row + " " + col + " got hit for " + dmg);
         if (gravestone) yield break;
         dmg -= armor;
@@ -336,7 +341,7 @@ public class Card : Damagable
         hpUI.text = Mathf.Max(0, HP) + "";
         if (dmg > 0)
         {
-            GameManager.Instance.TriggerEvent("OnCardHurt", new Tuple<Damagable, Card, int>(this, source, dmg));
+            GameManager.Instance.TriggerEvent("OnCardHurt", new Tuple<Damagable, Card, int, int>(this, source, dmg, heroCol));
             if (deadly) hitByDeadly = true;
             if ((HP <= 0 || hitByDeadly) && !died)
             {
@@ -424,16 +429,19 @@ public class Card : Damagable
         GameManager.Instance.TriggerEvent("OnCardFreeze", this);
     }
 
-    private Damagable GetTarget(int col)
+    private List<Damagable> GetTargets(int col)
     {
+        List<Damagable> ret = new();
 		Tile[,] opponentTiles = team == Team.Plant ? Tile.zombieTiles : Tile.plantTiles;
-		if (opponentTiles[1, col].planted != null && !opponentTiles[1, col].planted.died) return opponentTiles[1, col].planted;
-		if (opponentTiles[0, col].planted != null && !opponentTiles[0, col].planted.died) return opponentTiles[0, col].planted;
-		if (team == Team.Plant) return GameManager.Instance.zombieHero;
-        return GameManager.Instance.plantHero;
-	}
-
-	void OnMouseDown()
+		if (opponentTiles[1, col].planted != null && !opponentTiles[1, col].planted.died) ret.Add(opponentTiles[1, col].planted);
+		if (opponentTiles[0, col].planted != null && !opponentTiles[0, col].planted.died) ret.Add(opponentTiles[0, col].planted);
+		if (team == Team.Plant) ret.Add(GameManager.Instance.zombieHero);
+        else ret.Add(GameManager.Instance.plantHero);
+        if (strikethrough) return ret;
+        ret.RemoveRange(1, ret.Count - 1);
+        return ret;
+    }
+    void OnMouseDown()
 	{
 		for (int row = 0; row < 2; row++)
 		{

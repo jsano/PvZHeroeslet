@@ -43,10 +43,7 @@ public class GameManager : NetworkBehaviour
 	[HideInInspector] public bool waitingOnBlock = false;
     [HideInInspector] public bool selecting = false;
 	[HideInInspector] public int currentlySpawningCards = 0;
-	/// <summary>
-	/// [Card with frenzy, card being attacked]
-	/// </summary>
-    [HideInInspector] public Tuple<Card, Card> frenzyInfo;
+    [HideInInspector] public Card frenzyActivate;
     [HideInInspector] public bool allowZombieCards = false;
 	public List<string> shuffledList { get; private set; }
 
@@ -87,10 +84,34 @@ public class GameManager : NetworkBehaviour
 				if (priority[eventStack[i].methodName] < priority[methodName]) continue;
 				if (priority[eventStack[i].methodName] == priority[methodName] && methodName != "OnCardDraw")
 				{
-					if (((Damagable)eventStack[i].arg).GetComponent<Hero>() != null) continue;
-					if (((Damagable)eventStack[i].arg).GetComponent<Card>().col > ((Damagable)arg).GetComponent<Card>().col) continue;
-					if (((Damagable)eventStack[i].arg).GetComponent<Card>().col == ((Damagable)arg).GetComponent<Card>().col)
-						if (((Damagable)eventStack[i].arg).GetComponent<Card>().team == Team.Plant) continue;
+					int stackArg;
+					if (methodName == "OnCardHurt")
+					{
+						var temp = (Tuple<Damagable, Card, int, int>)eventStack[i].arg;
+						stackArg = temp.Item4 != -1 ? temp.Item4 : temp.Item1.GetComponent<Card>().col;
+					}
+					else stackArg = ((Damagable)eventStack[i].arg).GetComponent<Card>().col;
+					int arg1;
+					if (methodName == "OnCardHurt")
+					{
+						var temp = (Tuple<Damagable, Card, int, int>)arg;
+                        arg1 = temp.Item4 != -1 ? temp.Item4 : temp.Item1.GetComponent<Card>().col;
+                    }
+					else arg1 = ((Damagable)arg).GetComponent<Card>().col;
+
+					if (stackArg > arg1) continue;
+					if (stackArg == arg1)
+					{
+                        Team stackTeam;
+						if (methodName == "OnCardHurt")
+						{
+							var temp = ((Tuple<Damagable, Card, int, int>)eventStack[i].arg).Item1;
+							if (temp.GetComponent<Card>() != null) stackTeam = temp.GetComponent<Card>().team;
+							else stackTeam = temp.GetComponent<Hero>().team;
+                        }
+						else stackTeam = ((Damagable)eventStack[i].arg).GetComponent<Card>().team;
+                        if (stackTeam == Team.Plant) continue;
+					}
 				}
 				break;
 			}
@@ -261,18 +282,13 @@ public class GameManager : NetworkBehaviour
 			if (Tile.plantTiles[1, col].planted != null) yield return Tile.plantTiles[1, col].planted.Attack();
 			if (Tile.plantTiles[0, col].planted != null) yield return Tile.plantTiles[0, col].planted.Attack();
 
-			bool frenzyActivate = false;
-			if (frenzyInfo != null) if (frenzyInfo.Item2.died) frenzyActivate = true;
-
 			yield return ProcessEvents();
 
-			while (frenzyActivate)
+			while (frenzyActivate != null)
 			{
-				Card temp = frenzyInfo.Item1;
-				frenzyInfo = null;
-				frenzyActivate = false;
+				Card temp = frenzyActivate;
+				frenzyActivate = null;
 				yield return temp.Attack();
-                if (frenzyInfo != null) if (frenzyInfo.Item2.died) frenzyActivate = true;
                 yield return ProcessEvents();
 			}
 

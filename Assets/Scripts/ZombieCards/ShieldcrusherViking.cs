@@ -6,7 +6,7 @@ using UnityEngine;
 public class ShieldcrusherViking : Card
 {
 
-	protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int> hurt)
+	protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
 	{
 		if (hurt.Item2 == this && hurt.Item1 == GameManager.Instance.plantHero)
 		{
