@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: description
-      value: If your Hero would get hurt, this gets hurt instead
+      value: If your hero would get hurt, this gets hurt instead
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: traits.Array.size

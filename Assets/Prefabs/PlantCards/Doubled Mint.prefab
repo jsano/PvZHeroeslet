@@ -150,7 +150,8 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: 'Start of Turn: Double this plant''s ATK and HP'
+  description: 'Start of Turn: Double this plant''s attack and HP'
   row: 0
   col: 0
   playedCost: 0
+  specialHandCard: {fileID: 0}

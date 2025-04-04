@@ -34,6 +34,7 @@ public class DeckBuilder : MonoBehaviour
             {
                 DeckCard d = Instantiate(deckCardPrefab, deckCards).GetComponent<DeckCard>();
                 d.ID = id;
+                d.hideButtons = true;
             }
         }
 
@@ -52,17 +53,19 @@ public class DeckBuilder : MonoBehaviour
     {
         if (deck.cards.TryGetValue(id, out int count))
         {
-            if (count >= 4) return;
             deck.cards[id] = count + 1;
+            if (count + 1 >= 4) GetDeckCard(id).add.interactable = false;
         }
         else deck.cards[id] = 1;
         DeckCard d = Instantiate(deckCardPrefab, deckCards).GetComponent<DeckCard>();
         d.ID = id;
+        d.hideButtons = true;
     }
 
     public void Remove(int id)
     {
-        if (deck.cards.TryGetValue(id, out int count)) deck.cards[id] = count - 1;
+        GetDeckCard(id).add.interactable = true;
+        if (deck.cards.TryGetValue(id, out int count)) deck.cards[id] = Mathf.Max(0, count - 1);
         else
         {
             deck.cards[id] = 0;
@@ -82,6 +85,16 @@ public class DeckBuilder : MonoBehaviour
     {
         PlayerPrefs.SetString("Decks", JsonConvert.SerializeObject(UserAccounts.allDecks));
         SceneManager.LoadScene("Decks", LoadSceneMode.Single);
+    }
+
+    private DeckCard GetDeckCard(int id)
+    {
+        foreach (Transform t in allDeckCards)
+        {
+            DeckCard dc = t.GetComponent<DeckCard>();
+            if (dc.ID == id) return dc;
+        }
+        return null;
     }
 
 }

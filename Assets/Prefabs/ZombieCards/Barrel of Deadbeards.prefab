@@ -150,7 +150,7 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: 'When destroyed: Do 1 damage to all Plants and Zombies, then make
+  description: 'When destroyed: Do 1 damage to all plants and zombies, then make
     a 4/3 Captain Deadbeard here'
   row: 0
   col: 0

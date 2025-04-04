@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 1dbdbd15e23f0d843bf7d80a6b51c3b6, type: 3}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9186367323209674846, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Pivot.x
@@ -177,8 +177,9 @@ MonoBehaviour:
   teamUp: 1
   untrickable: 0
   nextDoor: 0
-  description: 'When played: Heal your Hero for 2'
+  freeze: 0
+  description: 'When played: Heal your hero for 2'
   row: 0
   col: 0
   playedCost: 0
-  playState: 1
+  specialHandCard: {fileID: 0}

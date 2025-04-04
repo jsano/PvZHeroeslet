@@ -6,6 +6,8 @@ public class DeckCard : MonoBehaviour
 {
 
     public int ID;
+    [HideInInspector]
+    public bool hideButtons = false;
     private CardInfo cardInfo;
     private DeckBuilder DB;
     public Button add;
@@ -22,9 +24,18 @@ public class DeckCard : MonoBehaviour
         DB = FindAnyObjectByType<DeckBuilder>(FindObjectsInactive.Include).GetComponent<DeckBuilder>();
         Card orig = AllCards.Instance.cards[ID];
         image.sprite = orig.GetComponent<SpriteRenderer>().sprite;
-        atkUI.text = orig.atk + "";
-        hpUI.text = orig.HP + "";
+        if (orig.type == Card.Type.Trick)
+        {
+            atkUI.text = "";
+            hpUI.text = "";
+        }
+        else
+        {
+            atkUI.text = orig.atk + "";
+            hpUI.text = orig.HP + "";
+        } 
         costUI.text = orig.cost + "";
+        if (hideButtons) transform.Find("Buttons").gameObject.SetActive(false);
     }
 
     public void Add()

@@ -162,8 +162,9 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: Make a Wall-Nut in each Ground lane. Attack for 6 damage in those
+  description: Make a Wall-Nut in each ground lane. Attack for 6 damage in those
     lanes
   row: 0
   col: 0
   playedCost: 0
+  specialHandCard: {fileID: 0}

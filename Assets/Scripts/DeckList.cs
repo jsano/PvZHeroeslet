@@ -33,6 +33,7 @@ public class DeckList : MonoBehaviour
 
     public void New()
     {
+        DeckButton.deleting = false;
         string n = "New " + ID + " " + transform.childCount;
         UserAccounts.allDecks.Add(n, new DeckBuilder.Deck(ID));
         LoadDeck(n);
