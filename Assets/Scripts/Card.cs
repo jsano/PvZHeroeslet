@@ -351,6 +351,7 @@ public class Card : Damagable
 
 	public void Destroy()
 	{
+        if (died) return;
         died = true;
         if (gravestone && team != GameManager.Instance.team) GameManager.Instance.UpdateRemaining(playedCost, team);
 		GameManager.Instance.TriggerEvent("OnCardDeath", this);
