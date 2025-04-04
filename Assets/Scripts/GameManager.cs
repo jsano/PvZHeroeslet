@@ -563,8 +563,8 @@ public class GameManager : NetworkBehaviour
 			GameObject c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
 			c.transform.localPosition = new Vector2(0, 3);
-			c.GetComponent<HandCard>().ID = 5; //temp
-			c.GetComponent<HandCard>().interactable = true;
+			c.GetComponent<HandCard>().ID = AllCards.NameToID("Precision Blast"); //temp
+            c.GetComponent<HandCard>().interactable = true;
 			c.SetActive(true);
 		}
 		yield return new WaitUntil(() => waitingOnBlock == false);

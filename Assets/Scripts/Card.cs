@@ -69,6 +69,7 @@ public class Card : Damagable
         Seed,
         Sports,
         Squash,
+        Superpower,
         Tree
     }
 
@@ -429,7 +430,7 @@ public class Card : Damagable
         GameManager.Instance.TriggerEvent("OnCardFreeze", this);
     }
 
-    private List<Damagable> GetTargets(int col)
+    protected List<Damagable> GetTargets(int col)
     {
         List<Damagable> ret = new();
 		Tile[,] opponentTiles = team == Team.Plant ? Tile.zombieTiles : Tile.plantTiles;

@@ -143,6 +143,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             
             startPos = cam.ScreenToWorldPoint(eventData.position);
             interactable = false;
+            finalStats.cost = 1;
             GameManager.Instance.HoldTrickRpc();
         }
 		transform.position = startPos;

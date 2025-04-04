@@ -9,11 +9,13 @@ public class DeckBuilder : MonoBehaviour
     public class Deck
     {
         public int heroID;
+        public List<int> superpowerOrder = new();
         public Dictionary<int, int> cards = new();
 
         public Deck(int hero)
         {
             heroID = hero;
+            foreach (Card c in AllCards.Instance.heroes[hero].superpowers) superpowerOrder.Add(AllCards.NameToID(c.name));
         }
     }
 
