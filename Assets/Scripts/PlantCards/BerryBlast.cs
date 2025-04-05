@@ -17,7 +17,7 @@ public class BerryBlast : Card
 		Tile t = bc.GetComponent<Tile>();
 		if (t != null)
 		{
-			if (t.planted == null || t.planted.team == Team.Plant) return false;
+			if (!t.HasRevealedPlanted() || t.planted.team == Team.Plant) return false;
 		}
 		else
 		{

@@ -11,7 +11,7 @@ public class TheGreatZucchini : Card
         for (int col = 4; col >= 0; col--)
         {
             Tile t = Tile.zombieTiles[0, col];
-            if (t.planted != null && !t.planted.gravestone)
+            if (t.HasRevealedPlanted())
             {
                 toDestroy.Add(t.planted);
                 t.planted = null;

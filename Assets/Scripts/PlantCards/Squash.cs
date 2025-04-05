@@ -16,9 +16,8 @@ public class Squash : Card
 	{
 		Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
-		Card c = t.planted;
-		if (c == null) return false;
-		if (c.team == Team.Zombie) return true;
+		if (!t.HasRevealedPlanted()) return false;
+		if (t.planted.team == Team.Zombie) return true;
 		return false;
 	}
 

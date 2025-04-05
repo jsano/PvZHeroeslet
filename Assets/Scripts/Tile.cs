@@ -86,6 +86,11 @@ public class Tile : MonoBehaviour
         return false;
     }
 
+    public bool HasRevealedPlanted()
+    {
+        return planted != null && !planted.gravestone;
+    }
+
     public void ToggleHighlight(bool on)
     {
         SR.color = new Color(SR.color.r, SR.color.g, SR.color.b, on ? 1 : 0);

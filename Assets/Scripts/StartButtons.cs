@@ -31,7 +31,8 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Bananasaurus Rex"), 1 },
             { AllCards.NameToID("Sting Bean"), 1 },
             { AllCards.NameToID("Poppin' Poppies"), 1 },
-            { AllCards.NameToID("Threepeater"), 1 }
+            { AllCards.NameToID("Threepeater"), 1 },
+            { AllCards.NameToID("Squash"), 1 }
         };
 
         NetworkManager.Singleton.StartHost();
@@ -54,6 +55,7 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Lurch for Lunch"), 1 },
             { AllCards.NameToID("Disco"), 1 },
             { AllCards.NameToID("Zombot Plank Walker"), 1 },
+            { AllCards.NameToID("Medic"), 1 }
         };
 
         UserAccounts.GameStats.DeckName = "temp11";

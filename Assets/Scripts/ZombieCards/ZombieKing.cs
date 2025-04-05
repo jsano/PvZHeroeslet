@@ -11,7 +11,7 @@ public class ZombieKing : Card
         List<int> locations = new();
         for (int col = 0; col < 5; col++)
         {
-            if (Tile.zombieTiles[0, col].planted != null && !Tile.zombieTiles[0, col].planted.gravestone && Tile.zombieTiles[0, col].planted != this) locations.Add(col);
+            if (Tile.zombieTiles[0, col].HasRevealedPlanted() && Tile.zombieTiles[0, col].planted != this) locations.Add(col);
         }
         int chosen = Random.Range(0, locations.Count);
         Destroy(Tile.zombieTiles[0, chosen].planted.gameObject);
