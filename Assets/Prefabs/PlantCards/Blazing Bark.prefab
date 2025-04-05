@@ -14,20 +14,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Name
-      value: Fertilize
+      value: Blazing Bark
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.06
+      value: 1.024
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.22
+      value: 1.024
       objectReference: {fileID: 0}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3c978a806c4fec94588a1520d8f1e69e, type: 3}
+      objectReference: {fileID: 21300000, guid: 57aef4f60de70cf4bb342e18e7573d04, type: 3}
     - target: {fileID: 9186367323209674846, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -141,9 +141,9 @@ MonoBehaviour:
   team: 0
   type: 1
   _class: 2
-  tribes: 
+  tribes: 2200000021000000
   token: 0
-  cost: 3
+  cost: 0
   atk: 0
   HP: 0
   amphibious: 0
@@ -162,11 +162,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: A plant gets +3 attack +3 HP
+  description: A plant gets +4 attack
   row: 0
   col: 0
   playedCost: 0
   specialHandCard: {fileID: 0}
-  atkAmount: 3
-  HPAmount: 3
+  atkAmount: 4
+  HPAmount: 0
   targetTeam: 0

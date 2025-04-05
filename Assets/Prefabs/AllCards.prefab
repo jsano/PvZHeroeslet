@@ -133,6 +133,7 @@ MonoBehaviour:
   - {fileID: -2098625283552494686, guid: a75a4e04a5367c6478ddac2a8eb13d6c, type: 3}
   - {fileID: -3962327535367142545, guid: 0d1666ddf2ce2bf43abdc9474dd7a6b2, type: 3}
   - {fileID: -4799810359990855903, guid: 6f74ffd5c95e63746aa403a9c2e78b7e, type: 3}
+  - {fileID: -3775832867368385723, guid: bbdb8dda4a2c12d4793e4c5c116254ce, type: 3}
   heroes:
   - {fileID: 4799469182913931560, guid: d809300a0693002439dc1cea576d721f, type: 3}
   - {fileID: 4799469182913931560, guid: 340b973624309f649927088a2d2135cb, type: 3}

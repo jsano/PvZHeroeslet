@@ -2,14 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fertilize : Card
+public class RaiseStats : Card
 {
+
+	public int atkAmount;
+	public int HPAmount;
+	public Team targetTeam;
 
 	protected override IEnumerator OnThisPlay()
 	{
+		var tiles = targetTeam == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
 		yield return new WaitForSeconds(1);
-		Tile.plantTiles[row, col].planted.RaiseAttack(3);
-		Tile.plantTiles[row, col].planted.Heal(3, true);
+		tiles[row, col].planted.RaiseAttack(atkAmount);
+		tiles[row, col].planted.Heal(HPAmount, true);
 		yield return base.OnThisPlay();
 	}
 
@@ -19,7 +24,7 @@ public class Fertilize : Card
 		if (t == null) return false;
 		Card c = t.planted;
 		if (c == null) return false;
-		if (c.team == Team.Plant) return true;
+		if (c.team == targetTeam) return true;
 		return false;
 	}
 
