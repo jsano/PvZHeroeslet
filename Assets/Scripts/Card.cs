@@ -111,6 +111,7 @@ public class Card : Damagable
     [HideInInspector] public int row;
     [HideInInspector] public int col;
     [HideInInspector] public int playedCost;
+    [HideInInspector] public HandCard.FinalStats sourceFS;
 
     public GameObject specialHandCard;
     private TextMeshProUGUI atkUI;
@@ -460,7 +461,7 @@ public class Card : Damagable
 				if (c != null && GameManager.Instance.selecting) return;
 			}
 		}
-		if (GameManager.Instance.team == Team.Zombie || !gravestone) StartCoroutine(cardInfo.Show(this));
+		if (GameManager.Instance.team == Team.Zombie || !gravestone) StartCoroutine(cardInfo.Show(sourceFS));
 	}
 
 }

@@ -27,7 +27,7 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Sunflower"), 1 },
             { AllCards.NameToID("Cornucopia"), 1 },
             { AllCards.NameToID("Pineclone"), 1 },
-            { AllCards.NameToID("Briar Rose"), 2 },
+            { AllCards.NameToID("Seedling"), 2 },
             { AllCards.NameToID("Bananasaurus Rex"), 1 },
             { AllCards.NameToID("Sting Bean"), 1 },
             { AllCards.NameToID("Poppin' Poppies"), 1 },

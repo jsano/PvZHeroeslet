@@ -143,7 +143,9 @@ public class GameManager : NetworkBehaviour
 			catch (Exception) { }
             Debug.Log(currentEvent.time + " " + currentEvent.methodName + " from " + currentEvent.arg + " at column " + col + " -- Remaining: " + eventStack.Count);
             yield return CallLeftToRight(currentEvent.methodName, currentEvent.arg);
-            //yield return new WaitForSeconds(0.2f);
+
+			yield return new WaitUntil(() => currentlySpawningCards == 0);
+			yield return null;
         }
 		isProcessing = false;
         EnablePlayableHandCards();
@@ -211,7 +213,7 @@ public class GameManager : NetworkBehaviour
         }
     }
 
-    public void GainHandCard(Team t, int id)
+    public void GainHandCard(Team t, int id, HandCard.FinalStats? fs = null)
 	{
 		if (team == t)
 		{
@@ -224,6 +226,7 @@ public class GameManager : NetworkBehaviour
 				handCards.GetChild(i).transform.localPosition = new Vector2(1.2f * (-(handCards.childCount - 1) / 2f + i), 0);
 			}
 			c.GetComponent<HandCard>().ID = id;
+			if (fs != null) c.GetComponent<HandCard>().OverrideFS((HandCard.FinalStats)fs);
 			c.SetActive(true);
 		}
 		TriggerEvent("OnCardDraw", t);
@@ -351,7 +354,20 @@ public class GameManager : NetworkBehaviour
 		card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
         card.atk = fs.atk;
         card.HP = fs.hp;
-        //abilities...
+		string[] abilities = fs.abilities.Split(" - ", StringSplitOptions.RemoveEmptyEntries);
+		foreach (string s in abilities)
+		{
+			string name = "";
+			string value = "";
+			for (int i = 0; i < s.Length; i++)
+			{
+				if (char.IsDigit(s[i])) value += s[i];
+				else name += s[i];
+			}
+			card.GetType().GetField(name).SetValue(card, value.Length == 0 ? true : int.Parse(value));
+		}
+		card.sourceFS = fs;
+
         if (card.team == Team.Zombie)
         {
 			Tile.zombieTiles[row, col].Plant(card);
@@ -382,6 +398,7 @@ public class GameManager : NetworkBehaviour
 		card.col = col;
 		card.atk = fs.atk;
 		card.HP = fs.hp;
+		card.sourceFS = fs;
 		if (!isPlantTarget)
 		{
             if (row == -1 && col == -1) card.transform.position = zombieHero.transform.position;
@@ -566,7 +583,7 @@ public class GameManager : NetworkBehaviour
 			GameObject c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
 			c.transform.localPosition = new Vector2(0, 3);
-			c.GetComponent<HandCard>().ID = AllCards.NameToID("Devour"); //temp
+			c.GetComponent<HandCard>().ID = AllCards.NameToID("Genetic Amplification"); //temp
             c.GetComponent<HandCard>().interactable = true;
 			c.SetActive(true);
 		}

@@ -50,7 +50,7 @@ public class DeckCard : MonoBehaviour
 
     public void ShowCardInfo()
     {
-        StartCoroutine(cardInfo.Show(AllCards.Instance.cards[ID]));
+        StartCoroutine(cardInfo.Show(HandCard.MakeDefaultFS(ID)));
     }
 
 }

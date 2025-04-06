@@ -16,24 +16,16 @@ public class CardInfo : MonoBehaviour
 	public TextMeshProUGUI cardName;
 	public TextMeshProUGUI tribes;
 	public TextMeshProUGUI description;
+    public TextMeshProUGUI gained;
 
-	public Button exit;
+    public Button exit;
 
-	public IEnumerator Show(Card source)
+	public IEnumerator Show(HandCard.FinalStats source)
 	{
 		if (isActiveAndEnabled) yield break;
 		yield return null;
 		transform.parent.gameObject.SetActive(true);
-		Card baseCard = source;
-		if (source.name.IndexOf("(") >= 0)
-			foreach (Card c in AllCards.Instance.cards)
-			{
-				if (source.name.Substring(0, source.name.IndexOf("(")) == c.name)
-				{
-					baseCard = c;
-					break;
-				}
-			}
+		Card baseCard = AllCards.Instance.cards[source.ID];
 
 		image.sprite = baseCard.GetComponent<SpriteRenderer>().sprite;
 		atk.text = baseCard.atk + "";
@@ -71,7 +63,36 @@ public class CardInfo : MonoBehaviour
 		if (baseCard.teamUp) description.text += "Team Up\n";
 		if (baseCard.untrickable) description.text += "Untrickable\n";
 		description.text += baseCard.description;
-	}
+
+        gained.text = "";
+		if (source.atk != baseCard.atk) gained.text += "Gained " + (source.atk - baseCard.atk) + " attack\n";
+        if (source.hp != baseCard.HP) gained.text += "Gained " + (source.hp - baseCard.HP) + " HP\n";
+        string[] abilities = source.abilities.Split(" - ", StringSplitOptions.RemoveEmptyEntries);
+		foreach (string s in abilities)
+		{
+			if (s.Contains("amphibious")) gained.text += "Gained Amphibious\n";
+			if (s.Contains("antihero")) gained.text += "Gained Anti-hero " + ExtractValue(s) + "\n";
+			if (s.Contains("armor")) gained.text += "Gained Armor " + ExtractValue(s) + "\n";
+			if (s.Contains("bullseye")) gained.text += "Gained Bullseye\n";
+			if (s.Contains("deadly")) gained.text += "Gained Deadly\n";
+			if (s.Contains("doubleStrike")) gained.text += "Gained Double Strike\n";
+			if (s.Contains("frenzy")) gained.text += "Gained Frenzy\n";
+			if (s.Contains("gravestone")) gained.text += "Gained Gravestone\n";
+			if (s.Contains("hunt")) gained.text += "Gained Hunt\n";
+			if (s.Contains("overshoot")) gained.text += "Gained Overshoot " + ExtractValue(s) + "\n";
+			if (s.Contains("splash")) gained.text += "Gained Splash Damage " + ExtractValue(s) + "\n";
+			if (s.Contains("strikethrough")) gained.text += "Gained Strikethrough\n";
+			if (s.Contains("teamUp")) gained.text += "Gained Team Up\n";
+			if (s.Contains("untrickable")) gained.text += "Gained Untrickable\n";
+		}
+    }
+
+	private int ExtractValue(string s)
+	{
+        string value = "";
+        for (int i = 0; i < s.Length; i++) if (char.IsDigit(s[i])) value += s[i];
+		return int.Parse(value);
+    }
 
 	/*public void Hide()
 	{

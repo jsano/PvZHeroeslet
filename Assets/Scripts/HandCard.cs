@@ -43,6 +43,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 		}
 	}
     private FinalStats finalStats;
+    private bool overridden;
 
     public static FinalStats MakeDefaultFS(int id)
     {
@@ -56,6 +57,12 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 			cost = c.cost,
 		};
 	}
+
+    public void OverrideFS(FinalStats fs)
+    {
+        overridden = true;
+        finalStats = fs;
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -81,10 +88,10 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    if (Tile.CanPlantInCol(j, tileObjects, finalStats.abilities.Contains("teamup") || orig.teamUp, finalStats.abilities.Contains("amphibious") || orig.amphibious))
+                    if (Tile.CanPlantInCol(j, tileObjects, finalStats.abilities.Contains("teamUp") || orig.teamUp, finalStats.abilities.Contains("amphibious") || orig.amphibious))
                     {
                         if (i == 0 || 
-                            i == 1 && (finalStats.abilities.Contains("teamup") || orig.teamUp || tileObjects[0, j].planted != null && tileObjects[0, j].planted.teamUp))
+                            i == 1 && (finalStats.abilities.Contains("teamUp") || orig.teamUp || tileObjects[0, j].planted != null && tileObjects[0, j].planted.teamUp))
                             validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
                     }
                         
@@ -112,7 +119,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (Vector3.Distance(transform.position, startPos) < 0.1) StartCoroutine(cardInfo.Show(AllCards.Instance.cards[ID]));
+        if (Vector3.Distance(transform.position, startPos) < 0.1) StartCoroutine(cardInfo.Show(finalStats));
         if (!interactable) return;
         transform.localScale = Vector3.one;
         GetComponent<SpriteRenderer>().sortingOrder -= 10;
@@ -155,11 +162,14 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         orig = AllCards.Instance.cards[ID];
 		image.sprite = orig.GetComponent<SpriteRenderer>().sprite;
-        finalStats.hp = orig.HP;
-        finalStats.atk = orig.atk;
-        finalStats.abilities = "";
-		finalStats.ID = ID;
-        finalStats.cost = orig.cost;
+        if (!overridden)
+        {
+            finalStats.hp = orig.HP;
+            finalStats.atk = orig.atk;
+            finalStats.abilities = "";
+		    finalStats.ID = ID;
+            finalStats.cost = orig.cost;
+        }
 
         if (GameManager.Instance.team == Card.Team.Plant) tileObjects = Tile.plantTiles;
         else tileObjects = Tile.zombieTiles;
@@ -207,6 +217,12 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     {
         finalStats.hp += amount;
         hpUI.text = finalStats.hp + "";
+    }
+
+    public void AddAbility(string ability)
+    {
+        if (finalStats.abilities.Length == 0) finalStats.abilities += ability;
+        else finalStats.abilities += " - " + ability;
     }
 
     /// <summary>

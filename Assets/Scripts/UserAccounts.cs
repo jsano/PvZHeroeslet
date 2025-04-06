@@ -46,7 +46,9 @@ public class UserAccounts : MonoBehaviour
 			Debug.LogException(e);
 		}
 		SetupEvents();
-		allDecks = JsonConvert.DeserializeObject<Dictionary<string, Deck>>(PlayerPrefs.GetString("Decks"));
+		//PlayerPrefs.DeleteKey("Decks");
+        allDecks = JsonConvert.DeserializeObject<Dictionary<string, Deck>>(PlayerPrefs.GetString("Decks"));
+		if (allDecks == null) allDecks = new();
 		DontDestroyOnLoad(gameObject);
 	}
 

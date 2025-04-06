@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 0b72eb91cac650649b31bd106d793f65, type: 3}
     - target: {fileID: -9058245760563841667, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8904429603227625006, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -26,11 +26,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8361248227295556588, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.7272727
+      value: 1.8095238
       objectReference: {fileID: 0}
     - target: {fileID: -8361248227295556588, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 2.0454545
+      value: 2.142857
       objectReference: {fileID: 0}
     - target: {fileID: 901512774672382457, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: m_Name
@@ -52,6 +52,14 @@ PrefabInstance:
       propertyPath: 'classes.Array.data[1]'
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
+      propertyPath: superpowers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
+      propertyPath: 'superpowers.Array.data[0]'
+      value: 
+      objectReference: {fileID: -4799810359990855903, guid: 6f74ffd5c95e63746aa403a9c2e78b7e, type: 3}
     - target: {fileID: 5654879218325174664, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: m_RootOrder
       value: 0
