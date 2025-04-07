@@ -461,7 +461,7 @@ public class Card : Damagable
 				if (c != null && GameManager.Instance.selecting) return;
 			}
 		}
-		if (GameManager.Instance.team == Team.Zombie || !gravestone) StartCoroutine(cardInfo.Show(sourceFS));
+		if (GameManager.Instance.team == Team.Zombie || !gravestone) cardInfo.Show(this);
 	}
 
 }

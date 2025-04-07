@@ -119,7 +119,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (Vector3.Distance(transform.position, startPos) < 0.1) StartCoroutine(cardInfo.Show(finalStats));
+        if (Vector3.Distance(transform.position, startPos) < 0.1) cardInfo.Show(AllCards.Instance.cards[ID], finalStats);
         if (!interactable) return;
         transform.localScale = Vector3.one;
         GetComponent<SpriteRenderer>().sortingOrder -= 10;
