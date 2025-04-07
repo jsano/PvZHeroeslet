@@ -583,7 +583,7 @@ public class GameManager : NetworkBehaviour
 			GameObject c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
 			c.transform.localPosition = new Vector2(0, 3);
-			c.GetComponent<HandCard>().ID = AllCards.NameToID("Goatify"); //temp
+			c.GetComponent<HandCard>().ID = AllCards.NameToID("Mush-boom"); //temp
             c.GetComponent<HandCard>().interactable = true;
 			c.SetActive(true);
 		}
