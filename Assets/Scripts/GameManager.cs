@@ -23,11 +23,13 @@ public class GameManager : NetworkBehaviour
 	}
 
 	private List<int> deck = new();
-    private int turn = 1;
+    public int turn { get; private set; }
 	private int nextTurnReady;
     private int phase; // 0 = prep, 1 = zombie, 2 = plant, 3 = zombie trick, 4 = fight
     private int remaining = 1;
+	[HideInInspector] public int permanentBonus = 0;
     private int opponentRemaining = 1;
+    [HideInInspector] public int opponentPermanentBonus = 0;
     public Team team;
 
     public Button go;
@@ -189,6 +191,7 @@ public class GameManager : NetworkBehaviour
             deck[n] = deck[k];
             deck[k] = temp;
         }
+		turn = 1;
 
 		StartCoroutine(Mulligan());
     }
@@ -318,8 +321,8 @@ public class GameManager : NetworkBehaviour
 		}
 
         turn += 1;
-        remaining = turn;
-		opponentRemaining = turn;
+        remaining = turn + permanentBonus;
+		opponentRemaining = turn + opponentPermanentBonus;
 		UpdateRemaining(0, Team.Plant);
 		UpdateRemaining(0, Team.Zombie);
 		phase = 0;
@@ -594,7 +597,7 @@ public class GameManager : NetworkBehaviour
 			GameObject c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
 			c.transform.localPosition = new Vector2(0, 3);
-			c.GetComponent<HandCard>().ID = AllCards.NameToID("Uncrackable"); //temp
+			c.GetComponent<HandCard>().ID = AllCards.NameToID("Sunburn"); //temp
             c.GetComponent<HandCard>().interactable = true;
 			c.SetActive(true);
 		}
