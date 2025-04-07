@@ -111,7 +111,7 @@ public class Card : Damagable
     [HideInInspector] public int row;
     [HideInInspector] public int col;
     [HideInInspector] public int playedCost;
-    [HideInInspector] public HandCard.FinalStats sourceFS;
+    public FinalStats sourceFS;
 
     public GameObject specialHandCard;
     private TextMeshProUGUI atkUI;
@@ -333,8 +333,11 @@ public class Card : Damagable
             for (int i = -1; i <= 1; i++)
             {
                 if (col + i < 0 || col + i > 4) continue;
-                if (splash > 0 && i != 0) targets[i + 1] = new() { Tile.zombieTiles[0, col + i].planted };
-                else targets[i+1] = GetTargets(col + i);
+                if (splash > 0 && i != 0)
+                {
+                    if (Tile.zombieTiles[0, col + i].HasRevealedPlanted()) targets[i + 1] = new() { Tile.zombieTiles[0, col + i].planted };
+                }
+                else targets[i + 1] = GetTargets(col + i);
             }
             for (int i = 0; i < 3; i++) if (targets[i] != null) foreach (Damagable c in targets[i]) StartCoroutine(c.ReceiveDamage(atk, this, bullseye, deadly, freeze, col + i - 1));
         }

@@ -213,7 +213,7 @@ public class GameManager : NetworkBehaviour
         }
     }
 
-    public void GainHandCard(Team t, int id, HandCard.FinalStats? fs = null)
+    public void GainHandCard(Team t, int id, FinalStats fs = null)
 	{
 		if (team == t)
 		{
@@ -226,7 +226,7 @@ public class GameManager : NetworkBehaviour
 				handCards.GetChild(i).transform.localPosition = new Vector2(1.2f * (-(handCards.childCount - 1) / 2f + i), 0);
 			}
 			c.GetComponent<HandCard>().ID = id;
-			if (fs != null) c.GetComponent<HandCard>().OverrideFS((HandCard.FinalStats)fs);
+			if (fs != null) c.GetComponent<HandCard>().OverrideFS(fs);
 			c.SetActive(true);
 		}
 		TriggerEvent("OnCardDraw", t);
@@ -325,7 +325,7 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    public void PlayCardRpc(HandCard.FinalStats fs, int row, int col, bool free=false)
+    public void PlayCardRpc(FinalStats fs, int row, int col, bool free=false)
     {
         //if (team == Team.Plant) plants[row + 2*col] = ID;
         //else zombies[row + 2*col] = ID;
@@ -333,7 +333,7 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.ClientsAndHost)]
-    private void PositionCardRpc(HandCard.FinalStats fs, int row, int col, bool free=false)
+    private void PositionCardRpc(FinalStats fs, int row, int col, bool free=false)
     {
 		Card card = AllCards.Instance.cards[fs.ID];
         if (card.team != team)
@@ -383,7 +383,7 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-	public void PlayTrickRpc(HandCard.FinalStats fs, int row, int col, bool isPlantTarget)
+	public void PlayTrickRpc(FinalStats fs, int row, int col, bool isPlantTarget)
 	{
 		//if (team == Team.Plant) plants[row + 2*col] = ID;
 		//else zombies[row + 2*col] = ID;
@@ -391,7 +391,7 @@ public class GameManager : NetworkBehaviour
 	}
 
 	[Rpc(SendTo.ClientsAndHost)]
-	private void PositionTrickRpc(HandCard.FinalStats fs, int row, int col, bool isPlantTarget)
+	private void PositionTrickRpc(FinalStats fs, int row, int col, bool isPlantTarget)
 	{
 		Card card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
 		card.row = row;

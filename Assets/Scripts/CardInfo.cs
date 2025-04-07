@@ -20,7 +20,7 @@ public class CardInfo : MonoBehaviour
 
     public Button exit;
 
-	public void Show(Card source, HandCard.FinalStats? fs = null)
+	public void Show(Card source, FinalStats fs = null)
 	{
         if (isActiveAndEnabled) return;
 		transform.parent.gameObject.SetActive(true);
@@ -73,9 +73,9 @@ public class CardInfo : MonoBehaviour
 		description.text += baseCard.description;
 
 		gained.text = "";
-		if (!source.sourceFS.Equals(default(HandCard.FinalStats)) || fs != null)
-		{Debug.Log(source.sourceFS);
-			HandCard.FinalStats fs1 = fs == null ? source.sourceFS : (HandCard.FinalStats)fs;
+		if (source.sourceFS != null || fs != null)
+		{
+			FinalStats fs1 = fs == null ? source.sourceFS : fs;
 			if (fs1.atk != baseCard.atk) gained.text += "Gained " + (fs1.atk - baseCard.atk) + " attack\n";
 			if (fs1.hp != baseCard.HP) gained.text += "Gained " + (fs1.hp - baseCard.HP) + " HP\n";
 			string[] abilities = fs1.abilities.Split(" - ", StringSplitOptions.RemoveEmptyEntries);

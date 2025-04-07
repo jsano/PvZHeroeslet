@@ -10,7 +10,7 @@ public class GeneticAmplification : Card
         yield return new WaitForSeconds(1);
 
         int c = AllCards.RandomFromCost(team, (2, 2), true);
-        HandCard.FinalStats fs = HandCard.MakeDefaultFS(c);
+        FinalStats fs = FinalStats.MakeDefaultFS(c);
         fs.atk += 2;
         fs.hp += 1;
         fs.abilities += " - amphibious - teamUp";

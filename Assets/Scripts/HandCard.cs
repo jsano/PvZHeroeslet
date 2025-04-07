@@ -24,43 +24,10 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 	public TextMeshProUGUI hpUI;
     public TextMeshProUGUI costUI;
 
-	[Serializable]
-    public struct FinalStats : INetworkSerializable
-    {
-        public int atk;
-        public int hp;
-        public string abilities;
-        public int ID;
-        public int cost;
-
-		public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
-		{
-			serializer.SerializeValue(ref atk);
-			serializer.SerializeValue(ref hp);
-			serializer.SerializeValue(ref abilities);
-            serializer.SerializeValue(ref ID);
-			serializer.SerializeValue(ref cost);
-		}
-	}
     private FinalStats finalStats;
-    private bool overridden;
-
-    public static FinalStats MakeDefaultFS(int id)
-    {
-		Card c = AllCards.Instance.cards[id];
-		return new FinalStats()
-		{
-			hp = c.HP,
-			atk = c.atk,
-			abilities = "",
-			ID = id,
-			cost = c.cost,
-		};
-	}
 
     public void OverrideFS(FinalStats fs)
     {
-        overridden = true;
         finalStats = fs;
     }
 
@@ -162,14 +129,19 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         orig = AllCards.Instance.cards[ID];
 		image.sprite = orig.GetComponent<SpriteRenderer>().sprite;
-        if (!overridden)
+        if (finalStats == null) finalStats = FinalStats.MakeDefaultFS(ID);
+
+        if (orig.type == Card.Type.Trick)
         {
-            finalStats.hp = orig.HP;
-            finalStats.atk = orig.atk;
-            finalStats.abilities = "";
-		    finalStats.ID = ID;
-            finalStats.cost = orig.cost;
+            atkUI.text = "";
+            hpUI.text = "";
         }
+        else
+        {
+            atkUI.text = finalStats.atk + "";
+            hpUI.text = finalStats.hp + "";
+        }
+        costUI.text = finalStats.cost + "";
 
         if (GameManager.Instance.team == Card.Team.Plant) tileObjects = Tile.plantTiles;
         else tileObjects = Tile.zombieTiles;
@@ -182,18 +154,6 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     {
         if (!interactable) image.material.color = Color.gray;
         else image.material.color = Color.white;
-
-        if (orig.type == Card.Type.Trick)
-        {
-			atkUI.text = "";
-			hpUI.text = "";
-        }
-        else
-        {
-            atkUI.text = finalStats.atk + "";
-		    hpUI.text = finalStats.hp + "";
-        }
-        costUI.text = finalStats.cost + "";
 	}
 
     public int GetCost()
@@ -209,18 +169,21 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
     public void ChangeAttack(int amount)
     {
+        if (orig.type == Card.Type.Trick) return;
         finalStats.atk += amount;
         atkUI.text = finalStats.atk + "";
     }
 
     public void ChangeHP(int amount)
     {
+        if (orig.type == Card.Type.Trick) return;
         finalStats.hp += amount;
         hpUI.text = finalStats.hp + "";
     }
 
     public void AddAbility(string ability)
     {
+        if (orig.type == Card.Type.Trick) return;
         if (finalStats.abilities.Length == 0) finalStats.abilities += ability;
         else finalStats.abilities += " - " + ability;
     }
