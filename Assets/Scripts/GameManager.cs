@@ -306,6 +306,17 @@ public class GameManager : NetworkBehaviour
         TriggerEvent("OnTurnEnd", null);
         yield return ProcessEvents();
 
+		plantHero.ToggleInvulnerability(false);
+		zombieHero.ToggleInvulnerability(false);
+		for (int col = 0; col < 5; col++)
+		{
+			for (int row = 0; row < 2; row++)
+			{
+                if (Tile.plantTiles[row, col].HasRevealedPlanted()) Tile.plantTiles[row, col].planted.ToggleInvulnerability(false);
+                if (Tile.zombieTiles[row, col].HasRevealedPlanted()) Tile.zombieTiles[row, col].planted.ToggleInvulnerability(false);
+			}
+		}
+
         turn += 1;
         remaining = turn;
 		opponentRemaining = turn;
@@ -313,7 +324,7 @@ public class GameManager : NetworkBehaviour
 		UpdateRemaining(0, Team.Zombie);
 		phase = 0;
 		allowZombieCards = false;
-
+		
 		TriggerEvent("OnTurnStart", null);
         yield return ProcessEvents();
 
@@ -583,7 +594,7 @@ public class GameManager : NetworkBehaviour
 			GameObject c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
 			c.transform.localPosition = new Vector2(0, 3);
-			c.GetComponent<HandCard>().ID = AllCards.NameToID("Mush-boom"); //temp
+			c.GetComponent<HandCard>().ID = AllCards.NameToID("Uncrackable"); //temp
             c.GetComponent<HandCard>().interactable = true;
 			c.SetActive(true);
 		}

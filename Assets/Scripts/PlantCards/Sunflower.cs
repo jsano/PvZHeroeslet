@@ -9,6 +9,7 @@ public class Sunflower : Card
 	{
 		yield return new WaitForSeconds(1);
 		GameManager.Instance.UpdateRemaining(1, team);
+		yield return base.OnTurnStart();
 	}
 
 }

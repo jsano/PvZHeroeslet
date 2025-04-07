@@ -344,8 +344,8 @@ public class Card : Damagable
 	}
 
     public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1)
-    {//Debug.Log(row + " " + col + " got hit for " + dmg);
-        if (gravestone) yield break;
+    {
+        if (gravestone || invulnerable) yield break;
         dmg -= armor;
         HP -= dmg;
         hpUI.text = Mathf.Max(0, HP) + "";
@@ -452,6 +452,14 @@ public class Card : Damagable
         ret.RemoveRange(1, ret.Count - 1);
         return ret;
     }
+
+    public override void ToggleInvulnerability(bool active)
+    {
+        invulnerable = active;
+        if (active) SR.material.color = Color.yellow;
+        else SR.material.color = Color.white;
+    }
+
     void OnMouseDown()
 	{
 		for (int row = 0; row < 2; row++)

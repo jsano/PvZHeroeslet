@@ -34,6 +34,8 @@ public class Hero : Damagable
 
 	public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1)
 	{
+		if (invulnerable) yield break;
+
 		if (team == Card.Team.Plant)
 			for (int col = 0; col < 5; col++)
 			{
@@ -109,5 +111,12 @@ public class Hero : Damagable
 	{
 		return HP < maxHP;
 	}
+
+    public override void ToggleInvulnerability(bool active)
+    {
+        invulnerable = active;
+        if (active) SR.material.color = Color.yellow;
+        else SR.material.color = Color.white;
+    }
 
 }
