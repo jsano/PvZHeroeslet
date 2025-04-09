@@ -15,7 +15,7 @@ public class ZombieKing : Card
         }
         int chosen = Random.Range(0, locations.Count);
         Destroy(Tile.zombieTiles[0, chosen].planted.gameObject);
-        Tile.zombieTiles[0, chosen].planted = null;
+        Tile.zombieTiles[0, chosen].Unplant();
         Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Knight of the Living Dead")]).GetComponent<Card>();
         Tile.zombieTiles[0, chosen].Plant(card);
     }

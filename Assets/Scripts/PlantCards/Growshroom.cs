@@ -35,6 +35,7 @@ public class Growshroom : Card
 		Card c = bc.GetComponent<Card>();
 		GameManager.Instance.RaiseAttackRpc(team, c.row, c.col, 2);
 		GameManager.Instance.HealRpc(team, c.row, c.col, 2, true);
+		GameManager.Instance.EndSelectingRpc();
     }
 
 }

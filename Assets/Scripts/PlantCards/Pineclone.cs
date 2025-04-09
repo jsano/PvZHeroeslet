@@ -21,7 +21,7 @@ public class Pineclone : Card
 				if (Tile.plantTiles[row, col].planted != null && Tile.plantTiles[row, col].planted != this)
 				{
                     Destroy(Tile.plantTiles[row, col].planted.gameObject);
-                    Tile.plantTiles[row, col].planted = null;
+                    Tile.plantTiles[row, col].Unplant();
                     Pineclone card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Pineclone")]).GetComponent<Pineclone>();
                     Tile.plantTiles[row, col].Plant(card);
                     card.suppress = true;

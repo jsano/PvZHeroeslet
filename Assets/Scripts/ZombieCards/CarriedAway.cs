@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmokeBomb : Card
+public class CarriedAway : Card
 {
 
 	protected override IEnumerator OnThisPlay()
@@ -30,17 +30,19 @@ public class SmokeBomb : Card
 	{
 		yield return new WaitForSeconds(1);
 		Tile t = bc.GetComponent<Tile>();
-		GameManager.Instance.RaiseAttackRpc(team, row, col, 1);
 		GameManager.Instance.MoveRpc(team, row, col, t.row, t.col);
-		GameManager.Instance.EndSelectingRpc();
+		yield return new WaitUntil(() => t.planted != null);
+        GameManager.Instance.BonusAttackRpc(team, t.row, t.col);
+		yield return new WaitForSeconds(1); // TODO: fix??
+        GameManager.Instance.EndSelectingRpc();
     }
 
 	public override bool IsValidTarget(BoxCollider2D bc)
 	{
 		Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
-        if (t.HasRevealedPlanted()) return true;
-        return false;
-    }
+		if (t.HasRevealedPlanted()) return true;
+		return false;
+	}
 
 }

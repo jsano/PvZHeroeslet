@@ -212,19 +212,6 @@ public class Card : Damagable
 	/// <param name="played"> The card that was played </param>
 	protected virtual IEnumerator OnCardPlay(Card played)
     {
-        if (antihero > 0)
-        {
-            if (AHactive && GetTargets(col)[0].GetComponent<Card>() != null)
-            {
-                AHactive = false;
-                RaiseAttack(-antihero);
-            }
-			if (!AHactive && GetTargets(col)[0].GetComponent<Hero>() != null)
-			{
-				AHactive = true;
-				RaiseAttack(antihero);
-			}
-		}
         yield return null;
     }
 
@@ -243,14 +230,6 @@ public class Card : Damagable
 	/// <param name="died"> The card that died </param>
 	protected virtual IEnumerator OnCardDeath(Card died)
     {
-		if (antihero > 0)
-		{
-			if (!AHactive && GetTargets(col)[0].GetComponent<Hero>() != null)
-			{
-				AHactive = true;
-				RaiseAttack(antihero);
-			}
-		}
         if (died == this)
         {
             yield return new WaitForSeconds(0.5f);
@@ -264,19 +243,6 @@ public class Card : Damagable
 	/// <param name="moved"> The card that moved </param>
 	protected virtual IEnumerator OnCardMoved(Card moved)
 	{
-		if (antihero > 0)
-		{
-			if (AHactive && GetTargets(col)[0].GetComponent<Card>() != null)
-			{
-				AHactive = false;
-				RaiseAttack(-antihero);
-			}
-			if (!AHactive && GetTargets(col)[0].GetComponent<Hero>() != null)
-			{
-				AHactive = true;
-				RaiseAttack(antihero);
-			}
-		}
 		yield return null;
 	}
 
@@ -341,6 +307,7 @@ public class Card : Damagable
             }
             for (int i = 0; i < 3; i++) if (targets[i] != null) foreach (Damagable c in targets[i]) StartCoroutine(c.ReceiveDamage(atk, this, bullseye, deadly, freeze, col + i - 1));
         }
+        yield return new WaitForSeconds(0.5f); // TODO: fix??
 	}
 
     public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1)
@@ -356,6 +323,11 @@ public class Card : Damagable
             if ((HP <= 0 || hitByDeadly) && !died)
             {
                 died = true;
+                for (int i = 0; i < 2; i++)
+                {
+                    if (Tile.plantTiles[i, col].HasRevealedPlanted()) Tile.plantTiles[i, col].planted.UpdateAntihero();
+                    if (Tile.zombieTiles[i, col].HasRevealedPlanted()) Tile.zombieTiles[i, col].planted.UpdateAntihero();
+                }
                 GameManager.Instance.TriggerEvent("OnCardDeath", this);
             }
 
@@ -368,6 +340,11 @@ public class Card : Damagable
 	{
         if (died) return;
         died = true;
+        for (int i = 0; i < 2; i++)
+        {
+            if (Tile.plantTiles[i, col].HasRevealedPlanted()) Tile.plantTiles[i, col].planted.UpdateAntihero();
+            if (Tile.zombieTiles[i, col].HasRevealedPlanted()) Tile.zombieTiles[i, col].planted.UpdateAntihero();
+        }
         if (gravestone && team != GameManager.Instance.team) GameManager.Instance.UpdateRemaining(playedCost, team);
 		GameManager.Instance.TriggerEvent("OnCardDeath", this);
 	}
@@ -391,7 +368,7 @@ public class Card : Damagable
         if (gravestone) return;
 		atk += amount;
         atk = Mathf.Max(0, atk);
-		atkUI.text = atk + "";
+		if (atkUI != null) atkUI.text = atk + "";
 	}
 
 	private IEnumerator HitVisual()
@@ -409,6 +386,23 @@ public class Card : Damagable
     public virtual bool IsValidTarget(BoxCollider2D bc)
     {
         return true;
+    }
+
+    public void UpdateAntihero()
+    {
+        if (antihero > 0)
+        {
+            if (AHactive && GetTargets(col)[0].GetComponent<Card>() != null)
+            {
+                AHactive = false;
+                RaiseAttack(-antihero);
+            }
+            if (!AHactive && GetTargets(col)[0].GetComponent<Hero>() != null)
+            {
+                AHactive = true;
+                RaiseAttack(antihero);
+            }
+        }
     }
 
     public IEnumerator Reveal()

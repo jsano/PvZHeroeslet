@@ -10,7 +10,7 @@ public class Goatify : Card
 	{
 		yield return new WaitForSeconds(1);
 		Destroy(Tile.zombieTiles[row, col].planted.gameObject);
-        Tile.zombieTiles[row, col].planted = null;
+        Tile.zombieTiles[row, col].Unplant();
         Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Goat")]).GetComponent<Card>();
         Tile.zombieTiles[row, col].Plant(card);
         yield return base.OnThisPlay();

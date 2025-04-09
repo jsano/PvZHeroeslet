@@ -17,7 +17,7 @@ public class BarrelOfDeadbeards : Card
                     if (Tile.zombieTiles[i, j].planted != null && Tile.zombieTiles[i, j].planted != this) StartCoroutine(Tile.zombieTiles[i, j].planted.ReceiveDamage(1, this));
                 }
             Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Captain Deadbeard")]).GetComponent<Card>();
-			Tile.zombieTiles[row, col].planted = null;
+			Tile.zombieTiles[row, col].Unplant();
             Tile.zombieTiles[row, col].Plant(card);
         }
 		yield return base.OnCardDeath(died);

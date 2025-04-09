@@ -19,7 +19,7 @@ public class Tile : MonoBehaviour
 	public static Tile[,] zombieTiles = new Tile[2, 5];
     [HideInInspector] public bool isPlantTile;
 
-    [HideInInspector] public Card planted;
+    public Card planted { get; private set; }
 
     private SpriteRenderer SR;
 
@@ -72,6 +72,24 @@ public class Tile : MonoBehaviour
         c.row = row;
         c.col = col;
         c.transform.position = transform.position;
+
+        for (int i = 0; i < 2; i++)
+        {
+            if (plantTiles[i, col].HasRevealedPlanted()) plantTiles[i, col].planted.UpdateAntihero();
+            if (zombieTiles[i, col].HasRevealedPlanted()) zombieTiles[i, col].planted.UpdateAntihero();
+        }
+    }
+
+    public void Unplant(bool silent = false)
+    {
+        planted = null;
+
+        if (!silent)
+            for (int i = 0; i < 2; i++)
+            {
+                if (plantTiles[i, col].HasRevealedPlanted()) plantTiles[i, col].planted.UpdateAntihero();
+                if (zombieTiles[i, col].HasRevealedPlanted()) zombieTiles[i, col].planted.UpdateAntihero();
+            }
     }
 
     public static bool CanPlantInCol(int col, Tile[,] tileObjects, bool teamUp, bool amphibious)

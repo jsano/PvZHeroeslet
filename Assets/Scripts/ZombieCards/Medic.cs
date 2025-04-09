@@ -36,6 +36,7 @@ public class Medic : Card
 		Card c = bc.GetComponent<Card>();
 		if (c == null) GameManager.Instance.HealRpc(team, -1, -1, 4, false);
 		else GameManager.Instance.HealRpc(team, c.row, c.col, 4, false);
+		GameManager.Instance.EndSelectingRpc();
     }
 
 }

@@ -40,7 +40,7 @@ public class MixedupGravedigger: Card
 			yield return new WaitForSeconds(1);
 			for (int i = 0; i < zombies.Count; i++)
 			{
-				Tile.zombieTiles[0, int.Parse(GameManager.Instance.shuffledList[i])].planted = null;
+				Tile.zombieTiles[0, int.Parse(GameManager.Instance.shuffledList[i])].Unplant();
 				Tile.zombieTiles[0, int.Parse(GameManager.Instance.shuffledList[i])].Plant(zombies[i]);
 				zombies[i].Hide();
 			}

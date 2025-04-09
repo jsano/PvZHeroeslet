@@ -14,7 +14,7 @@ public class TheGreatZucchini : Card
             if (t.HasRevealedPlanted())
             {
                 toDestroy.Add(t.planted);
-                t.planted = null;
+                t.Unplant(true);
             }
         }
         if (toDestroy.Count > 0)

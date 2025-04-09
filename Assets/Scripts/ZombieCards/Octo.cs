@@ -31,6 +31,7 @@ public class Octo : Card
 		yield return new WaitForSeconds(1);
 		Tile t = bc.GetComponent<Tile>();
 		GameManager.Instance.PlayCardRpc(FinalStats.MakeDefaultFS(AllCards.NameToID("Octo-pet")), t.row, t.col, true);
+		GameManager.Instance.EndSelectingRpc();
 	}
 
 	protected override IEnumerator OnCardDeath(Card died)

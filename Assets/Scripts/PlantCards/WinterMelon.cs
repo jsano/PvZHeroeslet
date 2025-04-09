@@ -31,6 +31,7 @@ public class WinterMelon : Card
         yield return new WaitForSeconds(1);
         Card c = bc.GetComponent<Card>();
         GameManager.Instance.FreezeRpc(c.team, c.row, c.col);
+        GameManager.Instance.EndSelectingRpc();
     }
 
 }

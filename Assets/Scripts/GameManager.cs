@@ -49,7 +49,7 @@ public class GameManager : NetworkBehaviour
     [HideInInspector] public bool allowZombieCards = false;
 	public List<string> shuffledList { get; private set; }
 
-    private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnBlock", 1 }, { "OnCardDeath", 2 }, { "OnCardFreeze", 3 }, { "OnCardHurt", 4 }, { "OnCardDraw", 5 } };
+    private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnBlock", 1 }, { "OnCardMoved", 2 }, { "OnCardDeath", 3 }, { "OnCardFreeze", 4 }, { "OnCardHurt", 5 }, { "OnCardDraw", 6 } };
     public class GameEvent
 	{
 		public string methodName;
@@ -391,9 +391,8 @@ public class GameManager : NetworkBehaviour
 			Tile.plantTiles[row, col].Plant(card);
 		}
 
-        selecting = false;
+        //selecting = false;
 		allowZombieCards = false;
-        //StartCoroutine(ProcessEvents());
     }
 
     [Rpc(SendTo.Server)]
@@ -434,8 +433,7 @@ public class GameManager : NetworkBehaviour
 
 		UpdateRemaining(-fs.cost, card.team);
 
-        selecting = false;
-        //StartCoroutine(ProcessEvents());
+        //selecting = false;
     }
 
 	[Rpc(SendTo.ClientsAndHost)]
@@ -452,19 +450,19 @@ public class GameManager : NetworkBehaviour
 		if (tteam == Team.Plant)
 		{
 			c = Tile.plantTiles[row, col].planted;
-			Tile.plantTiles[row, col].planted = null;
+			Tile.plantTiles[row, col].Unplant();
 			Tile.plantTiles[nrow, ncol].Plant(c);
 		}
 		else
 		{
 			c = Tile.zombieTiles[row, col].planted;
-			Tile.zombieTiles[row, col].planted = null;
+			Tile.zombieTiles[row, col].Unplant();
 			Tile.zombieTiles[nrow, ncol].Plant(c);
 		}
 		TriggerEvent("OnCardMoved", c);
 
-        if (selecting) selecting = false;
-        else StartCoroutine(ProcessEvents());
+        //if (selecting) selecting = false;
+        //else StartCoroutine(ProcessEvents());
     }
 
     [Rpc(SendTo.ClientsAndHost)]
@@ -473,8 +471,21 @@ public class GameManager : NetworkBehaviour
         if (tteam == Team.Plant) Tile.plantTiles[row, col].planted.Freeze();
         else Tile.zombieTiles[row, col].planted.Freeze();
 
-		if (selecting) selecting = false;
-        else StartCoroutine(ProcessEvents());
+		//if (selecting) selecting = false;
+        //else StartCoroutine(ProcessEvents());
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    public void BonusAttackRpc(Team tteam, int row, int col)
+    {
+        if (tteam == Team.Plant) StartCoroutine(Tile.plantTiles[row, col].planted.Attack());
+        else StartCoroutine(Tile.zombieTiles[row, col].planted.Attack());
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    public void EndSelectingRpc()
+    {
+        selecting = false;
     }
 
     private IEnumerator CallLeftToRight(string methodName, object arg)
@@ -569,7 +580,7 @@ public class GameManager : NetworkBehaviour
         if (tteam == Team.Plant) Tile.plantTiles[row, col].planted.RaiseAttack(amount);
         else Tile.zombieTiles[row, col].planted.RaiseAttack(amount);
 
-        selecting = false;
+        //selecting = false;
     }
 
 	[Rpc(SendTo.ClientsAndHost)]
@@ -586,7 +597,7 @@ public class GameManager : NetworkBehaviour
 			else Tile.zombieTiles[row, col].planted.Heal(amount, raiseCap);
         }
 
-        selecting = false;
+        //selecting = false;
     }
 
 	public IEnumerator HandleHeroBlocks(Hero h)
@@ -597,7 +608,7 @@ public class GameManager : NetworkBehaviour
 			GameObject c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
 			c.transform.localPosition = new Vector2(0, 3);
-			c.GetComponent<HandCard>().ID = AllCards.NameToID("Sunburn"); //temp
+			c.GetComponent<HandCard>().ID = AllCards.NameToID("Carried Away"); //temp
             c.GetComponent<HandCard>().interactable = true;
 			c.SetActive(true);
 		}
