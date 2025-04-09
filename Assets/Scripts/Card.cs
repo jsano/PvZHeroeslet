@@ -274,7 +274,7 @@ public class Card : Damagable
     {
         if (frozen)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
             frozen = false;
             SR.material.color = Color.white;
             yield break;
@@ -451,7 +451,7 @@ public class Card : Damagable
     {
         invulnerable = active;
         if (active) SR.material.color = Color.yellow;
-        else SR.material.color = Color.white;
+        else if (SR.material.color != Color.blue) SR.material.color = Color.white;
     }
 
     void OnMouseDown()
