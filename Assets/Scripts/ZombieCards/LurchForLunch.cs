@@ -16,7 +16,7 @@ public class LurchForLunch : Card
 	{
 		Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
-        if (t.HasRevealedPlanted()) return true;
+        if (t.HasRevealedPlanted() && t.planted.team == Team.Zombie) return true;
         return false;
     }
 

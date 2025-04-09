@@ -44,10 +44,10 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         validChoices.Clear();
         if (orig.type == Card.Type.Trick)
         {
-			foreach (Tile t in Tile.plantTiles) validChoices.Add(t.GetComponent<BoxCollider2D>());
-			foreach (Tile t in Tile.zombieTiles) validChoices.Add(t.GetComponent<BoxCollider2D>());
-			validChoices.Add(GameManager.Instance.plantHero.GetComponent<BoxCollider2D>());
-			validChoices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
+			foreach (Tile t in Tile.plantTiles) if (orig.IsValidTarget(t.GetComponent<BoxCollider2D>())) validChoices.Add(t.GetComponent<BoxCollider2D>());
+			foreach (Tile t in Tile.zombieTiles) if (orig.IsValidTarget(t.GetComponent<BoxCollider2D>())) validChoices.Add(t.GetComponent<BoxCollider2D>());
+            if (orig.IsValidTarget(GameManager.Instance.plantHero.GetComponent<BoxCollider2D>())) validChoices.Add(GameManager.Instance.plantHero.GetComponent<BoxCollider2D>());
+            if (orig.IsValidTarget(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>())) validChoices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
 		}
         else
         {
@@ -75,11 +75,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 		{
             Tile t = bc.GetComponent<Tile>();
             if (t == null) continue; // TODO: change
-            if (bc.bounds.Contains((Vector2)cam.ScreenToWorldPoint(eventData.position)))
-            {
-                if (orig.type == Card.Type.Unit || orig.IsValidTarget(bc)) t.ToggleHighlight(true);
-                else t.ToggleHighlight(false);
-			}
+            if (bc.bounds.Contains((Vector2)cam.ScreenToWorldPoint(eventData.position))) t.ToggleHighlight(true);
             else t.ToggleHighlight(false);
 		}
 	}

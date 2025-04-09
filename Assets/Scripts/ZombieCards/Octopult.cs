@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TaterToss : Card
+public class Octopult : Card
 {
 
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Hothead")]).GetComponent<Card>();
-		Tile.plantTiles[row, col].Plant(card);
+		Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Octo-pet")]).GetComponent<Card>();
+		Tile.zombieTiles[0, col].Plant(card);
         yield return base.OnThisPlay();
 	}
 
@@ -17,7 +17,7 @@ public class TaterToss : Card
 	{
 		Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
-        if (Tile.CanPlantInCol(t.col, Tile.plantTiles, true, false)) return true;
+        if (Tile.CanPlantInCol(t.col, Tile.zombieTiles, false, true)) return true;
 		return false;
 	}
 
