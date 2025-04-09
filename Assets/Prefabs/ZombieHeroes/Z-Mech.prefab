@@ -59,7 +59,7 @@ PrefabInstance:
     - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: 'superpowers.Array.data[0]'
       value: 
-      objectReference: {fileID: -4799810359990855903, guid: 6f74ffd5c95e63746aa403a9c2e78b7e, type: 3}
+      objectReference: {fileID: -6213583928430588766, guid: 75670ed51f0eaeb4d9389d451db64121, type: 3}
     - target: {fileID: 5654879218325174664, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: m_RootOrder
       value: 0
