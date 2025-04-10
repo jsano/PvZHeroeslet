@@ -608,7 +608,7 @@ public class GameManager : NetworkBehaviour
 			GameObject c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
 			c.transform.localPosition = new Vector2(0, 3);
-			c.GetComponent<HandCard>().ID = AllCards.NameToID("Slammin' Smackdown"); //temp
+			c.GetComponent<HandCard>().ID = AllCards.NameToID("Terror-former 10000"); //temp
             c.GetComponent<HandCard>().interactable = true;
 			c.SetActive(true);
 		}
@@ -621,5 +621,12 @@ public class GameManager : NetworkBehaviour
 		string[] list1 = list.Split(" - ");
 		shuffledList = new(list1);
     }
+
+	public List<HandCard> GetHandCards()
+	{
+		List<HandCard> ret = new();
+		foreach (Transform t in handCards) ret.Add(t.GetComponent<HandCard>());
+		return ret;
+	}
 
 }

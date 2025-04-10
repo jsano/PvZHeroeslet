@@ -53,6 +53,20 @@ public class AllCards : MonoBehaviour
 		return possible[Random.Range(0, possible.Count)];
 	}
 
+	public static int RandomTrick(Card.Team team)
+	{
+        List<int> possible = new();
+        for (int i = 0; i < Instance.cards.Length; i++)
+        {
+            if (Instance.cards[i].team == team && Instance.cards[i].type == Card.Type.Trick)
+            {
+                possible.Add(i);
+                break;
+            }
+        }
+        return possible[Random.Range(0, possible.Count)];
+    }
+
 	public static int NameToID(string name)
 	{
 		for (int i = 0; i < Instance.cards.Length; i++)
