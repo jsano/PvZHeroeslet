@@ -143,7 +143,7 @@ MonoBehaviour:
   _class: 3
   tribes: 0800000021000000
   token: 0
-  cost: 0
+  cost: 1
   atk: 0
   HP: 0
   amphibious: 0
@@ -166,10 +166,4 @@ MonoBehaviour:
   row: 0
   col: 0
   playedCost: 0
-  sourceFS:
-    atk: 0
-    hp: 0
-    abilities: 
-    ID: 0
-    cost: 0
   specialHandCard: {fileID: 0}

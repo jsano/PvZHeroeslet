@@ -22,6 +22,7 @@ public class GameManager : NetworkBehaviour
         turn = 1;
 	}
 
+	private int superpowerIndex = 0;
 	private List<int> deck = new();
     public int turn { get; private set; }
 	private int nextTurnReady;
@@ -199,7 +200,8 @@ public class GameManager : NetworkBehaviour
 	private IEnumerator Mulligan()
 	{
 		DrawCard(team, 4);
-		yield return ProcessEvents();
+		GainHandCard(team, UserAccounts.allDecks[UserAccounts.GameStats.DeckName].superpowerOrder[superpowerIndex]);
+        yield return ProcessEvents();
 		EndRpc();
 	}
 
@@ -391,7 +393,6 @@ public class GameManager : NetworkBehaviour
 			Tile.plantTiles[row, col].Plant(card);
 		}
 
-        //selecting = false;
 		allowZombieCards = false;
     }
 
@@ -432,8 +433,6 @@ public class GameManager : NetworkBehaviour
 		}
 
 		UpdateRemaining(-fs.cost, card.team);
-
-        //selecting = false;
     }
 
 	[Rpc(SendTo.ClientsAndHost)]
@@ -460,9 +459,6 @@ public class GameManager : NetworkBehaviour
 			Tile.zombieTiles[nrow, ncol].Plant(c);
 		}
 		TriggerEvent("OnCardMoved", c);
-
-        //if (selecting) selecting = false;
-        //else StartCoroutine(ProcessEvents());
     }
 
     [Rpc(SendTo.ClientsAndHost)]
@@ -470,9 +466,6 @@ public class GameManager : NetworkBehaviour
     {
         if (tteam == Team.Plant) Tile.plantTiles[row, col].planted.Freeze();
         else Tile.zombieTiles[row, col].planted.Freeze();
-
-		//if (selecting) selecting = false;
-        //else StartCoroutine(ProcessEvents());
     }
 
     [Rpc(SendTo.ClientsAndHost)]
@@ -563,8 +556,6 @@ public class GameManager : NetworkBehaviour
 			remaining += change;
 			remaining = Mathf.Max(remaining, 0);
 			remainingText.text = remaining + "";
-			//DisableHandCards();
-			//EnablePlayableHandCards();
 		}
 		else
 		{
@@ -579,8 +570,6 @@ public class GameManager : NetworkBehaviour
 	{
         if (tteam == Team.Plant) Tile.plantTiles[row, col].planted.RaiseAttack(amount);
         else Tile.zombieTiles[row, col].planted.RaiseAttack(amount);
-
-        //selecting = false;
     }
 
 	[Rpc(SendTo.ClientsAndHost)]
@@ -596,8 +585,6 @@ public class GameManager : NetworkBehaviour
             if (tteam == Team.Plant) Tile.plantTiles[row, col].planted.Heal(amount, raiseCap);
 			else Tile.zombieTiles[row, col].planted.Heal(amount, raiseCap);
         }
-
-        //selecting = false;
     }
 
 	public IEnumerator HandleHeroBlocks(Hero h)
@@ -605,11 +592,16 @@ public class GameManager : NetworkBehaviour
 		waitingOnBlock = true;
 		if (team == h.team)
 		{
+			superpowerIndex += 1;
 			GameObject c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
 			c.transform.localPosition = new Vector2(0, 3);
-			c.GetComponent<HandCard>().ID = AllCards.NameToID("Witch's Familiar"); //temp
-            c.GetComponent<HandCard>().interactable = true;
+			HandCard hc = c.GetComponent<HandCard>();
+			hc.ID = UserAccounts.allDecks[UserAccounts.GameStats.DeckName].superpowerOrder[superpowerIndex];
+            hc.interactable = true;
+			FinalStats fs = FinalStats.MakeDefaultFS(hc.ID);
+			fs.cost = 0;
+			hc.OverrideFS(fs);
 			c.SetActive(true);
 		}
 		yield return new WaitUntil(() => waitingOnBlock == false);

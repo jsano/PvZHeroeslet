@@ -143,7 +143,7 @@ MonoBehaviour:
   _class: 2
   tribes: 2200000021000000
   token: 0
-  cost: 0
+  cost: 1
   atk: 0
   HP: 0
   amphibious: 0
