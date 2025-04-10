@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TaterToss : Card
+public class RootWall : Card
 {
 
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Hothead")]).GetComponent<Card>();
-		Tile.plantTiles[row, col].Plant(card);
+		Tile.plantTiles[row, col].planted.Heal(2, true);
+		Tile.plantTiles[row, col].planted.ToggleInvulnerability(true);
         yield return base.OnThisPlay();
 	}
 
@@ -17,8 +17,9 @@ public class TaterToss : Card
 	{
 		Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
-        if (!t.isPlantTile) return false;
-        if (Tile.CanPlantInCol(t.col, Tile.plantTiles, true, false)) return true;
+		Card c = t.planted;
+		if (c == null) return false;
+		if (c.team == Team.Plant) return true;
 		return false;
 	}
 

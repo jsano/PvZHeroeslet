@@ -192,8 +192,9 @@ public class Card : Damagable
 	protected virtual IEnumerator OnThisPlay()
 	{
         if (GameManager.Instance.selecting) yield return new WaitUntil(() => GameManager.Instance.selecting == false);
+        yield return new WaitForSeconds(0.1f); // this only exists to give time for rpcs to instantiate before processing events (rough fix)
         GameManager.Instance.currentlySpawningCards -= 1;
-        yield return new WaitUntil(() => GameManager.Instance.currentlySpawningCards == 0);
+        yield return new WaitUntil(() => GameManager.Instance.currentlySpawningCards == 0); // this exists for cards that spawn cards that spawn cards
         if (type == Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
         yield return GameManager.Instance.ProcessEvents();
         playedCost = 0;
