@@ -22,7 +22,7 @@ public class StartButtons : NetworkBehaviour
     // DEBUG ===
     public void StartHost()
     {
-        UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(0));
+        UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(1));
         UserAccounts.allDecks["temp10"].cards = new() {
             { AllCards.NameToID("Sunflower"), 1 },
             { AllCards.NameToID("Cornucopia"), 1 },
@@ -46,7 +46,7 @@ public class StartButtons : NetworkBehaviour
 
     public void StartClient()
     {
-        UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(15));
+        UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(13));
         UserAccounts.allDecks["temp11"].cards = new() {
             { AllCards.NameToID("Mini-Ninja"), 2 },
             { AllCards.NameToID("Teleport"), 2 },
