@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmokeBomb : Card
+public class BubbleUp : Card
 {
 
 	protected override IEnumerator OnThisPlay()
 	{
 		if (GameManager.Instance.team == team)
 		{
-			for (int col = 0; col < 5; col++)
+			for (int i = 0; i < 2; i++)
 			{
-				if (Tile.zombieTiles[0, col].planted == null && (col != 5 || Tile.zombieTiles[0, this.col].planted.amphibious))
+				for (int j = 0; j < 5; j++)
 				{
-					choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
+					if (Tile.CanPlantInCol(j, Tile.plantTiles, teamUp, amphibious))
+					{
+						choices.Add(Tile.plantTiles[i, j].GetComponent<BoxCollider2D>());
+					}
 				}
 			}
 			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
@@ -30,7 +33,7 @@ public class SmokeBomb : Card
 	{
 		yield return new WaitForSeconds(1);
 		Tile t = bc.GetComponent<Tile>();
-		GameManager.Instance.RaiseAttackRpc(team, row, col, 1);
+		GameManager.Instance.HealRpc(team, row, col, 4, true);
 		GameManager.Instance.MoveRpc(team, row, col, t.row, t.col);
 		GameManager.Instance.EndSelectingRpc();
     }
@@ -39,7 +42,7 @@ public class SmokeBomb : Card
 	{
 		Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
-        if (t.HasRevealedPlanted() && t.planted.team == Team.Zombie) return true;
+        if (t.HasRevealedPlanted() && t.planted.team == Team.Plant) return true;
         return false;
     }
 
