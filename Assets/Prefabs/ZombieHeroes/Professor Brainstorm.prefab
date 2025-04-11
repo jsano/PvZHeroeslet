@@ -54,12 +54,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: superpowers.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: 'superpowers.Array.data[0]'
       value: 
       objectReference: {fileID: -5811613731705319608, guid: c225700c34fda6647ab399ed762f0741, type: 3}
+    - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
+      propertyPath: 'superpowers.Array.data[1]'
+      value: 
+      objectReference: {fileID: -1896668188398544390, guid: 2466b11dcf076c6448cbdb74b125d35e, type: 3}
+    - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
+      propertyPath: 'superpowers.Array.data[2]'
+      value: 
+      objectReference: {fileID: -8022794452115244564, guid: faa61764db7426140b8af0b5da82c055, type: 3}
     - target: {fileID: 5654879218325174664, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: m_RootOrder
       value: 0
