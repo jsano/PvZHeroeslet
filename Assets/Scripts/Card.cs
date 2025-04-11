@@ -148,9 +148,17 @@ public class Card : Damagable
         baseHP = HP;
         baseAtk = atk;
         atkUI = transform.Find("ATK").GetComponent<TextMeshProUGUI>();
-        atkUI.text = atk + "";
         hpUI = transform.Find("HP").GetComponent<TextMeshProUGUI>();
-        hpUI.text = HP + "";
+        if (type == Type.Unit)
+        {
+            atkUI.text = atk + "";
+            hpUI.text = HP + "";
+        }
+        else
+        {
+            atkUI.text = "";
+            hpUI.text = "";
+        }
         if (gravestone) Hide();
         else
         {
