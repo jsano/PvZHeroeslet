@@ -421,6 +421,7 @@ public class Card : Damagable
 		SR.sprite = baseSprite;
 		atkUI.gameObject.SetActive(true);
 		hpUI.gameObject.SetActive(true);
+        UpdateAntihero();
         GameManager.Instance.currentlySpawningCards += 1;
         //play animation
         GameManager.Instance.DisableHandCards();
