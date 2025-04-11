@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 public class Card : Damagable
 {
@@ -433,6 +434,14 @@ public class Card : Damagable
         frozen = true;
         SR.material.color = Color.blue;
         GameManager.Instance.TriggerEvent("OnCardFreeze", this);
+    }
+
+    public void Bounce()
+    {
+        if (team == Team.Plant) Tile.plantTiles[row, col].Unplant();
+        else Tile.zombieTiles[row, col].Unplant();
+        GameManager.Instance.GainHandCard(team, AllCards.NameToID(name.Substring(0, name.IndexOf("("))));
+        Destroy(gameObject);
     }
 
     protected List<Damagable> GetTargets(int col)
