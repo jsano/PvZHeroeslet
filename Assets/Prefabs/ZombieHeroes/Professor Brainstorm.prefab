@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: superpowers.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: 'superpowers.Array.data[0]'
@@ -71,7 +71,7 @@ PrefabInstance:
     - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: 'superpowers.Array.data[3]'
       value: 
-      objectReference: {fileID: -8022794452115244564, guid: faa61764db7426140b8af0b5da82c055, type: 3}
+      objectReference: {fileID: -2337393406904162748, guid: a0c591c4b16bd5a43ac57c53e52a12bf, type: 3}
     - target: {fileID: 5654879218325174664, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: m_RootOrder
       value: 0

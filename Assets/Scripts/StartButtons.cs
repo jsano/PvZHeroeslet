@@ -46,7 +46,7 @@ public class StartButtons : NetworkBehaviour
 
     public void StartClient()
     {
-        UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(11));
+        UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
             { AllCards.NameToID("Mini-Ninja"), 2 },
             { AllCards.NameToID("Teleport"), 2 },
