@@ -22,15 +22,42 @@ public class GameManager : NetworkBehaviour
         turn = 1;
 	}
 
+	/// <summary>
+	/// Index for which superpower to draw next
+	/// </summary>
 	private int superpowerIndex = 0;
+	/// <summary>
+	/// List representation of the current deck's cards, so it can be easily shuffled/drawn from
+	/// </summary>
 	private List<int> deck = new();
     public int turn { get; private set; }
+	/// <summary>
+	/// A global count of how many players are ready for the next turn. Only start next turn when this = 2
+	/// </summary>
 	private int nextTurnReady;
-    private int phase; // 0 = prep, 1 = zombie, 2 = plant, 3 = zombie trick, 4 = fight
+	/// <summary>
+	/// 0 = prep, 1 = zombie, 2 = plant, 3 = zombie trick, 4 = fight
+	/// </summary>
+    private int phase;
+	/// <summary>
+	/// How much gold the player has left this turn
+	/// </summary>
     private int remaining = 1;
-	[HideInInspector] public int permanentBonus = 0;
+    /// <summary>
+    /// How much extra gold the player has for each turn (ex. from Sunburn)
+    /// </summary>
+    [HideInInspector] public int permanentBonus = 0;
+    /// <summary>
+    /// How much gold the opponent has left this turn
+    /// </summary>
     private int opponentRemaining = 1;
+    /// <summary>
+    /// How much extra gold the opponent has for each turn (ex. from Cryo-brain)
+    /// </summary>
     [HideInInspector] public int opponentPermanentBonus = 0;
+    /// <summary>
+    /// The player's team (Plant/Zombie), derived from their hero's team
+    /// </summary>
     public Team team;
 
     public Button go;
@@ -41,17 +68,48 @@ public class GameManager : NetworkBehaviour
     public TextMeshProUGUI remainingText;
 	public TextMeshProUGUI opponentRemainingText;
 
-	[HideInInspector] public Hero plantHero;
+    /// <summary>
+    /// Reference to plant hero script
+    /// </summary>
+    [HideInInspector] public Hero plantHero;
+    /// <summary>
+    /// Reference to zombie hero script
+    /// </summary>
     [HideInInspector] public Hero zombieHero;
-	[HideInInspector] public bool waitingOnBlock = false;
+    /// <summary>
+    /// Halt game flow if a player blocked. When set to true, game flow immediately resumes
+    /// </summary>
+    [HideInInspector] public bool waitingOnBlock = false;
+    /// <summary>
+    /// Halt game flow if a player is selecting a choice (ex. from moving a card). Within an RPC, set this to true using <c>EndSelectingRpc</c>
+    /// </summary>
     [HideInInspector] public bool selecting = false;
-	[HideInInspector] public int currentlySpawningCards = 0;
+    /// <summary>
+    /// Cards will increment this on the same frame of instantiation. Game flow should only continue once this is 0 to handle recusive spawns (ex. from Cornucopia)
+    /// </summary>
+    [HideInInspector] public int currentlySpawningCards = 0;
+    /// <summary>
+    /// Reference to a card with frenzy that just attacked. <c>null</c> otherwise
+    /// </summary>
     [HideInInspector] public Card frenzyActivate;
+    /// <summary>
+    /// Set this to true if there's a special circumstance allowing zombies to be played in tricks phase (ex. from Teleport)
+    /// </summary>
     [HideInInspector] public bool allowZombieCards = false;
-	public List<string> shuffledList { get; private set; }
+    /// <summary>
+    /// Reference to any data that should be shared across the network that can't be achieved normally (ex. Mixed-up Gravedigger)
+    /// </summary>
+    public List<string> shuffledList { get; private set; }
 
+    /// <summary>
+    /// Events with higher priority should be processed first. Those not on the list have no defined ordering
+    /// </summary>
     private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnBlock", 1 }, { "OnCardMoved", 2 }, { "OnCardDeath", 3 }, { "OnCardFreeze", 4 }, { "OnCardHurt", 5 }, { "OnCardDraw", 6 } };
-    public class GameEvent
+    
+	/// <summary>
+    /// A game event, caused by any card effect or block, with information about the method, arguments, and frame number it was called
+    /// </summary>
+	public class GameEvent
 	{
 		public string methodName;
 		public object arg;
@@ -74,6 +132,9 @@ public class GameManager : NetworkBehaviour
 	private List<GameEvent> eventStack = new();
 	private bool isProcessing;
 
+    /// <summary>
+    /// Load a game event defined by the method name and arguments into the appropriate location in the event stack. It won't be processed until <c>ProcessEvents</c> is called
+    /// </summary>
     public void TriggerEvent(string methodName, object arg)
     {
 		try
@@ -123,6 +184,9 @@ public class GameManager : NetworkBehaviour
 		catch (Exception) { Debug.Log("ERROR " + " " + methodName + " " + arg);}
 	}
 
+    /// <summary>
+    /// Process all GameEvents in the event stack, one at a time, until it is empty. Player moves will be disabled until it's finished. Multiple ongoing calls will be ignored
+    /// </summary>
     public IEnumerator ProcessEvents()
     {
 		if (isProcessing) yield break;
@@ -156,7 +220,8 @@ public class GameManager : NetworkBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {        
+    {
+		// Setup board structure depending on the player's team
 		plantHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.PlantHero]).GetComponent<Hero>();
 		zombieHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.ZombieHero]).GetComponent<Hero>();
         if (AllCards.Instance.heroes[UserAccounts.allDecks[UserAccounts.GameStats.DeckName].heroID].team == Team.Plant)
@@ -181,6 +246,7 @@ public class GameManager : NetworkBehaviour
             t.GetComponent<Tile>().AssignSide();
 		}
 
+		// Load the deck given the deck name, and shuffle
 		foreach (int card in UserAccounts.allDecks[UserAccounts.GameStats.DeckName].cards.Keys)
 		{
 			for (int count = 0; count < UserAccounts.allDecks[UserAccounts.GameStats.DeckName].cards[card]; count++) deck.Add(card);
@@ -197,6 +263,9 @@ public class GameManager : NetworkBehaviour
 		StartCoroutine(Mulligan());
     }
 
+	/// <summary>
+	/// Draw 4 cards. TODO: Implement the actual mulligan
+	/// </summary>
 	private IEnumerator Mulligan()
 	{
 		DrawCard(team, 4);
@@ -205,7 +274,10 @@ public class GameManager : NetworkBehaviour
 		EndRpc();
 	}
 
-	public void DrawCard(Team t, int count = 1)
+    /// <summary>
+    /// Draw a card for the player with given team, and triggers the GameEvent
+    /// </summary>
+    public void DrawCard(Team t, int count = 1)
 	{
 		for (int i = 0; i < count; i++)
 		{
@@ -218,6 +290,10 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Gain a HandCard of the card with given ID for the player with given team, and triggers the GameEvent
+    /// </summary>
+	/// <param name="fs">If provided, uses these stats for the HandCard, otherwise uses the default</param>
     public void GainHandCard(Team t, int id, FinalStats fs = null)
 	{
 		if (team == t)
@@ -237,6 +313,9 @@ public class GameManager : NetworkBehaviour
 		TriggerEvent("OnCardDraw", t);
     }
 
+    /// <summary>
+    /// Signals to the network that it is ready for the next phase. Transitions to the next phase if possible
+    /// </summary>
     [Rpc(SendTo.ClientsAndHost)]
     public void EndRpc()
     {
@@ -247,6 +326,7 @@ public class GameManager : NetworkBehaviour
     {
         string[] pnames = new string[] { "", "Zombies\nPlay", "Plants\nPlay", "Zombie\nTricks", "FIGHT!" };
 
+		// Only start the next turn when both players are ready
 		if (phase == 0 || phase == 4)
 		{
 			nextTurnReady += 1;
@@ -261,6 +341,7 @@ public class GameManager : NetworkBehaviour
         phaseText.transform.localScale = Vector3.zero;
         goTween = LeanTween.scale(phaseText, Vector3.one, 0.5f).setEaseOutBack().setOnComplete(() => LeanTween.scale(phaseText, Vector3.zero, 0.5f).setEaseInBack().setDelay(1));
 
+		// Start of zombie tricks: Reveal gravestones
         DisableHandCards();
         if (phase == 3)
         {
@@ -269,6 +350,7 @@ public class GameManager : NetworkBehaviour
 				Card c = Tile.zombieTiles[0, col].planted;
 				if (c != null && c.gravestone)
 				{
+					// Update zombie brain UI only for the plant side
 					if (c.team != team) UpdateRemaining(-c.playedCost, Team.Zombie);
 					yield return c.Reveal();
 				}
@@ -279,10 +361,15 @@ public class GameManager : NetworkBehaviour
         if (phase == 4) StartCoroutine(Combat());
     }
 
+	/// <summary>
+	/// Begin combat phase, then updates game state afterwards
+	/// </summary>
+	/// <returns></returns>
     private IEnumerator Combat()
     {
         yield return new WaitForSeconds(1);
 
+		// Cards attack left to right
         for (int col = 0; col < 5; col++)
 		{
 			if (Tile.zombieTiles[0, col].planted != null) yield return Tile.zombieTiles[0, col].planted.Attack();
@@ -292,6 +379,7 @@ public class GameManager : NetworkBehaviour
 
 			yield return ProcessEvents();
 
+			// Recursively handle frenzy if applicable
 			while (frenzyActivate != null)
 			{
 				Card temp = frenzyActivate;
@@ -300,6 +388,7 @@ public class GameManager : NetworkBehaviour
                 yield return ProcessEvents();
 			}
 
+			// Handle doublestrike if applicable
 			if (Tile.zombieTiles[0, col].planted != null && Tile.zombieTiles[0, col].planted.doubleStrike) yield return Tile.zombieTiles[0, col].planted.Attack();
 
 			if (Tile.plantTiles[1, col].planted != null && Tile.plantTiles[1, col].planted.doubleStrike) yield return Tile.plantTiles[1, col].planted.Attack();
@@ -311,6 +400,7 @@ public class GameManager : NetworkBehaviour
         TriggerEvent("OnTurnEnd", null);
         yield return ProcessEvents();
 
+		// Any invulnerable objects lose invulnerability at end of turn
 		plantHero.ToggleInvulnerability(false);
 		zombieHero.ToggleInvulnerability(false);
 		for (int col = 0; col < 5; col++)
@@ -322,6 +412,7 @@ public class GameManager : NetworkBehaviour
 			}
 		}
 
+		// Setup for next turn
         turn += 1;
         remaining = turn + permanentBonus;
 		opponentRemaining = turn + opponentPermanentBonus;
@@ -340,20 +431,18 @@ public class GameManager : NetworkBehaviour
 		EndRpc();
     }
 
-    [Rpc(SendTo.Server)]
-    public void PlayCardRpc(FinalStats fs, int row, int col, bool free=false)
-    {
-        //if (team == Team.Plant) plants[row + 2*col] = ID;
-        //else zombies[row + 2*col] = ID;
-        PositionCardRpc(fs, row, col, free);
-    }
-
+    /// <summary>
+    /// Sends a unit to be played through the network under the given FinalStats, row, and column. Uses the card's team to decide which side to plant it on
+    /// </summary>
+    /// <param name="fs">The played card's stats</param>
+    /// <param name="free">If true, doesn't deduct from this player's remaining gold</param>
     [Rpc(SendTo.ClientsAndHost)]
-    private void PositionCardRpc(FinalStats fs, int row, int col, bool free=false)
+    public void PlayCardRpc(FinalStats fs, int row, int col, bool free=false)
     {
 		Card card = AllCards.Instance.cards[fs.ID];
         if (card.team != team)
         {
+			// From the opponent's perspective, only deduct the gold UI if it's not a gravestone
 			if (!free)
 			{
 				if (!card.gravestone)
@@ -364,6 +453,7 @@ public class GameManager : NetworkBehaviour
         }
         else
         {
+            // From the player's perspective, always deduct the gold UI
             if (!free) UpdateRemaining(-fs.cost, team);
         }
 		
@@ -393,19 +483,17 @@ public class GameManager : NetworkBehaviour
 			Tile.plantTiles[row, col].Plant(card);
 		}
 
-		allowZombieCards = false;
+        // Disable after 1 card play by default
+        allowZombieCards = false;
     }
 
-    [Rpc(SendTo.Server)]
+    /// <summary>
+    /// Sends a trick to be played through the network under the given FinalStats, row, and column
+    /// </summary>
+    /// <param name="fs">The played card's stats</param>
+    /// <param name="isPlantTarget">Whether the given row/column represents the plant or zombie side of the board</param>
+    [Rpc(SendTo.ClientsAndHost)]
 	public void PlayTrickRpc(FinalStats fs, int row, int col, bool isPlantTarget)
-	{
-		//if (team == Team.Plant) plants[row + 2*col] = ID;
-		//else zombies[row + 2*col] = ID;
-		PositionTrickRpc(fs, row, col, isPlantTarget);
-	}
-
-	[Rpc(SendTo.ClientsAndHost)]
-	private void PositionTrickRpc(FinalStats fs, int row, int col, bool isPlantTarget)
 	{
 		Card card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
 		card.row = row;
@@ -435,6 +523,10 @@ public class GameManager : NetworkBehaviour
 		UpdateRemaining(-fs.cost, card.team);
     }
 
+	/// <summary>
+	/// Signals to the network that the given team's player who blocked chose to keep the superpower. Triggers a card draw GameEvent and allows the game flow to continue
+	/// </summary>
+	/// <param name="t"></param>
 	[Rpc(SendTo.ClientsAndHost)]
 	public void HoldTrickRpc(Team t)
 	{
@@ -442,7 +534,15 @@ public class GameManager : NetworkBehaviour
 		TriggerEvent("OnCardDraw", t);
 	}
 
-	[Rpc(SendTo.ClientsAndHost)]
+    /// <summary>
+    /// Signals to the network to move the unit with the given row/column and team to this new row/column. Triggers a card moved GameEvent
+    /// </summary>
+    /// <param name="tteam">Whether the given row/column represents the plant or zombie side of the board</param>
+    /// <param name="row">Old row</param>
+    /// <param name="col">Old column</param>
+    /// <param name="nrow">New row</param>
+    /// <param name="ncol">New column</param>
+    [Rpc(SendTo.ClientsAndHost)]
 	public void MoveRpc(Team tteam, int row, int col, int nrow, int ncol)
 	{
 		Card c;
@@ -461,6 +561,10 @@ public class GameManager : NetworkBehaviour
 		TriggerEvent("OnCardMoved", c);
     }
 
+    /// <summary>
+    /// Signals to the network to freeze the unit with the given row/column and team. Triggers a card freeze GameEvent
+    /// </summary>
+    /// <param name="tteam">Whether the given row/column represents the plant or zombie side of the board</param>
     [Rpc(SendTo.ClientsAndHost)]
     public void FreezeRpc(Team tteam, int row, int col)
     {
@@ -468,6 +572,10 @@ public class GameManager : NetworkBehaviour
         else Tile.zombieTiles[row, col].planted.Freeze();
     }
 
+    /// <summary>
+    /// Signals to the network to make the unit with the given row/column and team to do a bonus attack
+    /// </summary>
+    /// <param name="tteam">Whether the given row/column represents the plant or zombie side of the board</param>
     [Rpc(SendTo.ClientsAndHost)]
     public void BonusAttackRpc(Team tteam, int row, int col)
     {
@@ -475,12 +583,21 @@ public class GameManager : NetworkBehaviour
         else StartCoroutine(Tile.zombieTiles[row, col].planted.Attack());
     }
 
+    /// <summary>
+    /// Signals to the network that the selecting player finished their selection choice, causing the game flow to continue
+    /// </summary>
     [Rpc(SendTo.ClientsAndHost)]
     public void EndSelectingRpc()
     {
         selecting = false;
     }
 
+    /// <summary>
+	/// Calls the GameEvent coroutine with the given name and arguments for each card and HandCard that currently exists, from left to right, column 1 to 0
+	/// </summary>
+	/// <param name="methodName"></param>
+	/// <param name="arg"></param>
+	/// <returns></returns>
     private IEnumerator CallLeftToRight(string methodName, object arg)
 	{
 		for (int i = 0; i < 5; i++)
@@ -494,12 +611,18 @@ public class GameManager : NetworkBehaviour
         yield return null;
 	}
 
+	/// <summary>
+	/// Disables all HandCards and the end turn button
+	/// </summary>
 	public void DisableHandCards()
     {
         foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = false;
 		go.interactable = false;
 	}
 
+    /// <summary>
+    /// Enables only the specific HandCards and the end turn button with respect to the game's rules of the current phase
+    /// </summary>
     public void EnablePlayableHandCards()
     {
 		if (team == Team.Plant)
@@ -549,6 +672,9 @@ public class GameManager : NetworkBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Adds to the current team's gold count by the given change. Gold counts can't go below 0. Updates UI
+	/// </summary>
     public void UpdateRemaining(int change, Team team)
     {
 		if (team == this.team)
@@ -565,14 +691,22 @@ public class GameManager : NetworkBehaviour
 		}
     }
 
-	[Rpc(SendTo.ClientsAndHost)]
+    /// <summary>
+    /// Signals to the network to raise the attack of the unit with the given row/column and team by this amount
+    /// </summary>
+    /// <param name="tteam">Whether the given row/column represents the plant or zombie side of the board</param>
+    [Rpc(SendTo.ClientsAndHost)]
 	public void RaiseAttackRpc(Team tteam, int row, int col, int amount)
 	{
         if (tteam == Team.Plant) Tile.plantTiles[row, col].planted.RaiseAttack(amount);
         else Tile.zombieTiles[row, col].planted.RaiseAttack(amount);
     }
 
-	[Rpc(SendTo.ClientsAndHost)]
+    /// <summary>
+    /// Signals to the network to raise the HP of the unit with the given row/column and team
+    /// </summary>
+    /// <param name="tteam">Whether the given row/column represents the plant or zombie side of the board</param>
+    [Rpc(SendTo.ClientsAndHost)]
 	public void HealRpc(Team tteam, int row, int col, int amount, bool raiseCap)
 	{
         if (row == -1 && col == -1)
@@ -587,7 +721,10 @@ public class GameManager : NetworkBehaviour
         }
     }
 
-	public IEnumerator HandleHeroBlocks(Hero h)
+    /// <summary>
+    /// Called when a block GameEvent is being processed. Makes a 0-cost superpower HandCard, update superpower index, and waits for the given hero to make a decision
+    /// </summary>
+    public IEnumerator HandleHeroBlocks(Hero h)
 	{
 		waitingOnBlock = true;
 		if (team == h.team)
@@ -607,6 +744,9 @@ public class GameManager : NetworkBehaviour
 		yield return new WaitUntil(() => waitingOnBlock == false);
 	}
 
+    /// <summary>
+    /// Signals to the network to store data for any future use. Must be provided in a " - " separated string (since that's the only way to serialize it...)
+    /// </summary>
     [Rpc(SendTo.ClientsAndHost)]
     public void StoreRpc(string list)
     {
@@ -614,6 +754,9 @@ public class GameManager : NetworkBehaviour
 		shuffledList = new(list1);
     }
 
+	/// <summary>
+	/// Retrieves a list of all existing HandCards for the current player
+	/// </summary>
 	public List<HandCard> GetHandCards()
 	{
 		List<HandCard> ret = new();
