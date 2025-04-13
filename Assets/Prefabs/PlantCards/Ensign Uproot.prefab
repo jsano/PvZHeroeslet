@@ -10,24 +10,24 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1812251758246606002, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1151371281
+      value: 1691705894
       objectReference: {fileID: 0}
     - target: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Name
-      value: Dolphinado
+      value: Ensign Uproot
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.024
+      value: 1.0133333
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.024
+      value: 1.3266667
       objectReference: {fileID: 0}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 53621b257ddf7304eab189de312e527a, type: 3}
+      objectReference: {fileID: 21300000, guid: 9e18b3f7ae10fa849a895fc264db3980, type: 3}
     - target: {fileID: 9186367323209674846, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -119,14 +119,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 689700056901760903}
+      addedObject: {fileID: 8670258283774609704}
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
 --- !u!1 &3964835505542182985 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
   m_PrefabInstance: {fileID: 2238586215414733447}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &689700056901760903
+--- !u!114 &8670258283774609704
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,18 +135,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3964835505542182985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cf43a1a5e77e5741a4da70ea0066f44, type: 3}
+  m_Script: {fileID: 11500000, guid: f45054d112435e644b4d06c487d18da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 1
-  type: 1
-  _class: 5
-  tribes: 21000000
+  team: 0
+  type: 0
+  _class: 0
+  tribes: 1c00000021000000
   token: 0
   cost: 1
-  atk: 0
-  HP: 0
-  amphibious: 0
+  atk: 2
+  HP: 2
+  amphibious: 1
   antihero: 0
   armor: 0
   bullseye: 0
@@ -162,7 +162,7 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: Bounce a plant
+  description: 'When played: Move another plant or zombie'
   row: 0
   col: 0
   playedCost: 0

@@ -59,19 +59,19 @@ PrefabInstance:
     - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: 'superpowers.Array.data[0]'
       value: 
-      objectReference: {fileID: -2337393406904162748, guid: a0c591c4b16bd5a43ac57c53e52a12bf, type: 3}
+      objectReference: {fileID: 4357448545809571054, guid: 1a034175ee1e9b143b201c24e86c6943, type: 3}
     - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: 'superpowers.Array.data[1]'
       value: 
-      objectReference: {fileID: 2498527900604784879, guid: 7830abc4065daa94a987ef5b0292d121, type: 3}
+      objectReference: {fileID: 4598145513162874362, guid: 2e09a95863e011c449cde566445d42df, type: 3}
     - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: 'superpowers.Array.data[2]'
       value: 
-      objectReference: {fileID: 4357448545809571054, guid: 1a034175ee1e9b143b201c24e86c6943, type: 3}
+      objectReference: {fileID: 2498527900604784879, guid: 7830abc4065daa94a987ef5b0292d121, type: 3}
     - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: 'superpowers.Array.data[3]'
       value: 
-      objectReference: {fileID: 4598145513162874362, guid: 2e09a95863e011c449cde566445d42df, type: 3}
+      objectReference: {fileID: -2337393406904162748, guid: a0c591c4b16bd5a43ac57c53e52a12bf, type: 3}
     - target: {fileID: 5654879218325174664, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -178,8 +178,8 @@ public class Card : Damagable
 				{
 					if (bc.bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition)))
 					{
-                        StartCoroutine(OnSelection(bc));
                         selected = true;
+                        StartCoroutine(OnSelection(bc));
                         break;
 					}
 				}

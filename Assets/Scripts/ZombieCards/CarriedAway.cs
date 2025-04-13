@@ -7,15 +7,15 @@ public class CarriedAway : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
+		for (int col = 0; col < 5; col++)
+		{
+			if (Tile.zombieTiles[0, col].planted == null && (col != 5 || Tile.zombieTiles[0, this.col].planted.amphibious))
+			{
+				choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
+			}
+		}
 		if (GameManager.Instance.team == team)
 		{
-			for (int col = 0; col < 5; col++)
-			{
-				if (Tile.zombieTiles[0, col].planted == null && (col != 5 || Tile.zombieTiles[0, this.col].planted.amphibious))
-				{
-					choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
-				}
-			}
 			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
 			if (choices.Count >= 2)
 			{

@@ -7,18 +7,18 @@ public class BubbleUp : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		if (GameManager.Instance.team == team)
+		for (int i = 0; i < 2; i++)
 		{
-			for (int i = 0; i < 2; i++)
+			for (int j = 0; j < 5; j++)
 			{
-				for (int j = 0; j < 5; j++)
+				if (Tile.CanPlantInCol(j, Tile.plantTiles, teamUp, amphibious))
 				{
-					if (Tile.CanPlantInCol(j, Tile.plantTiles, teamUp, amphibious))
-					{
-						choices.Add(Tile.plantTiles[i, j].GetComponent<BoxCollider2D>());
-					}
+					choices.Add(Tile.plantTiles[i, j].GetComponent<BoxCollider2D>());
 				}
 			}
+		}
+		if (GameManager.Instance.team == team)
+		{
 			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
 			if (choices.Count >= 2)
 			{
