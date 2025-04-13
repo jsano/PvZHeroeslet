@@ -23,10 +23,13 @@ public class DeckBuilder : MonoBehaviour
     public static string deckName;
     private Deck deck;
     public Transform deckCards;
-    public Transform superpowers;
+    public Transform superpowersUI;
     public Transform allDeckCards;
     public GameObject deckCardPrefab;
     public GameObject superpowerCardPrefab;
+
+    public Transform[] positions;
+    private List<Transform> superpowerCards = new();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -45,10 +48,12 @@ public class DeckBuilder : MonoBehaviour
             }
         }
 
-        foreach (int id in deck.superpowerOrder)
+        for (int i = 0; i < deck.superpowerOrder.Count; i++)
         {
-            SuperpowerDeckCard d = Instantiate(superpowerCardPrefab, superpowers).GetComponent<SuperpowerDeckCard>();
-            d.ID = id;
+            SuperpowerDeckCard d = Instantiate(superpowerCardPrefab, superpowersUI).GetComponent<SuperpowerDeckCard>();
+            d.ID = deck.superpowerOrder[i];
+            d.transform.localPosition = positions[i].localPosition;
+            superpowerCards.Add(d.transform);
         }
 
         for (int i = 0; i < AllCards.Instance.cards.Length; i++)
@@ -97,13 +102,22 @@ public class DeckBuilder : MonoBehaviour
     public void UpdateSuperpowerOrder(Transform t, int id)
     {
         deck.superpowerOrder.Remove(id);
-        foreach (Transform s in superpowers)
+        for (int i = 0; i < positions.Length - 1; i++)
         {
-            if (t.localPosition.x < s.localPosition.x)
+            if (Mathf.Abs(t.localPosition.x - positions[i].localPosition.x) < Mathf.Abs(t.localPosition.x - positions[i+1].localPosition.x))
             {
-                deck.superpowerOrder.Insert(s.GetSiblingIndex(), id);
+                deck.superpowerOrder.Insert(i, id);
                 break;
             }
+        }
+        for (int i = 0; i < deck.superpowerOrder.Count; i++)
+        {
+            foreach (Transform t1 in superpowerCards) if (t1.GetComponent<SuperpowerDeckCard>().ID == deck.superpowerOrder[i])
+                {
+                    t1.localPosition = positions[i].localPosition;
+                    break;
+                }
+            
         }
 
         string result = "";

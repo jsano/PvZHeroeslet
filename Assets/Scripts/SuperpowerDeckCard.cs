@@ -27,7 +27,7 @@ public class SuperpowerDeckCard : MonoBehaviour, IDragHandler, IPointerUpHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = transform.parent.InverseTransformPoint((Vector2)Camera.main.ScreenToWorldPoint(eventData.position));
+        transform.position = (Vector2)Camera.main.ScreenToWorldPoint(eventData.position);
     }
 
     public void OnPointerUp(PointerEventData eventData)
