@@ -11,7 +11,6 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
     public int ID;
     private Card orig;
-    private Camera cam;
     private Vector2 startPos;
     private Tile[,] tileObjects;
 	private List<BoxCollider2D> validChoices = new();
@@ -70,19 +69,19 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     public void OnDrag(PointerEventData eventData)
     {
         if (!interactable) return;
-        transform.position = (Vector2) cam.ScreenToWorldPoint(eventData.position);
+        transform.position = (Vector2) Camera.main.ScreenToWorldPoint(eventData.position);
 		foreach (BoxCollider2D bc in validChoices)
 		{
             Tile t = bc.GetComponent<Tile>();
             if (t == null) continue; // TODO: change
-            if (bc.bounds.Contains((Vector2)cam.ScreenToWorldPoint(eventData.position))) t.ToggleHighlight(true);
+            if (bc.bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position))) t.ToggleHighlight(true);
             else t.ToggleHighlight(false);
 		}
 	}
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (!eventData.dragging) cardInfo.Show(AllCards.Instance.cards[ID], finalStats);
+        if (!eventData.dragging) cardInfo.Show(orig);
         if (!interactable) return;
         transform.localScale = Vector3.one;
         GetComponent<SpriteRenderer>().sortingOrder -= 10;
@@ -93,7 +92,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         {
             Tile t = bc.GetComponent<Tile>();
 			if (t != null) t.ToggleHighlight(false);
-            if (bc.bounds.Contains((Vector2) cam.ScreenToWorldPoint(eventData.position)))
+            if (bc.bounds.Contains((Vector2) Camera.main.ScreenToWorldPoint(eventData.position)))
             {
                 if (orig.type == Card.Type.Unit)
                 {
@@ -108,10 +107,10 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                 }
             }
         }
-        if (GameManager.Instance.waitingOnBlock && transform.parent.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)cam.ScreenToWorldPoint(eventData.position)))
+        if (GameManager.Instance.waitingOnBlock && transform.parent.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position)))
         {
             
-            startPos = cam.ScreenToWorldPoint(eventData.position);
+            startPos = Camera.main.ScreenToWorldPoint(eventData.position);
             interactable = false;
             ChangeCost(1);
             GameManager.Instance.HoldTrickRpc(GameManager.Instance.team);
@@ -122,7 +121,6 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     // Start is called before the first frame update
     void Start()
     {
-        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         orig = AllCards.Instance.cards[ID];
 		image.sprite = orig.GetComponent<SpriteRenderer>().sprite;
         if (finalStats == null) finalStats = FinalStats.MakeDefaultFS(ID);

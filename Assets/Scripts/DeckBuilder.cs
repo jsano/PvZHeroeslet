@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,13 +23,17 @@ public class DeckBuilder : MonoBehaviour
     public static string deckName;
     private Deck deck;
     public Transform deckCards;
+    public Transform superpowers;
     public Transform allDeckCards;
     public GameObject deckCardPrefab;
+    public GameObject superpowerCardPrefab;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         deck = UserAccounts.allDecks[deckName];
+
+        transform.Find("Title").GetComponent<TextMeshProUGUI>().text = deckName;
 
         foreach (int id in deck.cards.Keys)
         {
@@ -38,6 +43,12 @@ public class DeckBuilder : MonoBehaviour
                 d.ID = id;
                 d.hideButtons = true;
             }
+        }
+
+        foreach (int id in deck.superpowerOrder)
+        {
+            SuperpowerDeckCard d = Instantiate(superpowerCardPrefab, superpowers).GetComponent<SuperpowerDeckCard>();
+            d.ID = id;
         }
 
         for (int i = 0; i < AllCards.Instance.cards.Length; i++)
@@ -81,6 +92,26 @@ public class DeckBuilder : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void UpdateSuperpowerOrder(Transform t, int id)
+    {
+        deck.superpowerOrder.Remove(id);
+        foreach (Transform s in superpowers)
+        {
+            if (t.localPosition.x < s.localPosition.x)
+            {
+                deck.superpowerOrder.Insert(s.GetSiblingIndex(), id);
+                break;
+            }
+        }
+
+        string result = "";
+        foreach (var item in deck.superpowerOrder)
+        {
+            result += item.ToString() + "  ";
+        }
+        Debug.Log(result);
     }
 
     public void Confirm()

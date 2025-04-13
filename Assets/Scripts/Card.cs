@@ -122,7 +122,6 @@ public class Card : Damagable
 
     protected bool selected = true;
 	protected List<BoxCollider2D> choices = new();
-	private Camera cam;
 
     private bool frozen;
 
@@ -141,7 +140,6 @@ public class Card : Damagable
     // Start is called before the first frame update
     void Start()
     {
-		cam = GameObject.Find("Main Camera").GetComponent<Camera>();
 		SR = GetComponent<SpriteRenderer>();
         baseSprite = SR.sprite;
         maxHP = HP;
@@ -178,7 +176,7 @@ public class Card : Damagable
 			{
 				foreach (BoxCollider2D bc in choices)
 				{
-					if (bc.bounds.Contains((Vector2)cam.ScreenToWorldPoint(Input.mousePosition)))
+					if (bc.bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition)))
 					{
                         StartCoroutine(OnSelection(bc));
                         selected = true;
