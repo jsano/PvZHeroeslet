@@ -12,7 +12,7 @@ public class EnsignUproot : Card
 		for (int row = 0; row < 2; row++)
 			for (int col = 0; col < 5; col++)
 			{
-				if (Tile.plantTiles[row, col].HasRevealedPlanted()) choices.Add(Tile.plantTiles[0, col].GetComponent<BoxCollider2D>());
+				if (Tile.plantTiles[row, col].HasRevealedPlanted() && Tile.plantTiles[row, col].planted != this) choices.Add(Tile.plantTiles[row, col].GetComponent<BoxCollider2D>());
                 if (Tile.zombieTiles[row, col].HasRevealedPlanted()) choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
             }
 		if (GameManager.Instance.team == team)
@@ -24,6 +24,7 @@ public class EnsignUproot : Card
 			}
 		}
         if (choices.Count > 0) GameManager.Instance.selecting = true;
+		Debug.Log(selected);
 		yield return base.OnThisPlay();
 	}
 

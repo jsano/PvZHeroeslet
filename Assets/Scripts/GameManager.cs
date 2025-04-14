@@ -81,7 +81,7 @@ public class GameManager : NetworkBehaviour
     /// </summary>
     [HideInInspector] public bool waitingOnBlock = false;
     /// <summary>
-    /// Halt game flow if a player is selecting a choice (ex. from moving a card). Within an RPC, set this to true using <c>EndSelectingRpc</c>
+    /// Halt game flow if a player is selecting a choice (ex. from moving a card). Within an RPC, set this to true using <c>EndSelectingRpc</c> and game flow will imeediately resume
     /// </summary>
     [HideInInspector] public bool selecting = false;
     /// <summary>
