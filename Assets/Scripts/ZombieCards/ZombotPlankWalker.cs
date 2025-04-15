@@ -26,7 +26,7 @@ public class ZombotPlankWalker : Card
 		    {
                 int c = AllCards.RandomFromTribe((Tribe.Pirate, Tribe.Pirate), true, columns[i] == 4);
                 while (c == AllCards.NameToID("Zombot Plank Walker")) c = AllCards.RandomFromTribe((Tribe.Pirate, Tribe.Pirate), true, columns[i] == 4);
-                GameManager.Instance.PlayCardRpc(FinalStats.MakeDefaultFS(c), 0, columns[i], true);
+                GameManager.Instance.PlayCardRpc(new FinalStats(c), 0, columns[i], true);
             }
         }
 

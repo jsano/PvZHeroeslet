@@ -25,8 +25,8 @@ public class Spawn2 : Card
                 columns[n] = columns[k];
                 columns[k] = temp;
             }
-            GameManager.Instance.PlayCardRpc(FinalStats.MakeDefaultFS(AllCards.NameToID(toPlay.name)), 0, col, true);
-            if (columns.Count > 0) GameManager.Instance.PlayCardRpc(FinalStats.MakeDefaultFS(AllCards.NameToID(toPlay.name)), 0, columns[0], true);
+            GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.NameToID(toPlay.name)), 0, col, true);
+            if (columns.Count > 0) GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.NameToID(toPlay.name)), 0, columns[0], true);
         }
         yield return base.OnThisPlay();
 	}

@@ -20,10 +20,10 @@ public class SuperpowerDeckCard : MonoBehaviour, IDragHandler, IPointerUpHandler
         cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
     }
 
-    public void ShowCardInfo()
+    /*public void ShowCardInfo()
     {
         cardInfo.Show(AllCards.Instance.cards[ID]);
-    }
+    }*/
 
     public void OnDrag(PointerEventData eventData)
     {

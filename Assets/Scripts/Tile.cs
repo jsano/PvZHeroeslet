@@ -85,8 +85,8 @@ public class Tile : MonoBehaviour
 
         for (int i = 0; i < 2; i++)
         {
-            if (plantTiles[i, col].HasRevealedPlanted()) plantTiles[i, col].planted.UpdateAntihero();
-            if (zombieTiles[i, col].HasRevealedPlanted()) zombieTiles[i, col].planted.UpdateAntihero();
+            if (plantTiles[i, col].HasRevealedPlanted() && plantTiles[i, col].planted != c) plantTiles[i, col].planted.UpdateAntihero();
+            if (zombieTiles[i, col].HasRevealedPlanted() && zombieTiles[i, col].planted != c) zombieTiles[i, col].planted.UpdateAntihero();
         }
     }
 

@@ -30,7 +30,7 @@ public class Disco : Card
 	{
 		yield return new WaitForSeconds(1);
 		Tile t = bc.GetComponent<Tile>();
-		GameManager.Instance.PlayCardRpc(FinalStats.MakeDefaultFS(AllCards.NameToID("Backup Dancer")), t.row, t.col, true);
+		GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.NameToID("Backup Dancer")), t.row, t.col, true);
 		GameManager.Instance.EndSelectingRpc();
     }
 

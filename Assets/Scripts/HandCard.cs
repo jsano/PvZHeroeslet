@@ -101,7 +101,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         // Show card UI if it wasn't currently dragging. Only play if it was dragging
         if (!eventData.dragging)
         {
-            cardInfo.Show(orig);
+            cardInfo.Show(orig, finalStats);
             return;
         }
         if (!interactable) return;
@@ -149,7 +149,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         orig = AllCards.Instance.cards[ID];
 		image.sprite = orig.GetComponent<SpriteRenderer>().sprite;
         // If no stat override was given, use the prefab values
-        if (finalStats == null) finalStats = FinalStats.MakeDefaultFS(ID);
+        if (finalStats == null) finalStats = new FinalStats(ID);
 
         if (orig.type == Card.Type.Trick)
         {

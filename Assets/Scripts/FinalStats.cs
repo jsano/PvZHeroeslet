@@ -29,21 +29,21 @@ public class FinalStats : INetworkSerializable
     }
 
     /// <summary>
-    /// Creates a FinalStats instance with the default prefab values for the given card ID. Use whenever a card should just be played normally with no extra effects going on
+    /// Creates a FinalStats instance with the default prefab values for the given card ID
     /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public static FinalStats MakeDefaultFS(int id)
+    public FinalStats(int id)
     {
         Card c = AllCards.Instance.cards[id];
-        return new FinalStats()
-        {
-            hp = c.HP,
-            atk = c.atk,
-            abilities = "",
-            ID = id,
-            cost = c.cost,
-        };
+        hp = c.HP;
+        atk = c.atk;
+        abilities = "";
+        ID = id;
+        cost = c.cost;
+    }
+
+    public FinalStats()
+    {
+
     }
 
 }
