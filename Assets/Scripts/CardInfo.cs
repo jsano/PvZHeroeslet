@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.VisualScripting.Member;
 
 public class CardInfo : MonoBehaviour
 {
@@ -73,7 +74,8 @@ public class CardInfo : MonoBehaviour
 		if (baseCard.untrickable) description.text += "Untrickable\n";
 		description.text += baseCard.description;
 
-		gained.text = "";
+		Debug.Log(source.sourceFS == null);
+        gained.text = "";
 		if (source.sourceFS != null || fs != null)
 		{
 			FinalStats fs1 = fs == null ? source.sourceFS : fs;

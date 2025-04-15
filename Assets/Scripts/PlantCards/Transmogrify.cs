@@ -11,7 +11,7 @@ public class Transmogrify : Card
 		Tile.zombieTiles[row, col].Unplant(true);
 		yield return new WaitForSeconds(1);
 		Destroy(toDestroy.gameObject);
-		if (GameManager.Instance.team == team) GameManager.Instance.PlayCardRpc(FinalStats.MakeDefaultFS(AllCards.RandomFromCost(Team.Zombie, (1, 1), true, col == 4)), row, col, true);
+		if (GameManager.Instance.team == team) GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.RandomFromCost(Team.Zombie, (1, 1), true, col == 4)), row, col, true);
 		yield return base.OnThisPlay();
 	}
 

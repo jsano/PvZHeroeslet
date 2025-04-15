@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static Unity.VisualScripting.Member;
 
 public class Card : Damagable
 {
@@ -115,7 +114,7 @@ public class Card : Damagable
     /// <summary>
     /// Different from <c>cost</c> where this is the amount this card was actually played for (after all deductions, etc.)
     /// </summary>
-    [HideInInspector] public int playedCost;
+    public int playedCost { get; private set; }
     /// <summary>
     /// The FinalStats instance this got its stats from. Ok to be null (and will be if it's instantiated by another card)
     /// </summary>
@@ -160,10 +159,33 @@ public class Card : Damagable
     {
 		SR = GetComponent<SpriteRenderer>();
         baseSprite = SR.sprite;
-        //TODO: maybe populate stats using sourceFS instead of doing it at PlayCardRpc (this also allows them to be readonly fields)
-        maxHP = HP;
         baseHP = HP;
         baseAtk = atk;
+
+        if (sourceFS != null)
+        {
+            atk = sourceFS.atk;
+            HP = sourceFS.hp;
+            string[] abilities = sourceFS.abilities.Split(" - ", StringSplitOptions.RemoveEmptyEntries);
+            foreach (string s in abilities)
+            {
+                string name = "";
+                string value = "";
+                for (int i = 0; i < s.Length; i++)
+                {
+                    if (char.IsDigit(s[i])) value += s[i];
+                    else name += s[i];
+                }
+                GetType().GetField(name).SetValue(this, value.Length == 0 ? true : int.Parse(value));
+            }
+            playedCost = sourceFS.cost;
+        }
+        // The only way for a card to not have a FinalStats is if it was instantiated by something, in which case it should always be free
+        else playedCost = 0;
+        maxHP = HP;
+
+        UpdateAntihero();
+
         atkUI = transform.Find("ATK").GetComponent<TextMeshProUGUI>();
         hpUI = transform.Find("HP").GetComponent<TextMeshProUGUI>();
         if (type == Type.Unit)

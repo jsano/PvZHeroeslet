@@ -439,56 +439,31 @@ public class GameManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     public void PlayCardRpc(FinalStats fs, int row, int col, bool free=false)
     {
+		if (free) fs.cost = 0;
 		Card card = AllCards.Instance.cards[fs.ID];
         if (card.team != team)
         {
 			// From the opponent's perspective, only deduct the gold UI if it's not a gravestone
-			if (!free)
-			{
-				if (!card.gravestone)
-				{
-					UpdateRemaining(-fs.cost, card.team);
-				} else card.playedCost = fs.cost;
-			}
+			if (!card.gravestone) UpdateRemaining(-fs.cost, card.team);
         }
         else
         {
             // From the player's perspective, always deduct the gold UI
-            if (!free) UpdateRemaining(-fs.cost, team);
+            UpdateRemaining(-fs.cost, team);
         }
 		
 		card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
-        card.atk = fs.atk;
-        card.HP = fs.hp;
-		string[] abilities = fs.abilities.Split(" - ", StringSplitOptions.RemoveEmptyEntries);
-		foreach (string s in abilities)
-		{
-			string name = "";
-			string value = "";
-			for (int i = 0; i < s.Length; i++)
-			{
-				if (char.IsDigit(s[i])) value += s[i];
-				else name += s[i];
-			}
-			card.GetType().GetField(name).SetValue(card, value.Length == 0 ? true : int.Parse(value));
-		}
 		card.sourceFS = fs;
 
-        if (card.team == Team.Zombie)
-        {
-			Tile.zombieTiles[row, col].Plant(card);
-        }
-        else
-        {
-			Tile.plantTiles[row, col].Plant(card);
-		}
+        if (card.team == Team.Zombie) Tile.zombieTiles[row, col].Plant(card);
+        else Tile.plantTiles[row, col].Plant(card);
 
         // Disable after 1 card play by default
         allowZombieCards = false;
     }
 
     /// <summary>
-    /// Sends a trick to be played through the network under the given FinalStats, row, and column
+    /// Sends a trick to be played through the network under the given FinalStats, row, and column. If targeting a hero, set row/column to -1
     /// </summary>
     /// <param name="fs">The played card's stats</param>
     /// <param name="isPlantTarget">Whether the given row/column represents the plant or zombie side of the board</param>
@@ -498,26 +473,16 @@ public class GameManager : NetworkBehaviour
 		Card card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
 		card.row = row;
 		card.col = col;
-		card.atk = fs.atk;
-		card.HP = fs.hp;
 		card.sourceFS = fs;
 		if (!isPlantTarget)
 		{
             if (row == -1 && col == -1) card.transform.position = zombieHero.transform.position;
-            else
-            {
-                Tile to = Tile.zombieTiles[row, col];
-			    card.transform.position = to.transform.position;
-            }
+            else card.transform.position = Tile.zombieTiles[row, col].transform.position;
 		}
 		else
 		{
             if (row == -1 && col == -1) card.transform.position = plantHero.transform.position;
-            else
-            {
-				Tile to = Tile.plantTiles[row, col];
-			    card.transform.position = to.transform.position;
-            }
+            else card.transform.position = Tile.plantTiles[row, col].transform.position;
 		}
 
 		UpdateRemaining(-fs.cost, card.team);
@@ -736,7 +701,7 @@ public class GameManager : NetworkBehaviour
 			HandCard hc = c.GetComponent<HandCard>();
 			hc.ID = UserAccounts.allDecks[UserAccounts.GameStats.DeckName].superpowerOrder[superpowerIndex];
             hc.interactable = true;
-			FinalStats fs = FinalStats.MakeDefaultFS(hc.ID);
+			FinalStats fs = new FinalStats(hc.ID);
 			fs.cost = 0;
 			hc.OverrideFS(fs);
 			c.SetActive(true);
