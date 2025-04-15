@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Plants can't be hurt this turn. Draw a card
+  lore: Orange you glad Citron is here to protect you?
   row: 0
   col: 0
   playedCost: 0

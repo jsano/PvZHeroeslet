@@ -164,6 +164,7 @@ MonoBehaviour:
   freeze: 0
   description: Make a Button Mushroom in the lane of your choice and one in a random
     lane
+  lore: One good mushroom deserves another.
   row: 0
   col: 0
   playedCost: 0

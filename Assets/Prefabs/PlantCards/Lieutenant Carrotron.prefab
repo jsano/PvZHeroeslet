@@ -163,6 +163,8 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: 'When played: Conjure a Root'
+  lore: Beta-Carrotina knows she can always count on him to get to the root of the
+    problem.
   row: 0
   col: 0
   playedCost: 0

@@ -179,6 +179,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: 'When played: Make a random plant in each other lane'
+  lore: Thanksgiving came early this year.
   row: 0
   col: 0
   playedCost: 0

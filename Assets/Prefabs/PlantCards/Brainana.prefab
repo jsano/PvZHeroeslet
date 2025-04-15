@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 7a3512f83bdd35a4e8744e1677f12167, type: 3}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9186367323209674846, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Pivot.x
@@ -179,7 +179,8 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: 'When played: The zombie hero loses their brains'
+  lore: In this case, "brain drain" is a good thing.
   row: 0
   col: 0
   playedCost: 0
-  playState: 1
+  specialHandCard: {fileID: 0}

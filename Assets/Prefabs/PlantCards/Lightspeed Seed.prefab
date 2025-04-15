@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Conjure two tricks
+  lore: Make the jump to light seed.
   row: 0
   col: 0
   playedCost: 0

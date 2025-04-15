@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Your hero can't be hurt this turn. Draw a card
+  lore: Wall-Knight laughs, "A thousand broken nutcrackers tell the story."
   row: 0
   col: 0
   playedCost: 0

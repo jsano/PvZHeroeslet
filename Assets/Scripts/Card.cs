@@ -108,6 +108,7 @@ public class Card : Damagable
     public bool freeze;
 
     public string description;
+    public string lore;
 
     [HideInInspector] public int row;
     [HideInInspector] public int col;

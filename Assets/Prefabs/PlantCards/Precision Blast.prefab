@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Attack for 5 damage in the middle lane
+  lore: Green Shadow's approach is right down the middle.
   row: 0
   col: 0
   playedCost: 0

@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: A plant gets +3 attack +3 HP
+  lore: Stinky, sure, but powerful stuff. Ask any Plant.
   row: 0
   col: 0
   playedCost: 0

@@ -151,6 +151,8 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: 'When played: Make Lil'' Buddies here and next door'
+  lore: Makes friends wherever she goes.
   row: 0
   col: 0
   playedCost: 0
+  specialHandCard: {fileID: 0}

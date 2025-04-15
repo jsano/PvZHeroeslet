@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Move a plant. It gets +4 HP
+  lore: Who doesn't like bubbles? Zombies...that's who.
   row: 0
   col: 0
   playedCost: 0

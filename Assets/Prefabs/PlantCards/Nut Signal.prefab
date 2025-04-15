@@ -162,7 +162,8 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: Make a Wall-nut. Draw a card
+  description: Make a Wall-Nut. Draw a card
+  lore: Call on Wall-Nut any time. His schedule is wide open.
   row: 0
   col: 0
   playedCost: 0

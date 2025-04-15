@@ -163,6 +163,8 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Do 3 damage to a zombie
+  lore: You would think this would be especially effective against Zombies riding
+    dinosaurs...
   row: 0
   col: 0
   playedCost: 0

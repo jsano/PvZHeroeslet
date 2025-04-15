@@ -179,6 +179,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: 'When played: Heal your hero for 2'
+  lore: Wait, you want me to go in *front*?!?
   row: 0
   col: 0
   playedCost: 0

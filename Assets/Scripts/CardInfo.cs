@@ -17,6 +17,7 @@ public class CardInfo : MonoBehaviour
 	public TextMeshProUGUI tribes;
 	public TextMeshProUGUI description;
     public TextMeshProUGUI gained;
+	public TextMeshProUGUI lore;
 
     public Button exit;
 
@@ -97,6 +98,9 @@ public class CardInfo : MonoBehaviour
 				if (s.Contains("untrickable")) gained.text += "Gained Untrickable\n";
 			}
 		}
+
+		lore.text = "";
+		lore.text += baseCard.lore;
     }
 
     private int ExtractValue(string s)

@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: A plant gets +2 HP and can't be hurt this turn
+  lore: A good way to root for the Plants.
   row: 0
   col: 0
   playedCost: 0

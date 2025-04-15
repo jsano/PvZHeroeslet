@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: A plant gets +2 attack +2 HP
+  lore: Livin' large, oh yeah.
   row: 0
   col: 0
   playedCost: 0

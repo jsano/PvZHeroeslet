@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 65bc0aa5086bc2b46b5c5456c9a9d20f, type: 3}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9186367323209674846, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Pivot.x
@@ -177,8 +177,10 @@ MonoBehaviour:
   teamUp: 0
   untrickable: 0
   nextDoor: 0
+  freeze: 0
   description: 'When played: Transform all plants into Pineclones'
+  lore: It's nothing personal; she just prefers the company of other Pineclones.
   row: 0
   col: 0
   playedCost: 0
-  playState: 1
+  specialHandCard: {fileID: 0}

@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Make a Poison Mushroom. Do 2 damage to a zombie there
+  lore: Nightcap and his mushroom friends are not to be truffled with.
   row: 0
   col: 0
   playedCost: 0

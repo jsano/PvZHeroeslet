@@ -147,6 +147,8 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: 'When destroyed: Do 6 damage to a zombie here'
+  lore: Sure, he has an explosive temper. But for the most part, he's pretty even
+    peeled.
   row: 0
   col: 0
   playedCost: 0

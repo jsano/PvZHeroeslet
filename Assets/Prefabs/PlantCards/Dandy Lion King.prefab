@@ -179,6 +179,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: 'When played: Damage the zombie hero for half their health'
+  lore: He's developed a taste for Zombie Heroes.
   row: 0
   col: 0
   playedCost: 0

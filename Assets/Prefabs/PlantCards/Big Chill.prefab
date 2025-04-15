@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Freeze a zombie. Draw a card
+  lore: 'Discerning Plants agree: Zombies are best served on ice.'
   row: 0
   col: 0
   playedCost: 0
