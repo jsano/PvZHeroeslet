@@ -151,6 +151,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: 'Start of Turn: Double this plant''s attack and HP'
+  lore: He'll grow on you. Just give him time.
   row: 0
   col: 0
   playedCost: 0

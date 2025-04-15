@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: A plant does a bonus attack
+  lore: Makes you feel all warm, glowy, and like kickin' Zombie butt.
   row: 0
   col: 0
   playedCost: 0

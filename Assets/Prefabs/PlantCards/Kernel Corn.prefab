@@ -179,6 +179,9 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: 'When played: Do 4 damage to each zombie'
+  lore: What he lacks in a sense of humor, he makes up with attitude... and dual
+    Cob Busters.
   row: 0
   col: 0
   playedCost: 0
+  specialHandCard: {fileID: 0}

@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Transform a zombie with the highest attack into a 1/1 Goat
+  lore: Rose turns Zombies into goats because... GOATS!
   row: 0
   col: 0
   playedCost: 0

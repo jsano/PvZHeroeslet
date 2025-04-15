@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -1812251758246606002, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
@@ -41,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: a721150144d75f549a8119cc3f7329e3, type: 3}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9186367323209674846, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Pivot.x
@@ -129,6 +130,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4727676825280506715}
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
 --- !u!1 &6897621430999443371 stripped
 GameObject:
@@ -151,6 +158,7 @@ MonoBehaviour:
   type: 0
   _class: 2
   tribes: 0f000000
+  token: 0
   cost: 2
   atk: 1
   HP: 3
@@ -169,7 +177,10 @@ MonoBehaviour:
   teamUp: 0
   untrickable: 0
   nextDoor: 0
+  freeze: 0
   description: 'When played on heights: This gets +1 attack +1 HP'
+  lore: '"Coleslaw from above!"'
   row: 0
   col: 0
   playedCost: 0
+  specialHandCard: {fileID: 0}

@@ -152,6 +152,8 @@ MonoBehaviour:
   freeze: 1
   description: 'When played: Freeze a zombie\nWhen this hurts a zombie, freeze that
     zombie'
+  lore: Perfect for your winter picnics.
   row: 0
   col: 0
   playedCost: 0
+  specialHandCard: {fileID: 0}

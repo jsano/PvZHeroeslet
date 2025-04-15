@@ -163,6 +163,8 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Destroy a zombie with the lowest HP
+  lore: Chompzilla enjoys eating Zombies whole. She does not enjoy the indigestion
+    that follows.
   row: 0
   col: 0
   playedCost: 0

@@ -164,6 +164,7 @@ MonoBehaviour:
   freeze: 0
   description: Make a Wall-Nut in each ground lane. Attack for 6 damage in those
     lanes
+  lore: Ugly shoes not required!
   row: 0
   col: 0
   playedCost: 0

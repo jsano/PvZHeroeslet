@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Bounce a zombie
+  lore: There's no place like home. There's no place like home.
   row: 0
   col: 0
   playedCost: 0

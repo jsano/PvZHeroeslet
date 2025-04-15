@@ -18,11 +18,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.0133333
+      value: 0.8685714
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.3266667
+      value: 1.1371429
       objectReference: {fileID: 0}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Sprite
@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: 'When played: Move another plant or zombie'
+  lore: His mighty tractor beam is straight off the farm and out of this world.
   row: 0
   col: 0
   playedCost: 0

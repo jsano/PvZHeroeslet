@@ -25,6 +25,11 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      propertyPath: lore
+      value: Has been gently encouraging Cherry Bomb and Sour Grapes to attend his
+        meditation class.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: armor
       value: 1
       objectReference: {fileID: 0}

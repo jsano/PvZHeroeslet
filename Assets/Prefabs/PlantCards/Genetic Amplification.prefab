@@ -163,6 +163,8 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Conjure a 2-cost plant. It gets +2 attack +1 HP, Amphibious, and Team-Up
+  lore: The modifications are controversial, sure. But the results are hard to argue
+    with.
   row: 0
   col: 0
   playedCost: 0

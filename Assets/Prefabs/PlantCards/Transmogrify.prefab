@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Transform a zombie into a random zombie that costs 1 brain
+  lore: It's a life-changing experience. Actually, it's an everything-changing experience.
   row: 0
   col: 0
   playedCost: 0

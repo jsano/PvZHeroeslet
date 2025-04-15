@@ -163,6 +163,8 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: 'Dino-Roar: This gets +1 attack +1 HP'
+  lore: She's a banana first and a dinosaur second. But it's a close second.
   row: 0
   col: 0
   playedCost: 0
+  specialHandCard: {fileID: 0}

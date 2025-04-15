@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: A plant gets +4 attack
+  lore: Captain Combustible knows how to light a fire under his teammates.
   row: 0
   col: 0
   playedCost: 0

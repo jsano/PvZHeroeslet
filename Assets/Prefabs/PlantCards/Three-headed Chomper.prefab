@@ -179,6 +179,8 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: 'End of turn: Destroy all zombies here and next door'
+  lore: '"You know the old saying, ''Three heads are better than one''? Totally true."'
   row: 0
   col: 0
   playedCost: 0
+  specialHandCard: {fileID: 0}

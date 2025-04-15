@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: All plants get +1 attack +1 HP
+  lore: Bad for your picnic. Good for your plants.
   row: 0
   col: 0
   playedCost: 0

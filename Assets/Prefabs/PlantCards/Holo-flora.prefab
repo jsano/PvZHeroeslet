@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Draw two cards
+  lore: You got Plants!
   row: 0
   col: 0
   playedCost: 0

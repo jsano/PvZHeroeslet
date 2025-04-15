@@ -179,6 +179,8 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: When a zombie hurts a Flower, destroy that zombie
+  lore: '"You mess with the rose, you get the thorns!"'
   row: 0
   col: 0
   playedCost: 0
+  specialHandCard: {fileID: 0}

@@ -164,6 +164,7 @@ MonoBehaviour:
   freeze: 0
   description: 'Make a 1 Health Hothead that says "Team-Up. When destroyed: Do 6
     damage to a zombie here"'
+  lore: Spudow is one tranquil tuber. Still, sometimes he loses his head.
   row: 0
   col: 0
   playedCost: 0

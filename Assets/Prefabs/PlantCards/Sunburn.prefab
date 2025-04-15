@@ -164,6 +164,7 @@ MonoBehaviour:
   freeze: 0
   description: Do 1 damage, and get +1 sun for the rest of the game\nIf played at
     turn 6 or later, get +2 sun for the rest of the game instead
+  lore: Solar Flare never met a sunscreen strong enough to stop her.
   row: 0
   col: 0
   playedCost: 0

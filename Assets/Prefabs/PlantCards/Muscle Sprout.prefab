@@ -110,7 +110,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 0f266e2daa221c54b8d9394070ba6d38, type: 3}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
@@ -161,8 +161,10 @@ MonoBehaviour:
   teamUp: 0
   untrickable: 0
   nextDoor: 0
+  freeze: 0
   description: This gets +1 attack +1 HP when you play a plant
+  lore: '"Can you spot me, bro?"'
   row: 0
   col: 0
   playedCost: 0
-  playState: 1
+  specialHandCard: {fileID: 0}

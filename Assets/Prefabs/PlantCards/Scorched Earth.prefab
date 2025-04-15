@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: All zombies on the ground get -1 attack -1 HP
+  lore: Unfortunately the Zombies were all out of SPF 9000.
   row: 0
   col: 0
   playedCost: 0

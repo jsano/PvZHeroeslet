@@ -163,6 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Heal your hero and all plants for 4
+  lore: H2Oh no you didn't!
   row: 0
   col: 0
   playedCost: 0
