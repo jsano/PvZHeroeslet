@@ -11,8 +11,17 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
     public int ID;
     private Card orig;
+    /// <summary>
+    /// The starting position that this should snap back to when let go
+    /// </summary>
     private Vector2 startPos;
+    /// <summary>
+    /// The reference to the Tile array that represents the player's half of the board
+    /// </summary>
     private Tile[,] tileObjects;
+    /// <summary>
+    /// All of the valid tiles/heroes that this can legally be played on
+    /// </summary>
 	private List<BoxCollider2D> validChoices = new();
 
     private CardInfo cardInfo;
@@ -25,6 +34,10 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
     private FinalStats finalStats;
 
+    /// <summary>
+    /// If this HandCard should have different stats than its prefab values, then call this right after instantiating. Otherwise it'll use the prefab values
+    /// </summary>
+    /// <param name="fs"></param>
     public void OverrideFS(FinalStats fs)
     {
         finalStats = fs;
@@ -36,13 +49,16 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         if (!interactable) return;
         transform.localScale = Vector3.one * 1.2f;
 
+        // Layer this above all other handcards
         GetComponent<SpriteRenderer>().sortingOrder += 10;
         image.sortingOrder += 10;
         atkUI.transform.parent.GetComponent<Canvas>().sortingOrder += 10;
 
+        // Recalculate at every pointer down since the board state can change throughout the game
         validChoices.Clear();
         if (orig.type == Card.Type.Trick)
         {
+            // If this is a trick, use its IsValidTarget method to determine where it can be played
 			foreach (Tile t in Tile.plantTiles) if (orig.IsValidTarget(t.GetComponent<BoxCollider2D>())) validChoices.Add(t.GetComponent<BoxCollider2D>());
 			foreach (Tile t in Tile.zombieTiles) if (orig.IsValidTarget(t.GetComponent<BoxCollider2D>())) validChoices.Add(t.GetComponent<BoxCollider2D>());
             if (orig.IsValidTarget(GameManager.Instance.plantHero.GetComponent<BoxCollider2D>())) validChoices.Add(GameManager.Instance.plantHero.GetComponent<BoxCollider2D>());
@@ -50,6 +66,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 		}
         else
         {
+            // If this is a trick, first see if a column has at least 1 space where it can be planted, then see which one(s)
             for (int i = 0; i < 2; i++)
             {
                 for (int j = 0; j < 5; j++)
@@ -81,13 +98,20 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (!eventData.dragging) cardInfo.Show(orig);
+        // Show card UI if it wasn't currently dragging. Only play if it was dragging
+        if (!eventData.dragging)
+        {
+            cardInfo.Show(orig);
+            return;
+        }
         if (!interactable) return;
         transform.localScale = Vector3.one;
+        // Revert layering from pointer down
         GetComponent<SpriteRenderer>().sortingOrder -= 10;
         image.sortingOrder -= 10;
         atkUI.transform.parent.GetComponent<Canvas>().sortingOrder -= 10;
 
+        // If the pointer let go at a valid choice, play this card
         foreach (BoxCollider2D bc in validChoices)
         {
             Tile t = bc.GetComponent<Tile>();
@@ -107,10 +131,11 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                 }
             }
         }
+        // If this is a superpower HandCard created from a block, hold on to it if the pointer let go at the "HandCard area"
         if (GameManager.Instance.waitingOnBlock && transform.parent.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position)))
         {
             
-            startPos = Camera.main.ScreenToWorldPoint(eventData.position);
+            startPos = Camera.main.ScreenToWorldPoint(eventData.position); // TODO: change
             interactable = false;
             ChangeCost(1);
             GameManager.Instance.HoldTrickRpc(GameManager.Instance.team);
@@ -123,6 +148,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     {
         orig = AllCards.Instance.cards[ID];
 		image.sprite = orig.GetComponent<SpriteRenderer>().sprite;
+        // If no stat override was given, use the prefab values
         if (finalStats == null) finalStats = FinalStats.MakeDefaultFS(ID);
 
         if (orig.type == Card.Type.Trick)
@@ -194,7 +220,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     /// <summary>
     /// Called whenever a card on the field is hurt
     /// </summary>
-    /// <param name="hurt"> [The card that received damage, the card that dealt the damage, the final amount dealt] </param>
+    /// <param name="hurt"> [The card that received damage, the card that dealt the damage, the final amount dealt, hero column relative to other simultaneous calls] </param>
     protected virtual IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
     {
         yield return null;
@@ -227,16 +253,26 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         yield return null;
     }
 
-    protected virtual IEnumerator OnTurnStart()
+    /// <summary>
+	/// Called at the start of turn
+	/// </summary>
+	protected virtual IEnumerator OnTurnStart()
     {
         yield return null;
     }
 
+    /// <summary>
+	/// Called at the end of turn
+	/// </summary>
     protected virtual IEnumerator OnTurnEnd()
     {
         yield return null;
     }
 
+    /// <summary>
+	/// Called whenever a card gets drawn by a player
+	/// </summary>
+    /// <param name="team">The team that drew the card</param>
     protected virtual IEnumerator OnCardDraw(Card.Team team)
     {
         yield return null;
