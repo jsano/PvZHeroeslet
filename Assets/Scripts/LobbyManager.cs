@@ -5,7 +5,6 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 using static Card;
-using Unity.Multiplayer.Widgets;
 
 public class LobbyManager : NetworkBehaviour
 {
@@ -34,7 +33,7 @@ public class LobbyManager : NetworkBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        FindAnyObjectByType<ShowJoinCode>().OnSessionJoined();
+        FindAnyObjectByType<Unity.Multiplayer.Widgets.ShowJoinCode>().OnSessionJoined();
         LeanTween.rotateAroundLocal(loading, Vector3.forward, -360f, 2f).setRepeat(-1);
         if (IsHost) NetworkManager.OnConnectionEvent += P2Joined;
         else TeamPhase();

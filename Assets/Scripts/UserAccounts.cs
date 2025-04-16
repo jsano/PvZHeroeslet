@@ -37,9 +37,7 @@ public class UserAccounts : MonoBehaviour
 
 		try
 		{
-            var options = new InitializationOptions();
-            options.SetProfile("Player" + UnityEngine.Random.Range(0, 100));
-            await UnityServices.InitializeAsync(options);
+            await UnityServices.InitializeAsync();
 		}
 		catch (Exception e)
 		{
