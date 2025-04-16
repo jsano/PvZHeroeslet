@@ -16,6 +16,12 @@ public class StartButtons : NetworkBehaviour
 
     public void ChangeScene(string scene)
     {
+        // Prevent multiple NetworkManagers
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Shutdown();
+            Destroy(NetworkManager.gameObject);
+        }
         SceneManager.LoadScene(scene, LoadSceneMode.Single);
     }
 

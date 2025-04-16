@@ -16,7 +16,7 @@ public class LobbyManager : NetworkBehaviour
     public GameObject banUI;
     public GameObject chooseUI;
     public Button lockIn;
-    public GameObject code;
+    public GameObject bottomUI;
 
     private int chosenTeam; // 0: plant, 1: zombie, 2: either
     private int opponentChosenTeam;
@@ -50,7 +50,7 @@ public class LobbyManager : NetworkBehaviour
     private void TeamPhase()
     {
         loading.SetActive(false);
-        code.SetActive(false);
+        bottomUI.SetActive(false);
         teamUI.SetActive(true);
         note.SetActive(true);
         lockIn.gameObject.SetActive(true);
