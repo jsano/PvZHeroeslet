@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -36,7 +37,7 @@ public class DeckBuilder : MonoBehaviour
     {
         deck = UserAccounts.allDecks[deckName];
 
-        transform.Find("Title").GetComponent<TextMeshProUGUI>().text = deckName;
+        transform.Find("Title").GetComponent<TMP_InputField>().text = deckName;
 
         foreach (int id in deck.cards.Keys)
         {
@@ -65,6 +66,20 @@ public class DeckBuilder : MonoBehaviour
                 d.ID = i;
             }
         }
+    }
+
+    public void OnDeckNameChange(string s)
+    {
+        if (UserAccounts.allDecks.ContainsKey(s))
+        {
+            Debug.Log("Deck name already exists");
+            transform.Find("Title").GetComponent<TMP_InputField>().text = deckName;
+            return;
+        }
+        Deck d = UserAccounts.allDecks[deckName];
+        UserAccounts.allDecks.Remove(deckName);
+        UserAccounts.allDecks[s] = d;
+        deckName = s;
     }
 
     public void Add(int id)
@@ -125,7 +140,6 @@ public class DeckBuilder : MonoBehaviour
         {
             result += item.ToString() + "  ";
         }
-        Debug.Log(result);
     }
 
     public void Confirm()
