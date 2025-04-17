@@ -30,15 +30,11 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(10));
         UserAccounts.allDecks["temp10"].cards = new() {
-            { AllCards.NameToID("Sunflower"), 1 },
-            { AllCards.NameToID("Cornucopia"), 1 },
-            { AllCards.NameToID("Pineclone"), 1 },
-            { AllCards.NameToID("Seedling"), 2 },
-            { AllCards.NameToID("Bananasaurus Rex"), 1 },
-            { AllCards.NameToID("Sting Bean"), 1 },
-            { AllCards.NameToID("Poppin' Poppies"), 1 },
-            { AllCards.NameToID("Winter Melon"), 1 },
-            { AllCards.NameToID("Squash"), 1 }
+            { AllCards.NameToID("Sunflower"), 2 },
+            { AllCards.NameToID("Bonk Choy"), 3 },
+            { AllCards.NameToID("Sweet Potato"), 2 },
+            { AllCards.NameToID("Pea Pod"), 2 },
+            { AllCards.NameToID("Skyshooter"), 2 },
         };
 
         NetworkManager.Singleton.StartHost();
@@ -54,8 +50,8 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
-            { AllCards.NameToID("Mini-Ninja"), 2 },
-            { AllCards.NameToID("Teleport"), 2 },
+            { AllCards.NameToID("Mini-Ninja"), 1 },
+            { AllCards.NameToID("Goat"), 4 },
             { AllCards.NameToID("Smoke Bomb"), 1 },
             { AllCards.NameToID("Pied Piper"), 1 },
             { AllCards.NameToID("Lurch for Lunch"), 1 },
