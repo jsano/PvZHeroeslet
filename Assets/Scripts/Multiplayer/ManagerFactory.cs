@@ -11,7 +11,7 @@ internal static class ManagerFactory
         // It would lead to a deadlock if not set first as it would try to create yet another instance. 
         IsInitialized = true;
             
-        CreateLazySingletonInstance("Unity.Multiplayer.Widgets.SessionManager, Unity.Multiplayer.Widgets.Session");
+        CreateLazySingletonInstance("SessionManager");
     }
         
     // Reset IsInitialized to support domain reload disabled. 

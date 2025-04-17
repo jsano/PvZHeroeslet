@@ -1349,7 +1349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4187261084
+  GlobalObjectIdHash: 2662624413
   InScenePlacedSourceGlobalObjectIdHash: 4187261084
   DeferredDespawnTick: 0
   Ownership: 1
@@ -2409,7 +2409,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5666465018389066665}
-  - component: {fileID: 159610647094007454}
+  - component: {fileID: 1423097128287614932}
   m_Layer: 5
   m_Name: Show Session Code
   m_TagString: Untagged
@@ -2439,7 +2439,7 @@ RectTransform:
   m_AnchoredPosition: {x: -110, y: 0}
   m_SizeDelta: {x: 175, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &159610647094007454
+--- !u!114 &1423097128287614932
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2448,7 +2448,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3272671020876450869}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff7972ee9083a40b9a8ff20ae8150372, type: 3}
+  m_Script: {fileID: 11500000, guid: 12fb10367a39b3448b9f2c0f62aaab6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Text: {fileID: 4026152563880807490}
@@ -2685,7 +2685,7 @@ GameObject:
   - component: {fileID: 5139841288860103739}
   - component: {fileID: 1453038126747425115}
   - component: {fileID: 3009088132083876121}
-  - component: {fileID: 6847725293296611492}
+  - component: {fileID: 7186750511873761817}
   m_Layer: 5
   m_Name: Leave Session
   m_TagString: Untagged
@@ -2795,7 +2795,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6847725293296611492
+--- !u!114 &7186750511873761817
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2804,7 +2804,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5824227978827657683}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa833722b0cb66a4da0056deab9be836, type: 3}
+  m_Script: {fileID: 11500000, guid: f6dbde34b95c6db4a8780e0d7e145797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SessionLeft:

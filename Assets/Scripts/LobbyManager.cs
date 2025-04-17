@@ -33,7 +33,7 @@ public class LobbyManager : NetworkBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        FindAnyObjectByType<Unity.Multiplayer.Widgets.ShowJoinCode>().OnSessionJoined();
+        FindAnyObjectByType<ShowJoinCode>().OnSessionJoined();
         LeanTween.rotateAroundLocal(loading, Vector3.forward, -360f, 2f).setRepeat(-1);
         if (IsHost) NetworkManager.OnConnectionEvent += P2Joined;
         else TeamPhase();

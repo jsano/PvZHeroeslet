@@ -21,7 +21,7 @@ internal class SessionList : EnterSessionBase
         RefreshSessionList();
     }
 
-    internal async void RefreshSessionList()
+    public async void RefreshSessionList()
     {
         await UpdateSessions();
             

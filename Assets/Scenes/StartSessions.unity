@@ -272,8 +272,8 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1914518229}
-        m_TargetAssemblyTypeName: Unity.Multiplayer.Widgets.CreateSession, Unity.Multiplayer.Widgets.Session
+      - m_Target: {fileID: 1914518231}
+        m_TargetAssemblyTypeName: CreateSession, Assembly-CSharp
         m_MethodName: TogglePrivate
         m_Mode: 0
         m_Arguments:
@@ -367,7 +367,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1881186449}
   m_HandleRect: {fileID: 1881186448}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1275,10 +1275,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 620241283}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbe1b8cbdfe64ec5be41ac3418a77264, type: 3}
+  m_Script: {fileID: 11500000, guid: 8be6f878f8dc62b4593950e6139842d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WidgetConfiguration: {fileID: 11400000, guid: 9b0370df80b5d964296a13a6fd54eab5, type: 2}
   JoiningSession:
     m_PersistentCalls:
       m_Calls: []
@@ -1288,8 +1287,8 @@ MonoBehaviour:
   FailedToJoinSession:
     m_PersistentCalls:
       m_Calls: []
-  m_EnterSessionButton: {fileID: 1534719496}
-  m_SessionItemPrefab: {fileID: 3475559613996886167, guid: c5c817a177b6181478c5c9603a64b780, type: 3}
+  m_EnterSessionButton: {fileID: 0}
+  m_SessionItemPrefab: {fileID: 3475559613996886167, guid: b93b1ae70c49cae4d83917d69491fdac, type: 3}
   m_ContentParent: {fileID: 1639087154}
 --- !u!1 &716316003
 GameObject:
@@ -1301,7 +1300,7 @@ GameObject:
   m_Component:
   - component: {fileID: 716316004}
   - component: {fileID: 716316006}
-  - component: {fileID: 716316005}
+  - component: {fileID: 716316007}
   m_Layer: 5
   m_Name: Join Session By Code
   m_TagString: Untagged
@@ -1330,29 +1329,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -150}
   m_SizeDelta: {x: 300, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &716316005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 716316003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b894d3ecaad0434cbb21c3eec3b7c3da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WidgetConfiguration: {fileID: 11400000, guid: 9b0370df80b5d964296a13a6fd54eab5, type: 2}
-  JoiningSession:
-    m_PersistentCalls:
-      m_Calls: []
-  JoinedSession:
-    m_PersistentCalls:
-      m_Calls: []
-  FailedToJoinSession:
-    m_PersistentCalls:
-      m_Calls: []
-  m_EnterSessionButton: {fileID: 0}
 --- !u!114 &716316006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1379,6 +1355,28 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &716316007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716316003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540afc0d384f87c48ac9d3b79666ed9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  JoiningSession:
+    m_PersistentCalls:
+      m_Calls: []
+  JoinedSession:
+    m_PersistentCalls:
+      m_Calls: []
+  FailedToJoinSession:
+    m_PersistentCalls:
+      m_Calls: []
+  m_EnterSessionButton: {fileID: 0}
 --- !u!1 &773808688
 GameObject:
   m_ObjectHideFlags: 0
@@ -2480,8 +2478,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1667036594}
   - {fileID: 1534719495}
+  - {fileID: 1667036594}
   m_Father: {fileID: 620241284}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2534,7 +2532,7 @@ MonoBehaviour:
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
+  m_ReverseArrangement: 1
 --- !u!1 &1176137647
 GameObject:
   m_ObjectHideFlags: 0
@@ -2617,8 +2615,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 975470784}
   m_HandleRect: {fileID: 975470783}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.9999998
+  m_Value: 0
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3100,8 +3098,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 620241285}
-        m_TargetAssemblyTypeName: Unity.Multiplayer.Widgets.SessionListBehaviour,
-          Unity.Multiplayer.Widgets
+        m_TargetAssemblyTypeName: SessionList, Assembly-CSharp
         m_MethodName: RefreshSessionList
         m_Mode: 1
         m_Arguments:
@@ -3742,7 +3739,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1914518228}
   - component: {fileID: 1914518230}
-  - component: {fileID: 1914518229}
+  - component: {fileID: 1914518231}
   m_Layer: 5
   m_Name: Create Session
   m_TagString: Untagged
@@ -3771,41 +3768,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -75}
   m_SizeDelta: {x: 300, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1914518229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1914518227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5743fb82daa4d83adec54bcbb3e9655, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WidgetConfiguration: {fileID: 11400000, guid: 9b0370df80b5d964296a13a6fd54eab5, type: 2}
-  JoiningSession:
-    m_PersistentCalls:
-      m_Calls: []
-  JoinedSession:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 886527121}
-        m_TargetAssemblyTypeName: StartButtons, Assembly-CSharp
-        m_MethodName: ChangeNetworkScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Lobby
-          m_BoolArgument: 0
-        m_CallState: 2
-  FailedToJoinSession:
-    m_PersistentCalls:
-      m_Calls: []
-  m_EnterSessionButton: {fileID: 0}
 --- !u!114 &1914518230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3832,6 +3794,40 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1914518231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914518227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a54373e6e17fee94f9d4459032defeea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  JoiningSession:
+    m_PersistentCalls:
+      m_Calls: []
+  JoinedSession:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 886527121}
+        m_TargetAssemblyTypeName: StartButtons, Assembly-CSharp
+        m_MethodName: ChangeNetworkScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Lobby
+          m_BoolArgument: 0
+        m_CallState: 2
+  FailedToJoinSession:
+    m_PersistentCalls:
+      m_Calls: []
+  m_EnterSessionButton: {fileID: 0}
 --- !u!1001 &1952513406
 PrefabInstance:
   m_ObjectHideFlags: 0
