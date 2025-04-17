@@ -74,3 +74,4 @@ crashlytics-build.properties
 connectwebgl.zip
 ProjectSettings/Packages/com.unity.connect.share/Settings.json
 .DS_Store
+.vscode/
