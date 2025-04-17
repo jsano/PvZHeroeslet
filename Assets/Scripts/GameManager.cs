@@ -523,6 +523,7 @@ public class GameManager : NetworkBehaviour
 			Tile.zombieTiles[row, col].Unplant();
 			Tile.zombieTiles[nrow, ncol].Plant(c);
 		}
+		Debug.Log("Moving " + c + " from Row " + row + " Col " + col + " to Row " + nrow + " Col " + ncol);
 		TriggerEvent("OnCardMoved", c);
     }
 
