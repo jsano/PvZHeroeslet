@@ -15,9 +15,11 @@ public class MushroomRingleader : Card
 				count += Tile.plantTiles[row, col].HasRevealedPlanted() ? 2 : 0;
 			}
 		}
-        if (count <= 0) yield return base.OnThisPlay(); 
-		yield return new WaitForSeconds(1);
-		RaiseAttack(count);
+		if (count > 0)
+		{
+			yield return new WaitForSeconds(1);
+			RaiseAttack(count);
+		}
 		yield return base.OnThisPlay();
 	}
 

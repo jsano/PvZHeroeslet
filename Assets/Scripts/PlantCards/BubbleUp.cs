@@ -7,11 +7,12 @@ public class BubbleUp : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		for (int i = 0; i < 2; i++)
+		Card chosen = Tile.plantTiles[row, col].planted;
+        for (int i = 0; i < 2; i++)
 		{
 			for (int j = 0; j < 5; j++)
 			{
-				if (Tile.CanPlantInCol(j, Tile.plantTiles, teamUp, amphibious))
+				if (Tile.CanPlantInCol(j, Tile.plantTiles, chosen.teamUp, chosen.amphibious))
 				{
 					choices.Add(Tile.plantTiles[i, j].GetComponent<BoxCollider2D>());
 				}

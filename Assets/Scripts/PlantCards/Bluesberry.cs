@@ -11,9 +11,9 @@ public class Bluesberry : Card
         {
             if (Tile.zombieTiles[0, col].HasRevealedPlanted()) choices.Add(Tile.zombieTiles[0, col].planted.GetComponent<BoxCollider2D>());
         }
+        choices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
 		if (GameManager.Instance.team == team)
 		{
-            choices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
 			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
 			if (choices.Count >= 2)
             {
