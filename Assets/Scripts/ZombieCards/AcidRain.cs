@@ -8,11 +8,12 @@ public class AcidRain : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		for (int j = 1; j < 4; j++) if (Tile.plantTiles[0, j].HasRevealedPlanted())
+		for (int i = 0; i < 2; i++) for (int j = 1; j < 4; j++) if (Tile.plantTiles[i, j].HasRevealedPlanted())
 			{
-				Tile.plantTiles[0, j].planted.RaiseAttack(-1);
-                Tile.plantTiles[0, j].planted.Heal(-1, true);
-            }
+				Tile.plantTiles[i, j].planted.RaiseAttack(-1);
+				Tile.plantTiles[i, j].planted.Heal(-1, true);
+			}
+
 		yield return base.OnThisPlay();
 	}
 
