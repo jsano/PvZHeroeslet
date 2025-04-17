@@ -24,7 +24,6 @@ public class EnsignUproot : Card
 			}
 		}
         if (choices.Count > 0) GameManager.Instance.selecting = true;
-		Debug.Log(selected);
 		yield return base.OnThisPlay();
 	}
 

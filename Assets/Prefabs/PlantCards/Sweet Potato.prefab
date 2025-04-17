@@ -174,7 +174,7 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: 'When played: Move a Zombie to this lane.'
+  description: 'When played: Move a zombie to this lane.'
   lore: Loves unicorns and rainbows... and watching cats on the Internet.
   row: 0
   col: 0

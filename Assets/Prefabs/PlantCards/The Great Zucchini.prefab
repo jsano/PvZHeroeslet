@@ -178,7 +178,7 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: 'When played: Transform all Zombies into 1/1 zombies with no abilities'
+  description: 'When played: Transform all zombies into 1/1 zombies with no abilities'
   lore: '"Presto change-o! Now you see a powerful Zombie. Now you don''t!"'
   row: 0
   col: 0
