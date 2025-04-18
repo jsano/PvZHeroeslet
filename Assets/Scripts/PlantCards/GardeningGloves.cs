@@ -12,7 +12,7 @@ public class GardeningGloves : Card
 		{
 			for (int j = 0; j < 5; j++)
 			{
-				if (Tile.CanPlantInCol(j, Tile.plantTiles, chosen.teamUp, chosen.amphibious))
+				if (!(i == chosen.row && j == chosen.col) && Tile.CanPlantInCol(j, Tile.plantTiles, chosen.teamUp, chosen.amphibious))
 				{
 					choices.Add(Tile.plantTiles[i, j].GetComponent<BoxCollider2D>());
 				}

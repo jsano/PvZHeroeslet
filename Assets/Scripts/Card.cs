@@ -86,6 +86,7 @@ public class Card : Damagable
     private int maxHP;
     private int baseHP;
     public bool died { get; private set; }
+    public bool initializedStats { get; private set; }
 
     public bool amphibious;
     public int antihero;
@@ -183,6 +184,7 @@ public class Card : Damagable
         else playedCost = 0;
         maxHP = HP;
 
+        initializedStats = true;
         UpdateAntihero();
 
         atkUI = transform.Find("ATK").GetComponent<TextMeshProUGUI>();
@@ -213,12 +215,26 @@ public class Card : Damagable
 	{
 		if (!selected)
         {
-			if (Input.GetMouseButtonDown(0))
+            // Show targets visual
+            foreach (BoxCollider2D bc in choices)
+            {
+                if (bc.GetComponent<Tile>() != null) bc.GetComponent<Tile>().ToggleTarget(true);
+                else bc.GetComponent<Hero>().ToggleTarget(true);
+            }
+
+            if (Input.GetMouseButtonDown(0))
 			{
 				foreach (BoxCollider2D bc in choices)
 				{
 					if (bc.bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition)))
 					{
+                        // Hide targets visual
+                        foreach (BoxCollider2D bc1 in choices)
+                        {
+                            if (bc1.GetComponent<Tile>() != null) bc1.GetComponent<Tile>().ToggleTarget(false);
+                            else bc1.GetComponent<Hero>().ToggleTarget(false);
+                        }
+
                         selected = true;
                         Tile t = bc.GetComponent<Tile>();
                         if (t != null) GameManager.Instance.SelectingChosenRpc(t.isPlantTile ? Team.Plant : Team.Zombie, t.row, t.col);
@@ -493,6 +509,7 @@ public class Card : Damagable
     /// </summary>
     public void UpdateAntihero()
     {
+        if (!initializedStats) return;
         if (antihero > 0)
         {
             if (AHactive && GetTargets(col)[0].GetComponent<Card>() != null)
