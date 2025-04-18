@@ -131,11 +131,10 @@ public class Card : Damagable
 
     /// <summary>
     /// If this card on the player's side requires a selecting choice to be made, set this to false so it can start detecting mouse input.
-    /// Different from <c>GameManager.Instance.selecting</c> since this is just for toggling mouse input and won't immediately resume game flow
     /// </summary>
     protected bool selected = true;
     /// <summary>
-    /// If this card on the player's side requires a selecting choice to be made, populate this with all the valid choices it can make
+    /// If this card on the player's side requires a selecting choice to be made, populate this with all the valid <b>tile or hero</b> choices it can make
     /// </summary>
 	protected List<BoxCollider2D> choices = new();
 
@@ -212,7 +211,7 @@ public class Card : Damagable
 	// Update is called once per frame
 	void Update()
 	{
-		if (GameManager.Instance.selecting && !selected)
+		if (!selected)
         {
 			if (Input.GetMouseButtonDown(0))
 			{
@@ -221,7 +220,9 @@ public class Card : Damagable
 					if (bc.bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition)))
 					{
                         selected = true;
-                        StartCoroutine(OnSelection(bc));
+                        Tile t = bc.GetComponent<Tile>();
+                        if (t != null) GameManager.Instance.SelectingChosenRpc(t.isPlantTile ? Team.Plant : Team.Zombie, t.row, t.col);
+                        else GameManager.Instance.SelectingChosenRpc(bc.GetComponent<Hero>().team, -1, -1);
                         break;
 					}
 				}
@@ -230,10 +231,11 @@ public class Card : Damagable
 	}
 
     /// <summary>
-    /// Override with the card's effect when a selecting choice is made
+    /// Override with the card's effect when a selecting choice is made. Base method clears selection so base should be called at the beginning
     /// </summary>
     protected virtual IEnumerator OnSelection(BoxCollider2D bc)
     {
+        GameManager.Instance.ClearSelection();
         yield return null;
 	}
 
@@ -243,7 +245,6 @@ public class Card : Damagable
 	/// <param name="played"> The card that was played </param>
 	protected virtual IEnumerator OnThisPlay()
 	{
-        if (GameManager.Instance.selecting) yield return new WaitUntil(() => GameManager.Instance.selecting == false);
         yield return new WaitForSeconds(0.1f); // this only exists to give time for rpcs to instantiate before processing events (rough fix)
         GameManager.Instance.currentlySpawningCards -= 1;
         yield return new WaitUntil(() => GameManager.Instance.currentlySpawningCards == 0); // this exists for cards that spawn cards that spawn cards
@@ -559,6 +560,26 @@ public class Card : Damagable
     }
 
     /// <summary>
+    /// Move this card to this new row/column visually and internally. Triggers a card moved GameEvent
+    /// </summary>
+    /// <param name="nrow"></param>
+    /// <param name="ncol"></param>
+    public void Move(int nrow, int ncol)
+    {
+        if (team == Team.Plant)
+        {
+            Tile.plantTiles[row, col].Unplant();
+            Tile.plantTiles[nrow, ncol].Plant(this);
+        }
+        else
+        {
+            Tile.zombieTiles[row, col].Unplant();
+            Tile.zombieTiles[nrow, ncol].Plant(this);
+        }
+        GameManager.Instance.TriggerEvent("OnCardMoved", this);
+    }
+
+    /// <summary>
     /// Gets a list of targets that this card's Attack will hit on the given column. Unless this has strikethrough, it'll likely be only 1 target (prioritizes row 1, then 0, then the hero)
     /// </summary>
     protected List<Damagable> GetTargets(int col)
@@ -586,7 +607,7 @@ public class Card : Damagable
 
     void OnMouseDown()
 	{
-        // Don't show card info if the player is currently selecting something
+        // Don't show card info if the player is currently selecting something. TODO: doesn't work for trick selected
 		for (int row = 0; row < 2; row++)
 		{
 			for (int col = 0; col < 5; col++)
@@ -594,7 +615,7 @@ public class Card : Damagable
                 Card c;
                 if (GameManager.Instance.team == Team.Plant) c = Tile.plantTiles[row, col].planted;
                 else c = Tile.zombieTiles[row, col].planted;
-				if (c != null && GameManager.Instance.selecting) return;
+				if (c != null && !c.selected) return;
 			}
 		}
         // Don't show gravestone card info for the plant perspective

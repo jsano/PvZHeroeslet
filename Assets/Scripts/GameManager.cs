@@ -81,9 +81,9 @@ public class GameManager : NetworkBehaviour
     /// </summary>
     [HideInInspector] public bool waitingOnBlock = false;
     /// <summary>
-    /// Halt game flow if a player is selecting a choice (ex. from moving a card). Within an RPC, set this to true using <c>EndSelectingRpc</c> and game flow will imeediately resume
+    /// If a player is selecting a choice (ex. from moving a card), set this to using <c>SelectingChosenRpc</c> so both players can access the selection
     /// </summary>
-    [HideInInspector] public bool selecting = false;
+    public BoxCollider2D selection { get; private set; }
     /// <summary>
     /// Cards will increment this on the same frame of instantiation. Game flow should only continue once this is 0 to handle recusive spawns (ex. from Cornucopia)
     /// </summary>
@@ -193,7 +193,7 @@ public class GameManager : NetworkBehaviour
 		isProcessing = true;
 		yield return null;
         DisableHandCards();
-
+		
         while (eventStack.Count > 0)
         {
             GameEvent currentEvent = eventStack[^1];
@@ -550,12 +550,22 @@ public class GameManager : NetworkBehaviour
     }
 
     /// <summary>
-    /// Signals to the network that the selecting player finished their selection choice, causing the game flow to continue
+    /// Signals to the network that the selecting player selected this tile as their selection choice. If targeting a hero, set row/column to -1
     /// </summary>
+    /// <param name="tteam">Whether the given row/column represents the plant or zombie side of the board</param>
     [Rpc(SendTo.ClientsAndHost)]
-    public void EndSelectingRpc()
+    public void SelectingChosenRpc(Team tteam, int row, int col)
     {
-        selecting = false;
+        if (tteam == Team.Plant) 
+		{
+			if (row == -1 && col == -1) selection = plantHero.GetComponent<BoxCollider2D>();
+			else selection = Tile.plantTiles[row, col].GetComponent<BoxCollider2D>();
+        }
+		else
+		{
+            if (row == -1 && col == -1) selection = zombieHero.GetComponent<BoxCollider2D>();
+            else selection = Tile.zombieTiles[row, col].GetComponent<BoxCollider2D>();
+        }
     }
 
     /// <summary>
@@ -728,6 +738,11 @@ public class GameManager : NetworkBehaviour
 		List<HandCard> ret = new();
 		foreach (Transform t in handCards) ret.Add(t.GetComponent<HandCard>());
 		return ret;
+	}
+
+	public void ClearSelection()
+	{
+		selection = null;
 	}
 
 }

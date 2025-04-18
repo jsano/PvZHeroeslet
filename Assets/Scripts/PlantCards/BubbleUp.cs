@@ -18,25 +18,23 @@ public class BubbleUp : Card
 				}
 			}
 		}
-		if (GameManager.Instance.team == team)
-		{
-			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
-			if (choices.Count >= 2)
-			{
-				selected = false;
-			}
-		}
-        if (choices.Count > 0) GameManager.Instance.selecting = true;
-		yield return base.OnThisPlay();
+        if (choices.Count == 1) yield return OnSelection(choices[0]);
+        if (choices.Count >= 2)
+        {
+            if (GameManager.Instance.team == team) selected = false;
+            yield return new WaitUntil(() => GameManager.Instance.selection != null);
+            yield return OnSelection(GameManager.Instance.selection);
+        }
+        yield return base.OnThisPlay();
 	}
 
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
-		yield return new WaitForSeconds(1);
-		Tile t = bc.GetComponent<Tile>();
-		GameManager.Instance.HealRpc(team, row, col, 4, true);
-		GameManager.Instance.MoveRpc(team, row, col, t.row, t.col);
-		GameManager.Instance.EndSelectingRpc();
+        yield return base.OnSelection(bc);
+        yield return new WaitForSeconds(1);
+        Tile t = bc.GetComponent<Tile>();
+        Tile.plantTiles[row, col].planted.Heal(4, true);
+        Tile.plantTiles[row, col].planted.Move(t.row, t.col);
     }
 
 	public override bool IsValidTarget(BoxCollider2D bc)

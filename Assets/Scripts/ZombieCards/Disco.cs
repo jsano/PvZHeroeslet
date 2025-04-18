@@ -13,25 +13,24 @@ public class Disco : Card
 			{
 				choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
 			}
-		}
-		if (GameManager.Instance.team == team)
-		{			
-			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
-			if (choices.Count >= 2)
-			{
-				selected = false;
-			}
-		}
-        if (choices.Count > 0) GameManager.Instance.selecting = true;
+		}		
+		if (choices.Count == 1) yield return OnSelection(choices[0]);
+		if (choices.Count >= 2)
+		{
+			if (GameManager.Instance.team == team) selected = false;
+			yield return new WaitUntil(() => GameManager.Instance.selection != null);
+            yield return OnSelection(GameManager.Instance.selection);
+        }
 		yield return base.OnThisPlay();
 	}
 
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
-		yield return new WaitForSeconds(1);
+        yield return base.OnSelection(bc);
+        yield return new WaitForSeconds(1);
 		Tile t = bc.GetComponent<Tile>();
-		GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.NameToID("Backup Dancer")), t.row, t.col, true);
-		GameManager.Instance.EndSelectingRpc();
+		Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Backup Dancer")]);
+		Tile.zombieTiles[t.row, t.col].Plant(card);
     }
 
 }

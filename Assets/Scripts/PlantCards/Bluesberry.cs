@@ -9,28 +9,26 @@ public class Bluesberry : Card
 	{
         for (int col = 0; col < 5; col++)
         {
-            if (Tile.zombieTiles[0, col].HasRevealedPlanted()) choices.Add(Tile.zombieTiles[0, col].planted.GetComponent<BoxCollider2D>());
+            if (Tile.zombieTiles[0, col].HasRevealedPlanted()) choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
         }
         choices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
-		if (GameManager.Instance.team == team)
-		{
-			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
-			if (choices.Count >= 2)
-            {
-                selected = false;
-            }
-		}
-        if (choices.Count > 0) GameManager.Instance.selecting = true;
-		yield return base.OnThisPlay();
+        if (choices.Count == 1) yield return OnSelection(choices[0]);
+        if (choices.Count >= 2)
+        {
+            if (GameManager.Instance.team == team) selected = false;
+            yield return new WaitUntil(() => GameManager.Instance.selection != null);
+            yield return OnSelection(GameManager.Instance.selection);
+        }
+        yield return base.OnThisPlay();
 	}
 
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
+        yield return base.OnSelection(bc);
         yield return new WaitForSeconds(1);
-		Card c = bc.GetComponent<Card>();
-        if (c == null) yield return GameManager.Instance.zombieHero.ReceiveDamage(2, this);
-        else yield return c.ReceiveDamage(2, this);
-        GameManager.Instance.EndSelectingRpc();
+        Tile t = bc.GetComponent<Tile>();
+        if (t == null) yield return GameManager.Instance.zombieHero.ReceiveDamage(2, this);
+        else yield return t.planted.ReceiveDamage(2, this);
     }
 
 }
