@@ -90,6 +90,7 @@ public class Hero : Damagable
 		if (raiseCap) maxHP += amount;
 		else HP = Mathf.Min(maxHP, HP);
 		hpUI.text = HP + "";
+		GameManager.Instance.TriggerEvent("OnHeal", this);
 	}
 
 	public int StealBlock(int amount)

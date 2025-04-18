@@ -309,6 +309,15 @@ public class Card : Damagable
 	}
 
     /// <summary>
+	/// Called whenever a card or hero on the field gets healed. NOT called when a card's max HP is raised
+	/// </summary>
+	/// <param name="healed"> The card that got healed </param>
+	protected virtual IEnumerator OnHeal(Card healed)
+    {
+        yield return null;
+    }
+
+    /// <summary>
 	/// Called at the start of turn
 	/// </summary>
 	protected virtual IEnumerator OnTurnStart()
@@ -430,7 +439,7 @@ public class Card : Damagable
 	}
 
     /// <summary>
-	/// Raises HP by the given amount. Ignores if it's in a gravestone.
+	/// Raises HP by the given amount. Ignores if it's in a gravestone. Also triggers <c>OnHeal</c> if not raising the maxHP.
     /// If HP ends up as 0 afterwards, marks this card to be destroyed and triggers <c>OnCardDeath</c> so that it's destroyed during the next <c>ProcessEvent</c>, and updates any anti-hero immediately.
 	/// </summary>
     /// <param name="raiseCap">If true, this will affect the maxHP, which also means it won't be considered damaged if amount is negative</param>
@@ -439,7 +448,11 @@ public class Card : Damagable
         if (gravestone) return;
         HP += amount;
         if (raiseCap) maxHP += amount;
-        else HP = Mathf.Min(maxHP, HP);
+        else 
+        {
+            HP = Mathf.Min(maxHP, HP);
+            GameManager.Instance.TriggerEvent("OnHeal", this);
+        }
         hpUI.text = HP + "";
         if (HP <= 0)
         {

@@ -104,7 +104,7 @@ public class GameManager : NetworkBehaviour
     /// <summary>
     /// Events with higher priority should be processed first. Those not on the list have no defined ordering
     /// </summary>
-    private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnBlock", 1 }, { "OnCardMoved", 2 }, { "OnCardDeath", 3 }, { "OnCardFreeze", 4 }, { "OnCardHurt", 5 }, { "OnCardDraw", 6 } };
+    private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnBlock", 1 }, { "OnCardMoved", 2 }, { "OnCardDeath", 3 }, { "OnCardFreeze", 4 }, { "OnCardHurt", 5 }, { "OnHeal" , 6 }, { "OnCardDraw", 7 } };
     
 	/// <summary>
     /// A game event, caused by any card effect or block, with information about the method, arguments, and frame number it was called
