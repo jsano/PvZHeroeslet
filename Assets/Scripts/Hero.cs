@@ -15,13 +15,15 @@ public class Hero : Damagable
 	private int maxHP;
 	public TextMeshProUGUI hpUI;
 	private SpriteRenderer SR;
+	private GameObject target;
 	public Image blockMeter;
 	private int block;
 
 	// Start is called before the first frame update
 	void Start()
     {
-		SR = GetComponent<SpriteRenderer>();
+        target = transform.Find("Target").gameObject;
+        SR = GetComponent<SpriteRenderer>();
 		hpUI.text = HP + "";
 		maxHP = HP;
 	}
@@ -118,6 +120,11 @@ public class Hero : Damagable
         invulnerable = active;
         if (active) SR.material.color = Color.yellow;
         else SR.material.color = Color.white;
+    }
+
+    public void ToggleTarget(bool on)
+    {
+        target.SetActive(on);
     }
 
 }

@@ -17,7 +17,7 @@ public class Octopult : Card
 	{
 		Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
-        if (Tile.CanPlantInCol(t.col, Tile.zombieTiles, false, true)) return true;
+        if (t.row == 0 && !t.isPlantTile && Tile.CanPlantInCol(t.col, Tile.zombieTiles, false, true)) return true;
 		return false;
 	}
 

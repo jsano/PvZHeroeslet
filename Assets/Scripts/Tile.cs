@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static HandCard;
 
 public class Tile : MonoBehaviour
 {
@@ -28,11 +27,13 @@ public class Tile : MonoBehaviour
     public Card planted { get; private set; }
 
     private SpriteRenderer SR;
+    private GameObject target;
 
     // Start is called before the first frame update
     void Start()
     {        
         SR = GetComponent<SpriteRenderer>();
+        target = transform.Find("Target").gameObject;
     }
 
     // Update is called once per frame
@@ -85,8 +86,8 @@ public class Tile : MonoBehaviour
 
         for (int i = 0; i < 2; i++)
         {
-            if (plantTiles[i, col].HasRevealedPlanted() && plantTiles[i, col].planted != c) plantTiles[i, col].planted.UpdateAntihero();
-            if (zombieTiles[i, col].HasRevealedPlanted() && zombieTiles[i, col].planted != c) zombieTiles[i, col].planted.UpdateAntihero();
+            if (plantTiles[i, col].HasRevealedPlanted()) plantTiles[i, col].planted.UpdateAntihero();
+            if (zombieTiles[i, col].HasRevealedPlanted()) zombieTiles[i, col].planted.UpdateAntihero();
         }
     }
 
@@ -138,6 +139,11 @@ public class Tile : MonoBehaviour
     public void ToggleHighlight(bool on)
     {
         SR.color = new Color(SR.color.r, SR.color.g, SR.color.b, on ? 1 : 0);
+    }
+
+    public void ToggleTarget(bool on)
+    {
+        target.SetActive(on);
     }
 
 }

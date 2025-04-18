@@ -21,7 +21,7 @@ public class WallnutBowling : Card
         {
             if (Tile.CanPlantInCol(i, Tile.plantTiles, true, false))
             {
-                Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Wall-nut")]).GetComponent<Card>();
+                Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Wall-nut")]);
                 Tile.plantTiles[1, i].Plant(card);
             }
         }

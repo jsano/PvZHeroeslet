@@ -12,31 +12,29 @@ public class GardeningGloves : Card
 		{
 			for (int j = 0; j < 5; j++)
 			{
-				if (Tile.CanPlantInCol(j, Tile.plantTiles, chosen.teamUp, chosen.amphibious))
+				if (!(i == chosen.row && j == chosen.col) && Tile.CanPlantInCol(j, Tile.plantTiles, chosen.teamUp, chosen.amphibious))
 				{
 					choices.Add(Tile.plantTiles[i, j].GetComponent<BoxCollider2D>());
 				}
 			}
 		}
-		if (GameManager.Instance.team == team)
-		{
-			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
-			if (choices.Count >= 2)
-			{
-				selected = false;
-			}
-		}
-        if (choices.Count > 0) GameManager.Instance.selecting = true;
-		yield return base.OnThisPlay();
+        if (choices.Count == 1) yield return OnSelection(choices[0]);
+        if (choices.Count >= 2)
+        {
+            if (GameManager.Instance.team == team) selected = false;
+            yield return new WaitUntil(() => GameManager.Instance.selection != null);
+            yield return OnSelection(GameManager.Instance.selection);
+        }
+        yield return base.OnThisPlay();
 	}
 
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
-		yield return new WaitForSeconds(1);
+        yield return base.OnSelection(bc);
+        yield return new WaitForSeconds(1);
 		Tile t = bc.GetComponent<Tile>();
-		GameManager.Instance.MoveRpc(team, row, col, t.row, t.col);
+		Tile.plantTiles[row, col].planted.Move(t.row, t.col);
         GameManager.Instance.GainHandCard(team, AllCards.RandomTrick(team));
-		GameManager.Instance.EndSelectingRpc();
     }
 
 	public override bool IsValidTarget(BoxCollider2D bc)

@@ -9,30 +9,28 @@ public class SmokeBomb : Card
 	{
 		for (int col = 0; col < 5; col++)
 		{
-			if (Tile.zombieTiles[0, col].planted == null && (col != 5 || Tile.zombieTiles[0, this.col].planted.amphibious))
+			if (Tile.zombieTiles[0, col].planted == null && (col != 4 || Tile.zombieTiles[0, this.col].planted.amphibious))
 			{
 				choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
 			}
 		}
-		if (GameManager.Instance.team == team)
-		{
-			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
-			if (choices.Count >= 2)
-			{
-				selected = false;
-			}
-		}
-        if (choices.Count > 0) GameManager.Instance.selecting = true;
-		yield return base.OnThisPlay();
+        if (choices.Count == 1) yield return OnSelection(choices[0]);
+        if (choices.Count >= 2)
+        {
+            if (GameManager.Instance.team == team) selected = false;
+            yield return new WaitUntil(() => GameManager.Instance.selection != null);
+            yield return OnSelection(GameManager.Instance.selection);
+        }
+        yield return base.OnThisPlay();
 	}
 
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
+		yield return base.OnSelection(bc);
 		yield return new WaitForSeconds(1);
 		Tile t = bc.GetComponent<Tile>();
-		GameManager.Instance.RaiseAttackRpc(team, row, col, 1);
-		GameManager.Instance.MoveRpc(team, row, col, t.row, t.col);
-		GameManager.Instance.EndSelectingRpc();
+		Tile.zombieTiles[row, col].planted.RaiseAttack(1);
+        Tile.zombieTiles[row, col].planted.Move(t.row, t.col);
     }
 
 	public override bool IsValidTarget(BoxCollider2D bc)

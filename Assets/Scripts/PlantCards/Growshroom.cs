@@ -13,29 +13,27 @@ public class Growshroom : Card
 			{
 				if (Tile.plantTiles[row, col].planted != null && Tile.plantTiles[row, col].planted != this)
 				{
-					choices.Add(Tile.plantTiles[row, col].planted.GetComponent<BoxCollider2D>());
+					choices.Add(Tile.plantTiles[row, col].GetComponent<BoxCollider2D>());
 				}
 			}
 		}
-		if (GameManager.Instance.team == team)
-		{			
-			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
-			if (choices.Count >= 2)
-			{
-				selected = false;
-			}
-		}
-        if (choices.Count > 0) GameManager.Instance.selecting = true;
-		yield return base.OnThisPlay();
+        if (choices.Count == 1) yield return OnSelection(choices[0]);
+        if (choices.Count >= 2)
+        {
+            if (GameManager.Instance.team == team) selected = false;
+            yield return new WaitUntil(() => GameManager.Instance.selection != null);
+            yield return OnSelection(GameManager.Instance.selection);
+        }
+        yield return base.OnThisPlay();
 	}
 
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
-		yield return new WaitForSeconds(1);
-		Card c = bc.GetComponent<Card>();
-		GameManager.Instance.RaiseAttackRpc(team, c.row, c.col, 2);
-		GameManager.Instance.HealRpc(team, c.row, c.col, 2, true);
-		GameManager.Instance.EndSelectingRpc();
+        yield return base.OnSelection(bc);
+        yield return new WaitForSeconds(1);
+		Card c = bc.GetComponent<Tile>().planted;
+		c.RaiseAttack(2);
+		c.Heal(2, true);
     }
 
 }

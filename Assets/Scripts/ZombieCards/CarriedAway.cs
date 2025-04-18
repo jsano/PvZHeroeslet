@@ -14,27 +14,24 @@ public class CarriedAway : Card
 				choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
 			}
 		}
-		if (GameManager.Instance.team == team)
-		{
-			if (choices.Count == 1) StartCoroutine(OnSelection(choices[0]));
-			if (choices.Count >= 2)
-			{
-				selected = false;
-			}
-		}
-		GameManager.Instance.selecting = true;
-		yield return base.OnThisPlay();
+        if (choices.Count == 1) yield return OnSelection(choices[0]);
+        if (choices.Count >= 2)
+        {
+            if (GameManager.Instance.team == team) selected = false;
+            yield return new WaitUntil(() => GameManager.Instance.selection != null);
+            yield return OnSelection(GameManager.Instance.selection);
+        }
+        yield return base.OnThisPlay();
 	}
 
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
-		yield return new WaitForSeconds(1);
+        yield return base.OnSelection(bc);
+        yield return new WaitForSeconds(1);
 		Tile t = bc.GetComponent<Tile>();
-		GameManager.Instance.MoveRpc(team, row, col, t.row, t.col);
-		yield return new WaitUntil(() => t.planted != null);
-        GameManager.Instance.BonusAttackRpc(team, t.row, t.col);
-		yield return new WaitForSeconds(1); // TODO: fix??
-        GameManager.Instance.EndSelectingRpc();
+        Tile.zombieTiles[row, col].planted.Move(t.row, t.col);
+		yield return new WaitForSeconds(0.5f);
+        yield return Tile.zombieTiles[t.row, t.col].planted.Attack();
     }
 
 	public override bool IsValidTarget(BoxCollider2D bc)

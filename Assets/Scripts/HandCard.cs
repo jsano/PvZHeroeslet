@@ -81,6 +81,12 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 			    }
             }
         }
+        // Show targets visual
+        foreach (BoxCollider2D bc in validChoices)
+        {
+            if (bc.GetComponent<Tile>() != null) bc.GetComponent<Tile>().ToggleTarget(true);
+            else bc.GetComponent<Hero>().ToggleTarget(true);
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -98,31 +104,43 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        // Show card UI if it wasn't currently dragging. Only play if it was dragging
-        if (!eventData.dragging)
+        // Hide targets visual
+        foreach (BoxCollider2D bc in validChoices)
         {
-            cardInfo.Show(orig, finalStats);
-            return;
+            Tile t = bc.GetComponent<Tile>();
+            if (t != null)
+            {
+                t.ToggleHighlight(false);
+                t.ToggleTarget(false);
+            }
+            else bc.GetComponent<Hero>().ToggleTarget(false);
         }
-        if (!interactable) return;
+
         transform.localScale = Vector3.one;
         // Revert layering from pointer down
         GetComponent<SpriteRenderer>().sortingOrder -= 10;
         image.sortingOrder -= 10;
         atkUI.transform.parent.GetComponent<Canvas>().sortingOrder -= 10;
 
+        // Show card UI if it wasn't currently dragging. Only play if it was dragging
+        if (!eventData.dragging)
+        {
+            cardInfo.Show(orig, finalStats);
+            return;
+        }
+
+        if (!interactable) return;
         // If the pointer let go at a valid choice, play this card
         foreach (BoxCollider2D bc in validChoices)
         {
             Tile t = bc.GetComponent<Tile>();
-			if (t != null) t.ToggleHighlight(false);
-            if (bc.bounds.Contains((Vector2) Camera.main.ScreenToWorldPoint(eventData.position)))
+            if (bc.bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position)))
             {
                 if (orig.type == Card.Type.Unit)
                 {
                     GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col);
-					Destroy(gameObject);
-				}
+                    Destroy(gameObject);
+                }
                 else if (orig.IsValidTarget(bc))
                 {
                     if (t == null) GameManager.Instance.PlayTrickRpc(finalStats, -1, -1, bc.GetComponent<Hero>().team == Card.Team.Plant);
