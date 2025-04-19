@@ -9,6 +9,7 @@ using Unity.Services.CloudSave;
 using Unity.Services.CloudSave.Models.Data.Player;
 using static DeckBuilder;
 using Newtonsoft.Json;
+using UnityEngine.SceneManagement;
 
 public class UserAccounts : MonoBehaviour
 {
@@ -24,16 +25,16 @@ public class UserAccounts : MonoBehaviour
 
 	public static Dictionary<string, Deck> allDecks = new();
 
-    private static UserAccounts instance;
+    public static UserAccounts Instance;
 
     async void Awake()
 	{
-		if (instance != null && instance != this)
+		if (Instance != null && Instance != this)
 		{
 			Destroy(gameObject);
 			return;
 		}
-		else instance = this;
+		else Instance = this;
 
 		try
 		{
@@ -44,22 +45,25 @@ public class UserAccounts : MonoBehaviour
 			Debug.LogException(e);
 		}
 		SetupEvents();
-		//PlayerPrefs.DeleteKey("Decks");
-        allDecks = JsonConvert.DeserializeObject<Dictionary<string, Deck>>(PlayerPrefs.GetString("Decks"));
-		if (allDecks == null) allDecks = new();
+		await SignInCachedUserAsync();
 		DontDestroyOnLoad(gameObject);
 	}
 
 	// Setup authentication event handlers if desired
 	void SetupEvents()
 	{
-		AuthenticationService.Instance.SignedIn += () => {
+		AuthenticationService.Instance.SignedIn += async () => {
 			// Shows how to get a playerID
 			Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");
 
-			// Shows how to get an access token
-			Debug.Log($"Access Token: {AuthenticationService.Instance.AccessToken}");
+            // Shows how to get a player name
+            Debug.Log($"PlayerName: {AuthenticationService.Instance.PlayerName}");
 
+            // Shows how to get an access token
+            Debug.Log($"Access Token: {AuthenticationService.Instance.AccessToken}");
+
+			await LoadData();
+			SceneManager.LoadScene("Start");
 		};
 
 		AuthenticationService.Instance.SignInFailed += (err) => {
@@ -68,12 +72,15 @@ public class UserAccounts : MonoBehaviour
 
 		AuthenticationService.Instance.SignedOut += () => {
 			Debug.Log("Player signed out.");
-		};
 
-		AuthenticationService.Instance.Expired += () =>
+            SceneManager.LoadScene("Login");
+        };
+
+		AuthenticationService.Instance.Expired += async () =>
 		{
 			Debug.Log("Player session could not be refreshed and expired.");
-		};
+            await SignInCachedUserAsync();
+        };
 	}
 
 	public async Task SignUpWithUsernamePasswordAsync(string username, string password)
@@ -118,7 +125,37 @@ public class UserAccounts : MonoBehaviour
 		}
 	}
 
-	public async Task UpdatePasswordAsync(string currentPassword, string newPassword)
+    async Task SignInCachedUserAsync()
+    {
+        // Check if a cached player already exists by checking if the session token exists
+        if (!AuthenticationService.Instance.SessionTokenExists)
+        {
+            // if not, then do nothing
+            return;
+        }
+
+        // Sign in Anonymously
+        // This call will sign in the cached player.
+        try
+        {
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            Debug.Log("Cached sign in succeeded!");
+        }
+        catch (AuthenticationException ex)
+        {
+            // Compare error code to AuthenticationErrorCodes
+            // Notify the player with the proper error message
+            Debug.LogException(ex);
+        }
+        catch (RequestFailedException ex)
+        {
+            // Compare error code to CommonErrorCodes
+            // Notify the player with the proper error message
+            Debug.LogException(ex);
+        }
+    }
+
+    public async Task UpdatePasswordAsync(string currentPassword, string newPassword)
 	{
 		try
 		{
@@ -139,30 +176,20 @@ public class UserAccounts : MonoBehaviour
 		}
 	}
 
-	public async void SaveData()
+	public async Task SaveData()
 	{
-		var playerData = new Dictionary<string, object>{
-		  {"firstKeyName", "a text value"},
-		  {"secondKeyName", 123}
-		};
-		await CloudSaveService.Instance.Data.Player.SaveAsync(playerData);
-		Debug.Log($"Saved data {string.Join(',', playerData)}");
+		await CloudSaveService.Instance.Data.Player.SaveAsync(new Dictionary<string, object> { { "Decks", JsonConvert.SerializeObject(allDecks) } });
+		Debug.Log("Saved user decks");
 	}
 
-	public async void LoadData()
+	public async Task LoadData()
 	{
-		var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> {
-		  "firstKeyName", "secondKeyName"
-		});
-
-		if (playerData.TryGetValue("firstKeyName", out var firstKey))
+		var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> {"Decks"});
+		if (playerData.TryGetValue("Decks", out var firstKey))
 		{
-			Debug.Log($"firstKeyName value: {firstKey.Value.GetAs<string>()}");
-		}
-
-		if (playerData.TryGetValue("secondKeyName", out var secondKey))
-		{
-			Debug.Log($"secondKey value: {secondKey.Value.GetAs<int>()}");
+			allDecks = JsonConvert.DeserializeObject<Dictionary<string, Deck>>(firstKey.Value.GetAs<string>()); 
+			Debug.Log("Loaded user decks");
+			Debug.Log(allDecks);
 		}
 	}
 
