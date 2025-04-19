@@ -50,5 +50,8 @@ TagManager:
   - name: HandCard
     uniqueID: 2352208763
     locked: 0
+  - name: Error
+    uniqueID: 1962230211
+    locked: 0
   m_RenderingLayers:
   - Default

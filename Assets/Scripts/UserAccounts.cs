@@ -10,6 +10,7 @@ using Unity.Services.CloudSave.Models.Data.Player;
 using static DeckBuilder;
 using Newtonsoft.Json;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UserAccounts : MonoBehaviour
 {
@@ -26,6 +27,10 @@ public class UserAccounts : MonoBehaviour
 	public static Dictionary<string, Deck> allDecks = new();
 
     public static UserAccounts Instance;
+
+    public GameObject Error;
+	private GameObject errorInstance;
+	private Coroutine c;
 
     async void Awake()
 	{
@@ -44,7 +49,12 @@ public class UserAccounts : MonoBehaviour
 		{
 			Debug.LogException(e);
 		}
-		SetupEvents();
+		
+		//AuthenticationService.Instance.ClearSessionToken();
+        
+		errorInstance = Instantiate(Error, transform);
+
+        SetupEvents();
 		await SignInCachedUserAsync();
 		DontDestroyOnLoad(gameObject);
 	}
@@ -67,12 +77,11 @@ public class UserAccounts : MonoBehaviour
 		};
 
 		AuthenticationService.Instance.SignInFailed += (err) => {
-			Debug.LogError(err);
+			
 		};
 
 		AuthenticationService.Instance.SignedOut += () => {
 			Debug.Log("Player signed out.");
-
             SceneManager.LoadScene("Login");
         };
 
@@ -83,25 +92,22 @@ public class UserAccounts : MonoBehaviour
         };
 	}
 
-	public async Task SignUpWithUsernamePasswordAsync(string username, string password)
+	public async Task SignUpWithUsernamePasswordAsync(string username, string password, string displayName)
 	{
 		try
 		{
 			await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
-			Debug.Log("SignUp is successful.");
+			await AuthenticationService.Instance.UpdatePlayerNameAsync(displayName);
+			Debug.Log("SignUp is successful. Display name: " + AuthenticationService.Instance.PlayerName);
 		}
 		catch (AuthenticationException ex)
 		{
-			// Compare error code to AuthenticationErrorCodes
-			// Notify the player with the proper error message
-			Debug.LogException(ex);
-		}
+            ShowError(ex.Message);
+        }
 		catch (RequestFailedException ex)
 		{
-			// Compare error code to CommonErrorCodes
-			// Notify the player with the proper error message
-			Debug.LogException(ex);
-		}
+            ShowError(ex.Message);
+        }
 	}
 
 	public async Task SignInWithUsernamePasswordAsync(string username, string password)
@@ -110,18 +116,14 @@ public class UserAccounts : MonoBehaviour
 		{
 			await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
 			Debug.Log("SignIn is successful.");
-		}
+        }
 		catch (AuthenticationException ex)
 		{
-			// Compare error code to AuthenticationErrorCodes
-			// Notify the player with the proper error message
-			Debug.LogException(ex);
+			ShowError(ex.Message);
 		}
 		catch (RequestFailedException ex)
 		{
-			// Compare error code to CommonErrorCodes
-			// Notify the player with the proper error message
-			Debug.LogException(ex);
+			ShowError(ex.Message);
 		}
 	}
 
@@ -139,19 +141,15 @@ public class UserAccounts : MonoBehaviour
         try
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            Debug.Log("Cached sign in succeeded!");
+            Debug.Log("Cached SignIn is successful");
         }
         catch (AuthenticationException ex)
         {
-            // Compare error code to AuthenticationErrorCodes
-            // Notify the player with the proper error message
-            Debug.LogException(ex);
+            ShowError(ex.Message);
         }
         catch (RequestFailedException ex)
         {
-            // Compare error code to CommonErrorCodes
-            // Notify the player with the proper error message
-            Debug.LogException(ex);
+            ShowError(ex.Message);
         }
     }
 
@@ -164,15 +162,11 @@ public class UserAccounts : MonoBehaviour
 		}
 		catch (AuthenticationException ex)
 		{
-			// Compare error code to AuthenticationErrorCodes
-			// Notify the player with the proper error message
-			Debug.LogException(ex);
+			ShowError(ex.Message);
 		}
 		catch (RequestFailedException ex)
 		{
-			// Compare error code to CommonErrorCodes
-			// Notify the player with the proper error message
-			Debug.LogException(ex);
+			ShowError(ex.Message);
 		}
 	}
 
@@ -191,6 +185,20 @@ public class UserAccounts : MonoBehaviour
 			Debug.Log("Loaded user decks");
 			Debug.Log(allDecks);
 		}
+	}
+
+	public void ShowError(string message)
+	{
+		errorInstance.SetActive(true);
+		errorInstance.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = message;
+		if (c != null) StopCoroutine(c);
+		c = StartCoroutine(RemoveError());
+	}
+
+	private IEnumerator RemoveError()
+	{
+		yield return new WaitForSeconds(3);
+		errorInstance.SetActive(false);
 	}
 
 }

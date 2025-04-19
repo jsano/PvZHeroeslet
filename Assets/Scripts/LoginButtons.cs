@@ -1,3 +1,4 @@
+using Unity.Services.Authentication;
 using UnityEngine;
 
 public class LoginButtons : MonoBehaviour
@@ -5,6 +6,7 @@ public class LoginButtons : MonoBehaviour
 
     private string inputUsername;
     private string inputPassword;
+    private string inputDisplayName;
     public GameObject LoginPanel;
     public GameObject SignupPanel;
 
@@ -18,6 +20,7 @@ public class LoginButtons : MonoBehaviour
     {
         inputUsername = "";
         inputPassword = "";
+        inputDisplayName = "";
         LoginPanel.SetActive(!LoginPanel.activeSelf);
         SignupPanel.SetActive(!SignupPanel.activeSelf);
     }
@@ -29,7 +32,7 @@ public class LoginButtons : MonoBehaviour
 
     public async void SignUp()
     {
-        await UserAccounts.Instance.SignUpWithUsernamePasswordAsync(inputUsername, inputPassword);
+        await UserAccounts.Instance.SignUpWithUsernamePasswordAsync(inputUsername, inputPassword, inputDisplayName);
     }
 
     public void SetInputUsername(string s)
@@ -39,7 +42,12 @@ public class LoginButtons : MonoBehaviour
 
     public void SetInputPassword(string s)
     {
-        inputUsername = s;
+        inputPassword = s;
+    }
+
+    public void SetInputDisplayName(string s)
+    {
+        inputDisplayName = s;
     }
 
 }
