@@ -9,6 +9,8 @@ internal class WidgetServiceInitializationInternal : IServiceInitialization
     /// UnityServices, AuthenticationService and VivoxService (if installed) are initialized.
     ///
     /// Register an event to SessionEventDispatcher.Instance.OnInitializationDone to be notified when the initialization is done.
+    /// 
+    /// DEV MODE ONLY, USED WHEN STARTING PLAY MODE NOT IN LOGIN SCREEN
     /// </summary>
     public async Task InitializeAsync()
     {

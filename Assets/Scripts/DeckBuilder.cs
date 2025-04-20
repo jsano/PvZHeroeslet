@@ -142,9 +142,10 @@ public class DeckBuilder : MonoBehaviour
         }
     }
 
-    public void Confirm()
+    public async void Confirm()
     {
-        PlayerPrefs.SetString("Decks", JsonConvert.SerializeObject(UserAccounts.allDecks));
+        //PlayerPrefs.SetString("Decks", JsonConvert.SerializeObject(UserAccounts.allDecks));
+        await UserAccounts.Instance.SaveData();
         SceneManager.LoadScene("Decks", LoadSceneMode.Single);
     }
 
