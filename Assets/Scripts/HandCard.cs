@@ -5,6 +5,7 @@ using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
@@ -31,6 +32,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 	public TextMeshProUGUI atkUI;
 	public TextMeshProUGUI hpUI;
     public TextMeshProUGUI costUI;
+    public Sprite brainUI;
 
     private FinalStats finalStats;
 
@@ -52,7 +54,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         // Layer this above all other handcards
         GetComponent<SpriteRenderer>().sortingOrder += 10;
         image.sortingOrder += 10;
-        atkUI.transform.parent.GetComponent<Canvas>().sortingOrder += 10;
+        GetComponentInChildren<Canvas>().sortingOrder += 10;
 
         // Recalculate at every pointer down since the board state can change throughout the game
         validChoices.Clear();
@@ -120,7 +122,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         // Revert layering from pointer down
         GetComponent<SpriteRenderer>().sortingOrder -= 10;
         image.sortingOrder -= 10;
-        atkUI.transform.parent.GetComponent<Canvas>().sortingOrder -= 10;
+        GetComponentInChildren<Canvas>().sortingOrder -= 10;
 
         // Show card UI if it wasn't currently dragging. Only play if it was dragging
         if (!eventData.dragging)
@@ -171,8 +173,8 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
         if (orig.type == Card.Type.Trick)
         {
-            atkUI.text = "";
-            hpUI.text = "";
+            atkUI.transform.parent.gameObject.SetActive(false);
+            hpUI.transform.parent.gameObject.SetActive(false);
         }
         else
         {
@@ -180,6 +182,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             hpUI.text = finalStats.hp + "";
         }
         costUI.text = finalStats.cost + "";
+        if (orig.team == Card.Team.Zombie) costUI.GetComponentInParent<Image>().sprite = brainUI;
 
         if (GameManager.Instance.team == Card.Team.Plant) tileObjects = Tile.plantTiles;
         else tileObjects = Tile.zombieTiles;

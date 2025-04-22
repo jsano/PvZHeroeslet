@@ -187,8 +187,8 @@ public class Card : Damagable
         initializedStats = true;
         UpdateAntihero();
 
-        atkUI = transform.Find("ATK").GetComponent<TextMeshProUGUI>();
-        hpUI = transform.Find("HP").GetComponent<TextMeshProUGUI>();
+        atkUI = transform.Find("ATK").GetComponentInChildren<TextMeshProUGUI>();
+        hpUI = transform.Find("HP").GetComponentInChildren<TextMeshProUGUI>();
         if (type == Type.Unit)
         {
             atkUI.text = atk + "";
@@ -196,8 +196,8 @@ public class Card : Damagable
         }
         else
         {
-            atkUI.text = "";
-            hpUI.text = "";
+            atkUI.transform.parent.gameObject.SetActive(false);
+            hpUI.transform.parent.gameObject.SetActive(false);
         }
         if (gravestone) Hide();
         else

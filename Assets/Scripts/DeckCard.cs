@@ -17,6 +17,8 @@ public class DeckCard : MonoBehaviour
     public TextMeshProUGUI hpUI;
     public TextMeshProUGUI costUI;
 
+    public Sprite brainUI;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,8 +28,8 @@ public class DeckCard : MonoBehaviour
         image.sprite = orig.GetComponent<SpriteRenderer>().sprite;
         if (orig.type == Card.Type.Trick)
         {
-            atkUI.text = "";
-            hpUI.text = "";
+            atkUI.transform.parent.gameObject.SetActive(false);
+            hpUI.transform.parent.gameObject.SetActive(false);
         }
         else
         {
@@ -35,6 +37,7 @@ public class DeckCard : MonoBehaviour
             hpUI.text = orig.HP + "";
         } 
         costUI.text = orig.cost + "";
+        if (orig.team == Card.Team.Zombie) costUI.GetComponentInParent<Image>().sprite = brainUI;
         if (hideButtons) transform.Find("Buttons").gameObject.SetActive(false);
     }
 

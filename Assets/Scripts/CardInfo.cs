@@ -21,6 +21,8 @@ public class CardInfo : MonoBehaviour
 
     public Button exit;
 
+	public Sprite brainUI;
+
 	public void Show(Card source, FinalStats fs = null)
 	{
         if (isActiveAndEnabled) return;
@@ -41,11 +43,12 @@ public class CardInfo : MonoBehaviour
 		HP.text = baseCard.HP + "";
 		if (baseCard.type == Card.Type.Trick)
 		{
-			atk.text = "";
-			HP.text = "";
+			atk.transform.parent.gameObject.SetActive(false);
+			HP.transform.parent.gameObject.SetActive(false);
 		}
 		cost.text = baseCard.cost + "";
-		cardClass.text = Enum.GetName(typeof(Card.Class), baseCard._class);
+        if (baseCard.team == Card.Team.Zombie) cost.GetComponentInParent<Image>().sprite = brainUI;
+        cardClass.text = Enum.GetName(typeof(Card.Class), baseCard._class);
 		cardName.text = baseCard.name;
 
 		tribes.text = "";
