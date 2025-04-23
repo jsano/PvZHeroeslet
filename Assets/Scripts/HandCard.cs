@@ -32,7 +32,6 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 	public TextMeshProUGUI atkUI;
 	public TextMeshProUGUI hpUI;
     public TextMeshProUGUI costUI;
-    public Sprite brainUI;
 
     private FinalStats finalStats;
 
@@ -171,6 +170,8 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         // If no stat override was given, use the prefab values
         if (finalStats == null) finalStats = new FinalStats(ID);
 
+        atkUI.GetComponentInParent<Image>().sprite = orig.GetAttackIcon();
+        hpUI.GetComponentInParent<Image>().sprite = orig.GetHPIcon();
         if (orig.type == Card.Type.Trick)
         {
             atkUI.transform.parent.gameObject.SetActive(false);
@@ -182,7 +183,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             hpUI.text = finalStats.hp + "";
         }
         costUI.text = finalStats.cost + "";
-        if (orig.team == Card.Team.Zombie) costUI.GetComponentInParent<Image>().sprite = brainUI;
+        if (orig.team == Card.Team.Zombie) costUI.GetComponentInParent<Image>().sprite = AllCards.Instance.brainUI;
 
         if (GameManager.Instance.team == Card.Team.Plant) tileObjects = Tile.plantTiles;
         else tileObjects = Tile.zombieTiles;
