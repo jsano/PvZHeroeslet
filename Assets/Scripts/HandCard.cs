@@ -48,7 +48,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     {
         startPos = transform.position;
         if (!interactable) return;
-        transform.localScale = Vector3.one * 1.2f;
+        transform.localScale = Vector3.one;
 
         // Layer this above all other handcards
         GetComponent<SpriteRenderer>().sortingOrder += 10;
@@ -117,7 +117,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             else bc.GetComponent<Hero>().ToggleTarget(false);
         }
 
-        transform.localScale = Vector3.one;
+        transform.localScale = Vector3.one * 0.9f;
         // Revert layering from pointer down
         GetComponent<SpriteRenderer>().sortingOrder -= 10;
         image.sortingOrder -= 10;
@@ -140,21 +140,24 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                 if (orig.type == Card.Type.Unit)
                 {
                     GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col);
+                    transform.SetParent(null);
                     Destroy(gameObject);
                 }
                 else if (orig.IsValidTarget(bc))
                 {
                     if (t == null) GameManager.Instance.PlayTrickRpc(finalStats, -1, -1, bc.GetComponent<Hero>().team == Card.Team.Plant);
                     else GameManager.Instance.PlayTrickRpc(finalStats, t.row, t.col, t.isPlantTile);
+                    transform.SetParent(null);
                     Destroy(gameObject);
                 }
+                GameManager.Instance.UpdateHandCardPositions();
             }
         }
         // If this is a superpower HandCard created from a block, hold on to it if the pointer let go at the "HandCard area"
         if (GameManager.Instance.waitingOnBlock && transform.parent.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position)))
         {
-            
-            startPos = Camera.main.ScreenToWorldPoint(eventData.position); // TODO: change
+            GameManager.Instance.UpdateHandCardPositions();
+            startPos = transform.position;
             interactable = false;
             ChangeCost(1);
             GameManager.Instance.HoldTrickRpc(GameManager.Instance.team);

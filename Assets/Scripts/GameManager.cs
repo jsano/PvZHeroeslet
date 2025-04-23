@@ -296,22 +296,39 @@ public class GameManager : NetworkBehaviour
 	/// <param name="fs">If provided, uses these stats for the HandCard, otherwise uses the default</param>
     public void GainHandCard(Team t, int id, FinalStats fs = null)
 	{
+		if (handCards.childCount >= 10) return;
 		if (team == t)
 		{
 			GameObject c;
 			if (AllCards.Instance.cards[id].specialHandCard != null) c = Instantiate(AllCards.Instance.cards[id].specialHandCard, handCards);
             else c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
-			for (int i = 0; i < handCards.childCount; i++)
-			{
-				handCards.GetChild(i).transform.localPosition = new Vector2(1.2f * (-(handCards.childCount - 1) / 2f + i), 0);
-			}
+			UpdateHandCardPositions();
 			c.GetComponent<HandCard>().ID = id;
 			if (fs != null) c.GetComponent<HandCard>().OverrideFS(fs);
 			c.SetActive(true);
 		}
 		TriggerEvent("OnCardDraw", t);
     }
+
+	/// <summary>
+	/// Organizes the HandCard layout to be in the 5x2 grid
+	/// </summary>
+	public void UpdateHandCardPositions()
+	{
+		int rows = (int)Mathf.Ceil(handCards.childCount / 5f);
+		float ypos = 0.4f * (rows-1);
+		int index = 0;
+		for (int r = 0; r < rows; r++)
+		{
+			int numThisRow = Mathf.Min(5, handCards.childCount - index);
+			for (int i = 0; i < numThisRow; i++, index++)
+			{
+				handCards.GetChild(index).transform.localPosition = new Vector2(1.2f * (-(numThisRow - 1) / 2f + i), ypos);
+			}
+			ypos -= 0.8f;
+		}
+	}
 
     /// <summary>
     /// Signals to the network that it is ready for the next phase. Transitions to the next phase if possible
