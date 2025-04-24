@@ -29,5 +29,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DeckBuilder.unity
     guid: e263f296719e4594d97b941d21090f2b
+  - enabled: 1
+    path: Assets/Scenes/Leaderboard.unity
+    guid: 687348ac91558c147949173bae2269a5
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
