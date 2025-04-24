@@ -11,9 +11,28 @@ public class AllCards : MonoBehaviour
 
     public Card[] cards;
     public Hero[] heroes;
+    
+    public Sprite attackSprite;
+    public Sprite HPSprite;
+    public Sprite multiSprite;
     public Sprite gravestoneSprite;
+    public Sprite antiheroSprite;
+    public Sprite armorSprite;
+    public Sprite bullseyeSprite;
+    public Sprite deadlySprite;
+    public Sprite doubleStrikeSprite;
+    public Sprite frenzySprite;
+    public Sprite overshootSprite;
+    public Sprite strikethroughSprite;
+    public Sprite untrickableSprite;
+    public Sprite frozenSprite;
+    public Sprite invulnerableSprite;
+    public Sprite strengthHeart;
 
-	void Awake()
+    //public Sprite sunUI;
+    public Sprite brainUI;
+
+    void Awake()
     {
         if (instance != null && instance != this) Destroy(gameObject);
         else instance = this;

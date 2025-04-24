@@ -39,13 +39,21 @@ public class CardInfo : MonoBehaviour
 		image.sprite = baseCard.GetComponent<SpriteRenderer>().sprite;
 		atk.text = baseCard.atk + "";
 		HP.text = baseCard.HP + "";
-		if (baseCard.type == Card.Type.Trick)
+        if (baseCard.type == Card.Type.Trick)
 		{
-			atk.text = "";
-			HP.text = "";
+			atk.transform.parent.gameObject.SetActive(false);
+			HP.transform.parent.gameObject.SetActive(false);
 		}
+		else
+		{
+            atk.transform.parent.gameObject.SetActive(true);
+            HP.transform.parent.gameObject.SetActive(true);
+			atk.GetComponentInParent<Image>().sprite = baseCard.GetAttackIcon();
+			HP.GetComponentInParent<Image>().sprite = baseCard.GetHPIcon();
+        }
 		cost.text = baseCard.cost + "";
-		cardClass.text = Enum.GetName(typeof(Card.Class), baseCard._class);
+        if (baseCard.team == Card.Team.Zombie) cost.GetComponentInParent<Image>().sprite = AllCards.Instance.brainUI;
+        cardClass.text = Enum.GetName(typeof(Card.Class), baseCard._class);
 		cardName.text = baseCard.name;
 
 		tribes.text = "";

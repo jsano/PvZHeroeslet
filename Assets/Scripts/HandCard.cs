@@ -5,6 +5,7 @@ using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
@@ -47,12 +48,12 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     {
         startPos = transform.position;
         if (!interactable) return;
-        transform.localScale = Vector3.one * 1.2f;
+        transform.localScale = Vector3.one;
 
         // Layer this above all other handcards
         GetComponent<SpriteRenderer>().sortingOrder += 10;
         image.sortingOrder += 10;
-        atkUI.transform.parent.GetComponent<Canvas>().sortingOrder += 10;
+        GetComponentInChildren<Canvas>().sortingOrder += 10;
 
         // Recalculate at every pointer down since the board state can change throughout the game
         validChoices.Clear();
@@ -116,11 +117,11 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             else bc.GetComponent<Hero>().ToggleTarget(false);
         }
 
-        transform.localScale = Vector3.one;
+        transform.localScale = Vector3.one * 0.9f;
         // Revert layering from pointer down
         GetComponent<SpriteRenderer>().sortingOrder -= 10;
         image.sortingOrder -= 10;
-        atkUI.transform.parent.GetComponent<Canvas>().sortingOrder -= 10;
+        GetComponentInChildren<Canvas>().sortingOrder -= 10;
 
         // Show card UI if it wasn't currently dragging. Only play if it was dragging
         if (!eventData.dragging)
@@ -139,21 +140,24 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                 if (orig.type == Card.Type.Unit)
                 {
                     GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col);
+                    transform.SetParent(null);
                     Destroy(gameObject);
                 }
                 else if (orig.IsValidTarget(bc))
                 {
                     if (t == null) GameManager.Instance.PlayTrickRpc(finalStats, -1, -1, bc.GetComponent<Hero>().team == Card.Team.Plant);
                     else GameManager.Instance.PlayTrickRpc(finalStats, t.row, t.col, t.isPlantTile);
+                    transform.SetParent(null);
                     Destroy(gameObject);
                 }
+                GameManager.Instance.UpdateHandCardPositions();
             }
         }
         // If this is a superpower HandCard created from a block, hold on to it if the pointer let go at the "HandCard area"
         if (GameManager.Instance.waitingOnBlock && transform.parent.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position)))
         {
-            
-            startPos = Camera.main.ScreenToWorldPoint(eventData.position); // TODO: change
+            GameManager.Instance.UpdateHandCardPositions();
+            startPos = transform.position;
             interactable = false;
             ChangeCost(1);
             GameManager.Instance.HoldTrickRpc(GameManager.Instance.team);
@@ -169,10 +173,12 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         // If no stat override was given, use the prefab values
         if (finalStats == null) finalStats = new FinalStats(ID);
 
+        atkUI.GetComponentInParent<Image>().sprite = orig.GetAttackIcon();
+        hpUI.GetComponentInParent<Image>().sprite = orig.GetHPIcon();
         if (orig.type == Card.Type.Trick)
         {
-            atkUI.text = "";
-            hpUI.text = "";
+            atkUI.transform.parent.gameObject.SetActive(false);
+            hpUI.transform.parent.gameObject.SetActive(false);
         }
         else
         {
@@ -180,6 +186,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             hpUI.text = finalStats.hp + "";
         }
         costUI.text = finalStats.cost + "";
+        if (orig.team == Card.Team.Zombie) costUI.GetComponentInParent<Image>().sprite = AllCards.Instance.brainUI;
 
         if (GameManager.Instance.team == Card.Team.Plant) tileObjects = Tile.plantTiles;
         else tileObjects = Tile.zombieTiles;

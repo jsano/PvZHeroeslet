@@ -49,7 +49,8 @@ public class EnsignUproot : Card
 	private IEnumerator OnSelection1(BoxCollider2D bc)
 	{
 		GameManager.Instance.ClearSelection();
-		Tile t = bc.GetComponent<Tile>();
+        choices.Clear();
+        Tile t = bc.GetComponent<Tile>();
 		yield return new WaitForSeconds(1);
 		toMove.Move(t.row, t.col);
 	}

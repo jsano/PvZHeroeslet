@@ -78,7 +78,7 @@ public class Hero : Damagable
 			hpUI.text = Mathf.Max(0, HP) + "";
 			if (HP <= 0)
 			{
-				Debug.Log("DEAD");
+				GameManager.Instance.GameEnded(team == Card.Team.Plant ? Card.Team.Zombie : Card.Team.Plant);
 			}
 			else StartCoroutine(HitVisual());
 

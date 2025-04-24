@@ -234,4 +234,20 @@ MonoBehaviour:
   - {fileID: 5580416763383033049, guid: 746201e4010bd064892054858521faf9, type: 3}
   - {fileID: 5580416763383033049, guid: be6605f6bb4f9604c9fb33019863886f, type: 3}
   - {fileID: 5580416763383033049, guid: 7222ad1993a823149ad8db87ab5937e6, type: 3}
+  attackSprite: {fileID: -614008370759134500, guid: de892fa4810ff12498de293c60ad7297, type: 3}
+  HPSprite: {fileID: 21300000, guid: a827faf4f440ba347b00f7fbaecbf259, type: 3}
+  multiSprite: {fileID: 21300000, guid: 7e20defee86495544b5cbcab63bf8dfb, type: 3}
   gravestoneSprite: {fileID: 21300000, guid: 978d1c81078a4b1439fb28657a2dd034, type: 3}
+  antiheroSprite: {fileID: 21300000, guid: 03e8306c4e1c0214191b74ebf72474ee, type: 3}
+  armorSprite: {fileID: 21300000, guid: 9825e60f6657278428962335024daebc, type: 3}
+  bullseyeSprite: {fileID: 21300000, guid: 123fb99711e22d9439a8176def7e75f6, type: 3}
+  deadlySprite: {fileID: 21300000, guid: e186a984dd287c244b5788da439e25b6, type: 3}
+  doubleStrikeSprite: {fileID: 21300000, guid: dafb524e2b3307c49accfada8c1c3367, type: 3}
+  frenzySprite: {fileID: 21300000, guid: 5b3b645f054b75f4fbaf41ab64f0a3e9, type: 3}
+  overshootSprite: {fileID: 21300000, guid: c4afe4ff1132f82448eeddb88af5319b, type: 3}
+  strikethroughSprite: {fileID: 21300000, guid: 024d2cbb9013f80459bf1e2559cac4f4, type: 3}
+  untrickableSprite: {fileID: 21300000, guid: c013cf09164a8294193906e4c655f153, type: 3}
+  frozenSprite: {fileID: 21300000, guid: 4697e27d406a86d41882a1df39e1d8af, type: 3}
+  invulnerableSprite: {fileID: 21300000, guid: 22b94c1aa16c63448a62aeef2ec122e6, type: 3}
+  strengthHeart: {fileID: 21300000, guid: 7cc85b9b1d09c2a42bb36c7d7c2fe5e7, type: 3}
+  brainUI: {fileID: 21300000, guid: 244106569778a8e4db3627bf0fcd0c46, type: 3}

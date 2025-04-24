@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Card : Damagable
 {
@@ -127,6 +128,8 @@ public class Card : Damagable
     public GameObject specialHandCard;
     private TextMeshProUGUI atkUI;
     private TextMeshProUGUI hpUI;
+    private Image atkSprite;
+    private Image hpSprite;
     private SpriteRenderer SR;
     private Sprite baseSprite;
 
@@ -187,8 +190,10 @@ public class Card : Damagable
         initializedStats = true;
         UpdateAntihero();
 
-        atkUI = transform.Find("ATK").GetComponent<TextMeshProUGUI>();
-        hpUI = transform.Find("HP").GetComponent<TextMeshProUGUI>();
+        atkUI = transform.Find("ATK").GetComponentInChildren<TextMeshProUGUI>();
+        hpUI = transform.Find("HP").GetComponentInChildren<TextMeshProUGUI>();
+        atkSprite = atkUI.GetComponentInParent<Image>();
+        hpSprite = hpUI.GetComponentInParent<Image>();
         if (type == Type.Unit)
         {
             atkUI.text = atk + "";
@@ -196,8 +201,8 @@ public class Card : Damagable
         }
         else
         {
-            atkUI.text = "";
-            hpUI.text = "";
+            atkSprite.gameObject.SetActive(false);
+            hpSprite.gameObject.SetActive(false);
         }
         if (gravestone) Hide();
         else
@@ -244,6 +249,9 @@ public class Card : Damagable
 				}
 			}
 		}
+
+        atkSprite.sprite = GetAttackIcon();
+        hpSprite.sprite = GetHPIcon();
 	}
 
     /// <summary>
@@ -546,8 +554,8 @@ public class Card : Damagable
     {
         gravestone = false;
 		SR.sprite = baseSprite;
-		atkUI.gameObject.SetActive(true);
-		hpUI.gameObject.SetActive(true);
+        atkSprite.gameObject.SetActive(true);
+        hpSprite.gameObject.SetActive(true);
         UpdateAntihero();
         GameManager.Instance.currentlySpawningCards += 1;
         //play animation
@@ -564,8 +572,8 @@ public class Card : Damagable
         HP = baseHP;
         gravestone = true;
         SR.sprite = AllCards.Instance.gravestoneSprite;
-        atkUI.gameObject.SetActive(false);
-        hpUI.gameObject.SetActive(false);
+        atkSprite.gameObject.SetActive(false);
+        hpSprite.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -651,5 +659,33 @@ public class Card : Damagable
         // Don't show gravestone card info for the plant perspective
 		if (GameManager.Instance.team == Team.Zombie || !gravestone) cardInfo.Show(this);
 	}
+
+    public Sprite GetAttackIcon()
+    {
+        var icons = AllCards.Instance;
+        List<Sprite> ret = new();
+        if (strikethrough) ret.Add(icons.strikethroughSprite);
+        if (antihero > 0) ret.Add(icons.antiheroSprite);
+        if (bullseye) ret.Add(icons.bullseyeSprite);
+        if (deadly) ret.Add(icons.deadlySprite);
+        if (doubleStrike) ret.Add(icons.doubleStrikeSprite);
+        if (frenzy) ret.Add(icons.frenzySprite);
+        if (overshoot > 0) ret.Add(icons.overshootSprite);
+        if (ret.Count > 1) return icons.multiSprite;
+        if (ret.Count == 0) return icons.attackSprite;
+        return ret[0];
+}
+
+    public Sprite GetHPIcon()
+    {
+        var icons = AllCards.Instance;
+        List<Sprite> ret = new();
+        if (armor > 0) ret.Add(icons.armorSprite);
+        if (untrickable) ret.Add(icons.untrickableSprite);
+        if (frozen) ret.Add(icons.frozenSprite);
+        if (ret.Count > 1) return icons.multiSprite;
+        if (ret.Count == 0) return icons.HPSprite;
+        return ret[0];
+    }
 
 }

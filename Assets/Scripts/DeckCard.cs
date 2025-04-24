@@ -24,10 +24,13 @@ public class DeckCard : MonoBehaviour
         DB = FindAnyObjectByType<DeckBuilder>(FindObjectsInactive.Include).GetComponent<DeckBuilder>();
         Card orig = AllCards.Instance.cards[ID];
         image.sprite = orig.GetComponent<SpriteRenderer>().sprite;
+
+        atkUI.GetComponentInParent<Image>().sprite = orig.GetAttackIcon();
+        hpUI.GetComponentInParent<Image>().sprite = orig.GetHPIcon();
         if (orig.type == Card.Type.Trick)
         {
-            atkUI.text = "";
-            hpUI.text = "";
+            atkUI.transform.parent.gameObject.SetActive(false);
+            hpUI.transform.parent.gameObject.SetActive(false);
         }
         else
         {
@@ -35,6 +38,7 @@ public class DeckCard : MonoBehaviour
             hpUI.text = orig.HP + "";
         } 
         costUI.text = orig.cost + "";
+        if (orig.team == Card.Team.Zombie) costUI.GetComponentInParent<Image>().sprite = AllCards.Instance.brainUI;
         if (hideButtons) transform.Find("Buttons").gameObject.SetActive(false);
     }
 
