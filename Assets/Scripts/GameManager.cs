@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
+using Unity.Services.Leaderboards;
+using Unity.Services.Leaderboards.Exceptions;
 using UnityEngine;
 using UnityEngine.UI;
 using static Card;
@@ -22,6 +24,7 @@ public class GameManager : NetworkBehaviour
         turn = 1;
 	}
 
+	private bool ENDED;
 	/// <summary>
 	/// Index for which superpower to draw next
 	/// </summary>
@@ -67,6 +70,10 @@ public class GameManager : NetworkBehaviour
     public GameObject handcardPrefab;
     public TextMeshProUGUI remainingText;
 	public TextMeshProUGUI opponentRemainingText;
+	public GameObject endScreen;
+	public TextMeshProUGUI winner;
+	public TextMeshProUGUI score;
+	public TextMeshProUGUI change;
 
     /// <summary>
     /// Reference to plant hero script
@@ -189,7 +196,7 @@ public class GameManager : NetworkBehaviour
     /// </summary>
     public IEnumerator ProcessEvents()
     {
-		if (isProcessing) yield break;
+		if (isProcessing || ENDED) yield break;
 		isProcessing = true;
 		yield return null;
         DisableHandCards();
@@ -211,6 +218,8 @@ public class GameManager : NetworkBehaviour
             Debug.Log(currentEvent.time + " " + currentEvent.methodName + " from " + currentEvent.arg + " at column " + col + " -- Remaining: " + eventStack.Count);
             yield return CallLeftToRight(currentEvent.methodName, currentEvent.arg);
 
+			if (ENDED) yield break;
+
 			yield return new WaitUntil(() => currentlySpawningCards == 0);
 			yield return null;
         }
@@ -221,6 +230,7 @@ public class GameManager : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		endScreen.SetActive(false);
 		// Setup board structure depending on the player's team
 		plantHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.PlantHero]).GetComponent<Hero>();
 		zombieHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.ZombieHero]).GetComponent<Hero>();
@@ -391,13 +401,17 @@ public class GameManager : NetworkBehaviour
 		{
 			if (Tile.zombieTiles[0, col].planted != null) yield return Tile.zombieTiles[0, col].planted.Attack();
 
-			if (Tile.plantTiles[1, col].planted != null) yield return Tile.plantTiles[1, col].planted.Attack();
+            if (ENDED) yield break;
+
+            if (Tile.plantTiles[1, col].planted != null) yield return Tile.plantTiles[1, col].planted.Attack();
 			if (Tile.plantTiles[0, col].planted != null) yield return Tile.plantTiles[0, col].planted.Attack();
 
 			yield return ProcessEvents();
 
-			// Recursively handle frenzy if applicable
-			while (frenzyActivate != null)
+            if (ENDED) yield break;
+
+            // Recursively handle frenzy if applicable
+            while (frenzyActivate != null)
 			{
 				Card temp = frenzyActivate;
 				frenzyActivate = null;
@@ -405,11 +419,15 @@ public class GameManager : NetworkBehaviour
                 yield return ProcessEvents();
 			}
 
-			// Handle doublestrike if applicable
-			if (Tile.zombieTiles[0, col].planted != null && Tile.zombieTiles[0, col].planted.doubleStrike) yield return Tile.zombieTiles[0, col].planted.Attack();
+            if (ENDED) yield break;
+
+            // Handle doublestrike if applicable
+            if (Tile.zombieTiles[0, col].planted != null && Tile.zombieTiles[0, col].planted.doubleStrike) yield return Tile.zombieTiles[0, col].planted.Attack();
 
 			if (Tile.plantTiles[1, col].planted != null && Tile.plantTiles[1, col].planted.doubleStrike) yield return Tile.plantTiles[1, col].planted.Attack();
 			if (Tile.plantTiles[0, col].planted != null && Tile.plantTiles[0, col].planted.doubleStrike) yield return Tile.plantTiles[0, col].planted.Attack();
+
+            if (ENDED) yield break;
 
             yield return ProcessEvents();
         }
@@ -747,10 +765,51 @@ public class GameManager : NetworkBehaviour
 		shuffledList = new(list1);
     }
 
-	/// <summary>
-	/// Retrieves a list of all existing HandCards for the current player
-	/// </summary>
-	public List<HandCard> GetHandCards()
+    /// <summary>
+    /// The given winner has won the game
+    /// </summary>
+    public async void GameEnded(Team won)
+    {
+		ENDED = true;
+		
+		winner.text = (won == Team.Plant ? "PLANTS" : "ZOMBIES") + " WIN";
+		int oldScore = 0;
+		int newScore = 0;
+		try
+		{
+			var existingScore = await LeaderboardsService.Instance.GetPlayerScoreAsync("devplayers");
+			oldScore = (int)existingScore.Score;
+			if (team == won)
+			{
+				var scoreResponse = await LeaderboardsService.Instance.AddPlayerScoreAsync("devplayers", oldScore + 25);
+				newScore = (int)scoreResponse.Score;
+			}
+			else
+			{
+                var scoreResponse = await LeaderboardsService.Instance.AddPlayerScoreAsync("devplayers", oldScore - 25);
+                newScore = (int)scoreResponse.Score;
+            }
+		}
+		catch (LeaderboardsException e)
+		{
+			if (team == won && e.Reason == LeaderboardsExceptionReason.EntryNotFound)
+			{
+                var scoreResponse = await LeaderboardsService.Instance.AddPlayerScoreAsync("devplayers", 25);
+                newScore = (int)scoreResponse.Score;
+            }
+		}
+		score.text = newScore + "";
+		change.text = "(" + (newScore - oldScore > 0 ? "+" : "") + (newScore - oldScore) + ")";
+		if (newScore - oldScore > 0) change.color = Color.green;
+        else if (newScore == oldScore) change.color = Color.gray;
+        else change.color = Color.red;
+		endScreen.SetActive(true);
+	}
+
+    /// <summary>
+    /// Retrieves a list of all existing HandCards for the current player
+    /// </summary>
+    public List<HandCard> GetHandCards()
 	{
 		List<HandCard> ret = new();
 		foreach (Transform t in handCards) ret.Add(t.GetComponent<HandCard>());

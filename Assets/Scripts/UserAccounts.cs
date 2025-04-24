@@ -73,7 +73,7 @@ public class UserAccounts : MonoBehaviour
             Debug.Log($"Access Token: {AuthenticationService.Instance.AccessToken}");
 
 			await LoadData();
-			SceneManager.LoadScene("Start");
+			if (SceneManager.GetActiveScene().name != "Testing") SceneManager.LoadScene("Start");
 		};
 
 		AuthenticationService.Instance.SignInFailed += (err) => {
