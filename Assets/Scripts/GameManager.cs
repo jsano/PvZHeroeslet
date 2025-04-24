@@ -5,6 +5,7 @@ using TMPro;
 using Unity.Netcode;
 using Unity.Services.Leaderboards;
 using Unity.Services.Leaderboards.Exceptions;
+using Unity.Services.Leaderboards.Models;
 using UnityEngine;
 using UnityEngine.UI;
 using static Card;
@@ -766,7 +767,7 @@ public class GameManager : NetworkBehaviour
     }
 
     /// <summary>
-    /// The given winner has won the game
+    /// The given winner has won the game. Update player's score on the leaderboard or add if this is new
     /// </summary>
     public async void GameEnded(Team won)
     {
@@ -781,17 +782,24 @@ public class GameManager : NetworkBehaviour
 			oldScore = (int)existingScore.Score;
 			if (team == won)
 			{
+				// If this is the winning team, raise score by 25
 				var scoreResponse = await LeaderboardsService.Instance.AddPlayerScoreAsync("devplayers", oldScore + 25);
 				newScore = (int)scoreResponse.Score;
 			}
 			else
 			{
-                var scoreResponse = await LeaderboardsService.Instance.AddPlayerScoreAsync("devplayers", oldScore - 25);
-                newScore = (int)scoreResponse.Score;
+				// If this is the losing team, lower score by 25 unless they are in Wood tier
+				if (existingScore.Tier == "Wood") newScore = oldScore;
+				else
+				{
+					var scoreResponse = await LeaderboardsService.Instance.AddPlayerScoreAsync("devplayers", oldScore - 15);
+					newScore = (int)scoreResponse.Score;
+				}
             }
 		}
 		catch (LeaderboardsException e)
 		{
+			// This player isn't on the leaderboard, so if they are the winner, add an entry of 25
 			if (team == won && e.Reason == LeaderboardsExceptionReason.EntryNotFound)
 			{
                 var scoreResponse = await LeaderboardsService.Instance.AddPlayerScoreAsync("devplayers", 25);
