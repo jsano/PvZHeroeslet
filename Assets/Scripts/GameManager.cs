@@ -231,6 +231,7 @@ public class GameManager : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		AudioManager.Instance.PlayMusic("PitC");
 		endScreen.SetActive(false);
 		// Setup board structure depending on the player's team
 		plantHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.PlantHero]).GetComponent<Hero>();
@@ -395,6 +396,7 @@ public class GameManager : NetworkBehaviour
 	/// <returns></returns>
     private IEnumerator Combat()
     {
+		StartCoroutine(AudioManager.Instance.ToggleBattleMusic(true));
         yield return new WaitForSeconds(1);
 
 		// Cards attack left to right
@@ -448,7 +450,8 @@ public class GameManager : NetworkBehaviour
 			}
 		}
 
-		// Setup for next turn
+        // Setup for next turn
+        StartCoroutine(AudioManager.Instance.ToggleBattleMusic(false));
         turn += 1;
         remaining = turn + permanentBonus;
 		opponentRemaining = turn + opponentPermanentBonus;

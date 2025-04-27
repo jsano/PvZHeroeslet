@@ -154,7 +154,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             }
         }
         // If this is a superpower HandCard created from a block, hold on to it if the pointer let go at the "HandCard area"
-        if (GameManager.Instance.waitingOnBlock && transform.parent.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position)))
+        if (GameManager.Instance.waitingOnBlock && transform.parent != null && transform.parent.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position)))
         {
             GameManager.Instance.UpdateHandCardPositions();
             startPos = transform.position;
