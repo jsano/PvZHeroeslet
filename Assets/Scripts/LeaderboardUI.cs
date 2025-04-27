@@ -178,7 +178,7 @@ public class LeaderboardManager : MonoBehaviour
 
         // Populate data
         rankText.text = $"{rank+1}";
-        nameText.text = playerName.Substring(0, playerName.IndexOf("#")) + (isLocalPlayer ? " (You)" : "");
+        nameText.text = playerName.Substring(0, playerName.IndexOf("#"));
         scoreText.text = FormatScore(score);
 
         // Highlight the local player's entry
