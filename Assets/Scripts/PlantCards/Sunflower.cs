@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Sunflower : Card
 {
+	public int produceAmount;
 
 	protected override IEnumerator OnTurnStart()
 	{
 		yield return new WaitForSeconds(1);
-		GameManager.Instance.UpdateRemaining(1, team);
+		GameManager.Instance.UpdateRemaining(produceAmount, team);
 		yield return base.OnTurnStart();
 	}
 

@@ -47,6 +47,10 @@ public class GameManager : NetworkBehaviour
 	/// How much gold the player has left this turn
 	/// </summary>
     private int remaining = 1;
+	/// <summary>
+	/// The highest gold the player had this turn
+	/// </summary>
+    [HideInInspector] public int remainingTop = 1;
     /// <summary>
     /// How much extra gold the player has for each turn (ex. from Sunburn)
     /// </summary>
@@ -55,6 +59,10 @@ public class GameManager : NetworkBehaviour
     /// How much gold the opponent has left this turn
     /// </summary>
     private int opponentRemaining = 1;
+	/// <summary>
+	/// The highest gold the opponent had this turn
+	/// </summary>
+    [HideInInspector] public int opponentRemainingTop = 1;
     /// <summary>
     /// How much extra gold the opponent has for each turn (ex. from Cryo-brain)
     /// </summary>
@@ -112,7 +120,17 @@ public class GameManager : NetworkBehaviour
     /// <summary>
     /// Events with higher priority should be processed first. Those not on the list have no defined ordering
     /// </summary>
-    private Dictionary<string, int> priority = new() { { "OnCardPlay", 0 }, { "OnBlock", 1 }, { "OnCardMoved", 2 }, { "OnCardDeath", 3 }, { "OnCardFreeze", 4 }, { "OnCardHurt", 5 }, { "OnHeal" , 6 }, { "OnCardDraw", 7 } };
+    private Dictionary<string, int> priority = new() { 
+		{ "OnCardPlay", 0 }, 
+		{ "OnBlock", 1 }, 
+		{ "OnCardMoved", 2 }, 
+		{ "OnCardDeath", 3 }, 
+		{ "OnCardFreeze", 4 }, 
+		{ "OnCardHurt", 5 }, 
+		{ "OnHeroHeal" , 6 }, 
+		{ "OnCardHeal" , 7 }, 
+		{ "OnCardDraw", 8 } 
+	};
     
 	/// <summary>
     /// A game event, caused by any card effect or block, with information about the method, arguments, and frame number it was called
@@ -694,12 +712,14 @@ public class GameManager : NetworkBehaviour
 			remaining += change;
 			remaining = Mathf.Max(remaining, 0);
 			remainingText.text = remaining + "";
+			remainingTop = Mathf.Max(remaining, remainingTop);
 		}
 		else
 		{
 			opponentRemaining += change;
             opponentRemaining = Mathf.Max(opponentRemaining, 0);
             opponentRemainingText.text = opponentRemaining + "";
+			opponentRemainingTop = Mathf.Max(opponentRemaining, opponentRemainingTop);
 		}
     }
 
