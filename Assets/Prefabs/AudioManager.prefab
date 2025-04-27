@@ -62,7 +62,61 @@ MonoBehaviour:
     loop: 1
     source: {fileID: 0}
     outputAudioMixerGroup: {fileID: 0}
-    partnerName: PitC
+    partnerName: 
+  - name: BiiB
+    clip: {fileID: 8300000, guid: 61df065739fadc748920b2c972bb6e68, type: 3}
+    volume: 0.2
+    pitch: 1
+    spatialBlend: 0
+    loop: 1
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: BiiBB
+  - name: BiiBB
+    clip: {fileID: 8300000, guid: 8b80cca8c91d7b04a897f263759731b7, type: 3}
+    volume: 0.2
+    pitch: 1
+    spatialBlend: 0
+    loop: 1
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: 
+  - name: BS
+    clip: {fileID: 8300000, guid: 4c2312f1361bb004189fb7e4c020d4e0, type: 3}
+    volume: 0.2
+    pitch: 1
+    spatialBlend: 0
+    loop: 1
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: BSF
+  - name: BSF
+    clip: {fileID: 8300000, guid: ce3939be80102c1469637055d7bdd3fe, type: 3}
+    volume: 0.2
+    pitch: 1
+    spatialBlend: 0
+    loop: 1
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: 
+  - name: RC
+    clip: {fileID: 8300000, guid: 4d4267a824825ce488b2920b312e8f3d, type: 3}
+    volume: 0.3
+    pitch: 1
+    spatialBlend: 0
+    loop: 1
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: RCM
+  - name: RCM
+    clip: {fileID: 8300000, guid: bd40e92500a4e6f46a82b3070f89f971, type: 3}
+    volume: 0.3
+    pitch: 1
+    spatialBlend: 0
+    loop: 1
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: 
   sfx: []
   musicMixerGroup: {fileID: 9128255555208657230, guid: 56a7d5e45a7c25e459c5e7afe583196a, type: 2}
   sfxMixerGroup: {fileID: 2315855057282387783, guid: 56a7d5e45a7c25e459c5e7afe583196a, type: 2}

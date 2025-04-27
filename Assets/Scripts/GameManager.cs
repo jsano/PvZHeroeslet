@@ -231,7 +231,8 @@ public class GameManager : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		AudioManager.Instance.PlayMusic("PitC");
+		var choices = new List<string> { "PitC", "BiiB", "RC", "BS" };
+		AudioManager.Instance.PlayMusic(choices[UnityEngine.Random.Range(0, choices.Count)]);
 		endScreen.SetActive(false);
 		// Setup board structure depending on the player's team
 		plantHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.PlantHero]).GetComponent<Hero>();
