@@ -21,6 +21,12 @@ public class LeaderboardManager : MonoBehaviour
     [SerializeField] private Transform entriesContainer;
     [SerializeField] private Button refreshButton;
     [SerializeField] private GameObject loadingIndicator;
+    [SerializeField] private Button right;
+    [SerializeField] private Button left;
+    [SerializeField] private TextMeshProUGUI tierText;
+
+    private List<string> tiers = new() { "Wood", "Bronze", "Silver", "Gold", "Platinum", "Diamond", "Taco", "Ultimate" }; // todo: extract from leaderboard itself
+    private int index;
 
     // List to track instantiated entry objects for cleanup
     private List<GameObject> instantiatedEntries = new List<GameObject>();
@@ -28,22 +34,27 @@ public class LeaderboardManager : MonoBehaviour
     void Awake()
     {
         // Set up button listener
-        if (refreshButton != null)
-            refreshButton.onClick.AddListener(FetchLeaderboard);
+        if (refreshButton != null) refreshButton.onClick.AddListener(FetchLeaderboard);
     }
 
     async void Start()
     {
         try
         {
-            await FetchLeaderboardAsync();
+            var existingScore = await LeaderboardsService.Instance.GetPlayerScoreAsync("devplayers");
+            await FetchLeaderboardAsync(existingScore.Tier);
+            index = tiers.IndexOf(existingScore.Tier);
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            Debug.Log(e);
+            await FetchLeaderboardAsync();
+            index = 0;
         }
+        UpdateArrows();
     }
 
+    //===
+    // For refresh only
     public void FetchLeaderboard()
     {
         StartCoroutine(FetchLeaderboardRoutine());
@@ -63,17 +74,20 @@ public class LeaderboardManager : MonoBehaviour
         // Hide loading indicator
         SetLoading(false);
     }
+    //===
 
-    private async Task FetchLeaderboardAsync()
+    private async Task FetchLeaderboardAsync(string tier = "Wood")
     {
+        tierText.text = tier;
         try
         {
             // Clear existing entries
             ClearLeaderboardEntries();
 
             // Query for top scores
-            var scoresResponse = await LeaderboardsService.Instance.GetScoresAsync(
-                leaderboardId/*,
+            var scoresResponse = await LeaderboardsService.Instance.GetScoresByTierAsync(
+                leaderboardId,
+                tier/*,
                 new GetScoresOptions
                 {
                     Limit = maxEntriesToShow
@@ -244,6 +258,23 @@ public class LeaderboardManager : MonoBehaviour
 
         if (refreshButton != null)
             refreshButton.interactable = !isLoading;
+    }
+
+    public async void NextRank(int offset = 0)
+    {
+        index += offset;
+        right.interactable = false;
+        left.interactable = false;
+        await FetchLeaderboardAsync(tiers[index]);
+        UpdateArrows();
+    }
+
+    private void UpdateArrows()
+    {
+        if (index == tiers.Count - 1) right.interactable = false;
+        else right.interactable = true;
+        if (index == 0) left.interactable = false;
+        else left.interactable = true;
     }
 
 }
