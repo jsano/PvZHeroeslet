@@ -279,6 +279,23 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     }
 
     /// <summary>
+	/// Called whenever a card on the field gets healed. NOT called when a card's max HP is raised
+	/// </summary>
+	/// <param name="healed"> The card that got healed </param>
+	protected virtual IEnumerator OnCardHeal(Card healed)
+    {
+        yield return null;
+    }
+
+    /// <summary>
+	/// Identical to OnCardHeal, but for heroes. Called even when max HP is raised
+	/// </summary>
+	protected virtual IEnumerator OnHeroHeal(Hero healed)
+    {
+        yield return null;
+    }
+
+    /// <summary>
 	/// Called at the start of turn
 	/// </summary>
 	protected virtual IEnumerator OnTurnStart()

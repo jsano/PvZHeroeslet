@@ -334,6 +334,23 @@ public class Card : Damagable
 	}
 
     /// <summary>
+	/// Called whenever a card on the field gets healed. NOT called when a card's max HP is raised
+	/// </summary>
+	/// <param name="healed"> The card that got healed </param>
+	protected virtual IEnumerator OnCardHeal(Card healed)
+    {
+        yield return null;
+    }
+    
+    /// <summary>
+	/// Identical to OnCardHeal, but for heroes. Called even when max HP is raised
+	/// </summary>
+	protected virtual IEnumerator OnHeroHeal(Hero healed)
+    {
+        yield return null;
+    }
+
+    /// <summary>
 	/// Called at the start of turn
 	/// </summary>
 	protected virtual IEnumerator OnTurnStart()
@@ -455,16 +472,21 @@ public class Card : Damagable
 	}
 
     /// <summary>
-	/// Raises HP by the given amount. Ignores if it's in a gravestone.
+	/// Raises HP by the given amount. Ignores if it's in a gravestone. Also triggers <c>OnCardHeal</c> if not raising the maxHP.
     /// If HP ends up as 0 afterwards, marks this card to be destroyed and triggers <c>OnCardDeath</c> so that it's destroyed during the next <c>ProcessEvent</c>, and updates any anti-hero immediately.
 	/// </summary>
     /// <param name="raiseCap">If true, this will affect the maxHP, which also means it won't be considered damaged if amount is negative</param>
 	public override void Heal(int amount, bool raiseCap=false)
     {
         if (gravestone) return;
+        int HPBefore = HP;
         HP += amount;
         if (raiseCap) maxHP += amount;
-        else HP = Mathf.Min(maxHP, HP);
+        else
+        {
+            HP = Mathf.Min(maxHP, HP);
+            if (amount > 0 && HPBefore < maxHP) GameManager.Instance.TriggerEvent("OnCardHeal", this);
+        }
         hpUI.text = HP + "";
         if (HP <= 0)
         {

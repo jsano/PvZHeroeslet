@@ -8,11 +8,11 @@ public class MushroomRingleader : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		for (int row = 0; row < 2;  row++)
+		for (int i = 0; i < 2;  i++)
 		{
-			for (int col = 0; col < 5; col++)
+			for (int j = 0; j < 5; j++)
 			{
-				count += Tile.plantTiles[row, col].HasRevealedPlanted() ? 2 : 0;
+				count += Tile.plantTiles[i, j].HasRevealedPlanted() ? 2 : 0;
 			}
 		}
 		if (count > 0)
