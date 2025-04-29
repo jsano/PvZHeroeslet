@@ -1735,7 +1735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dca29660100c574478f7857f7a3d9131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  includePlayerEntry: 1
+  includePlayerEntry: 0
   entryPrefab: {fileID: 3475559613996886167, guid: 22d7f1843e304d54c940661da2bfc96c, type: 3}
   entriesContainer: {fileID: 180552893}
   refreshButton: {fileID: 0}

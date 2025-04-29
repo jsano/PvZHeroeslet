@@ -50,7 +50,7 @@ public class GameManager : NetworkBehaviour
 	/// <summary>
 	/// The highest gold the player had this turn
 	/// </summary>
-    [HideInInspector] public int remainingTop = 1;
+    public int remainingTop { get; private set; }
     /// <summary>
     /// How much extra gold the player has for each turn (ex. from Sunburn)
     /// </summary>
@@ -62,7 +62,7 @@ public class GameManager : NetworkBehaviour
 	/// <summary>
 	/// The highest gold the opponent had this turn
 	/// </summary>
-    [HideInInspector] public int opponentRemainingTop = 1;
+    public int opponentRemainingTop { get; private set; }
     /// <summary>
     /// How much extra gold the opponent has for each turn (ex. from Cryo-brain)
     /// </summary>
@@ -836,7 +836,9 @@ public class GameManager : NetworkBehaviour
         else if (newScore == oldScore) change.color = Color.gray;
         else change.color = Color.red;
 		endScreen.SetActive(true);
-	}
+
+		UserAccounts.Instance.UpdateCachedScore();
+    }
 
     /// <summary>
     /// Retrieves a list of all existing HandCards for the current player

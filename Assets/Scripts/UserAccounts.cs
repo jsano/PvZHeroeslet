@@ -6,11 +6,11 @@ using System;
 using Unity.Services.Authentication;
 using System.Threading.Tasks;
 using Unity.Services.CloudSave;
-using Unity.Services.CloudSave.Models.Data.Player;
 using static DeckBuilder;
 using Newtonsoft.Json;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Unity.Services.Leaderboards;
 
 public class UserAccounts : MonoBehaviour
 {
@@ -31,6 +31,12 @@ public class UserAccounts : MonoBehaviour
     public GameObject Error;
 	private GameObject errorInstance;
 	private Coroutine c;
+
+	/// <summary>
+	/// Local cache of [player score, player tier] so that it can be instantly loaded without calling Leaderboards API.
+	/// Must be updated properly using <c>UpdateCachedScore</c>
+	/// </summary>
+	public string[] CachedScore { get; private set; }
 
     async void Awake()
 	{
@@ -82,6 +88,7 @@ public class UserAccounts : MonoBehaviour
 
 		AuthenticationService.Instance.SignedOut += () => {
 			Debug.Log("Player signed out.");
+            CachedScore = null;
             SceneManager.LoadScene("Login");
         };
 
@@ -99,7 +106,8 @@ public class UserAccounts : MonoBehaviour
 			await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
 			await AuthenticationService.Instance.UpdatePlayerNameAsync(displayName);
 			Debug.Log("SignUp is successful. Display name: " + AuthenticationService.Instance.PlayerName);
-		}
+            CachedScore = new string[] { "0", "(Unranked)"};
+        }
 		catch (AuthenticationException ex)
 		{
             ShowError(ex.Message);
@@ -116,6 +124,7 @@ public class UserAccounts : MonoBehaviour
 		{
 			await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
 			Debug.Log("SignIn is successful.");
+            UpdateCachedScore();
         }
 		catch (AuthenticationException ex)
 		{
@@ -142,6 +151,7 @@ public class UserAccounts : MonoBehaviour
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             Debug.Log("Cached SignIn is successful");
+			UpdateCachedScore();
         }
         catch (AuthenticationException ex)
         {
@@ -200,5 +210,11 @@ public class UserAccounts : MonoBehaviour
 		yield return new WaitForSeconds(3);
 		errorInstance.SetActive(false);
 	}
+
+	public async void UpdateCachedScore()
+	{
+        var response = await LeaderboardsService.Instance.GetPlayerScoreAsync("devplayers");
+        CachedScore = new string[] { response.Score + "", response.Tier };
+    }
 
 }
