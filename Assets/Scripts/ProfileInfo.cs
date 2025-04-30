@@ -2,21 +2,47 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ProfileInfo : MonoBehaviour
 {
 	public Profile p;
-
     public Button exit;
+	public GameObject edit;
+	public GameObject changePFP;
+	public Transform content;
+	public static int chosenPFP;
+	public GameObject PFPButton;
 
     public void Show(string playerID, string username, string score, string rank)
 	{
         if (isActiveAndEnabled) return;
 		transform.parent.gameObject.SetActive(true);
+		if (playerID != AuthenticationService.Instance.PlayerId) edit.SetActive(false);
+		else edit.SetActive(true);
 		p.LoadProfileThumbnail(playerID, username, score, rank);
-		
+    }
+
+	public void OpenChangePFP()
+	{
+		changePFP.SetActive(true);
+		chosenPFP = -1;
+		if (content.childCount == 0)
+			for (int i = 0; i < AllCards.Instance.cards.Length; i++)
+			{
+				PFPButton p = Instantiate(PFPButton, content).GetComponent<PFPButton>();
+				p.ID = i;
+			}
+	}
+
+    public async void ConfirmChange()
+	{
+		UserAccounts.profilePicture = chosenPFP;
+		await UserAccounts.Instance.SaveData();
+        changePFP.SetActive(false);
+		foreach (Profile p1 in FindObjectsByType<Profile>(FindObjectsSortMode.None)) p1.pfp.sprite = Profile.ProfilePictureIDToSprite(UserAccounts.profilePicture);
     }
 
 }

@@ -31,6 +31,7 @@ public class Profile : MonoBehaviour
         {
             var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "Profile" }, new LoadOptions(new PublicReadAccessClassOptions(playerID)));
             if (playerData.TryGetValue("Profile", out var keyName)) pfp.sprite = ProfilePictureIDToSprite(keyName.Value.GetAs<int>());
+            else pfp.sprite = ProfilePictureIDToSprite(0);
         }
     }
 
@@ -42,7 +43,7 @@ public class Profile : MonoBehaviour
 
     public static Sprite ProfilePictureIDToSprite(int ID)
     {
-        if (ID > AllCards.Instance.cards.Length)
+        if (ID >= AllCards.Instance.cards.Length)
         {
             return AllCards.Instance.heroes[ID - AllCards.Instance.cards.Length].GetComponent<SpriteRenderer>().sprite;
         }
