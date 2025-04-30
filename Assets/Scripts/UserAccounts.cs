@@ -69,7 +69,7 @@ public class UserAccounts : MonoBehaviour
 	// Setup authentication event handlers if desired
 	void SetupEvents()
 	{
-		AuthenticationService.Instance.SignedIn += async () => {
+		AuthenticationService.Instance.SignedIn += () => {
 			// Shows how to get a playerID
 			Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");
 
@@ -78,8 +78,6 @@ public class UserAccounts : MonoBehaviour
 
             // Shows how to get an access token
             Debug.Log($"Access Token: {AuthenticationService.Instance.AccessToken}");
-
-			await LoadData();
 		};
 
 		AuthenticationService.Instance.SignInFailed += (err) => {
@@ -124,6 +122,7 @@ public class UserAccounts : MonoBehaviour
 		{
 			await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
 			Debug.Log("SignIn is successful.");
+            await LoadData();
             UpdateCachedScore();
         }
 		catch (AuthenticationException ex)
@@ -151,7 +150,8 @@ public class UserAccounts : MonoBehaviour
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             Debug.Log("Cached SignIn is successful");
-			UpdateCachedScore();
+            await LoadData();
+            UpdateCachedScore();
         }
         catch (AuthenticationException ex)
         {
@@ -188,7 +188,7 @@ public class UserAccounts : MonoBehaviour
 
 	public async Task LoadData()
 	{
-		var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> {"Decks"});
+		var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> {"Decks", "Profile"});
 		if (playerData.TryGetValue("Decks", out var firstKey))
 		{
 			allDecks = JsonConvert.DeserializeObject<Dictionary<string, Deck>>(firstKey.Value.GetAs<string>()); 

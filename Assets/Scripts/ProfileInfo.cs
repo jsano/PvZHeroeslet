@@ -30,11 +30,18 @@ public class ProfileInfo : MonoBehaviour
 		changePFP.SetActive(true);
 		chosenPFP = -1;
 		if (content.childCount == 0)
+		{
 			for (int i = 0; i < AllCards.Instance.cards.Length; i++)
 			{
 				PFPButton p = Instantiate(PFPButton, content).GetComponent<PFPButton>();
 				p.ID = i;
 			}
+            for (int i = 0; i < AllCards.Instance.heroes.Length; i++)
+            {
+                PFPButton p = Instantiate(PFPButton, content).GetComponent<PFPButton>();
+                p.ID = i + AllCards.Instance.cards.Length;
+            }
+        }
 	}
 
     public async void ConfirmChange()

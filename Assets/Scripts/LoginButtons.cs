@@ -19,7 +19,7 @@ public class LoginButtons : MonoBehaviour
 
     void Update()
     {
-        if (AuthenticationService.Instance.AccessToken != null) SceneManager.LoadScene("Start");
+        if (UserAccounts.Instance.CachedScore != null) SceneManager.LoadScene("Start");
     }
 
     public void SwapModes()
