@@ -25,6 +25,7 @@ public class UserAccounts : MonoBehaviour
     }
 
 	public static Dictionary<string, Deck> allDecks = new();
+	public static int profilePicture;
 
     public static UserAccounts Instance;
 
@@ -79,7 +80,6 @@ public class UserAccounts : MonoBehaviour
             Debug.Log($"Access Token: {AuthenticationService.Instance.AccessToken}");
 
 			await LoadData();
-			if (SceneManager.GetActiveScene().name != "Testing") SceneManager.LoadScene("Start");
 		};
 
 		AuthenticationService.Instance.SignInFailed += (err) => {
@@ -182,8 +182,8 @@ public class UserAccounts : MonoBehaviour
 
 	public async Task SaveData()
 	{
-		await CloudSaveService.Instance.Data.Player.SaveAsync(new Dictionary<string, object> { { "Decks", JsonConvert.SerializeObject(allDecks) } });
-		Debug.Log("Saved user decks");
+		await CloudSaveService.Instance.Data.Player.SaveAsync(new Dictionary<string, object> { { "Decks", JsonConvert.SerializeObject(allDecks) }, { "Profile", profilePicture } });
+		Debug.Log("Saved user data");
 	}
 
 	public async Task LoadData()
@@ -193,9 +193,13 @@ public class UserAccounts : MonoBehaviour
 		{
 			allDecks = JsonConvert.DeserializeObject<Dictionary<string, Deck>>(firstKey.Value.GetAs<string>()); 
 			Debug.Log("Loaded user decks");
-			Debug.Log(allDecks);
 		}
-	}
+        if (playerData.TryGetValue("Profile", out var secondKey))
+        {
+			profilePicture = secondKey.Value.GetAs<int>();
+            Debug.Log(profilePicture);
+        }
+    }
 
 	public void ShowError(string message)
 	{

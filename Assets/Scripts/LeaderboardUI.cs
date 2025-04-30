@@ -25,6 +25,8 @@ public class LeaderboardManager : MonoBehaviour
     [SerializeField] private Button left;
     [SerializeField] private TextMeshProUGUI tierText;
 
+    private ProfileInfo profileInfo;
+
     private List<string> tiers = new() { "Wood", "Bronze", "Silver", "Gold", "Platinum", "Diamond", "Taco", "Ultimate" }; // todo: extract from leaderboard itself
     private int index;
 
@@ -39,6 +41,7 @@ public class LeaderboardManager : MonoBehaviour
 
     async void Start()
     {
+        profileInfo = FindAnyObjectByType<ProfileInfo>(FindObjectsInactive.Include).GetComponent<ProfileInfo>();
         try
         {
             var existingScore = await LeaderboardsService.Instance.GetPlayerScoreAsync("devplayers");
@@ -194,6 +197,8 @@ public class LeaderboardManager : MonoBehaviour
         rankText.text = $"{rank+1}";
         nameText.text = playerName.Substring(0, playerName.IndexOf("#"));
         scoreText.text = FormatScore(score);
+
+        entryObj.GetComponent<Button>().onClick.AddListener(() => profileInfo.Show(playerId, playerName, score + "", tiers[index]));
 
         // Highlight the local player's entry
         if (isLocalPlayer)

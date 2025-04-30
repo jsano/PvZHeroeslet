@@ -1,5 +1,6 @@
 using Unity.Services.Authentication;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LoginButtons : MonoBehaviour
 {
@@ -16,6 +17,11 @@ public class LoginButtons : MonoBehaviour
         
     }
 
+    void Update()
+    {
+        if (AuthenticationService.Instance.AccessToken != null) SceneManager.LoadScene("Start");
+    }
+
     public void SwapModes()
     {
         inputUsername = "";
@@ -28,11 +34,13 @@ public class LoginButtons : MonoBehaviour
     public async void Login()
     {
         await UserAccounts.Instance.SignInWithUsernamePasswordAsync(inputUsername, inputPassword);
+        SceneManager.LoadScene("Start");
     }
 
     public async void SignUp()
     {
         await UserAccounts.Instance.SignUpWithUsernamePasswordAsync(inputUsername, inputPassword, inputDisplayName);
+        SceneManager.LoadScene("Start");
     }
 
     public void SetInputUsername(string s)
