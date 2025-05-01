@@ -47,13 +47,14 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     public void OnPointerDown(PointerEventData eventData)
     {
         startPos = transform.position;
-        if (!interactable) return;
-        transform.localScale = Vector3.one;
-
+        
         // Layer this above all other handcards
         GetComponent<SpriteRenderer>().sortingOrder += 10;
         image.sortingOrder += 10;
         GetComponentInChildren<Canvas>().sortingOrder += 10;
+        
+        if (!interactable) return;
+        transform.localScale = Vector3.one;
 
         // Recalculate at every pointer down since the board state can change throughout the game
         validChoices.Clear();
@@ -116,21 +117,22 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             }
             else bc.GetComponent<Hero>().ToggleTarget(false);
         }
+        
+        // Show card UI if it wasn't currently dragging. Only play if it was dragging
+        if (!eventData.dragging)
+        {
+            cardInfo.Show(orig, finalStats);
+        }
+        transform.position = startPos;
 
         transform.localScale = Vector3.one * 0.9f;
         // Revert layering from pointer down
         GetComponent<SpriteRenderer>().sortingOrder -= 10;
         image.sortingOrder -= 10;
         GetComponentInChildren<Canvas>().sortingOrder -= 10;
-
-        // Show card UI if it wasn't currently dragging. Only play if it was dragging
-        if (!eventData.dragging)
-        {
-            cardInfo.Show(orig, finalStats);
-            return;
-        }
-
+        
         if (!interactable) return;
+
         // If the pointer let go at a valid choice, play this card
         foreach (BoxCollider2D bc in validChoices)
         {
@@ -150,7 +152,6 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                     transform.SetParent(null);
                     Destroy(gameObject);
                 }
-                GameManager.Instance.UpdateHandCardPositions();
             }
         }
         // If this is a superpower HandCard created from a block, hold on to it if the pointer let go at the "HandCard area"
@@ -162,7 +163,6 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             ChangeCost(1);
             GameManager.Instance.HoldTrickRpc(GameManager.Instance.team);
         }
-		transform.position = startPos;
     }
 
     // Start is called before the first frame update

@@ -39,6 +39,9 @@ public class GameManager : NetworkBehaviour
 	/// A global count of how many players are ready for the next turn. Only start next turn when this = 2
 	/// </summary>
 	private int nextTurnReady;
+
+	private float timer;
+	private bool timerOn;
 	/// <summary>
 	/// 0 = prep, 1 = zombie, 2 = plant, 3 = zombie trick, 4 = fight
 	/// </summary>
@@ -72,6 +75,7 @@ public class GameManager : NetworkBehaviour
     /// </summary>
     public Team team;
 
+	public Image timerImage;
     public Button go;
     private LTDescr goTween;
     public GameObject phaseText;
@@ -305,6 +309,21 @@ public class GameManager : NetworkBehaviour
 		EndRpc();
 	}
 
+    void Update()
+    {
+        if (timerOn)
+		{
+			timer -= Time.deltaTime;
+			timerImage.fillAmount = timer / 30;
+            if (timer <= 0)
+			{
+				timerOn = false;
+				timer = 30;
+				EndRpc();
+			}
+		}
+    }
+
     /// <summary>
     /// Draw a card for the player with given team, and triggers the GameEvent
     /// </summary>
@@ -404,9 +423,10 @@ public class GameManager : NetworkBehaviour
 				}
 			}
 		}
-        EnablePlayableHandCards();
 
+		timer = 30;
         if (phase == 4) StartCoroutine(Combat());
+		else EnablePlayableHandCards();
     }
 
 	/// <summary>
@@ -650,6 +670,9 @@ public class GameManager : NetworkBehaviour
 	/// </summary>
 	public void DisableHandCards()
     {
+		timerOn = false;
+        timerImage.gameObject.SetActive(false);
+        UpdateHandCardPositions();
         foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = false;
 		go.interactable = false;
 	}
@@ -690,18 +713,28 @@ public class GameManager : NetworkBehaviour
 						t.GetComponent<HandCard>().GetCost() <= remaining) t.GetComponent<HandCard>().interactable = true;
                     else t.GetComponent<HandCard>().interactable = false;
 				}
-			}
+            }
             else foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = false;
         }
 
 		if (team == Team.Plant)
 		{
-			if (phase == 2) go.interactable = true;
+			if (phase == 2)
+			{
+				go.interactable = true;
+                timerImage.gameObject.SetActive(true);
+                timerOn = true;
+			}
 			else go.interactable = false;
 		}
 		else
 		{
-			if (phase == 1 || phase == 3) go.interactable = true;
+			if (phase == 1 || phase == 3)
+			{
+				go.interactable = true;
+                timerImage.gameObject.SetActive(true);
+                timerOn = true;
+            }
 			else go.interactable = false;
 		}
 	}
