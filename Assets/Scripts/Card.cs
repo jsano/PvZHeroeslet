@@ -389,13 +389,16 @@ public class Card : Damagable
         }
         if (atk <= 0 || gravestone) yield break;
 
-        yield return new WaitForSeconds(0.5f);
-        // animation
+        yield return new WaitForSeconds(0.25f);
 
         // Single lane targets
         if (!nextDoor && splash == 0)
         {
             List<Damagable> targets = GetTargets(col);
+            GameObject g = Instantiate(AllCards.Instance.attackFX, transform.position, Quaternion.identity);
+            g.GetComponent<AttackFX>().destination = targets[0].transform;
+            yield return new WaitForSeconds(0.25f);
+
             foreach (Damagable c in targets) StartCoroutine(c.ReceiveDamage(atk, this, bullseye, deadly, freeze));
             yield return null;
             // If this card has frenzy, and any of its targets died after its attack, signal to GameManager
@@ -418,6 +421,13 @@ public class Card : Damagable
                 }
                 else targets[i + 1] = GetTargets(col + i);
             }
+            for (int i = 0; i < 3; i++) if (targets[i] != null)
+            {
+                GameObject g = Instantiate(AllCards.Instance.attackFX, transform.position, Quaternion.identity);
+                g.GetComponent<AttackFX>().destination = targets[i][0].transform;
+            }
+            yield return new WaitForSeconds(0.25f);
+
             for (int i = 0; i < 3; i++) if (targets[i] != null) foreach (Damagable c in targets[i]) StartCoroutine(c.ReceiveDamage(atk, this, bullseye, deadly, freeze, col + i - 1));
         }
         yield return new WaitForSeconds(0.5f); // this only exists so all the receive damages get sent before the other units attack. TODO: fix??

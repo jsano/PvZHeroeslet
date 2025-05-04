@@ -75,6 +75,7 @@ public class GameManager : NetworkBehaviour
     /// </summary>
     public Team team;
 
+	public Transform laneHighlight;
 	public Image timerImage;
     public Button go;
     private LTDescr goTween;
@@ -438,9 +439,11 @@ public class GameManager : NetworkBehaviour
 		StartCoroutine(AudioManager.Instance.ToggleBattleMusic(true));
         yield return new WaitForSeconds(1);
 
+		laneHighlight.gameObject.SetActive(true);
 		// Cards attack left to right
         for (int col = 0; col < 5; col++)
 		{
+			laneHighlight.position = new Vector3(Tile.plantTiles[0, col].transform.position.x, 0, 0);
 			if (Tile.zombieTiles[0, col].planted != null) yield return Tile.zombieTiles[0, col].planted.Attack();
 
             if (ENDED) yield break;
@@ -472,7 +475,9 @@ public class GameManager : NetworkBehaviour
             if (ENDED) yield break;
 
             yield return ProcessEvents();
+			yield return new WaitForSeconds(0.1f);
         }
+        laneHighlight.gameObject.SetActive(false);
 
         TriggerEvent("OnTurnEnd", null);
         yield return ProcessEvents();

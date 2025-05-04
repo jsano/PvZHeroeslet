@@ -32,6 +32,8 @@ public class AllCards : MonoBehaviour
     //public Sprite sunUI;
     public Sprite brainUI;
 
+    public GameObject attackFX;
+
     void Awake()
     {
         if (instance != null && instance != this) Destroy(gameObject);
