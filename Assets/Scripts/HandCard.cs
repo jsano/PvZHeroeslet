@@ -28,7 +28,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     private CardInfo cardInfo;
 
 	[HideInInspector] public bool interactable = false;
-    public SpriteRenderer image;
+    public Image image;
 	public TextMeshProUGUI atkUI;
 	public TextMeshProUGUI hpUI;
     public TextMeshProUGUI costUI;
@@ -50,8 +50,8 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         
         // Layer this above all other handcards
         GetComponent<SpriteRenderer>().sortingOrder += 10;
-        image.sortingOrder += 10;
-        GetComponentInChildren<Canvas>().sortingOrder += 10;
+        //image.sortingOrder += 10;
+        GetComponent<Canvas>().sortingOrder += 10;
         
         if (!interactable) return;
         transform.localScale = Vector3.one;
@@ -128,8 +128,8 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         transform.localScale = Vector3.one * 0.9f;
         // Revert layering from pointer down
         GetComponent<SpriteRenderer>().sortingOrder -= 10;
-        image.sortingOrder -= 10;
-        GetComponentInChildren<Canvas>().sortingOrder -= 10;
+        //image.sortingOrder -= 10;
+        GetComponent<Canvas>().sortingOrder -= 10;
         
         if (!interactable) return;
 
@@ -170,6 +170,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     {
         orig = AllCards.Instance.cards[ID];
 		image.sprite = orig.GetComponent<SpriteRenderer>().sprite;
+        if (orig.team == Card.Team.Zombie || orig.type == Card.Type.Trick) image.GetComponent<RectTransform>().offsetMin = new Vector2(0, 0); // TODO: FIX
         // If no stat override was given, use the prefab values
         if (finalStats == null) finalStats = new FinalStats(ID);
 
