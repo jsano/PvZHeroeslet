@@ -262,7 +262,7 @@ public class GameManager : NetworkBehaviour
         if (AllCards.Instance.heroes[UserAccounts.allDecks[UserAccounts.GameStats.DeckName].heroID].team == Team.Plant)
 		{
 			team = Team.Plant;
-			plantHero.transform.position = new Vector2(0, -3);
+			plantHero.transform.position = new Vector2(0, -3.25f);
 		    zombieHero.transform.position = new Vector2(0, 3.5f);
             zombieHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
             zombieHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
@@ -270,7 +270,7 @@ public class GameManager : NetworkBehaviour
 		else
 		{
 			team = Team.Zombie;
-			zombieHero.transform.position = new Vector2(0, -3);
+			zombieHero.transform.position = new Vector2(0, -3.25f);
 			plantHero.transform.position = new Vector2(0, 3.5f);
 			plantHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
 			plantHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);

@@ -18,16 +18,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.8685714
+      value: 0.8192
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.1371429
+      value: 1.2288
       objectReference: {fileID: 0}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9e18b3f7ae10fa849a895fc264db3980, type: 3}
+      objectReference: {fileID: 21300000, guid: 34b77c2eba3a3c7499e571f616e99136, type: 3}
     - target: {fileID: 9186367323209674846, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -166,5 +166,4 @@ MonoBehaviour:
   lore: His mighty tractor beam is straight off the farm and out of this world.
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

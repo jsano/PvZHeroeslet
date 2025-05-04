@@ -16,10 +16,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torchwood
       objectReference: {fileID: 0}
+    - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 10.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 15.36
+      objectReference: {fileID: 0}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: c19b70592fbabe34c89fbd0d0db706c3, type: 3}
+      objectReference: {fileID: 21300000, guid: 9847e3dd38e841d4283f6f5c0847092b, type: 3}
     - target: {fileID: 9186367323209674846, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -158,5 +166,4 @@ MonoBehaviour:
   lore: '"Feel the burn, I COMMAND YOU!"'
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}
