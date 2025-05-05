@@ -555,7 +555,7 @@ public class Card : Damagable
                 AHactive = false;
                 RaiseAttack(-antihero);
             }
-            if (!AHactive && GetTargets(col)[0].GetComponent<Hero>() != null)
+            if (!AHactive && GetTargets(col)[0].GetComponent<Tile>() != null)
             {
                 AHactive = true;
                 RaiseAttack(antihero);

@@ -45,6 +45,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   music:
+  - name: Menu
+    clip: {fileID: 8300000, guid: 6f63f352e90bb204c8ae2ae834027d60, type: 3}
+    volume: 0.5
+    pitch: 1
+    spatialBlend: 0
+    loop: 1
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: 
   - name: PitC
     clip: {fileID: 8300000, guid: 6ed5e6bc14f04114fb9c91e13e3e4317, type: 3}
     volume: 0.5

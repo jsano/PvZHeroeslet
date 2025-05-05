@@ -44,6 +44,7 @@ public class EndScreenButtons : NetworkBehaviour
             Destroy(NetworkManager.gameObject);
         }
         SceneManager.LoadScene("StartSessions");
+        AudioManager.Instance.PlayMusic("Menu");
     }
 
 }

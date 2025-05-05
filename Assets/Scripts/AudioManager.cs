@@ -102,7 +102,7 @@ public class AudioManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Play a music track by name. Stops any currently playing music.
+    /// Play a music track by name. Stops any currently playing music unless it's the same one.
     /// </summary>
     /// <param name="name">Name of the music track to play</param>
     /// <param name="fadeDuration">Optional fade duration (overrides default)</param>
@@ -113,6 +113,8 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning($"Music {name} not found!");
             return;
         }
+
+        if (currentMusic != null && currentMusic.name == name) return;
 
         float actualFadeDuration = fadeDuration ?? musicFadeDuration;
 

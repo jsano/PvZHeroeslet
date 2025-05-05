@@ -319,12 +319,13 @@ public class GameManager : NetworkBehaviour
         if (timerOn)
 		{
 			timer -= Time.deltaTime;
-			timerImage.fillAmount = timer / 30;
+			timerImage.fillAmount = waitingOnBlock ? timer / 10 : timer / 30;
             if (timer <= 0)
 			{
 				timerOn = false;
 				timer = 30;
-				EndRpc();
+				if (waitingOnBlock) HoldTrickRpc(team);
+				else EndRpc();
 			}
 		}
     }
@@ -842,6 +843,10 @@ public class GameManager : NetworkBehaviour
 			fs.cost = 0;
 			hc.OverrideFS(fs);
 			c.SetActive(true);
+
+            timerImage.gameObject.SetActive(true);
+            timerOn = true;
+			timer = 10;
 		}
 		else
 		{

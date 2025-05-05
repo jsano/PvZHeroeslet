@@ -183,6 +183,7 @@ public class LobbyManager : NetworkBehaviour
         ready += 1;
         if (ready == 2)
         {
+            AudioManager.Instance.StopMusic();
             GetComponent<StartButtons>().ChangeNetworkScene("Game");
         }
     }
