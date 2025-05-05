@@ -395,9 +395,7 @@ public class Card : Damagable
         if (!nextDoor && splash == 0)
         {
             List<Damagable> targets = GetTargets(col);
-            GameObject g = Instantiate(AllCards.Instance.attackFX, transform.position, Quaternion.identity);
-            g.GetComponent<AttackFX>().destination = targets[0].transform;
-            yield return new WaitForSeconds(0.25f);
+            yield return AttackFX(targets[0]);
 
             foreach (Damagable c in targets) StartCoroutine(c.ReceiveDamage(atk, this, bullseye, deadly, freeze));
             yield return null;
@@ -421,23 +419,20 @@ public class Card : Damagable
                 }
                 else targets[i + 1] = GetTargets(col + i);
             }
-            for (int i = 0; i < 3; i++) if (targets[i] != null)
-            {
-                GameObject g = Instantiate(AllCards.Instance.attackFX, transform.position, Quaternion.identity);
-                g.GetComponent<AttackFX>().destination = targets[i][0].transform;
-            }
-            yield return new WaitForSeconds(0.25f);
+            List<Damagable> temp = new();
+            for (int i = 0; i < 3; i++) if (targets[i] != null) temp.Add(targets[i][0]);
+            yield return AttackFXs(temp);
 
-            for (int i = 0; i < 3; i++) if (targets[i] != null) foreach (Damagable c in targets[i]) StartCoroutine(c.ReceiveDamage(atk, this, bullseye, deadly, freeze, col + i - 1));
+            for (int i = 0; i < 3; i++) if (targets[i] != null) foreach (Damagable c in targets[i]) StartCoroutine(c.ReceiveDamage(atk, this, bullseye, deadly, freeze));
         }
-        yield return new WaitForSeconds(0.5f); // this only exists so all the receive damages get sent before the other units attack. TODO: fix??
+        yield return new WaitForSeconds(0.1f); // this only exists so all the receive damages get sent before the other units attack. TODO: fix??
 	}
 
     /// <summary>
 	/// Called when this unit receives any form of damage. Ignores if it's in a gravestone or invulnerable. 
     /// If the final damage dealt > 0, applies any effects and triggers <c>OnCardHurt</c>
 	/// </summary>
-    /// <param name="heroCol">For cards that hit multi-lane, the hero could be hit alongside other units. This is what the hero's "column" should be registered as to maintain proper order</param>
+    /// <param name="heroCol">Never pass in directly. See <c>Tile.ReceiveDamage</c></param>
     public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1)
     {
         if (gravestone || invulnerable) yield break;
@@ -458,6 +453,8 @@ public class Card : Damagable
                 }
                 GameManager.Instance.TriggerEvent("OnCardDeath", this);
             }
+
+            if (isDamaged()) hpUI.color = new Color(1, 0.5f, 0.5f);
 
             yield return HitVisual();
             if (freeze) Freeze();
@@ -508,6 +505,7 @@ public class Card : Damagable
             }
             GameManager.Instance.TriggerEvent("OnCardDeath", this);
         }
+        if (!isDamaged()) hpUI.color = Color.white;
     }
 
     /// <summary>
@@ -645,8 +643,8 @@ public class Card : Damagable
 		Tile[,] opponentTiles = team == Team.Plant ? Tile.zombieTiles : Tile.plantTiles;
 		if (opponentTiles[1, col].planted != null && !opponentTiles[1, col].planted.died) ret.Add(opponentTiles[1, col].planted);
 		if (opponentTiles[0, col].planted != null && !opponentTiles[0, col].planted.died) ret.Add(opponentTiles[0, col].planted);
-		if (team == Team.Plant) ret.Add(GameManager.Instance.zombieHero);
-        else ret.Add(GameManager.Instance.plantHero);
+		if (team == Team.Plant) ret.Add(Tile.zombieHeroTiles[col]);
+        else ret.Add(Tile.plantHeroTiles[col]);
         if (strikethrough) return ret;
         ret.RemoveRange(1, ret.Count - 1);
         return ret;
@@ -660,6 +658,23 @@ public class Card : Damagable
         invulnerable = active;
         if (active) SR.material.color = Color.yellow;
         else if (SR.material.color != Color.blue) SR.material.color = Color.white;
+    }
+
+    protected IEnumerator AttackFX(Damagable dest)
+    {
+        GameObject g = Instantiate(AllCards.Instance.attackFX, transform.position, Quaternion.identity);
+        g.GetComponent<AttackFX>().destination = dest.transform;
+        yield return new WaitForSeconds(0.25f);
+    }
+
+    protected IEnumerator AttackFXs(List<Damagable> dests)
+    {
+        foreach (Damagable d in dests)
+        {
+            GameObject g = Instantiate(AllCards.Instance.attackFX, transform.position, Quaternion.identity);
+            g.GetComponent<AttackFX>().destination = d.transform;
+        }
+        yield return new WaitForSeconds(0.25f);
     }
 
     void OnMouseDown()

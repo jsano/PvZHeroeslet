@@ -25,10 +25,17 @@ public class Bluesberry : Card
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
         yield return base.OnSelection(bc);
-        yield return new WaitForSeconds(1);
         Tile t = bc.GetComponent<Tile>();
-        if (t == null) yield return GameManager.Instance.zombieHero.ReceiveDamage(2, this);
-        else yield return t.planted.ReceiveDamage(2, this);
+        if (t == null)
+        {
+            yield return AttackFX(GameManager.Instance.zombieHero);
+            yield return GameManager.Instance.zombieHero.ReceiveDamage(2, this);
+        }
+        else
+        {
+            yield return AttackFX(t.planted);
+            yield return t.planted.ReceiveDamage(2, this);
+        }
     }
 
 }

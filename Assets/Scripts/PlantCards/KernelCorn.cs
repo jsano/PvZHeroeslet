@@ -7,12 +7,14 @@ public class KernelCorn : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		yield return new WaitForSeconds(1);
+		List<Damagable> targets = new();
 		for (int col = 0; col < 5; col++)
 		{
-			if (Tile.zombieTiles[0, col].planted != null) StartCoroutine(Tile.zombieTiles[0, col].planted.ReceiveDamage(4, this));
+			if (Tile.zombieTiles[0, col].planted != null) targets.Add(Tile.zombieTiles[0, col].planted);
 		}
+		yield return AttackFXs(targets);
 
+		foreach (Damagable d in targets) StartCoroutine(d.ReceiveDamage(4, this));
 		yield return base.OnThisPlay();
 	}
 

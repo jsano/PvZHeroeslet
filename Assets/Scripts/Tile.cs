@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tile : MonoBehaviour
+public class Tile : Damagable
 {
 
     public int row;
@@ -16,6 +16,14 @@ public class Tile : MonoBehaviour
 	/// The zombie tiles, which will be at the top or bottom depending on the user team
 	/// </summary>
 	public static Tile[,] zombieTiles = new Tile[2, 5];
+    /// <summary>
+    /// The plant hero tiles, which will be at the top or bottom depending on the user team
+    /// </summary>
+    public static Tile[] plantHeroTiles = new Tile[5];
+    /// <summary>
+    /// The zombie hero tiles, which will be at the top or bottom depending on the user team
+    /// </summary>
+    public static Tile[] zombieHeroTiles = new Tile[5];
     /// <summary>
     /// True if this tile belongs to the plant side, false if it's the zombie side
     /// </summary>
@@ -48,12 +56,14 @@ public class Tile : MonoBehaviour
         {
             if (GameManager.Instance.team == Card.Team.Plant)
             {
-                plantTiles[row, col] = this;
+                if (row == -1) plantHeroTiles[col] = this;
+                else plantTiles[row, col] = this;
                 isPlantTile = true;
             }
             else
             {
-                zombieTiles[row, col] = this;
+                if (row == -1) zombieHeroTiles[col] = this;
+                else zombieTiles[row, col] = this;
                 isPlantTile = false;
             }
         }
@@ -61,12 +71,14 @@ public class Tile : MonoBehaviour
         {
             if (GameManager.Instance.team == Card.Team.Plant)
             {
-                zombieTiles[row, col] = this;
+                if (row == -1) zombieHeroTiles[col] = this;
+                else zombieTiles[row, col] = this;
                 isPlantTile = false;
             }
             else
             {
-                plantTiles[row, col] = this;
+                if (row == -1) plantHeroTiles[col] = this;
+                else plantTiles[row, col] = this;
                 isPlantTile = true;
             }
 		}
@@ -146,4 +158,38 @@ public class Tile : MonoBehaviour
         target.SetActive(on);
     }
 
+    /// <summary>
+    /// Use instead of <c>Hero.ReceiveDamage</c> when the column where the hero got attacked is important for event trigger ordering (ex. cards that attack here and next door)
+    /// </summary>
+    /// <param name="heroCol">Never pass in directly (this tile object will pass in its own column). For cards that hit multi-lane, the hero could be hit alongside other units.
+    /// This is what the hero's "column" should be registered as to maintain proper order</param>
+    public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1)
+    {
+        if (isPlantTile) yield return GameManager.Instance.plantHero.ReceiveDamage(dmg, source, false, false, false, col);
+        else yield return GameManager.Instance.zombieHero.ReceiveDamage(dmg, source, false, false, false, col);
+    }
+
+    /// <summary>
+    /// This should never be called
+    /// </summary>
+    public override void Heal(int amount, bool raiseCap)
+    {
+
+    }
+
+    /// <summary>
+    /// This should never be called
+    /// </summary>
+    public override bool isDamaged()
+    {
+        return false;
+    }
+
+    /// <summary>
+    /// This should never be called
+    /// </summary>
+    public override void ToggleInvulnerability(bool active)
+    {
+        
+    }
 }

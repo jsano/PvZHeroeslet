@@ -9,12 +9,7 @@ public class AttackFX : MonoBehaviour
     void Start()
     {
         transform.up = destination.position - transform.position;
-        Vector3 destination1 = destination.position;
-        if (destination.GetComponent<Hero>() != null)
-        {
-            destination1 = new Vector3(transform.position.x, destination.position.y, destination.position.z);
-        }
-        LeanTween.move(gameObject, destination1, 0.25f).setOnComplete(() => Destroy(gameObject));
+        LeanTween.move(gameObject, destination, 0.25f).setOnComplete(() => Destroy(gameObject));
     }
 
     // Update is called once per frame
