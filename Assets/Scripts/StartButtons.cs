@@ -33,7 +33,7 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Sunflower"), 2 },
             { AllCards.NameToID("Threepeater"), 2 },
             { AllCards.NameToID("Kernel Corn"), 2 },
-            { AllCards.NameToID("Pepper M.D."), 2 },
+            { AllCards.NameToID("Flourish"), 2 },
             { AllCards.NameToID("Morning Glory"), 2 }
         };
 

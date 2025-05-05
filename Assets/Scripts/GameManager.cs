@@ -5,7 +5,6 @@ using TMPro;
 using Unity.Netcode;
 using Unity.Services.Leaderboards;
 using Unity.Services.Leaderboards.Exceptions;
-using Unity.Services.Leaderboards.Models;
 using UnityEngine;
 using UnityEngine.UI;
 using static Card;
@@ -22,6 +21,7 @@ public class GameManager : NetworkBehaviour
         else instance = this;
         
         handCards = transform.Find("HandCards");
+        opponentHandCards = transform.Find("OpponentHandCards");
         turn = 1;
 	}
 
@@ -82,6 +82,8 @@ public class GameManager : NetworkBehaviour
     public GameObject phaseText;
     private Transform handCards;
     public GameObject handcardPrefab;
+	private Transform opponentHandCards;
+	public GameObject cardBackPrefab;
     public TextMeshProUGUI remainingText;
 	public TextMeshProUGUI opponentRemainingText;
 	public GameObject endScreen;
@@ -304,8 +306,10 @@ public class GameManager : NetworkBehaviour
 	/// </summary>
 	private IEnumerator Mulligan()
 	{
-		yield return DrawCard(team, 4, false);
-		yield return GainHandCard(team, UserAccounts.allDecks[UserAccounts.GameStats.DeckName].superpowerOrder[superpowerIndex]);
+        StartCoroutine(DrawCard(team == Team.Plant ? Team.Zombie : Team.Plant, 4, false));
+        yield return DrawCard(team, 4, false);
+        StartCoroutine(GainHandCard(team == Team.Plant ? Team.Zombie : Team.Plant, 0, null));
+        yield return GainHandCard(team, UserAccounts.allDecks[UserAccounts.GameStats.DeckName].superpowerOrder[superpowerIndex]);
         yield return ProcessEvents();
 		EndRpc();
 	}
@@ -332,23 +336,19 @@ public class GameManager : NetworkBehaviour
 	{
 		for (int i = 0; i < count; i++)
 		{
-            if (team == t)
-			{
-				StartCoroutine(GainHandCard(t, deck[0], null, animation));
-				deck.RemoveAt(0);
-			}
-			else TriggerEvent("OnCardDraw", t);
+            if (team == t) deck.RemoveAt(0);
+			yield return GainHandCard(t, deck[0], null, animation);
         }
-		yield return new WaitForSeconds(1f);
     }
 
     /// <summary>
     /// Gain a HandCard of the card with given ID for the player with given team, and triggers the GameEvent
     /// </summary>
 	/// <param name="fs">If provided, uses these stats for the HandCard, otherwise uses the default</param>
+	/// <param name="animation">Whether to include the drawing animation or just appear</param>
     public IEnumerator GainHandCard(Team t, int id, FinalStats fs = null, bool animation = true)
 	{
-		if (handCards.childCount >= 10) yield break;
+		if (team == t && handCards.childCount >= 10 || team != t && opponentHandCards.childCount >= 10) yield break;
 		GameObject c = null;
 		if (team == t)
 		{
@@ -359,11 +359,15 @@ public class GameManager : NetworkBehaviour
 			c.GetComponent<HandCard>().ID = id;
 			if (fs != null) c.GetComponent<HandCard>().OverrideFS(fs);
 			c.SetActive(true);
-		} else
+		} 
+		else
 		{
-			c = new GameObject("temp");
-			var sr = c.AddComponent<SpriteRenderer>();
-			sr.sprite = AllCards.Instance.plantCardBack;
+			int current = opponentHandCards.childCount;
+			c = Instantiate(cardBackPrefab, opponentHandCards);
+			c.transform.SetSiblingIndex(current);
+            c.transform.localPosition = new Vector2(-2.5f + current * 0.5f, 0);
+			c.GetComponent<SpriteRenderer>().sortingOrder = current;
+            if (t == Team.Zombie) c.GetComponent<SpriteRenderer>().sprite = AllCards.Instance.zombieCardBack;
         }
         TriggerEvent("OnCardDraw", t);
 		if (animation)
@@ -371,10 +375,9 @@ public class GameManager : NetworkBehaviour
 			AudioManager.Instance.PlaySFX("Draw Card");
 			Vector3 oldScale = c.transform.localScale;
 			Vector3 oldPos = c.transform.position;
-			c.transform.position = new Vector2(0, 0);
+			c.transform.position = new Vector2(0, team == t ? -0.5f : 0.5f);
 			c.transform.localScale = new Vector3(1.1f, 1.1f, 1);
 			bool done = false;
-			LeanTween.color(c, Color.white, 0.5f).setEaseOutQuad();
 			var lt = LeanTween.move(c, oldPos, 0.5f).setEaseOutQuint().setDelay(0.5f).setOnComplete(() => done = true);
 			LeanTween.scale(c, oldScale, 0.5f).setEaseOutQuint().setDelay(0.5f);
 			yield return new WaitUntil(() => done == true);
@@ -547,6 +550,7 @@ public class GameManager : NetworkBehaviour
 		Card card = AllCards.Instance.cards[fs.ID];
         if (card.team != team)
         {
+			Destroy(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject);
 			// From the opponent's perspective, only deduct the gold UI if it's not a gravestone
 			if (!card.gravestone) UpdateRemaining(-fs.cost, card.team);
         }
@@ -589,7 +593,8 @@ public class GameManager : NetworkBehaviour
             else card.transform.position = Tile.plantTiles[row, col].transform.position;
 		}
 
-		UpdateRemaining(-fs.cost, card.team);
+        if (card.team != team) Destroy(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject);
+        UpdateRemaining(-fs.cost, card.team);
     }
 
 	/// <summary>
@@ -601,6 +606,8 @@ public class GameManager : NetworkBehaviour
 	{
         waitingOnBlock = false;
 		TriggerEvent("OnCardDraw", t);
+		var to = opponentHandCards.TransformPoint(-2.5f + (opponentHandCards.childCount - 1) * 0.5f, 0, 0);
+		LeanTween.move(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject, to, 0.5f).setEaseOutQuint();
 	}
 
     /// <summary>
@@ -836,6 +843,15 @@ public class GameManager : NetworkBehaviour
 			hc.OverrideFS(fs);
 			c.SetActive(true);
 		}
+		else
+		{
+            int current = opponentHandCards.childCount;
+            GameObject c = Instantiate(cardBackPrefab, opponentHandCards);
+            c.transform.SetSiblingIndex(current);
+			c.transform.localPosition = new Vector2(0, -3);
+            c.GetComponent<SpriteRenderer>().sortingOrder = current;
+            if (h.team == Team.Zombie) c.GetComponent<SpriteRenderer>().sprite = AllCards.Instance.zombieCardBack;
+        }
 		yield return new WaitUntil(() => waitingOnBlock == false);
 	}
 
