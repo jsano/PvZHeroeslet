@@ -8,7 +8,7 @@ public class ShrinkRay : Card
 	{
 		yield return new WaitForSeconds(1);
 		Tile.plantTiles[row, col].planted.RaiseAttack(-3);
-		GameManager.Instance.DrawCard(team);
+		yield return GameManager.Instance.DrawCard(team);
 		yield return base.OnThisPlay();
 	}
 

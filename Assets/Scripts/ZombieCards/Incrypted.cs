@@ -9,7 +9,7 @@ public class Incrypted : Card
 	{
 		yield return new WaitForSeconds(1);
 		Tile.zombieTiles[row, col].planted.Hide();
-		GameManager.Instance.DrawCard(team);
+		yield return GameManager.Instance.DrawCard(team);
 		yield return base.OnThisPlay();
 	}
 

@@ -9,7 +9,7 @@ public class SuperStench : Card
 	{
 		yield return new WaitForSeconds(1);
 		for (int j = 0; j < 5; j++) if (Tile.zombieTiles[0, j].HasRevealedPlanted()) Tile.zombieTiles[0, j].planted.deadly = true;
-		GameManager.Instance.DrawCard(team);
+		yield return GameManager.Instance.DrawCard(team);
 		yield return base.OnThisPlay();
 	}
 

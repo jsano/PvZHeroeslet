@@ -57,7 +57,7 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Lurch for Lunch"), 1 },
             { AllCards.NameToID("Disco"), 1 },
             { AllCards.NameToID("Zombot Plank Walker"), 1 },
-            { AllCards.NameToID("Barrel of Deadbeards"), 1 }
+            { AllCards.NameToID("Eureka"), 1 }
         };
 
         UserAccounts.GameStats.DeckName = "temp11";

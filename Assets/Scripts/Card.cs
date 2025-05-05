@@ -610,7 +610,7 @@ public class Card : Damagable
     {
         if (team == Team.Plant) Tile.plantTiles[row, col].Unplant();
         else Tile.zombieTiles[row, col].Unplant();
-        GameManager.Instance.GainHandCard(team, AllCards.NameToID(name.Substring(0, name.IndexOf("("))));
+        StartCoroutine(GameManager.Instance.GainHandCard(team, AllCards.NameToID(name.Substring(0, name.IndexOf("("))), null, false));
         Destroy(gameObject);
     }
 

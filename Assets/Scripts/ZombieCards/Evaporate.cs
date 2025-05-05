@@ -9,7 +9,7 @@ public class Evaporate : Card
 	{
 		yield return new WaitForSeconds(1);
 		Tile.plantTiles[row, col].planted.Destroy();
-		GameManager.Instance.DrawCard(team);
+		yield return GameManager.Instance.DrawCard(team);
 		yield return base.OnThisPlay();
 	}
 

@@ -264,4 +264,6 @@ MonoBehaviour:
   invulnerableSprite: {fileID: 21300000, guid: 22b94c1aa16c63448a62aeef2ec122e6, type: 3}
   strengthHeart: {fileID: 21300000, guid: 7cc85b9b1d09c2a42bb36c7d7c2fe5e7, type: 3}
   brainUI: {fileID: 21300000, guid: 244106569778a8e4db3627bf0fcd0c46, type: 3}
+  plantCardBack: {fileID: 21300000, guid: dcf606a0953962c42bc987c927453b36, type: 3}
+  zombieCardBack: {fileID: 21300000, guid: 945f55213f1e35d49bf8e118bc2f34ef, type: 3}
   attackFX: {fileID: 1075093505155615695, guid: c26eef8f259b4db4bb6124cef5521272, type: 3}

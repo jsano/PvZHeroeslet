@@ -304,8 +304,8 @@ public class GameManager : NetworkBehaviour
 	/// </summary>
 	private IEnumerator Mulligan()
 	{
-		DrawCard(team, 4);
-		GainHandCard(team, UserAccounts.allDecks[UserAccounts.GameStats.DeckName].superpowerOrder[superpowerIndex]);
+		yield return DrawCard(team, 4, false);
+		yield return GainHandCard(team, UserAccounts.allDecks[UserAccounts.GameStats.DeckName].superpowerOrder[superpowerIndex]);
         yield return ProcessEvents();
 		EndRpc();
 	}
@@ -328,29 +328,30 @@ public class GameManager : NetworkBehaviour
     /// <summary>
     /// Draw a card for the player with given team, and triggers the GameEvent
     /// </summary>
-    public void DrawCard(Team t, int count = 1)
+    public IEnumerator DrawCard(Team t, int count = 1, bool animation = true)
 	{
 		for (int i = 0; i < count; i++)
 		{
             if (team == t)
 			{
-				GainHandCard(t, deck[0]);
+				StartCoroutine(GainHandCard(t, deck[0], null, animation));
 				deck.RemoveAt(0);
 			}
 			else TriggerEvent("OnCardDraw", t);
         }
+		yield return new WaitForSeconds(1f);
     }
 
     /// <summary>
     /// Gain a HandCard of the card with given ID for the player with given team, and triggers the GameEvent
     /// </summary>
 	/// <param name="fs">If provided, uses these stats for the HandCard, otherwise uses the default</param>
-    public void GainHandCard(Team t, int id, FinalStats fs = null)
+    public IEnumerator GainHandCard(Team t, int id, FinalStats fs = null, bool animation = true)
 	{
-		if (handCards.childCount >= 10) return;
+		if (handCards.childCount >= 10) yield break;
+		GameObject c = null;
 		if (team == t)
 		{
-			GameObject c;
 			if (AllCards.Instance.cards[id].specialHandCard != null) c = Instantiate(AllCards.Instance.cards[id].specialHandCard, handCards);
             else c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
@@ -360,10 +361,24 @@ public class GameManager : NetworkBehaviour
 			c.SetActive(true);
 		} else
 		{
-
-		}
-        AudioManager.Instance.PlaySFX("Draw Card");
+			c = new GameObject("temp");
+			var sr = c.AddComponent<SpriteRenderer>();
+			sr.sprite = AllCards.Instance.plantCardBack;
+        }
         TriggerEvent("OnCardDraw", t);
+		if (animation)
+		{
+			AudioManager.Instance.PlaySFX("Draw Card");
+			Vector3 oldScale = c.transform.localScale;
+			Vector3 oldPos = c.transform.position;
+			c.transform.position = new Vector2(0, 0);
+			c.transform.localScale = new Vector3(1.1f, 1.1f, 1);
+			bool done = false;
+			LeanTween.color(c, Color.white, 0.5f).setEaseOutQuad();
+			var lt = LeanTween.move(c, oldPos, 0.5f).setEaseOutQuint().setDelay(0.5f).setOnComplete(() => done = true);
+			LeanTween.scale(c, oldScale, 0.5f).setEaseOutQuint().setDelay(0.5f);
+			yield return new WaitUntil(() => done == true);
+		}
     }
 
 	/// <summary>
@@ -513,8 +528,8 @@ public class GameManager : NetworkBehaviour
 		TriggerEvent("OnTurnStart", null);
         yield return ProcessEvents();
 
-        DrawCard(Team.Zombie);
-        DrawCard(Team.Plant);
+        StartCoroutine(DrawCard(Team.Zombie));
+        yield return DrawCard(Team.Plant);
 
 		yield return ProcessEvents();
 		EndRpc();

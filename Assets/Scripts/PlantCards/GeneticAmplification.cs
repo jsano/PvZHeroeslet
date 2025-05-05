@@ -14,7 +14,7 @@ public class GeneticAmplification : Card
         fs.atk += 2;
         fs.hp += 1;
         fs.abilities += " - amphibious - teamUp";
-        GameManager.Instance.GainHandCard(team, c, fs);
+        yield return GameManager.Instance.GainHandCard(team, c, fs);
 
         yield return base.OnThisPlay();
 	}

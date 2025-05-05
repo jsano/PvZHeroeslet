@@ -31,6 +31,8 @@ public class AllCards : MonoBehaviour
 
     //public Sprite sunUI;
     public Sprite brainUI;
+    public Sprite plantCardBack;
+    public Sprite zombieCardBack;
 
     public GameObject attackFX;
 

@@ -10,7 +10,7 @@ public class NutSignal : Card
 		yield return new WaitForSeconds(1);
 		Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Wall-nut")]).GetComponent<Card>();
 		Tile.plantTiles[row, col].Plant(card);
-		GameManager.Instance.DrawCard(team);
+		yield return GameManager.Instance.DrawCard(team);
         yield return base.OnThisPlay();
 	}
 

@@ -10,7 +10,7 @@ public class Uncrackable : Card
         yield return new WaitForSeconds(1);
 
         GameManager.Instance.plantHero.ToggleInvulnerability(true);
-        GameManager.Instance.DrawCard(team);
+        yield return GameManager.Instance.DrawCard(team);
 
         yield return base.OnThisPlay();
 	}

@@ -11,7 +11,7 @@ public class Teleport : Card
     {
         GameManager.Instance.allowZombieCards = true;
         yield return new WaitForSeconds(1);
-        GameManager.Instance.DrawCard(team);
+        yield return GameManager.Instance.DrawCard(team);
         yield return base.OnThisPlay();
     }
 

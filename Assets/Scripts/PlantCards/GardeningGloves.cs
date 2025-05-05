@@ -34,7 +34,7 @@ public class GardeningGloves : Card
         yield return new WaitForSeconds(1);
 		Tile t = bc.GetComponent<Tile>();
 		Tile.plantTiles[row, col].planted.Move(t.row, t.col);
-        GameManager.Instance.GainHandCard(team, AllCards.RandomTrick(team));
+        yield return GameManager.Instance.GainHandCard(team, AllCards.RandomTrick(team));
     }
 
 	public override bool IsValidTarget(BoxCollider2D bc)

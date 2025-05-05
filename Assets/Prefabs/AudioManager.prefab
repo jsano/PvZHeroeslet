@@ -164,7 +164,7 @@ MonoBehaviour:
     outputAudioMixerGroup: {fileID: 0}
     partnerName: 
   - name: Hit
-    clip: {fileID: 8300000, guid: e9b754713b3420a48b4b42220d39d396, type: 3}
+    clip: {fileID: 8300000, guid: 42f3fad1c7945d548a8ef7db5ee7483f, type: 3}
     volume: 1
     pitch: 1
     spatialBlend: 0
