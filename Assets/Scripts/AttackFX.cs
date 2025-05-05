@@ -9,7 +9,7 @@ public class AttackFX : MonoBehaviour
     void Start()
     {
         transform.up = destination.position - transform.position;
-        LeanTween.move(gameObject, destination, 0.25f).setOnComplete(() => Destroy(gameObject));
+        LeanTween.move(gameObject, destination, 0.25f).setOnComplete(OnComplete);
     }
 
     // Update is called once per frame
@@ -17,4 +17,11 @@ public class AttackFX : MonoBehaviour
     {
         
     }
+
+    private void OnComplete()
+    {
+        AudioManager.Instance.PlaySFX("Hit");
+        Destroy(gameObject);
+    }
+
 }

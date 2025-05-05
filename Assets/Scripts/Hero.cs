@@ -68,6 +68,7 @@ public class Hero : Damagable
 		}
 		if (block >= 8 && !bullseye)
 		{
+            AudioManager.Instance.PlaySFX("Block");
             GameManager.Instance.TriggerEvent("OnBlock", this);
             block = 0;
 			blockMeter.fillAmount = 0;

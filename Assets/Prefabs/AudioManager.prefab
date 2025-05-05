@@ -117,7 +117,61 @@ MonoBehaviour:
     source: {fileID: 0}
     outputAudioMixerGroup: {fileID: 0}
     partnerName: 
-  sfx: []
+  sfx:
+  - name: Block
+    clip: {fileID: 8300000, guid: 5adb122a2edc7994197fc5aa922e9087, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: 
+  - name: Combat
+    clip: {fileID: 8300000, guid: b51f2d7629707fe4c824d3106c4b2d32, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: 
+  - name: Dead
+    clip: {fileID: 8300000, guid: b0905a540c0a0be4e8eaa88973d4f390, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: 
+  - name: Draw Card
+    clip: {fileID: 8300000, guid: cffcc63ce5df8cc4990823494fb3c0e3, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: 
+  - name: Go
+    clip: {fileID: 8300000, guid: 807f4253dbe91654ba86e658a03dd33d, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: 
+  - name: Hit
+    clip: {fileID: 8300000, guid: e9b754713b3420a48b4b42220d39d396, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: 
   musicMixerGroup: {fileID: 9128255555208657230, guid: 56a7d5e45a7c25e459c5e7afe583196a, type: 2}
   sfxMixerGroup: {fileID: 2315855057282387783, guid: 56a7d5e45a7c25e459c5e7afe583196a, type: 2}
   musicFadeDuration: 1.5

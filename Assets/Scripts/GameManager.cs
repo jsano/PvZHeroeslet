@@ -358,8 +358,12 @@ public class GameManager : NetworkBehaviour
 			c.GetComponent<HandCard>().ID = id;
 			if (fs != null) c.GetComponent<HandCard>().OverrideFS(fs);
 			c.SetActive(true);
+		} else
+		{
+
 		}
-		TriggerEvent("OnCardDraw", t);
+        AudioManager.Instance.PlaySFX("Draw Card");
+        TriggerEvent("OnCardDraw", t);
     }
 
 	/// <summary>
@@ -402,6 +406,7 @@ public class GameManager : NetworkBehaviour
 			nextTurnReady = 0;
 		}
 
+        AudioManager.Instance.PlaySFX("Go");
         phase += 1;
 
         phaseText.GetComponent<TextMeshProUGUI>().text = pnames[phase];
@@ -436,7 +441,8 @@ public class GameManager : NetworkBehaviour
 	/// <returns></returns>
     private IEnumerator Combat()
     {
-		StartCoroutine(AudioManager.Instance.ToggleBattleMusic(true));
+        AudioManager.Instance.PlaySFX("Combat");
+        StartCoroutine(AudioManager.Instance.ToggleBattleMusic(true));
         yield return new WaitForSeconds(1);
 
 		laneHighlight.gameObject.SetActive(true);
@@ -833,7 +839,8 @@ public class GameManager : NetworkBehaviour
     /// </summary>
     public async void GameEnded(Team won)
     {
-		ENDED = true;
+        AudioManager.Instance.PlaySFX("Dead");
+        ENDED = true;
 		
 		winner.text = (won == Team.Plant ? "PLANTS" : "ZOMBIES") + " WIN";
 		int oldScore = 0;
