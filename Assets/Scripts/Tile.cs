@@ -165,8 +165,8 @@ public class Tile : Damagable
     /// This is what the hero's "column" should be registered as to maintain proper order</param>
     public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1)
     {
-        if (isPlantTile) yield return GameManager.Instance.plantHero.ReceiveDamage(dmg, source, false, false, false, col);
-        else yield return GameManager.Instance.zombieHero.ReceiveDamage(dmg, source, false, false, false, col);
+        if (isPlantTile) yield return GameManager.Instance.plantHero.ReceiveDamage(dmg, source, bullseye, false, false, col);
+        else yield return GameManager.Instance.zombieHero.ReceiveDamage(dmg, source, bullseye, false, false, col);
     }
 
     /// <summary>

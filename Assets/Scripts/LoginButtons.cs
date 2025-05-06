@@ -34,13 +34,13 @@ public class LoginButtons : MonoBehaviour
     public async void Login()
     {
         await UserAccounts.Instance.SignInWithUsernamePasswordAsync(inputUsername, inputPassword);
-        SceneManager.LoadScene("Start");
+        //SceneManager.LoadScene("Start");
     }
 
     public async void SignUp()
     {
         await UserAccounts.Instance.SignUpWithUsernamePasswordAsync(inputUsername, inputPassword, inputDisplayName);
-        SceneManager.LoadScene("Start");
+        //SceneManager.LoadScene("Start");
     }
 
     public void SetInputUsername(string s)

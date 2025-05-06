@@ -6,7 +6,7 @@ public class ZombotPlankWalker : Card
 {
 
 	protected override IEnumerator OnThisPlay()
-	{	    
+	{
         yield return new WaitForSeconds(1);
         if (GameManager.Instance.team == team)
         {
@@ -25,7 +25,7 @@ public class ZombotPlankWalker : Card
             for (int i = 0; i < 3; i++)
 		    {
                 int c = AllCards.RandomFromTribe((Tribe.Pirate, Tribe.Pirate), true, columns[i] == 4);
-                while (c == AllCards.NameToID("Zombot Plank Walker")) c = AllCards.RandomFromTribe((Tribe.Pirate, Tribe.Pirate), true, columns[i] == 4);
+                while (c == AllCards.NameToID("Zombot Plank Walker")) c = AllCards.RandomFromTribe((Tribe.Pirate, Tribe.Pirate), true, columns[i] == 4); // BROKEN UNTIL ANOTHER AMPHIBIOUS PIRATE
                 GameManager.Instance.PlayCardRpc(new FinalStats(c), 0, columns[i], true);
             }
         }
