@@ -436,7 +436,7 @@ public class Card : Damagable
     public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1)
     {
         if (gravestone || invulnerable) yield break;
-        dmg -= armor;
+        dmg = Mathf.Max(0, dmg - armor);
         HP -= dmg;
         hpUI.text = Mathf.Max(0, HP) + "";
         if (dmg > 0)
