@@ -23,6 +23,7 @@ public class DeckBuilder : MonoBehaviour
 
     public static string deckName;
     private Deck deck;
+    public TextMeshProUGUI counter;
     public Transform deckCards;
     public Transform superpowersUI;
     public Transform allDeckCards;
@@ -66,6 +67,8 @@ public class DeckBuilder : MonoBehaviour
                 d.ID = i;
             }
         }
+
+        counter.text = deckCards.childCount + "/40";
     }
 
     public void OnDeckNameChange(string s)
@@ -93,6 +96,12 @@ public class DeckBuilder : MonoBehaviour
         DeckCard d = Instantiate(deckCardPrefab, deckCards).GetComponent<DeckCard>();
         d.ID = id;
         d.hideButtons = true;
+
+        counter.text = deckCards.childCount + "/40";
+        if (deckCards.childCount >= 40)
+        {
+            foreach (Transform t in allDeckCards) t.GetComponent<DeckCard>().add.interactable = false;
+        }
     }
 
     public void Remove(int id)
@@ -108,10 +117,21 @@ public class DeckBuilder : MonoBehaviour
         {
             if (t.GetComponent<DeckCard>().ID == id)
             {
+                t.SetParent(null);
                 Destroy(t.gameObject);
                 break;
             }
         }
+
+        counter.text = deckCards.childCount + "/40";
+        if (deckCards.childCount < 40)
+        {
+            foreach (Transform t in allDeckCards)
+            {
+                DeckCard dc = t.GetComponent<DeckCard>();
+                if (!deck.cards.ContainsKey(dc.ID) || deck.cards[dc.ID] < 4) dc.add.interactable = true;
+            }
+        } 
     }
 
     public void UpdateSuperpowerOrder(Transform t, int id)
@@ -144,7 +164,6 @@ public class DeckBuilder : MonoBehaviour
 
     public async void Confirm()
     {
-        //PlayerPrefs.SetString("Decks", JsonConvert.SerializeObject(UserAccounts.allDecks));
         await UserAccounts.Instance.SaveData();
         SceneManager.LoadScene("Decks", LoadSceneMode.Single);
     }
