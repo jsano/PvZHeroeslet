@@ -21,7 +21,7 @@ public class Zookeeper : Card
 				}
 			}
 		}
-		yield return null;
+		yield return base.OnCardPlay(played);
 	}
 
 }
