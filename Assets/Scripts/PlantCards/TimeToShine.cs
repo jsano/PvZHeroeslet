@@ -8,7 +8,7 @@ public class TimeToShine : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		yield return Tile.plantTiles[row, col].planted.Attack();
+		yield return Tile.plantTiles[row, col].planted.BonusAttack();
 		yield return base.OnThisPlay();
 	}
 

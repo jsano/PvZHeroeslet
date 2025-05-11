@@ -135,8 +135,9 @@ public class GameManager : NetworkBehaviour
 		{ "OnCardFreeze", 4 }, 
 		{ "OnCardHurt", 5 }, 
 		{ "OnHeroHeal" , 6 }, 
-		{ "OnCardHeal" , 7 }, 
-		{ "OnCardDraw", 8 } 
+		{ "OnCardHeal" , 7 },
+		{ "OnCardBonusAttack", 8 },
+		{ "OnCardDraw", 9 } 
 	};
     
 	/// <summary>
@@ -229,6 +230,7 @@ public class GameManager : NetworkBehaviour
 		
         while (eventStack.Count > 0)
         {
+			shuffledList = null;
             GameEvent currentEvent = eventStack[^1];
 			eventStack.RemoveAt(eventStack.Count - 1);
 
@@ -246,8 +248,7 @@ public class GameManager : NetworkBehaviour
 
 			if (ENDED) yield break;
 
-			shuffledList = null;
-			yield return new WaitUntil(() => currentlySpawningCards == 0);
+			//yield return new WaitUntil(() => currentlySpawningCards == 0); maybe remove???
 			yield return null;
         }
 		isProcessing = false;
@@ -312,7 +313,9 @@ public class GameManager : NetworkBehaviour
         StartCoroutine(GainHandCard(team == Team.Plant ? Team.Zombie : Team.Plant, 0, null));
         yield return GainHandCard(team, UserAccounts.allDecks[UserAccounts.GameStats.DeckName].superpowerOrder[superpowerIndex]);
         yield return ProcessEvents();
-		EndRpc();
+        UpdateRemaining(0, Team.Plant);
+        UpdateRemaining(0, Team.Zombie);
+        EndRpc();
 	}
 
     void Update()
@@ -487,17 +490,17 @@ public class GameManager : NetworkBehaviour
 			{
 				Card temp = frenzyActivate;
 				frenzyActivate = null;
-				yield return temp.Attack();
+				yield return temp.BonusAttack();
                 yield return ProcessEvents();
 			}
 
             if (ENDED) yield break;
 
             // Handle doublestrike if applicable
-            if (Tile.zombieTiles[0, col].planted != null && Tile.zombieTiles[0, col].planted.doubleStrike) yield return Tile.zombieTiles[0, col].planted.Attack();
+            if (Tile.zombieTiles[0, col].planted != null && Tile.zombieTiles[0, col].planted.doubleStrike) yield return Tile.zombieTiles[0, col].planted.BonusAttack();
 
-			if (Tile.plantTiles[1, col].planted != null && Tile.plantTiles[1, col].planted.doubleStrike) yield return Tile.plantTiles[1, col].planted.Attack();
-			if (Tile.plantTiles[0, col].planted != null && Tile.plantTiles[0, col].planted.doubleStrike) yield return Tile.plantTiles[0, col].planted.Attack();
+			if (Tile.plantTiles[1, col].planted != null && Tile.plantTiles[1, col].planted.doubleStrike) yield return Tile.plantTiles[1, col].planted.BonusAttack();
+			if (Tile.plantTiles[0, col].planted != null && Tile.plantTiles[0, col].planted.doubleStrike) yield return Tile.plantTiles[0, col].planted.BonusAttack();
 
             if (ENDED) yield break;
 
@@ -659,8 +662,8 @@ public class GameManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     public void BonusAttackRpc(Team tteam, int row, int col)
     {
-        if (tteam == Team.Plant) StartCoroutine(Tile.plantTiles[row, col].planted.Attack());
-        else StartCoroutine(Tile.zombieTiles[row, col].planted.Attack());
+        if (tteam == Team.Plant) StartCoroutine(Tile.plantTiles[row, col].planted.BonusAttack());
+        else StartCoroutine(Tile.zombieTiles[row, col].planted.BonusAttack());
     }
 
     /// <summary>

@@ -8,7 +8,7 @@ public class LurchForLunch : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		yield return Tile.zombieTiles[row, col].planted.Attack();
+		yield return Tile.zombieTiles[row, col].planted.BonusAttack();
 		yield return base.OnThisPlay();
 	}
 

@@ -31,7 +31,7 @@ public class CarriedAway : Card
 		Tile t = bc.GetComponent<Tile>();
         Tile.zombieTiles[row, col].planted.Move(t.row, t.col);
 		yield return new WaitForSeconds(0.5f);
-        yield return Tile.zombieTiles[t.row, t.col].planted.Attack();
+        yield return Tile.zombieTiles[t.row, t.col].planted.BonusAttack();
     }
 
 	public override bool IsValidTarget(BoxCollider2D bc)

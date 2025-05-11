@@ -8,7 +8,7 @@ public class EspressoFiesta : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-        for (int i = 0; i < 3; i++) yield return Tile.plantTiles[row, col].planted.Attack();
+        for (int i = 0; i < 3; i++) yield return Tile.plantTiles[row, col].planted.BonusAttack();
 		yield return base.OnThisPlay();
 	}
 

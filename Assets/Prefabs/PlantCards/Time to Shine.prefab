@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 0
-  type: 0
+  type: 1
   _class: 2
   tribes: 21000000
   token: 0
@@ -166,5 +166,4 @@ MonoBehaviour:
   lore: Makes you feel all warm, glowy, and like kickin' Zombie butt.
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

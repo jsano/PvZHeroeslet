@@ -271,11 +271,11 @@ public class Card : Damagable
 	{
         yield return new WaitForSeconds(0.1f); // this only exists to give time for rpcs to instantiate before processing events (rough fix)
         GameManager.Instance.currentlySpawningCards -= 1;
+        GameManager.Instance.waitingOnBlock = false;
         yield return new WaitUntil(() => GameManager.Instance.currentlySpawningCards == 0); // this exists for cards that spawn cards that spawn cards
         if (type == Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
         yield return GameManager.Instance.ProcessEvents();
         playedCost = 0; // For any consecutive gravestone reveals
-        GameManager.Instance.waitingOnBlock = false;
         if (type == Type.Trick)
         {
             yield return new WaitForSeconds(0.5f);
@@ -451,6 +451,17 @@ public class Card : Damagable
         }
         yield return new WaitForSeconds(0.1f); // this only exists so all the receive damages get sent before the other units attack. TODO: fix??
 	}
+
+    /// <summary>
+	/// Makes this card perform a bonus attack. Identical to <c>Attack</c> but also triggers and processes events
+	/// </summary>
+    public IEnumerator BonusAttack()
+    {
+        GameManager.Instance.DisableHandCards();
+        yield return Attack();
+        GameManager.Instance.TriggerEvent("OnCardBonusAttack", this);
+        yield return GameManager.Instance.ProcessEvents();
+    }
 
     /// <summary>
 	/// Called when this unit receives any form of damage. Ignores if it's in a gravestone or invulnerable. 
