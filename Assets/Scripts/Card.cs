@@ -274,7 +274,7 @@ public class Card : Damagable
         yield return new WaitUntil(() => GameManager.Instance.currentlySpawningCards == 0); // this exists for cards that spawn cards that spawn cards
         if (type == Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
         yield return GameManager.Instance.ProcessEvents();
-        playedCost = 0;
+        playedCost = 0; // For any consecutive gravestone reveals
         GameManager.Instance.waitingOnBlock = false;
         if (type == Type.Trick)
         {
@@ -474,7 +474,11 @@ public class Card : Damagable
             if (Tile.plantTiles[i, col].HasRevealedPlanted()) Tile.plantTiles[i, col].planted.UpdateAntihero();
             if (Tile.zombieTiles[i, col].HasRevealedPlanted()) Tile.zombieTiles[i, col].planted.UpdateAntihero();
         }
-        if (gravestone && team != GameManager.Instance.team) GameManager.Instance.UpdateRemaining(playedCost, team);
+        if (gravestone)
+        {
+            SR.sprite = baseSprite;
+            if (team != GameManager.Instance.team) GameManager.Instance.UpdateRemaining(playedCost, team);
+        }
 		GameManager.Instance.TriggerEvent("OnCardDeath", this);
 	}
 
