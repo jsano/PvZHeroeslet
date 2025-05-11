@@ -297,6 +297,22 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     }
 
     /// <summary>
+	/// Called whenever a card gains attack or max HP. Not called when healed
+	/// </summary>
+	protected virtual IEnumerator OnCardStatsGained(Card gained)
+    {
+        yield return null;
+    }
+
+    /// <summary>
+	/// Called whenever a card does a bonus attack
+	/// </summary>
+	protected virtual IEnumerator OnCardBonusAttack(Card attacked)
+    {
+        yield return null;
+    }
+
+    /// <summary>
 	/// Called at the start of turn
 	/// </summary>
 	protected virtual IEnumerator OnTurnStart()

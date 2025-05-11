@@ -30,10 +30,10 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(10));
         UserAccounts.allDecks["temp10"].cards = new() {
-            { AllCards.NameToID("Punish-shroom"), 2 },
-            { AllCards.NameToID("Grapes of Wrath"), 2 },
-            { AllCards.NameToID("Cherry Bomb"), 2 },
-            { AllCards.NameToID("Sergeant Strongberry"), 2 },
+            { AllCards.NameToID("Espresso Fiesta"), 2 },
+            { AllCards.NameToID("Black-eyed Pea"), 2 },
+            { AllCards.NameToID("Party Thyme"), 2 },
+            { AllCards.NameToID("Potted Powerhouse"), 2 },
             { AllCards.NameToID("Shroom for Two"), 2 },
             { AllCards.NameToID("Wild Berry"), 2}
         };
@@ -52,7 +52,7 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
             { AllCards.NameToID("Mini-Ninja"), 1 },
-            { AllCards.NameToID("Zombot Plank Walker"), 6 },
+            { AllCards.NameToID("Barrel of Deadbeards"), 6 },
             { AllCards.NameToID("Smoke Bomb"), 1 },
             { AllCards.NameToID("Pied Piper"), 1 },
             { AllCards.NameToID("Lurch for Lunch"), 1 },

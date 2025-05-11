@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1812251758246606002, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1056774694
+      value: 3213306360
       objectReference: {fileID: 0}
     - target: {fileID: 198550959388224066, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -22,30 +22,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: HP
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: atk
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: cost
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: lore
-      value: '"Magnets? Gravity? Crikey, I don''t have a clue why they come back."'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: _class
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: amphibious
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: strikethrough
+      propertyPath: cost
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      propertyPath: teamUp
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
@@ -58,15 +46,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: 'tribes.Array.data[0]'
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: 'tribes.Array.data[1]'
-      value: 8
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Name
-      value: Bloomerang
+      value: Black-eyed Pea
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -123,13 +107,63 @@ PrefabInstance:
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: c2e6b41d42e7a8a4b99418cee6661e2d, type: 3}
+      objectReference: {fileID: 21300000, guid: 88fc860e53aac2546860ed38ef6f8f7d, type: 3}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SortingLayer
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1632292233091628861}
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+--- !u!1 &992196623300205022 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+  m_PrefabInstance: {fileID: 2724712124557671184}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-1632292233091628861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992196623300205022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ad23fc78a1a76d4785a49ee00fd7d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  team: 0
+  type: 0
+  _class: 2
+  tribes: 0200000017000000
+  token: 0
+  cost: 2
+  atk: 2
+  HP: 2
+  amphibious: 0
+  antihero: 0
+  armor: 0
+  bullseye: 0
+  deadly: 0
+  doubleStrike: 0
+  frenzy: 0
+  gravestone: 0
+  hunt: 0
+  overshoot: 0
+  splash: 0
+  strikethrough: 0
+  teamUp: 0
+  untrickable: 0
+  nextDoor: 0
+  freeze: 0
+  description: This gets +1 attack +1 HP when a zombie trick is played
+  lore: '"You shoulda seen the other guy!" '
+  row: 0
+  col: 0
+  specialHandCard: {fileID: 0}

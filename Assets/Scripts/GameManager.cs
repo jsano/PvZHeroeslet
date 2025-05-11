@@ -350,6 +350,7 @@ public class GameManager : NetworkBehaviour
 	/// <param name="animation">Whether to include the drawing animation or just appear</param>
     public IEnumerator GainHandCard(Team t, int id, FinalStats fs = null, bool animation = true)
 	{
+		Debug.Log(opponentHandCards.childCount);
 		if (team == t && handCards.childCount >= 10 || team != t && opponentHandCards.childCount >= 10) yield break;
 		GameObject c = null;
 		if (team == t)
