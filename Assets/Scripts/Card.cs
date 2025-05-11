@@ -405,19 +405,27 @@ public class Card : Damagable
                 foreach (Damagable c in targets) if (c.GetComponent<Card>() != null && c.GetComponent<Card>().died) GameManager.Instance.frenzyActivate = this;
             }
         }
-        // Multi lane targets
-        else
+        else if (splash > 0)
         {
             List<Damagable>[] targets = new List<Damagable>[] { null, null, null };
             for (int i = -1; i <= 1; i++)
             {
                 if (col + i < 0 || col + i > 4) continue;
                 // For splash damage, its next door targets (not in-lane) should only hit units and not the hero 
-                if (splash > 0 && i != 0)
-                {
-                    if (Tile.zombieTiles[0, col + i].HasRevealedPlanted()) targets[i + 1] = new() { Tile.zombieTiles[0, col + i].planted };
-                }
-                else targets[i + 1] = GetTargets(col + i);
+                if (i == 0) targets[i + 1] = GetTargets(col + i);
+                else if (Tile.zombieTiles[0, col + i].HasRevealedPlanted()) targets[i + 1] = new() { Tile.zombieTiles[0, col + i].planted };
+            }
+            yield return AttackFX(targets[1][0]);
+
+            for (int i = 0; i < 3; i++) if (targets[i] != null) foreach (Damagable c in targets[i]) StartCoroutine(c.ReceiveDamage(i == 1 ? atk : splash, this, bullseye, deadly, freeze));
+        }
+        else if (nextDoor)
+        {
+            List<Damagable>[] targets = new List<Damagable>[] { null, null, null };
+            for (int i = -1; i <= 1; i++)
+            {
+                if (col + i < 0 || col + i > 4) continue;
+                targets[i + 1] = GetTargets(col + i);
             }
             List<Damagable> temp = new();
             for (int i = 0; i < 3; i++) if (targets[i] != null) temp.Add(targets[i][0]);
