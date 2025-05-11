@@ -10,7 +10,7 @@ public class PricklyPear : Card
 	{
 		if (hurt.Item1 == this && Tile.zombieTiles[0, col].planted != null)
 		{
-			yield return new WaitForSeconds(1);
+            yield return AttackFX(Tile.zombieTiles[0, col].planted);
             yield return Tile.zombieTiles[0, col].planted.ReceiveDamage(4, this);
 		}
 		yield return base.OnCardHurt(hurt);

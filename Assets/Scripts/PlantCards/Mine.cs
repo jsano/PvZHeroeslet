@@ -11,10 +11,13 @@ public class Mine : Card
 	{
 		if (died == this)
 		{
-			yield return new WaitForSeconds(1);
-			if (Tile.zombieTiles[0, col].planted != null) StartCoroutine(Tile.zombieTiles[0, col].planted.ReceiveDamage(deathDamage, this));
-			yield return base.OnCardDeath(died);
-		} else yield return base.OnCardDeath(died);
+			if (Tile.zombieTiles[0, col].planted != null)
+			{
+				yield return AttackFX(Tile.zombieTiles[0, col].planted);
+				yield return Tile.zombieTiles[0, col].planted.ReceiveDamage(deathDamage, this);
+			}
+		}
+		yield return base.OnCardDeath(died);
     }
 
 }

@@ -246,6 +246,7 @@ public class GameManager : NetworkBehaviour
 
 			if (ENDED) yield break;
 
+			shuffledList = null;
 			yield return new WaitUntil(() => currentlySpawningCards == 0);
 			yield return null;
         }
