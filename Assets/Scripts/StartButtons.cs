@@ -36,7 +36,7 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Potted Powerhouse"), 2 },
             { AllCards.NameToID("Shroom for Two"), 2 },
             { AllCards.NameToID("Cornucopia"), 2 },
-            { AllCards.NameToID("Punish-shroom"), 2 }
+            { AllCards.NameToID("Scorched Earth"), 2 }
         };
 
         NetworkManager.Singleton.StartHost();

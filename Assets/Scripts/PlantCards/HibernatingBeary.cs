@@ -11,7 +11,7 @@ public class HibernatingBeary : Card
 		if (hurt.Item1 == this)
 		{
 			yield return new WaitForSeconds(1);
-			RaiseAttack(4);
+			ChangeStats(4, 0);
 		}
 		yield return base.OnCardHurt(hurt);
 	}

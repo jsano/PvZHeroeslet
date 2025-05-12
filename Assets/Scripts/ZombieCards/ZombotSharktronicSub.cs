@@ -21,7 +21,7 @@ public class ZombotSharktronicSub : Card
         if (died.team == Team.Plant)
         {
             yield return new WaitForSeconds(1);
-            RaiseAttack(1);
+            ChangeStats(1, 0);
         }
         yield return base.OnCardDeath(died);
     }

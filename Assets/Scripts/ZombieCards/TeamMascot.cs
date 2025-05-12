@@ -12,8 +12,7 @@ public class TeamMascot : Card
 			Card c = Tile.zombieTiles[0, col].planted;
 			if (Tile.zombieTiles[0, col].HasRevealedPlanted() && c.tribes.Contains(Tribe.Sports))
 			{
-				c.RaiseAttack(1);
-				c.Heal(1, true);
+				c.ChangeStats(1, 1);
 			}
 		}
 	}

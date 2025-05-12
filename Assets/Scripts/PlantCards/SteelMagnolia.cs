@@ -15,7 +15,7 @@ public class SteelMagnolia : Card
             if (col + i < 0 || col + i > 4) continue;
             for (int r = 0; r < 2; r++)
             {
-                if (Tile.plantTiles[r, col + i].HasRevealedPlanted()) Tile.plantTiles[r, col + i].planted.Heal(2, true);
+                if (Tile.plantTiles[r, col + i].HasRevealedPlanted()) Tile.plantTiles[r, col + i].planted.ChangeStats(0, 2);
             }
 		}
 

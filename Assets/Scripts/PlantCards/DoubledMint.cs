@@ -8,8 +8,8 @@ public class DoubledMint : Card
 	protected override IEnumerator OnTurnStart()
 	{
 		yield return new WaitForSeconds(1);
-		RaiseAttack(atk);
-		Heal(HP, true);
+		ChangeStats(atk, HP);
+		yield return base.OnTurnStart();
 	}
 
 }

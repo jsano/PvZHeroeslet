@@ -15,8 +15,7 @@ public class NavyBean : Card
 				Card c = Tile.plantTiles[row, col].planted;
 				if (c != null && c.amphibious)
 				{
-					c.RaiseAttack(1);
-					c.Heal(1, true);
+					c.ChangeStats(1, 1);
 				}
 			}
 		}

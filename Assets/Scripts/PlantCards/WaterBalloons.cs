@@ -15,8 +15,7 @@ public class WaterBalloons : Card
         }
         else if (GameManager.Instance.opponentRemainingTop >= 6) val--;
 
-        Tile.zombieTiles[row, col].planted.RaiseAttack(val);
-        Tile.zombieTiles[row, col].planted.Heal(val, true);
+        Tile.zombieTiles[row, col].planted.ChangeStats(val, val);
 		yield return base.OnThisPlay();
 	}
 

@@ -32,8 +32,8 @@ public class Medic : Card
         yield return base.OnSelection(bc);
         yield return new WaitForSeconds(1);
 		Tile t = bc.GetComponent<Tile>();
-		if (t == null) GameManager.Instance.zombieHero.Heal(4, false);
-		else t.planted.Heal(4, false);
+		if (t == null) GameManager.Instance.zombieHero.Heal(4);
+		else t.planted.Heal(4);
     }
 
 }

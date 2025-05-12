@@ -13,8 +13,7 @@ public class RaiseStats : Card
 	{
 		var tiles = targetTeam == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
 		yield return new WaitForSeconds(1);
-		tiles[row, col].planted.RaiseAttack(atkAmount);
-		tiles[row, col].planted.Heal(HPAmount, true);
+		tiles[row, col].planted.ChangeStats(atkAmount, HPAmount);
 		yield return base.OnThisPlay();
 	}
 

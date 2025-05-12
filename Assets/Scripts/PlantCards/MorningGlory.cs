@@ -16,8 +16,7 @@ public class MorningGlory : Card
         if (s)
         {
             yield return new WaitForSeconds(1);
-            RaiseAttack(1);
-            Heal(1, true);
+            ChangeStats(1, 1);
         }
 		yield return base.OnThisPlay();
 	}

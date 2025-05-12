@@ -15,7 +15,7 @@ public class Spineapple : Card
 				Card c = Tile.plantTiles[row, col].planted;
 				if (c != null && c.atk <= 0)
 				{
-					c.RaiseAttack(2);
+					c.ChangeStats(2, 0);
 				}
 			}
 		}

@@ -13,8 +13,7 @@ public class MixedNuts : Card
 			if (c != null && c.teamUp)
 			{
 				yield return new WaitForSeconds(1);
-				RaiseAttack(2);
-				Heal(2, true);
+				ChangeStats(2, 2);
 				break;
 			}
 		}

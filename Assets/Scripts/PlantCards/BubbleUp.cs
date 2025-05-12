@@ -33,7 +33,7 @@ public class BubbleUp : Card
         yield return base.OnSelection(bc);
         yield return new WaitForSeconds(1);
         Tile t = bc.GetComponent<Tile>();
-        Tile.plantTiles[row, col].planted.Heal(4, true);
+        Tile.plantTiles[row, col].planted.ChangeStats(0, 4);
         Tile.plantTiles[row, col].planted.Move(t.row, t.col);
     }
 

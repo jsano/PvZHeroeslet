@@ -8,8 +8,7 @@ public class PlantFood : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		Tile.plantTiles[row, col].planted.RaiseAttack(1);
-		Tile.plantTiles[row, col].planted.Heal(1, true);
+		Tile.plantTiles[row, col].planted.ChangeStats(1, 1);
         yield return Tile.plantTiles[row, col].planted.BonusAttack();
 		yield return base.OnThisPlay();
 	}

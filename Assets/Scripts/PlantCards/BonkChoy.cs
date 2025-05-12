@@ -13,8 +13,7 @@ public class BonkChoy : Card
 	protected override IEnumerator OnThisPlay()
 	{		
         yield return new WaitForSeconds(1);
-		RaiseAttack(atkBuff);
-		Heal(HPBuff, true);
+		ChangeStats(atkBuff, HPBuff);
 		firstTurnEnded = false;
         yield return base.OnThisPlay();
 	}
@@ -22,11 +21,10 @@ public class BonkChoy : Card
 	protected override IEnumerator OnTurnEnd()
 	{
 		if (!firstTurnEnded) {
-			RaiseAttack(-atkBuff);
-			Heal(-HPBuff, true);
+			ChangeStats(-atkBuff, -HPBuff);
 			firstTurnEnded = true;
 		}
-		yield return null;
+		yield return base.OnTurnEnd();
     }
 
 }

@@ -351,9 +351,9 @@ public class Card : Damagable
     }
 
     /// <summary>
-	/// Called whenever a card gains attack or max HP. Not called when healed
+	/// Called whenever a card changes attack or max HP. Not called when healed
 	/// </summary>
-	protected virtual IEnumerator OnCardStatsGained(Card gained)
+	protected virtual IEnumerator OnCardStatsChanged(Card changed)
     {
         yield return null;
     }
@@ -518,22 +518,37 @@ public class Card : Damagable
 	}
 
     /// <summary>
-	/// Raises HP by the given amount. Ignores if it's in a gravestone. Also triggers <c>OnCardHeal</c> if not raising the maxHP.
-    /// If HP ends up as 0 afterwards, marks this card to be destroyed and triggers <c>OnCardDeath</c> so that it's destroyed during the next <c>ProcessEvent</c>, and updates any anti-hero immediately.
+	/// Heals HP by the given amount. Ignores if it's in a gravestone. Also triggers <c>OnCardHeal</c> if not raising the maxHP.
+    /// 
 	/// </summary>
     /// <param name="raiseCap">If true, this will affect the maxHP, which also means it won't be considered damaged if amount is negative</param>
-	public override void Heal(int amount, bool raiseCap=false)
+	public override void Heal(int amount)
     {
         if (gravestone) return;
         int HPBefore = HP;
         HP += amount;
-        if (raiseCap) maxHP += amount;
-        else
-        {
-            HP = Mathf.Min(maxHP, HP);
-            if (amount > 0 && HPBefore < maxHP) GameManager.Instance.TriggerEvent("OnCardHeal", this);
-        }
+        HP = Mathf.Min(maxHP, HP);
+        if (amount > 0 && HPBefore < maxHP) GameManager.Instance.TriggerEvent("OnCardHeal", this);
         hpUI.text = HP + "";
+        if (!isDamaged()) hpUI.color = Color.white;
+    }
+
+    /// <summary>
+    /// Raises attack and HP by the given amounts. Ignores if it's in a gravestone. Updates UI. Attack won't go below 0.
+    /// If HP ends up as 0 afterwards, marks this card to be destroyed and triggers <c>OnCardDeath</c> so that it's destroyed during the next <c>ProcessEvent</c>, and updates any anti-hero immediately.
+    /// </summary>
+    public override void ChangeStats(int atkAmount, int hpAmount)
+	{
+        if (gravestone) return;
+		atk += atkAmount;
+        atk = Mathf.Max(0, atk);
+		if (atkUI != null) atkUI.text = atk + "";
+        
+        maxHP += hpAmount;
+        HP += hpAmount;
+        if (hpUI != null) hpUI.text = HP + "";
+
+        if (atkAmount > 0 || hpAmount > 0) GameManager.Instance.TriggerEvent("OnCardStatsChanged", this);
         if (HP <= 0)
         {
             died = true;
@@ -544,18 +559,6 @@ public class Card : Damagable
             }
             GameManager.Instance.TriggerEvent("OnCardDeath", this);
         }
-        if (!isDamaged()) hpUI.color = Color.white;
-    }
-
-    /// <summary>
-    /// Raises attack by the given ammount. Attack won't go below 0. Ignores if it's in a gravestone. Updates UI
-    /// </summary>
-    public void RaiseAttack(int amount)
-	{
-        if (gravestone) return;
-		atk += amount;
-        atk = Mathf.Max(0, atk);
-		if (atkUI != null) atkUI.text = atk + "";
 	}
 
 	private IEnumerator HitVisual()
@@ -592,12 +595,12 @@ public class Card : Damagable
             if (AHactive && GetTargets(col)[0].GetComponent<Card>() != null)
             {
                 AHactive = false;
-                RaiseAttack(-antihero);
+                ChangeStats(-antihero, 0);
             }
             if (!AHactive && GetTargets(col)[0].GetComponent<Tile>() != null)
             {
                 AHactive = true;
-                RaiseAttack(antihero);
+                ChangeStats(antihero, 0);
             }
         }
     }

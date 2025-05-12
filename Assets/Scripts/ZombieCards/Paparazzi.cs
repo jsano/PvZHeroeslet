@@ -10,8 +10,7 @@ public class Paparazzi : Card
 		if (played.type == Type.Trick && played.team == Team.Zombie)
 		{
 			yield return new WaitForSeconds(1);
-			RaiseAttack(1);
-			Heal(1, true);
+			ChangeStats(1, 1);
 		}
 		yield return null;
 	}

@@ -172,7 +172,15 @@ public class Tile : Damagable
     /// <summary>
     /// This should never be called
     /// </summary>
-    public override void Heal(int amount, bool raiseCap)
+    public override void Heal(int amount)
+    {
+
+    }
+
+    /// <summary>
+    /// This should never be called
+    /// </summary>
+    public override void ChangeStats(int atkAmount, int hpAmount)
     {
 
     }

@@ -8,7 +8,7 @@ public class RootWall : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		Tile.plantTiles[row, col].planted.Heal(2, true);
+		Tile.plantTiles[row, col].planted.ChangeStats(0, 2);
 		Tile.plantTiles[row, col].planted.ToggleInvulnerability(true);
         yield return base.OnThisPlay();
 	}

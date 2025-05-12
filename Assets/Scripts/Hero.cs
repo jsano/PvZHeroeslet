@@ -87,15 +87,19 @@ public class Hero : Damagable
         }
 	}
 
-	public override void Heal(int amount, bool raiseCap=false)
+	public override void Heal(int amount)
 	{
 		int HPBefore = HP;
 		HP += amount;
-		if (raiseCap) maxHP += amount;
-		else HP = Mathf.Min(maxHP, HP);
+		HP = Mathf.Min(maxHP, HP);
 		hpUI.text = HP + "";
 		if (amount > 0 && HPBefore < maxHP) GameManager.Instance.TriggerEvent("OnHeroHeal", this);
 	}
+
+    public override void ChangeStats(int atkAmount, int hpAmount)
+    {
+        maxHP += hpAmount;
+    }
 
 	public int StealBlock(int amount)
 	{

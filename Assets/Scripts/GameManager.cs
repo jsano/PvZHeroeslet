@@ -800,36 +800,6 @@ public class GameManager : NetworkBehaviour
     }
 
     /// <summary>
-    /// Signals to the network to raise the attack of the unit with the given row/column and team by this amount
-    /// </summary>
-    /// <param name="tteam">Whether the given row/column represents the plant or zombie side of the board</param>
-    [Rpc(SendTo.ClientsAndHost)]
-	public void RaiseAttackRpc(Team tteam, int row, int col, int amount)
-	{
-        if (tteam == Team.Plant) Tile.plantTiles[row, col].planted.RaiseAttack(amount);
-        else Tile.zombieTiles[row, col].planted.RaiseAttack(amount);
-    }
-
-    /// <summary>
-    /// Signals to the network to raise the HP of the unit with the given row/column and team
-    /// </summary>
-    /// <param name="tteam">Whether the given row/column represents the plant or zombie side of the board</param>
-    [Rpc(SendTo.ClientsAndHost)]
-	public void HealRpc(Team tteam, int row, int col, int amount, bool raiseCap)
-	{
-        if (row == -1 && col == -1)
-        {
-            if (tteam == Team.Plant) plantHero.Heal(amount, raiseCap);
-            else zombieHero.Heal(amount, raiseCap);
-        }
-        else 
-        {
-            if (tteam == Team.Plant) Tile.plantTiles[row, col].planted.Heal(amount, raiseCap);
-			else Tile.zombieTiles[row, col].planted.Heal(amount, raiseCap);
-        }
-    }
-
-    /// <summary>
     /// Called when a block GameEvent is being processed. Makes a 0-cost superpower HandCard, update superpower index, and waits for the given hero to make a decision
     /// </summary>
     public IEnumerator HandleHeroBlocks(Hero h)

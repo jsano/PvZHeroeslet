@@ -15,8 +15,7 @@ public class Buffshroom : Card
 				Card c = Tile.plantTiles[row, col].planted;
 				if (c != null && c.tribes.Contains(Tribe.Mushroom))
 				{
-					c.RaiseAttack(1);
-					c.Heal(1, true);
+					c.ChangeStats(1, 1);
 				}
 			}
 		}

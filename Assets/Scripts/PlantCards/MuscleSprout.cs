@@ -10,8 +10,7 @@ public class MuscleSprout : Card
 		if (played != this && played.team == Team.Plant)
 		{
 			yield return new WaitForSeconds(1);
-			RaiseAttack(1);
-			Heal(1, true);
+			ChangeStats(1, 1);
 		}
 		yield return null;
 	}

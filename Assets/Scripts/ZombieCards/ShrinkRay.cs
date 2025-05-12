@@ -7,7 +7,7 @@ public class ShrinkRay : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		Tile.plantTiles[row, col].planted.RaiseAttack(-3);
+		Tile.plantTiles[row, col].planted.ChangeStats(-3, 0);
 		yield return GameManager.Instance.DrawCard(team);
 		yield return base.OnThisPlay();
 	}

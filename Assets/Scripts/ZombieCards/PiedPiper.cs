@@ -12,16 +12,8 @@ public class PiedPiper : Card
 		if (c != null || c1 != null)
 		{
 			yield return new WaitForSeconds(1);
-			if (c != null)
-			{
-				c.RaiseAttack(-1);
-				c.Heal(-1, true);
-			}
-			if (c1 != null)
-			{
-				c1.RaiseAttack(-1);
-				c1.Heal(-1, true);
-			}
+			if (c != null) c.ChangeStats(-1, -1);
+			if (c1 != null) c1.ChangeStats(-1, -1);
 		}
 		yield return base.OnThisPlay();
 	}

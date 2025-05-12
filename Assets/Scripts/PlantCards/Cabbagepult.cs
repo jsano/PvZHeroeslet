@@ -10,8 +10,7 @@ public class Cabbagepult : Card
 		if (col == 0)
 		{
 			yield return new WaitForSeconds(1);
-			Heal(1, true);
-			RaiseAttack(1);
+			ChangeStats(1, 1);
 		}
 		yield return base.OnThisPlay();
 	}

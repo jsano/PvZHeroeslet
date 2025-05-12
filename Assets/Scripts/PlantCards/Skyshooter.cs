@@ -10,8 +10,7 @@ public class Skyshooter : Card
 		if (col == 0)
 		{
 			yield return new WaitForSeconds(1);
-			Heal(2, true);
-			RaiseAttack(2);
+			ChangeStats(2, 2);
 		}
 		yield return base.OnThisPlay();
 	}

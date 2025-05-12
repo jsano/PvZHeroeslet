@@ -32,8 +32,7 @@ public class Growshroom : Card
         yield return base.OnSelection(bc);
         yield return new WaitForSeconds(1);
 		Card c = bc.GetComponent<Tile>().planted;
-		c.RaiseAttack(2);
-		c.Heal(2, true);
+		c.ChangeStats(2, 2);
     }
 
 }

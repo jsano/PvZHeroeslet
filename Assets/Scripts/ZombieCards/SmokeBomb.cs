@@ -29,7 +29,7 @@ public class SmokeBomb : Card
 		yield return base.OnSelection(bc);
 		yield return new WaitForSeconds(1);
 		Tile t = bc.GetComponent<Tile>();
-		Tile.zombieTiles[row, col].planted.RaiseAttack(1);
+		Tile.zombieTiles[row, col].planted.ChangeStats(1, 0);
         Tile.zombieTiles[row, col].planted.Move(t.row, t.col);
     }
 

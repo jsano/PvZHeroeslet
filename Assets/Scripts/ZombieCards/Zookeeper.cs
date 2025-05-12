@@ -16,7 +16,7 @@ public class Zookeeper : Card
 					Card c = Tile.zombieTiles[0, col].planted;
 					if (c != null && c.tribes.Contains(Tribe.Pet))
 					{
-						c.RaiseAttack(1);
+						c.ChangeStats(1, 0);
 					}
 				}
 			}

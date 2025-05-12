@@ -15,7 +15,7 @@ public class Smackadamia : Card
 				Card c = Tile.plantTiles[row, col].planted;
 				if (c != null && c.tribes.Contains(Tribe.Nut))
 				{
-					c.Heal(2, true);
+					c.ChangeStats(0, 2);
 				}
 			}
 		}

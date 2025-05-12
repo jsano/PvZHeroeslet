@@ -9,7 +9,7 @@ public class WannabeHero : Card
 	{
 		yield return new WaitForSeconds(1);
 		GameManager.Instance.zombieHero.Heal(3);
-		Heal(GameManager.Instance.zombieHero.HP, true);
+		ChangeStats(0, GameManager.Instance.zombieHero.HP);
 		yield return base.OnThisPlay();
 	}
 

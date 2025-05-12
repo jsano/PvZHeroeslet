@@ -8,8 +8,7 @@ public class PeaPod : Card
 	protected override IEnumerator OnTurnStart()
 	{
 		yield return new WaitForSeconds(1);
-		RaiseAttack(1);
-		Heal(1, true);
+		ChangeStats(1, 1);
 	}
 
 }

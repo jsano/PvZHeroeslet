@@ -19,7 +19,7 @@ public class ToughBeets : Card
 		if (count > 0)
 		{
 			yield return new WaitForSeconds(1);
-			Heal(count, true);
+			ChangeStats(0, count);
 		}
 		yield return base.OnThisPlay();
 	}

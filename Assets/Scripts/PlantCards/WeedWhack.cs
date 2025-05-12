@@ -8,8 +8,7 @@ public class WeedWhack : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		Tile.zombieTiles[row, col].planted.RaiseAttack(-2);
-        Tile.zombieTiles[row, col].planted.Heal(-2, true);
+		Tile.zombieTiles[row, col].planted.ChangeStats(-2, -2);
         yield return base.OnThisPlay();
 	}
 

@@ -10,8 +10,7 @@ public class PepperMD : Card
 		if (healed.team == Team.Plant)
 		{
 			yield return new WaitForSeconds(1);
-			RaiseAttack(2);
-			Heal(2, true);
+			ChangeStats(2, 2);
 		}
 		yield return null;
 	}
@@ -21,8 +20,7 @@ public class PepperMD : Card
         if (healed.team == Team.Plant)
 		{
 			yield return new WaitForSeconds(1);
-			RaiseAttack(2);
-			Heal(2, true);
+			ChangeStats(2, 2);
 		}
 		yield return null;
     }

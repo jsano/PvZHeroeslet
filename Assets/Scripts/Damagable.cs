@@ -10,7 +10,9 @@ public abstract class Damagable : MonoBehaviour
 
 	public abstract IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1);
 
-	public abstract void Heal(int amount, bool raiseCap);
+	public abstract void Heal(int amount);
+
+	public abstract void ChangeStats(int atkAmount, int hpAmount);
 
 	public abstract bool isDamaged();
 

@@ -297,9 +297,9 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     }
 
     /// <summary>
-	/// Called whenever a card gains attack or max HP. Not called when healed
+	/// Called whenever a card changes attack or max HP. Not called when healed
 	/// </summary>
-	protected virtual IEnumerator OnCardStatsGained(Card gained)
+	protected virtual IEnumerator OnCardStatsChanged(Card changed)
     {
         yield return null;
     }
