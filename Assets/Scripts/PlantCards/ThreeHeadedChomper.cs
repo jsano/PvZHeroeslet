@@ -11,8 +11,9 @@ public class ThreeHeadedChomper : Card
         for (int i = -1; i <= 1; i++)
         {
             if (col + i < 0 || col + i >= 5) continue;
-            if (Tile.zombieTiles[0, col + i].planted != null) Tile.zombieTiles[0, col + i].planted.Destroy();
+            if (Tile.zombieTiles[0, col + i].HasRevealedPlanted()) Tile.zombieTiles[0, col + i].planted.Destroy();
         }
+        yield return base.OnTurnEnd();
     }
 
 }
