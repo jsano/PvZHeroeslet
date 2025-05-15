@@ -5,6 +5,7 @@ using Unity.Netcode;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Services.Multiplayer;
 
 public class EndScreenButtons : NetworkBehaviour
 {
@@ -25,6 +26,7 @@ public class EndScreenButtons : NetworkBehaviour
     private IEnumerator CheckOpponentQuit()
     {
         yield return new WaitUntil(() => SessionManager.Instance.ActiveSession.PlayerCount < 2);
+        SessionManager.Instance.LeaveSession();
         rematchButton.GetComponentInChildren<TextMeshProUGUI>().text = "Opponent left";
         quitButton.gameObject.SetActive(true);
     }

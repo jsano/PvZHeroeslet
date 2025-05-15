@@ -29,7 +29,7 @@ public class AllCards : MonoBehaviour
     public Sprite invulnerableSprite;
     public Sprite strengthHeart;
 
-    //public Sprite sunUI;
+    public Sprite sunUI;
     public Sprite brainUI;
     public Sprite plantCardBack;
     public Sprite zombieCardBack;

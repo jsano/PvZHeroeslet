@@ -50,7 +50,6 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         
         // Layer this above all other handcards
         GetComponent<SpriteRenderer>().sortingOrder += 10;
-        //image.sortingOrder += 10;
         GetComponent<Canvas>().sortingOrder += 10;
         
         if (!interactable) return;
@@ -128,7 +127,6 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         transform.localScale = Vector3.one * 0.9f;
         // Revert layering from pointer down
         GetComponent<SpriteRenderer>().sortingOrder -= 10;
-        //image.sortingOrder -= 10;
         GetComponent<Canvas>().sortingOrder -= 10;
         
         if (!interactable) return;

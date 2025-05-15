@@ -279,6 +279,8 @@ public class GameManager : NetworkBehaviour
 			plantHero.transform.position = new Vector2(0, 3.5f);
 			plantHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
 			plantHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
+            remainingText.transform.parent.GetComponent<Image>().sprite = AllCards.Instance.brainUI;
+            opponentRemainingText.transform.parent.GetComponent<Image>().sprite = AllCards.Instance.sunUI;
         }
 
 		foreach (Transform t in GameObject.Find("Tiles").transform)
@@ -353,7 +355,7 @@ public class GameManager : NetworkBehaviour
 	/// <param name="animation">Whether to include the drawing animation or just appear</param>
     public IEnumerator GainHandCard(Team t, int id, FinalStats fs = null, bool animation = true)
 	{
-		if (t == Team.Zombie) Debug.Log(opponentHandCards.childCount);
+		//if (t == Team.Zombie) Debug.Log(opponentHandCards.childCount);
 		if (team == t && handCards.childCount >= 10 || team != t && opponentHandCards.childCount >= 10) yield break;
 		GameObject c = null;
 		if (team == t)
