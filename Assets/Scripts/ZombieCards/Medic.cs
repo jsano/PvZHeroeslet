@@ -17,6 +17,7 @@ public class Medic : Card
 				}
 			}
 		}
+        choices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
         if (choices.Count == 1) yield return OnSelection(choices[0]);
         if (choices.Count >= 2)
         {

@@ -76,6 +76,7 @@ public class GameManager : NetworkBehaviour
     public Team team;
 
 	public Transform laneHighlight;
+	public SpriteRenderer boardHighlight;
 	public Image timerImage;
     public Button go;
     private LTDescr goTween;

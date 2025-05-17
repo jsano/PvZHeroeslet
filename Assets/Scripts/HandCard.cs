@@ -82,19 +82,20 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 			    }
             }
         }
-        // Show targets visual
-        foreach (BoxCollider2D bc in validChoices)
+        // Show targets visual only if there's less than 22 (all targets) choices
+        if (validChoices.Count < 22) foreach (BoxCollider2D bc in validChoices)
         {
             if (bc.GetComponent<Tile>() != null) bc.GetComponent<Tile>().ToggleTarget(true);
             else bc.GetComponent<Hero>().ToggleTarget(true);
         }
+        else GameManager.Instance.boardHighlight.color += new Color(0, 0, 0, 0.6f);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (!interactable) return;
         transform.position = (Vector2) Camera.main.ScreenToWorldPoint(eventData.position);
-		foreach (BoxCollider2D bc in validChoices)
+        if (validChoices.Count < 22) foreach (BoxCollider2D bc in validChoices)
 		{
             Tile t = bc.GetComponent<Tile>();
             if (t == null) continue; // TODO: change
@@ -116,7 +117,8 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             }
             else bc.GetComponent<Hero>().ToggleTarget(false);
         }
-        
+        GameManager.Instance.boardHighlight.color = new Color(1, 1, 1, 0);
+
         // Show card UI if it wasn't currently dragging. Only play if it was dragging
         if (!eventData.dragging)
         {
@@ -132,24 +134,37 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         if (!interactable) return;
 
         // If the pointer let go at a valid choice, play this card
-        foreach (BoxCollider2D bc in validChoices)
+        if (validChoices.Count < 22)
         {
-            Tile t = bc.GetComponent<Tile>();
-            if (bc.bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position)))
+            foreach (BoxCollider2D bc in validChoices)
             {
-                if (orig.type == Card.Type.Unit)
+                Tile t = bc.GetComponent<Tile>();
+                if (bc.bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position)))
                 {
-                    GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col);
-                    transform.SetParent(null);
-                    Destroy(gameObject);
+                    if (orig.type == Card.Type.Unit)
+                    {
+                        GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col);
+                        transform.SetParent(null);
+                        Destroy(gameObject);
+                    }
+                    else if (orig.IsValidTarget(bc))
+                    {
+                        if (t == null) GameManager.Instance.PlayTrickRpc(finalStats, -1, -1, bc.GetComponent<Hero>().team == Card.Team.Plant);
+                        else GameManager.Instance.PlayTrickRpc(finalStats, t.row, t.col, t.isPlantTile);
+                        transform.SetParent(null);
+                        Destroy(gameObject);
+                    }
                 }
-                else if (orig.IsValidTarget(bc))
-                {
-                    if (t == null) GameManager.Instance.PlayTrickRpc(finalStats, -1, -1, bc.GetComponent<Hero>().team == Card.Team.Plant);
-                    else GameManager.Instance.PlayTrickRpc(finalStats, t.row, t.col, t.isPlantTile);
-                    transform.SetParent(null);
-                    Destroy(gameObject);
-                }
+            }
+        }
+        else
+        {
+            // Global trick
+            if (GameManager.Instance.boardHighlight.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position)))
+            {
+                GameManager.Instance.PlayTrickRpc(finalStats, 1, 2, GameManager.Instance.team == Card.Team.Plant); // Params shouldn't matter beyond visual
+                transform.SetParent(null);
+                Destroy(gameObject);
             }
         }
         // If this is a superpower HandCard created from a block, hold on to it if the pointer let go at the "HandCard area"
