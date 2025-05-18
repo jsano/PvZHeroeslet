@@ -290,6 +290,11 @@ public class Card : Damagable
 	/// <param name="played"> The card that was played </param>
 	protected virtual IEnumerator OnCardPlay(Card played)
     {
+        if (hunt && played.type == Type.Unit && played.team != team && (amphibious || played.col != 4))
+        {
+            yield return new WaitForSeconds(1);
+            Move(row, played.col);
+        }
         yield return null;
     }
 
