@@ -7,7 +7,7 @@ public class MuscleSprout : Card
 
 	protected override IEnumerator OnCardPlay(Card played)
 	{
-		if (played != this && played.team == Team.Plant)
+		if (played != this && played.type == Type.Unit && played.team == team)
 		{
 			yield return new WaitForSeconds(1);
 			ChangeStats(1, 1);

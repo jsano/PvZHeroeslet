@@ -10,24 +10,24 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1812251758246606002, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2417467093
+      value: 1741958872
       objectReference: {fileID: 0}
     - target: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Name
-      value: Berry Blast
+      value: Cakesplosion
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.115
+      value: 1.04
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.9
+      value: 1.0926316
       objectReference: {fileID: 0}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: f903b24d8e74f154fb46043ebc9ba86e, type: 3}
+      objectReference: {fileID: 21300000, guid: 8ab8128178e9ac64bb88e283e3ffd87d, type: 3}
     - target: {fileID: 9186367323209674846, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -119,14 +119,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5156664581848295482}
+      addedObject: {fileID: 7766313397951349901}
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
 --- !u!1 &3964835505542182985 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
   m_PrefabInstance: {fileID: 2238586215414733447}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5156664581848295482
+--- !u!114 &7766313397951349901
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,12 +138,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 968b5deb6097d174fbb81272d8857271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 0
+  team: 1
   type: 1
-  _class: 1
-  tribes: 03000000
+  _class: 7
+  tribes: 0e00000016000000
   token: 0
-  cost: 2
+  cost: 4
   atk: 0
   HP: 0
   amphibious: 0
@@ -162,11 +162,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: Do 3 damage
-  lore: Vicious AND nutritious.
+  description: Do 4 damage to a plant
+  lore: '4 eggs. 2 cups flour. 10 sticks TNT. '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
-  includeHero: 1
-  targetTeam: 1
-  damage: 3
+  includeHero: 0
+  targetTeam: 0
+  damage: 4

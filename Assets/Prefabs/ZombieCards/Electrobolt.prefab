@@ -119,14 +119,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3980843048107037876}
+      addedObject: {fileID: 2437713216556636637}
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
 --- !u!1 &3964835505542182985 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
   m_PrefabInstance: {fileID: 2238586215414733447}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3980843048107037876
+--- !u!114 &2437713216556636637
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3964835505542182985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf7bcccfe389d16488192fbb9dd7e8f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 968b5deb6097d174fbb81272d8857271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
@@ -163,7 +163,10 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Do 3 damage to a plant
+  lore: 
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}
+  includeHero: 0
+  targetTeam: 0
+  damage: 3

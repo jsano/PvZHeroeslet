@@ -32,8 +32,8 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks["temp10"].cards = new() {
             { AllCards.NameToID("Twin Sunflower"), 2 },
             { AllCards.NameToID("2nd Best Taco of All Time"), 2 },
-            { AllCards.NameToID("Chomper"), 2 },
-            { AllCards.NameToID("Laser Bean"), 2 },
+            { AllCards.NameToID("Sizzle"), 2 },
+            { AllCards.NameToID("Berry Blast"), 2 },
             { AllCards.NameToID("Shroom for Two"), 2 },
             { AllCards.NameToID("Cornucopia"), 2 },
             { AllCards.NameToID("Scorched Earth"), 2 }
@@ -52,13 +52,14 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
-            { AllCards.NameToID("Chimney Sweep"), 1 },
-            { AllCards.NameToID("Beam Me Up"), 2 },
-            { AllCards.NameToID("Cell Phone"), 1 },
-            { AllCards.NameToID("Zombot Drone Engineer"), 1 },
-            { AllCards.NameToID("Mountain Climber"), 1 },
-            { AllCards.NameToID("Brain Vendor"), 1 },
-            { AllCards.NameToID("Eureka"), 1 }
+            { AllCards.NameToID("Tennis Champ"), 1 },
+            { AllCards.NameToID("Conga"), 2 },
+            { AllCards.NameToID("Unlife of the Party"), 1 },
+            { AllCards.NameToID("Newspaper"), 1 },
+            { AllCards.NameToID("Foot Soldier"), 1 },
+            { AllCards.NameToID("Cakesplosion"), 1 },
+            { AllCards.NameToID("Orchestra Conductor"), 1 },
+            { AllCards.NameToID("Electrobolt"), 1 }
         };
 
         UserAccounts.GameStats.DeckName = "temp11";
