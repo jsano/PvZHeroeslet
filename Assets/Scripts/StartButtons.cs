@@ -52,12 +52,12 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
-            { AllCards.NameToID("Dog Walker"), 1 },
-            { AllCards.NameToID("Nibble"), 6 },
-            { AllCards.NameToID("Loudmouth"), 1 },
-            { AllCards.NameToID("Haunting"), 1 },
-            { AllCards.NameToID("B-flat"), 1 },
-            { AllCards.NameToID("Disco"), 1 },
+            { AllCards.NameToID("Chimney Sweep"), 1 },
+            { AllCards.NameToID("Beam Me Up"), 2 },
+            { AllCards.NameToID("Cell Phone"), 1 },
+            { AllCards.NameToID("Zombot Drone Engineer"), 1 },
+            { AllCards.NameToID("Mountain Climber"), 1 },
+            { AllCards.NameToID("Brain Vendor"), 1 },
             { AllCards.NameToID("Eureka"), 1 }
         };
 
