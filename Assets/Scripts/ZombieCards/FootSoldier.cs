@@ -32,12 +32,12 @@ public class FootSoldier : Card
         if (t == null)
         {
             yield return AttackFX(GameManager.Instance.plantHero);
-            yield return GameManager.Instance.plantHero.ReceiveDamage(1, this);
+            yield return GameManager.Instance.plantHero.ReceiveDamage(3, this);
         }
         else
         {
             yield return AttackFX(t.planted);
-            yield return t.planted.ReceiveDamage(1, this);
+            yield return t.planted.ReceiveDamage(3, this);
         }
     }
 
