@@ -10,19 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1812251758246606002, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1151371281
+      value: 1691705894
       objectReference: {fileID: 0}
     - target: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Name
-      value: Electrobolt
-      objectReference: {fileID: 0}
-    - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 1.024
-      objectReference: {fileID: 0}
-    - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 0.712
+      value: Camel Crossing
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -30,24 +22,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.712
-      objectReference: {fileID: 0}
-    - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: m_Size.x
       value: 1.024
-      objectReference: {fileID: 0}
-    - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: m_Size.y
-      value: 0.712
       objectReference: {fileID: 0}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 8852232089180545644, guid: fa461ffd608c97a43b700f3f76769f16, type: 3}
-    - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 21300000, guid: b65020bea9d2c20429c28d5f26e44972, type: 3}
     - target: {fileID: 9186367323209674846, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -139,14 +119,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2437713216556636637}
+      addedObject: {fileID: 7162800768262436277}
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
 --- !u!1 &3964835505542182985 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
   m_PrefabInstance: {fileID: 2238586215414733447}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2437713216556636637
+--- !u!114 &7162800768262436277
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,13 +135,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3964835505542182985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 968b5deb6097d174fbb81272d8857271, type: 3}
+  m_Script: {fileID: 11500000, guid: cadf1757487402748a4e6b3e6ddd4985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
   type: 1
-  _class: 7
-  tribes: 21000000
+  _class: 8
+  tribes: 0d00000018000000
   token: 0
   cost: 1
   atk: 0
@@ -182,11 +162,9 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: Do 3 damage to a plant
-  lore: 
+  description: All zombies get +2 HP
+  lore: 'Camels - they''re filthy, ill-tempered animals that''ll spit on you just
+    for fun. But Zombies love ''em all the same. '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
-  includeHero: 0
-  targetTeam: 0
-  damage: 3

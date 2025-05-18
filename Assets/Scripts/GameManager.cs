@@ -917,6 +917,7 @@ public class GameManager : NetworkBehaviour
 	{
 		List<HandCard> ret = new();
 		foreach (Transform t in handCards) ret.Add(t.GetComponent<HandCard>());
+		ret.Reverse();
 		return ret;
 	}
 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fa461ffd608c97a43b700f3f76769f16
+guid: ac4656b7dccb4c04b838362fcadbf22e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,13 +43,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.5, y: 0.3}
-  spritePixelsToUnits: 225
-  spriteBorder: {x: 0, y: 0, z: 0, w: 80}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 250
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -110,15 +110,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Electrobolt
+      name: spinner-loading-dots-icon-512x51_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 256
-        height: 200
+        x: 58
+        y: 344
+        width: 110
+        height: 110
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -136,11 +136,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 201
-        y: 255
-        width: 55
-        height: 1
+        y: 403
+        width: 110
+        height: 109
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -154,15 +154,37 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
+      name: spinner-loading-dots-icon-512x51_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 201
+        width: 109
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b1c44a59bb245a90800000000000000
+      internalID: -7326182618741554767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
       name: spinner-loading-dots-icon-512x51_3
       rect:
         serializedVersion: 2
-        x: 255
+        x: 403
         y: 201
-        width: 1
-        height: 55
+        width: 109
+        height: 110
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -175,12 +197,78 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: spinner-loading-dots-icon-512x51_4
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 58
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcdb9709d5d0b1550800000000000000
+      internalID: 6132510013102079437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spinner-loading-dots-icon-512x51_5
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 0
+        width: 110
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c93e4a5701745ab60800000000000000
+      internalID: 7756684069234336668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spinner-loading-dots-icon-512x51_6
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 58
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe6b459e1f3670fb0800000000000000
+      internalID: -4681663396975429905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -189,7 +277,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Electrobolt: 8852232089180545644
+      spinner-loading-dots-icon-512x51_0: 8852232089180545644
       spinner-loading-dots-icon-512x51_1: -614008370759134500
       spinner-loading-dots-icon-512x51_2: -7326182618741554767
       spinner-loading-dots-icon-512x51_3: -8851865917580407633

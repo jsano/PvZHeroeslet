@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MuscleSprout : Card
+public class ArmWrestler : Card
 {
 
 	protected override IEnumerator OnCardPlay(Card played)
 	{
-		if (played != this && played.type == Type.Unit && played.team == team)
+		if (played.col == col && played.team == Team.Plant)
 		{
 			yield return new WaitForSeconds(1);
 			ChangeStats(1, 1);

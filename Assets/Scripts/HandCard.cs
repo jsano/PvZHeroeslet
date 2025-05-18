@@ -11,7 +11,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 {
 
     public int ID;
-    private Card orig;
+    public Card orig { get; private set; }
     /// <summary>
     /// The starting position that this should snap back to when let go
     /// </summary>
@@ -143,12 +143,14 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                 {
                     if (orig.type == Card.Type.Unit)
                     {
+                        if (finalStats.cost < 0) finalStats.cost = 0;
                         GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col);
                         transform.SetParent(null);
                         Destroy(gameObject);
                     }
                     else if (orig.IsValidTarget(bc))
                     {
+                        if (finalStats.cost < 0) finalStats.cost = 0;
                         if (t == null) GameManager.Instance.PlayTrickRpc(finalStats, -1, -1, bc.GetComponent<Hero>().team == Card.Team.Plant);
                         else GameManager.Instance.PlayTrickRpc(finalStats, t.row, t.col, t.isPlantTile);
                         transform.SetParent(null);
@@ -162,6 +164,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             // Global trick
             if (GameManager.Instance.boardHighlight.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position)))
             {
+                if (finalStats.cost < 0) finalStats.cost = 0;
                 GameManager.Instance.PlayTrickRpc(finalStats, 1, 2, GameManager.Instance.team == Card.Team.Plant); // Params shouldn't matter beyond visual
                 transform.SetParent(null);
                 Destroy(gameObject);
@@ -223,7 +226,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     public void ChangeCost(int amount)
     {
         finalStats.cost += amount;
-        costUI.text = finalStats.cost + "";
+        costUI.text = Math.Max(0, finalStats.cost) + "";
     }
 
     public void ChangeAttack(int amount)
