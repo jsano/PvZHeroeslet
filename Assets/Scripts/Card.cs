@@ -98,6 +98,7 @@ public class Card : Damagable
     private bool hitByDeadly;
     public bool doubleStrike;
     public bool frenzy;
+    public bool baseGravestone { get; private set; }
     public bool gravestone;
     public bool hunt;
     public int overshoot;
@@ -164,6 +165,7 @@ public class Card : Damagable
         baseSprite = SR.sprite;
         baseHP = HP;
         baseAtk = atk;
+        baseGravestone = gravestone;
 
         if (sourceFS != null)
         {

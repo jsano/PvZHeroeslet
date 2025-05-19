@@ -9,7 +9,7 @@ public class JumpingBean : Card
     {
         for (int col = 0; col < 5; col++)
         {
-            if (Tile.zombieTiles[0, col].HasRevealedPlanted())
+            if (Tile.zombieTiles[0, col].HasRevealedPlanted() && Tile.zombieTiles[0, col].planted != this)
             {
                 choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
             }
