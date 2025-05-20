@@ -10,6 +10,7 @@
     "com.unity.multiplayer.widgets": "1.0.1",
     "com.unity.netcode.gameobjects": "2.2.0",
     "com.unity.services.authentication": "3.4.0",
+    "com.unity.services.cloudcode": "2.9.0",
     "com.unity.services.cloudsave": "3.2.2",
     "com.unity.services.leaderboards": "2.2.1",
     "com.unity.services.multiplayer": "1.1.2",

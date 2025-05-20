@@ -55,7 +55,7 @@ MonoBehaviour:
   team: 0
   classes: 
   superpowers: []
-  HP: 20
+  HP: 1
   hpUI: {fileID: 2960550511376748428}
   blockMeter: {fileID: 2300728247404797493}
 --- !u!212 &-9058245760563841667

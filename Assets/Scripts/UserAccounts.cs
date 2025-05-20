@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using UnityEngine.SceneManagement;
 using TMPro;
 using Unity.Services.Leaderboards;
+using Unity.Services.CloudSave.Models.Data.Player;
 
 public class UserAccounts : MonoBehaviour
 {
@@ -182,18 +183,20 @@ public class UserAccounts : MonoBehaviour
 
 	public async Task SaveData()
 	{
-		await CloudSaveService.Instance.Data.Player.SaveAsync(new Dictionary<string, object> { { "Decks", JsonConvert.SerializeObject(allDecks) }, { "Profile", profilePicture } });
+		await CloudSaveService.Instance.Data.Player.SaveAsync(new Dictionary<string, object> { { "Decks", JsonConvert.SerializeObject(allDecks) } });
+        await CloudSaveService.Instance.Data.Player.SaveAsync(new Dictionary<string, object> { { "Profile", profilePicture } }, new Unity.Services.CloudSave.Models.Data.Player.SaveOptions(new PublicWriteAccessClassOptions()));
 		Debug.Log("Saved user data");
 	}
 
 	public async Task LoadData()
 	{
-		var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> {"Decks", "Profile"});
+		var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> {"Decks"});
 		if (playerData.TryGetValue("Decks", out var firstKey))
 		{
 			allDecks = JsonConvert.DeserializeObject<Dictionary<string, Deck>>(firstKey.Value.GetAs<string>()); 
 			Debug.Log("Loaded user decks");
 		}
+        playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "Profile" }, new LoadOptions(new PublicReadAccessClassOptions()));
         if (playerData.TryGetValue("Profile", out var secondKey))
         {
 			profilePicture = secondKey.Value.GetAs<int>();

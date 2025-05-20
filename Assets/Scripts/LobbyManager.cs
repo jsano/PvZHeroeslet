@@ -1,7 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using Unity.Netcode;
+using Unity.Services.Authentication;
+using Unity.Services.CloudCode;
+using Unity.Services.Leaderboards;
+using Unity.Services.Leaderboards.Exceptions;
+using Unity.Services.Multiplayer;
 using UnityEngine;
 using UnityEngine.UI;
 using static Card;
@@ -11,6 +17,8 @@ public class LobbyManager : NetworkBehaviour
 
     public TextMeshProUGUI title;
     public GameObject loading;
+    public Profile p1;
+    public Profile p2;
     public GameObject teamUI;
     public GameObject note;
     public GameObject banUI;
@@ -33,6 +41,7 @@ public class LobbyManager : NetworkBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        p1.LoadProfileThumbnail(AuthenticationService.Instance.PlayerId, AuthenticationService.Instance.PlayerName, UserAccounts.Instance.CachedScore[0], UserAccounts.Instance.CachedScore[1]);
         // Returning with an existing session
         if (SessionManager.Instance.ActiveSession.PlayerCount == 2)
         {
@@ -55,8 +64,38 @@ public class LobbyManager : NetworkBehaviour
         }
     }
 
-    private void TeamPhase()
+    private async Task TeamPhase()
     {
+        IReadOnlyPlayer otherPlayer = null;
+        foreach (var player in SessionManager.Instance.ActiveSession.Players)
+        {
+            if (player.Id != AuthenticationService.Instance.PlayerId) otherPlayer = player;
+        }
+        string name = "Player";
+        string score = "0";
+        string tier = "no rank";
+        try
+        {
+            var entry = await LeaderboardsService.Instance.GetScoresByPlayerIdsAsync("devplayers", new() { otherPlayer.Id });
+            name = entry.Results[0].PlayerName;
+            score = entry.Results[0].Score + "";
+            tier = entry.Results[0].Tier;
+        }
+        catch (LeaderboardsException)
+        {
+            try
+            {
+                var response = await CloudCodeService.Instance.CallEndpointAsync<string>("GetNameByPlayerID", new Dictionary<string, object>() { { "ID", otherPlayer.Id } });
+                name = response;
+            }
+            catch (CloudCodeException e)
+            {
+                Debug.Log(e.Reason);
+            }
+        }
+        p2.LoadProfileThumbnail(otherPlayer.Id, name, score, tier);
+        p2.gameObject.SetActive(true);
+
         loading.SetActive(false);
         bottomUI.SetActive(false);
         teamUI.SetActive(true);

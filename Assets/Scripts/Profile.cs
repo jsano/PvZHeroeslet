@@ -51,12 +51,3 @@ public class Profile : MonoBehaviour
     }
 
 }
-
-/*
-[CloudCodeFunction("GetName")]
-    public async Task<string> GetName(IExecutionContext context, IGameApiClient gameApiClient, string playerId)
-    {
-        var response = await gameApiClient.PlayerNamesApi.GetNameAsync(context , context.ServiceToken, playerId);
-        return response.Data.Name;
-    }
-*/

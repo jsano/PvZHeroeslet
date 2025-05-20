@@ -190,10 +190,6 @@ MonoBehaviour:
   usernameText: {fileID: 1320436582815481377}
   tier: {fileID: 7740321160782632757}
   trophies: {fileID: 53681476620454724}
-  playerID: 
-  username: 
-  score: 
-  rank: 
 --- !u!1 &4320708118575684540
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,7 +391,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4852ea787390f874db96ee6c2987019b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e1d168c2ed1d0a4cb0c9c15c538231a, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
