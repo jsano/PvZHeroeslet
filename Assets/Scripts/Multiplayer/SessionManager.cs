@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Unity.Services.Multiplayer;
 using UnityEngine;
@@ -20,7 +21,7 @@ internal class SessionManager : LazySingleton<SessionManager>
     WidgetEventDispatcher m_WidgetEventDispatcher;
 
     ISession m_ActiveSession;
-
+    
     internal ISession ActiveSession
     {
         get => m_ActiveSession;
@@ -41,7 +42,7 @@ internal class SessionManager : LazySingleton<SessionManager>
         }
     }
 
-    EnterSessionData EnterSessionData { get; set; }
+    private CancellationTokenSource matchmakerCancellationSource;
 
     async void Awake()
     {
@@ -71,8 +72,6 @@ internal class SessionManager : LazySingleton<SessionManager>
             if (!m_Initialized)
                 throw new InvalidOperationException($"Services are not initialized.");
 
-            EnterSessionData = enterSessionData;
-
             if (m_ActiveSession != null)
             {
                 await LeaveSession();
@@ -93,6 +92,7 @@ internal class SessionManager : LazySingleton<SessionManager>
                 MaxPlayers = 2,
                 IsLocked = false,
                 IsPrivate = enterSessionData.IsPrivate,
+                SessionProperties = new() { { "Ranked", new SessionProperty(enterSessionData.ranked + "") } },
                 PlayerProperties = playerProperties,
                 Name = enterSessionData.SessionAction == SessionAction.Create ? enterSessionData.SessionName : Guid.NewGuid().ToString()
             };
@@ -105,7 +105,8 @@ internal class SessionManager : LazySingleton<SessionManager>
                     ActiveSession = await WidgetDependencies.Instance.MultiplayerService.CreateSessionAsync(sessionOptions);
                     break;
                 case SessionAction.StartMatchmaking:
-                    ActiveSession = await WidgetDependencies.Instance.MultiplayerService.MatchmakeSessionAsync(enterSessionData.AdditionalOptions.MatchmakerOptions, sessionOptions);
+                    matchmakerCancellationSource = new CancellationTokenSource();
+                    ActiveSession = await WidgetDependencies.Instance.MultiplayerService.MatchmakeSessionAsync(enterSessionData.AdditionalOptions.MatchmakerOptions, sessionOptions, matchmakerCancellationSource.Token);
                     break;
                 case SessionAction.QuickJoin:
                     var quickJoinOptions = new QuickJoinOptions
@@ -142,6 +143,11 @@ internal class SessionManager : LazySingleton<SessionManager>
                 return false;
             });
         }
+    }
+
+    public void CancelMatch()
+    {
+        matchmakerCancellationSource.Cancel();
     }
 
     void HandleSessionException(SessionException sessionException)

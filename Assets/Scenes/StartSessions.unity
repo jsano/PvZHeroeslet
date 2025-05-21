@@ -2712,8 +2712,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 975470784}
   m_HandleRect: {fileID: 975470783}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3936,10 +3936,6 @@ PrefabInstance:
     - target: {fileID: 6146471926029905035, guid: a8223407f3822694c8ed155917f02e6a, type: 3}
       propertyPath: m_Name
       value: NetworkManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 6639366585715017850, guid: a8223407f3822694c8ed155917f02e6a, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6639366585715017850, guid: a8223407f3822694c8ed155917f02e6a, type: 3}
       propertyPath: m_LocalPosition.x

@@ -24,6 +24,7 @@ public struct EnterSessionData
     public string JoinCode;
     public string Id;
     public bool IsPrivate;
+    public bool ranked;
     public AdditionalOptions AdditionalOptions;
 }
 
