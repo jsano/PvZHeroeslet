@@ -868,43 +868,51 @@ public class GameManager : NetworkBehaviour
         ENDED = true;
 		
 		winner.text = (won == Team.Plant ? "PLANTS" : "ZOMBIES") + " WIN";
-		int oldScore = 0;
-		int newScore = 0;
-		try
+		if (SessionManager.Instance.ActiveSession.Properties["Ranked"].Value == "True")
 		{
-			var existingScore = await LeaderboardsService.Instance.GetPlayerScoreAsync("devplayers");
-			oldScore = (int)existingScore.Score;
-			if (team == won)
+			int oldScore = 0;
+			int newScore = 0;
+			try
 			{
-				// If this is the winning team, raise score by 25
-				var scoreResponse = await LeaderboardsService.Instance.AddPlayerScoreAsync("devplayers", oldScore + 25);
-				newScore = (int)scoreResponse.Score;
-			}
-			else
-			{
-				// If this is the losing team, lower score by 25 unless they are in Wood tier
-				if (existingScore.Tier == "Wood") newScore = oldScore;
-				else
+				var existingScore = await LeaderboardsService.Instance.GetPlayerScoreAsync("devplayers");
+				oldScore = (int)existingScore.Score;
+				if (team == won)
 				{
-					var scoreResponse = await LeaderboardsService.Instance.AddPlayerScoreAsync("devplayers", oldScore - 15);
+					// If this is the winning team, raise score by 25
+					var scoreResponse = await LeaderboardsService.Instance.AddPlayerScoreAsync("devplayers", oldScore + 25);
 					newScore = (int)scoreResponse.Score;
 				}
-            }
-		}
-		catch (LeaderboardsException e)
-		{
-			// This player isn't on the leaderboard, so if they are the winner, add an entry of 25
-			if (team == won && e.Reason == LeaderboardsExceptionReason.EntryNotFound)
+				else
+				{
+					// If this is the losing team, lower score by 25 unless they are in Wood tier
+					if (existingScore.Tier == "Wood") newScore = oldScore;
+					else
+					{
+						var scoreResponse = await LeaderboardsService.Instance.AddPlayerScoreAsync("devplayers", oldScore - 15);
+						newScore = (int)scoreResponse.Score;
+					}
+				}
+			}
+			catch (LeaderboardsException e)
 			{
-                var scoreResponse = await LeaderboardsService.Instance.AddPlayerScoreAsync("devplayers", 25);
-                newScore = (int)scoreResponse.Score;
-            }
+				// This player isn't on the leaderboard, so if they are the winner, add an entry of 25
+				if (team == won && e.Reason == LeaderboardsExceptionReason.EntryNotFound)
+				{
+					var scoreResponse = await LeaderboardsService.Instance.AddPlayerScoreAsync("devplayers", 25);
+					newScore = (int)scoreResponse.Score;
+				}
+			}
+			score.text = newScore + "";
+			change.text = "(" + (newScore - oldScore > 0 ? "+" : "") + (newScore - oldScore) + ")";
+			if (newScore - oldScore > 0) change.color = Color.green;
+			else if (newScore == oldScore) change.color = Color.gray;
+			else change.color = Color.red;
 		}
-		score.text = newScore + "";
-		change.text = "(" + (newScore - oldScore > 0 ? "+" : "") + (newScore - oldScore) + ")";
-		if (newScore - oldScore > 0) change.color = Color.green;
-        else if (newScore == oldScore) change.color = Color.gray;
-        else change.color = Color.red;
+		else
+		{
+			score.text = "--";
+			change.text = "";
+		}
 		endScreen.SetActive(true);
 
 		UserAccounts.Instance.UpdateCachedScore();

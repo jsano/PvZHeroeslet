@@ -152,7 +152,7 @@ internal class SessionManager : LazySingleton<SessionManager>
 
     void HandleSessionException(SessionException sessionException)
     {
-        Debug.LogException(sessionException);
+        Debug.Log(sessionException);
         m_WidgetEventDispatcher.OnSessionFailedToJoin(sessionException);
         ActiveSession = null;
     }

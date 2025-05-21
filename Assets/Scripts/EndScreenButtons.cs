@@ -20,13 +20,18 @@ public class EndScreenButtons : NetworkBehaviour
         rematchButton.interactable = false;
         quitButton.gameObject.SetActive(false);
         RematchRpc();
-        StartCoroutine(CheckOpponentQuit());
     }
 
-    private IEnumerator CheckOpponentQuit()
+    [Rpc(SendTo.ClientsAndHost)]
+    public void QuitRpc()
     {
-        yield return new WaitUntil(() => SessionManager.Instance.ActiveSession.PlayerCount < 2);
         SessionManager.Instance.LeaveSession();
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Shutdown();
+            Destroy(NetworkManager.gameObject);
+        }
+        rematchButton.interactable = false;
         rematchButton.GetComponentInChildren<TextMeshProUGUI>().text = "Opponent left";
         quitButton.gameObject.SetActive(true);
     }
@@ -40,12 +45,8 @@ public class EndScreenButtons : NetworkBehaviour
 
     public void Quit()
     {
-        if (NetworkManager.Singleton != null)
-        {
-            NetworkManager.Shutdown();
-            Destroy(NetworkManager.gameObject);
-        }
-        SceneManager.LoadScene("StartSessions");
+        QuitRpc();
+        SceneManager.LoadScene("Start");
         AudioManager.Instance.PlayMusic("Menu");
     }
 

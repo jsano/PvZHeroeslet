@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using Unity.Services.Multiplayer;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
@@ -6,6 +7,16 @@ using Button = UnityEngine.UI.Button;
 [RequireComponent(typeof(Button))]
 internal class MatchmakeRankedSession : EnterSessionBase
 {
+
+    public GameObject loadingScreen;
+    public GameObject loadingImage;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        LeanTween.rotateAroundLocal(loadingImage, Vector3.forward, -360f, 2f).setRepeat(-1);
+        m_EnterSessionButton.onClick.AddListener(() => loadingScreen.SetActive(true));
+    }
     
     protected override EnterSessionData GetSessionData()
     {
@@ -22,4 +33,11 @@ internal class MatchmakeRankedSession : EnterSessionBase
             }
         };
     }
+
+    public void Cancel()
+    {
+        SessionManager.Instance.CancelMatch();
+        loadingScreen.SetActive(false);
+    }
+
 }
