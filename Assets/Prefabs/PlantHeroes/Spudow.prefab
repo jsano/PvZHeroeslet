@@ -26,11 +26,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8361248227295556588, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 10.24
+      value: 1.4628571
       objectReference: {fileID: 0}
     - target: {fileID: -8361248227295556588, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 15.36
+      value: 2.1942856
       objectReference: {fileID: 0}
     - target: {fileID: 901512774672382457, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: m_Name
@@ -63,7 +63,7 @@ PrefabInstance:
     - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: 'superpowers.Array.data[2]'
       value: 
-      objectReference: {fileID: -6111698387987125857, guid: 88aed09cc7ed03b43912e19d83492c01, type: 3}
+      objectReference: {fileID: -8027642055346894778, guid: 88aed09cc7ed03b43912e19d83492c01, type: 3}
     - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: 'superpowers.Array.data[3]'
       value: 
