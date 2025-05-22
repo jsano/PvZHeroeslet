@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -87,7 +86,7 @@ public class Card : Damagable
     private int maxHP;
     private int baseHP;
     public bool died { get; private set; }
-    public bool initializedStats { get; private set; }
+    private bool initializedStats = false;
 
     public bool amphibious;
     public int antihero;
@@ -724,6 +723,24 @@ public class Card : Damagable
             g.GetComponent<AttackFX>().destination = d.transform;
         }
         yield return new WaitForSeconds(0.25f);
+    }
+
+    /// <summary>
+    /// Gives the card the ability under the given name, which should match the variable name in script
+    /// </summary>
+    public void GrantAbility(string abilityName)
+    {
+        GetType().GetField(abilityName).SetValue(this, true);
+    }
+
+    /// <summary>
+    /// Removes the ability under the given name from the card, which should match the variable name in script. If the card inherently possess it, it is not removed
+    /// </summary>
+    public void RemoveAbility(string abilityName)
+    {
+        // doesn't work, make bool fields ints where >0 = active
+        if ((bool)GetType().GetField(abilityName).GetValue(AllCards.InstanceToPrefab(this)) == false)
+            GetType().GetField(abilityName).SetValue(this, false);
     }
 
     void OnMouseDown()

@@ -102,4 +102,17 @@ public class AllCards : MonoBehaviour
 		return -1;
 	}
 
+    public static Card InstanceToPrefab(Card instance)
+    {
+        if (instance.name.IndexOf("(") >= 0)
+            foreach (Card c in Instance.cards)
+            {
+                if (instance.name.Substring(0, instance.name.IndexOf("(")) == c.name)
+                {
+                    return c;
+                }
+            }
+        return instance;
+    }
+
 }

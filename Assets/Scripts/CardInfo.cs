@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,16 +28,7 @@ public class CardInfo : MonoBehaviour
         if (isActiveAndEnabled) return;
 		transform.parent.gameObject.SetActive(true);
 
-		Card baseCard = source;
-        if (source.name.IndexOf("(") >= 0)
-            foreach (Card c in AllCards.Instance.cards)
-            {
-                if (source.name.Substring(0, source.name.IndexOf("(")) == c.name)
-                {
-                    baseCard = c;
-                    break;
-                }
-            }
+		Card baseCard = AllCards.InstanceToPrefab(source);
 		image.sprite = baseCard.GetComponent<SpriteRenderer>().sprite;
 		atk.text = baseCard.atk + "";
 		HP.text = baseCard.HP + "";
@@ -80,6 +73,7 @@ public class CardInfo : MonoBehaviour
 		if (baseCard.teamUp) description.text += "Team Up\n";
 		if (baseCard.untrickable) description.text += "Untrickable\n";
 		description.text += baseCard.description;
+		FormatDescriptionForTooltip();
 
         gained.text = "";
 		if (source.sourceFS != null || fs != null)
@@ -118,10 +112,99 @@ public class CardInfo : MonoBehaviour
 		return int.Parse(value);
     }
 
-	/*public void Hide()
+    private Dictionary<string, string> descriptions = new()
 	{
-		exit.interactable = false;
-		transform.parent.gameObject.SetActive(false);
-	}*/
+		{ "Amphibious", "Can be placed in water (lane 5)" },
+		{ "Anti-hero", "Increases attack when targeting the hero" },
+		{ "Armor", "Reduces damage taken" },
+		{ "Bonus Attack", "Does an extra attack right then" },
+		{ "Bounce", "Return the card to the user's hand" },
+		{ "Bullseye", "Doesn't charge the opponent's block meter" },
+        { "Conjure", "Gain an card from the game into your hand" },
+        { "Deadly", "Destroys any card it deals damage to,\nregardless of its remaining HP" },
+		{ "Double Strike", "Does a Bonus Attack after its combat" },
+		{ "Frenzy", "When this attacks, kills its target,\nand survives, does a Bonus Attack" },
+		{ "Gravestone", "Hides undetectable to the opponent,\nuntil it's time for Zombie Tricks" },
+		{ "Strikethrough", "Attacks all targets in lane and the hero" },
+		{ "Team-Up", "Can be played on a lane that\nalready contains a card" },
+		{ "Freeze", "Cannot attack during its combat,\n and wears off afterwards" }
+    };
+
+    public GameObject tooltipContainer;
+
+    private int _currentlyActiveLinkedElement;
+
+    public delegate void HoverOnLinkEvent(string keyword, Vector3 mousePos);
+    public static event HoverOnLinkEvent OnHoverOnLinkEvent;
+
+    public delegate void CloseTooltipEvent();
+    public static event CloseTooltipEvent OnCloseTooltipEvent;
+
+    void Update()
+    {
+        Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+		bool isIntersectingRectTransform = TMP_TextUtilities.IsIntersectingRectTransform(description.GetComponent<RectTransform>(), mousePosition, null);
+        if (!isIntersectingRectTransform) return;
+        int intersectingLink = TMP_TextUtilities.FindIntersectingLink(description, mousePosition, null);
+        if (_currentlyActiveLinkedElement != intersectingLink) OnCloseTooltipEvent?.Invoke();
+        if (intersectingLink == -1) return;
+
+        TMP_LinkInfo linkInfo = description.textInfo.linkInfo[intersectingLink];
+
+        OnHoverOnLinkEvent?.Invoke(linkInfo.GetLinkID(), mousePosition);
+        _currentlyActiveLinkedElement = intersectingLink;
+    }
+
+	private void OnEnable()
+    {
+        OnHoverOnLinkEvent += GetTooltipInfo;
+        OnCloseTooltipEvent += CloseTooltip;
+    }
+
+    private void OnDisable()
+    {
+        OnHoverOnLinkEvent -= GetTooltipInfo;
+        OnCloseTooltipEvent -= CloseTooltip;
+    }
+
+    private void GetTooltipInfo(string keyword, Vector3 mousePos)
+    {
+        
+        if (!tooltipContainer.gameObject.activeInHierarchy)
+        {
+            tooltipContainer.transform.position = mousePos + new Vector3(0, 60, 0);
+			var pos = Math.Clamp(tooltipContainer.transform.localPosition.x, -50, 50);
+			tooltipContainer.transform.localPosition = new Vector2(pos, Math.Max(-50, tooltipContainer.transform.localPosition.y));
+            tooltipContainer.gameObject.SetActive(true);
+        }
+
+        tooltipContainer.GetComponentInChildren<TextMeshProUGUI>().text = descriptions[keyword];
+    }
+
+    public void CloseTooltip()
+    {
+        if (tooltipContainer.gameObject.activeInHierarchy) tooltipContainer.SetActive(false);
+    }
+
+    public void FormatDescriptionForTooltip()
+    {
+        var escapedWords = descriptions.Keys;
+        string pattern = @"\b(?:" + string.Join("|", escapedWords) + @")\b";
+
+        // Get all matches first
+        MatchCollection matches = Regex.Matches(description.text, pattern);
+
+		// Process matches from right to left to avoid index shifting issues
+		string currentText = description.text;
+        for (int i = matches.Count - 1; i >= 0; i--)
+        {
+            Match match = matches[i];
+            string wordFound = match.Value;
+            int position = match.Index;
+			description.text = description.text.Substring(0, position) + "<link=\"" + wordFound + "\"><color=#00aaff>" + 
+							description.text.Substring(position, wordFound.Length) + 
+							"</color></link>" + description.text.Substring(position + wordFound.Length);
+        }
+    }
 
 }
