@@ -106,6 +106,8 @@ public class UserAccounts : MonoBehaviour
 			await AuthenticationService.Instance.UpdatePlayerNameAsync(displayName);
 			Debug.Log("SignUp is successful. Display name: " + AuthenticationService.Instance.PlayerName);
             CachedScore = new string[] { "0", "no rank"};
+
+			StrategyDecks a = new();
         }
 		catch (AuthenticationException ex)
 		{
