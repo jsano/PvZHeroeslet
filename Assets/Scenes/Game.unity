@@ -2675,6 +2675,18 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 867155595
       objectReference: {fileID: 0}
+    - target: {fileID: 226380738, guid: dbc0ad597a14ec64a8a7e14b2a25bd50, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 226380738, guid: dbc0ad597a14ec64a8a7e14b2a25bd50, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 226380738, guid: dbc0ad597a14ec64a8a7e14b2a25bd50, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1962230211
+      objectReference: {fileID: 0}
     - target: {fileID: 2197700514928520116, guid: dbc0ad597a14ec64a8a7e14b2a25bd50, type: 3}
       propertyPath: m_Name
       value: GameManager

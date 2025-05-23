@@ -43,6 +43,7 @@ public class GameManager : NetworkBehaviour
 
 	private float timer;
 	private bool timerOn;
+	private bool timerMOn;
 	/// <summary>
 	/// 0 = prep, 1 = zombie, 2 = plant, 3 = zombie trick, 4 = fight
 	/// </summary>
@@ -76,9 +77,10 @@ public class GameManager : NetworkBehaviour
     /// </summary>
     public Team team;
 
-	public Transform refreshButtons;
+	public GameObject mulliganUI;
 	public Transform laneHighlight;
 	public SpriteRenderer boardHighlight;
+	public Image timerImageM;
 	public Image timerImage;
     public Button go;
     private LTDescr goTween;
@@ -320,11 +322,15 @@ public class GameManager : NetworkBehaviour
             c.GetComponent<HandCard>().ID = deck[0];
             c.transform.position = pos[i];
             c.transform.localScale = new Vector3(1.1f, 1.1f, 1);
+            c.GetComponent<SpriteRenderer>().sortingLayerName = "Error";
+            c.GetComponent<Canvas>().sortingLayerName = "Error";
             deck.RemoveAt(0);
         }
+		timerMOn = true;
+		timer = 15;
 		yield return new WaitUntil(() => mulliganed == true);
 
-		refreshButtons.gameObject.SetActive(false);
+		mulliganUI.SetActive(false);
 		UpdateHandCardPositions();
 		bool done = false;
 		for (int i = 0; i < 4; i++)
@@ -335,7 +341,9 @@ public class GameManager : NetworkBehaviour
 			c.transform.localScale = new Vector3(1.1f, 1.1f, 1);
 			var lt = LeanTween.move(c, oldPos, 0.5f).setEaseOutQuint().setDelay(0.5f).setOnComplete(() => done = true);
 			LeanTween.scale(c, handcardPrefab.transform.localScale, 0.5f).setEaseOutQuint().setDelay(0.5f);
-		}
+            c.GetComponent<SpriteRenderer>().sortingLayerName = "HandCard";
+            c.GetComponent<Canvas>().sortingLayerName = "HandCard";
+        }
 		yield return new WaitUntil(() => done == true);
 
         yield return GainHandCard(team, UserAccounts.allDecks[UserAccounts.GameStats.DeckName].superpowerOrder[superpowerIndex]);
@@ -348,7 +356,6 @@ public class GameManager : NetworkBehaviour
 	public void ReplaceMulliganCard(Transform t)
 	{
 		int index = t.GetSiblingIndex();
-		t.gameObject.SetActive(false);
 		Transform hc = handCards.GetChild(index);
 		deck.Insert(UnityEngine.Random.Range(4, deck.Count), hc.GetComponent<HandCard>().ID);
         GameObject c = Instantiate(handcardPrefab, handCards);
@@ -356,6 +363,8 @@ public class GameManager : NetworkBehaviour
         c.transform.position = hc.position;
         c.transform.localScale = new Vector3(1.1f, 1.1f, 1);
         c.transform.SetSiblingIndex(index);
+        c.GetComponent<SpriteRenderer>().sortingLayerName = "Error";
+        c.GetComponent<Canvas>().sortingLayerName = "Error";
         deck.RemoveAt(0);
 		Destroy(hc.gameObject);
     }
@@ -365,13 +374,13 @@ public class GameManager : NetworkBehaviour
 		mulliganed = true;
 	}
 
-    void Update()
-    {
-        if (timerOn)
+	void Update()
+	{
+		if (timerOn)
 		{
 			timer -= Time.deltaTime;
 			timerImage.fillAmount = waitingOnBlock ? timer / 10 : timer / 30;
-            if (timer <= 0)
+			if (timer <= 0)
 			{
 				timerOn = false;
 				timer = 30;
@@ -379,7 +388,17 @@ public class GameManager : NetworkBehaviour
 				else EndRpc();
 			}
 		}
-    }
+		if (timerMOn)
+		{
+            timer -= Time.deltaTime;
+            timerImageM.fillAmount = timer / 15;
+            if (timer <= 0)
+            {
+                timerMOn = false;
+                FinishMulligan();
+            }
+        }
+	}
 
     /// <summary>
     /// Draw a card for the player with given team, and triggers the GameEvent
