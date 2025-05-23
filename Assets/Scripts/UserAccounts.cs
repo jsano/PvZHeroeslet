@@ -105,9 +105,10 @@ public class UserAccounts : MonoBehaviour
 			await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
 			await AuthenticationService.Instance.UpdatePlayerNameAsync(displayName);
 			Debug.Log("SignUp is successful. Display name: " + AuthenticationService.Instance.PlayerName);
-            CachedScore = new string[] { "0", "no rank"};
+            CachedScore = new string[] { "0", "WOOD"};
 
 			StrategyDecks a = new();
+            await LeaderboardsService.Instance.AddPlayerScoreAsync("devplayers", 0);
         }
 		catch (AuthenticationException ex)
 		{
@@ -229,7 +230,7 @@ public class UserAccounts : MonoBehaviour
 		}
 		catch (Exception)
 		{
-            CachedScore = new string[] { "0", "no rank" };
+            CachedScore = new string[] { "0", "WOOD" };
         }
     }
 

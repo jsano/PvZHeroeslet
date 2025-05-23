@@ -75,7 +75,7 @@ public class LobbyManager : NetworkBehaviour
         }
         string name = "Player";
         string score = "0";
-        string tier = "no rank";
+        string tier = "WOOD";
         try
         {
             var entry = await LeaderboardsService.Instance.GetScoresByPlayerIdsAsync("devplayers", new() { otherPlayer.Id });

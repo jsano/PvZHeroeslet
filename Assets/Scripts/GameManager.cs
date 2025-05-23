@@ -25,6 +25,7 @@ public class GameManager : NetworkBehaviour
         turn = 1;
 	}
 
+	private bool mulliganed;
 	private bool ENDED;
 	/// <summary>
 	/// Index for which superpower to draw next
@@ -75,6 +76,7 @@ public class GameManager : NetworkBehaviour
     /// </summary>
     public Team team;
 
+	public Transform refreshButtons;
 	public Transform laneHighlight;
 	public SpriteRenderer boardHighlight;
 	public Image timerImage;
@@ -306,19 +308,61 @@ public class GameManager : NetworkBehaviour
 		StartCoroutine(Mulligan());
     }
 
-	/// <summary>
-	/// Draw 4 cards. TODO: Implement the actual mulligan
-	/// </summary>
 	private IEnumerator Mulligan()
 	{
         StartCoroutine(DrawCard(team == Team.Plant ? Team.Zombie : Team.Plant, 4, false));
-        yield return DrawCard(team, 4, false);
-        StartCoroutine(GainHandCard(team == Team.Plant ? Team.Zombie : Team.Plant, 0, null));
+        StartCoroutine(GainHandCard(team == Team.Plant ? Team.Zombie : Team.Plant, 0, null, false));
+
+		Vector2[] pos = new Vector2[] { new(-1, 1), new(1, 1), new(-1, -1), new(1, -1) };
+        for (int i = 0; i < 4; i++)
+        {
+            GameObject c = Instantiate(handcardPrefab, handCards);
+            c.GetComponent<HandCard>().ID = deck[0];
+            c.transform.position = pos[i];
+            c.transform.localScale = new Vector3(1.1f, 1.1f, 1);
+            deck.RemoveAt(0);
+        }
+		yield return new WaitUntil(() => mulliganed == true);
+
+		refreshButtons.gameObject.SetActive(false);
+		UpdateHandCardPositions();
+		bool done = false;
+		for (int i = 0; i < 4; i++)
+		{
+			GameObject c = handCards.GetChild(i).gameObject;
+			Vector3 oldPos = c.transform.position;
+			c.transform.position = pos[i];
+			c.transform.localScale = new Vector3(1.1f, 1.1f, 1);
+			var lt = LeanTween.move(c, oldPos, 0.5f).setEaseOutQuint().setDelay(0.5f).setOnComplete(() => done = true);
+			LeanTween.scale(c, handcardPrefab.transform.localScale, 0.5f).setEaseOutQuint().setDelay(0.5f);
+		}
+		yield return new WaitUntil(() => done == true);
+
         yield return GainHandCard(team, UserAccounts.allDecks[UserAccounts.GameStats.DeckName].superpowerOrder[superpowerIndex]);
         yield return ProcessEvents();
         UpdateRemaining(0, Team.Plant);
         UpdateRemaining(0, Team.Zombie);
         EndRpc();
+	}
+
+	public void ReplaceMulliganCard(Transform t)
+	{
+		int index = t.GetSiblingIndex();
+		t.gameObject.SetActive(false);
+		Transform hc = handCards.GetChild(index);
+		deck.Insert(UnityEngine.Random.Range(4, deck.Count), hc.GetComponent<HandCard>().ID);
+        GameObject c = Instantiate(handcardPrefab, handCards);
+        c.GetComponent<HandCard>().ID = deck[0];
+        c.transform.position = hc.position;
+        c.transform.localScale = new Vector3(1.1f, 1.1f, 1);
+        c.transform.SetSiblingIndex(index);
+        deck.RemoveAt(0);
+		Destroy(hc.gameObject);
+    }
+
+	public void FinishMulligan()
+	{
+		mulliganed = true;
 	}
 
     void Update()
