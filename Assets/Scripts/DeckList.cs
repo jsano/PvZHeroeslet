@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,9 +10,12 @@ public class DeckList : MonoBehaviour
     private int ID = -1;
     public GameObject deckButtonPrefab;
 
+    private TextMeshProUGUI heroName;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        heroName = GameObject.Find("HeroName").GetComponent<TextMeshProUGUI>();
         GameObject.Find("Heroes").transform.GetChild(0).GetComponent<DeckListButton>().OnClick();
     }
 
@@ -29,6 +33,7 @@ public class DeckList : MonoBehaviour
                 d.transform.SetAsFirstSibling();
             }
         }
+        heroName.text = AllCards.Instance.heroes[ID].name;
     }
 
     public void New()

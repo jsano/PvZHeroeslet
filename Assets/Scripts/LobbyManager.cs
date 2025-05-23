@@ -21,6 +21,8 @@ public class LobbyManager : NetworkBehaviour
     public Profile p2;
     public GameObject teamUI;
     public GameObject note;
+    public TextMeshProUGUI heroName;
+    public TextMeshProUGUI deckName;
     public GameObject banUI;
     public GameObject chooseUI;
     public Button lockIn;
@@ -121,6 +123,8 @@ public class LobbyManager : NetworkBehaviour
         if (team == Team.Plant) chooseUI.transform.Find("ChooseP").gameObject.SetActive(true);
         else chooseUI.transform.Find("ChooseZ").gameObject.SetActive(true);
         title.text = "Choose your deck...";
+        heroName.gameObject.SetActive(false);
+        deckName.gameObject.SetActive(true);
     }
 
     public void LockedIn()
@@ -219,6 +223,11 @@ public class LobbyManager : NetworkBehaviour
             if (team == Team.Plant) UserAccounts.GameStats.ZombieHero = id;
             else UserAccounts.GameStats.PlantHero = id;
         }
+        else
+        {
+            if (team == Team.Plant) UserAccounts.GameStats.PlantHero = id;
+            else UserAccounts.GameStats.ZombieHero = id;
+        }
         ready += 1;
         if (ready == 2)
         {
@@ -253,10 +262,6 @@ public class LobbyManager : NetworkBehaviour
 
     public void ChooseButton(LobbyUIButton b)
     {
-        if (team == Team.Plant) UserAccounts.GameStats.PlantHero = b.ID;
-        else UserAccounts.GameStats.ZombieHero = b.ID;
-        hero = b.ID;
-
         foreach (Transform t in decksPanel.transform) Destroy(t.gameObject);
         decksPanel.transform.parent.gameObject.SetActive(true);
         foreach (string name in UserAccounts.allDecks.Keys)
@@ -273,6 +278,7 @@ public class LobbyManager : NetworkBehaviour
 
     public void ChoseDeck()
     {
+        hero = UserAccounts.allDecks[UserAccounts.GameStats.DeckName].heroID;
         foreach (Transform _t in chooseUI.transform) foreach (Transform t in _t)
         {
             LobbyUIButton l = t.GetComponent<LobbyUIButton>();
@@ -281,6 +287,7 @@ public class LobbyManager : NetworkBehaviour
         }
         decksPanel.transform.parent.gameObject.SetActive(false);
         lockIn.interactable = true;
+        deckName.text = AllCards.Instance.heroes[UserAccounts.allDecks[UserAccounts.GameStats.DeckName].heroID].name + " - " + UserAccounts.GameStats.DeckName;
     }
 
 }

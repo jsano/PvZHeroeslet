@@ -117,17 +117,19 @@ public class CardInfo : MonoBehaviour
 		{ "Amphibious", "Can be placed in water (lane 5)" },
 		{ "Anti-hero", "Increases attack when targeting the hero" },
 		{ "Armor", "Reduces damage taken" },
-		{ "Bonus Attack", "Does an extra attack right then" },
+		//{ "Bonus Attack", "Does an extra attack right then" },
 		{ "Bounce", "Return the card to the user's hand" },
 		{ "Bullseye", "Doesn't charge the opponent's block meter" },
-        { "Conjure", "Gain an card from the game into your hand" },
+        { "Conjure", "Gain a card from the game into your hand" },
         { "Deadly", "Destroys any card it deals damage to,\nregardless of its remaining HP" },
-		{ "Double Strike", "Does a Bonus Attack after its combat" },
-		{ "Frenzy", "When this attacks, kills its target,\nand survives, does a Bonus Attack" },
-		{ "Gravestone", "Hides undetectable to the opponent,\nuntil it's time for Zombie Tricks" },
+		{ "Dino-Roar", "Activates when the player gains a card" },
+		{ "Double Strike", "Does a bonus attack after its combat" },
+		{ "Freeze", "Cannot attack during its combat,\nand wears off afterwards" },
+		{ "Frenzy", "When this attacks, kills its target,\nand survives, it does a bonus attack" },
+		{ "Gravestone", "Hides its identity to the opponent\nuntil it's time for Zombie Tricks" },
+		{ "Hunt", "When an opponent card is played,\nthis moves to that lane (if possible)" },
 		{ "Strikethrough", "Attacks all targets in lane and the hero" },
 		{ "Team-Up", "Can be played on a lane that\nalready contains a card" },
-		{ "Freeze", "Cannot attack during its combat,\n and wears off afterwards" }
     };
 
     public GameObject tooltipContainer;
@@ -170,12 +172,12 @@ public class CardInfo : MonoBehaviour
     private void GetTooltipInfo(string keyword, Vector3 mousePos)
     {
         
-        if (!tooltipContainer.gameObject.activeInHierarchy)
+        if (!tooltipContainer.activeInHierarchy)
         {
             tooltipContainer.transform.position = mousePos + new Vector3(0, 60, 0);
 			var pos = Math.Clamp(tooltipContainer.transform.localPosition.x, -50, 50);
 			tooltipContainer.transform.localPosition = new Vector2(pos, Math.Max(-50, tooltipContainer.transform.localPosition.y));
-            tooltipContainer.gameObject.SetActive(true);
+            tooltipContainer.SetActive(true);
         }
 
         tooltipContainer.GetComponentInChildren<TextMeshProUGUI>().text = descriptions[keyword];
@@ -183,7 +185,7 @@ public class CardInfo : MonoBehaviour
 
     public void CloseTooltip()
     {
-        if (tooltipContainer.gameObject.activeInHierarchy) tooltipContainer.SetActive(false);
+        if (tooltipContainer.activeInHierarchy) tooltipContainer.SetActive(false);
     }
 
     public void FormatDescriptionForTooltip()

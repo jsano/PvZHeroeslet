@@ -1,12 +1,20 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class LobbyUIButton : MonoBehaviour
+public class LobbyUIButton : MonoBehaviour, IPointerEnterHandler
 {
 
     public bool selected { get; private set; }
     public bool disabled { get; private set; }
     public int ID;
+
+    private LobbyManager LM;
+
+    void Start()
+    {
+        LM = FindFirstObjectByType<LobbyManager>();
+    }
 
     public void Toggle()
     {
@@ -22,4 +30,8 @@ public class LobbyUIButton : MonoBehaviour
         GetComponent<Image>().color = new Color(1f, 0.8f, 0.8f);
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        LM.heroName.text = AllCards.Instance.heroes[ID].name;
+    }
 }

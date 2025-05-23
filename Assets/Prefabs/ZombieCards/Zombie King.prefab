@@ -163,8 +163,8 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: 'End of Turn: Transform another random zombie into a 5/5 Knight of
-    the Living Dead with Armored 2'
+    the Living Dead with Armor 2'
+  lore: 
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}
