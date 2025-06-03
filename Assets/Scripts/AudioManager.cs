@@ -172,6 +172,7 @@ public class AudioManager : MonoBehaviour
                 music.source.volume = volume * music.volume;
             }
         }
+        PlayerPrefs.SetFloat("music", volume);
     }
 
     public IEnumerator ToggleBattleMusic(bool battleMusic)
@@ -357,6 +358,7 @@ public class AudioManager : MonoBehaviour
                 sfx.source.volume = volume * sfx.volume;
             }
         }
+        PlayerPrefs.SetFloat("sfx", volume);
     }
 
     /// <summary>
