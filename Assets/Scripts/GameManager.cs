@@ -85,6 +85,7 @@ public class GameManager : NetworkBehaviour
     public Button go;
     private LTDescr goTween;
     public GameObject phaseText;
+	public Transform phaseIcons;
     private Transform handCards;
     public GameObject handcardPrefab;
 	private Transform opponentHandCards;
@@ -379,7 +380,7 @@ public class GameManager : NetworkBehaviour
 		if (timerOn)
 		{
 			timer -= Time.deltaTime;
-			timerImage.fillAmount = waitingOnBlock ? timer / 10 : timer / 30;
+			timerImage.fillAmount = 0.18f + 0.64f * (waitingOnBlock ? timer / 10 : timer / 30);
 			if (timer <= 0)
 			{
 				timerOn = false;
@@ -511,6 +512,8 @@ public class GameManager : NetworkBehaviour
         phase += 1;
 
         phaseText.GetComponent<TextMeshProUGUI>().text = pnames[phase];
+		for (int i = 1; i <= 4; i++) phaseIcons.GetChild(i).GetComponent<Image>().color = Color.gray;
+		phaseIcons.GetChild(phase).GetComponent<Image>().color = Color.white;
         if (goTween != null && LeanTween.isTweening(goTween.id)) LeanTween.cancel(goTween.id);
         phaseText.transform.localScale = Vector3.zero;
         goTween = LeanTween.scale(phaseText, Vector3.one, 0.5f).setEaseOutBack().setOnComplete(() => LeanTween.scale(phaseText, Vector3.zero, 0.5f).setEaseInBack().setDelay(1));
