@@ -128,7 +128,8 @@ public class CardInfo : MonoBehaviour
 		{ "Frenzy", "When this attacks, kills its target,\nand survives, it does a bonus attack" },
 		{ "Gravestone", "Hides its identity to the opponent\nuntil it's time for Zombie Tricks" },
 		{ "Hunt", "When an opponent card is played,\nthis moves to that lane (if possible)" },
-		{ "Strikethrough", "Attacks all targets in lane and the hero" },
+        { "Splash Damage", "Attacks any opponent cards next door" },
+        { "Strikethrough", "Attacks all targets in lane and the hero" },
 		{ "Team-Up", "Can be played on a lane that\nalready contains a card" },
     };
 

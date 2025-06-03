@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -67,6 +68,7 @@ public class DeckBuilder : MonoBehaviour
                 d.ID = i;
             }
         }
+        SortAllCards("cost");
 
         counter.text = deckCards.childCount + "/40";
     }
@@ -176,6 +178,33 @@ public class DeckBuilder : MonoBehaviour
             if (dc.ID == id) return dc;
         }
         return null;
+    }
+
+    public void SortAllCards(string key)
+    {
+        List<DeckCard> lst = new();
+        foreach (Transform t in allDeckCards) lst.Add(t.GetComponent<DeckCard>());
+        var field = AllCards.Instance.cards[0].GetType().GetField(key);
+        lst.Sort((a, b) => ((int)field.GetValue(AllCards.Instance.cards[a.ID])).CompareTo((int)field.GetValue(AllCards.Instance.cards[b.ID])));
+        for (var i = lst.Count - 1; i >= 0; i--)
+        {
+            lst[i].transform.SetSiblingIndex(0);
+        }
+    }
+
+    public void Search(string s)
+    {
+        s = s.ToLower();
+        foreach (Transform t in allDeckCards)
+        {
+            Card c = AllCards.Instance.cards[t.GetComponent<DeckCard>().ID];
+            t.gameObject.SetActive(false);
+            if (c.name.ToLower().Contains(s)) t.gameObject.SetActive(true);
+            foreach (Card.Tribe tribe in c.tribes) if (Enum.GetName(typeof(Card.Tribe), tribe).ToLower().Contains(s)) t.gameObject.SetActive(true);
+            if (c.description.ToLower().Contains(s)) t.gameObject.SetActive(true);
+            var field = c.GetType().GetField(s);
+            if (field != null && (field.GetType() == typeof(int) && (int)field.GetValue(c) > 0 || c.GetType() == typeof(bool) && (bool)field.GetValue(c))) t.gameObject.SetActive(true);
+        }
     }
 
 }
