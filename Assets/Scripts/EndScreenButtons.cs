@@ -46,8 +46,8 @@ public class EndScreenButtons : NetworkBehaviour
     public void Quit()
     {
         QuitRpc();
-        SceneManager.LoadScene("Start");
         AudioManager.Instance.PlayMusic("Menu");
+        SceneManager.LoadScene("Start");
     }
 
 }

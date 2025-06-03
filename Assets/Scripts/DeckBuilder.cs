@@ -77,7 +77,7 @@ public class DeckBuilder : MonoBehaviour
     {
         if (UserAccounts.allDecks.ContainsKey(s))
         {
-            Debug.Log("Deck name already exists");
+            UserAccounts.Instance.ShowError("Deck name already exists");
             transform.Find("Title").GetComponent<TMP_InputField>().text = deckName;
             return;
         }

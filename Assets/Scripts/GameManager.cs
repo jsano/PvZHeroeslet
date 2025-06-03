@@ -356,7 +356,8 @@ public class GameManager : NetworkBehaviour
 
 	public void ReplaceMulliganCard(Transform t)
 	{
-		int index = t.GetSiblingIndex();
+        AudioManager.Instance.PlaySFX("Draw Card");
+        int index = t.GetSiblingIndex();
 		Transform hc = handCards.GetChild(index);
 		deck.Insert(UnityEngine.Random.Range(4, deck.Count), hc.GetComponent<HandCard>().ID);
         GameObject c = Instantiate(handcardPrefab, handCards);
