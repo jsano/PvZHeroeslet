@@ -56,9 +56,9 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks["temp11"].cards = new() {
             { AllCards.NameToID("Firefighter"), 1 },
             { AllCards.NameToID("Swashbuckler"), 2 },
-            { AllCards.NameToID("Headstone Carver"), 1 },
+            { AllCards.NameToID("Headstone Carver"), 2 },
             { AllCards.NameToID("Backyard Bounce"), 1 },
-            { AllCards.NameToID("Zombie Chicken"), 1 },
+            { AllCards.NameToID("Zombie Chicken"), 2 },
             { AllCards.NameToID("Cakesplosion"), 1 },
             { AllCards.NameToID("Orchestra Conductor"), 1 },
             { AllCards.NameToID("Electrobolt"), 1 }

@@ -88,7 +88,7 @@ public class GameManager : NetworkBehaviour
 	public Transform phaseIcons;
     private Transform handCards;
     public GameObject handcardPrefab;
-	private Transform opponentHandCards;
+	public Transform opponentHandCards { get; private set; }
 	public GameObject cardBackPrefab;
     public TextMeshProUGUI remainingText;
 	public TextMeshProUGUI opponentRemainingText;

@@ -18,6 +18,7 @@ public class Hero : Damagable
 	private GameObject target;
 	public Image blockMeter;
 	private int block;
+	private int timesBlocked = 0;
 
 	// Start is called before the first frame update
 	void Start()
@@ -59,19 +60,22 @@ public class Hero : Damagable
                 }
             }
 
-        if (!bullseye)
+        if (!bullseye && timesBlocked < 3)
 		{
 			if (dmg <= 1) block += 1;
 			else if (dmg <= 3) block += 2;
 			else block += 3;
 			blockMeter.fillAmount = block/8f;
 		}
-		if (block >= 8 && !bullseye)
+		if (block >= 8 && !bullseye &&
+			(GameManager.Instance.team == team && GameManager.Instance.GetHandCards().Count < 10 || GameManager.Instance.team != team && GameManager.Instance.opponentHandCards.childCount < 10))
 		{
             AudioManager.Instance.PlaySFX("Block");
             GameManager.Instance.TriggerEvent("OnBlock", this);
             block = 0;
 			blockMeter.fillAmount = 0;
+			timesBlocked++;
+			if (timesBlocked == 3) transform.Find("Eight").gameObject.SetActive(false);
 		}
 		else
 		{
