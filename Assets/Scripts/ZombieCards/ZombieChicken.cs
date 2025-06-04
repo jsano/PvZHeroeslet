@@ -11,9 +11,9 @@ public class ZombieChicken : Card
 		{
 			if (GameManager.Instance.team == team)
 			{
-                for (int j = 0; j < 5; j++)
+                for (int j = 0; j < 4; j++)
                 {
-                    if (j != col && Tile.zombieTiles[row, col].HasRevealedPlanted())
+                    if (j != col && !Tile.zombieTiles[row, j].HasRevealedPlanted())
                     {
                         choices.Add(Tile.zombieTiles[row, j].GetComponent<BoxCollider2D>());
                     }

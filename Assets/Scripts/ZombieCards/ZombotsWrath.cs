@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MissileMadness : Card
+public class ZombotsWrath : Card
 {
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++) if (Tile.plantTiles[i, j].HasRevealedPlanted())
-				{
-					if (row == i && col == j) StartCoroutine(Tile.plantTiles[i, j].planted.ReceiveDamage(3, this));
-					else StartCoroutine(Tile.plantTiles[i, j].planted.ReceiveDamage(1, this));
-                }
+		int count = 0;
+		for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++) if (Tile.zombieTiles[i, j].HasRevealedPlanted()) count += 1;
+		yield return Tile.plantTiles[row, col].planted.ReceiveDamage(count + 1, this);
 		yield return base.OnThisPlay();
 	}
 
