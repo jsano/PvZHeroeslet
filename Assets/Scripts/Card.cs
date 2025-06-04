@@ -398,6 +398,14 @@ public class Card : Damagable
     }
 
     /// <summary>
+	/// Called during tricks phase
+	/// </summary>
+    public virtual IEnumerator OnZombieTricks()
+    {
+        yield return null;
+    }
+
+    /// <summary>
 	/// Makes this card attack its target. Ignores if it's in a gravestone, and unfreezes if frozen. Its target, if damaged, will each asynchronously call <c>ReceiveDamage</c>
 	/// </summary>
     public virtual IEnumerator Attack()

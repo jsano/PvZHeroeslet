@@ -531,7 +531,9 @@ public class GameManager : NetworkBehaviour
 					// Update zombie brain UI only for the plant side
 					if (c.team != team) UpdateRemaining(-c.playedCost, Team.Zombie);
 					yield return c.Reveal();
-				}
+                    DisableHandCards();
+                }
+				if (c != null) yield return c.OnZombieTricks();
 			}
 		}
 
