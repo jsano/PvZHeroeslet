@@ -776,8 +776,8 @@ public class GameManager : NetworkBehaviour
 	{
 		for (int i = 0; i < 5; i++)
 		{
-			if (Tile.zombieTiles[0, i].planted != null) yield return Tile.zombieTiles[0, i].planted.StartCoroutine(methodName, arg);
-
+			if (Tile.zombieTiles[0, i].HasRevealedPlanted()) yield return Tile.zombieTiles[0, i].planted.StartCoroutine(methodName, arg);
+			
 			if (Tile.plantTiles[1, i].planted != null) yield return Tile.plantTiles[1, i].planted.StartCoroutine(methodName, arg);
 			if (Tile.plantTiles[0, i].planted != null) yield return Tile.plantTiles[0, i].planted.StartCoroutine(methodName, arg);
 		}

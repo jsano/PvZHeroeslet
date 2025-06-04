@@ -61,17 +61,17 @@ public class CardInfo : MonoBehaviour
 		if (baseCard.amphibious) description.text += "Amphibious\n";
 		if (baseCard.antihero > 0) description.text += "Anti-hero " + baseCard.antihero + "\n";
 		if (baseCard.armor > 0) description.text += "Armor " + baseCard.armor + "\n";
-		if (baseCard.bullseye) description.text += "Bullseye\n";
-		if (baseCard.deadly) description.text += "Deadly\n";
+		if (baseCard.bullseye > 0) description.text += "Bullseye\n";
+		if (baseCard.deadly > 0) description.text += "Deadly\n";
 		if (baseCard.doubleStrike) description.text += "Double Strike\n";
-		if (baseCard.frenzy) description.text += "Frenzy\n";
+		if (baseCard.frenzy > 0) description.text += "Frenzy\n";
 		if (baseCard.gravestone) description.text += "Gravestone\n";
 		if (baseCard.hunt) description.text += "Hunt\n";
 		if (baseCard.overshoot > 0) description.text += "Overshoot " + baseCard.overshoot + "\n";
 		if (baseCard.splash > 0) description.text += "Splash Damage " + baseCard.splash + "\n";
-		if (baseCard.strikethrough) description.text += "Strikethrough\n";
+		if (baseCard.strikethrough > 0) description.text += "Strikethrough\n";
 		if (baseCard.teamUp) description.text += "Team Up\n";
-		if (baseCard.untrickable) description.text += "Untrickable\n";
+		if (baseCard.untrickable > 0) description.text += "Untrickable\n";
 		description.text += baseCard.description;
 		FormatDescriptionForTooltip();
 

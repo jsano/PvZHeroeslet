@@ -37,8 +37,8 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Sizzle"), 2 },
             { AllCards.NameToID("Berry Blast"), 2 },
             { AllCards.NameToID("Shroom for Two"), 2 },
-            { AllCards.NameToID("Cornucopia"), 2 },
-            { AllCards.NameToID("Scorched Earth"), 2 }
+            { AllCards.NameToID("Wall-nut"), 4 },
+            { AllCards.NameToID("Wild Berry"), 2 }
         };
 
         NetworkManager.Singleton.StartHost();
@@ -54,14 +54,15 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
-            { AllCards.NameToID("Firefighter"), 1 },
-            { AllCards.NameToID("Swashbuckler"), 2 },
-            { AllCards.NameToID("Headstone Carver"), 2 },
-            { AllCards.NameToID("Backyard Bounce"), 1 },
+            { AllCards.NameToID("Smashing Gargantuar"), 1 },
+            { AllCards.NameToID("Kangaroo Rider"), 2 },
+            { AllCards.NameToID("Squirrel Herder"), 2 },
+            { AllCards.NameToID("Vimpire"), 1 },
             { AllCards.NameToID("Zombie Chicken"), 2 },
             { AllCards.NameToID("Cakesplosion"), 1 },
             { AllCards.NameToID("Orchestra Conductor"), 1 },
-            { AllCards.NameToID("Electrobolt"), 1 }
+            { AllCards.NameToID("Nurse Gargantuar"), 1 },
+            { AllCards.NameToID("Possessed"), 1 }
         };
 
         UserAccounts.GameStats.DeckName = "temp11";

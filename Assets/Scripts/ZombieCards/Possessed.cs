@@ -9,7 +9,7 @@ public class Possessed : Card
 	{
 		yield return new WaitForSeconds(1);
 		Tile.zombieTiles[row, col].planted.ChangeStats(0, 2);
-		Tile.zombieTiles[row, col].planted.frenzy = true;
+		Tile.zombieTiles[row, col].planted.frenzy += 1;
         yield return base.OnThisPlay();
 	}
 

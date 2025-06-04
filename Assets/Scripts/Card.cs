@@ -92,19 +92,19 @@ public class Card : Damagable
     public int antihero;
     private bool AHactive;
     public int armor;
-    public bool bullseye;
-    public bool deadly;
+    public int bullseye;
+    public int deadly;
     private bool hitByDeadly;
     public bool doubleStrike;
-    public bool frenzy;
+    public int frenzy;
     public bool baseGravestone { get; private set; }
     public bool gravestone;
     public bool hunt;
     public int overshoot;
     public int splash;
-    public bool strikethrough;
+    public int strikethrough;
     public bool teamUp;
-    public bool untrickable;
+    public int untrickable;
     public bool nextDoor;
     public bool freeze;
 
@@ -305,7 +305,7 @@ public class Card : Damagable
 	/// <param name="hurt"> [The card that received damage, the card that dealt the damage, the final amount dealt, hero column relative to other simultaneous calls] </param>
 	protected virtual IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
 	{
-		yield return null;
+        yield return null;
 	}
 
 	/// <summary>
@@ -419,10 +419,10 @@ public class Card : Damagable
             List<Damagable> targets = GetTargets(col);
             yield return AttackFX(targets[0]);
 
-            foreach (Damagable c in targets) StartCoroutine(c.ReceiveDamage(atk, this, bullseye, deadly, freeze));
+            foreach (Damagable c in targets) StartCoroutine(c.ReceiveDamage(atk, this, bullseye > 0, deadly > 0, freeze));
             yield return null;
             // If this card has frenzy, and any of its targets died after its attack, signal to GameManager
-            if (frenzy)
+            if (frenzy > 0)
             {
                 foreach (Damagable c in targets) if (c.GetComponent<Card>() != null && c.GetComponent<Card>().died) GameManager.Instance.frenzyActivate = this;
             }
@@ -439,7 +439,7 @@ public class Card : Damagable
             }
             yield return AttackFX(targets[1][0]);
 
-            for (int i = 0; i < 3; i++) if (targets[i] != null) foreach (Damagable c in targets[i]) StartCoroutine(c.ReceiveDamage(i == 1 ? atk : splash, this, bullseye, deadly, freeze));
+            for (int i = 0; i < 3; i++) if (targets[i] != null) foreach (Damagable c in targets[i]) StartCoroutine(c.ReceiveDamage(i == 1 ? atk : splash, this, bullseye > 0, deadly > 0, freeze));
         }
         else if (nextDoor)
         {
@@ -453,7 +453,7 @@ public class Card : Damagable
             for (int i = 0; i < 3; i++) if (targets[i] != null) temp.Add(targets[i][0]);
             yield return AttackFXs(temp);
 
-            for (int i = 0; i < 3; i++) if (targets[i] != null) foreach (Damagable c in targets[i]) StartCoroutine(c.ReceiveDamage(atk, this, bullseye, deadly, freeze));
+            for (int i = 0; i < 3; i++) if (targets[i] != null) foreach (Damagable c in targets[i]) StartCoroutine(c.ReceiveDamage(atk, this, bullseye > 0, deadly > 0, freeze));
         }
         yield return new WaitForSeconds(0.1f); // this only exists so all the receive damages get sent before the other units attack. TODO: fix??
 	}
@@ -658,7 +658,15 @@ public class Card : Damagable
     {
         if (team == Team.Plant) Tile.plantTiles[row, col].Unplant();
         else Tile.zombieTiles[row, col].Unplant();
-        StartCoroutine(GameManager.Instance.GainHandCard(team, AllCards.NameToID(name.Substring(0, name.IndexOf("("))), null, false));
+        GameManager.Instance.StartCoroutine(GameManager.Instance.GainHandCard(team, AllCards.NameToID(name.Substring(0, name.IndexOf("("))), null));
+        StartCoroutine(BounceHelper());
+    }
+
+    private IEnumerator BounceHelper()
+    {
+        SR.sortingLayerID = 0;
+        GetComponent<Canvas>().sortingLayerID = 0;
+        yield return new WaitForSeconds(0.1f);
         Destroy(gameObject);
     }
 
@@ -693,7 +701,7 @@ public class Card : Damagable
 		if (opponentTiles[0, col].planted != null && !opponentTiles[0, col].planted.died) ret.Add(opponentTiles[0, col].planted);
 		if (team == Team.Plant) ret.Add(Tile.zombieHeroTiles[col]);
         else ret.Add(Tile.plantHeroTiles[col]);
-        if (strikethrough) return ret;
+        if (strikethrough > 0) return ret;
         ret.RemoveRange(1, ret.Count - 1);
         return ret;
     }
@@ -725,24 +733,6 @@ public class Card : Damagable
         yield return new WaitForSeconds(0.25f);
     }
 
-    /// <summary>
-    /// Gives the card the ability under the given name, which should match the variable name in script
-    /// </summary>
-    public void GrantAbility(string abilityName)
-    {
-        GetType().GetField(abilityName).SetValue(this, true);
-    }
-
-    /// <summary>
-    /// Removes the ability under the given name from the card, which should match the variable name in script. If the card inherently possess it, it is not removed
-    /// </summary>
-    public void RemoveAbility(string abilityName)
-    {
-        // doesn't work, make bool fields ints where >0 = active
-        if ((bool)GetType().GetField(abilityName).GetValue(AllCards.InstanceToPrefab(this)) == false)
-            GetType().GetField(abilityName).SetValue(this, false);
-    }
-
     void OnMouseDown()
 	{
         // Don't show card info if the player is currently selecting something. TODO: doesn't work for trick selected
@@ -764,12 +754,12 @@ public class Card : Damagable
     {
         var icons = AllCards.Instance;
         List<Sprite> ret = new();
-        if (strikethrough) ret.Add(icons.strikethroughSprite);
+        if (strikethrough > 0) ret.Add(icons.strikethroughSprite);
         if (antihero > 0) ret.Add(icons.antiheroSprite);
-        if (bullseye) ret.Add(icons.bullseyeSprite);
-        if (deadly) ret.Add(icons.deadlySprite);
+        if (bullseye > 0) ret.Add(icons.bullseyeSprite);
+        if (deadly > 0) ret.Add(icons.deadlySprite);
         if (doubleStrike) ret.Add(icons.doubleStrikeSprite);
-        if (frenzy) ret.Add(icons.frenzySprite);
+        if (frenzy > 0) ret.Add(icons.frenzySprite);
         if (overshoot > 0) ret.Add(icons.overshootSprite);
         if (ret.Count > 1) return icons.multiSprite;
         if (ret.Count == 0) return icons.attackSprite;
@@ -781,7 +771,7 @@ public class Card : Damagable
         var icons = AllCards.Instance;
         List<Sprite> ret = new();
         if (armor > 0) ret.Add(icons.armorSprite);
-        if (untrickable) ret.Add(icons.untrickableSprite);
+        if (untrickable > 0) ret.Add(icons.untrickableSprite);
         if (frozen) ret.Add(icons.frozenSprite);
         if (ret.Count > 1) return icons.multiSprite;
         if (ret.Count == 0) return icons.HPSprite;
