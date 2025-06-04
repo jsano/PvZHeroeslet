@@ -11,7 +11,8 @@ public class SmashingGargantuar : Card
 		{
 			for (int col = 0; col < 5; col++)
 			{
-				if (Tile.zombieTiles[row, col].HasRevealedPlanted()) Tile.zombieTiles[row, col].planted.frenzy += 1;
+				if (Tile.zombieTiles[row, col].HasRevealedPlanted() && Tile.zombieTiles[row, col].planted.tribes.Contains(Tribe.Gargantuar))
+                    Tile.zombieTiles[row, col].planted.frenzy += 1;
 			}
 		}
 		yield return base.OnThisPlay();
@@ -30,7 +31,8 @@ public class SmashingGargantuar : Card
             {
                 for (int col = 0; col < 5; col++)
                 {
-                    if (Tile.zombieTiles[row, col].HasRevealedPlanted()) Tile.zombieTiles[row, col].planted.frenzy -= 1;
+                    if (Tile.zombieTiles[row, col].HasRevealedPlanted() && Tile.zombieTiles[row, col].planted.tribes.Contains(Tribe.Gargantuar))
+                        Tile.zombieTiles[row, col].planted.frenzy -= 1;
                 }
             }
         yield return base.OnCardDeath(died);

@@ -60,8 +60,8 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Hail-a-copter"), 1 },
             { AllCards.NameToID("Zombie Chicken"), 2 },
             { AllCards.NameToID("Cakesplosion"), 1 },
-            { AllCards.NameToID("Orchestra Conductor"), 1 },
-            { AllCards.NameToID("Nurse Gargantuar"), 1 },
+            { AllCards.NameToID("Wizard Gargantuar"), 2 },
+            { AllCards.NameToID("Nurse Gargantuar"), 2 },
             { AllCards.NameToID("Possessed"), 1 }
         };
 
