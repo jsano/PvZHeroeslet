@@ -293,6 +293,7 @@ public class Card : Damagable
     {
         if (hunt && played.type == Type.Unit && played.team != team && (amphibious || played.col != 4))
         {
+            if (team == Team.Plant && !Tile.CanPlantInCol(played.col, Tile.plantTiles, teamUp, amphibious) || team == Team.Zombie && Tile.zombieTiles[0, played.col].planted != null) yield return null;
             yield return new WaitForSeconds(1);
             Move(row, played.col);
         }
