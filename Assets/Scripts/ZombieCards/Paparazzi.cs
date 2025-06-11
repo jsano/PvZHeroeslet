@@ -12,7 +12,7 @@ public class Paparazzi : Card
 			yield return new WaitForSeconds(1);
 			ChangeStats(1, 1);
 		}
-		yield return null;
-	}
+        yield return base.OnCardPlay(played);
+    }
 
 }

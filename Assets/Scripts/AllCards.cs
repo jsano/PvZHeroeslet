@@ -84,7 +84,6 @@ public class AllCards : MonoBehaviour
             if (Instance.cards[i].team == team && Instance.cards[i].type == Card.Type.Trick)
             {
                 possible.Add(i);
-                break;
             }
         }
         return possible[Random.Range(0, possible.Count)];

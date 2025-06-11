@@ -409,7 +409,7 @@ public class GameManager : NetworkBehaviour
 	{
 		for (int i = 0; i < count; i++)
 		{
-            if (team == t) deck.RemoveAt(0);
+            if (team == t && handCards.childCount < 10) deck.RemoveAt(0);
 			yield return GainHandCard(t, deck[0], null, animation);
         }
     }
@@ -421,11 +421,10 @@ public class GameManager : NetworkBehaviour
 	/// <param name="animation">Whether to include the drawing animation or just appear</param>
     public IEnumerator GainHandCard(Team t, int id, FinalStats fs = null, bool animation = true)
 	{
-		//if (t == Team.Zombie) Debug.Log(opponentHandCards.childCount);
-		if (team == t && handCards.childCount >= 10 || team != t && opponentHandCards.childCount >= 10) yield break;
 		GameObject c = null;
 		if (team == t)
 		{
+			if (handCards.childCount >= 10) yield break;
 			if (AllCards.Instance.cards[id].specialHandCard != null) c = Instantiate(AllCards.Instance.cards[id].specialHandCard, handCards);
             else c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
@@ -436,6 +435,7 @@ public class GameManager : NetworkBehaviour
 		} 
 		else
 		{
+			if (opponentHandCards.childCount >= 10) yield break;
 			int current = opponentHandCards.childCount;
 			c = Instantiate(cardBackPrefab, opponentHandCards);
 			c.transform.SetSiblingIndex(current);
@@ -620,8 +620,12 @@ public class GameManager : NetworkBehaviour
 		TriggerEvent("OnTurnStart", null);
         yield return ProcessEvents();
 
-        StartCoroutine(DrawCard(Team.Zombie));
-        yield return DrawCard(Team.Plant);
+		bool wait = false;
+		// If at least 1 side drew, this is how long it should theoretically take. TODO: fix?
+		if (handCards.childCount < 10 || opponentHandCards.childCount < 10) wait = true;
+		StartCoroutine(DrawCard(Team.Zombie));
+        StartCoroutine(DrawCard(Team.Plant));
+		if (wait) yield return new WaitForSeconds(1);
 
 		yield return ProcessEvents();
 		EndRpc();
