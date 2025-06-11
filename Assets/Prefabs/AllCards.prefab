@@ -350,6 +350,10 @@ MonoBehaviour:
   - {fileID: -5887772071793642334, guid: 6528fd1dbbb2c5a4e9e92bfa84bbdbda, type: 3}
   - {fileID: 6377264207035512179, guid: e04a33deab3251a4f8d649c51f800b5b, type: 3}
   - {fileID: 5354634416006685456, guid: e46f6f5bbb291b0428df7cbcca5dcfee, type: 3}
+  - {fileID: -3948422888362832219, guid: 9fa2d3e7a08a9f547a6871277fb9b450, type: 3}
+  - {fileID: -7655821378006990866, guid: 243c40ea0b4c02f4a845bf3ac61ebba6, type: 3}
+  - {fileID: 2881128360450575484, guid: d065646fb012a9846a93aef79917436c, type: 3}
+  - {fileID: 3451553028324795672, guid: d48b52fec4b4eb6469acc7f48f2f5540, type: 3}
   heroes:
   - {fileID: 4799469182913931560, guid: d809300a0693002439dc1cea576d721f, type: 3}
   - {fileID: 4799469182913931560, guid: 340b973624309f649927088a2d2135cb, type: 3}

@@ -8,6 +8,7 @@ public class PunishShroom : Card
 
 	protected override IEnumerator OnCardDeath(Card died)
 	{
+        choices.Clear();
         if (died.tribes.Contains(Tribe.Mushroom))
         {
             if (team == GameManager.Instance.team)

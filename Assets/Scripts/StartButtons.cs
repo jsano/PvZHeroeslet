@@ -33,11 +33,11 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(10));
         UserAccounts.allDecks["temp10"].cards = new() {
             { AllCards.NameToID("Twin Sunflower"), 2 },
-            { AllCards.NameToID("2nd Best Taco of All Time"), 2 },
+            { AllCards.NameToID("Whirlwind"), 2 },
             { AllCards.NameToID("Sizzle"), 2 },
             { AllCards.NameToID("Berry Blast"), 2 },
             { AllCards.NameToID("Shroom for Two"), 2 },
-            { AllCards.NameToID("Wall-nut"), 4 },
+            { AllCards.NameToID("Punish-shroom"), 4 },
             { AllCards.NameToID("Wild Berry"), 2 }
         };
 
@@ -54,10 +54,10 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
-            { AllCards.NameToID("Landscaper"), 2 },
-            { AllCards.NameToID("All-star"), 2 },
-            { AllCards.NameToID("Weed Spray"), 2 },
-            { AllCards.NameToID("Coffee"), 2 },
+            { AllCards.NameToID("Pogo Bouncer"), 2 },
+            { AllCards.NameToID("Line Dancer"), 2 },
+            { AllCards.NameToID("Toxic Waste Imp"), 2 },
+            { AllCards.NameToID("Tomb Raiser"), 2 },
             { AllCards.NameToID("Cakesplosion"), 1 },
             { AllCards.NameToID("Imp"), 2 },
             { AllCards.NameToID("Nurse Gargantuar"), 1 },

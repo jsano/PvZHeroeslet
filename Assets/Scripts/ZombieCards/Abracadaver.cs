@@ -8,6 +8,7 @@ public class Abracadaver : Card
 
 	protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
 	{
+        choices.Clear();
 		if (hurt.Item2 == this && hurt.Item1.GetComponent<Hero>() != null) 
 		{
             if (team == GameManager.Instance.team)

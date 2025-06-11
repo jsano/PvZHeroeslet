@@ -667,7 +667,6 @@ public class Card : Damagable
     {
         if (team == Team.Plant) Tile.plantTiles[row, col].Unplant();
         else Tile.zombieTiles[row, col].Unplant();
-        GameManager.Instance.StartCoroutine(GameManager.Instance.GainHandCard(team, AllCards.NameToID(name.Substring(0, name.IndexOf("("))), null));
         StartCoroutine(BounceHelper());
     }
 
@@ -675,7 +674,7 @@ public class Card : Damagable
     {
         SR.sortingLayerID = 0;
         GetComponent<Canvas>().sortingLayerID = 0;
-        yield return new WaitForSeconds(0.1f);
+        yield return GameManager.Instance.GainHandCard(team, AllCards.NameToID(name.Substring(0, name.IndexOf("("))));
         Destroy(gameObject);
     }
 

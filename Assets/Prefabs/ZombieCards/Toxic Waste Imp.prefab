@@ -10,23 +10,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1812251758246606002, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2834966067
+      value: 3213306360
+      objectReference: {fileID: 0}
+    - target: {fileID: 198550959388224066, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
+    - target: {fileID: 2656752440053028023, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: HP
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: atk
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: cost
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: _class
-      value: 2
+      propertyPath: teamUp
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: traits.Array.size
@@ -38,19 +46,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: 'tribes.Array.data[0]'
-      value: 23
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Name
-      value: Punish-shroom
+      value: Toxic Waste Imp
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.8192
+      value: 1.004
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.2288
+      value: 1.988
       objectReference: {fileID: 0}
     - target: {fileID: 8010029174977732602, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_RootOrder
@@ -99,7 +107,11 @@ PrefabInstance:
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 67bdb3b351c372448827225b7cdc209a, type: 3}
+      objectReference: {fileID: 21300000, guid: daec4ac79eb9c5d4794c82d9f60fe115, type: 3}
+    - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
     m_RemovedGameObjects: []
@@ -107,14 +119,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -6533082766132332329}
+      addedObject: {fileID: -3948422888362832219}
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
 --- !u!1 &992196623300205022 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
   m_PrefabInstance: {fileID: 2724712124557671184}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-6533082766132332329
+--- !u!114 &-3948422888362832219
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,18 +135,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 992196623300205022}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92e090787849fd74b9d6f5235f2368e9, type: 3}
+  m_Script: {fileID: 11500000, guid: eadc2cd93e2d9d8408f90fe0fba19cee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 0
+  team: 1
   type: 0
-  _class: 1
-  tribes: 13000000
+  _class: 9
+  tribes: 010000000e000000
   token: 0
-  cost: 3
+  cost: 2
   atk: 2
   HP: 2
-  amphibious: 0
+  amphibious: 1
   antihero: 0
   armor: 0
   bullseye: 0
@@ -150,9 +162,8 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: When a Mushroom is destroyed, do 2 damage to a random zombie or zombie
-    hero
-  lore: 'Believes revenge is best served. Period. '
+  description: All Imps are Deadly
+  lore: 'All the radioactive glow... none of the super powers. '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
