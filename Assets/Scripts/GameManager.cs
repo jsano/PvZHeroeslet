@@ -699,7 +699,8 @@ public class GameManager : NetworkBehaviour
 	{
         waitingOnBlock = false;
 		TriggerEvent("OnCardDraw", t);
-		var to = opponentHandCards.TransformPoint(-2.5f + (opponentHandCards.childCount - 1) * 0.5f, 0, 0);
+		if (team == t) handCards.GetChild(handCards.childCount - 1).GetComponent<HandCard>().ChangeCost(1);
+        var to = opponentHandCards.TransformPoint(-2.5f + (opponentHandCards.childCount - 1) * 0.5f, 0, 0);
 		LeanTween.move(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject, to, 0.5f).setEaseOutQuint();
 	}
 
@@ -891,6 +892,7 @@ public class GameManager : NetworkBehaviour
     /// </summary>
     public IEnumerator HandleHeroBlocks(Hero h)
 	{
+		h.ResetBlock();
 		waitingOnBlock = true;
 		if (team == h.team)
 		{

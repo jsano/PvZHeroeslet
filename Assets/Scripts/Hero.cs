@@ -67,15 +67,15 @@ public class Hero : Damagable
 			else block += 3;
 			blockMeter.fillAmount = block/8f;
 		}
-		if (block >= 8 && !bullseye &&
-			(GameManager.Instance.team == team && GameManager.Instance.GetHandCards().Count < 10 || GameManager.Instance.team != team && GameManager.Instance.opponentHandCards.childCount < 10))
-		{
-            AudioManager.Instance.PlaySFX("Block");
-            GameManager.Instance.TriggerEvent("OnBlock", this);
-            block = 0;
-			blockMeter.fillAmount = 0;
-			timesBlocked++;
-			if (timesBlocked == 3) transform.Find("Eight").gameObject.SetActive(false);
+		if (block >= 8 && !bullseye && 
+            (GameManager.Instance.team == team && GameManager.Instance.GetHandCards().Count < 10 || GameManager.Instance.team != team && GameManager.Instance.opponentHandCards.childCount < 10))
+		{ if (blockMeter.color != Color.yellow)
+			{
+				AudioManager.Instance.PlaySFX("Block");
+				GameManager.Instance.TriggerEvent("OnBlock", this);
+				blockMeter.color = Color.yellow;
+				timesBlocked++;
+			}
 		}
 		else
 		{
@@ -90,6 +90,14 @@ public class Hero : Damagable
             GameManager.Instance.TriggerEvent("OnCardHurt", new Tuple<Damagable, Card, int, int>(this, source, dmg, heroCol));
         }
 	}
+
+	public void ResetBlock()
+	{
+        block = 0;
+        blockMeter.fillAmount = 0;
+        blockMeter.color = Color.white;
+        if (timesBlocked == 3) transform.Find("Eight").gameObject.SetActive(false);
+    }
 
 	public override void Heal(int amount)
 	{

@@ -176,7 +176,6 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             GameManager.Instance.UpdateHandCardPositions();
             startPos = transform.position;
             interactable = false;
-            ChangeCost(1);
             GameManager.Instance.HoldTrickRpc(GameManager.Instance.team);
         }
     }

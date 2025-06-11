@@ -141,6 +141,7 @@ public class Card : Damagable
     /// If this card on the player's side requires a selecting choice to be made, populate this with all the valid <b>tile or hero</b> choices it can make
     /// </summary>
 	protected List<BoxCollider2D> choices = new();
+    private float timer = 10;
 
     private bool frozen;
 
@@ -249,6 +250,23 @@ public class Card : Damagable
 					}
 				}
 			}
+
+            timer -= Time.deltaTime;
+            GameManager.Instance.timerImage.gameObject.SetActive(true);
+            GameManager.Instance.timerImage.fillAmount = 0.18f + 0.64f * timer / 10;
+            if (timer <= 0)
+            {
+                foreach (BoxCollider2D bc1 in choices)
+                {
+                    if (bc1.GetComponent<Tile>() != null) bc1.GetComponent<Tile>().ToggleTarget(false);
+                    else bc1.GetComponent<Hero>().ToggleTarget(false);
+                }
+                selected = true;
+                var bc = choices[0];
+                Tile t = bc.GetComponent<Tile>();
+                if (t != null) GameManager.Instance.SelectingChosenRpc(t.isPlantTile ? Team.Plant : Team.Zombie, t.row, t.col);
+                else GameManager.Instance.SelectingChosenRpc(bc.GetComponent<Hero>().team, -1, -1);
+            }
 		}
 
         atkSprite.sprite = GetAttackIcon();
@@ -261,6 +279,7 @@ public class Card : Damagable
     protected virtual IEnumerator OnSelection(BoxCollider2D bc)
     {
         GameManager.Instance.ClearSelection();
+        GameManager.Instance.timerImage.gameObject.SetActive(false);
         yield return null;
 	}
 
