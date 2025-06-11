@@ -346,6 +346,10 @@ MonoBehaviour:
   - {fileID: 6065064008828550656, guid: 27d30b8501fbf6c4898cba4adec13361, type: 3}
   - {fileID: 6526049691179690075, guid: fbf1a47a41b4ee142bc15ed55476d23f, type: 3}
   - {fileID: 7195963050287171475, guid: c966c35e09f9e9047a2a98680fd4fde9, type: 3}
+  - {fileID: 6663249331217151701, guid: 6d2175036fb1231499b5ddd3eda916c4, type: 3}
+  - {fileID: -5887772071793642334, guid: 6528fd1dbbb2c5a4e9e92bfa84bbdbda, type: 3}
+  - {fileID: 6377264207035512179, guid: e04a33deab3251a4f8d649c51f800b5b, type: 3}
+  - {fileID: 5354634416006685456, guid: e46f6f5bbb291b0428df7cbcca5dcfee, type: 3}
   heroes:
   - {fileID: 4799469182913931560, guid: d809300a0693002439dc1cea576d721f, type: 3}
   - {fileID: 4799469182913931560, guid: 340b973624309f649927088a2d2135cb, type: 3}
