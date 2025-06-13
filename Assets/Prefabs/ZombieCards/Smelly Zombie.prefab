@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -1812251758246606002, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
@@ -22,6 +23,11 @@ PrefabInstance:
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: cost
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      propertyPath: lore
+      value: 'Casual acquaintances don''t understand where his pets are. They don''t
+        realize that stinkflies can be such tender little friends. '
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: team
@@ -44,7 +50,7 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: tribes.Array.data[0]
+      propertyPath: 'tribes.Array.data[0]'
       value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
@@ -108,4 +114,7 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 8944d93da08311749b02713b5aa91b8b, type: 3}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}

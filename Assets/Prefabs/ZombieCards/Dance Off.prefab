@@ -164,8 +164,8 @@ MonoBehaviour:
   freeze: 0
   description: Make a Backup Dancer in the lane of your choice and one in a random
     lane
+  lore: 'You put your right foot in! No, wait, you might need that. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}
   toPlay: {fileID: 6377264207035512179, guid: 0d163c56bb2166044b5ad4d4e2258282, type: 3}

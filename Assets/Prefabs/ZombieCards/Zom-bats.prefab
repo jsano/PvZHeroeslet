@@ -50,11 +50,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 2.56
+      value: 1.024
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 2.56
+      value: 1.024
       objectReference: {fileID: 0}
     - target: {fileID: 8010029174977732602, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_RootOrder
@@ -155,7 +155,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: 
+  lore: 'Like Chihuahuas with wings... and fangs... and a taste for Plants. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

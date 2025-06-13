@@ -26,11 +26,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.024
+      value: 1.1377778
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.712
+      value: 0.8888889
       objectReference: {fileID: 0}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Size.x
@@ -183,7 +183,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Do 3 damage to a plant
-  lore: 
+  lore: 'Ever get zapped by static electricity? It''s like that, times a bazillion. '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}

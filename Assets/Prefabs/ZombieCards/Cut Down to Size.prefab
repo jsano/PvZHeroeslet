@@ -163,9 +163,10 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Destroy a plant with 5 attack or less
+  lore: '"The tallest blade of grass is the first to get cut. Braaainz!" - Ancient
+    Zombie Proverb '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}
   attackCutoff: 5
   comparator: 1

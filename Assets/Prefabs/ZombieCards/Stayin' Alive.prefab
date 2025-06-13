@@ -163,7 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Do 3 damage to a plant. Heal your hero for 3
+  lore: 'For Electric Boogaloo, "alive" is a relative term. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

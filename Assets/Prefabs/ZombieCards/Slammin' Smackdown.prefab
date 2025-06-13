@@ -175,9 +175,10 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Destroy a plant with 4 attack or less
+  lore: 'The Smash''s wrestling moves are real all right. Too real. Just ask any
+    Plant. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}
   attackCutoff: 4
   comparator: 0

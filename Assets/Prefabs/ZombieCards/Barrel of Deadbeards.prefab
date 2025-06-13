@@ -152,7 +152,7 @@ MonoBehaviour:
   freeze: 0
   description: 'When destroyed: Do 1 damage to all plants and zombies, then make
     a 4/3 Captain Deadbeard here'
+  lore: 'No monkeys, just Zombies. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

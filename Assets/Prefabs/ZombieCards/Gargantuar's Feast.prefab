@@ -163,7 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Make 3 random Gargantuars in random lanes
+  lore: 'This party doesn''t make reservations. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

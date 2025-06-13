@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -1812251758246606002, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
@@ -113,6 +114,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5374134217801927462}
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
 --- !u!1 &3964835505542182985 stripped
 GameObject:
@@ -135,6 +142,7 @@ MonoBehaviour:
   type: 1
   _class: 5
   tribes: 18000000
+  token: 0
   cost: 5
   atk: 0
   HP: 0
@@ -153,7 +161,9 @@ MonoBehaviour:
   teamUp: 0
   untrickable: 0
   nextDoor: 0
+  freeze: 0
   description: Destroy a plant
+  lore: 'A plague upon your lawns! '
   row: 0
   col: 0
-  playedCost: 0
+  specialHandCard: {fileID: 0}

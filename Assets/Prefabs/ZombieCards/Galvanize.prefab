@@ -163,9 +163,9 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: A zombie gets +2 attack +2 HP
+  lore: 'To protect and serve... brains. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}
   atkAmount: 2
   HPAmount: 2

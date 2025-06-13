@@ -18,11 +18,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.19
+      value: 0.952
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 2.25
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Sprite
@@ -164,7 +164,8 @@ MonoBehaviour:
   freeze: 0
   description: You may play a zombie when it's time for Tricks this turn. Draw a
     card
+  lore: 'Feels like cheating. '
   row: 0
   col: 0
-  playedCost: 0
+  specialHandCard: {fileID: 0}
   count: 0

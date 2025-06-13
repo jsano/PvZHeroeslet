@@ -151,6 +151,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: 'When revealed: Destroy all plants'
+  lore: 'The first 999 Zombots are now considered classics. '
   row: 0
   col: 0
-  playedCost: 0
+  specialHandCard: {fileID: 0}

@@ -163,7 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Freeze all plants
+  lore: 'Brain Freeze has a knack for making the Plants chill out. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

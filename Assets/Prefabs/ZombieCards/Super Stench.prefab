@@ -163,7 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: All zombies are Deadly. Draw a card
+  lore: 'That''s the smell of victory! '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

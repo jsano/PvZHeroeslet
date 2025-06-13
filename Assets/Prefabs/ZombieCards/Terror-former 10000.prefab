@@ -163,7 +163,8 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Conjure a Trick. All Trick cards in your hand cost 1 brain less
+  lore: 'This is Huge-Gigantacus'' greatest invention ever. It''s also his only invention.
+    But it''s best not to point that out to him. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

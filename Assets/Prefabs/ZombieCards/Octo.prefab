@@ -152,6 +152,8 @@ MonoBehaviour:
   freeze: 0
   description: 'When played: Make a 3/2 Octo-pet with Amphibious, Frenzy\nWhen destroyed:
     Gain an Octo Zombie'
+  lore: Is the correct term 'octopuses' or 'octopi'? You'd think he'd have an opinion,
+    but he doesn't. s
   row: 0
   col: 0
-  playedCost: 0
+  specialHandCard: {fileID: 0}

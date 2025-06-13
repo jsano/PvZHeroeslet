@@ -163,7 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: A zombie hides in a gravestone. Draw a card
+  lore: 'Requires eight characters, one upper case, a number, and the letter Z. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

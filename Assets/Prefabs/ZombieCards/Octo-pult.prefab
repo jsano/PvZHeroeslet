@@ -163,7 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Make a 3/2 Octo-Pet with Amphibious, Frenzy
+  lore: 'Octopus incoming! Two words a Plant never wants to hear. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

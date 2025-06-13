@@ -163,7 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: 'When played: Make two other random Pirates in random lanes'
+  lore: 'Deploying Pirates here, there and everywhere. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

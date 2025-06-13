@@ -163,7 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: A zombie gets +2 HP and Frenzy
+  lore: 'There''s nothing like a good possession to perk a Zombie up. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

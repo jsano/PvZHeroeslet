@@ -163,9 +163,9 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: A zombie gets +3 attack
+  lore: 'Is there any other kind? '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}
   atkAmount: 3
   HPAmount: 0

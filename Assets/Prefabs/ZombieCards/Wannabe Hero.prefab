@@ -164,7 +164,7 @@ MonoBehaviour:
   freeze: 0
   description: 'When played: Heal your hero for 3, then this gets +1 for each HP
     your hero has'
+  lore: 'He has Super Brainz stickers all over his binder. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

@@ -164,7 +164,7 @@ MonoBehaviour:
   freeze: 0
   description: 'End of Turn: Transform another random zombie into a 5/5 Knight of
     the Living Dead with Armor 2'
-  lore: 
+  lore: 'Contrary to popular opinion, it''s just OK to be king. '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}

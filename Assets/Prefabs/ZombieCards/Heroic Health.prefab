@@ -163,7 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Heal your hero for 6
+  lore: 'A healthy Hero is a happy Hero. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

@@ -163,7 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Make a random zombie that costs 2 brains or less
+  lore: 'It''s like a blind date... but with Zombies... and fighting. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

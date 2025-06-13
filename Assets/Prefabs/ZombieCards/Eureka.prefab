@@ -163,7 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Conjure 3 cards from the entire game
+  lore: 'Professor Brainstorm''s ideas are brilliant... totally random, but brilliant. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

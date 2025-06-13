@@ -163,7 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Destroy a damaged plant. Draw a card
+  lore: 'Did you know that Plants are 62 percent water? Well, not any more. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

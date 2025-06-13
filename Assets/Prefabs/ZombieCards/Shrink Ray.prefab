@@ -163,7 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: A plant gets -3 attack. Draw a card
+  lore: 'Rustbolt gets a kick out of belittling Plants. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

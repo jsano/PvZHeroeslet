@@ -164,8 +164,8 @@ MonoBehaviour:
   freeze: 0
   description: Make a 2/1 Impfinity Clone with Amphibious in the lane of your choice
     and one in a random lane
+  lore: 'That''s how you get Imps. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}
   toPlay: {fileID: 6377264207035512179, guid: 2ceb02ae9fb511a4d84ca014f5a530d6, type: 3}

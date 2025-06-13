@@ -164,7 +164,8 @@ MonoBehaviour:
   freeze: 0
   description: Make a 2/2 Zom-bats that says "Amphibious. When this hurts a plant,
     draw a card"
+  lore: 'Immorticia was cleaning her belfry when, lo and behold, she found bats in
+    there. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

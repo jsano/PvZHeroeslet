@@ -163,7 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Bounce a plant
+  lore: 'Weather report calls for afternoon tornados with a 75% chance of sea mammals. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

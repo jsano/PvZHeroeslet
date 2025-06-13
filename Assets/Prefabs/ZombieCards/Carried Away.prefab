@@ -163,7 +163,8 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Move a zombie, then it does a bonus attack
+  lore: 'It''s just Super Brainz'' way of sharing the wonder of flight with his fellow
+    Zombies. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -1812251758246606002, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
@@ -36,7 +37,7 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: tribes.Array.data[0]
+      propertyPath: 'tribes.Array.data[0]'
       value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
@@ -101,6 +102,12 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 413b27e205c86764782d5816a2b8fb1b, type: 3}
     m_RemovedComponents:
     - {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6843723116940597701}
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
 --- !u!1 &6340810971782871109 stripped
 GameObject:
@@ -123,6 +130,7 @@ MonoBehaviour:
   type: 0
   _class: 5
   tribes: 180000001b000000
+  token: 0
   cost: 2
   atk: 1
   HP: 3
@@ -141,7 +149,9 @@ MonoBehaviour:
   teamUp: 0
   untrickable: 0
   nextDoor: 0
+  freeze: 0
   description: When you play a Pet, all Pets get +1 attack
+  lore: 'Snaaaaake! '
   row: 0
   col: 0
-  playedCost: 0
+  specialHandCard: {fileID: 0}

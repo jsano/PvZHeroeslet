@@ -163,9 +163,9 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: A zombie gets +5 HP
+  lore: 'Better than a wall of scissors, but worse than a wall of paper. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}
   atkAmount: 0
   HPAmount: 5

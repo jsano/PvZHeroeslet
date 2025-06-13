@@ -25,6 +25,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
+      propertyPath: lore
+      value: 'Hungry... Smelly... A lot like a Zombie but with 100% more goat. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: team
       value: 1
       objectReference: {fileID: 0}

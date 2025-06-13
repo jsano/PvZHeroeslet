@@ -164,7 +164,7 @@ MonoBehaviour:
   freeze: 0
   description: 'While in your hand: This costs 1 less when you play a Trick\nWhen
     played: This does a bonus attack'
+  lore: 'Never gets tired of the rubber chicken gag. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 3350770208734049621, guid: 409d2690c46540d4981146f732e78fff, type: 3}

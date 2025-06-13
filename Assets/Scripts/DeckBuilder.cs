@@ -50,7 +50,7 @@ public class DeckBuilder : MonoBehaviour
                 d.hideButtons = true;
             }
         }
-
+        
         for (int i = 0; i < deck.superpowerOrder.Count; i++)
         {
             SuperpowerDeckCard d = Instantiate(superpowerCardPrefab, superpowersUI).GetComponent<SuperpowerDeckCard>();
@@ -68,9 +68,14 @@ public class DeckBuilder : MonoBehaviour
                 d.ID = i;
             }
         }
-        SortAllCards("cost");
+        SortAllCards(deckCards, "cost");
+        SortAllCards(allDeckCards, "cost");
 
         counter.text = deckCards.childCount + "/40";
+        if (deckCards.childCount >= 40)
+        {
+            foreach (Transform t in allDeckCards) t.GetComponent<DeckCard>().add.interactable = false;
+        }
     }
 
     public void OnDeckNameChange(string s)
@@ -180,10 +185,10 @@ public class DeckBuilder : MonoBehaviour
         return null;
     }
 
-    public void SortAllCards(string key)
+    public void SortAllCards(Transform source, string key)
     {
         List<DeckCard> lst = new();
-        foreach (Transform t in allDeckCards) lst.Add(t.GetComponent<DeckCard>());
+        foreach (Transform t in source) lst.Add(t.GetComponent<DeckCard>());
         var field = AllCards.Instance.cards[0].GetType().GetField(key);
         lst.Sort((a, b) => ((int)field.GetValue(AllCards.Instance.cards[a.ID])).CompareTo((int)field.GetValue(AllCards.Instance.cards[b.ID])));
         for (var i = lst.Count - 1; i >= 0; i--)

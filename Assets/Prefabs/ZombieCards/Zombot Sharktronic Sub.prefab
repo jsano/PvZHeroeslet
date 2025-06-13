@@ -164,7 +164,7 @@ MonoBehaviour:
   freeze: 0
   description: When a plant gets hurt, destroy it\nWhen any plant is destroyed, this
     gets +1 attack
+  lore: 'Ever dream of piloting a giant shark robot? Join Dr. Zomboss now! '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

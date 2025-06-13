@@ -163,7 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: All plants on the ground get -1 attack -1 HP
+  lore: 'Strong enough to destroy a Plant, but pH-balanced for a Zombie. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

@@ -163,9 +163,9 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Destroy a plant with 2 attack or less
+  lore: 'Gives new meaning to the phrase "rock n'' roll". '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}
   attackCutoff: 2
   comparator: 0

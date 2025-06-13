@@ -58,6 +58,9 @@ public class AudioManager : MonoBehaviour
             Instance = this;
             InitializeAudioSources();
             DontDestroyOnLoad(gameObject);
+
+            SetMusicVolume(PlayerPrefs.GetFloat("music", 1));
+            SetSFXVolume(PlayerPrefs.GetFloat("sfx", 1));
         }
         else Destroy(gameObject);
     }

@@ -163,7 +163,8 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: 'When played: Each zombie hides in a gravestone. Mix them up randomly'
+  lore: 'Digging graves is hard work, but seeing customers rise out of them makes
+    it all worth it. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

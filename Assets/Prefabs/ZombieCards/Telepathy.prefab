@@ -163,8 +163,8 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Draw two cards
+  lore: 'You''re thinking of a number between 1 and braaaaains. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}
   count: 2

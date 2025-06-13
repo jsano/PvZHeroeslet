@@ -163,7 +163,7 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: Do 3 damage to a plant and 1 damage to all other plants
+  lore: 'For Z-Mech, any target is a good target. '
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

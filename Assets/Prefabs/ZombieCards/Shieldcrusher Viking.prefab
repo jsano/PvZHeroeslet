@@ -163,6 +163,8 @@ MonoBehaviour:
   nextDoor: 0
   freeze: 0
   description: When this hurts the plant hero, empty their Block Meter
+  lore: 'Been crushing shields since the 9th Century. Has gotten pretty darn good
+    at it. '
   row: 0
   col: 0
-  playedCost: 0
+  specialHandCard: {fileID: 0}
