@@ -84,6 +84,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2792086466252179894 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2493057444309442761, guid: f706ad66195a2dd4ea9db6303c535826, type: 3}
+  m_PrefabInstance: {fileID: 299037821679053183}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3350770208734049621 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3073203788100394026, guid: f706ad66195a2dd4ea9db6303c535826, type: 3}
@@ -107,6 +112,7 @@ MonoBehaviour:
   atkUI: {fileID: 2519503345532668368}
   hpUI: {fileID: 7393692328796438264}
   costUI: {fileID: 6242879540537936338}
+  info: {fileID: 2792086466252179894}
 --- !u!114 &6242879540537936338 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5946243055022989485, guid: f706ad66195a2dd4ea9db6303c535826, type: 3}

@@ -40,6 +40,8 @@ public class GameManager : NetworkBehaviour
 	/// A global count of how many players are ready for the next turn. Only start next turn when this = 2
 	/// </summary>
 	private int nextTurnReady;
+	private int animating;
+	private float plantCombatBehindBy;
 
 	private float timer;
 	private bool timerOn;
@@ -499,6 +501,8 @@ public class GameManager : NetworkBehaviour
 
     private IEnumerator EndRpcHelper()
     {
+		yield return new WaitUntil(() => animating == 0);
+
         string[] pnames = new string[] { "", "Zombies\nPlay", "Plants\nPlay", "Zombie\nTricks", "FIGHT!" };
 
 		// Only start the next turn when both players are ready
@@ -550,7 +554,8 @@ public class GameManager : NetworkBehaviour
     {
         AudioManager.Instance.PlaySFX("Combat");
         StartCoroutine(AudioManager.Instance.ToggleBattleMusic(true));
-        yield return new WaitForSeconds(1);
+		if (plantCombatBehindBy > 0) plantCombatBehindBy -= 1;
+        else yield return new WaitForSeconds(1);
 
 		laneHighlight.gameObject.SetActive(true);
 		// Cards attack left to right
@@ -595,8 +600,11 @@ public class GameManager : NetworkBehaviour
         TriggerEvent("OnTurnEnd", null);
         yield return ProcessEvents();
 
-		// Any invulnerable objects lose invulnerability at end of turn
-		plantHero.ToggleInvulnerability(false);
+        if (plantCombatBehindBy > 0) plantCombatBehindBy -= 1;
+        else yield return new WaitForSeconds(1);
+
+        // Any invulnerable objects lose invulnerability at end of turn
+        plantHero.ToggleInvulnerability(false);
 		zombieHero.ToggleInvulnerability(false);
 		for (int col = 0; col < 5; col++)
 		{
@@ -629,6 +637,7 @@ public class GameManager : NetworkBehaviour
 
 		yield return ProcessEvents();
 		EndRpc();
+		plantCombatBehindBy = 0;
     }
 
     /// <summary>
@@ -671,24 +680,57 @@ public class GameManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
 	public void PlayTrickRpc(FinalStats fs, int row, int col, bool isPlantTarget)
 	{
+		if (AllCards.Instance.cards[fs.ID].team == team) PlayTrickHelper(fs, row, col, isPlantTarget);
+		else StartCoroutine(OpponentTrickAnimation(fs, row, col, isPlantTarget));
+    }
+
+	private IEnumerator OpponentTrickAnimation(FinalStats fs, int row, int col, bool isPlantTarget)
+	{
+		if (phase == 3) plantCombatBehindBy += 2f;
+		var old = animating;
+		yield return new WaitUntil(() => animating == 0 || animating < old);
+		animating += 1;
+		GameObject hc = Instantiate(handcardPrefab, opponentHandCards.position, Quaternion.identity);
+		var hc1 = hc.GetComponent<HandCard>();
+		hc.GetComponent<BoxCollider2D>().enabled = false;
+		hc1.ID = fs.ID;
+		yield return null;
+		hc1.ShowInfo();
+        Vector3 oldScale = hc.transform.localScale;
+        hc.transform.localScale = Vector3.one * 0.5f;
+        bool done = false;
+        LeanTween.move(hc, new Vector2(0, 0), 0.5f).setEaseOutQuad().setOnComplete(() => done = true);
+        LeanTween.scale(hc, oldScale, 0.5f).setEaseOutQuad();
+        yield return new WaitUntil(() => done == true);
+		yield return new WaitForSeconds(1.25f);
+		done = false;
+        LeanTween.move(hc, isPlantTarget ? Tile.plantTiles[row, col].transform.position : Tile.zombieTiles[row, col].transform.position, 0.25f).setOnComplete(() => done = true);
+        LeanTween.scale(hc, Vector2.one * 0.25f, 0.25f);
+        yield return new WaitUntil(() => done == true);
+		Destroy(hc);
+		PlayTrickHelper(fs, row, col, isPlantTarget);
+    }
+
+	private void PlayTrickHelper(FinalStats fs, int row, int col, bool isPlantTarget)
+	{
 		Card card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
 		card.row = row;
 		card.col = col;
 		card.sourceFS = fs;
 		if (!isPlantTarget)
 		{
-            if (row == -1 && col == -1) card.transform.position = zombieHero.transform.position;
-            else card.transform.position = Tile.zombieTiles[row, col].transform.position;
+			if (row == -1 && col == -1) card.transform.position = zombieHero.transform.position;
+			else card.transform.position = Tile.zombieTiles[row, col].transform.position;
 		}
 		else
 		{
-            if (row == -1 && col == -1) card.transform.position = plantHero.transform.position;
-            else card.transform.position = Tile.plantTiles[row, col].transform.position;
+			if (row == -1 && col == -1) card.transform.position = plantHero.transform.position;
+			else card.transform.position = Tile.plantTiles[row, col].transform.position;
 		}
 
-        if (card.team != team) Destroy(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject);
-        UpdateRemaining(-fs.cost, card.team);
-    }
+		if (card.team != team) Destroy(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject);
+		UpdateRemaining(-fs.cost, card.team);
+	}
 
 	/// <summary>
 	/// Signals to the network that the given team's player who blocked chose to keep the superpower. Triggers a card draw GameEvent and allows the game flow to continue
@@ -864,6 +906,8 @@ public class GameManager : NetworkBehaviour
             }
 			else go.interactable = false;
 		}
+
+		animating = Math.Max(0, animating - 1);
 	}
 
 	/// <summary>

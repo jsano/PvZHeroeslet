@@ -32,6 +32,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 	public TextMeshProUGUI atkUI;
 	public TextMeshProUGUI hpUI;
     public TextMeshProUGUI costUI;
+    public GameObject info;
 
     private FinalStats finalStats;
 
@@ -247,6 +248,13 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         if (orig.type == Card.Type.Trick) return;
         if (finalStats.abilities.Length == 0) finalStats.abilities += ability;
         else finalStats.abilities += " - " + ability;
+    }
+
+    public void ShowInfo()
+    {
+        info.SetActive(true);
+        Debug.Log(orig);
+        info.GetComponentInChildren<TextMeshProUGUI>().text = orig.description;
     }
 
     /// <summary>
