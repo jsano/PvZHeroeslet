@@ -13,6 +13,7 @@ public class DeckListButton : MonoBehaviour
     {
         dl = FindAnyObjectByType<DeckList>(FindObjectsInactive.Include).GetComponent<DeckList>();
         image = GetComponent<Image>();
+        transform.Find("Image").GetComponent<Image>().sprite = AllCards.Instance.heroes[ID].GetComponent<SpriteRenderer>().sprite;
     }
 
     public void OnClick()

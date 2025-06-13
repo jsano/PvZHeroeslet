@@ -14,6 +14,7 @@ public class LobbyUIButton : MonoBehaviour, IPointerEnterHandler
     void Start()
     {
         LM = FindFirstObjectByType<LobbyManager>();
+        transform.Find("Image").GetComponent<Image>().sprite = AllCards.Instance.heroes[ID].GetComponent<SpriteRenderer>().sprite;
     }
 
     public void Toggle()
