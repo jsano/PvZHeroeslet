@@ -24,7 +24,7 @@ public class TheGreatZucchini : Card
 		    {
                 Tile t = Tile.zombieTiles[c.row, c.col];
                 string[] options = new string[] { "Baseball", "Cardboard Robot", "Backup Dancer", "Imp", "Skunk Punk" };
-                if (GameManager.Instance.team == team) GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.NameToID(options[Random.Range(0, options.Length)])), t.row, t.col, true);
+                if (GameManager.Instance.team == team) GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.NameToID(options[Random.Range(0, options.Length)])), t.row, t.col);
             }
 
             foreach (Card c in toDestroy) Destroy(c.gameObject);

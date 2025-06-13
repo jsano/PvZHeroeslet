@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.Netcode;
 using Unity.Services.Leaderboards;
@@ -40,8 +41,15 @@ public class GameManager : NetworkBehaviour
 	/// A global count of how many players are ready for the next turn. Only start next turn when this = 2
 	/// </summary>
 	private int nextTurnReady;
-	private int animating;
-	private float plantCombatBehindBy;
+    /// <summary>
+    /// A queue of how many opponent cards have yet to play due to previous animations. The GO button won't be enabled while this is in use
+    /// </summary>
+    private List<ITuple> opponentPlayedQueue = new();
+	private bool isProcessingOpponentQueue;
+    /// <summary>
+    /// How many seconds behind the plant side is during the combat phase due to zombie trick animations. This needs to be made up in some way
+    /// </summary>
+    private float plantCombatBehindBy;
 
 	private float timer;
 	private bool timerOn;
@@ -501,7 +509,7 @@ public class GameManager : NetworkBehaviour
 
     private IEnumerator EndRpcHelper()
     {
-		yield return new WaitUntil(() => animating == 0);
+		yield return new WaitUntil(() => opponentPlayedQueue.Count == 0);
 
         string[] pnames = new string[] { "", "Zombies\nPlay", "Plants\nPlay", "Zombie\nTricks", "FIGHT!" };
 
@@ -644,33 +652,44 @@ public class GameManager : NetworkBehaviour
     /// Sends a unit to be played through the network under the given FinalStats, row, and column. Uses the card's team to decide which side to plant it on
     /// </summary>
     /// <param name="fs">The played card's stats</param>
-    /// <param name="free">If true, doesn't deduct from this player's remaining gold</param>
+    /// <param name="fromHandCard">If true, adds to the network spawning queue.
+	/// Otherwise, assumes it was called by another card and doesn't deduct from this player's remaining gold</param>
     [Rpc(SendTo.ClientsAndHost)]
-    public void PlayCardRpc(FinalStats fs, int row, int col, bool free=false)
+    public void PlayCardRpc(FinalStats fs, int row, int col, bool fromHandCard=false)
     {
-		if (free) fs.cost = 0;
+		if (!fromHandCard) fs.cost = 0;
+		if (AllCards.Instance.cards[fs.ID].team == team) PlayCardHelper(fs, row, col);
+		else
+		{
+			opponentPlayedQueue.Add((fs, row, col, false));
+			StartCoroutine(ProcessOpponentPlayedQueue());
+		}
+    }
+
+	private void PlayCardHelper(FinalStats fs, int row, int col)
+	{
 		Card card = AllCards.Instance.cards[fs.ID];
-        if (card.team != team)
-        {
+		if (card.team != team)
+		{
 			Destroy(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject);
 			// From the opponent's perspective, only deduct the gold UI if it's not a gravestone
 			if (!card.gravestone) UpdateRemaining(-fs.cost, card.team);
-        }
-        else
-        {
-            // From the player's perspective, always deduct the gold UI
-            UpdateRemaining(-fs.cost, team);
-        }
+		}
+		else
+		{
+			// From the player's perspective, always deduct the gold UI
+			UpdateRemaining(-fs.cost, team);
+		}
 		
 		card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
 		card.sourceFS = fs;
 
-        if (card.team == Team.Zombie) Tile.zombieTiles[row, col].Plant(card);
-        else Tile.plantTiles[row, col].Plant(card);
+		if (card.team == Team.Zombie) Tile.zombieTiles[row, col].Plant(card);
+		else Tile.plantTiles[row, col].Plant(card);
 
-        // Disable after 1 card play by default
-        allowZombieCards = false;
-    }
+		// Disable after 1 card play by default
+		allowZombieCards = false;
+	}
 
     /// <summary>
     /// Sends a trick to be played through the network under the given FinalStats, row, and column. If targeting a hero, set row/column to -1
@@ -681,18 +700,18 @@ public class GameManager : NetworkBehaviour
 	public void PlayTrickRpc(FinalStats fs, int row, int col, bool isPlantTarget)
 	{
 		if (AllCards.Instance.cards[fs.ID].team == team) PlayTrickHelper(fs, row, col, isPlantTarget);
-		else StartCoroutine(OpponentTrickAnimation(fs, row, col, isPlantTarget));
+		else
+		{
+			opponentPlayedQueue.Add((fs, row, col, isPlantTarget));
+			StartCoroutine(ProcessOpponentPlayedQueue());
+		}
     }
 
 	private IEnumerator OpponentTrickAnimation(FinalStats fs, int row, int col, bool isPlantTarget)
 	{
 		if (phase == 3) plantCombatBehindBy += 2f;
-		var old = animating;
-		yield return new WaitUntil(() => animating == 0 || animating < old);
-		animating += 1;
 		GameObject hc = Instantiate(handcardPrefab, opponentHandCards.position, Quaternion.identity);
 		var hc1 = hc.GetComponent<HandCard>();
-		hc.GetComponent<BoxCollider2D>().enabled = false;
 		hc1.ID = fs.ID;
 		yield return null;
 		hc1.ShowInfo();
@@ -730,6 +749,20 @@ public class GameManager : NetworkBehaviour
 
 		if (card.team != team) Destroy(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject);
 		UpdateRemaining(-fs.cost, card.team);
+	}
+
+	private IEnumerator ProcessOpponentPlayedQueue()
+	{
+		if (isProcessingOpponentQueue) yield break;
+		while (opponentPlayedQueue.Count > 0)
+		{
+			isProcessingOpponentQueue = true;
+			var cur = opponentPlayedQueue[0];
+			if (AllCards.Instance.cards[((FinalStats)cur[0]).ID].type == Card.Type.Unit) PlayCardHelper((FinalStats)cur[0], (int)cur[1], (int)cur[2]);
+			else yield return OpponentTrickAnimation((FinalStats)cur[0], (int)cur[1], (int)cur[2], (bool)cur[3]);
+			yield return new WaitUntil(() => isProcessingOpponentQueue == false);
+			opponentPlayedQueue.RemoveAt(0);
+        }
 	}
 
 	/// <summary>
@@ -907,8 +940,8 @@ public class GameManager : NetworkBehaviour
 			else go.interactable = false;
 		}
 
-		animating = Math.Max(0, animating - 1);
-	}
+        isProcessingOpponentQueue = false;
+    }
 
 	/// <summary>
 	/// Adds to the current team's gold count by the given change. Gold counts can't go below 0. Updates UI

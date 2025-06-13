@@ -17,7 +17,7 @@ public class GargantuarsFeast : Card
 			}
 			for (int i = 0; i < 3 && locations.Count > 0; i++) {
 				int cur = Random.Range(0, locations.Count);
-				GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.RandomFromTribe((Tribe.Gargantuar, Tribe.Gargantuar), true, locations[cur] == 4)), row, locations[cur], true);
+				GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.RandomFromTribe((Tribe.Gargantuar, Tribe.Gargantuar), true, locations[cur] == 4)), row, locations[cur]);
 				locations.RemoveAt(cur);
 			}
 		}

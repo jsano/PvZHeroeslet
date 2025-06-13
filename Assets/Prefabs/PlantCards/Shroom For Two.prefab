@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Name
-      value: ShroomForTwo
+      value: Shroom for Two
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -162,7 +162,7 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: 'When played: Make a 1/1 Puff-Shroom with Team-Up here'
+  description: 'When played: Make a 1/1 Puff-Shroom with Team Up here'
   lore: Shrooms, bless their hearts, always wanting to cuddle up cuddly-like.
   row: 0
   col: 0

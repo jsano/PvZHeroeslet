@@ -33,7 +33,7 @@ public class TombRaiser : Card
 
                 Tile t = Tile.zombieTiles[int.Parse(GameManager.Instance.shuffledList[0]), int.Parse(GameManager.Instance.shuffledList[1])];
                 int card = int.Parse(GameManager.Instance.shuffledList[2]);
-                if (GameManager.Instance.team == team) GameManager.Instance.PlayCardRpc(new FinalStats(card), t.row, t.col, true);
+                if (GameManager.Instance.team == team) GameManager.Instance.PlayCardRpc(new FinalStats(card), t.row, t.col);
             }
         }
 		yield return base.OnCardHurt(hurt);

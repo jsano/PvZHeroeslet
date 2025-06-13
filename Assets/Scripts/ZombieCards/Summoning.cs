@@ -8,7 +8,7 @@ public class Summoning : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		if (GameManager.Instance.team == team) GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.RandomFromCost(Team.Zombie, (0, 1, 2), true, col == 4)), 0, col, true);
+		if (GameManager.Instance.team == team) GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.RandomFromCost(Team.Zombie, (0, 1, 2), true, col == 4)), 0, col);
 		yield return base.OnThisPlay();
 	}
 

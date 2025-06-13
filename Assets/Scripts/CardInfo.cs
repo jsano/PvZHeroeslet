@@ -130,7 +130,7 @@ public class CardInfo : MonoBehaviour
 		{ "Hunt", "When an opponent card is played,\nthis moves to that lane (if possible)" },
         { "Splash Damage", "Attacks any opponent cards next door" },
         { "Strikethrough", "Attacks all targets in lane and the hero" },
-		{ "Team-Up", "Can be played on a lane that\nalready contains a card" },
+		{ "Team Up", "Can be played on a lane that\nalready contains a card" },
     };
 
     public GameObject tooltipContainer;

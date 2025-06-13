@@ -27,7 +27,7 @@ public class ZombotPlankWalker : Card
                 if (i >= columns.Count) break;
                 int c = AllCards.RandomFromTribe((Tribe.Pirate, Tribe.Pirate), true, columns[i] == 4);
                 while (c == AllCards.NameToID("Zombot Plank Walker")) c = AllCards.RandomFromTribe((Tribe.Pirate, Tribe.Pirate), true, columns[i] == 4); // BROKEN UNTIL ANOTHER AMPHIBIOUS PIRATE
-                GameManager.Instance.PlayCardRpc(new FinalStats(c), 0, columns[i], true);
+                GameManager.Instance.PlayCardRpc(new FinalStats(c), 0, columns[i]);
             }
         }
 

@@ -54,7 +54,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         GetComponent<Canvas>().sortingOrder += 10;
         
         if (!interactable) return;
-        transform.localScale = Vector3.one;
+        if (GetComponent<SpriteRenderer>().sortingLayerName != "Error") transform.localScale = Vector3.one;
 
         // Recalculate at every pointer down since the board state can change throughout the game
         validChoices.Clear();
@@ -127,7 +127,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         }
         transform.position = startPos;
 
-        transform.localScale = Vector3.one * 0.9f;
+        if (GetComponent<SpriteRenderer>().sortingLayerName != "Error") transform.localScale = Vector3.one * 0.9f;
         // Revert layering from pointer down
         GetComponent<SpriteRenderer>().sortingOrder -= 10;
         GetComponent<Canvas>().sortingOrder -= 10;
@@ -145,7 +145,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                     if (orig.type == Card.Type.Unit)
                     {
                         if (finalStats.cost < 0) finalStats.cost = 0;
-                        GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col);
+                        GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col, true);
                         transform.SetParent(null);
                         Destroy(gameObject);
                     }

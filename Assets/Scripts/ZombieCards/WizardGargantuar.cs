@@ -36,7 +36,7 @@ public class WizardGargantuar : Card
 		Card toDestroy = t.planted;
         t.Unplant(true);
         yield return new WaitForSeconds(1);
-        if (GameManager.Instance.team == team) GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.RandomFromCost(Team.Zombie, (toDestroy.cost + 1, toDestroy.cost + 1), true, toDestroy.col == 4)), toDestroy.row, toDestroy.col, true);
+        if (GameManager.Instance.team == team) GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.RandomFromCost(Team.Zombie, (toDestroy.cost + 1, toDestroy.cost + 1), true, toDestroy.col == 4)), toDestroy.row, toDestroy.col);
 		Destroy(toDestroy.gameObject);
     }
 
