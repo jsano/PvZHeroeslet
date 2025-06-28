@@ -717,13 +717,25 @@ public class GameManager : NetworkBehaviour
 		hc1.ShowInfo();
         Vector3 oldScale = hc.transform.localScale;
         hc.transform.localScale = Vector3.one * 0.5f;
+
+		Vector2 dest;
+        if (!isPlantTarget)
+        {
+            if (row == -1 && col == -1) dest = zombieHero.transform.position;
+            else dest = Tile.zombieTiles[row, col].transform.position;
+        }
+        else
+        {
+            if (row == -1 && col == -1) dest = plantHero.transform.position;
+            else dest = Tile.plantTiles[row, col].transform.position;
+        }
         bool done = false;
         LeanTween.move(hc, new Vector2(0, 0), 0.5f).setEaseOutQuad().setOnComplete(() => done = true);
         LeanTween.scale(hc, oldScale, 0.5f).setEaseOutQuad();
         yield return new WaitUntil(() => done == true);
 		yield return new WaitForSeconds(1.25f);
 		done = false;
-        LeanTween.move(hc, isPlantTarget ? Tile.plantTiles[row, col].transform.position : Tile.zombieTiles[row, col].transform.position, 0.25f).setOnComplete(() => done = true);
+        LeanTween.move(hc, dest, 0.25f).setOnComplete(() => done = true);
         LeanTween.scale(hc, Vector2.one * 0.25f, 0.25f);
         yield return new WaitUntil(() => done == true);
 		Destroy(hc);
