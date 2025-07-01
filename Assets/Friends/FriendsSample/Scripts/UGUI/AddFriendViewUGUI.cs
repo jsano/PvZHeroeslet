@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -12,10 +13,11 @@ namespace Unity.Services.Samples.Friends.UGUI
         [SerializeField] Button m_CloseButton = null;
         [SerializeField] Button m_BackgroundButton = null;
         [SerializeField] TMP_InputField m_NameInputField = null;
+        [SerializeField] TextMeshProUGUI m_HelpText = null;
         [SerializeField] TextMeshProUGUI m_RequestResultText = null;
         public Action<string> onFriendRequestSent { get; set; }
 
-        public void Init()
+        public async void Init()
         {
             var playerName = string.Empty;
             m_NameInputField.onValueChanged.AddListener((value) => { playerName = value; });
@@ -27,6 +29,8 @@ namespace Unity.Services.Samples.Friends.UGUI
             m_BackgroundButton.onClick.AddListener(Hide);
             m_CloseButton.onClick.AddListener(Hide);
             Hide();
+            var response = await AuthenticationService.Instance.GetPlayerNameAsync();
+            m_HelpText.text += response;
         }
 
         public void FriendRequestSuccess()
