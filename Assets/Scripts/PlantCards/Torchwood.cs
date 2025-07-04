@@ -13,13 +13,13 @@ public class Torchwood : Card
 		if (played == this)
 		{
 			Card temp = Tile.plantTiles[0, col].planted;
-			if (temp != null && temp.tribes.Contains(Tribe.Pea))
+			if (temp != null && temp.tribes.Contains(Tribe.Mature))
 			{
 				temp.ChangeStats(2, 0);
 				buffing = temp;
 			}
 		}
-		else if (buffing == null && played.col == col && played.row == 0 && played.tribes.Contains(Tribe.Pea))
+		else if (buffing == null && played.col == col && played.row == 0 && played.tribes.Contains(Tribe.Mature))
 		{
 			played.ChangeStats(2, 0);
 			buffing = played;

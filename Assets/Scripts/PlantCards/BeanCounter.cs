@@ -15,7 +15,7 @@ public class BeanCounter : Card
 
     protected override IEnumerator OnCardPlay(Card played)
     {
-		if (played.tribes.Contains(Tribe.Bean)) ChangeStats(1, 1);
+		if (played.tribes.Contains(Tribe.Schoolgirl)) ChangeStats(1, 1);
         return base.OnCardPlay(played);
     }
 

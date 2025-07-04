@@ -7,7 +7,7 @@ public class ThePodfather : Card
 
 	protected override IEnumerator OnCardPlay(Card played)
 	{
-		if (played != this && played.tribes.Contains(Tribe.Pea))
+		if (played != this && played.tribes.Contains(Tribe.Mature))
 		{
 			played.ChangeStats(2, 2);
 		}

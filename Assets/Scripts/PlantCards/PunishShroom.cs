@@ -9,7 +9,7 @@ public class PunishShroom : Card
 	protected override IEnumerator OnCardDeath(Card died)
 	{
         choices.Clear();
-        if (died.tribes.Contains(Tribe.Mushroom))
+        if (died.tribes.Contains(Tribe.Kemonomimi))
         {
             if (team == GameManager.Instance.team)
             {

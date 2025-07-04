@@ -7,7 +7,7 @@ public class AdmiralNavyBean : Card
 
 	protected override IEnumerator OnCardPlay(Card played)
 	{
-		if (played != this && played.tribes.Contains(Tribe.Bean))
+		if (played != this && played.tribes.Contains(Tribe.Schoolgirl))
 		{
             yield return AttackFX(Tile.zombieHeroTiles[col]);
             yield return Tile.zombieHeroTiles[col].ReceiveDamage(2, this);

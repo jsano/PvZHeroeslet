@@ -55,22 +55,22 @@ public class CardInfo : MonoBehaviour
 			tribes.text += Enum.GetName(typeof(Card.Tribe), t) + " ";
 		}
 		if (baseCard.type == Card.Type.Trick) tribes.text += "Trick";
-		else tribes.text += baseCard.team == Card.Team.Plant ? "Plant" : "Zombie";
+		else tribes.text += baseCard.team == Card.Team.Plant ? "Waifu" : "Bastard";
 
 		description.text = "";
-		if (baseCard.amphibious) description.text += "Amphibious\n";
-		if (baseCard.antihero > 0) description.text += "Anti-hero " + baseCard.antihero + "\n";
+		if (baseCard.amphibious) description.text += "Aquatic\n";
+		if (baseCard.antihero > 0) description.text += "Enmity " + baseCard.antihero + "\n";
 		if (baseCard.armor > 0) description.text += "Armor " + baseCard.armor + "\n";
-		if (baseCard.bullseye > 0) description.text += "Bullseye\n";
+		if (baseCard.bullseye > 0) description.text += "True Damage\n";
 		if (baseCard.deadly > 0) description.text += "Deadly\n";
 		if (baseCard.doubleStrike) description.text += "Double Strike\n";
 		if (baseCard.frenzy > 0) description.text += "Frenzy\n";
-		if (baseCard.gravestone) description.text += "Gravestone\n";
+		if (baseCard.gravestone) description.text += "Censored\n";
 		if (baseCard.hunt) description.text += "Hunt\n";
 		if (baseCard.overshoot > 0) description.text += "Overshoot " + baseCard.overshoot + "\n";
-		if (baseCard.splash > 0) description.text += "Splash Damage " + baseCard.splash + "\n";
-		if (baseCard.strikethrough > 0) description.text += "Strikethrough\n";
-		if (baseCard.teamUp) description.text += "Team Up\n";
+		if (baseCard.splash > 0) description.text += "Splash " + baseCard.splash + "\n";
+		if (baseCard.strikethrough > 0) description.text += "Pierce\n";
+		if (baseCard.teamUp) description.text += "Assistant\n";
 		if (baseCard.untrickable > 0) description.text += "Untrickable\n";
 		description.text += baseCard.description;
 		FormatDescriptionForTooltip();
@@ -84,19 +84,19 @@ public class CardInfo : MonoBehaviour
 			string[] abilities = fs1.abilities.Split(" - ", StringSplitOptions.RemoveEmptyEntries);
 			foreach (string s in abilities)
 			{
-				if (s.Contains("amphibious")) gained.text += "Gained Amphibious\n";
-				if (s.Contains("antihero")) gained.text += "Gained Anti-hero " + ExtractValue(s) + "\n";
+				if (s.Contains("amphibious")) gained.text += "Gained Aquatic\n";
+				if (s.Contains("antihero")) gained.text += "Gained Enmity " + ExtractValue(s) + "\n";
 				if (s.Contains("armor")) gained.text += "Gained Armor " + ExtractValue(s) + "\n";
-				if (s.Contains("bullseye")) gained.text += "Gained Bullseye\n";
+				if (s.Contains("bullseye")) gained.text += "Gained True Damage\n";
 				if (s.Contains("deadly")) gained.text += "Gained Deadly\n";
 				if (s.Contains("doubleStrike")) gained.text += "Gained Double Strike\n";
 				if (s.Contains("frenzy")) gained.text += "Gained Frenzy\n";
-				if (s.Contains("gravestone")) gained.text += "Gained Gravestone\n";
+				if (s.Contains("gravestone")) gained.text += "Gained Censored\n";
 				if (s.Contains("hunt")) gained.text += "Gained Hunt\n";
 				if (s.Contains("overshoot")) gained.text += "Gained Overshoot " + ExtractValue(s) + "\n";
-				if (s.Contains("splash")) gained.text += "Gained Splash Damage " + ExtractValue(s) + "\n";
-				if (s.Contains("strikethrough")) gained.text += "Gained Strikethrough\n";
-				if (s.Contains("teamUp")) gained.text += "Gained Team Up\n";
+				if (s.Contains("splash")) gained.text += "Gained Splash " + ExtractValue(s) + "\n";
+				if (s.Contains("strikethrough")) gained.text += "Gained Pierce\n";
+				if (s.Contains("teamUp")) gained.text += "Gained Assistant\n";
 				if (s.Contains("untrickable")) gained.text += "Gained Untrickable\n";
 			}
 		}
@@ -114,23 +114,23 @@ public class CardInfo : MonoBehaviour
 
     private Dictionary<string, string> descriptions = new()
 	{
-		{ "Amphibious", "Can be placed in water (lane 5)" },
-		{ "Anti-hero", "Increases attack when targeting the hero" },
+		{ "Aquatic", "Can be placed in water (lane 5)" },
+		{ "Enmity", "Increases attack when targeting the hero" },
 		{ "Armor", "Reduces damage taken" },
 		//{ "Bonus Attack", "Does an extra attack right then" },
-		{ "Bounce", "Return the card to the user's hand" },
-		{ "Bullseye", "Doesn't charge the opponent's block meter" },
-        { "Conjure", "Gain a card from the game into your hand" },
+		{ "Exclude", "Return the card to the user's hand" },
+		{ "True Damage", "Doesn't charge the opponent's block meter" },
+        { "Manifest", "Gain a card from the game into your hand" },
         { "Deadly", "Destroys any card it deals damage to,\nregardless of its remaining HP" },
 		{ "Dino-Roar", "Activates when the player gains a card" },
 		{ "Double Strike", "Does a bonus attack after its combat" },
-		{ "Freeze", "Cannot attack during its combat,\nand wears off afterwards" },
+		{ "Restrain", "Cannot attack during its combat,\nand wears off afterwards" },
 		{ "Frenzy", "When this attacks, kills its target,\nand survives, it does a bonus attack" },
-		{ "Gravestone", "Hides its identity to the opponent\nuntil it's time for Zombie Tricks" },
+		{ "Censored", "Hides its identity to the opponent\nuntil it's time for Zombie Tricks" },
 		{ "Hunt", "When an opponent card is played,\nthis moves to that lane (if possible)" },
-        { "Splash Damage", "Attacks any opponent cards next door" },
-        { "Strikethrough", "Attacks all targets in lane and the hero" },
-		{ "Team Up", "Can be played on a lane that\nalready contains a card" },
+        { "Splash", "Attacks any opponent cards next door" },
+        { "Pierce", "Attacks all targets in lane and the hero" },
+		{ "Assistant", "Can be played on a lane that\nalready contains a card" },
     };
 
     public GameObject tooltipContainer;

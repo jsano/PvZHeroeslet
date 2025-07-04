@@ -13,7 +13,7 @@ public class Smackadamia : Card
 			for (int col = 0; col < 5; col++)
 			{
 				Card c = Tile.plantTiles[row, col].planted;
-				if (c != null && c.tribes.Contains(Tribe.Nut))
+				if (c != null && c.tribes.Contains(Tribe.Army))
 				{
 					c.ChangeStats(0, 2);
 				}

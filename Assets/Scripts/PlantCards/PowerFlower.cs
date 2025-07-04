@@ -14,7 +14,7 @@ public class PowerFlower : Card
             for (int col = 0; col < 5; col++)
             {
                 Card c = Tile.plantTiles[row, col].planted;
-                if (c != null && c.tribes.Contains(Tribe.Flower)) count++;
+                if (c != null && c.tribes.Contains(Tribe.Saintly)) count++;
             }
         }
         GameManager.Instance.plantHero.Heal(count);

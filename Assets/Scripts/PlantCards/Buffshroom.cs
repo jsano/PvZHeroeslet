@@ -13,7 +13,7 @@ public class Buffshroom : Card
 			for (int col = 0; col < 5; col++)
 			{
 				Card c = Tile.plantTiles[row, col].planted;
-				if (c != null && c.tribes.Contains(Tribe.Mushroom))
+				if (c != null && c.tribes.Contains(Tribe.Kemonomimi))
 				{
 					c.ChangeStats(1, 1);
 				}

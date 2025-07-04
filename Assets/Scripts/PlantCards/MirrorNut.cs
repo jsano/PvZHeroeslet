@@ -8,7 +8,7 @@ public class MirrorNut : Card
 
 	protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
 	{
-		if (hurt.Item1.GetComponent<Card>() != null && ((Card)hurt.Item1).tribes.Contains(Tribe.Nut))
+		if (hurt.Item1.GetComponent<Card>() != null && ((Card)hurt.Item1).tribes.Contains(Tribe.Army))
 		{
             yield return AttackFX(Tile.zombieHeroTiles[col]);
             yield return Tile.zombieHeroTiles[col].ReceiveDamage(2, this);
