@@ -9,7 +9,7 @@ public class PFPButton : MonoBehaviour
 
     void Start()
     {
-        image.sprite = Profile.ProfilePictureIDToSprite(ID);
+        image.sprite = ProfileThumbnail.ProfilePictureIDToSprite(ID);
     }
 
     public void Toggle(bool on)

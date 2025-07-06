@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class ProfileInfo : MonoBehaviour
 {
-	public Profile p;
+	public ProfileThumbnail p;
     public Button exit;
 	public GameObject edit;
 	public GameObject changePFP;
@@ -16,13 +16,13 @@ public class ProfileInfo : MonoBehaviour
 	public static int chosenPFP;
 	public GameObject PFPButton;
 
-    public void Show(string playerID, string username, string score, string rank)
+    public async void Show(string playerID, string username, string score, string rank)
 	{
         if (isActiveAndEnabled) return;
+		await p.LoadProfileThumbnail(playerID, username, score, rank);
 		transform.parent.gameObject.SetActive(true);
 		if (playerID != AuthenticationService.Instance.PlayerId) edit.SetActive(false);
 		else edit.SetActive(true);
-		p.LoadProfileThumbnail(playerID, username, score, rank);
     }
 
 	public void OpenChangePFP()
@@ -49,7 +49,7 @@ public class ProfileInfo : MonoBehaviour
 		UserAccounts.profilePicture = chosenPFP;
 		await UserAccounts.Instance.SaveData();
         changePFP.SetActive(false);
-		foreach (Profile p1 in FindObjectsByType<Profile>(FindObjectsSortMode.None)) p1.pfp.sprite = Profile.ProfilePictureIDToSprite(UserAccounts.profilePicture);
+		foreach (ProfileThumbnail p1 in FindObjectsByType<ProfileThumbnail>(FindObjectsSortMode.None)) p1.Refresh();
     }
 
 }

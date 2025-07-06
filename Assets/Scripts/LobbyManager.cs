@@ -17,8 +17,8 @@ public class LobbyManager : NetworkBehaviour
 
     public TextMeshProUGUI title;
     public GameObject loading;
-    public Profile p1;
-    public Profile p2;
+    public ProfileThumbnail p1;
+    public ProfileThumbnail p2;
     public GameObject teamUI;
     public GameObject note;
     public TextMeshProUGUI heroName;
@@ -66,36 +66,14 @@ public class LobbyManager : NetworkBehaviour
         }
     }
 
-    private async Task TeamPhase()
+    private void TeamPhase()
     {
         IReadOnlyPlayer otherPlayer = null;
         foreach (var player in SessionManager.Instance.ActiveSession.Players)
         {
             if (player.Id != AuthenticationService.Instance.PlayerId) otherPlayer = player;
         }
-        string name = "Player";
-        string score = "0";
-        string tier = "WOOD";
-        try
-        {
-            var entry = await LeaderboardsService.Instance.GetScoresByPlayerIdsAsync("devplayers", new() { otherPlayer.Id });
-            name = entry.Results[0].PlayerName;
-            score = entry.Results[0].Score + "";
-            tier = entry.Results[0].Tier;
-        }
-        catch (LeaderboardsException)
-        {
-            try
-            {
-                var response = await CloudCodeService.Instance.CallEndpointAsync<string>("GetNameByPlayerID", new Dictionary<string, object>() { { "ID", otherPlayer.Id } });
-                name = response;
-            }
-            catch (CloudCodeException e)
-            {
-                Debug.Log(e.Reason);
-            }
-        }
-        p2.LoadProfileThumbnail(otherPlayer.Id, name, score, tier);
+        p2.LoadProfileThumbnail(otherPlayer.Id);
         p2.gameObject.SetActive(true);
 
         loading.SetActive(false);
