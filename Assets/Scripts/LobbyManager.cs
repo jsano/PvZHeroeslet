@@ -8,6 +8,7 @@ using Unity.Services.CloudCode;
 using Unity.Services.Leaderboards;
 using Unity.Services.Leaderboards.Exceptions;
 using Unity.Services.Multiplayer;
+using Unity.Services.Samples.Friends;
 using UnityEngine;
 using UnityEngine.UI;
 using static Card;
@@ -68,6 +69,9 @@ public class LobbyManager : NetworkBehaviour
 
     private void TeamPhase()
     {
+        var r = FindAnyObjectByType<RelationshipsManager>();
+        if (r != null) r.gameObject.SetActive(false);
+
         IReadOnlyPlayer otherPlayer = null;
         foreach (var player in SessionManager.Instance.ActiveSession.Players)
         {

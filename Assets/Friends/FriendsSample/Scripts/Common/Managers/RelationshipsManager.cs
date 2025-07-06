@@ -95,6 +95,18 @@ namespace Unity.Services.Samples.Friends
             m_RequestListView.onBlock += BlockFriendAsync;
             m_BlockListView.onUnblock += UnblockFriendAsync;
             m_LocalPlayerView.onPresenceChanged += SetPresenceAsync;
+            m_FriendsListView.onInvite += SendMessageAsync;
+
+            FriendsService.Instance.MessageReceived += async e =>
+            {
+                var messageData = e.GetAs<Message>();
+                Debug.Log("MessageReceived EventReceived: " + messageData.Name + " - " + messageData.Lobby);
+                await SessionManager.Instance.EnterSession(new EnterSessionData
+                {
+                    SessionAction = SessionAction.JoinByCode,
+                    JoinCode = messageData.Lobby
+                });
+            };
         }
 
         async Task LogInAsync()
@@ -408,6 +420,30 @@ namespace Unity.Services.Samples.Friends
                        !blocks.Any(blockedRelationship => blockedRelationship.Member.Id == relationship.Member.Id))
                    .Select(relationship => relationship.Member)
                    .ToList();
+        }
+
+        public class Message
+        {
+            public string Name { get; set; }
+            public string Lobby { get; set; }
+        }
+
+        async void SendMessageAsync(string playerId)
+        {
+            try
+            {
+                var message = new Message
+                {
+                    Name = AuthenticationService.Instance.PlayerName,
+                    Lobby = SessionManager.Instance.ActiveSession.Code
+                };
+
+                await FriendsService.Instance.MessageAsync(playerId, message);
+            }
+            catch (FriendsServiceException e)
+            {
+                Debug.LogError(e);
+            }
         }
     }
 }

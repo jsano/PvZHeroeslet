@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using Unity.Services.Friends.Models;
 using UnityEngine;
@@ -13,6 +14,9 @@ namespace Unity.Services.Samples.Friends.UGUI
 
         public Button removeFriendButton = null;
         public Button blockFriendButton = null;
+        public Button inviteFriendButton = null;
+
+        private string ID;
 
         public void Init(string playerName, Availability presenceAvailabilityOptions, string activity, string ID)
         {
@@ -21,7 +25,13 @@ namespace Unity.Services.Samples.Friends.UGUI
             var presenceColor = ColorUtils.GetPresenceColor(index);
             m_PresenceColorImage.color = presenceColor;
             m_ActivityText.text = activity;
-            //GetComponentInChildren<ProfileThumbnail>().
+            this.ID = ID;
+            if (SessionManager.Instance.ActiveSession != null) inviteFriendButton.interactable = true;
+        }
+
+        void Start()
+        {
+            GetComponentInChildren<ProfileThumbnail>().LoadProfileThumbnail(ID);
         }
     }
 }

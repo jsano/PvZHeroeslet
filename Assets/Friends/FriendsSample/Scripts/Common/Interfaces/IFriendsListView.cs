@@ -8,6 +8,7 @@ namespace Unity.Services.Samples.Friends
     {
         Action<string> onRemove { get; set; }
         Action<string> onBlock { get; set; }
+        Action<string> onInvite { get; set; }
         void BindList(List<FriendsEntryData> friendEntryDatas);
     }
 
