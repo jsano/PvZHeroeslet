@@ -8,6 +8,7 @@ namespace Unity.Services.Samples.Friends.UGUI
         [SerializeField] AddFriendViewUGUI m_AddFriendViewUGUI;
         [SerializeField] NavBarViewUGUI m_NavBarViewUGUI;
         [SerializeField] FriendsViewUGUI m_FriendsViewUGUI;
+        [SerializeField] InvitesViewUGUI m_InvitesViewUGUI;
         [SerializeField] RequestsViewUGUI m_RequestsViewUGUI;
         [SerializeField] BlocksViewUGUI m_BlocksViewUGUI;
         
@@ -15,13 +16,14 @@ namespace Unity.Services.Samples.Friends.UGUI
         public IRelationshipBarView RelationshipBarView => m_NavBarViewUGUI;
         public IAddFriendView AddFriendView => m_AddFriendViewUGUI;
         public IFriendsListView FriendsListView => m_FriendsViewUGUI;
+        public IRequestListView InviteListView => m_InvitesViewUGUI;
         public IRequestListView RequestListView => m_RequestsViewUGUI;
         public IBlockedListView BlockListView => m_BlocksViewUGUI;
 
         public void Init()
         {
             m_AddFriendViewUGUI.Init();
-            m_NavBarViewUGUI.Init(new IListView[] { FriendsListView, RequestListView, BlockListView });
+            m_NavBarViewUGUI.Init(new IListView[] { FriendsListView, InviteListView, RequestListView, BlockListView });
             m_NavBarViewUGUI.onShowAddFriend += () => { m_AddFriendViewUGUI.Show(); };
         }
     }

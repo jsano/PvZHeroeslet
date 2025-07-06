@@ -8,6 +8,7 @@ using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
 using Unity.Services.Friends.Notifications;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Unity.Services.Samples.Friends
 {
@@ -20,12 +21,14 @@ namespace Unity.Services.Samples.Friends
         IRelationshipsView m_RelationshipsView;
 
         List<FriendsEntryData> m_FriendsEntryDatas = new List<FriendsEntryData>();
+        List<PlayerProfile> m_InvitesEntryDatas = new List<PlayerProfile>();
         List<PlayerProfile> m_RequestsEntryDatas = new List<PlayerProfile>();
         List<PlayerProfile> m_BlockEntryDatas = new List<PlayerProfile>();
 
         ILocalPlayerView m_LocalPlayerView;
         IAddFriendView m_AddFriendView;
         IFriendsListView m_FriendsListView;
+        IRequestListView m_InviteListView;
         IRequestListView m_RequestListView;
         IBlockedListView m_BlockListView;
 
@@ -33,10 +36,27 @@ namespace Unity.Services.Samples.Friends
 
         private FriendsEventConnectionState m_current_state;
 
+        public static RelationshipsManager Instance;
+
+        void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            else Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+
         void Start()
         {
-            //If this is added to a larger project, the service init order should be controlled from one place, and replace this.
-            //await UnityServiceAuthenticator.SignIn();
+            SceneManager.activeSceneChanged += (a, next) =>
+            {
+                if (next.name == "Start" || next.name == "Leaderboard" || next.name == "StartSessions" || next.name == "Lobby") transform.Find("Friends").gameObject.SetActive(true);
+                else transform.Find("Friends").gameObject.SetActive(false);
+                RefreshAll();
+            };
             StartCoroutine(WaitUntilLoggedIn());
         }
 
@@ -81,6 +101,8 @@ namespace Unity.Services.Samples.Friends
             //Bind Lists
             m_FriendsListView = m_RelationshipsView.FriendsListView;
             m_FriendsListView.BindList(m_FriendsEntryDatas);
+            m_InviteListView = m_RelationshipsView.InviteListView;
+            m_InviteListView.BindList(m_InvitesEntryDatas);
             m_RequestListView = m_RelationshipsView.RequestListView;
             m_RequestListView.BindList(m_RequestsEntryDatas);
             m_BlockListView = m_RelationshipsView.BlockListView;
@@ -90,6 +112,8 @@ namespace Unity.Services.Samples.Friends
             m_AddFriendView.onFriendRequestSent += AddFriendAsync;
             m_FriendsListView.onRemove += RemoveFriendAsync;
             m_FriendsListView.onBlock += BlockFriendAsync;
+            m_InviteListView.onAccept += AcceptInviteAsync;
+            m_InviteListView.onBlock += BlockFriendAsync;
             m_RequestListView.onAccept += AcceptRequestAsync;
             m_RequestListView.onDecline += DeclineRequestAsync;
             m_RequestListView.onBlock += BlockFriendAsync;
@@ -97,15 +121,11 @@ namespace Unity.Services.Samples.Friends
             m_LocalPlayerView.onPresenceChanged += SetPresenceAsync;
             m_FriendsListView.onInvite += SendMessageAsync;
 
-            FriendsService.Instance.MessageReceived += async e =>
+            FriendsService.Instance.MessageReceived += e =>
             {
                 var messageData = e.GetAs<Message>();
                 Debug.Log("MessageReceived EventReceived: " + messageData.Name + " - " + messageData.Lobby);
-                await SessionManager.Instance.EnterSession(new EnterSessionData
-                {
-                    SessionAction = SessionAction.JoinByCode,
-                    JoinCode = messageData.Lobby
-                });
+                m_InvitesEntryDatas.Add(new PlayerProfile(messageData.Name, messageData.ID, messageData.Lobby));
             };
         }
 
@@ -425,6 +445,7 @@ namespace Unity.Services.Samples.Friends
         public class Message
         {
             public string Name { get; set; }
+            public string ID { get; set; }
             public string Lobby { get; set; }
         }
 
@@ -435,6 +456,7 @@ namespace Unity.Services.Samples.Friends
                 var message = new Message
                 {
                     Name = AuthenticationService.Instance.PlayerName,
+                    ID = AuthenticationService.Instance.PlayerId,
                     Lobby = SessionManager.Instance.ActiveSession.Code
                 };
 
@@ -444,6 +466,17 @@ namespace Unity.Services.Samples.Friends
             {
                 Debug.LogError(e);
             }
+        }
+
+        async void AcceptInviteAsync(string lobby)
+        {
+            transform.GetChild(1).gameObject.SetActive(false);
+            m_InvitesEntryDatas.Clear();
+            await SessionManager.Instance.EnterSession(new EnterSessionData
+            {
+                SessionAction = SessionAction.JoinByCode,
+                JoinCode = lobby
+            });
         }
     }
 }

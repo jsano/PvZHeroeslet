@@ -7,6 +7,7 @@ namespace Unity.Services.Samples.Friends
         IRelationshipBarView RelationshipBarView { get; }
         IAddFriendView AddFriendView { get; }
         IFriendsListView FriendsListView { get; }
+        IRequestListView InviteListView { get; }
         IRequestListView RequestListView { get; }
         IBlockedListView BlockListView { get; }
 

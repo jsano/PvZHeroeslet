@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Unity.Services.Samples.Friends.UGUI
 {
-    public class RequestEntryViewUGUI : MonoBehaviour
+    public class InviteEntryViewUGUI : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI m_NameText = null;
 

@@ -26,7 +26,7 @@ namespace Unity.Services.Samples.Friends.UGUI
             foreach (var playerProfile in m_PlayerProfiles)
             {
                 var entry = Instantiate(m_BlockEntryViewPrefab, m_ParentTransform);
-                entry.Init(playerProfile.Name);
+                entry.Init(playerProfile.Name, playerProfile.Id);
                 entry.unblockButton.onClick.AddListener(() =>
                 {
                     entry.gameObject.SetActive(false);

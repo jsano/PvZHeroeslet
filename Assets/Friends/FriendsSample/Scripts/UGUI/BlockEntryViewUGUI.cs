@@ -10,9 +10,17 @@ namespace Unity.Services.Samples.Friends.UGUI
 
         public Button unblockButton = null;
 
-        public void Init(string playerName)
+        private string ID;
+
+        public void Init(string playerName, string ID)
         {
             m_NameText.text = playerName;
+            this.ID = ID;
+        }
+
+        void Start()
+        {
+            GetComponentInChildren<ProfileThumbnail>().LoadProfileThumbnail(ID);
         }
     }
 }
