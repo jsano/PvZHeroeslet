@@ -6,7 +6,7 @@ namespace Unity.Services.Samples.Friends.UGUI
     {
         public void Show()
         {
-            Refresh();
+            //Refresh();
             gameObject.SetActive(true);
         }
 

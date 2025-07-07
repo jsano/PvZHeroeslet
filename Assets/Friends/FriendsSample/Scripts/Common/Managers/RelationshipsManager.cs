@@ -7,6 +7,7 @@ using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
 using Unity.Services.Friends.Notifications;
+using Unity.Services.Samples.Friends.UGUI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -53,8 +54,6 @@ namespace Unity.Services.Samples.Friends
         {
             SceneManager.activeSceneChanged += (a, next) =>
             {
-                if (next.name == "Start" || next.name == "Leaderboard" || next.name == "StartSessions" || next.name == "Lobby") transform.Find("Friends").gameObject.SetActive(true);
-                else transform.Find("Friends").gameObject.SetActive(false);
                 RefreshAll();
             };
             StartCoroutine(WaitUntilLoggedIn());
@@ -477,6 +476,13 @@ namespace Unity.Services.Samples.Friends
                 SessionAction = SessionAction.JoinByCode,
                 JoinCode = lobby
             });
+        }
+
+        public void Close()
+        {
+            m_RelationshipsViewGameObject.transform.parent.gameObject.SetActive(false);
+            m_AddFriendView.Hide();
+            RefreshAll();
         }
     }
 }
