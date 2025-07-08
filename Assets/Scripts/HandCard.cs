@@ -61,14 +61,18 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         if (orig.type == Card.Type.Trick)
         {
             // If this is a trick, use its IsValidTarget method to determine where it can be played
-			foreach (Tile t in Tile.plantTiles) if (orig.IsValidTarget(t.GetComponent<BoxCollider2D>())) validChoices.Add(t.GetComponent<BoxCollider2D>());
-			foreach (Tile t in Tile.zombieTiles) if (orig.IsValidTarget(t.GetComponent<BoxCollider2D>())) validChoices.Add(t.GetComponent<BoxCollider2D>());
+            foreach (Tile t in Tile.plantTiles) if (orig.IsValidTarget(t.GetComponent<BoxCollider2D>())) validChoices.Add(t.GetComponent<BoxCollider2D>());
+            foreach (Tile t in Tile.zombieTiles) if (orig.IsValidTarget(t.GetComponent<BoxCollider2D>())) validChoices.Add(t.GetComponent<BoxCollider2D>());
             if (orig.IsValidTarget(GameManager.Instance.plantHero.GetComponent<BoxCollider2D>())) validChoices.Add(GameManager.Instance.plantHero.GetComponent<BoxCollider2D>());
             if (orig.IsValidTarget(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>())) validChoices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
-		}
+        }
+        else if (orig.type == Card.Type.Terrain)
+        {
+            foreach (Tile t in Tile.terrainTiles) validChoices.Add(t.GetComponent<BoxCollider2D>());
+        }
         else
         {
-            // If this is a trick, first see if a column has at least 1 space where it can be planted, then see which one(s)
+            // If this is a unit, first see if a column has at least 1 space where it can be planted, then see which one(s)
             for (int i = 0; i < 2; i++)
             {
                 for (int j = 0; j < 5; j++)
@@ -191,15 +195,15 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
         atkUI.GetComponentInParent<Image>().sprite = orig.GetAttackIcon();
         hpUI.GetComponentInParent<Image>().sprite = orig.GetHPIcon();
-        if (orig.type == Card.Type.Trick)
-        {
-            atkUI.transform.parent.gameObject.SetActive(false);
-            hpUI.transform.parent.gameObject.SetActive(false);
-        }
-        else
+        if (orig.type == Card.Type.Unit)
         {
             atkUI.text = finalStats.atk + "";
             hpUI.text = finalStats.hp + "";
+        }
+        else
+        {
+            atkUI.transform.parent.gameObject.SetActive(false);
+            hpUI.transform.parent.gameObject.SetActive(false);
         }
         costUI.text = finalStats.cost + "";
         if (orig.team == Card.Team.Zombie) costUI.GetComponentInParent<Image>().sprite = AllCards.Instance.brainUI;

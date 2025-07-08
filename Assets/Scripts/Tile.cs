@@ -28,6 +28,10 @@ public class Tile : Damagable
     /// True if this tile belongs to the plant side, false if it's the zombie side
     /// </summary>
     [HideInInspector] public bool isPlantTile;
+    /// <summary>
+    /// The terrain tiles. Only index 1-3 is used, others don't matter, but still need to have them for consistency
+    /// </summary>
+    public static Tile[] terrainTiles = new Tile[5];
 
     /// <summary>
     /// The reference to the card currently placed in this tile. Add/remove this using <c>Plant()</c> and <c>Unplant()</c>
@@ -52,6 +56,11 @@ public class Tile : Damagable
 
     public void AssignSide()
     {
+        if (row == 2)
+        {
+            terrainTiles[col] = this;
+            return;
+        }
         if (transform.position.y < 0)
         {
             if (GameManager.Instance.team == Card.Team.Plant)

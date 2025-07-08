@@ -1,3 +1,4 @@
+using NUnit.Framework.Internal;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -570,6 +571,10 @@ public class GameManager : NetworkBehaviour
         for (int col = 0; col < 5; col++)
 		{
 			laneHighlight.position = new Vector3(Tile.plantTiles[0, col].transform.position.x, 0, 0);
+
+			if (Tile.terrainTiles[col].planted != null) yield return Tile.terrainTiles[col].planted.BeforeCombat();
+			yield return ProcessEvents();
+
 			if (Tile.zombieTiles[0, col].planted != null) yield return Tile.zombieTiles[0, col].planted.Attack();
 
             if (ENDED) yield break;
@@ -721,12 +726,14 @@ public class GameManager : NetworkBehaviour
 		Vector2 dest;
         if (!isPlantTarget)
         {
-            if (row == -1 && col == -1) dest = zombieHero.transform.position;
-            else dest = Tile.zombieTiles[row, col].transform.position;
+			if (row == -1 && col == -1) dest = zombieHero.transform.position;
+			else if (row == 2) dest = Tile.terrainTiles[col].transform.position;
+			else dest = Tile.zombieTiles[row, col].transform.position;
         }
         else
         {
             if (row == -1 && col == -1) dest = plantHero.transform.position;
+            else if (row == 2) dest = Tile.terrainTiles[col].transform.position;
             else dest = Tile.plantTiles[row, col].transform.position;
         }
         bool done = false;
@@ -748,18 +755,29 @@ public class GameManager : NetworkBehaviour
 		card.row = row;
 		card.col = col;
 		card.sourceFS = fs;
-		if (!isPlantTarget)
-		{
-			if (row == -1 && col == -1) card.transform.position = zombieHero.transform.position;
-			else card.transform.position = Tile.zombieTiles[row, col].transform.position;
-		}
+		
+		if (row == 2) // Terrain
+        {
+            card.transform.position = Tile.terrainTiles[col].transform.position;
+            if (Tile.terrainTiles[col].planted != null) Destroy(Tile.terrainTiles[col].planted);
+            Tile.terrainTiles[col].Unplant(true);
+            Tile.terrainTiles[col].Plant(card);
+        }
 		else
 		{
-			if (row == -1 && col == -1) card.transform.position = plantHero.transform.position;
-			else card.transform.position = Tile.plantTiles[row, col].transform.position;
+			if (!isPlantTarget)
+			{
+				if (row == -1 && col == -1) card.transform.position = zombieHero.transform.position;
+				else card.transform.position = Tile.zombieTiles[row, col].transform.position;
+			}
+			else
+			{
+				if (row == -1 && col == -1) card.transform.position = plantHero.transform.position;
+				else card.transform.position = Tile.plantTiles[row, col].transform.position;
+			}
 		}
 
-		if (card.team != team) Destroy(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject);
+        if (card.team != team) Destroy(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject);
 		UpdateRemaining(-fs.cost, card.team);
 	}
 

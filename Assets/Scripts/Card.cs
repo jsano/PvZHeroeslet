@@ -17,7 +17,8 @@ public class Card : Damagable
     public enum Type
     {
         Unit,
-        Trick
+        Trick,
+        Terrain
     }
 
     public enum Class
@@ -206,6 +207,7 @@ public class Card : Damagable
             atkSprite.gameObject.SetActive(false);
             hpSprite.gameObject.SetActive(false);
         }
+        if (type == Type.Terrain) SR.sortingOrder = -1;
         if (gravestone) Hide();
         else
         {
@@ -421,6 +423,11 @@ public class Card : Damagable
 	/// Called during tricks phase
 	/// </summary>
     public virtual IEnumerator OnZombieTricks()
+    {
+        yield return null;
+    }
+
+    public virtual IEnumerator BeforeCombat()
     {
         yield return null;
     }

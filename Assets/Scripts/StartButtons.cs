@@ -37,7 +37,7 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Sizzle"), 2 },
             { AllCards.NameToID("Berry Blast"), 2 },
             { AllCards.NameToID("Shroom for Two"), 2 },
-            { AllCards.NameToID("Punish-shroom"), 4 },
+            { AllCards.NameToID("Spikeweed Sector"), 4 },
             { AllCards.NameToID("Wild Berry"), 2 }
         };
 

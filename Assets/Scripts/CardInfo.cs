@@ -55,7 +55,8 @@ public class CardInfo : MonoBehaviour
 			tribes.text += Enum.GetName(typeof(Card.Tribe), t) + " ";
 		}
 		if (baseCard.type == Card.Type.Trick) tribes.text += "Trick";
-		else tribes.text += baseCard.team == Card.Team.Plant ? "Plant" : "Zombie";
+        else if (baseCard.type == Card.Type.Terrain) tribes.text += "Terrain";
+        else tribes.text += baseCard.team == Card.Team.Plant ? "Plant" : "Zombie";
 
 		description.text = "";
 		if (baseCard.amphibious) description.text += "Amphibious\n";
