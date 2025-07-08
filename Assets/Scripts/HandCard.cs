@@ -186,7 +186,6 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     {
         orig = AllCards.Instance.cards[ID];
 		image.sprite = orig.GetComponent<SpriteRenderer>().sprite;
-        if (orig.team == Card.Team.Zombie || orig.type == Card.Type.Trick) image.GetComponent<RectTransform>().offsetMin = new Vector2(0, 0); // TODO: FIX
         // If no stat override was given, use the prefab values
         if (finalStats == null) finalStats = new FinalStats(ID);
 

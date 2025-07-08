@@ -24,7 +24,6 @@ public class DeckCard : MonoBehaviour
         DB = FindAnyObjectByType<DeckBuilder>(FindObjectsInactive.Include).GetComponent<DeckBuilder>();
         Card orig = AllCards.Instance.cards[ID];
         image.sprite = orig.GetComponent<SpriteRenderer>().sprite;
-        if (orig.team == Card.Team.Zombie || orig.type == Card.Type.Trick) image.GetComponent<RectTransform>().offsetMin = new Vector2(0, 0); // TODO: FIX
 
         atkUI.GetComponentInParent<Image>().sprite = orig.GetAttackIcon();
         hpUI.GetComponentInParent<Image>().sprite = orig.GetHPIcon();
