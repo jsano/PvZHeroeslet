@@ -7869,10 +7869,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Huge-Giganticus
       objectReference: {fileID: 0}
-    - target: {fileID: 2376978489860224189, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4696844505939753233, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9083,10 +9079,6 @@ PrefabInstance:
     - target: {fileID: 2376978489860224189, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_Name
       value: Huge-Giganticus
-      objectReference: {fileID: 0}
-    - target: {fileID: 2376978489860224189, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4696844505939753233, guid: db85a8f9d3fbcbf4785766e897fc8e76, type: 3}
       propertyPath: m_Pivot.x

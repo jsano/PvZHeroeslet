@@ -32,13 +32,13 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(10));
         UserAccounts.allDecks["temp10"].cards = new() {
-            { AllCards.NameToID("Twin Sunflower"), 2 },
+            { AllCards.NameToID("Cosmic Nut"), 2 },
             { AllCards.NameToID("Whirlwind"), 2 },
-            { AllCards.NameToID("Sizzle"), 2 },
+            { AllCards.NameToID("Plantern"), 2 },
             { AllCards.NameToID("Berry Blast"), 2 },
             { AllCards.NameToID("Shroom for Two"), 2 },
             { AllCards.NameToID("Spikeweed Sector"), 4 },
-            { AllCards.NameToID("Wild Berry"), 2 }
+            { AllCards.NameToID("Starch-Lord"), 2 }
         };
 
         NetworkManager.Singleton.StartHost();
@@ -56,11 +56,11 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks["temp11"].cards = new() {
             { AllCards.NameToID("Pogo Bouncer"), 2 },
             { AllCards.NameToID("Iron Boarder"), 2 },
-            { AllCards.NameToID("Toxic Waste Imp"), 2 },
+            { AllCards.NameToID("Teleportation Station"), 2 },
             { AllCards.NameToID("Ice Moon"), 2 },
             { AllCards.NameToID("Cakesplosion"), 1 },
             { AllCards.NameToID("Imp"), 2 },
-            { AllCards.NameToID("Nurse Gargantuar"), 1 },
+            { AllCards.NameToID("Backyard Bounce"), 2 },
             { AllCards.NameToID("Possessed"), 1 }
         };
 

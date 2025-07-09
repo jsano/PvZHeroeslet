@@ -19,6 +19,11 @@ public class FinalStats : INetworkSerializable
     public int ID;
     public int cost;
 
+    /// <summary>
+    /// If true, the edits persist even when the card is bounced after playing
+    /// </summary>
+    public bool permanent;
+
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
         serializer.SerializeValue(ref atk);
@@ -26,12 +31,13 @@ public class FinalStats : INetworkSerializable
         serializer.SerializeValue(ref abilities);
         serializer.SerializeValue(ref ID);
         serializer.SerializeValue(ref cost);
+        serializer.SerializeValue(ref permanent);
     }
 
     /// <summary>
     /// Creates a FinalStats instance with the default prefab values for the given card ID
     /// </summary>
-    public FinalStats(int id)
+    public FinalStats(int id, bool permanent = false)
     {
         Card c = AllCards.Instance.cards[id];
         hp = c.HP;
@@ -39,6 +45,8 @@ public class FinalStats : INetworkSerializable
         abilities = "";
         ID = id;
         cost = c.cost;
+
+        this.permanent = permanent;
     }
 
     public FinalStats()
