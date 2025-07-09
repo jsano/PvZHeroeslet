@@ -759,8 +759,7 @@ public class GameManager : NetworkBehaviour
 		if (row == 2) // Terrain
         {
             card.transform.position = Tile.terrainTiles[col].transform.position;
-            if (Tile.terrainTiles[col].planted != null) Destroy(Tile.terrainTiles[col].planted);
-            Tile.terrainTiles[col].Unplant(true);
+			if (Tile.terrainTiles[col].planted != null) Tile.terrainTiles[col].planted.Destroy();
             Tile.terrainTiles[col].Plant(card);
         }
 		else
@@ -888,6 +887,8 @@ public class GameManager : NetworkBehaviour
 	{
 		for (int i = 0; i < 5; i++)
 		{
+			if (Tile.terrainTiles[i].planted != null) yield return Tile.terrainTiles[i].planted.StartCoroutine(methodName, arg);
+
 			if (Tile.zombieTiles[0, i].HasRevealedPlanted()) yield return Tile.zombieTiles[0, i].planted.StartCoroutine(methodName, arg);
 			
 			if (Tile.plantTiles[1, i].planted != null) yield return Tile.plantTiles[1, i].planted.StartCoroutine(methodName, arg);
@@ -941,7 +942,7 @@ public class GameManager : NetworkBehaviour
             {
 				foreach (Transform t in handCards)
 				{
-                    if ((AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type == Card.Type.Trick || allowZombieCards) &&
+                    if ((AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type != Card.Type.Unit || allowZombieCards) &&
 						t.GetComponent<HandCard>().GetCost() <= remaining) t.GetComponent<HandCard>().interactable = true;
                     else t.GetComponent<HandCard>().interactable = false;
 				}

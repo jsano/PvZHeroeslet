@@ -32,7 +32,7 @@ public class CardInfo : MonoBehaviour
 		image.sprite = baseCard.GetComponent<SpriteRenderer>().sprite;
 		atk.text = baseCard.atk + "";
 		HP.text = baseCard.HP + "";
-        if (baseCard.type == Card.Type.Trick)
+        if (baseCard.type != Card.Type.Unit)
 		{
 			atk.transform.parent.gameObject.SetActive(false);
 			HP.transform.parent.gameObject.SetActive(false);

@@ -55,9 +55,9 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
             { AllCards.NameToID("Pogo Bouncer"), 2 },
-            { AllCards.NameToID("Line Dancer"), 2 },
+            { AllCards.NameToID("Iron Boarder"), 2 },
             { AllCards.NameToID("Toxic Waste Imp"), 2 },
-            { AllCards.NameToID("Tomb Raiser"), 2 },
+            { AllCards.NameToID("Ice Moon"), 2 },
             { AllCards.NameToID("Cakesplosion"), 1 },
             { AllCards.NameToID("Imp"), 2 },
             { AllCards.NameToID("Nurse Gargantuar"), 1 },

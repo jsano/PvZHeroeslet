@@ -114,6 +114,9 @@ public class Card : Damagable
 
     [HideInInspector] public int row;
     [HideInInspector] public int col;
+    public int oldRow { get; private set; }
+    public int oldCol { get; private set; }
+
     /// <summary>
     /// Different from <c>cost</c> where this is the amount this card was actually played for (after all deductions, etc.)
     /// </summary>
@@ -213,7 +216,7 @@ public class Card : Damagable
         {
             //play animation
             // Trick play GameEvents should always process last chronologially, so force it to be added first on the stack
-            if (type == Type.Trick) GameManager.Instance.TriggerEvent("OnCardPlay", this); 
+            if (type != Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this); 
             StartCoroutine(OnThisPlay());
         }
 		cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
@@ -555,8 +558,8 @@ public class Card : Damagable
             SR.sprite = baseSprite;
             if (team != GameManager.Instance.team) GameManager.Instance.UpdateRemaining(playedCost, team);
         }
-		GameManager.Instance.TriggerEvent("OnCardDeath", this);
-	}
+        GameManager.Instance.TriggerEvent("OnCardDeath", this);
+    }
 
     /// <summary>
 	/// Heals HP by the given amount. Ignores if it's in a gravestone. Also triggers <c>OnCardHeal</c> if not raising the maxHP.
@@ -711,6 +714,8 @@ public class Card : Damagable
     /// <param name="ncol"></param>
     public void Move(int nrow, int ncol)
     {
+        oldRow = row;
+        oldCol = col;
         if (team == Team.Plant)
         {
             Tile.plantTiles[row, col].Unplant();
