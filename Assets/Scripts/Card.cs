@@ -100,6 +100,7 @@ public class Card : Damagable
     public int frenzy;
     public bool baseGravestone { get; private set; }
     public bool gravestone;
+    public int strengthHeart;
     public bool hunt;
     public int overshoot;
     public int splash;
@@ -447,7 +448,9 @@ public class Card : Damagable
             SR.material.color = Color.white;
             yield break;
         }
-        if (atk <= 0 || gravestone) yield break;
+        
+        int finalAtk = strengthHeart > 0 ? HP : atk;
+        if (finalAtk <= 0 || gravestone) yield break;
 
         yield return new WaitForSeconds(0.25f);
 
@@ -457,7 +460,7 @@ public class Card : Damagable
             List<Damagable> targets = GetTargets(col);
             yield return AttackFX(targets[0]);
 
-            foreach (Damagable c in targets) StartCoroutine(c.ReceiveDamage(atk, this, bullseye > 0, deadly > 0, freeze));
+            foreach (Damagable c in targets) StartCoroutine(c.ReceiveDamage(finalAtk, this, bullseye > 0, deadly > 0, freeze));
             yield return null;
             // If this card has frenzy, and any of its targets died after its attack, signal to GameManager
             if (frenzy > 0)
@@ -477,7 +480,7 @@ public class Card : Damagable
             }
             yield return AttackFX(targets[1][0]);
 
-            for (int i = 0; i < 3; i++) if (targets[i] != null) foreach (Damagable c in targets[i]) StartCoroutine(c.ReceiveDamage(i == 1 ? atk : splash, this, bullseye > 0, deadly > 0, freeze));
+            for (int i = 0; i < 3; i++) if (targets[i] != null) foreach (Damagable c in targets[i]) StartCoroutine(c.ReceiveDamage(i == 1 ? finalAtk : splash, this, bullseye > 0, deadly > 0, freeze));
         }
         else if (nextDoor)
         {
@@ -491,7 +494,7 @@ public class Card : Damagable
             for (int i = 0; i < 3; i++) if (targets[i] != null) temp.Add(targets[i][0]);
             yield return AttackFXs(temp);
 
-            for (int i = 0; i < 3; i++) if (targets[i] != null) foreach (Damagable c in targets[i]) StartCoroutine(c.ReceiveDamage(atk, this, bullseye > 0, deadly > 0, freeze));
+            for (int i = 0; i < 3; i++) if (targets[i] != null) foreach (Damagable c in targets[i]) StartCoroutine(c.ReceiveDamage(finalAtk, this, bullseye > 0, deadly > 0, freeze));
         }
         yield return new WaitForSeconds(0.1f); // this only exists so all the receive damages get sent before the other units attack. TODO: fix??
 	}
@@ -812,6 +815,8 @@ public class Card : Damagable
         if (armor > 0) ret.Add(icons.armorSprite);
         if (untrickable > 0) ret.Add(icons.untrickableSprite);
         if (frozen) ret.Add(icons.frozenSprite);
+        if (invulnerable) ret.Add(icons.invulnerableSprite);
+        if (strengthHeart > 0) ret.Add(icons.strengthHeartSprite);
         if (ret.Count > 1) return icons.multiSprite;
         if (ret.Count == 0) return icons.HPSprite;
         return ret[0];

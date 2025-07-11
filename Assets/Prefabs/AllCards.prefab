@@ -362,6 +362,11 @@ MonoBehaviour:
   - {fileID: -6993402736686303820, guid: 39fd8842783e26e4fb290dd96d15db7f, type: 3}
   - {fileID: -5430269055757798420, guid: c6b7ab6942935d648888b1535014e835, type: 3}
   - {fileID: -335247722488115992, guid: 1734ece196f00f74fb58f0730f130983, type: 3}
+  - {fileID: 3423567475882344843, guid: 3a027710b55ac6b4e97c55296ddc410d, type: 3}
+  - {fileID: -1785442511349292602, guid: 9af72594ec692f342a93fb6f58be740e, type: 3}
+  - {fileID: 3149850308004346298, guid: e459946b536e7154d9f1d7f2292857fa, type: 3}
+  - {fileID: 2168601402847323268, guid: 3488ac800e9e5a644957dd1ec929ee6f, type: 3}
+  - {fileID: -4160388777640182335, guid: aec9a1c759fd36441be8295f2d60b31b, type: 3}
   heroes:
   - {fileID: 4799469182913931560, guid: d809300a0693002439dc1cea576d721f, type: 3}
   - {fileID: 4799469182913931560, guid: 340b973624309f649927088a2d2135cb, type: 3}
@@ -400,7 +405,7 @@ MonoBehaviour:
   untrickableSprite: {fileID: 21300000, guid: c013cf09164a8294193906e4c655f153, type: 3}
   frozenSprite: {fileID: 21300000, guid: 4697e27d406a86d41882a1df39e1d8af, type: 3}
   invulnerableSprite: {fileID: 21300000, guid: 22b94c1aa16c63448a62aeef2ec122e6, type: 3}
-  strengthHeart: {fileID: 21300000, guid: 7cc85b9b1d09c2a42bb36c7d7c2fe5e7, type: 3}
+  strengthHeartSprite: {fileID: 21300000, guid: 7cc85b9b1d09c2a42bb36c7d7c2fe5e7, type: 3}
   sunUI: {fileID: 21300000, guid: e7f9e1f553a300d47afdbaab60b49a1d, type: 3}
   brainUI: {fileID: 21300000, guid: 244106569778a8e4db3627bf0fcd0c46, type: 3}
   plantCardBack: {fileID: 21300000, guid: dcf606a0953962c42bc987c927453b36, type: 3}

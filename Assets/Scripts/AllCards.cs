@@ -27,7 +27,7 @@ public class AllCards : MonoBehaviour
     public Sprite untrickableSprite;
     public Sprite frozenSprite;
     public Sprite invulnerableSprite;
-    public Sprite strengthHeart;
+    public Sprite strengthHeartSprite;
 
     public Sprite sunUI;
     public Sprite brainUI;

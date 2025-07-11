@@ -117,6 +117,7 @@ public class Hero : Damagable
 	{
 		amount = Math.Min(block, amount);
         block -= amount;
+		block = Math.Clamp(block, 0, 8);
         blockMeter.fillAmount = block / 8f;
 		return amount;
     }
