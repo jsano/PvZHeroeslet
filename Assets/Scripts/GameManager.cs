@@ -325,7 +325,7 @@ public class GameManager : NetworkBehaviour
 	private IEnumerator Mulligan()
 	{
         StartCoroutine(DrawCard(team == Team.Plant ? Team.Zombie : Team.Plant, 4, false));
-        StartCoroutine(GainHandCard(team == Team.Plant ? Team.Zombie : Team.Plant, 0, null, false));
+        StartCoroutine(GainHandCard(team == Team.Plant ? Team.Zombie : Team.Plant, 0, null, false, false));
 
 		Vector2[] pos = new Vector2[] { new(-1, 1), new(1, 1), new(-1, -1), new(1, -1) };
         for (int i = 0; i < 4; i++)
@@ -358,7 +358,7 @@ public class GameManager : NetworkBehaviour
         }
 		yield return new WaitUntil(() => done == true);
 
-        yield return GainHandCard(team, UserAccounts.allDecks[UserAccounts.GameStats.DeckName].superpowerOrder[superpowerIndex]);
+        yield return GainHandCard(team, UserAccounts.allDecks[UserAccounts.GameStats.DeckName].superpowerOrder[superpowerIndex], null, false);
         yield return ProcessEvents();
         UpdateRemaining(0, Team.Plant);
         UpdateRemaining(0, Team.Zombie);
@@ -421,7 +421,7 @@ public class GameManager : NetworkBehaviour
 		for (int i = 0; i < count; i++)
 		{
             if (team == t && handCards.childCount < 10) deck.RemoveAt(0);
-			yield return GainHandCard(t, deck[0], null, animation);
+			yield return GainHandCard(t, deck[0], null, false, animation);
         }
     }
 
@@ -430,7 +430,7 @@ public class GameManager : NetworkBehaviour
     /// </summary>
 	/// <param name="fs">If provided, uses these stats for the HandCard, otherwise uses the default</param>
 	/// <param name="animation">Whether to include the drawing animation or just appear</param>
-    public IEnumerator GainHandCard(Team t, int id, FinalStats fs = null, bool animation = true)
+    public IEnumerator GainHandCard(Team t, int id, FinalStats fs = null, bool conjured = true, bool animation = true)
 	{
 		GameObject c = null;
 		if (team == t)
@@ -442,7 +442,8 @@ public class GameManager : NetworkBehaviour
 			UpdateHandCardPositions();
 			c.GetComponent<HandCard>().ID = id;
 			if (fs != null) c.GetComponent<HandCard>().OverrideFS(fs);
-			c.SetActive(true);
+			c.GetComponent<HandCard>().conjured = conjured;
+            c.SetActive(true);
 		} 
 		else
 		{

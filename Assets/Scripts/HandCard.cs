@@ -35,6 +35,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     public GameObject info;
 
     private FinalStats finalStats;
+    [HideInInspector] public bool conjured = false; // Maybe somehow track the card that conjured??
 
     /// <summary>
     /// If this HandCard should have different stats than its prefab values, then call this right after instantiating. Otherwise it'll use the prefab values
@@ -232,23 +233,25 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         costUI.text = Math.Max(0, finalStats.cost) + "";
     }
 
-    public void ChangeAttack(int amount)
+    public void ChangeAttack(int amount, bool absolute = false)
     {
-        if (orig.type == Card.Type.Trick) return;
+        if (orig.type != Card.Type.Unit) return;
         finalStats.atk += amount;
+        if (absolute) finalStats.atk = amount;
         atkUI.text = finalStats.atk + "";
     }
 
-    public void ChangeHP(int amount)
+    public void ChangeHP(int amount, bool absolute = false)
     {
-        if (orig.type == Card.Type.Trick) return;
+        if (orig.type != Card.Type.Unit) return;
         finalStats.hp += amount;
+        if (absolute) finalStats.hp = amount;
         hpUI.text = finalStats.hp + "";
     }
 
     public void AddAbility(string ability)
     {
-        if (orig.type == Card.Type.Trick) return;
+        if (orig.type != Card.Type.Unit) return;
         if (finalStats.abilities.Length == 0) finalStats.abilities += ability;
         else finalStats.abilities += " - " + ability;
     }

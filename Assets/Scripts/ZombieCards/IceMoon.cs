@@ -26,11 +26,11 @@ public class IceMoon : Card
 
     protected override IEnumerator OnCardMoved(Card moved)
     {
-        if (moved.oldCol == col && moved.team == Team.Zombie)
+        if (moved.oldCol == col && moved.col != col && moved.team == Team.Zombie)
         {
             moved.strikethrough -= 1;
         }
-        if (moved.col == col && moved.team == Team.Zombie)
+        if (moved.oldCol != col && moved.col == col && moved.team == Team.Zombie)
         {
             moved.strikethrough += 1;
         }

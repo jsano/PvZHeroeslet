@@ -22,11 +22,11 @@ public class CoffeeGrounds : Card
 
     protected override IEnumerator OnCardMoved(Card moved)
     {
-        if (moved.oldCol == col && moved.team == Team.Plant)
+        if (moved.oldCol == col && moved.col != col && moved.team == Team.Plant)
         {
             moved.doubleStrike -= 1;
         }
-        if (moved.col == col && moved.team == Team.Plant)
+        if (moved.oldCol != col && moved.col == col && moved.team == Team.Plant)
         {
             moved.doubleStrike += 1;
         }
