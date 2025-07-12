@@ -186,7 +186,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         orig = AllCards.Instance.cards[ID];
 		image.sprite = orig.GetComponent<SpriteRenderer>().sprite;
@@ -256,7 +256,6 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     public void ShowInfo()
     {
         info.SetActive(true);
-        Debug.Log(orig);
         info.GetComponentInChildren<TextMeshProUGUI>().text = orig.description;
     }
 
