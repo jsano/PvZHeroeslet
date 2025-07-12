@@ -64,7 +64,7 @@ public class CardInfo : MonoBehaviour
 		if (baseCard.armor > 0) description.text += "Armor " + baseCard.armor + "\n";
 		if (baseCard.bullseye > 0) description.text += "Bullseye\n";
 		if (baseCard.deadly > 0) description.text += "Deadly\n";
-		if (baseCard.doubleStrike) description.text += "Double Strike\n";
+		if (baseCard.doubleStrike > 0) description.text += "Double Strike\n";
 		if (baseCard.frenzy > 0) description.text += "Frenzy\n";
 		if (baseCard.gravestone) description.text += "Gravestone\n";
 		if (baseCard.hunt) description.text += "Hunt\n";

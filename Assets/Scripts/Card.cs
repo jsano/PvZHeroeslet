@@ -96,7 +96,7 @@ public class Card : Damagable
     public int bullseye;
     public int deadly;
     private bool hitByDeadly;
-    public bool doubleStrike;
+    public int doubleStrike;
     public int frenzy;
     public bool baseGravestone { get; private set; }
     public bool gravestone;
@@ -186,7 +186,9 @@ public class Card : Damagable
                     if (char.IsDigit(s[i])) value += s[i];
                     else name += s[i];
                 }
-                GetType().GetField(name).SetValue(this, value.Length == 0 ? true : int.Parse(value));
+                var field = GetType().GetField(name);
+                if (field.FieldType == typeof(Int32)) field.SetValue(this, value.Length == 0 ? (int)field.GetValue(this) + 1 : int.Parse(value));
+                else field.SetValue(this, true);
             }
             playedCost = sourceFS.cost;
         }
@@ -800,7 +802,7 @@ public class Card : Damagable
         if (antihero > 0) ret.Add(icons.antiheroSprite);
         if (bullseye > 0) ret.Add(icons.bullseyeSprite);
         if (deadly > 0) ret.Add(icons.deadlySprite);
-        if (doubleStrike) ret.Add(icons.doubleStrikeSprite);
+        if (doubleStrike > 0) ret.Add(icons.doubleStrikeSprite);
         if (frenzy > 0) ret.Add(icons.frenzySprite);
         if (overshoot > 0) ret.Add(icons.overshootSprite);
         if (ret.Count > 1) return icons.multiSprite;
