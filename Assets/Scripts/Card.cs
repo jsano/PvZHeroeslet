@@ -135,7 +135,7 @@ public class Card : Damagable
     private TextMeshProUGUI hpUI;
     private Image atkSprite;
     private Image hpSprite;
-    private SpriteRenderer SR;
+    protected SpriteRenderer SR;
     private Sprite baseSprite;
 
     /// <summary>
@@ -148,7 +148,7 @@ public class Card : Damagable
 	protected List<BoxCollider2D> choices = new();
     private float timer = 10;
 
-    private bool frozen;
+    protected bool frozen;
 
     private CardInfo cardInfo;
 

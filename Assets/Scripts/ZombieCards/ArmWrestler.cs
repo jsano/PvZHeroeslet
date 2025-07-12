@@ -7,7 +7,7 @@ public class ArmWrestler : Card
 
 	protected override IEnumerator OnCardPlay(Card played)
 	{
-		if (played.col == col && played.team == Team.Plant)
+		if (played.col == col && played.type == Type.Unit && played.team == Team.Plant && played != this)
 		{
 			yield return new WaitForSeconds(1);
 			ChangeStats(1, 1);

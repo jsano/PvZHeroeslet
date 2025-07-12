@@ -14,20 +14,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Name
-      value: Hot Lava
+      value: Bog of Enlightenment
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.525
+      value: 1.445
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 5.125
+      value: 4.98
       objectReference: {fileID: 0}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 166209904b73a5d468cd27df313ce8ba, type: 3}
+      objectReference: {fileID: 21300000, guid: 54ea10ae9997aac45ad0aea7c897b9a2, type: 3}
     - target: {fileID: 9186367323209674846, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -119,14 +119,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -7809054191700637996}
+      addedObject: {fileID: -7915026954089807720}
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
 --- !u!1 &3964835505542182985 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
   m_PrefabInstance: {fileID: 2238586215414733447}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-7809054191700637996
+--- !u!114 &-7915026954089807720
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,15 +135,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3964835505542182985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d16c326d0331cb47968d8d113c79863, type: 3}
+  m_Script: {fileID: 11500000, guid: 89d99205bb8c3424ab7b7775099278d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   team: 0
   type: 2
-  _class: 1
+  _class: 3
   tribes: 
-  token: 1
-  cost: 0
+  token: 0
+  cost: 2
   atk: 0
   HP: 0
   amphibious: 0
@@ -163,8 +163,9 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: 'Before combat here: Do 1 damage to each card here'
-  lore: 'Lava has no loyalty. It''s just hot. It just IS. '
+  description: Plants here that are Amphibious get +2 attack. Zombies here that aren't
+    Amphibious get -2 attack
+  lore: 'Good for Plants, it is. Good for Zombies, it is not! '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
