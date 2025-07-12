@@ -759,7 +759,6 @@ public class GameManager : NetworkBehaviour
 		if (row == 2) // Terrain
         {
             card.transform.position = Tile.terrainTiles[col].transform.position;
-			if (Tile.terrainTiles[col].planted != null) Tile.terrainTiles[col].planted.Destroy();
             Tile.terrainTiles[col].Plant(card);
         }
 		else

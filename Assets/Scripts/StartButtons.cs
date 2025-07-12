@@ -32,9 +32,9 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(10));
         UserAccounts.allDecks["temp10"].cards = new() {
-            { AllCards.NameToID("Galacta-Cactus"), 2 },
-            { AllCards.NameToID("Force Field"), 2 },
-            { AllCards.NameToID("Gravitree"), 2 },
+            { AllCards.NameToID("Cosmic Mushroom"), 2 },
+            { AllCards.NameToID("Mushroom Grotto"), 2 },
+            { AllCards.NameToID("Lava Guava"), 2 },
             { AllCards.NameToID("Body-Gourd"), 2 },
             { AllCards.NameToID("Pecanolith"), 2 },
             { AllCards.NameToID("Whirlwind"), 4 },

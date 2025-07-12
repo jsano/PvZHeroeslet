@@ -7,7 +7,7 @@ public class StarchLord : Card
 
     protected override IEnumerator OnCardPlay(Card played)
     {
-        if (played.tribes.Contains(Tribe.Root))
+        if (played != this && played.tribes.Contains(Tribe.Root))
         {
             ChangeStats(1, 1);
             played.ChangeStats(1, 1);

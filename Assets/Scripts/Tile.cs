@@ -95,13 +95,18 @@ public class Tile : Damagable
 
     /// <summary>
     /// Places a card onto this tile and sets the card's position and row/column values.
-    /// This assumes the card can legally be placed here. If there is already a card here, it will replant that card onto the opposite row. Updates any anti-hero
+    /// This assumes the card can legally be placed here. If there is already a card here, it will replant that card onto the opposite row.
+    /// If there is a terrain here and <c>c</c> is also a terrain, destroys the old terrain. Updates any anti-hero
     /// </summary>
     public void Plant(Card c)
     {
         if (planted != null)
         {
-            if (row == 2) terrainTiles[0].planted = planted; // Can't do Plant() since it changes col
+            if (row == 2)
+            {
+                planted.Destroy();
+                terrainTiles[0].planted = planted; // Can't do Plant() since it changes col
+            }
             else plantTiles[1 - row, col].Plant(planted);
         }
         planted = c;
