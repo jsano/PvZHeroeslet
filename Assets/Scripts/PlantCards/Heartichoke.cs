@@ -2,15 +2,15 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class PepperMD : Card
+public class Heartichoke : Card
 {
 
     protected override IEnumerator OnCardHeal(Tuple<Card, int> healed)
 	{
 		if (healed.Item1.team == Team.Plant)
 		{
-			yield return new WaitForSeconds(1);
-			ChangeStats(2, 2);
+			yield return AttackFX(Tile.zombieHeroTiles[col]);
+			yield return GameManager.Instance.zombieHero.ReceiveDamage(healed.Item2, this, bullseye > 0);
 		}
 		yield return null;
 	}
@@ -19,9 +19,9 @@ public class PepperMD : Card
     {
         if (healed.Item1.team == Team.Plant)
 		{
-			yield return new WaitForSeconds(1);
-			ChangeStats(2, 2);
-		}
+            yield return AttackFX(Tile.zombieHeroTiles[col]);
+            yield return GameManager.Instance.zombieHero.ReceiveDamage(healed.Item2, this, bullseye > 0);
+        }
 		yield return null;
     }
 

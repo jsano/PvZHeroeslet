@@ -190,9 +190,9 @@ public class Tile : Damagable
     /// <summary>
     /// This should never be called
     /// </summary>
-    public override void Heal(int amount)
+    public override IEnumerator Heal(int amount)
     {
-
+        yield break;
     }
 
     /// <summary>

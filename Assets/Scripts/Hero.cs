@@ -99,13 +99,14 @@ public class Hero : Damagable
         if (timesBlocked == 3) transform.Find("Eight").gameObject.SetActive(false);
     }
 
-	public override void Heal(int amount)
+	public override IEnumerator Heal(int amount)
 	{
 		int HPBefore = HP;
 		HP += amount;
 		HP = Mathf.Min(maxHP, HP);
 		hpUI.text = HP + "";
-		if (amount > 0 && HPBefore < maxHP) GameManager.Instance.TriggerEvent("OnHeroHeal", this);
+		if (amount > 0 && HPBefore < maxHP) GameManager.Instance.TriggerEvent("OnHeroHeal", new Tuple<Hero, int>(this, maxHP - HPBefore));
+		yield return GameManager.Instance.ProcessEvents();
 	}
 
     public override void ChangeStats(int atkAmount, int hpAmount)

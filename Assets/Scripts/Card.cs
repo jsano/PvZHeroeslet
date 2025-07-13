@@ -371,7 +371,7 @@ public class Card : Damagable
 	/// Called whenever a card on the field gets healed. NOT called when a card's max HP is raised
 	/// </summary>
 	/// <param name="healed"> The card that got healed </param>
-	protected virtual IEnumerator OnCardHeal(Card healed)
+	protected virtual IEnumerator OnCardHeal(Tuple<Card, int> healed)
     {
         yield return null;
     }
@@ -379,7 +379,7 @@ public class Card : Damagable
     /// <summary>
 	/// Identical to OnCardHeal, but for heroes. Called even when max HP is raised
 	/// </summary>
-	protected virtual IEnumerator OnHeroHeal(Hero healed)
+	protected virtual IEnumerator OnHeroHeal(Tuple<Hero, int> healed)
     {
         yield return null;
     }
@@ -571,15 +571,16 @@ public class Card : Damagable
     /// 
 	/// </summary>
     /// <param name="raiseCap">If true, this will affect the maxHP, which also means it won't be considered damaged if amount is negative</param>
-	public override void Heal(int amount)
+	public override IEnumerator Heal(int amount)
     {
-        if (gravestone) return;
+        if (gravestone) yield break;
         int HPBefore = HP;
         HP += amount;
         HP = Mathf.Min(maxHP, HP);
-        if (amount > 0 && HPBefore < maxHP) GameManager.Instance.TriggerEvent("OnCardHeal", this);
+        if (amount > 0 && HPBefore < maxHP) GameManager.Instance.TriggerEvent("OnCardHeal", new Tuple<Card, int>(this, maxHP - HPBefore));
         hpUI.text = HP + "";
         if (!isDamaged()) hpUI.color = Color.white;
+        yield return GameManager.Instance.ProcessEvents();
     }
 
     /// <summary>

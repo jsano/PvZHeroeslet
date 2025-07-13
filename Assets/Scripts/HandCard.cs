@@ -311,7 +311,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 	/// Called whenever a card on the field gets healed. NOT called when a card's max HP is raised
 	/// </summary>
 	/// <param name="healed"> The card that got healed </param>
-	protected virtual IEnumerator OnCardHeal(Card healed)
+	protected virtual IEnumerator OnCardHeal(Tuple<Card, int> healed)
     {
         yield return null;
     }
@@ -319,7 +319,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     /// <summary>
 	/// Identical to OnCardHeal, but for heroes. Called even when max HP is raised
 	/// </summary>
-	protected virtual IEnumerator OnHeroHeal(Hero healed)
+	protected virtual IEnumerator OnHeroHeal(Tuple<Hero, int> healed)
     {
         yield return null;
     }
