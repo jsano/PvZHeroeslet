@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StayinAlive : Card
+public class AlienOoze : Card
 {
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		StartCoroutine(Tile.plantTiles[row, col].planted.ReceiveDamage(3, this));
-		yield return GameManager.Instance.zombieHero.Heal(3);
-		yield return base.OnThisPlay();
+		if (col == 0 || Tile.terrainTiles[col].planted != null) Tile.plantTiles[row, col].planted.ChangeStats(-6, -6);
+		else Tile.plantTiles[row, col].planted.ChangeStats(-3, -3);
+        yield return base.OnThisPlay();
 	}
 
 	public override bool IsValidTarget(BoxCollider2D bc)

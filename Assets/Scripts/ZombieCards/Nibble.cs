@@ -8,7 +8,7 @@ public class Nibble : Card
 	{
 		yield return new WaitForSeconds(1);
 		Tile.plantTiles[row, col].planted.ChangeStats(-1, -1);
-		GameManager.Instance.zombieHero.Heal(2);
+		yield return GameManager.Instance.zombieHero.Heal(2);
 		yield return base.OnThisPlay();
 	}
 

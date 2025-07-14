@@ -33,10 +33,10 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(10));
         UserAccounts.allDecks["temp10"].cards = new() {
             { AllCards.NameToID("Solar Winds"), 2 },
-            { AllCards.NameToID("Tactical Cuke"), 2 },
-            { AllCards.NameToID("Wing-nut"), 2 },
-            { AllCards.NameToID("Astrocado"), 2 },
-            { AllCards.NameToID("Astro Vera"), 2 },
+            { AllCards.NameToID("Banana Bomb"), 2 },
+            { AllCards.NameToID("Wall-nut"), 2 },
+            { AllCards.NameToID("Bubble Up"), 2 },
+            { AllCards.NameToID("Peashooter"), 2 },
             { AllCards.NameToID("Whirlwind"), 4 },
             { AllCards.NameToID("Apple-Saucer"), 2 }
         };
@@ -54,10 +54,10 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
-            { AllCards.NameToID("Pogo Bouncer"), 2 },
-            { AllCards.NameToID("Iron Boarder"), 2 },
-            { AllCards.NameToID("Teleportation Station"), 2 },
-            { AllCards.NameToID("Ice Moon"), 2 },
+            { AllCards.NameToID("Total Eclipse"), 2 },
+            { AllCards.NameToID("Alien Ooze"), 2 },
+            { AllCards.NameToID("Biodome Botanist"), 2 },
+            { AllCards.NameToID("Cosmic Yeti"), 2 },
             { AllCards.NameToID("Cakesplosion"), 1 },
             { AllCards.NameToID("Imp"), 2 },
             { AllCards.NameToID("Backyard Bounce"), 2 },

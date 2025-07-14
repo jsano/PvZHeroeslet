@@ -7,7 +7,7 @@ public class LilBuddy : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		GameManager.Instance.plantHero.Heal(2);
+		yield return GameManager.Instance.plantHero.Heal(2);
 		yield return base.OnThisPlay();
 	}
 

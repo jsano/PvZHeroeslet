@@ -11,7 +11,7 @@ public class NurseGargantuar : Card
 		if (hurt.Item2.tribes.Contains(Tribe.Gargantuar))
 		{
 			yield return new WaitForSeconds(1);
-			GameManager.Instance.zombieHero.Heal(hurt.Item3);
+			yield return GameManager.Instance.zombieHero.Heal(hurt.Item3);
 		}
 		yield return base.OnCardHurt(hurt);
 	}

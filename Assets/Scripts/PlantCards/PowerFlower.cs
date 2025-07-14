@@ -17,7 +17,7 @@ public class PowerFlower : Card
                 if (c != null && c.tribes.Contains(Tribe.Flower)) count++;
             }
         }
-        GameManager.Instance.plantHero.Heal(count);
+        yield return GameManager.Instance.plantHero.Heal(count);
         yield return base.OnTurnStart();
 	}
 
