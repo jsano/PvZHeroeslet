@@ -40,25 +40,20 @@ public class Hero : Damagable
 		if (invulnerable) yield break;
 
 		if (team == Card.Team.Plant)
-			for (int col = 0; col < 5; col++)
+		{
+			Card s = Tile.IsOnField("Soul Patch");
+			if (s != null)
 			{
-				for (int row = 0; row < 2; row++)
-				{
-					if (Tile.plantTiles[row, col].planted != null && Tile.plantTiles[row, col].planted.name.Contains("Soul Patch"))
-					{
-                        yield return new WaitForSeconds(0.5f);
-                        yield return Tile.plantTiles[row, col].planted.ReceiveDamage(dmg, source);
-					}
-				}
+				yield return new WaitForSeconds(0.5f);
+				yield return s.ReceiveDamage(dmg, source);
 			}
+		}
+					
         if (team == Card.Team.Zombie)
-            for (int col = 0; col < 5; col++)
-            {
-                if (Tile.zombieTiles[0, col].planted != null && Tile.zombieTiles[0, col].planted.name.Contains("Undying Pharaoh"))
-                {
-					dmg = Math.Min(dmg, HP - 1);
-                }
-            }
+		{
+            Card s = Tile.IsOnField("Undying Pharaoh");
+            if (s != null) dmg = Math.Min(dmg, HP - 1);
+        }
 
         if (!bullseye && timesBlocked < 3)
 		{

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 public class Tile : Damagable
 {
@@ -156,6 +157,29 @@ public class Tile : Damagable
         if (tileObjects[1, col].planted != null && tileObjects[1, col].planted.teamUp) hasTeamup = true;
         if (hasTeamup || teamUp) return true;
         return false;
+    }
+
+    public static Card IsOnField(string name)
+    {
+        for (int col = 0; col < 5; col++)
+        {
+            for (int row = 0; row < 2; row++)
+            {
+                if (plantTiles[row, col].planted != null && plantTiles[row, col].planted.name.Contains(name))
+                {
+                    return plantTiles[row, col].planted;
+                }
+                if (zombieTiles[row, col].HasRevealedPlanted() && zombieTiles[row, col].planted.name.Contains(name))
+                {
+                    return zombieTiles[row, col].planted;
+                }
+            }
+            if (terrainTiles[col].planted != null && terrainTiles[col].planted.name.Contains(name))
+            {
+                return terrainTiles[col].planted;
+            }
+        }
+        return null;
     }
 
     /// <summary>

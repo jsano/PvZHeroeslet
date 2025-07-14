@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.VisualScripting.Member;
 
 public class Card : Damagable
 {
@@ -506,6 +507,17 @@ public class Card : Damagable
 	/// </summary>
     public IEnumerator BonusAttack()
     {
+        if (team == Team.Plant)
+        {
+            Card s = Tile.IsOnField("Bonus Track Buckethead");
+            if (s != null) yield break;
+        }
+        if (team == Team.Zombie)
+        {
+            Card s = Tile.IsOnField("Wing-nut");
+            if (s != null) yield break;
+        }
+
         GameManager.Instance.DisableHandCards();
         yield return Attack();
         GameManager.Instance.TriggerEvent("OnCardBonusAttack", this);

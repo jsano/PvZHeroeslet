@@ -32,11 +32,11 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(10));
         UserAccounts.allDecks["temp10"].cards = new() {
-            { AllCards.NameToID("Pepper M.D."), 2 },
-            { AllCards.NameToID("Heartichoke"), 2 },
-            { AllCards.NameToID("Venus Flytraplanet"), 2 },
-            { AllCards.NameToID("Cosmoss"), 2 },
-            { AllCards.NameToID("Cosmic Flower"), 2 },
+            { AllCards.NameToID("Solar Winds"), 2 },
+            { AllCards.NameToID("Tactical Cuke"), 2 },
+            { AllCards.NameToID("Wing-nut"), 2 },
+            { AllCards.NameToID("Astrocado"), 2 },
+            { AllCards.NameToID("Astro Vera"), 2 },
             { AllCards.NameToID("Whirlwind"), 4 },
             { AllCards.NameToID("Apple-Saucer"), 2 }
         };
@@ -61,7 +61,7 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Cakesplosion"), 1 },
             { AllCards.NameToID("Imp"), 2 },
             { AllCards.NameToID("Backyard Bounce"), 2 },
-            { AllCards.NameToID("Possessed"), 1 }
+            { AllCards.NameToID("Lurch for Lunch"), 2 }
         };
 
         UserAccounts.GameStats.DeckName = "temp11";
