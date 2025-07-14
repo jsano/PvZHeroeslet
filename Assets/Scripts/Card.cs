@@ -321,7 +321,7 @@ public class Card : Damagable
     {
         if (hunt && played.type == Type.Unit && played.team != team && (amphibious || played.col != 4))
         {
-            if (team == Team.Plant && !Tile.CanPlantInCol(played.col, Tile.plantTiles, teamUp, amphibious) || team == Team.Zombie && Tile.zombieTiles[0, played.col].planted != null) yield return null;
+            if (team == Team.Plant && !Tile.CanPlantInCol(played.col, Tile.plantTiles, teamUp, amphibious) || team == Team.Zombie && Tile.zombieTiles[0, played.col].planted != null) yield break;
             yield return new WaitForSeconds(1);
             Move(row, played.col);
         }
@@ -340,10 +340,10 @@ public class Card : Damagable
 	/// <summary>
 	/// Called whenever a card on the field dies
 	/// </summary>
-	/// <param name="died"> The card that died </param>
-	protected virtual IEnumerator OnCardDeath(Card died)
+	/// <param name="died"> [The card that died, the card that destroyed it] </param>
+	protected virtual IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
-        if (died == this)
+        if (died.Item1 == this)
         {
             yield return new WaitForSeconds(0.5f);
             Destroy(gameObject);
@@ -547,7 +547,7 @@ public class Card : Damagable
                     if (Tile.plantTiles[i, col].HasRevealedPlanted()) Tile.plantTiles[i, col].planted.UpdateAntihero();
                     if (Tile.zombieTiles[i, col].HasRevealedPlanted()) Tile.zombieTiles[i, col].planted.UpdateAntihero();
                 }
-                GameManager.Instance.TriggerEvent("OnCardDeath", this);
+                GameManager.Instance.TriggerEvent("OnCardDeath", new Tuple<Card, Card>(this, source));
             }
 
             if (isDamaged()) hpUI.color = new Color(1, 0.5f, 0.5f);
@@ -575,7 +575,7 @@ public class Card : Damagable
             SR.sprite = baseSprite;
             if (team != GameManager.Instance.team) GameManager.Instance.UpdateRemaining(playedCost, team);
         }
-        GameManager.Instance.TriggerEvent("OnCardDeath", this);
+        GameManager.Instance.TriggerEvent("OnCardDeath", new Tuple<Card, Card>(this, null));
     }
 
     /// <summary>
@@ -619,7 +619,7 @@ public class Card : Damagable
                 if (Tile.plantTiles[i, col].HasRevealedPlanted()) Tile.plantTiles[i, col].planted.UpdateAntihero();
                 if (Tile.zombieTiles[i, col].HasRevealedPlanted()) Tile.zombieTiles[i, col].planted.UpdateAntihero();
             }
-            GameManager.Instance.TriggerEvent("OnCardDeath", this);
+            GameManager.Instance.TriggerEvent("OnCardDeath", new Tuple<Card, Card>(this, null));
         }
 	}
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +28,10 @@ public class Torchwood : Card
 		yield return base.OnCardPlay(played);
 	}
 
-	protected override IEnumerator OnCardDeath(Card died)
+	protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
 	{
-		if (died == this) if (buffing != null) buffing.ChangeStats(-2, 0);
-		if (died == buffing) buffing = null;
+		if (died.Item1 == this) if (buffing != null) buffing.ChangeStats(-2, 0);
+		if (died.Item1 == buffing) buffing = null;
 		yield return base.OnCardDeath(died);
 	}
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,9 +34,9 @@ public class ForceField : Card
         yield return base.OnCardMoved(moved);
     }
 
-    protected override IEnumerator OnCardDeath(Card died)
+    protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
-        if (died == this) for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].planted != null) Tile.plantTiles[i, col].planted.ToggleInvulnerability(false);
+        if (died.Item1 == this) for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].planted != null) Tile.plantTiles[i, col].planted.ToggleInvulnerability(false);
         yield return base.OnCardDeath(died);
     }
 

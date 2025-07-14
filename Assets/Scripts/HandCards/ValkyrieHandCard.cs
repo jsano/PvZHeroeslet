@@ -9,10 +9,10 @@ using UnityEngine.EventSystems;
 public class ValkyrieHandCard : HandCard
 {
 
-    protected override IEnumerator OnCardDeath(Card died)
+    protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
-        if (died.team == Card.Team.Zombie) ChangeAttack(2);
-        return base.OnCardPlay(died);
+        if (died.Item1.team == Card.Team.Zombie) ChangeAttack(2);
+        return base.OnCardDeath(died);
     }
 
 }

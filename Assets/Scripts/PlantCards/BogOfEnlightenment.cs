@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,9 +30,9 @@ public class BogOfEnlightenment : Card
         yield return base.OnCardMoved(moved);
     }
 
-    protected override IEnumerator OnCardDeath(Card died)
+    protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
-        if (died == this)
+        if (died.Item1 == this)
         {
             for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].planted != null && Tile.plantTiles[i, col].planted.amphibious) Tile.plantTiles[i, col].planted.ChangeStats(-2, 0);
             if (Tile.zombieTiles[0, col].HasRevealedPlanted() && !Tile.zombieTiles[0, col].planted.amphibious) Tile.zombieTiles[0, col].planted.ChangeStats(2, 0);

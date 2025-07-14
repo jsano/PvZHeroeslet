@@ -205,14 +205,16 @@ public class GameManager : NetworkBehaviour
 						var temp = (Tuple<Damagable, Card, int, int>)eventStack[i].arg;
 						stackArg = temp.Item4 != -1 ? temp.Item4 : temp.Item1.GetComponent<Card>().col;
 					}
-					else stackArg = ((Damagable)eventStack[i].arg).GetComponent<Card>().col;
+                    else if (methodName == "OnCardDeath") stackArg = ((Tuple<Card, Card>)eventStack[i].arg).Item1.GetComponent<Card>().col;
+                    else stackArg = ((Damagable)eventStack[i].arg).GetComponent<Card>().col;
 					int arg1;
 					if (methodName == "OnCardHurt")
 					{
 						var temp = (Tuple<Damagable, Card, int, int>)arg;
                         arg1 = temp.Item4 != -1 ? temp.Item4 : temp.Item1.GetComponent<Card>().col;
                     }
-					else arg1 = ((Damagable)arg).GetComponent<Card>().col;
+                    else if (methodName == "OnCardDeath") arg1 = ((Tuple<Card, Card>)arg).Item1.GetComponent<Card>().col;
+                    else arg1 = ((Damagable)arg).GetComponent<Card>().col;
 
 					if (stackArg > arg1) continue;
 					if (stackArg == arg1)
@@ -224,7 +226,8 @@ public class GameManager : NetworkBehaviour
 							if (temp.GetComponent<Card>() != null) stackTeam = temp.GetComponent<Card>().team;
 							else stackTeam = temp.GetComponent<Hero>().team;
                         }
-						else stackTeam = ((Damagable)eventStack[i].arg).GetComponent<Card>().team;
+                        else if (methodName == "OnCardDeath") stackTeam = ((Tuple<Card, Card>)eventStack[i].arg).Item1.GetComponent<Card>().team;
+                        else stackTeam = ((Damagable)eventStack[i].arg).GetComponent<Card>().team;
                         if (stackTeam == Team.Plant) continue;
 					}
 				}
@@ -265,10 +268,20 @@ public class GameManager : NetworkBehaviour
 
 			if (ENDED) yield break;
 
-			//yield return new WaitUntil(() => currentlySpawningCards == 0); maybe remove???
-			yield return null;
+            //yield return new WaitUntil(() => currentlySpawningCards == 0); maybe remove???
+            yield return null;
         }
 		isProcessing = false;
+
+		// Recursively handle frenzy if applicable
+		while (frenzyActivate != null)
+        {
+            Card temp = frenzyActivate;
+            frenzyActivate = null;
+            yield return temp.BonusAttack();
+            yield return ProcessEvents();
+        }
+
         EnablePlayableHandCards();
 	}
 
@@ -584,17 +597,6 @@ public class GameManager : NetworkBehaviour
 			if (Tile.plantTiles[0, col].planted != null) yield return Tile.plantTiles[0, col].planted.Attack();
 
 			yield return ProcessEvents();
-
-            if (ENDED) yield break;
-
-            // Recursively handle frenzy if applicable
-            while (frenzyActivate != null)
-			{
-				Card temp = frenzyActivate;
-				frenzyActivate = null;
-				yield return temp.BonusAttack();
-                yield return ProcessEvents();
-			}
 
             if (ENDED) yield break;
 

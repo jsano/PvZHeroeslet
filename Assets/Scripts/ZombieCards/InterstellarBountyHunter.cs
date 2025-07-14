@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Vimpire : Card
+public class InterstellarBountyHunter : Card
 {
 
     protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
@@ -11,7 +11,7 @@ public class Vimpire : Card
         if (died.Item2 == this && died.Item1.team == Team.Plant)
         {
             yield return new WaitForSeconds(1);
-            ChangeStats(2, 2);
+            yield return GameManager.Instance.DrawCard(team);
         }
         yield return base.OnCardDeath(died);
     }

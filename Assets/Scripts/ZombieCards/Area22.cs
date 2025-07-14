@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IceMoon : Card
+public class Area22 : Card
 {
 
     protected override IEnumerator OnThisPlay()
     {
-        for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].planted != null)
+        if (Tile.zombieTiles[0, col].planted != null)
         {
-            Tile.plantTiles[i, col].planted.Freeze();
+            Tile.zombieTiles[0, col].planted.ChangeStats(2, 2);
+            Tile.zombieTiles[0, col].planted.frenzy += 1;
         }
-        if (Tile.zombieTiles[0, col].HasRevealedPlanted()) Tile.zombieTiles[0, col].planted.strikethrough += 1;
         yield return base.OnThisPlay();
     }
 
@@ -20,7 +20,8 @@ public class IceMoon : Card
     {
         if (played.type == Type.Unit && played.team == Team.Zombie && played.col == col)
         {
-            played.strikethrough += 1;
+            played.ChangeStats(2, 2);
+            played.frenzy += 1;
         }
         yield return base.OnCardPlay(played);
     }
@@ -29,18 +30,27 @@ public class IceMoon : Card
     {
         if (moved.oldCol == col && moved.col != col && moved.team == Team.Zombie)
         {
-            moved.strikethrough -= 1;
+            moved.ChangeStats(-2, -2);
+            moved.frenzy -= 1;
         }
         if (moved.oldCol != col && moved.col == col && moved.team == Team.Zombie)
         {
-            moved.strikethrough += 1;
+            moved.ChangeStats(2, 2);
+            moved.frenzy += 1;
         }
         yield return base.OnCardMoved(moved);
     }
 
     protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
-        if (died.Item1 == this) if (Tile.zombieTiles[0, col].HasRevealedPlanted()) Tile.zombieTiles[0, col].planted.strikethrough -= 1;
+        if (died.Item1 == this)
+        {
+            if (Tile.zombieTiles[0, col].planted != null)
+            {
+                Tile.zombieTiles[0, col].planted.ChangeStats(-2, -2);
+                Tile.zombieTiles[0, col].planted.frenzy -= 1;
+            }
+        }
         yield return base.OnCardDeath(died);
     }
 

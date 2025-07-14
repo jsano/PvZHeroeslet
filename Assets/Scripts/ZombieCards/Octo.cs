@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,9 +34,9 @@ public class Octo : Card
         Tile.zombieTiles[t.row, t.col].Plant(card);
     }
 
-	protected override IEnumerator OnCardDeath(Card died)
+	protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
 	{
-		if (died == this)
+		if (died.Item1 == this)
 		{
 			yield return GameManager.Instance.GainHandCard(team, AllCards.NameToID("Octo"));
 		}

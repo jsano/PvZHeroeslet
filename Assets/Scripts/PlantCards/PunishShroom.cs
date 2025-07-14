@@ -6,10 +6,10 @@ using UnityEngine;
 public class PunishShroom : Card
 {
 
-	protected override IEnumerator OnCardDeath(Card died)
+	protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
 	{
         choices.Clear();
-        if (died.tribes.Contains(Tribe.Mushroom))
+        if (died.Item1.tribes.Contains(Tribe.Mushroom))
         {
             if (team == GameManager.Instance.team)
             {

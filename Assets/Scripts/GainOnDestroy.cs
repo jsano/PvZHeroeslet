@@ -3,17 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrapesOfWrath : Card
+public class GainOnDestroy : Card
 {
+
+	public GameObject toMake;
 
 	protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
 	{
 		if (died.Item1 == this)
 		{
-			yield return AttackFX(Tile.zombieHeroTiles[col]);
-			yield return Tile.zombieHeroTiles[col].ReceiveDamage(6, this);
+			yield return new WaitForSeconds(1);
+			yield return GameManager.Instance.GainHandCard(team, AllCards.NameToID(toMake.name));
 		}
 		yield return base.OnCardDeath(died);
-    }
+	}
 
 }

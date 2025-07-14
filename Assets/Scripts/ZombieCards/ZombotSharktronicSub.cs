@@ -16,9 +16,9 @@ public class ZombotSharktronicSub : Card
 		yield return base.OnCardHurt(hurt);
 	}
 
-    protected override IEnumerator OnCardDeath(Card died)
+    protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
-        if (died.team == Team.Plant)
+        if (died.Item1.team == Team.Plant)
         {
             yield return new WaitForSeconds(1);
             ChangeStats(1, 0);

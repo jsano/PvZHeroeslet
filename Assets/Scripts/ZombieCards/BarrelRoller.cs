@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,9 +6,9 @@ using UnityEngine;
 public class BarrelRoller : Card
 {
 
-	protected override IEnumerator OnCardDeath(Card died)
+	protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
 	{
-		if (died == this)
+		if (died.Item1 == this)
 		{
 			yield return new WaitForSeconds(1);
             if (col - 1 >= 0 && Tile.zombieTiles[0, col - 1].planted == null)

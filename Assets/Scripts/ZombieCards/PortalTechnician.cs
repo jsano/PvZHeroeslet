@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,9 +7,9 @@ using UnityEngine;
 public class PortalTechnician : Card
 {
 
-	protected override IEnumerator OnCardDeath(Card died)
+	protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
 	{
-		if (died == this)
+		if (died.Item1 == this)
 		{
             Tile.zombieTiles[row, col].Unplant(true);
             yield return new WaitForSeconds(1);

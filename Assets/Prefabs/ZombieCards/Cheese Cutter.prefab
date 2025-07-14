@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2724712124557671184
+--- !u!1001 &9217733002716994187
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,35 +10,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1812251758246606002, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1554979298
+      value: 2657490035
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: HP
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: atk
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: cost
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: lore
-      value: '"Yes! Yes! Let''s do this! Let''s do this!"'
+      propertyPath: team
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: _class
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: doubleStrike
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: traits.Array.size
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: tribes.Array.size
@@ -46,19 +38,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: 'tribes.Array.data[0]'
-      value: 23
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Name
-      value: Astrocado
+      value: Cheese Cutter
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.0327272
+      value: 1.09
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.24
+      value: 1.335
       objectReference: {fileID: 0}
     - target: {fileID: 8010029174977732602, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_RootOrder
@@ -107,7 +99,7 @@ PrefabInstance:
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: c3a6e2cb3f97e9943a6ec37fb6ae4675, type: 3}
+      objectReference: {fileID: 21300000, guid: c98959604ead82f43ac73653c569a9a9, type: 3}
     m_RemovedComponents:
     - {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
     m_RemovedGameObjects: []
@@ -115,33 +107,33 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4560089628308524966}
+      addedObject: {fileID: 1445991173553001427}
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
---- !u!1 &992196623300205022 stripped
+--- !u!1 &6340810971782871109 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-  m_PrefabInstance: {fileID: 2724712124557671184}
+  m_PrefabInstance: {fileID: 9217733002716994187}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4560089628308524966
+--- !u!114 &1445991173553001427
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 992196623300205022}
+  m_GameObject: {fileID: 6340810971782871109}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1a2b6af691aa5640b49817020469fee, type: 3}
+  m_Script: {fileID: 11500000, guid: 3bbd45227edde864ca7b5d8f003a7b40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 0
+  team: 1
   type: 0
-  _class: 4
-  tribes: 0a000000
+  _class: 5
+  tribes: 0c00000014000000
   token: 0
-  cost: 5
-  atk: 5
-  HP: 3
+  cost: 1
+  atk: 2
+  HP: 2
   amphibious: 0
   antihero: 0
   armor: 0
@@ -159,10 +151,9 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: 'When destroyed: Gain a 0/1 Astrocado Pit that says "Start of turn:
-    This transforms into an Astrocado"'
-  lore: '"Holy guacamole!" '
+  description: 'When this hurts the plant hero: Conjure a Gourmet card, and it costs
+    1 brain less'
+  lore: 'Is that the exquisite scent of an aged Camembert, or just rotting flesh? '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
-  toMake: {fileID: 992196623300205022, guid: 23fa596e60ad4c84c9244a25f4c3816f, type: 3}

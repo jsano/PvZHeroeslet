@@ -6,6 +6,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static Unity.VisualScripting.Member;
 
 public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
@@ -284,7 +285,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     /// Called whenever a card on the field dies
     /// </summary>
     /// <param name="died"> The card that died </param>
-    protected virtual IEnumerator OnCardDeath(Card died)
+    protected virtual IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
         yield return null;
     }

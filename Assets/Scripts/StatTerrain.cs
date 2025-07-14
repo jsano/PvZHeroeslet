@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,9 +39,9 @@ public class StatTerrain : Card
         yield return base.OnCardMoved(moved);
     }
 
-    protected override IEnumerator OnCardDeath(Card died)
+    protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
-        if (died == this)
+        if (died.Item1 == this)
         {
             var targets = targetTeam == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
             for (int i = 0; i < 2; i++) if (targets[i, col].planted != null) targets[i, col].planted.ChangeStats(-atkBuff, -HPBuff);

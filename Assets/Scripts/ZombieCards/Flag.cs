@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,9 +22,9 @@ public class Flag : Card
         return base.OnCardDraw(t);
     }
 
-    protected override IEnumerator OnCardDeath(Card died)
+    protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
 	{
-		if (died == this && GameManager.Instance.team == team)
+		if (died.Item1 == this && GameManager.Instance.team == team)
 		{
             foreach (HandCard hc in GameManager.Instance.GetHandCards()) if (hc.orig.type == Type.Unit) hc.ChangeCost(1);
         }

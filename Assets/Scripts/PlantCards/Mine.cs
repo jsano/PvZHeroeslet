@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,9 @@ public class Mine : Card
 
 	public int deathDamage;
 
-	protected override IEnumerator OnCardDeath(Card died)
+	protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
 	{
-		if (died == this)
+		if (died.Item1 == this)
 		{
 			if (Tile.zombieTiles[0, col].planted != null)
 			{

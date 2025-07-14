@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,9 +25,9 @@ public class ToxicWasteImp : Card
         yield return base.OnCardPlay(played);
     }
 
-    protected override IEnumerator OnCardDeath(Card died)
+    protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
-        if (died == this)
+        if (died.Item1 == this)
             for (int row = 0; row < 2; row++)
             {
                 for (int col = 0; col < 5; col++)
