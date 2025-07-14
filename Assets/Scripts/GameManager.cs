@@ -977,7 +977,7 @@ public class GameManager : NetworkBehaviour
     }
 
 	/// <summary>
-	/// Adds to the current team's gold count by the given change. Gold counts can't go below 0. Updates UI
+	/// Adds to the given team's gold count by the given change. Gold counts can't go below 0. Updates UI
 	/// </summary>
     public void UpdateRemaining(int change, Team team)
     {
