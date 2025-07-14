@@ -944,7 +944,7 @@ public class GameManager : NetworkBehaviour
             {
 				foreach (Transform t in handCards)
 				{
-                    if ((AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type != Card.Type.Unit || allowZombieCards) &&
+                    if ((AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type != Card.Type.Unit || allowZombieCards || Tile.IsOnField("Teleportation")) &&
 						t.GetComponent<HandCard>().GetCost() <= remaining) t.GetComponent<HandCard>().interactable = true;
                     else t.GetComponent<HandCard>().interactable = false;
 				}

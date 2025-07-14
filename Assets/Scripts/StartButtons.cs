@@ -54,11 +54,11 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
-            { AllCards.NameToID("Medulla Nebula"), 2 },
-            { AllCards.NameToID("Triplication"), 2 },
-            { AllCards.NameToID("Moonwalker"), 2 },
-            { AllCards.NameToID("Cosmic Scientist"), 2 },
-            { AllCards.NameToID("Cryo-brain"), 1 },
+            { AllCards.NameToID("Transformation Station"), 2 },
+            { AllCards.NameToID("Neutron Imp"), 2 },
+            { AllCards.NameToID("Wormhole Gatekeeper"), 2 },
+            { AllCards.NameToID("Interdimensional"), 2 },
+            { AllCards.NameToID("Teleportation"), 1 },
             { AllCards.NameToID("Imp"), 2 },
             { AllCards.NameToID("Backyard Bounce"), 2 },
             { AllCards.NameToID("Lurch for Lunch"), 2 }

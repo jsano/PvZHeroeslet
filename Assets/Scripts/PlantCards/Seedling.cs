@@ -7,7 +7,7 @@ public class Seedling : Card
 
 	protected override IEnumerator OnTurnStart()
 	{
-		Tile.plantTiles[row, col].Unplant();
+		Tile.plantTiles[row, col].Unplant(true);
 		yield return new WaitForSeconds(1);
 		if (GameManager.Instance.team == team)
 		{
