@@ -111,6 +111,8 @@ public class Card : Damagable
     public int untrickable;
     public bool nextDoor;
     public bool freeze;
+    public Tribe evolution; // ANIMAL = NONE, MOSS = TEAMUP, SEED = PLANT/ZOMBIE
+    [HideInInspector] public bool evolved = false;
 
     public string description;
     public string lore;
@@ -600,6 +602,7 @@ public class Card : Damagable
         }
         if (gravestone)
         {
+            gravestone = false;
             SR.sprite = baseSprite;
             if (team != GameManager.Instance.team) GameManager.Instance.UpdateRemaining(playedCost, team);
         }

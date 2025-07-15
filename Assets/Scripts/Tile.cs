@@ -108,6 +108,11 @@ public class Tile : Damagable
                 planted.Destroy();
                 terrainTiles[0].planted = planted; // Can't do Plant() since it changes col
             }
+            else if (c.evolution != Card.Tribe.Animal)
+            {
+                Destroy(planted.gameObject);
+                c.evolved = true;
+            }
             else plantTiles[1 - row, col].Plant(planted);
         }
         planted = c;

@@ -32,12 +32,12 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(10));
         UserAccounts.allDecks["temp10"].cards = new() {
-            { AllCards.NameToID("Solar Winds"), 2 },
-            { AllCards.NameToID("Banana Bomb"), 2 },
-            { AllCards.NameToID("Wall-nut"), 2 },
+            { AllCards.NameToID("Three-nut"), 2 },
+            { AllCards.NameToID("Blockbuster"), 2 },
+            { AllCards.NameToID("Grape Responsibility"), 2 },
             { AllCards.NameToID("Bubble Up"), 2 },
             { AllCards.NameToID("Peashooter"), 2 },
-            { AllCards.NameToID("Scorched Earth"), 4 },
+            { AllCards.NameToID("Grave Buster"), 4 },
             { AllCards.NameToID("Apple-Saucer"), 2 }
         };
 
@@ -54,7 +54,7 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
-            { AllCards.NameToID("Cryo-Yeti"), 2 },
+            { AllCards.NameToID("Pied Piper"), 4 },
             { AllCards.NameToID("Dr. Spacetime"), 2 },
             { AllCards.NameToID("Space Cowboy"), 2 },
             { AllCards.NameToID("Ducky Tube"), 2 },

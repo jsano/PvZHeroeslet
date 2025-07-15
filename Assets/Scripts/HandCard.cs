@@ -24,7 +24,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     /// <summary>
     /// All of the valid tiles/heroes that this can legally be played on
     /// </summary>
-	private List<BoxCollider2D> validChoices = new();
+	private HashSet<BoxCollider2D> validChoices = new();
 
     private CardInfo cardInfo;
 
@@ -81,11 +81,20 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                 {
                     if (Tile.CanPlantInCol(j, tileObjects, finalStats.abilities.Contains("teamUp") || orig.teamUp, finalStats.abilities.Contains("amphibious") || orig.amphibious))
                     {
-                        if (i == 0 || 
+                        if (i == 0 ||
                             i == 1 && (finalStats.abilities.Contains("teamUp") || orig.teamUp || tileObjects[0, j].planted != null && tileObjects[0, j].planted.teamUp))
                             validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
                     }
-                        
+                    if (tileObjects[i, j].HasRevealedPlanted() && orig.evolution != Card.Tribe.Animal) {
+                        if (orig.evolution == Card.Tribe.Moss) {
+                            if (tileObjects[i, j].planted.teamUp) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
+                        }
+                        else if (orig.evolution == Card.Tribe.Seed)
+                        {
+                            if (tileObjects[i, j].planted.team == orig.team) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
+                        }
+                        else if (tileObjects[i, j].planted.tribes.Contains(orig.evolution)) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
+                    }
 			    }
             }
         }
