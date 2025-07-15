@@ -197,6 +197,16 @@ public class Card : Damagable
         }
         // The only way for a card to not have a FinalStats is if it was instantiated by something, in which case it should always be free
         else playedCost = 0;
+
+        if (team == Team.Plant)
+        {
+            atk += GameManager.Instance.plantPermanentAttackBonus;
+            HP += GameManager.Instance.plantPermanentHPBonus;
+        } else
+        {
+            atk += GameManager.Instance.zombiePermanentAttackBonus;
+            HP += GameManager.Instance.zombiePermanentHPBonus;
+        }
         maxHP = HP;
 
         initializedStats = true;

@@ -47,6 +47,7 @@ public class Hero : Damagable
 			{
 				yield return new WaitForSeconds(0.5f);
 				yield return s.ReceiveDamage(dmg, source);
+				yield break;
 			}
 		}
 					
@@ -54,6 +55,14 @@ public class Hero : Damagable
 		{
             Card s = Tile.IsOnField("Undying Pharaoh");
             if (s != null) dmg = Math.Min(dmg, HP - 1);
+
+            s = Tile.IsOnField("Planetary Gladiator");
+            if (s != null)
+            {
+                yield return new WaitForSeconds(0.5f);
+                yield return s.ReceiveDamage(dmg, source);
+				yield break;
+            }
         }
 
         if (!bullseye && timesBlocked < 3)

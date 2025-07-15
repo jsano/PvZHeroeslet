@@ -84,6 +84,22 @@ public class GameManager : NetworkBehaviour
     /// </summary>
     [HideInInspector] public int opponentPermanentBonus = 0;
     /// <summary>
+    /// How much extra attack the plants have for the rest of the game
+    /// </summary>
+    [HideInInspector] public int plantPermanentAttackBonus = 0;
+    /// <summary>
+    /// How much extra HP the plants have for the rest of the game
+    /// </summary>
+    [HideInInspector] public int plantPermanentHPBonus = 0;
+    /// <summary>
+    /// How much extra attack the zombies have for the rest of the game
+    /// </summary>
+    [HideInInspector] public int zombiePermanentAttackBonus = 0;
+    /// <summary>
+    /// How much extra HP the zombies have for the rest of the game
+    /// </summary>
+    [HideInInspector] public int zombiePermanentHPBonus = 0;
+    /// <summary>
     /// The player's team (Plant/Zombie), derived from their hero's team
     /// </summary>
     public Team team;
