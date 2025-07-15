@@ -125,6 +125,7 @@ public class CardInfo : MonoBehaviour
         { "Deadly", "Destroys any card it deals damage to,\nregardless of its remaining HP" },
 		{ "Dino-Roar", "Activates when the player gains a card" },
 		{ "Double Strike", "Does a bonus attack after its combat" },
+		{ "Evolution", "Play this over a card to use this ability" },
 		{ "Freeze", "Cannot attack during its combat,\nand wears off afterwards" },
 		{ "Frenzy", "When this attacks, kills its target,\nand survives, it does a bonus attack" },
 		{ "Gravestone", "Hides its identity to the opponent\nuntil it's time for Zombie Tricks" },
