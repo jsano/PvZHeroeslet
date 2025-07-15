@@ -39,7 +39,8 @@ public class Hero : Damagable
 	{
 		if (invulnerable) yield break;
 
-		if (team == Card.Team.Plant)
+        if (team != Card.Team.Zombie && Tile.IsOnField("Binary Stars")) dmg *= 2;
+        if (team == Card.Team.Plant)
 		{
 			Card s = Tile.IsOnField("Soul Patch");
 			if (s != null)

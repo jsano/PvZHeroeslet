@@ -37,7 +37,7 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Wall-nut"), 2 },
             { AllCards.NameToID("Bubble Up"), 2 },
             { AllCards.NameToID("Peashooter"), 2 },
-            { AllCards.NameToID("Whirlwind"), 4 },
+            { AllCards.NameToID("Scorched Earth"), 4 },
             { AllCards.NameToID("Apple-Saucer"), 2 }
         };
 
@@ -54,13 +54,13 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
-            { AllCards.NameToID("Cosmic Dancer"), 2 },
-            { AllCards.NameToID("Space Ninja"), 2 },
-            { AllCards.NameToID("Final Mission"), 2 },
-            { AllCards.NameToID("Interdimensional"), 2 },
-            { AllCards.NameToID("Teleportation"), 1 },
-            { AllCards.NameToID("Imp"), 2 },
-            { AllCards.NameToID("Backyard Bounce"), 2 },
+            { AllCards.NameToID("Disco-naut"), 2 },
+            { AllCards.NameToID("Moon Base Z"), 2 },
+            { AllCards.NameToID("Gas Giant"), 2 },
+            { AllCards.NameToID("Quasar Wizard"), 2 },
+            { AllCards.NameToID("Binary Stars"), 2 },
+            { AllCards.NameToID("Imp"), 1 },
+            { AllCards.NameToID("Yeti Lunchbox"), 2 },
             { AllCards.NameToID("Lurch for Lunch"), 2 }
         };
 

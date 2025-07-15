@@ -49,7 +49,7 @@ public class AllCards : MonoBehaviour
         {
 			for (int j = 0; j < tribe.Length; j++)
 			{
-                if (Instance.cards[i].tribes.Contains((Card.Tribe) tribe[j]) && (!forceUnit || Instance.cards[i].type == Card.Type.Unit) && (!forceAmphibious || Instance.cards[i].amphibious))
+                if (Instance.cards[i].tribes.Contains((Card.Tribe) tribe[j]) && (!forceUnit || Instance.cards[i].type == Card.Type.Unit) && (!forceAmphibious || Instance.cards[i].amphibious) && Instance.cards[i].team == GameManager.Instance.team)
                 {
                     possible.Add(i);
                     break;

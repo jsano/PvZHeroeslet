@@ -103,6 +103,7 @@ public class Card : Damagable
     public bool gravestone;
     public int strengthHeart;
     public bool hunt;
+    public int baseOvershoot { get; private set; }
     public int overshoot;
     public int splash;
     public int strikethrough;
@@ -172,6 +173,7 @@ public class Card : Damagable
         baseHP = HP;
         baseAtk = atk;
         baseGravestone = gravestone;
+        baseOvershoot = overshoot;
 
         if (sourceFS != null)
         {
@@ -388,7 +390,7 @@ public class Card : Damagable
     /// <summary>
 	/// Called whenever a card changes attack or max HP. Not called when healed
 	/// </summary>
-	protected virtual IEnumerator OnCardStatsChanged(Card changed)
+	protected virtual IEnumerator OnCardStatsChanged(Tuple<Card, int, int> changed)
     {
         yield return null;
     }
@@ -538,6 +540,7 @@ public class Card : Damagable
     public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1)
     {
         if (gravestone || invulnerable) yield break;
+        if (team != Team.Zombie && Tile.IsOnField("Binary Stars")) dmg *= 2;
         dmg = Mathf.Max(0, dmg - armor);
         HP -= dmg;
         hpUI.text = Mathf.Max(0, HP) + "";
@@ -615,8 +618,8 @@ public class Card : Damagable
         maxHP += hpAmount;
         HP += hpAmount;
         if (hpUI != null) hpUI.text = HP + "";
-
-        if (atkAmount > 0 || hpAmount > 0) GameManager.Instance.TriggerEvent("OnCardStatsChanged", this);
+        
+        GameManager.Instance.TriggerEvent("OnCardStatsChanged", new Tuple<Card, int, int>(this, atkAmount, hpAmount));
         if (HP <= 0)
         {
             died = true;
