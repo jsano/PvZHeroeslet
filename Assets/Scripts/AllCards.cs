@@ -42,15 +42,16 @@ public class AllCards : MonoBehaviour
         else instance = this;
     }
 
-    public static int RandomFromTribe(ITuple tribe, bool forceUnit=false, bool forceAmphibious=false)
+    public static int RandomFromTribe(ITuple tribe, bool forceUnit=false, bool forceAmphibious=false, Card.Team team = Card.Team.Plant)
     {
         List<int> possible = new();
         for (int i = 0; i < Instance.cards.Length; i++)
         {
 			for (int j = 0; j < tribe.Length; j++)
 			{
-                if (Instance.cards[i].tribes.Contains((Card.Tribe) tribe[j]) && (!forceUnit || Instance.cards[i].type == Card.Type.Unit) && (!forceAmphibious || Instance.cards[i].amphibious) && Instance.cards[i].team == GameManager.Instance.team)
+                if (Instance.cards[i].tribes.Contains((Card.Tribe) tribe[j]) && (!forceUnit || Instance.cards[i].type == Card.Type.Unit) && (!forceAmphibious || Instance.cards[i].amphibious))
                 {
+                    if ((Card.Tribe)tribe[j] == Card.Tribe.Superpower && team != Instance.cards[i].team) break;
                     possible.Add(i);
                     break;
                 }
