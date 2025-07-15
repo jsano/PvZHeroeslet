@@ -914,15 +914,17 @@ public class GameManager : NetworkBehaviour
 	/// <returns></returns>
     private IEnumerator CallLeftToRight(string methodName, object arg)
 	{
+		List<Card> toDo = new(); // Need it all at the beginning or else cards that move to the right call multiple times
 		for (int i = 0; i < 5; i++)
 		{
-			if (Tile.terrainTiles[i].planted != null) yield return Tile.terrainTiles[i].planted.StartCoroutine(methodName, arg);
+			if (Tile.terrainTiles[i].planted != null) toDo.Add(Tile.terrainTiles[i].planted);
 
-			if (Tile.zombieTiles[0, i].HasRevealedPlanted()) yield return Tile.zombieTiles[0, i].planted.StartCoroutine(methodName, arg);
+			if (Tile.zombieTiles[0, i].HasRevealedPlanted()) toDo.Add(Tile.zombieTiles[0, i].planted);
 			
-			if (Tile.plantTiles[1, i].planted != null) yield return Tile.plantTiles[1, i].planted.StartCoroutine(methodName, arg);
-			if (Tile.plantTiles[0, i].planted != null) yield return Tile.plantTiles[0, i].planted.StartCoroutine(methodName, arg);
+			if (Tile.plantTiles[1, i].planted != null) toDo.Add(Tile.plantTiles[1, i].planted);
+			if (Tile.plantTiles[0, i].planted != null) toDo.Add(Tile.plantTiles[0, i].planted);
 		}
+		foreach (Card c in toDo) yield return c.StartCoroutine(methodName, arg);
 		foreach (Transform h in handCards) h.GetComponent<HandCard>().StartCoroutine(methodName, arg);
         yield return null;
 	}
