@@ -119,14 +119,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4357448545809571054}
+      addedObject: {fileID: 7557897800980740072}
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
 --- !u!1 &3964835505542182985 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
   m_PrefabInstance: {fileID: 2238586215414733447}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4357448545809571054
+--- !u!114 &7557897800980740072
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3964835505542182985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae81b6ea00578fa4d8cb6d767db5ae8e, type: 3}
+  m_Script: {fileID: 11500000, guid: 80c4028dc0c7cbe47892d8a97494b098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
@@ -154,6 +154,7 @@ MonoBehaviour:
   doubleStrike: 0
   frenzy: 0
   gravestone: 0
+  strengthHeart: 0
   hunt: 0
   overshoot: 0
   splash: 0
@@ -162,6 +163,8 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
   description: Make a 2/2 Zom-bats that says "Amphibious. When this hurts a plant,
     draw a card"
   lore: 'Immorticia was cleaning her belfry when, lo and behold, she found bats in
@@ -169,3 +172,4 @@ MonoBehaviour:
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
+  toMake: {fileID: -6983567342560467972, guid: 89421ade8673c8344b30ccf4414b1418, type: 3}

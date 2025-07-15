@@ -15,7 +15,8 @@ public class Devour : Card
 
 	public override bool IsValidTarget(BoxCollider2D bc)
 	{
-		List<BoxCollider2D> targets = new();
+        if (!base.IsValidTarget(bc)) return false;
+        List<BoxCollider2D> targets = new();
 		int lowest = 999;
 		for (int i = 0; i < 5; i++) if (Tile.zombieTiles[0, i].HasRevealedPlanted() && Tile.zombieTiles[0, i].planted.HP < lowest)
 			{

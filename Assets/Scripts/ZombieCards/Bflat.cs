@@ -11,7 +11,7 @@ public class Bflat : Card
         {
             for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++)
             {
-                if (Tile.plantTiles[i, j].planted != null)
+                if (Tile.plantTiles[i, j].planted != null && Tile.plantTiles[i, j].planted.untrickable == 0)
                 {
                     choices.Add(Tile.plantTiles[i, j].GetComponent<BoxCollider2D>());
                 }

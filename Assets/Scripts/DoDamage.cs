@@ -21,6 +21,7 @@ public class DoDamage : Card
 
 	public override bool IsValidTarget(BoxCollider2D bc)
 	{
+		if (!base.IsValidTarget(bc)) return false;
 		Tile t = bc.GetComponent<Tile>();
 		if (t != null)
 		{

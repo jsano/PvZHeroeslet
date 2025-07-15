@@ -670,10 +670,15 @@ public class Card : Damagable
     }
 
     /// <summary>
-    /// For tricks, override with conditions indicating if the trick can be applied to this target
+    /// For tricks, override with conditions indicating if the trick can be applied to this target. Base method checks for untrickable
     /// </summary>
     public virtual bool IsValidTarget(BoxCollider2D bc)
     {
+        if (bc.GetComponent<Tile>() != null)
+        {
+            Tile t = bc.GetComponent<Tile>();
+            if (t.planted != null && t.planted.team != team && t.planted.untrickable > 0) return false;
+        }
         return true;
     }
 

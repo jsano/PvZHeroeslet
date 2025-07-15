@@ -15,7 +15,8 @@ public class SecondBestTacoOfAllTime : Card
 
 	public override bool IsValidTarget(BoxCollider2D bc)
 	{
-		Tile t = bc.GetComponent<Tile>();
+        if (!base.IsValidTarget(bc)) return false;
+        Tile t = bc.GetComponent<Tile>();
 		if (t != null)
 		{
 			if (t.HasRevealedPlanted() && t.planted.team == Team.Plant && t.planted.isDamaged()) return true;

@@ -18,6 +18,7 @@ public class Goatify : Card
 
 	public override bool IsValidTarget(BoxCollider2D bc)
 	{
+        if (!base.IsValidTarget(bc)) return false;
         List<BoxCollider2D> targets = new();
         int highest = -1;
         for (int i = 0; i < 5; i++) if (Tile.zombieTiles[0, i].HasRevealedPlanted() && Tile.zombieTiles[0, i].planted.atk > highest)

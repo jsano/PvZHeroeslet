@@ -21,7 +21,8 @@ public class WaterBalloons : Card
 
     public override bool IsValidTarget(BoxCollider2D bc)
 	{
-		Tile t = bc.GetComponent<Tile>();
+        if (!base.IsValidTarget(bc)) return false;
+        Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
 		if (t.HasRevealedPlanted() && t.planted.team == Team.Zombie && !t.planted.amphibious) return true;
 		return false;

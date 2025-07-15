@@ -11,7 +11,7 @@ public class FinalMission : Card
 		{
 			for (int col = 0; col < 5; col++)
 			{
-				if (Tile.plantTiles[row, col].planted != null && Tile.plantTiles[row, col].planted != this)
+				if (Tile.plantTiles[row, col].planted != null && Tile.plantTiles[row, col].planted.untrickable == 0 && Tile.plantTiles[row, col].planted != this)
 				{
 					choices.Add(Tile.plantTiles[row, col].GetComponent<BoxCollider2D>());
 				}
@@ -38,6 +38,7 @@ public class FinalMission : Card
 
     public override bool IsValidTarget(BoxCollider2D bc)
     {
+        if (!base.IsValidTarget(bc)) return false;
         Tile t = bc.GetComponent<Tile>();
         if (t == null) return false;
         if (t.HasRevealedPlanted() && t.planted.team == Team.Zombie) return true;

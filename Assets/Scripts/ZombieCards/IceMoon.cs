@@ -8,7 +8,7 @@ public class IceMoon : Card
 
     protected override IEnumerator OnThisPlay()
     {
-        for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].planted != null)
+        for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].planted != null && Tile.plantTiles[i, col].planted.untrickable == 0)
         {
             Tile.plantTiles[i, col].planted.Freeze();
         }

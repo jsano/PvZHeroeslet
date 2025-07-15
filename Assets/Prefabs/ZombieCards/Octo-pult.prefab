@@ -119,14 +119,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -5800222404688727950}
+      addedObject: {fileID: 4742309178090438480}
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
 --- !u!1 &3964835505542182985 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
   m_PrefabInstance: {fileID: 2238586215414733447}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-5800222404688727950
+--- !u!114 &4742309178090438480
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3964835505542182985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fab99d14975c9834491a2535034fddf8, type: 3}
+  m_Script: {fileID: 11500000, guid: 80c4028dc0c7cbe47892d8a97494b098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
@@ -154,6 +154,7 @@ MonoBehaviour:
   doubleStrike: 0
   frenzy: 0
   gravestone: 0
+  strengthHeart: 0
   hunt: 0
   overshoot: 0
   splash: 0
@@ -162,8 +163,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
   description: Make a 3/2 Octo-Pet with Amphibious, Frenzy
   lore: 'Octopus incoming! Two words a Plant never wants to hear. '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
+  toMake: {fileID: 6377264207035512179, guid: f8cc9848763b7784086d8acb1ee4d786, type: 3}

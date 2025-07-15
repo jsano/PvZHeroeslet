@@ -58,7 +58,7 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Dr. Spacetime"), 2 },
             { AllCards.NameToID("Space Cowboy"), 2 },
             { AllCards.NameToID("Ducky Tube"), 2 },
-            { AllCards.NameToID("Intergalactic Warlord"), 2 },
+            { AllCards.NameToID("Bungee Plumber"), 2 },
             { AllCards.NameToID("Imp"), 1 },
             { AllCards.NameToID("Mini Ninja"), 2 },
             { AllCards.NameToID("Lurch for Lunch"), 2 }
