@@ -13,7 +13,7 @@ public class ZombieChicken : Card
 			{
                 for (int j = 0; j < 4; j++)
                 {
-                    if (j != col && !Tile.zombieTiles[row, j].HasRevealedPlanted())
+                    if (j != col && Tile.zombieTiles[row, j].planted == null)
                     {
                         choices.Add(Tile.zombieTiles[row, j].GetComponent<BoxCollider2D>());
                     }

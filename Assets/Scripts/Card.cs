@@ -209,9 +209,6 @@ public class Card : Damagable
         }
         maxHP = HP;
 
-        initializedStats = true;
-        UpdateAntihero();
-
         atkUI = transform.Find("ATK").GetComponentInChildren<TextMeshProUGUI>();
         hpUI = transform.Find("HP").GetComponentInChildren<TextMeshProUGUI>();
         atkSprite = atkUI.GetComponentInParent<Image>();
@@ -227,9 +224,21 @@ public class Card : Damagable
             hpSprite.gameObject.SetActive(false);
         }
         if (type == Type.Terrain) SR.sortingOrder = -1;
+        
+        initializedStats = true;
+
+        if (Tile.terrainTiles[col].planted != null && type == Type.Unit && team == Team.Zombie && AllCards.InstanceToPrefab(Tile.terrainTiles[col].planted).name == "Graveyard")
+        {
+            if (!gravestone) GameManager.Instance.currentlySpawningCards -= 1;
+            gravestone = true;
+            baseGravestone = true;
+            GameManager.Instance.EnablePlayableHandCards();
+        }
+
         if (gravestone) Hide();
         else
         {
+            UpdateAntihero();
             //play animation
             // Trick play GameEvents should always process last chronologially, so force it to be added first on the stack
             if (type != Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this); 
@@ -628,7 +637,7 @@ public class Card : Damagable
         maxHP += hpAmount;
         HP += hpAmount;
         if (hpUI != null) hpUI.text = HP + "";
-        
+
         GameManager.Instance.TriggerEvent("OnCardStatsChanged", new Tuple<Card, int, int>(this, atkAmount, hpAmount));
         if (HP <= 0)
         {
@@ -670,7 +679,7 @@ public class Card : Damagable
     /// </summary>
     public void UpdateAntihero()
     {
-        if (!initializedStats) return;
+        if (gravestone || !initializedStats) return;
         if (antihero > 0)
         {
             if (AHactive && GetTargets(col)[0].GetComponent<Card>() != null)
@@ -710,6 +719,7 @@ public class Card : Damagable
     {
         atk = baseAtk;
         HP = baseHP;
+        baseGravestone = true;
         gravestone = true;
         SR.sprite = AllCards.Instance.gravestoneSprite;
         atkSprite.gameObject.SetActive(false);
