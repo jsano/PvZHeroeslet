@@ -257,18 +257,27 @@ public class GameManager : NetworkBehaviour
     /// <summary>
     /// Process all GameEvents in the event stack, one at a time, until it is empty. Player moves will be disabled until it's finished. Multiple ongoing calls will be ignored
     /// </summary>
-    public IEnumerator ProcessEvents()
+    public IEnumerator ProcessEvents(bool combatVersion = false)
     {
 		if (isProcessing || ENDED) yield break;
 		isProcessing = true;
 		yield return null;
         DisableHandCards();
-		
-        while (eventStack.Count > 0)
+
+		int ignored = 0;
+        while (eventStack.Count > ignored)
         {
+			GameEvent currentEvent = eventStack[^(ignored + 1)];
+			if (combatVersion)
+			{
+				if (currentEvent.methodName == "OnCardHurt" || currentEvent.methodName == "OnCardDeath")
+				{
+					ignored += 1;
+					continue;
+				}
+			}
 			shuffledList = null;
-            GameEvent currentEvent = eventStack[^1];
-			eventStack.RemoveAt(eventStack.Count - 1);
+			eventStack.RemoveAt(eventStack.Count - 1 - ignored);
 
 			if (currentEvent.methodName == "OnBlock")
 			{
@@ -608,7 +617,7 @@ public class GameManager : NetworkBehaviour
 			if (Tile.zombieTiles[0, col].planted != null)
 			{
                 yield return Tile.zombieTiles[0, col].planted.BeforeCombat();
-                yield return ProcessEvents();
+                yield return ProcessEvents(true);
                 if (Tile.zombieTiles[0, col].planted != null) yield return Tile.zombieTiles[0, col].planted.Attack();
 			}
 
@@ -616,11 +625,15 @@ public class GameManager : NetworkBehaviour
 
 			if (Tile.plantTiles[1, col].planted != null)
 			{
-                yield return Tile.plantTiles[1, col].planted.Attack();
+                yield return Tile.plantTiles[1, col].planted.BeforeCombat();
+                yield return ProcessEvents(true);
+                if (Tile.plantTiles[1, col].planted != null) yield return Tile.plantTiles[1, col].planted.Attack();
 			}
 			if (Tile.plantTiles[0, col].planted != null)
 			{
-                yield return Tile.plantTiles[0, col].planted.Attack();
+                yield return Tile.plantTiles[0, col].planted.BeforeCombat();
+                yield return ProcessEvents(true);
+                if (Tile.plantTiles[0, col].planted != null) yield return Tile.plantTiles[0, col].planted.Attack();
 			}
 
 			yield return ProcessEvents();
