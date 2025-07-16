@@ -108,20 +108,23 @@ public class Tile : Damagable
                 planted.Destroy();
                 terrainTiles[0].planted = planted; // Can't do Plant() since it changes col
             }
-            else if (c.evolution != Card.Tribe.Animal)
+            bool move = true;
+            if (c.evolution != Card.Tribe.Animal)
             {
-                Destroy(planted.gameObject);
+                move = false;
+                if (!planted.fusion) Destroy(planted.gameObject);
                 c.evolved = true;
             }
-            else if (planted.fusion)
+            if (planted.fusion)
             {
+                move = false;
                 planted.transform.Find("ATK").gameObject.SetActive(false);
                 planted.transform.Find("HP").gameObject.SetActive(false);
                 planted.GetComponent<SpriteRenderer>().sortingOrder = c.GetComponent<SpriteRenderer>().sortingOrder - 1;
                 c.fusionBase = planted;
                 if (planted.amphibious) c.amphibious = true;
             }
-            else plantTiles[1 - row, col].Plant(planted);
+            if (move) plantTiles[1 - row, col].Plant(planted);
         }
         planted = c;
         c.row = row;

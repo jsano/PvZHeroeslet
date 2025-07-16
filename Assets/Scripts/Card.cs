@@ -347,6 +347,7 @@ public class Card : Damagable
 
     protected virtual IEnumerator Fusion(Card parent)
     {
+        GameManager.Instance.ClearSelection();
         yield return null;
     }
 
@@ -384,7 +385,7 @@ public class Card : Damagable
         {
             yield return new WaitForSeconds(0.5f);
             var tiles = team == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
-            if (fusionBase != null) Destroy(fusionBase);
+            if (fusionBase != null) Destroy(fusionBase.gameObject);
             Destroy(gameObject);
         }
     }
