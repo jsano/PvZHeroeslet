@@ -351,6 +351,14 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     }
 
     /// <summary>
+	/// Called whenever a card is bounced
+	/// </summary>
+	protected virtual IEnumerator OnCardBounce(Card bounced)
+    {
+        yield return null;
+    }
+
+    /// <summary>
 	/// Called at the start of turn
 	/// </summary>
 	protected virtual IEnumerator OnTurnStart()

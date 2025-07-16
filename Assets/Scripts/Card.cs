@@ -425,6 +425,14 @@ public class Card : Damagable
     }
 
     /// <summary>
+	/// Called whenever a card is bounced
+	/// </summary>
+	protected virtual IEnumerator OnCardBounce(Card bounced)
+    {
+        yield return null;
+    }
+
+    /// <summary>
 	/// Called at the start of turn
 	/// </summary>
 	protected virtual IEnumerator OnTurnStart()
@@ -752,6 +760,7 @@ public class Card : Damagable
         if (team == Team.Plant) Tile.plantTiles[row, col].Unplant();
         else Tile.zombieTiles[row, col].Unplant();
         StartCoroutine(BounceHelper());
+        GameManager.Instance.TriggerEvent("OnCardBounce", this);
     }
 
     private IEnumerator BounceHelper()
