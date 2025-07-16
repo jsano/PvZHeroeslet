@@ -767,7 +767,7 @@ public class Card : Damagable
     {
         SR.sortingLayerID = 0;
         GetComponent<Canvas>().sortingLayerID = 0;
-        yield return GameManager.Instance.GainHandCard(team, AllCards.NameToID(name.Substring(0, name.IndexOf("("))), sourceFS.permanent ? sourceFS : null, false);
+        yield return GameManager.Instance.GainHandCard(team, AllCards.NameToID(name.Substring(0, name.IndexOf("("))), sourceFS != null && sourceFS.permanent ? sourceFS : null, false);
         Destroy(gameObject);
     }
 

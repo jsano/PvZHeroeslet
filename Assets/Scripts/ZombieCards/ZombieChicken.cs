@@ -7,6 +7,7 @@ public class ZombieChicken : Card
 
 	protected override IEnumerator OnCardPlay(Card played)
 	{
+        choices.Clear();
 		if (played.col == col && played.team == Team.Plant)
 		{
 			if (GameManager.Instance.team == team)
@@ -25,10 +26,10 @@ public class ZombieChicken : Card
                     choices[n] = choices[k];
                     choices[k] = temp;
                 }
-                GameManager.Instance.StoreRpc(choices[0].GetComponent<Tile>().row + " - " + choices[0].GetComponent<Tile>().col);
+                if (choices.Count > 0) GameManager.Instance.StoreRpc(choices[0].GetComponent<Tile>().row + " - " + choices[0].GetComponent<Tile>().col);
             }
 			yield return new WaitForSeconds(1);
-            Move(int.Parse(GameManager.Instance.shuffledList[0]), int.Parse(GameManager.Instance.shuffledList[1]));
+            if (GameManager.Instance.shuffledList != null) Move(int.Parse(GameManager.Instance.shuffledList[0]), int.Parse(GameManager.Instance.shuffledList[1]));
         }
 		yield return base.OnCardPlay(played);
 	}
