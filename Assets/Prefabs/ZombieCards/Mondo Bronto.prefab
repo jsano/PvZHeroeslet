@@ -50,15 +50,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Name
-      value: Vimpire
+      value: Mondo Bronto
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.952
+      value: 0.9837838
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.24
+      value: 1.1351352
       objectReference: {fileID: 0}
     - target: {fileID: 8010029174977732602, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_RootOrder
@@ -107,7 +107,7 @@ PrefabInstance:
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 00659e52793fdb34e854ac3752acafb7, type: 3}
+      objectReference: {fileID: 21300000, guid: 36cd167491bf4bd4caa06d62c0479fcb, type: 3}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -119,14 +119,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 998300216503916157}
+      addedObject: {fileID: 6448906391354096655}
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
 --- !u!1 &992196623300205022 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
   m_PrefabInstance: {fileID: 2724712124557671184}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &998300216503916157
+--- !u!114 &6448906391354096655
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,24 +135,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 992196623300205022}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db8f2f5a090dd8246a84718dac7dea36, type: 3}
+  m_Script: {fileID: 11500000, guid: 231c24ffd7ec4304190722c51ce39ce3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
   type: 0
   _class: 5
-  tribes: 110000000e000000
+  tribes: 0d00000018000000
   token: 0
-  cost: 3
-  atk: 2
-  HP: 3
-  amphibious: 0
+  cost: 5
+  atk: 5
+  HP: 5
+  amphibious: 1
   antihero: 0
   armor: 0
   bullseye: 0
   deadly: 0
   doubleStrike: 0
-  frenzy: 1
+  frenzy: 0
   gravestone: 0
   strengthHeart: 0
   hunt: 0
@@ -165,8 +165,9 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
-  description: This gets +2 attack +2 HP when it destroys a plant
-  lore: 'He vants to suck your chlorophyll. '
+  description: 'Dino-Roar: This gets +1 attack +1 HP and destroy all plants here'
+  lore: 'Deep in Hollow Earth, Zombie warrior women tame herds of enormous dinosaurs.
+    Any good history book will tell you that. '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}

@@ -298,14 +298,17 @@ public class GameManager : NetworkBehaviour
         }
 		isProcessing = false;
 
-		// Recursively handle frenzy if applicable
-		while (frenzyActivate != null)
-        {
-            Card temp = frenzyActivate;
-            frenzyActivate = null;
-            yield return temp.BonusAttack();
-            yield return ProcessEvents();
-        }
+		if (!combatVersion)
+		{
+			// Recursively handle frenzy if applicable
+			while (frenzyActivate != null)
+			{
+				Card temp = frenzyActivate;
+				frenzyActivate = null;
+				yield return temp.BonusAttack();
+				yield return ProcessEvents(combatVersion);
+			}
+		}
 
         EnablePlayableHandCards();
 	}
