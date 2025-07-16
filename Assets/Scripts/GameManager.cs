@@ -276,7 +276,6 @@ public class GameManager : NetworkBehaviour
 					continue;
 				}
 			}
-			shuffledList = null;
 			eventStack.RemoveAt(eventStack.Count - 1 - ignored);
 
 			if (currentEvent.methodName == "OnBlock")
@@ -294,7 +293,8 @@ public class GameManager : NetworkBehaviour
 			if (ENDED) yield break;
 
             //yield return new WaitUntil(() => currentlySpawningCards == 0); maybe remove???
-            yield return null;
+            shuffledList = null;
+			yield return null;
         }
 		isProcessing = false;
 
