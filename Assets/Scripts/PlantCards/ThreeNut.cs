@@ -10,7 +10,7 @@ public class ThreeNut : Card
 		if (played != this && played.type == Type.Unit && played.team == team)
 		{
 			yield return new WaitForSeconds(1);
-			played.ChangeStats(-(played.atk - played.antihero) + 3, 0);
+			played.ChangeStats(-played.baseAtk + 3, 0);
 		}
 		yield return base.OnCardPlay(played);
 	}

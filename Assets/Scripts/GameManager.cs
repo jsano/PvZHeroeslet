@@ -261,13 +261,13 @@ public class GameManager : NetworkBehaviour
     /// <summary>
     /// Process all GameEvents in the event stack, one at a time, until it is empty. Player moves will be disabled until it's finished. Multiple ongoing calls will be ignored
     /// </summary>
-    public IEnumerator ProcessEvents(bool combatVersion = false)
+    public IEnumerator ProcessEvents(bool combatVersion = false, bool ignoreSpawning = false)
     {
 		if (isProcessing || ENDED) yield break;
 		isProcessing = true;
 		yield return null;
         DisableHandCards();
-		yield return new WaitUntil(() => currentlySpawningCards == 0); // For remaining OnThisPlays
+		if (!ignoreSpawning) yield return new WaitUntil(() => currentlySpawningCards == 0); // For remaining OnThisPlays
         int ignored = 0;
         while (eventStack.Count > ignored)
         {
@@ -314,7 +314,7 @@ public class GameManager : NetworkBehaviour
 			}
 		}
 
-        EnablePlayableHandCards();
+        if (!ignoreSpawning) EnablePlayableHandCards();
 	}
 
     // Start is called before the first frame update

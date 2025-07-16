@@ -18,7 +18,7 @@ public class ImpThrowingGargantuar : Card
                 {
                     if (Tile.zombieTiles[0, col].planted == null) columns.Add(col);
                 }
-                GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.NameToID("Swabbie")), 0, columns[UnityEngine.Random.Range(0, columns.Count)]);
+                if (columns.Count > 0) GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.NameToID("Swabbie")), 0, columns[UnityEngine.Random.Range(0, columns.Count)]);
             }
         }
 

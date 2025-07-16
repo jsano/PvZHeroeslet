@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GargantuarThrowingGargantuar : Card
+public class ZombotDinotronicMechasaur : Card
 {
 
-	protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
+	protected override IEnumerator OnCardDraw(Team team)
     {
-        if (hurt.Item1.GetComponent<Card>() == this)
+        if (team == this.team)
         {
             yield return new WaitForSeconds(1);
             if (GameManager.Instance.team == team)
@@ -20,13 +20,12 @@ public class GargantuarThrowingGargantuar : Card
                 }
                 if (columns.Count > 0)
                 {
-                    int id = AllCards.RandomFromTribe((Tribe.Gargantuar, Tribe.Gargantuar), true);
+                    int id = AllCards.RandomFromTribe((Tribe.History, Tribe.History), true);
                     GameManager.Instance.PlayCardRpc(new FinalStats(id), 0, columns[UnityEngine.Random.Range(0, columns.Count)]);
                 }
             }
         }
-
-        yield return base.OnCardHurt(hurt);
+        yield return base.OnCardDraw(team);
 	}
 
 }

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static Unity.VisualScripting.Member;
 
 public class Card : Damagable
 {
@@ -83,7 +82,7 @@ public class Card : Damagable
 
     public int cost;
     public int atk;
-    private int baseAtk;
+    public int baseAtk { get; private set; }
     public int HP;
     private int maxHP;
     private int baseHP;
@@ -575,7 +574,7 @@ public class Card : Damagable
         GameManager.Instance.DisableHandCards();
         yield return Attack();
         GameManager.Instance.TriggerEvent("OnCardBonusAttack", this);
-        yield return GameManager.Instance.ProcessEvents();
+        yield return GameManager.Instance.ProcessEvents(false, true);
     }
 
     /// <summary>
