@@ -67,7 +67,7 @@ public class CardInfo : MonoBehaviour
 		if (baseCard.doubleStrike > 0) description.text += "Double Strike\n";
 		if (baseCard.frenzy > 0) description.text += "Frenzy\n";
 		if (baseCard.gravestone) description.text += "Gravestone\n";
-		if (baseCard.hunt) description.text += "Hunt\n";
+		if (baseCard.hunt > 0) description.text += "Hunt\n";
 		if (baseCard.overshoot > 0) description.text += "Overshoot " + baseCard.overshoot + "\n";
 		if (baseCard.splash > 0) description.text += "Splash Damage " + baseCard.splash + "\n";
 		if (baseCard.strikethrough > 0) description.text += "Strikethrough\n";

@@ -102,7 +102,7 @@ public class Card : Damagable
     public bool baseGravestone { get; private set; }
     public bool gravestone;
     public int strengthHeart;
-    public bool hunt;
+    public int hunt;
     public int baseOvershoot { get; private set; }
     public int overshoot;
     public int splash;
@@ -357,7 +357,7 @@ public class Card : Damagable
 	/// <param name="played"> The card that was played </param>
 	protected virtual IEnumerator OnCardPlay(Card played)
     {
-        if (hunt && played.type == Type.Unit && played.team != team && (amphibious || played.col != 4))
+        if (hunt > 0 && played.type == Type.Unit && played.team != team && (amphibious || played.col != 4))
         {
             if (team == Team.Plant && !Tile.CanPlantInCol(played.col, Tile.plantTiles, teamUp, amphibious) || team == Team.Zombie && Tile.zombieTiles[0, played.col].planted != null) yield break;
             yield return new WaitForSeconds(1);
