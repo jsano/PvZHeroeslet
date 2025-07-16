@@ -156,6 +156,10 @@ public class GameManager : NetworkBehaviour
     /// Reference to any data that should be shared across the network that can't be achieved normally (ex. Mixed-up Gravedigger)
     /// </summary>
     public List<string> shuffledList { get; private set; }
+	/// <summary>
+	/// For literally just Sun Strike only
+	/// </summary>
+	public List<Card> removeStrikethrough = new();
 
     /// <summary>
     /// Events with higher priority should be processed first. Those not on the list have no defined ordering
@@ -673,6 +677,8 @@ public class GameManager : NetworkBehaviour
                 if (Tile.zombieTiles[row, col].HasRevealedPlanted()) Tile.zombieTiles[row, col].planted.ToggleInvulnerability(false);
 			}
 		}
+		foreach (Card c in removeStrikethrough) c.strikethrough -= 1;
+		removeStrikethrough.Clear();
 
         // Setup for next turn
         StartCoroutine(AudioManager.Instance.ToggleBattleMusic(false));
