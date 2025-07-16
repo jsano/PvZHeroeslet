@@ -113,6 +113,8 @@ public class Card : Damagable
     public bool freeze;
     public Tribe evolution; // ANIMAL = NONE, MOSS = TEAMUP, SEED = PLANT/ZOMBIE
     [HideInInspector] public bool evolved = false;
+    public bool fusion;
+    [HideInInspector] public Card fusionBase;
 
     public string description;
     public string lore;
@@ -160,7 +162,7 @@ public class Card : Damagable
     {
         if (!gravestone)
         {
-            GameManager.Instance.currentlySpawningCards += 1;
+            if (type == Type.Unit) GameManager.Instance.currentlySpawningCards += 1;
             // Unless this is a gravestone, disable HandCards so that it can be enabled again at the end of OnThisPlay
             GameManager.Instance.DisableHandCards();
         }
@@ -244,10 +246,16 @@ public class Card : Damagable
             //play animation
             // Trick play GameEvents should always process last chronologially, so force it to be added first on the stack
             if (type != Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this); 
-            StartCoroutine(OnThisPlay());
+            StartCoroutine(BeforeOnThisPlay());
         }
 		cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
 	}
+
+    private IEnumerator BeforeOnThisPlay()
+    {
+        if (fusionBase != null) yield return fusionBase.Fusion(this);
+        yield return OnThisPlay();
+    }
 
 	// Update is called once per frame
 	void Update()
@@ -303,6 +311,8 @@ public class Card : Damagable
 
         atkSprite.sprite = GetAttackIcon();
         hpSprite.sprite = GetHPIcon();
+
+        if (fusionBase != null) fusionBase.transform.position = transform.position;
 	}
 
     /// <summary>
@@ -322,7 +332,7 @@ public class Card : Damagable
 	protected virtual IEnumerator OnThisPlay()
 	{
         yield return new WaitForSeconds(0.1f); // this only exists to give time for rpcs to instantiate before processing events (rough fix)
-        GameManager.Instance.currentlySpawningCards -= 1;
+        if (type == Type.Unit) GameManager.Instance.currentlySpawningCards -= 1;
         GameManager.Instance.waitingOnBlock = false;
         yield return new WaitUntil(() => GameManager.Instance.currentlySpawningCards == 0); // this exists for cards that spawn cards that spawn cards
         if (type == Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
@@ -335,6 +345,10 @@ public class Card : Damagable
         }
 	}
 
+    protected virtual IEnumerator Fusion(Card parent)
+    {
+        yield return null;
+    }
 
 	/// <summary>
 	/// Called whenever a card is played
@@ -369,6 +383,8 @@ public class Card : Damagable
         if (died.Item1 == this)
         {
             yield return new WaitForSeconds(0.5f);
+            var tiles = team == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
+            if (fusionBase != null) Destroy(fusionBase);
             Destroy(gameObject);
         }
     }

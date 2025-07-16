@@ -95,16 +95,17 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                         }
                         else if (tileObjects[i, j].planted.tribes.Contains(orig.evolution)) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
                     }
-			    }
+                    if (tileObjects[i, j].HasRevealedPlanted() && tileObjects[i, j].planted.fusion) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
+                }
             }
         }
-        // Show targets visual only if there's less than 22 (all targets) choices
-        if (validChoices.Count < 22) foreach (BoxCollider2D bc in validChoices)
+        // Show targets visual only if it's not a global trick
+        if (orig.type == Card.Type.Trick && orig.GetType().GetMethod("IsValidTarget").DeclaringType == typeof(Card)) GameManager.Instance.boardHighlight.color += new Color(0, 0, 0, 0.6f);
+        else foreach (BoxCollider2D bc in validChoices)
         {
             if (bc.GetComponent<Tile>() != null) bc.GetComponent<Tile>().ToggleTarget(true);
             else bc.GetComponent<Hero>().ToggleTarget(true);
         }
-        else GameManager.Instance.boardHighlight.color += new Color(0, 0, 0, 0.6f);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -150,7 +151,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         if (!interactable) return;
 
         // If the pointer let go at a valid choice, play this card
-        if (validChoices.Count < 22)
+        if (!(orig.type == Card.Type.Trick && orig.GetType().GetMethod("IsValidTarget").DeclaringType == typeof(Card)))
         {
             foreach (BoxCollider2D bc in validChoices)
             {

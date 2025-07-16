@@ -263,8 +263,8 @@ public class GameManager : NetworkBehaviour
 		isProcessing = true;
 		yield return null;
         DisableHandCards();
-
-		int ignored = 0;
+		yield return new WaitUntil(() => currentlySpawningCards == 0); // For remaining OnThisPlays
+        int ignored = 0;
         while (eventStack.Count > ignored)
         {
 			GameEvent currentEvent = eventStack[^(ignored + 1)];

@@ -113,6 +113,14 @@ public class Tile : Damagable
                 Destroy(planted.gameObject);
                 c.evolved = true;
             }
+            else if (planted.fusion)
+            {
+                planted.transform.Find("ATK").gameObject.SetActive(false);
+                planted.transform.Find("HP").gameObject.SetActive(false);
+                planted.GetComponent<SpriteRenderer>().sortingOrder = c.GetComponent<SpriteRenderer>().sortingOrder - 1;
+                c.fusionBase = planted;
+                if (planted.amphibious) c.amphibious = true;
+            }
             else plantTiles[1 - row, col].Plant(planted);
         }
         planted = c;
