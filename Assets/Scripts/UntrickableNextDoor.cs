@@ -3,22 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UmbrellaLeaf : Card
+public class UntrickableNextDoor : Card
 {
+
+    public Team targetTeam;
 
     protected override IEnumerator OnThisPlay()
     {
+        var tiles = targetTeam == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
         for (int i = 0; i < 2; i++) for (int j = -1; j <= 1; j++)
         {
             if (col + j < 0 || col + j > 4) continue;
-            if (Tile.plantTiles[i, col + j].planted != null && Tile.plantTiles[i, col + j].planted != this) Tile.plantTiles[i, col + j].planted.untrickable += 1;
+            if (tiles[i, col + j].HasRevealedPlanted() && tiles[i, col + j].planted != this) tiles[i, col + j].planted.untrickable += 1;
         }
         yield return base.OnThisPlay();
     }
 
     protected override IEnumerator OnCardPlay(Card played)
     {
-        if (played != this && played.type == Type.Unit && played.team == Team.Plant && HereAndNextDoor(played.col))
+        if (played != this && played.type == Type.Unit && played.team == targetTeam && HereAndNextDoor(played.col))
         {
             played.untrickable += 1;
         }
@@ -27,11 +30,11 @@ public class UmbrellaLeaf : Card
 
     protected override IEnumerator OnCardMoved(Card moved)
     {
-        if (moved != this && HereAndNextDoor(moved.oldCol) && !HereAndNextDoor(moved.col) && moved.team == Team.Plant)
+        if (moved != this && HereAndNextDoor(moved.oldCol) && !HereAndNextDoor(moved.col) && moved.team == targetTeam)
         {
             moved.untrickable -= 1;
         }
-        if (moved != this && !HereAndNextDoor(moved.oldCol) && HereAndNextDoor(moved.col) && moved.team == Team.Plant)
+        if (moved != this && !HereAndNextDoor(moved.oldCol) && HereAndNextDoor(moved.col) && moved.team == targetTeam)
         {
             moved.untrickable += 1;
         }
@@ -40,20 +43,22 @@ public class UmbrellaLeaf : Card
 
     protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
+        var tiles = targetTeam == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
         if (died.Item1 == this) for (int i = 0; i < 2; i++) for (int j = -1; j <= 1; j++)
                 {
                     if (col + j < 0 || col + j > 4) continue;
-                    if (Tile.plantTiles[i, col + j].planted != null && Tile.plantTiles[i, col + j].planted != this) Tile.plantTiles[i, col + j].planted.untrickable -= 1;
+                    if (tiles[i, col + j].HasRevealedPlanted() && tiles[i, col + j].planted != this) tiles[i, col + j].planted.untrickable -= 1;
                 }
         yield return base.OnCardDeath(died);
     }
 
     void OnDestroy() // When this is an evolution source
     {
+        var tiles = targetTeam == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
         if (!died) for (int i = 0; i < 2; i++) for (int j = -1; j <= 1; j++)
                 {
                     if (col + j < 0 || col + j > 4) continue;
-                    if (Tile.plantTiles[i, col + j].planted != null && Tile.plantTiles[i, col + j].planted != this) Tile.plantTiles[i, col + j].planted.untrickable -= 1;
+                    if (tiles[i, col + j].HasRevealedPlanted() && tiles[i, col + j].planted != this) tiles[i, col + j].planted.untrickable -= 1;
                 }
     }
 

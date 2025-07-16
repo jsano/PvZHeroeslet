@@ -37,7 +37,7 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Elderberry"), 2 },
             { AllCards.NameToID("Kernel-pult"), 2 },
             { AllCards.NameToID("Split Pea"), 2 },
-            { AllCards.NameToID("Weenie Beanie"), 4 },
+            { AllCards.NameToID("Repeater"), 4 },
             { AllCards.NameToID("Apple-Saucer"), 2 }
         };
 
@@ -54,10 +54,10 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
-            { AllCards.NameToID("Primordial Cheese Shover"), 4 },
-            { AllCards.NameToID("Extinction Event"), 2 },
-            { AllCards.NameToID("Ancient Vimpire"), 2 },
-            { AllCards.NameToID("Mondo Bronto"), 2 },
+            { AllCards.NameToID("Zom-blob"), 4 },
+            { AllCards.NameToID("Evolutionary Leap"), 2 },
+            { AllCards.NameToID("Parasol"), 2 },
+            { AllCards.NameToID("Gargantuar Mime"), 2 },
             { AllCards.NameToID("Vimpire"), 2 },
             { AllCards.NameToID("Imp"), 1 },
             { AllCards.NameToID("Mini Ninja"), 2 },
