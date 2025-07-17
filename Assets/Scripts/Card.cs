@@ -773,7 +773,8 @@ public class Card : Damagable
     /// </summary>
     public void Bounce()
     {
-        if (team == Team.Plant) Tile.plantTiles[row, col].Unplant();
+        if (type == Type.Terrain) Tile.terrainTiles[col].Unplant(true);
+        else if (team == Team.Plant) Tile.plantTiles[row, col].Unplant();
         else Tile.zombieTiles[row, col].Unplant();
         StartCoroutine(BounceHelper());
         GameManager.Instance.TriggerEvent("OnCardBounce", this);

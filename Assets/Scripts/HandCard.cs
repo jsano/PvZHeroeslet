@@ -85,7 +85,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                             i == 1 && (finalStats.abilities.Contains("teamUp") || orig.teamUp || tileObjects[0, j].planted != null && tileObjects[0, j].planted.teamUp))
                             validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
                     }
-                    if (tileObjects[i, j].HasRevealedPlanted() && orig.evolution != Card.Tribe.Animal) {
+                    if (tileObjects[i, j].HasRevealedPlanted() && orig.evolution != Card.Tribe.Animal && !orig.gravestone) {
                         if (orig.evolution == Card.Tribe.Moss) {
                             if (tileObjects[i, j].planted.teamUp) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
                         }
@@ -95,7 +95,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                         }
                         else if (tileObjects[i, j].planted.tribes.Contains(orig.evolution)) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
                     }
-                    if (tileObjects[i, j].HasRevealedPlanted() && tileObjects[i, j].planted.fusion) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
+                    if (tileObjects[i, j].HasRevealedPlanted() && tileObjects[i, j].planted.fusion && !orig.gravestone) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
                 }
             }
         }

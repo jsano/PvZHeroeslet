@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DrSpacetime : Card
+public class RaidingRaptor : Card
 {
 
     protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
@@ -11,7 +11,7 @@ public class DrSpacetime : Card
         if (hurt.Item2 == this && hurt.Item1 == GameManager.Instance.plantHero)
         {
             yield return new WaitForSeconds(1);
-            int id = AllCards.RandomFromCost(team, (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)); // TODO: GALACTIC
+            int id = AllCards.RandomFromCost(team, (0, 1, 2));
             yield return GameManager.Instance.GainHandCard(team, id);
         }
         yield return base.OnCardHurt(hurt);
@@ -21,9 +21,9 @@ public class DrSpacetime : Card
     {
 		if (t == team)
 		{
-			HandCard c = GameManager.Instance.GetHandCards()[0];
-			if (c.conjured) c.ChangeCost(-1);
-		}
+            yield return new WaitForSeconds(1);
+            ChangeStats(2, 0);
+        }
         yield return base.OnCardDraw(t);
     }
 
