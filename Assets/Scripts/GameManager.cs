@@ -715,7 +715,7 @@ public class GameManager : NetworkBehaviour
     public void PlayCardRpc(FinalStats fs, int row, int col, bool fromHandCard=false)
     {
 		if (!fromHandCard) fs.cost = 0;
-		if (AllCards.Instance.cards[fs.ID].team == team) PlayCardHelper(fs, row, col);
+		if (AllCards.Instance.cards[fs.ID].team == team || !fromHandCard) PlayCardHelper(fs, row, col);
 		else
 		{
 			opponentPlayedQueue.Add((fs, row, col, false));

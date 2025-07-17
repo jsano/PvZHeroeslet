@@ -487,7 +487,7 @@ public class Card : Damagable
         {
             yield return new WaitForSeconds(1);
             yield return AttackFX(team == Team.Plant ? Tile.zombieHeroTiles[col] : Tile.plantHeroTiles[col]);
-            yield return team == Team.Plant ? GameManager.Instance.zombieHero.ReceiveDamage(overshoot, this) : GameManager.Instance.plantHero.ReceiveDamage(overshoot, this);
+            yield return team == Team.Plant ? GameManager.Instance.zombieHero.ReceiveDamage(overshoot, this, bullseye > 0) : GameManager.Instance.plantHero.ReceiveDamage(overshoot, this, bullseye > 0);
         }
         yield return null;
     }

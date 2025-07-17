@@ -34,7 +34,7 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks["temp10"].cards = new() {
             { AllCards.NameToID("Aloesaurus"), 2 },
             { AllCards.NameToID("Cross-Pollination"), 2 },
-            { AllCards.NameToID("Sun Strike"), 4 },
+            { AllCards.NameToID("Cornucopia"), 4 },
             { AllCards.NameToID("Eyespore"), 2 },
             { AllCards.NameToID("Rotobaga"), 2 },
             { AllCards.NameToID("Flourish"), 4 },
@@ -54,14 +54,14 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
-            { AllCards.NameToID("Zombot Dinotronic Mechasaur"), 2 },
-            { AllCards.NameToID("Duckstache"), 2 },
-            { AllCards.NameToID("Mustache Waxer"), 2 },
-            { AllCards.NameToID("Quarterly Bonus"), 2 },
-            { AllCards.NameToID("Mustache Monument"), 2 },
+            { AllCards.NameToID("Disco Dance Floor"), 2 },
+            { AllCards.NameToID("Headseeker"), 2 },
+            { AllCards.NameToID("Zombie's Best Friend"), 2 },
+            { AllCards.NameToID("Grave Robber"), 2 },
+            { AllCards.NameToID("Pied Piper"), 2 },
             { AllCards.NameToID("Imp"), 1 },
             { AllCards.NameToID("Mini Ninja"), 2 },
-            { AllCards.NameToID("Lurch for Lunch"), 2 }
+            { AllCards.NameToID("Backup Dancer"), 2 }
         };
 
         UserAccounts.GameStats.DeckName = "temp11";
