@@ -54,10 +54,10 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
-            { AllCards.NameToID("Disco Dance Floor"), 2 },
-            { AllCards.NameToID("Headseeker"), 2 },
-            { AllCards.NameToID("Zombie's Best Friend"), 2 },
-            { AllCards.NameToID("Grave Robber"), 2 },
+            { AllCards.NameToID("Lost Colosseum"), 2 },
+            { AllCards.NameToID("Chum Champion"), 2 },
+            { AllCards.NameToID("Turquoise Skull"), 2 },
+            { AllCards.NameToID("Knockout"), 2 },
             { AllCards.NameToID("Pied Piper"), 2 },
             { AllCards.NameToID("Imp"), 1 },
             { AllCards.NameToID("Mini Ninja"), 2 },
