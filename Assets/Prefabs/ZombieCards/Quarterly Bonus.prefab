@@ -167,7 +167,7 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
-  description: Strength of a zombie becomes 4, then it does a Bonus Attack
+  description: A zombie's attack becomes 4, then it does a Bonus Attack
   lore: This card prepatch is what made me make this game
   row: 0
   col: 0

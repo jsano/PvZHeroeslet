@@ -27,15 +27,15 @@ public class DeckCard : MonoBehaviour
 
         atkUI.GetComponentInParent<Image>().sprite = orig.GetAttackIcon();
         hpUI.GetComponentInParent<Image>().sprite = orig.GetHPIcon();
-        if (orig.type == Card.Type.Trick)
-        {
-            atkUI.transform.parent.gameObject.SetActive(false);
-            hpUI.transform.parent.gameObject.SetActive(false);
-        }
-        else
+        if (orig.type == Card.Type.Unit)
         {
             atkUI.text = orig.atk + "";
             hpUI.text = orig.HP + "";
+        }
+        else
+        {
+            atkUI.transform.parent.gameObject.SetActive(false);
+            hpUI.transform.parent.gameObject.SetActive(false);
         } 
         costUI.text = orig.cost + "";
         if (orig.team == Card.Team.Zombie) costUI.GetComponentInParent<Image>().sprite = AllCards.Instance.brainUI;

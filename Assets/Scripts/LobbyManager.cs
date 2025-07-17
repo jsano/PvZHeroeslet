@@ -69,7 +69,7 @@ public class LobbyManager : NetworkBehaviour
 
     private void TeamPhase()
     {
-        var r = FindAnyObjectByType<RelationshipsManager>();
+        var r = FindAnyObjectByType<RelationshipsOpener>();
         if (r != null) r.gameObject.SetActive(false);
 
         IReadOnlyPlayer otherPlayer = null;

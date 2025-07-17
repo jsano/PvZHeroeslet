@@ -165,7 +165,9 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
-  description: This Zombie moves to the right when it hurts the plant hero
+  fusion: 0
+  fusionBase: {fileID: 0}
+  description: This moves to the right when it hurts the plant hero
   lore: 'Only in the big wide sky will he find Serenity. '
   row: 0
   col: 0

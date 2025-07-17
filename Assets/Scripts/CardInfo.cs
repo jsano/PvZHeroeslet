@@ -197,7 +197,7 @@ public class CardInfo : MonoBehaviour
     public void FormatDescriptionForTooltip()
     {
         var escapedWords = descriptions.Keys;
-        string pattern = @"\b(?:" + string.Join("|", escapedWords) + @")\b";
+        string pattern = @"(?:" + string.Join("|", escapedWords) + @")";
 
         // Get all matches first
         MatchCollection matches = Regex.Matches(description.text, pattern);

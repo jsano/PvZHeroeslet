@@ -116,15 +116,16 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning($"Music {name} not found!");
             return;
         }
-
+        
         if (currentMusic != null && currentMusic.name == name) return;
-
+        
         float actualFadeDuration = fadeDuration ?? musicFadeDuration;
 
         // If there's music already playing, fade it out and then fade in the new one
         if (currentMusic != null && currentMusic.source.isPlaying)
         {
             StartCoroutine(FadeMusicTransition(currentMusic, s, actualFadeDuration));
+            if (currentMusic.partnerName != "") StartCoroutine(FadeMusicOut(musicDict[currentMusic.partnerName], actualFadeDuration));
         }
         else
         {
@@ -151,6 +152,7 @@ public class AudioManager : MonoBehaviour
         {
             float actualFadeDuration = fadeDuration ?? musicFadeDuration;
             StartCoroutine(FadeMusicOut(currentMusic, actualFadeDuration));
+            if (currentMusic.partnerName != "") StartCoroutine(FadeMusicOut(musicDict[currentMusic.partnerName], actualFadeDuration));
             currentMusic = null;
         }
     }
@@ -200,18 +202,7 @@ public class AudioManager : MonoBehaviour
     private IEnumerator FadeMusicTransition(Sound oldMusic, Sound newMusic, float duration)
     {
         // Start fading out the old music
-        float startVolume = oldMusic.source.volume;
-        float timer = 0;
-
-        while (timer < duration)
-        {
-            timer += Time.deltaTime;
-            oldMusic.source.volume = Mathf.Lerp(startVolume, 0, timer / duration);
-            yield return null;
-        }
-
-        oldMusic.source.Stop();
-        oldMusic.source.volume = startVolume; // Reset to original volume
+        yield return FadeMusicOut(oldMusic, duration);
 
         // Start the new music
         yield return StartCoroutine(FadeMusicIn(newMusic, duration));
@@ -248,7 +239,7 @@ public class AudioManager : MonoBehaviour
         }
 
         music.source.Stop();
-        music.source.volume = startVolume; // Reset for next play
+        music.source.volume = music.volume; // Reset for next play
     }
 
     /// <summary>

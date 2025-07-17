@@ -189,7 +189,7 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
-  description: 'When played: Conjure a Root. Dino-Roar: This gets +1 attack +1 HP'
+  description: 'When played: Conjure a Root.\nDino-Roar: This gets +1 attack +1 HP'
   lore: 'Some potatoes are sweet. Others are dinosaurs. '
   row: 0
   col: 0

@@ -263,7 +263,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -1}
-  m_SizeDelta: {x: 3, y: 0.75}
+  m_SizeDelta: {x: 3.5, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1193767117479466349
 SpriteRenderer:
@@ -314,7 +314,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 3, y: 0.75}
+  m_Size: {x: 3.5, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -575,6 +575,7 @@ MonoBehaviour:
   hpUI: {fileID: 7115070239945463687}
   costUI: {fileID: 5946243055022989485}
   info: {fileID: 2493057444309442761}
+  conjured: 0
 --- !u!61 &6431109977681369293
 BoxCollider2D:
   m_ObjectHideFlags: 0
