@@ -37,7 +37,7 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Solar Winds"), 4 },
             { AllCards.NameToID("Eyespore"), 2 },
             { AllCards.NameToID("Rotobaga"), 2 },
-            { AllCards.NameToID("Flourish"), 4 },
+            { AllCards.NameToID("Transmogrify"), 4 },
             { AllCards.NameToID("Apple-Saucer"), 2 }
         };
 
@@ -57,7 +57,7 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Buried Treasure"), 2 },
             { AllCards.NameToID("Excavator"), 2 },
             { AllCards.NameToID("Unthawed Viking"), 2 },
-            { AllCards.NameToID("Monkey Smuggler"), 2 },
+            { AllCards.NameToID("Evolutionary Leap"), 2 },
             { AllCards.NameToID("Raiding Raptor"), 2 },
             { AllCards.NameToID("Imp"), 1 },
             { AllCards.NameToID("Mini Ninja"), 2 },

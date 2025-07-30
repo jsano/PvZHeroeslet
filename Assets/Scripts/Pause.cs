@@ -23,7 +23,7 @@ public class Pause : MonoBehaviour
         {
             if (Screen.width == int.Parse(resolutions.options[i].text.Split(" x ")[0])) resolutions.value = i;
         }
-        if (SceneManager.GetActiveScene().name == "Game") transform.Find("Logout").gameObject.SetActive(false);
+        if (SessionManager.Instance.ActiveSession != null) transform.Find("Logout").gameObject.SetActive(false);
     }
 
     public void SetDimensions(int index)

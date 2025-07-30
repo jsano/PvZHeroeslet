@@ -10,8 +10,11 @@ public class Transmogrify : Card
 		Card toDestroy = Tile.zombieTiles[row, col].planted;
 		Tile.zombieTiles[row, col].Unplant(true);
 		yield return new WaitForSeconds(1);
+		if (GameManager.Instance.team == team) GameManager.Instance.StoreRpc(AllCards.RandomFromCost(Team.Zombie, (1, 1), true) + "");
+		yield return new WaitUntil(() => GameManager.Instance.shuffledList != null);
+		Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.shuffledList[0])]);
+		Tile.zombieTiles[row, col].Plant(c);
 		Destroy(toDestroy.gameObject);
-		if (GameManager.Instance.team == team) GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.RandomFromCost(Team.Zombie, (1, 1), true, col == 4)), row, col);
 		yield return base.OnThisPlay();
 	}
 

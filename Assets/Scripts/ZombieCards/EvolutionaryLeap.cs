@@ -13,8 +13,11 @@ public class EvolutionaryLeap : Card
         if (GameManager.Instance.team == team)
         {
             int newCard = AllCards.RandomFromCost(Team.Zombie, (c.cost + 1, c.cost + 1), true);
-            GameManager.Instance.PlayCardRpc(new FinalStats(newCard), row, col);
+            GameManager.Instance.StoreRpc(newCard + "");
         }
+        yield return new WaitUntil(() => GameManager.Instance.shuffledList != null);
+        Card c1 = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.shuffledList[0])]);
+        Tile.zombieTiles[row, col].Plant(c1);
         Destroy(c.gameObject);
         yield return base.OnThisPlay();
 	}

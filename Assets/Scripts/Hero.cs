@@ -111,7 +111,7 @@ public class Hero : Damagable
 		HP = Mathf.Min(maxHP, HP);
 		hpUI.text = HP + "";
 		if (amount > 0 && HPBefore < maxHP) GameManager.Instance.TriggerEvent("OnHeroHeal", new Tuple<Hero, int>(this, maxHP - HPBefore));
-		yield return GameManager.Instance.ProcessEvents();
+		yield return GameManager.Instance.ProcessEvents(false, true);
 	}
 
     public override void ChangeStats(int atkAmount, int hpAmount)

@@ -330,12 +330,15 @@ public class Card : Damagable
 	/// <param name="played"> The card that was played </param>
 	protected virtual IEnumerator OnThisPlay()
 	{
+        Debug.Log(name + " reached base.OnThisPlay()");
         yield return new WaitForSeconds(0.1f); // this only exists to give time for rpcs to instantiate before processing events (rough fix)
         if (type == Type.Unit) GameManager.Instance.currentlySpawningCards -= 1;
         GameManager.Instance.waitingOnBlock = false;
         yield return new WaitUntil(() => GameManager.Instance.currentlySpawningCards == 0); // this exists for cards that spawn cards that spawn cards
         if (type == Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
+        Debug.Log(name + " reached currentlySpawningCards == 0");
         yield return GameManager.Instance.ProcessEvents();
+        Debug.Log(name + " processed events");
         playedCost = 0; // For any consecutive gravestone reveals
         if (type == Type.Trick)
         {
@@ -647,7 +650,7 @@ public class Card : Damagable
         if (amount > 0 && HPBefore < maxHP) GameManager.Instance.TriggerEvent("OnCardHeal", new Tuple<Card, int>(this, maxHP - HPBefore));
         hpUI.text = HP + "";
         if (!isDamaged()) hpUI.color = Color.white;
-        yield return GameManager.Instance.ProcessEvents();
+        yield return GameManager.Instance.ProcessEvents(false, true);
     }
 
     /// <summary>

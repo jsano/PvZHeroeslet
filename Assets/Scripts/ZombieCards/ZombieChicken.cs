@@ -8,7 +8,7 @@ public class ZombieChicken : Card
 	protected override IEnumerator OnCardPlay(Card played)
 	{
         choices.Clear();
-		if (played.col == col && played.team == Team.Plant)
+		if (played.col == col && played.team == Team.Plant && played.type == Type.Unit)
 		{
 			if (GameManager.Instance.team == team)
 			{
