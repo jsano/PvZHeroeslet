@@ -52,10 +52,7 @@ namespace Unity.Services.Samples.Friends
 
         void Start()
         {
-            SceneManager.activeSceneChanged += (a, next) =>
-            {
-                RefreshAll();
-            };
+            SceneManager.activeSceneChanged += OnSceneChange;
             StartCoroutine(WaitUntilLoggedIn());
         }
 
@@ -484,5 +481,16 @@ namespace Unity.Services.Samples.Friends
             m_AddFriendView.Hide();
             RefreshAll();
         }
+
+        void OnDestroy()
+        {
+            SceneManager.activeSceneChanged -= OnSceneChange;
+        }
+
+        private void OnSceneChange(Scene a, Scene b)
+        {
+            if (AuthenticationService.Instance.IsSignedIn) RefreshAll();
+        }
+
     }
 }

@@ -12,6 +12,9 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using Unity.Services.Leaderboards;
 using Unity.Services.CloudSave.Models.Data.Player;
+using Unity.Services.Friends;
+using Unity.Services.Samples.Friends;
+using System.Net.Security;
 
 public class UserAccounts : MonoBehaviour
 {
@@ -87,8 +90,12 @@ public class UserAccounts : MonoBehaviour
 
 		AuthenticationService.Instance.SignedOut += () => {
 			Debug.Log("Player signed out.");
+			allDecks = null;
             CachedScore = null;
-            SceneManager.LoadScene("Login");
+			FriendsService.Instance.SetPresenceAvailabilityAsync(Unity.Services.Friends.Models.Availability.Offline);
+			//Destroy(RelationshipsManager.Instance.gameObject);
+			//SceneManager.LoadScene("Login");
+			Application.Quit();
         };
 
 		AuthenticationService.Instance.Expired += async () =>
@@ -125,7 +132,8 @@ public class UserAccounts : MonoBehaviour
 		try
 		{
 			await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
-			Debug.Log("SignIn is successful.");
+            await AuthenticationService.Instance.GetPlayerNameAsync();
+            Debug.Log("SignIn is successful.");
             await LoadData();
             UpdateCachedScore();
         }
@@ -153,6 +161,7 @@ public class UserAccounts : MonoBehaviour
         try
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            await AuthenticationService.Instance.GetPlayerNameAsync();
             Debug.Log("Cached SignIn is successful");
             await LoadData();
             UpdateCachedScore();
