@@ -918,7 +918,7 @@ public class Card : Damagable
 			}
 		}
         // Don't show gravestone card info for the plant perspective
-		if (GameManager.Instance.team == Team.Zombie || !gravestone) cardInfo.Show(this);
+		if (GameManager.Instance.team == Team.Zombie || !gravestone || Tile.IsOnField("Spyris")) cardInfo.Show(this);
 	}
 
     public Sprite GetAttackIcon()

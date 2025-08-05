@@ -14,20 +14,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Name
-      value: Genetic Amplification
+      value: Sappy Place
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.024
+      value: 1.485
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.024
+      value: 4.775
       objectReference: {fileID: 0}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9aba901d95cbbfb4f92682cb17eaccd2, type: 3}
+      objectReference: {fileID: 21300000, guid: 1ca39636e8145d845b7a88d9d1fc091f, type: 3}
     - target: {fileID: 9186367323209674846, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -119,14 +119,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3653102159683491441}
+      addedObject: {fileID: 5267078545811625074}
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
 --- !u!1 &3964835505542182985 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
   m_PrefabInstance: {fileID: 2238586215414733447}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3653102159683491441
+--- !u!114 &5267078545811625074
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,15 +135,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3964835505542182985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3413100322d7334388383d031652f3b, type: 3}
+  m_Script: {fileID: 11500000, guid: 877a8444124e7ad43b72deeb1802711e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   team: 0
-  type: 1
-  _class: 0
-  tribes: 1c00000021000000
-  token: 0
-  cost: 1
+  type: 2
+  _class: 4
+  tribes: 
+  token: 1
+  cost: 4
   atk: 0
   HP: 0
   amphibious: 0
@@ -168,10 +168,11 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Conjure a 2-cost plant. It gets +2 attack +1 HP, Amphibious, and Team
-    Up
-  lore: The modifications are controversial, sure. But the results are hard to argue
-    with.
+  description: Zombies here get -3 attack
+  lore: 'Zombies just hate a sappy ending. '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
+  atkBuff: -3
+  HPBuff: 0
+  targetTeam: 1

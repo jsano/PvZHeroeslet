@@ -805,7 +805,7 @@ public class GameManager : NetworkBehaviour
 
 	private IEnumerator OpponentTrickAnimation(FinalStats fs, int row, int col, bool isPlantTarget)
 	{
-		if (phase == 3) plantCombatBehindBy += 2f;
+		if (phase >= 3) plantCombatBehindBy += 2f;
 		GameObject hc = Instantiate(handcardPrefab, opponentHandCards.position, Quaternion.identity);
 		var hc1 = hc.GetComponent<HandCard>();
 		hc1.ID = fs.ID;
@@ -958,11 +958,13 @@ public class GameManager : NetworkBehaviour
         if (tteam == Team.Plant) 
 		{
 			if (row == -1 && col == -1) selection = plantHero.GetComponent<BoxCollider2D>();
-			else selection = Tile.plantTiles[row, col].GetComponent<BoxCollider2D>();
+			else if (row == 2) selection = Tile.terrainTiles[col].GetComponent<BoxCollider2D>();
+            else selection = Tile.plantTiles[row, col].GetComponent<BoxCollider2D>();
         }
 		else
 		{
             if (row == -1 && col == -1) selection = zombieHero.GetComponent<BoxCollider2D>();
+            else if (row == 2) selection = Tile.terrainTiles[col].GetComponent<BoxCollider2D>();
             else selection = Tile.zombieTiles[row, col].GetComponent<BoxCollider2D>();
         }
     }

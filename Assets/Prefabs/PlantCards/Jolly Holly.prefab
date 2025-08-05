@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &9217733002716994187
+--- !u!1001 &2724712124557671184
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1812251758246606002, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 4220204729
+      value: 3242078643
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: HP
@@ -25,12 +25,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: team
-      value: 1
+      propertyPath: _class
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-      propertyPath: _class
-      value: 7
+      propertyPath: traits.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: tribes.Array.size
@@ -38,19 +38,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: 'tribes.Array.data[0]'
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Name
-      value: Abracadaver
+      value: Jolly Holly
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.3333334
+      value: 1.0526316
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.3333334
+      value: 1.0526316
       objectReference: {fileID: 0}
     - target: {fileID: 8010029174977732602, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_RootOrder
@@ -99,7 +99,7 @@ PrefabInstance:
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 492e2194d6c6a40419782424dcb5a91e, type: 3}
+      objectReference: {fileID: 21300000, guid: c7940959b11e6b841b35a03ee707bd44, type: 3}
     m_RemovedComponents:
     - {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
     m_RemovedGameObjects: []
@@ -107,41 +107,41 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6065064008828550656}
+      addedObject: {fileID: 5065891432864876126}
   m_SourcePrefab: {fileID: 100100000, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
---- !u!1 &6340810971782871109 stripped
+--- !u!1 &992196623300205022 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
-  m_PrefabInstance: {fileID: 9217733002716994187}
+  m_PrefabInstance: {fileID: 2724712124557671184}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6065064008828550656
+--- !u!114 &5065891432864876126
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6340810971782871109}
+  m_GameObject: {fileID: 992196623300205022}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6c1f4649e8436d4bb691e8c6a854538, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c0a4a9f783b83745aa702d52f508ff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 1
+  team: 0
   type: 0
-  _class: 7
-  tribes: 1400000018000000
+  _class: 3
+  tribes: 0f00000003000000
   token: 0
-  cost: 3
-  atk: 3
-  HP: 3
-  amphibious: 0
+  cost: 5
+  atk: 4
+  HP: 1
+  amphibious: 1
   antihero: 0
   armor: 0
   bullseye: 0
   deadly: 0
   doubleStrike: 0
   frenzy: 0
-  gravestone: 1
+  gravestone: 0
   strengthHeart: 0
   hunt: 0
   overshoot: 0
@@ -156,8 +156,9 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When this hurts the plant hero, do 3 damage to a random plant
-  lore: 'Keeps forgetting that the magic word is "Please." '
+  description: 'When played: Freeze zombies next door'
+  lore: 'No exaggeration, she is ALWAYS in a great mood. Even when fighting Zombies.
+    "What''s not to love about saving the world?" she says. '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
