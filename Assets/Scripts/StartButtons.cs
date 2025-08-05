@@ -32,11 +32,11 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(10));
         UserAccounts.allDecks["temp10"].cards = new() {
-            { AllCards.NameToID("Sunflower"), 2 },
-            { AllCards.NameToID("Cross-Pollination"), 2 },
-            { AllCards.NameToID("Solar Winds"), 4 },
-            { AllCards.NameToID("Eyespore"), 2 },
-            { AllCards.NameToID("Rotobaga"), 2 },
+            { AllCards.NameToID("Forget-me-nuts"), 2 },
+            { AllCards.NameToID("Garlic"), 2 },
+            { AllCards.NameToID("Hot Date"), 4 },
+            { AllCards.NameToID("Pear Cub"), 2 },
+            { AllCards.NameToID("Red Stinger"), 2 },
             { AllCards.NameToID("Transmogrify"), 4 },
             { AllCards.NameToID("Apple-Saucer"), 2 }
         };
@@ -56,9 +56,9 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks["temp11"].cards = new() {
             { AllCards.NameToID("Buried Treasure"), 2 },
             { AllCards.NameToID("Gentleman"), 2 },
-            { AllCards.NameToID("Ra"), 2 },
+            { AllCards.NameToID("Vimpire"), 2 },
             { AllCards.NameToID("Evolutionary Leap"), 2 },
-            { AllCards.NameToID("Brain Vendor"), 2 },
+            { AllCards.NameToID("Ancient Vimpire"), 2 },
             { AllCards.NameToID("Imp"), 1 },
             { AllCards.NameToID("Mini Ninja"), 2 },
             { AllCards.NameToID("Backup Dancer"), 2 }

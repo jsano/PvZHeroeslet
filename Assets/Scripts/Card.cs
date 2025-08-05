@@ -681,6 +681,18 @@ public class Card : Damagable
             GameManager.Instance.TriggerEvent("OnCardDeath", new Tuple<Card, Card>(this, null));
         }
 	}
+    
+    protected void SetStats(int natk, int nhp)
+    {
+        if (gravestone) return;
+        atk = natk;
+        atk = Mathf.Max(0, natk);
+        if (atkUI != null) atkUI.text = atk + "";
+
+        maxHP = nhp;
+        HP = nhp;
+        if (hpUI != null) hpUI.text = HP + "";
+    }
 
 	private IEnumerator HitVisual()
 	{
