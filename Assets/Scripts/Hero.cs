@@ -106,6 +106,7 @@ public class Hero : Damagable
 
 	public override IEnumerator Heal(int amount)
 	{
+		if (team == Card.Team.Plant && Tile.IsOnField("Sneezing")) yield break;
 		int HPBefore = HP;
 		HP += amount;
 		HP = Mathf.Min(maxHP, HP);

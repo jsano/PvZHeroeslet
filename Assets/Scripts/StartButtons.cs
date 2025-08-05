@@ -55,14 +55,15 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
-            { AllCards.NameToID("Abracadaver"), 2 },
-            { AllCards.NameToID("B-flat"), 2 },
-            { AllCards.NameToID("Vimpire"), 2 },
-            { AllCards.NameToID("Evolutionary Leap"), 2 },
-            { AllCards.NameToID("Ancient Vimpire"), 2 },
+            { AllCards.NameToID("Fraidy Cat"), 2 },
+            { AllCards.NameToID("Secret Agent"), 2 },
+            { AllCards.NameToID("Energy Drink"), 2 },
+            { AllCards.NameToID("Synchronized Swimmer"), 2 },
+            { AllCards.NameToID("Hover-Goat 3000"), 2 },
             { AllCards.NameToID("Imp"), 1 },
-            { AllCards.NameToID("Mini Ninja"), 2 },
-            { AllCards.NameToID("Backup Dancer"), 2 }
+            { AllCards.NameToID("Overstuffed"), 2 },
+            { AllCards.NameToID("Sneezing"), 2 },
+            { AllCards.NameToID("King of the Grill"), 2 }
         };
 
         UserAccounts.GameStats.DeckName = "temp11";

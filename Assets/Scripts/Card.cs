@@ -328,7 +328,9 @@ public class Card : Damagable
         hpSprite.sprite = GetHPIcon();
 
         if (fusionBase != null) fusionBase.transform.position = transform.position;
-	}
+
+        Debug.Log(GameManager.Instance.shuffledList);
+    }
 
     /// <summary>
     /// Override with the card's effect when a selecting choice is made. Base method clears selection so base should be called at the beginning
@@ -678,7 +680,7 @@ public class Card : Damagable
     /// <param name="raiseCap">If true, this will affect the maxHP, which also means it won't be considered damaged if amount is negative</param>
 	public override IEnumerator Heal(int amount)
     {
-        if (gravestone) yield break;
+        if (gravestone || team == Team.Plant && Tile.IsOnField("Sneezing")) yield break;
         int HPBefore = HP;
         HP += amount;
         HP = Mathf.Min(maxHP, HP);
@@ -821,21 +823,21 @@ public class Card : Damagable
     /// <summary>
     /// Removes the card's gameObject from the scene, and the team's player gains a HandCard for this card with prefab values
     /// </summary>
-    public void Bounce()
+    public void Bounce(FinalStats newFS = null)
     {
         if (!onThisPlayed) GameManager.Instance.currentlySpawningCards -= 1;
         if (type == Type.Terrain) Tile.terrainTiles[col].Unplant(true);
         else if (team == Team.Plant) Tile.plantTiles[row, col].Unplant();
         else Tile.zombieTiles[row, col].Unplant();
-        StartCoroutine(BounceHelper());
+        StartCoroutine(BounceHelper(newFS));
         GameManager.Instance.TriggerEvent("OnCardBounce", this);
     }
 
-    private IEnumerator BounceHelper()
+    private IEnumerator BounceHelper(FinalStats newFS)
     {
         SR.sortingLayerID = 0;
         GetComponent<Canvas>().sortingLayerID = 0;
-        yield return GameManager.Instance.GainHandCard(team, AllCards.NameToID(name.Substring(0, name.IndexOf("("))), sourceFS != null && sourceFS.permanent ? sourceFS : null, false);
+        yield return GameManager.Instance.GainHandCard(team, AllCards.NameToID(name.Substring(0, name.IndexOf("("))), sourceFS != null && sourceFS.permanent ? sourceFS : newFS, false);
         Destroy(gameObject);
     }
 
