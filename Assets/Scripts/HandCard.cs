@@ -82,7 +82,8 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                     if (Tile.CanPlantInCol(j, tileObjects, finalStats.abilities.Contains("teamUp") || orig.teamUp, finalStats.abilities.Contains("amphibious") || orig.amphibious))
                     {
                         if (i == 0 ||
-                            i == 1 && (finalStats.abilities.Contains("teamUp") || orig.teamUp || tileObjects[0, j].planted != null && tileObjects[0, j].planted.teamUp))
+                            i == 1 && (finalStats.abilities.Contains("teamUp") || orig.teamUp ||
+                                        tileObjects[0, j].planted != null && tileObjects[0, j].planted.teamUp || tileObjects[1, j].planted != null && tileObjects[1, j].planted.teamUp))
                             validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
                     }
                     if (tileObjects[i, j].HasRevealedPlanted() && orig.evolution != Card.Tribe.Animal && !orig.gravestone) {
