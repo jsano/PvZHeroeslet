@@ -171,6 +171,7 @@ public class Card : Damagable
     // Start is called before the first frame update
     void Start()
     {
+        transform.localPosition -= new Vector3(0, 0, 1); // FOR ONMOUSEDOWN TO WORK AGAINST TILES
 		SR = GetComponent<SpriteRenderer>();
         baseSprite = SR.sprite;
         baseHP = HP;
@@ -857,9 +858,9 @@ public class Card : Damagable
     }
 
     void OnMouseDown()
-	{
+    {
         // Don't show card info if the player is currently selecting something. TODO: doesn't work for trick selected
-		for (int row = 0; row < 2; row++)
+        for (int row = 0; row < 2; row++)
 		{
 			for (int col = 0; col < 5; col++)
 			{

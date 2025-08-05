@@ -433,6 +433,7 @@ public class GameManager : NetworkBehaviour
 
 	public void FinishMulligan()
 	{
+		timerMOn = false;
 		mulliganed = true;
 	}
 
@@ -460,6 +461,10 @@ public class GameManager : NetworkBehaviour
                 FinishMulligan();
             }
         }
+		if (!isProcessingOpponentQueue && opponentPlayedQueue.Count == 0 && phase == 3)
+		{
+			plantCombatBehindBy = Math.Max(plantCombatBehindBy - Time.deltaTime, 0);
+		}
 	}
 
     /// <summary>
@@ -603,7 +608,7 @@ public class GameManager : NetworkBehaviour
 		timer = 30;
         if (phase == 4) StartCoroutine(Combat());
 		else EnablePlayableHandCards();
-    }
+	}
 
 	/// <summary>
 	/// Begin combat phase, then updates game state afterwards
