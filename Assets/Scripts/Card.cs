@@ -114,6 +114,7 @@ public class Card : Damagable
     [HideInInspector] public bool evolved = false;
     public bool fusion;
     [HideInInspector] public Card fusionBase;
+    [HideInInspector] public bool fig;
 
     public string description;
     public string lore;
@@ -465,7 +466,20 @@ public class Card : Damagable
 	/// </summary>
     protected virtual IEnumerator OnTurnEnd()
     {
-        yield return null;
+        if (fig)
+        {
+            Tile.plantTiles[row, col].Unplant(true);
+            yield return new WaitForSeconds(1);
+            if (GameManager.Instance.team == team) GameManager.Instance.StoreRpc(AllCards.RandomFromCost(Team.Plant, (cost + 1, cost + 1), true) + "");
+            yield return new WaitUntil(() => GameManager.Instance.shuffledList != null);
+            Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.shuffledList[0])]);
+            FinalStats fs = new(int.Parse(GameManager.Instance.shuffledList[0]));
+            fs.abilities += "fig";
+            c.sourceFS = fs;
+            Tile.plantTiles[row, col].Plant(c);
+            Destroy(gameObject);
+        }
+        else yield return null;
     }
 
     /// <summary>
@@ -493,6 +507,11 @@ public class Card : Damagable
             yield return AttackFX(team == Team.Plant ? Tile.zombieHeroTiles[col] : Tile.plantHeroTiles[col]);
             yield return team == Team.Plant ? GameManager.Instance.zombieHero.ReceiveDamage(overshoot, this, bullseye > 0) : GameManager.Instance.plantHero.ReceiveDamage(overshoot, this, bullseye > 0);
         }
+        yield return null;
+    }
+
+    public virtual IEnumerator AfterCombat()
+    {
         yield return null;
     }
 

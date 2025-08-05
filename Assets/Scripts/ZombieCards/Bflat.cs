@@ -23,11 +23,11 @@ public class Bflat : Card
                 choices[n] = choices[k];
                 choices[k] = temp;
             }
-            GameManager.Instance.StoreRpc(choices[0].GetComponent<Tile>().row + " - " + choices[0].GetComponent<Tile>().col);
+            if (choices.Count > 0) GameManager.Instance.StoreRpc(choices[0].GetComponent<Tile>().row + " - " + choices[0].GetComponent<Tile>().col);
         }
         
         yield return new WaitForSeconds(1);
-        Tile.plantTiles[int.Parse(GameManager.Instance.shuffledList[0]), int.Parse(GameManager.Instance.shuffledList[1])].planted.Destroy();
+        if (GameManager.Instance.shuffledList != null) Tile.plantTiles[int.Parse(GameManager.Instance.shuffledList[0]), int.Parse(GameManager.Instance.shuffledList[1])].planted.Destroy();
 		yield return base.OnThisPlay();
 	}
 

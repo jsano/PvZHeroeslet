@@ -656,6 +656,30 @@ public class GameManager : NetworkBehaviour
 
             if (ENDED) yield break;
 
+            if (Tile.terrainTiles[col].planted != null) yield return Tile.terrainTiles[col].planted.AfterCombat();
+            yield return ProcessEvents();
+
+            if (Tile.zombieTiles[0, col].planted != null)
+            {
+                yield return Tile.zombieTiles[0, col].planted.AfterCombat();
+                yield return ProcessEvents(true);
+            }
+
+            if (ENDED) yield break;
+
+            if (Tile.plantTiles[1, col].planted != null)
+            {
+                yield return Tile.plantTiles[1, col].planted.AfterCombat();
+                yield return ProcessEvents(true);
+            }
+            if (Tile.plantTiles[0, col].planted != null)
+            {
+                yield return Tile.plantTiles[0, col].planted.AfterCombat();
+                yield return ProcessEvents(true);
+            }
+
+            if (ENDED) yield break;
+
             // Handle doublestrike if applicable
             if (Tile.zombieTiles[0, col].planted != null && Tile.zombieTiles[0, col].planted.doubleStrike > 0) yield return Tile.zombieTiles[0, col].planted.BonusAttack();
 
