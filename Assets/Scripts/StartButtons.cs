@@ -32,7 +32,7 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(10));
         UserAccounts.allDecks["temp10"].cards = new() {
-            { AllCards.NameToID("Aloesaurus"), 2 },
+            { AllCards.NameToID("Sunflower"), 2 },
             { AllCards.NameToID("Cross-Pollination"), 2 },
             { AllCards.NameToID("Solar Winds"), 4 },
             { AllCards.NameToID("Eyespore"), 2 },
@@ -55,10 +55,10 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
             { AllCards.NameToID("Buried Treasure"), 2 },
-            { AllCards.NameToID("Excavator"), 2 },
-            { AllCards.NameToID("Unthawed Viking"), 2 },
+            { AllCards.NameToID("Gentleman"), 2 },
+            { AllCards.NameToID("Ra"), 2 },
             { AllCards.NameToID("Evolutionary Leap"), 2 },
-            { AllCards.NameToID("Raiding Raptor"), 2 },
+            { AllCards.NameToID("Brain Vendor"), 2 },
             { AllCards.NameToID("Imp"), 1 },
             { AllCards.NameToID("Mini Ninja"), 2 },
             { AllCards.NameToID("Backup Dancer"), 2 }

@@ -119,6 +119,8 @@ public class GameManager : NetworkBehaviour
 	public GameObject cardBackPrefab;
     public TextMeshProUGUI remainingText;
 	public TextMeshProUGUI opponentRemainingText;
+	public GameObject remainingAnim;
+	public GameObject opponentRemainingAnim;
 	public GameObject endScreen;
 	public TextMeshProUGUI winner;
 	public TextMeshProUGUI score;
@@ -343,6 +345,8 @@ public class GameManager : NetworkBehaviour
 			plantHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
             remainingText.transform.parent.GetComponent<Image>().sprite = AllCards.Instance.brainUI;
             opponentRemainingText.transform.parent.GetComponent<Image>().sprite = AllCards.Instance.sunUI;
+            remainingAnim.GetComponent<Image>().sprite = AllCards.Instance.brainUI;
+            opponentRemainingAnim.GetComponent<Image>().sprite = AllCards.Instance.sunUI;
         }
 
 		foreach (Transform t in GameObject.Find("Tiles").transform)
@@ -405,8 +409,8 @@ public class GameManager : NetworkBehaviour
 
         yield return GainHandCard(team, UserAccounts.allDecks[UserAccounts.GameStats.DeckName].superpowerOrder[superpowerIndex], null, false);
         yield return ProcessEvents();
-        UpdateRemaining(0, Team.Plant);
-        UpdateRemaining(0, Team.Zombie);
+        StartCoroutine(UpdateRemaining(0, Team.Plant));
+        yield return UpdateRemaining(0, Team.Zombie);
         EndRpc();
 	}
 
@@ -588,7 +592,7 @@ public class GameManager : NetworkBehaviour
 				if (c != null && c.gravestone)
 				{
 					// Update zombie brain UI only for the plant side
-					if (c.team != team) UpdateRemaining(-c.playedCost, Team.Zombie);
+					if (c.team != team) StartCoroutine(UpdateRemaining(-c.playedCost, Team.Zombie));
 					yield return c.Reveal();
                     DisableHandCards();
                 }
@@ -683,10 +687,12 @@ public class GameManager : NetworkBehaviour
         // Setup for next turn
         StartCoroutine(AudioManager.Instance.ToggleBattleMusic(false));
         turn += 1;
-        remaining = turn + permanentBonus;
-		opponentRemaining = turn + opponentPermanentBonus;
-		UpdateRemaining(0, Team.Plant);
-		UpdateRemaining(0, Team.Zombie);
+        remaining = 0;
+		opponentRemaining = 0;
+		yield return UpdateRemaining(0, Team.Plant);
+		yield return UpdateRemaining(0, Team.Zombie);
+        StartCoroutine(UpdateRemaining(turn + permanentBonus, team));
+		yield return UpdateRemaining(turn + opponentPermanentBonus, team == Team.Plant ? Team.Zombie : Team.Plant);
 		phase = 0;
 		allowZombieCards = false;
 		
@@ -730,12 +736,12 @@ public class GameManager : NetworkBehaviour
 		{
 			Destroy(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject);
 			// From the opponent's perspective, only deduct the gold UI if it's not a gravestone
-			if (!card.gravestone) UpdateRemaining(-fs.cost, card.team);
+			if (!card.gravestone) StartCoroutine(UpdateRemaining(-fs.cost, card.team));
 		}
 		else
 		{
 			// From the player's perspective, always deduct the gold UI
-			UpdateRemaining(-fs.cost, team);
+			StartCoroutine(UpdateRemaining(-fs.cost, team));
 		}
 		
 		card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
@@ -828,7 +834,7 @@ public class GameManager : NetworkBehaviour
 		}
 
         if (card.team != team) Destroy(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject);
-		UpdateRemaining(-fs.cost, card.team);
+		StartCoroutine(UpdateRemaining(-fs.cost, card.team));
 	}
 
 	private IEnumerator ProcessOpponentPlayedQueue()
@@ -1030,8 +1036,23 @@ public class GameManager : NetworkBehaviour
 	/// <summary>
 	/// Adds to the given team's gold count by the given change. Gold counts can't go below 0. Updates UI
 	/// </summary>
-    public void UpdateRemaining(int change, Team team)
+    public IEnumerator UpdateRemaining(int change, Team team)
     {
+		GameObject c = team == this.team ? remainingAnim : opponentRemainingAnim;
+		c.GetComponentInChildren<TextMeshProUGUI>().text = change + "";
+		if (change > 0)
+		{
+			bool done = false;
+			c.GetComponent<Image>().color = Color.white;
+			var t = c.GetComponentInChildren<TextMeshProUGUI>();
+			t.color = new Color(t.color.r, t.color.g, t.color.b, 1);
+            ((RectTransform)c.transform).anchoredPosition = team == this.team ? new(-100, -50f) : new(100, 50f);
+			var lt = LeanTween.moveX((RectTransform)c.transform, team == this.team ? 400 : -400, 0.5f).setEaseOutQuint().setOnComplete(() => {
+                var dest = team == this.team ? ((RectTransform)remainingText.transform.parent).anchoredPosition : ((RectTransform)opponentRemainingText.transform.parent).anchoredPosition;
+                LeanTween.move((RectTransform)c.transform, dest, 0.5f).setDelay(0.25f).setEaseOutQuad().setOnComplete(() => done = true);
+            });
+			yield return new WaitUntil(() => done == true);
+		}
 		if (team == this.team)
 		{
 			remaining += change;
@@ -1042,9 +1063,21 @@ public class GameManager : NetworkBehaviour
 		else
 		{
 			opponentRemaining += change;
-            opponentRemaining = Mathf.Max(opponentRemaining, 0);
-            opponentRemainingText.text = opponentRemaining + "";
+			opponentRemaining = Mathf.Max(opponentRemaining, 0);
+			opponentRemainingText.text = opponentRemaining + "";
 			opponentRemainingTop = Mathf.Max(opponentRemaining, opponentRemainingTop);
+		}
+        if (change < 0)
+		{
+			LeanTween.moveY((RectTransform)c.transform, ((RectTransform)c.transform).anchoredPosition.y + 75, 0.5f).setEaseOutQuad();
+            var i = c.GetComponent<Image>();
+			var t = c.GetComponentInChildren<TextMeshProUGUI>();
+            while (i.color.a > 0)
+			{
+				i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a - Time.deltaTime * 2);
+				t.color = new Color(t.color.r, t.color.g, t.color.b, t.color.a - Time.deltaTime * 2);
+                yield return null;
+			}
 		}
     }
 

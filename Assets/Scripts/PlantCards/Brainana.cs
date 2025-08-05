@@ -8,7 +8,7 @@ public class Brainana : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		GameManager.Instance.UpdateRemaining(-100, Team.Zombie);
+		yield return GameManager.Instance.UpdateRemaining(-100, Team.Zombie);
 		yield return base.OnThisPlay();
 	}
 

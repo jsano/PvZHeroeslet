@@ -631,7 +631,7 @@ public class Card : Damagable
         {
             gravestone = false;
             SR.sprite = baseSprite;
-            if (team != GameManager.Instance.team) GameManager.Instance.UpdateRemaining(playedCost, team);
+            if (team != GameManager.Instance.team) StartCoroutine(GameManager.Instance.UpdateRemaining(playedCost, team));
         }
         GameManager.Instance.TriggerEvent("OnCardDeath", new Tuple<Card, Card>(this, null));
     }

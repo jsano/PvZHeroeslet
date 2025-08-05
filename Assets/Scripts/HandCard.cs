@@ -214,6 +214,11 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         }
         else
         {
+            if (orig.type == Card.Type.Terrain) {
+                var rectTransform = image.GetComponent<RectTransform>();
+                rectTransform.offsetMax = new(rectTransform.offsetMax.x, 0.5f);
+                rectTransform.offsetMin = new(rectTransform.offsetMin.x, -0.5f);
+            }
             atkUI.transform.parent.gameObject.SetActive(false);
             hpUI.transform.parent.gameObject.SetActive(false);
         }

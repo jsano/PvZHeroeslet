@@ -13,7 +13,7 @@ public class MustacheWaxer : Card
 			{
                 yield return new WaitForSeconds(1);
                 ChangeStats(0, 2);
-				GameManager.Instance.UpdateRemaining(1, team);
+				yield return GameManager.Instance.UpdateRemaining(1, team);
 			}
 		}
 		yield return base.OnCardPlay(played);

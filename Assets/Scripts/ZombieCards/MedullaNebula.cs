@@ -11,7 +11,7 @@ public class MedullaNebula : Card
         if (played.type == Type.Unit && played.team == Team.Zombie && played.col == col)
         {
             yield return new WaitForSeconds(1);
-            GameManager.Instance.UpdateRemaining(2, team);
+            yield return GameManager.Instance.UpdateRemaining(2, team);
         }
         yield return base.OnCardPlay(played);
     }
