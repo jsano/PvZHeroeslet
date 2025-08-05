@@ -144,6 +144,7 @@ public class Card : Damagable
     protected SpriteRenderer SR;
     private Sprite baseSprite;
 
+    protected bool onThisPlayed = false;
     /// <summary>
     /// If this card on the player's side requires a selecting choice to be made, set this to false so it can start detecting mouse input.
     /// </summary>
@@ -212,6 +213,11 @@ public class Card : Damagable
             atk += GameManager.Instance.zombiePermanentAttackBonus;
             HP += GameManager.Instance.zombiePermanentHPBonus;
         }
+        if (AllCards.InstanceToPrefab(this).name == "Clique Peas")
+        {
+            atk += GameManager.Instance.cliquePeas;
+            HP += GameManager.Instance.cliquePeas;
+        }
         maxHP = HP;
 
         atkUI = transform.Find("ATK").GetComponentInChildren<TextMeshProUGUI>();
@@ -254,6 +260,14 @@ public class Card : Damagable
 
     private IEnumerator BeforeOnThisPlay()
     {
+        while (true)
+        {
+            bool ready = true;
+            var tiles = team == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
+            for (int i = 0; i < 2; i++) for (int j = 0; j < col; j++) if (tiles[i, j].HasRevealedPlanted() && !tiles[i, j].planted.onThisPlayed) ready = false;
+            if (ready) break;
+            yield return null;
+        }
         if (fusionBase != null) yield return fusionBase.Fusion(this);
         yield return OnThisPlay();
     }
@@ -332,6 +346,7 @@ public class Card : Damagable
 	/// <param name="played"> The card that was played </param>
 	protected virtual IEnumerator OnThisPlay()
 	{
+        onThisPlayed = true;
         Debug.Log(name + " reached base.OnThisPlay()");
         yield return new WaitForSeconds(0.1f); // this only exists to give time for rpcs to instantiate before processing events (rough fix)
         if (type == Type.Unit) GameManager.Instance.currentlySpawningCards -= 1;
@@ -808,6 +823,7 @@ public class Card : Damagable
     /// </summary>
     public void Bounce()
     {
+        if (!onThisPlayed) GameManager.Instance.currentlySpawningCards -= 1;
         if (type == Type.Terrain) Tile.terrainTiles[col].Unplant(true);
         else if (team == Team.Plant) Tile.plantTiles[row, col].Unplant();
         else Tile.zombieTiles[row, col].Unplant();

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class AtomicBombegranate : Card
+public class BananaSplit : Card
 {
 
 	protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
@@ -15,16 +15,14 @@ public class AtomicBombegranate : Card
             yield return new WaitForSeconds(1);
 			if (col > 0 && Tile.CanPlantInCol(col - 1, Tile.plantTiles, false, false))
 			{
-				Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Seedling")]);
+				Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Half-Banana")]);
 				Tile.plantTiles[0, col - 1].Plant(c);
 			}
-            if (col < 4 && Tile.CanPlantInCol(col + 1, Tile.plantTiles, false, false))
+            if (col < 3 && Tile.CanPlantInCol(col + 1, Tile.plantTiles, false, false))
 			{
-                Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Seedling")]);
+                Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Half-Banana")]);
                 Tile.plantTiles[0, col + 1].Plant(c);
             }
-			Card c1 = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Seedling")]);
-            Tile.plantTiles[row, col].Plant(c1);
         }
 		yield return base.OnCardDeath(died);
 	}

@@ -162,6 +162,10 @@ public class GameManager : NetworkBehaviour
 	/// For literally just Sun Strike only
 	/// </summary>
 	public List<Card> removeStrikethrough = new();
+    /// <summary>
+    /// For literally just Clique Peas only
+    /// </summary>
+    public int cliquePeas = 0;
 
     /// <summary>
     /// Events with higher priority should be processed first. Those not on the list have no defined ordering
