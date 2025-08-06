@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using static Card;
 
 public class AllCards : MonoBehaviour
 {
@@ -77,7 +78,20 @@ public class AllCards : MonoBehaviour
 		return possible[Random.Range(0, possible.Count)];
 	}
 
-	public static int RandomTrick(Card.Team team)
+    public static int RandomTribeOfCost(Tribe tribe, int cost, bool forceUnit=false)
+    {
+        List<int> possible = new();
+        for (int i = 0; i < Instance.cards.Length; i++)
+        {
+            if (Instance.cards[i].tribes.Contains(tribe) && Instance.cards[i].cost == cost && (!forceUnit || Instance.cards[i].type == Card.Type.Unit))
+            {
+                possible.Add(i);
+            }
+        }
+        return possible[Random.Range(0, possible.Count)];
+    }
+
+    public static int RandomTrick(Card.Team team)
 	{
         List<int> possible = new();
         for (int i = 0; i < Instance.cards.Length; i++)

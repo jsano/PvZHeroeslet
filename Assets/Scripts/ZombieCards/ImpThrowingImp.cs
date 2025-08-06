@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class GargantuarThrowingImp : Card
+public class ImpThrowingImp : Card
 {
 
 	protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
@@ -20,7 +20,7 @@ public class GargantuarThrowingImp : Card
             if (columns.Count > 0)
             {
                 yield return new WaitForSeconds(1);
-                yield return SyncRandomChoiceAcrossNetwork(columns[UnityEngine.Random.Range(0, columns.Count)] + " - " + AllCards.RandomTribeOfCost(Tribe.Gargantuar, 5, true));
+                yield return SyncRandomChoiceAcrossNetwork(columns[UnityEngine.Random.Range(0, columns.Count)] + " - " + RandomImp());
                 Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.shuffledLists[^1][1])]).GetComponent<Card>();
                 Tile.zombieTiles[0, int.Parse(GameManager.Instance.shuffledLists[^1][0])].Plant(c);
             }
@@ -28,5 +28,18 @@ public class GargantuarThrowingImp : Card
 
         yield return base.OnCardHurt(hurt);
 	}
+
+    private int RandomImp()
+    {
+        List<int> possible = new();
+        for (int i = 0; i < AllCards.Instance.cards.Length; i++)
+        {
+            if (AllCards.Instance.cards[i].tribes.Contains(Tribe.Imp) && AllCards.Instance.cards[i].cost <= 2)
+            {
+                possible.Add(i);
+            }
+        }
+        return possible[UnityEngine.Random.Range(0, possible.Count)];
+    }
 
 }
