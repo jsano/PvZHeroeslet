@@ -440,7 +440,8 @@ public class GameManager : NetworkBehaviour
 
 	public void FinishMulligan()
 	{
-		timerMOn = false;
+        AudioManager.Instance.PlaySFX("Go");
+        timerMOn = false;
 		mulliganed = true;
 	}
 
@@ -1083,6 +1084,8 @@ public class GameManager : NetworkBehaviour
 		c.GetComponentInChildren<TextMeshProUGUI>().text = change + "";
 		if (change > 0)
 		{
+			if (team == Team.Plant) AudioManager.Instance.PlaySFX("Sun");
+			else AudioManager.Instance.PlaySFX("Brain");
 			bool done = false;
 			c.GetComponent<Image>().color = Color.white;
 			var t = c.GetComponentInChildren<TextMeshProUGUI>();

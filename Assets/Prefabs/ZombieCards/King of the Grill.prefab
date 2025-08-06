@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When a Gargantuar destroys a plant, Conjure a Gourmetcard
+  description: When a Gargantuar destroys a plant, Conjure a Gourmet card
   lore: 'Chillin'' beside the ol'' backyard grill, cookin'' up some brains, hangin''
     with his zombies... that''s the good unlife. '
   row: 0

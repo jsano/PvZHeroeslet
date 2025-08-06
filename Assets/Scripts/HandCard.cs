@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static Unity.VisualScripting.Member;
 
-public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
+public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler
 {
 
     public int ID;
@@ -107,6 +107,12 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             if (bc.GetComponent<Tile>() != null) bc.GetComponent<Tile>().ToggleTarget(true);
             else bc.GetComponent<Hero>().ToggleTarget(true);
         }
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (!interactable) return;
+        AudioManager.Instance.PlaySFX("Card");
     }
 
     public void OnDrag(PointerEventData eventData)

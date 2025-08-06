@@ -155,7 +155,7 @@ MonoBehaviour:
     outputAudioMixerGroup: {fileID: 0}
     partnerName: 
   - name: Draw Card
-    clip: {fileID: 8300000, guid: cffcc63ce5df8cc4990823494fb3c0e3, type: 3}
+    clip: {fileID: 8300000, guid: 10524bc58c25fbd4094defc106fa9101, type: 3}
     volume: 1
     pitch: 1
     spatialBlend: 0
@@ -174,6 +174,60 @@ MonoBehaviour:
     partnerName: 
   - name: Hit
     clip: {fileID: 8300000, guid: 42f3fad1c7945d548a8ef7db5ee7483f, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: 
+  - name: Sun
+    clip: {fileID: 8300000, guid: b010a5e13b58b6c45bd89def937c68ac, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: 
+  - name: Brain
+    clip: {fileID: 8300000, guid: bbeff4eca0c5c634188b532035f2f56f, type: 3}
+    volume: 0.5
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: 
+  - name: Card
+    clip: {fileID: 8300000, guid: 46867f92f50e5524abe4a7157e6a1dda, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: 
+  - name: Place
+    clip: {fileID: 8300000, guid: 69bb0520aee27b0478aaf5a0cc58435b, type: 3}
+    volume: 0.7
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: 
+  - name: Grave
+    clip: {fileID: 8300000, guid: 642f7291ff2b31148bc0263e078faf29, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: 
+  - name: Reveal
+    clip: {fileID: 8300000, guid: 3fbed18c158bee74e86ba68ca5379300, type: 3}
     volume: 1
     pitch: 1
     spatialBlend: 0

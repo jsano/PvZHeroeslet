@@ -87,7 +87,8 @@ public class Hero : Damagable
 		{
 			HP -= dmg;
 			hpUI.text = Mathf.Max(0, HP) + "";
-			if (HP <= 0)
+            AudioManager.Instance.PlaySFX("Hit");
+            if (HP <= 0)
 			{
 				GameManager.Instance.GameEnded(team == Card.Team.Plant ? Card.Team.Zombie : Card.Team.Plant);
 			}

@@ -254,8 +254,9 @@ public class Card : Damagable
             UpdateAntihero();
             //play animation
             // Trick play GameEvents should always process last chronologially, so force it to be added first on the stack
-            if (type != Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this); 
-            StartCoroutine(BeforeOnThisPlay());
+            if (type != Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
+            else AudioManager.Instance.PlaySFX("Place");
+                StartCoroutine(BeforeOnThisPlay());
         }
 		cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
 	}
@@ -659,7 +660,7 @@ public class Card : Damagable
             }
 
             if (isDamaged()) hpUI.color = new Color(1, 0.5f, 0.5f);
-
+            AudioManager.Instance.PlaySFX("Hit");
             yield return HitVisual();
             if (freeze) Freeze();
         }
@@ -805,6 +806,7 @@ public class Card : Damagable
     /// </summary>
     public IEnumerator Reveal()
     {
+        AudioManager.Instance.PlaySFX("Reveal");
         gravestone = false;
 		SR.sprite = baseSprite;
         atkSprite.gameObject.SetActive(true);
@@ -821,6 +823,7 @@ public class Card : Damagable
     /// </summary>
     public void Hide()
     {
+        AudioManager.Instance.PlaySFX("Grave");
         atk = baseAtk;
         HP = baseHP;
         baseGravestone = true;
@@ -913,7 +916,7 @@ public class Card : Damagable
     {
         GameObject g = Instantiate(AllCards.Instance.attackFX, transform.position, Quaternion.identity);
         g.GetComponent<AttackFX>().destination = dest.transform;
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.2f);
     }
 
     protected IEnumerator AttackFXs(List<Damagable> dests)
@@ -923,7 +926,7 @@ public class Card : Damagable
             GameObject g = Instantiate(AllCards.Instance.attackFX, transform.position, Quaternion.identity);
             g.GetComponent<AttackFX>().destination = d.transform;
         }
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.2f);
     }
 
     void OnMouseDown()

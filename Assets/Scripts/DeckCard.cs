@@ -34,6 +34,12 @@ public class DeckCard : MonoBehaviour
         }
         else
         {
+            if (orig.type == Card.Type.Terrain)
+            {
+                var rectTransform = image.GetComponent<RectTransform>();
+                rectTransform.offsetMax = new(rectTransform.offsetMax.x, 25f);
+                rectTransform.offsetMin = new(rectTransform.offsetMin.x, -25f);
+            }
             atkUI.transform.parent.gameObject.SetActive(false);
             hpUI.transform.parent.gameObject.SetActive(false);
         } 

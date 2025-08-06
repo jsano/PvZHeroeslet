@@ -20,7 +20,6 @@ public class AttackFX : MonoBehaviour
 
     private void OnComplete()
     {
-        AudioManager.Instance.PlaySFX("Hit");
         Destroy(gameObject);
     }
 
