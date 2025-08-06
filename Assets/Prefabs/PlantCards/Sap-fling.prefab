@@ -46,11 +46,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.0861539
+      value: 1.1766666
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.9753846
+      value: 1.0566666
       objectReference: {fileID: 0}
     - target: {fileID: 8010029174977732602, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_RootOrder
@@ -131,7 +131,7 @@ MonoBehaviour:
   _class: 3
   tribes: 1900000022000000
   token: 0
-  cost: 0
+  cost: 6
   atk: 5
   HP: 3
   amphibious: 0

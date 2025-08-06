@@ -157,11 +157,13 @@ public class GameManager : NetworkBehaviour
     /// <summary>
     /// Reference to any data that should be shared across the network that can't be achieved normally (ex. Mixed-up Gravedigger)
     /// </summary>
-    public List<string> shuffledList { get; private set; }
-	/// <summary>
-	/// For literally just Sun Strike only
-	/// </summary>
-	public List<Card> removeStrikethrough = new();
+    public List<List<string>> shuffledLists { get; private set; }
+    //public List<string> shuffledList { get; private set; }
+    [HideInInspector] public int shuffledListsNextExpectedCount = 1;
+    /// <summary>
+    /// For literally just Sun Strike only
+    /// </summary>
+    public List<Card> removeStrikethrough = new();
     /// <summary>
     /// For literally just Clique Peas only
     /// </summary>
@@ -303,7 +305,6 @@ public class GameManager : NetworkBehaviour
 			if (ENDED) yield break;
 
             //yield return new WaitUntil(() => currentlySpawningCards == 0); maybe remove???
-            shuffledList = null;
 			yield return null;
         }
 		isProcessing = false;
@@ -371,6 +372,8 @@ public class GameManager : NetworkBehaviour
             deck[k] = temp;
         }
 		turn = 1;
+
+		shuffledLists = new();
 
 		StartCoroutine(Mulligan());
     }
@@ -742,6 +745,8 @@ public class GameManager : NetworkBehaviour
 		yield return ProcessEvents();
 		EndRpc();
 		plantCombatBehindBy = 0;
+		shuffledLists.Clear();
+		shuffledListsNextExpectedCount = 1;
     }
 
     /// <summary>
@@ -1160,7 +1165,7 @@ public class GameManager : NetworkBehaviour
     public void StoreRpc(string list)
     {
 		string[] list1 = list.Split(" - ");
-		shuffledList = new(list1);
+		shuffledLists.Add(new(list1));
     }
 
     /// <summary>

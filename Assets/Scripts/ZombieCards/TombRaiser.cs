@@ -18,21 +18,10 @@ public class TombRaiser : Card
             if (choices.Count > 0)
             {
                 yield return new WaitForSeconds(1);
-                if (team == GameManager.Instance.team)
-                {
-                    for (int n = choices.Count - 1; n > 0; n--)
-                    {
-                        int k = UnityEngine.Random.Range(0, n + 1);
-                        var temp = choices[n];
-                        choices[n] = choices[k];
-                        choices[k] = temp;
-                    }
-                    GameManager.Instance.StoreRpc(choices[0].GetComponent<Tile>().row + " - " + choices[0].GetComponent<Tile>().col + " - " + RandomGravestone());
-                }
-                yield return new WaitUntil(() => GameManager.Instance.shuffledList != null);
-
-                Tile t = Tile.zombieTiles[int.Parse(GameManager.Instance.shuffledList[0]), int.Parse(GameManager.Instance.shuffledList[1])];
-                int card = int.Parse(GameManager.Instance.shuffledList[2]);
+                var choice = choices[UnityEngine.Random.Range(0, choices.Count)];
+                yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col + " - " + RandomGravestone());
+                Tile t = Tile.zombieTiles[int.Parse(GameManager.Instance.shuffledLists[^1][0]), int.Parse(GameManager.Instance.shuffledLists[^1][1])];
+                int card = int.Parse(GameManager.Instance.shuffledLists[^1][2]);
                 if (GameManager.Instance.team == team) GameManager.Instance.PlayCardRpc(new FinalStats(card), t.row, t.col);
             }
         }

@@ -328,8 +328,6 @@ public class Card : Damagable
         hpSprite.sprite = GetHPIcon();
 
         if (fusionBase != null) fusionBase.transform.position = transform.position;
-
-        Debug.Log(GameManager.Instance.shuffledList);
     }
 
     /// <summary>
@@ -341,6 +339,20 @@ public class Card : Damagable
         GameManager.Instance.timerImage.gameObject.SetActive(false);
         yield return null;
 	}
+
+    protected IEnumerator SyncRandomChoiceAcrossNetwork(string toStore, string priorityTeam = null)
+    {
+        if (priorityTeam == null)
+        {
+            if (GameManager.Instance.team == team) GameManager.Instance.StoreRpc(toStore);
+        }
+        else
+        {
+            if (GameManager.Instance.team == (priorityTeam == "Plant" ? Team.Plant : Team.Zombie)) GameManager.Instance.StoreRpc(toStore);
+        }
+        yield return new WaitUntil(() => GameManager.Instance.shuffledListsNextExpectedCount == GameManager.Instance.shuffledLists.Count);
+        GameManager.Instance.shuffledListsNextExpectedCount += 1;
+    }
 
 	/// <summary>
 	/// Called right when this card is played. Base method waits for all pending cards to spawn, triggers <c>OnCardPlay</c>, calls <c>ProcessEvents</c>, and toggles <c>waitingOnBlock=false</c>
@@ -486,11 +498,10 @@ public class Card : Damagable
         if (fig)
         {
             Tile.plantTiles[row, col].Unplant(true);
+            yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(Team.Plant, (cost + 1, cost + 1), true) + "");
             yield return new WaitForSeconds(1);
-            if (GameManager.Instance.team == team) GameManager.Instance.StoreRpc(AllCards.RandomFromCost(Team.Plant, (cost + 1, cost + 1), true) + "");
-            yield return new WaitUntil(() => GameManager.Instance.shuffledList != null);
-            Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.shuffledList[0])]);
-            FinalStats fs = new(int.Parse(GameManager.Instance.shuffledList[0]));
+            Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.shuffledLists[^1][0])]);
+            FinalStats fs = new(int.Parse(GameManager.Instance.shuffledLists[^1][0]));
             fs.abilities += "fig";
             c.sourceFS = fs;
             Tile.plantTiles[row, col].Plant(c);

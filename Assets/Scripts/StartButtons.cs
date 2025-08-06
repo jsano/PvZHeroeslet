@@ -34,9 +34,9 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks["temp10"].cards = new() {
             { AllCards.NameToID("Haunted Pumpking"), 2 },
             { AllCards.NameToID("Jack-o-lantern"), 2 },
-            { AllCards.NameToID("Sun-shroom"), 4 },
-            { AllCards.NameToID("Ketchup Mechanic"), 2 },
-            { AllCards.NameToID("Toadstool"), 2 },
+            { AllCards.NameToID("Electric Blueberry"), 4 },
+            { AllCards.NameToID("Mushroom Grotto"), 2 },
+            { AllCards.NameToID("Transmogrify"), 2 },
             { AllCards.NameToID("Witch Hazel"), 2 },
             { AllCards.NameToID("Jolly Holly"), 2 },
             { AllCards.NameToID("Sap-fling"), 2 }
@@ -58,12 +58,12 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Fraidy Cat"), 2 },
             { AllCards.NameToID("Secret Agent"), 2 },
             { AllCards.NameToID("Energy Drink"), 2 },
-            { AllCards.NameToID("Synchronized Swimmer"), 2 },
+            { AllCards.NameToID("Zombot Aerostatic Gondola"), 2 },
             { AllCards.NameToID("Hover-Goat 3000"), 2 },
             { AllCards.NameToID("Imp"), 1 },
-            { AllCards.NameToID("Overstuffed"), 2 },
+            { AllCards.NameToID("Mixed-up Gravedigger"), 2 },
             { AllCards.NameToID("Sneezing"), 2 },
-            { AllCards.NameToID("King of the Grill"), 2 }
+            { AllCards.NameToID("Tomb Raiser"), 4 }
         };
 
         UserAccounts.GameStats.DeckName = "temp11";

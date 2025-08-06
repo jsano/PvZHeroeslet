@@ -12,15 +12,11 @@ public class WitchHazel : Card
         {
             if (Tile.zombieTiles[0, col].HasRevealedPlanted() && Tile.zombieTiles[0, col].planted != this) locations.Add(col);
         }
-        if (GameManager.Instance.team == team)
-        {
-            int chosen0 = locations[Random.Range(0, locations.Count)];
-            if (locations.Count > 0) GameManager.Instance.StoreRpc(chosen0 + "");
-        }
         if (locations.Count > 0)
         {
             yield return new WaitForSeconds(1);
-            int chosen = int.Parse(GameManager.Instance.shuffledList[0]);
+            yield return SyncRandomChoiceAcrossNetwork(locations[UnityEngine.Random.Range(0, locations.Count)] + "");
+            int chosen = int.Parse(GameManager.Instance.shuffledLists[^1][0]);
             Tile.zombieTiles[0, chosen].planted.Destroy();
             if (Tile.CanPlantInCol(chosen, Tile.plantTiles, true, false))
             {

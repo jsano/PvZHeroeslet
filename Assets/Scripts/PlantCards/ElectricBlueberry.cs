@@ -7,34 +7,26 @@ public class ElectricBlueberry : Card
 
 	public override IEnumerator AfterCombat()
 	{
-		yield return new WaitForSeconds(1);
-        if (team == GameManager.Instance.team)
+        choices.Clear();
+        for (int j = 0; j < 5; j++)
         {
-            for (int j = 0; j < 5; j++)
-            {
-                if (Tile.zombieTiles[0, j].planted != null) choices.Add(Tile.zombieTiles[0, j].GetComponent<BoxCollider2D>());
-            }
-            choices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
-            for (int n = choices.Count - 1; n > 0; n--)
-            {
-                int k = UnityEngine.Random.Range(0, n + 1);
-                var temp = choices[n];
-                choices[n] = choices[k];
-                choices[k] = temp;
-            }
-            if (choices[0].GetComponent<Hero>() != null) GameManager.Instance.StoreRpc(-1 + " - " + -1);
-            else GameManager.Instance.StoreRpc(choices[0].GetComponent<Tile>().row + " - " + choices[0].GetComponent<Tile>().col);
+            if (Tile.zombieTiles[0, j].planted != null) choices.Add(Tile.zombieTiles[0, j].GetComponent<BoxCollider2D>());
         }
-        yield return new WaitUntil(() => GameManager.Instance.shuffledList != null);
+        choices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
 
-        if (int.Parse(GameManager.Instance.shuffledList[0]) == -1)
+        yield return new WaitForSeconds(1);
+        var choice = choices[Random.Range(0, choices.Count)];
+        if (choice.GetComponent<Hero>() != null) yield return SyncRandomChoiceAcrossNetwork(-1 + " - " + -1);
+        else yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col);
+
+        if (int.Parse(GameManager.Instance.shuffledLists[^1][0]) == -1)
         {
             yield return AttackFX(Tile.zombieHeroTiles[col]);
             yield return Tile.zombieHeroTiles[col].ReceiveDamage(6, this);
         }
         else
         {
-            Tile t = Tile.zombieTiles[int.Parse(GameManager.Instance.shuffledList[0]), int.Parse(GameManager.Instance.shuffledList[1])];
+            Tile t = Tile.zombieTiles[int.Parse(GameManager.Instance.shuffledLists[^1][0]), int.Parse(GameManager.Instance.shuffledLists[^1][1])];
             yield return AttackFX(t.planted);
             yield return t.planted.ReceiveDamage(6, this);
         }

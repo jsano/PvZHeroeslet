@@ -17,22 +17,12 @@ public class FraidyCat : Card
                     choices.Add(Tile.zombieTiles[row, j].GetComponent<BoxCollider2D>());
                 }
             }
-            if (GameManager.Instance.team == team)
-			{    
-                for (int n = choices.Count - 1; n > 0; n--)
-                {
-                    int k = Random.Range(0, n + 1);
-                    var temp = choices[n];
-                    choices[n] = choices[k];
-                    choices[k] = temp;
-                }
-                if (choices.Count > 0) GameManager.Instance.StoreRpc(choices[0].GetComponent<Tile>().row + " - " + choices[0].GetComponent<Tile>().col);
-            }
-			yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1);
             if (choices.Count > 0)
             {
-                yield return new WaitUntil(() => GameManager.Instance.shuffledList != null);
-                Move(int.Parse(GameManager.Instance.shuffledList[0]), int.Parse(GameManager.Instance.shuffledList[1]));
+                var choice = choices[Random.Range(0, choices.Count)];
+                yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col, "Plant");
+                Move(int.Parse(GameManager.Instance.shuffledLists[^1][0]), int.Parse(GameManager.Instance.shuffledLists[^1][1]));
             }
             ChangeStats(1, 1);
         }

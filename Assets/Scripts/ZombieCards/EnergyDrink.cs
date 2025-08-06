@@ -13,26 +13,20 @@ public class EnergyDrink : Card
         if (!moved)
         {
             moved = true;
-            if (GameManager.Instance.team == team)
+            for (int j = 0; j < 4; j++)
             {
-                for (int j = 0; j < 4; j++)
+                if (j != col && Tile.zombieTiles[row, j].planted == null)
                 {
-                    if (j != col && Tile.zombieTiles[row, j].planted == null)
-                    {
-                        choices.Add(Tile.zombieTiles[row, j].GetComponent<BoxCollider2D>());
-                    }
+                    choices.Add(Tile.zombieTiles[row, j].GetComponent<BoxCollider2D>());
                 }
-                for (int n = choices.Count - 1; n > 0; n--)
-                {
-                    int k = Random.Range(0, n + 1);
-                    var temp = choices[n];
-                    choices[n] = choices[k];
-                    choices[k] = temp;
-                }
-                if (choices.Count > 0) GameManager.Instance.StoreRpc(choices[0].GetComponent<Tile>().row + " - " + choices[0].GetComponent<Tile>().col);
             }
-            yield return new WaitForSeconds(1);
-            if (GameManager.Instance.shuffledList != null) Move(int.Parse(GameManager.Instance.shuffledList[0]), int.Parse(GameManager.Instance.shuffledList[1]));
+            if (choices.Count > 0)
+            {
+                yield return new WaitForSeconds(1);
+                var choice = choices[UnityEngine.Random.Range(0, choices.Count)];
+                yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col);
+                Move(int.Parse(GameManager.Instance.shuffledLists[^1][0]), int.Parse(GameManager.Instance.shuffledLists[^1][1]));
+            }
             ChangeStats(1, 1);
         }
 		yield return base.OnZombieTricks();

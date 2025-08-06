@@ -10,13 +10,8 @@ public class EvolutionaryLeap : Card
         Card c = Tile.zombieTiles[row, col].planted;
         Tile.zombieTiles[row, col].Unplant(true);
         yield return new WaitForSeconds(1);
-        if (GameManager.Instance.team == team)
-        {
-            int newCard = AllCards.RandomFromCost(Team.Zombie, (c.cost + 1, c.cost + 1), true);
-            GameManager.Instance.StoreRpc(newCard + "");
-        }
-        yield return new WaitUntil(() => GameManager.Instance.shuffledList != null);
-        Card c1 = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.shuffledList[0])]);
+        yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(Team.Zombie, (c.cost + 1, c.cost + 1), true) + "");
+        Card c1 = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.shuffledLists[^1][0])]);
         Tile.zombieTiles[row, col].Plant(c1);
         Destroy(c.gameObject);
         yield return base.OnThisPlay();
