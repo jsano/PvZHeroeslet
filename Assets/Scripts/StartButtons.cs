@@ -32,9 +32,9 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(10));
         UserAccounts.allDecks["temp10"].cards = new() {
-            { AllCards.NameToID("Haunted Pumpking"), 2 },
-            { AllCards.NameToID("Jack-o-lantern"), 2 },
-            { AllCards.NameToID("Electric Blueberry"), 4 },
+            { AllCards.NameToID("Wild Berry"), 2 },
+            { AllCards.NameToID("Plucky Clover"), 2 },
+            { AllCards.NameToID("Punish-shroom"), 4 },
             { AllCards.NameToID("Mushroom Grotto"), 2 },
             { AllCards.NameToID("Transmogrify"), 2 },
             { AllCards.NameToID("Witch Hazel"), 2 },
@@ -55,15 +55,15 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
-            { AllCards.NameToID("Fraidy Cat"), 2 },
-            { AllCards.NameToID("Secret Agent"), 2 },
-            { AllCards.NameToID("Energy Drink"), 2 },
-            { AllCards.NameToID("Zombot Aerostatic Gondola"), 2 },
-            { AllCards.NameToID("Hover-Goat 3000"), 2 },
+            { AllCards.NameToID("Leprechaun Imp"), 2 },
+            { AllCards.NameToID("Regifting"), 2 },
+            { AllCards.NameToID("Trick-or-Treater"), 2 },
+            { AllCards.NameToID("Thinking Cap"), 2 },
+            { AllCards.NameToID("Bad Moon Rising"), 2 },
             { AllCards.NameToID("Imp"), 1 },
             { AllCards.NameToID("Mixed-up Gravedigger"), 2 },
-            { AllCards.NameToID("Sneezing"), 2 },
-            { AllCards.NameToID("Tomb Raiser"), 4 }
+            { AllCards.NameToID("Evolutionary Leap"), 2 },
+            { AllCards.NameToID("Tankylosaurus"), 4 }
         };
 
         UserAccounts.GameStats.DeckName = "temp11";

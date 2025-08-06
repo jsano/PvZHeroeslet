@@ -17,7 +17,6 @@ public class PunishShroom : Card
             }
             choices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
 
-            yield return new WaitForSeconds(1);
             var choice = choices[UnityEngine.Random.Range(0, choices.Count)];
             if (choice.GetComponent<Hero>() != null) yield return SyncRandomChoiceAcrossNetwork(-1 + " - " + -1);
             else yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col);

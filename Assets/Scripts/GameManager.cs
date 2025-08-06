@@ -508,6 +508,7 @@ public class GameManager : NetworkBehaviour
 		} 
 		else
 		{
+			Debug.Log(opponentHandCards.childCount);
 			if (opponentHandCards.childCount >= 10) yield break;
 			int current = opponentHandCards.childCount;
 			c = Instantiate(cardBackPrefab, opponentHandCards);
