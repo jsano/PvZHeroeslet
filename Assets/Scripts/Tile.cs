@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Unity.VisualScripting.Member;
 
 public class Tile : Damagable
 {
@@ -238,7 +237,7 @@ public class Tile : Damagable
     /// <summary>
     /// This should never be called
     /// </summary>
-    public override void ChangeStats(int atkAmount, int hpAmount)
+    public override void ChangeStats(int atkAmount, int hpAmount, bool temporary = false)
     {
 
     }

@@ -86,6 +86,8 @@ public class Card : Damagable
     public int HP;
     private int maxHP;
     private int baseHP;
+    private int tempAtkChange;
+    private int tempHPChange;
     public bool died { get; private set; }
     private bool initializedStats = false;
 
@@ -495,6 +497,7 @@ public class Card : Damagable
 	/// </summary>
     protected virtual IEnumerator OnTurnEnd()
     {
+        if (tempAtkChange != 0 || tempHPChange != 0) ChangeStats(-tempAtkChange, -tempHPChange);
         if (fig)
         {
             Tile.plantTiles[row, col].Unplant(true);
@@ -705,7 +708,7 @@ public class Card : Damagable
     /// Raises attack and HP by the given amounts. Ignores if it's in a gravestone. Updates UI. Attack won't go below 0.
     /// If HP ends up as 0 afterwards, marks this card to be destroyed and triggers <c>OnCardDeath</c> so that it's destroyed during the next <c>ProcessEvent</c>, and updates any anti-hero immediately.
     /// </summary>
-    public override void ChangeStats(int atkAmount, int hpAmount)
+    public override void ChangeStats(int atkAmount, int hpAmount, bool temporary = false)
 	{
         if (gravestone) return;
 		atk += atkAmount;
@@ -726,6 +729,12 @@ public class Card : Damagable
                 if (Tile.zombieTiles[i, col].HasRevealedPlanted()) Tile.zombieTiles[i, col].planted.UpdateAntihero();
             }
             GameManager.Instance.TriggerEvent("OnCardDeath", new Tuple<Card, Card>(this, null));
+        }
+
+        if (temporary)
+        {
+            tempAtkChange = atkAmount;
+            tempHPChange = atkAmount;
         }
 	}
     

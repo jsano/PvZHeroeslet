@@ -11,17 +11,19 @@ public class ImpThrowingGargantuar : Card
         if (hurt.Item1.GetComponent<Card>() == this)
         {
             yield return new WaitForSeconds(1);
-            if (GameManager.Instance.team == team)
+            List<int> columns = new();
+            for (int col = 0; col < 5; col++)
             {
-                List<int> columns = new();
-                for (int col = 0; col < 5; col++)
-                {
-                    if (Tile.zombieTiles[0, col].planted == null) columns.Add(col);
-                }
-                if (columns.Count > 0) GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.NameToID("Swabbie")), 0, columns[UnityEngine.Random.Range(0, columns.Count)]);
+                if (Tile.zombieTiles[0, col].planted == null) columns.Add(col);
             }
+            if (columns.Count > 0)
+            {
+                yield return new WaitForSeconds(1);
+                yield return SyncRandomChoiceAcrossNetwork(columns[UnityEngine.Random.Range(0, columns.Count)] + "");
+                Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Swabbie")]).GetComponent<Card>();
+                Tile.zombieTiles[0, int.Parse(GameManager.Instance.shuffledLists[^1][0])].Plant(c);
+            }            
         }
-
         yield return base.OnCardHurt(hurt);
 	}
 

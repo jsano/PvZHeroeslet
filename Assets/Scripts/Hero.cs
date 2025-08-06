@@ -76,7 +76,8 @@ public class Hero : Damagable
             (GameManager.Instance.team == team && GameManager.Instance.GetHandCards().Count < 10 || GameManager.Instance.team != team && GameManager.Instance.opponentHandCards.childCount < 10))
 		{ if (blockMeter.color != Color.yellow)
 			{
-				AudioManager.Instance.PlaySFX("Block");
+                Debug.Log(GameManager.Instance.opponentHandCards.childCount);
+                AudioManager.Instance.PlaySFX("Block");
 				GameManager.Instance.TriggerEvent("OnBlock", this);
 				blockMeter.color = Color.yellow;
 				timesBlocked++;
@@ -115,7 +116,7 @@ public class Hero : Damagable
 		yield return GameManager.Instance.ProcessEvents(false, true);
 	}
 
-    public override void ChangeStats(int atkAmount, int hpAmount)
+    public override void ChangeStats(int atkAmount, int hpAmount, bool temporary = false)
     {
         maxHP += hpAmount;
     }
