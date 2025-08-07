@@ -345,13 +345,13 @@ public class Card : Damagable
 
     protected IEnumerator SyncRandomChoiceAcrossNetwork(string toStore, string priorityTeam = null)
     {
-        if (priorityTeam == null)
+        if (GameManager.Instance.phase == 2)
         {
-            if (GameManager.Instance.team == team) GameManager.Instance.StoreRpc(toStore);
+            if (GameManager.Instance.team == Team.Plant) GameManager.Instance.StoreRpc(toStore);
         }
         else
         {
-            if (GameManager.Instance.team == (priorityTeam == "Plant" ? Team.Plant : Team.Zombie)) GameManager.Instance.StoreRpc(toStore);
+            if (GameManager.Instance.team == Team.Zombie) GameManager.Instance.StoreRpc(toStore);
         }
         yield return new WaitUntil(() => GameManager.Instance.shuffledListsNextExpectedCount == GameManager.Instance.shuffledLists.Count);
         GameManager.Instance.shuffledListsNextExpectedCount += 1;
@@ -367,7 +367,7 @@ public class Card : Damagable
         Debug.Log(name + " reached base.OnThisPlay()");
         yield return new WaitForSeconds(0.1f); // this only exists to give time for rpcs to instantiate before processing events (rough fix)
         if (type == Type.Unit) GameManager.Instance.currentlySpawningCards -= 1;
-        GameManager.Instance.waitingOnBlock = false;
+        GameManager.Instance.waitingOnBlock = null;
         yield return new WaitUntil(() => GameManager.Instance.currentlySpawningCards == 0); // this exists for cards that spawn cards that spawn cards
         if (type == Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
         Debug.Log(name + " reached currentlySpawningCards == 0");

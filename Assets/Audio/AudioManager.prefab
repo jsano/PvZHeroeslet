@@ -165,7 +165,7 @@ MonoBehaviour:
     partnerName: 
   - name: Go
     clip: {fileID: 8300000, guid: 807f4253dbe91654ba86e658a03dd33d, type: 3}
-    volume: 1
+    volume: 0.7
     pitch: 1
     spatialBlend: 0
     loop: 0

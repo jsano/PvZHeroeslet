@@ -58,7 +58,7 @@ public class GameManager : NetworkBehaviour
 	/// <summary>
 	/// 0 = prep, 1 = zombie, 2 = plant, 3 = zombie trick, 4 = fight
 	/// </summary>
-    private int phase;
+    public int phase { get; private set; }
 	/// <summary>
 	/// How much gold the player has left this turn
 	/// </summary>
@@ -135,9 +135,9 @@ public class GameManager : NetworkBehaviour
     /// </summary>
     [HideInInspector] public Hero zombieHero;
     /// <summary>
-    /// Halt game flow if a player blocked. When set to true, game flow immediately resumes
+    /// Halt game flow if a player blocked. When set to null, game flow immediately resumes
     /// </summary>
-    [HideInInspector] public bool waitingOnBlock = false;
+    [HideInInspector] public Hero waitingOnBlock = null;
     /// <summary>
     /// If a player is selecting a choice (ex. from moving a card), set this to using <c>SelectingChosenRpc</c> so both players can access the selection
     /// </summary>
@@ -459,17 +459,24 @@ public class GameManager : NetworkBehaviour
 				else EndRpc();
 			}
 		}
+		else
+		{
+			if (waitingOnBlock == null) if (phase == 3 && team == Team.Plant || phase == 2 && team == Team.Zombie || phase == 1 && team == Team.Plant) {
+				var hero = team == Team.Plant ? zombieHero : plantHero;
+				hero.ToggleThinking(true);
+            }
+		}
 		if (timerMOn)
 		{
-            timer -= Time.deltaTime;
-            timerImageM.fillAmount = timer / 15;
-            if (timer <= 0)
-            {
-                timerMOn = false;
-                FinishMulligan();
-            }
-        }
-		if (!isProcessingOpponentQueue && opponentPlayedQueue.Count == 0 && phase == 3)
+			timer -= Time.deltaTime;
+			timerImageM.fillAmount = timer / 15;
+			if (timer <= 0)
+			{
+				timerMOn = false;
+				FinishMulligan();
+			}
+		}
+		if (!isProcessingOpponentQueue && opponentPlayedQueue.Count == 0 && phase == 3 || waitingOnBlock)
 		{
 			plantCombatBehindBy = Math.Max(plantCombatBehindBy - Time.deltaTime, 0);
 		}
@@ -587,6 +594,8 @@ public class GameManager : NetworkBehaviour
 		}
 
         AudioManager.Instance.PlaySFX("Go");
+        plantHero.ToggleThinking(false);
+        zombieHero.ToggleThinking(false);
         phase += 1;
 
         phaseText.GetComponent<TextMeshProUGUI>().text = pnames[phase];
@@ -898,7 +907,7 @@ public class GameManager : NetworkBehaviour
 	[Rpc(SendTo.ClientsAndHost)]
 	public void HoldTrickRpc(Team t)
 	{
-        waitingOnBlock = false;
+        waitingOnBlock = null;
 		TriggerEvent("OnCardDraw", t);
 		if (team == t) handCards.GetChild(handCards.childCount - 1).GetComponent<HandCard>().ChangeCost(1);
         var to = opponentHandCards.TransformPoint(-2.5f + (opponentHandCards.childCount - 1) * 0.5f, 0, 0);
@@ -1130,8 +1139,11 @@ public class GameManager : NetworkBehaviour
     /// </summary>
     public IEnumerator HandleHeroBlocks(Hero h)
 	{
-		h.ResetBlock();
-		waitingOnBlock = true;
+        plantHero.ToggleThinking(false);
+        zombieHero.ToggleThinking(false);
+        h.ToggleThinking(true);
+        h.ResetBlock();
+		waitingOnBlock = h;
 		if (team == h.team)
 		{
 			superpowerIndex += 1;
@@ -1159,8 +1171,10 @@ public class GameManager : NetworkBehaviour
             c.GetComponent<SpriteRenderer>().sortingOrder = current;
             if (h.team == Team.Zombie) c.GetComponent<SpriteRenderer>().sprite = AllCards.Instance.zombieCardBack;
         }
-		yield return new WaitUntil(() => waitingOnBlock == false);
-	}
+		yield return new WaitUntil(() => waitingOnBlock == null);
+        plantHero.ToggleThinking(false);
+        zombieHero.ToggleThinking(false);
+    }
 
     /// <summary>
     /// Signals to the network to store data for any future use. Must be provided in a " - " separated string (since that's the only way to serialize it...)

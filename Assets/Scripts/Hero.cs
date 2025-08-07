@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,8 @@ public class Hero : Damagable
 	private int block;
 	private int timesBlocked = 0;
 
+	public Transform thinking;
+
 	// Start is called before the first frame update
 	void Start()
     {
@@ -27,12 +30,26 @@ public class Hero : Damagable
         SR = GetComponent<SpriteRenderer>();
 		hpUI.text = HP + "";
 		maxHP = HP;
+
+		for (int i = 0; i < 3; i++) StartCoroutine(DotAnimation(i));
 	}
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator DotAnimation(int index)
     {
-        
+		var dot = thinking.GetChild(index).gameObject;
+        yield return new WaitForSeconds(index * 0.5f);
+        while (true)
+        {
+            yield return new WaitForSeconds(3f);
+			LeanTween.moveY(dot, dot.transform.position.y + 0.1f, 0.25f).setEaseOutQuad().setOnComplete(() => 
+			LeanTween.moveY(dot, dot.transform.position.y - 0.1f, 0.75f).setEaseOutElastic());
+        }
+    }
+    public void ToggleThinking(bool on)
+    {
+		//thinking.localPosition = new Vector3(thinking.localPosition.x, thinking.localPosition.y, on ? 0 : -10);
+		thinking.GetComponent<SpriteRenderer>().enabled = on;
+        for (int i = 0; i < 3; i++) thinking.GetChild(i).GetComponent<SpriteRenderer>().enabled = on;
     }
 
 	public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1)
