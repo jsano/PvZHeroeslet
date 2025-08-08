@@ -1186,6 +1186,11 @@ public class GameManager : NetworkBehaviour
 		shuffledLists.Add(new(list1));
     }
 
+	public List<string> GetShuffledList()
+	{
+		return shuffledLists[shuffledListsNextExpectedCount - 2];
+    }
+
     /// <summary>
     /// The given winner has won the game. Update player's score on the leaderboard or add if this is new
     /// </summary>

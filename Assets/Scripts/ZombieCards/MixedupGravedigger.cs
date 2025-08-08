@@ -37,8 +37,8 @@ public class MixedupGravedigger: Card
 			yield return SyncRandomChoiceAcrossNetwork(s);
 			for (int i = 0; i < zombies.Count; i++)
 			{
-				Tile.zombieTiles[0, int.Parse(GameManager.Instance.shuffledLists[^1][i])].Unplant();
-				Tile.zombieTiles[0, int.Parse(GameManager.Instance.shuffledLists[^1][i])].Plant(zombies[i]);
+				Tile.zombieTiles[0, int.Parse(GameManager.Instance.GetShuffledList()[i])].Unplant();
+				Tile.zombieTiles[0, int.Parse(GameManager.Instance.GetShuffledList()[i])].Plant(zombies[i]);
 				zombies[i].Hide();
 			}
 			GameManager.Instance.currentlySpawningCards -= 1;

@@ -26,7 +26,7 @@ public class ElectricBlueberry : Card
         }
         else
         {
-            Tile t = Tile.zombieTiles[int.Parse(GameManager.Instance.shuffledLists[^1][0]), int.Parse(GameManager.Instance.shuffledLists[^1][1])];
+            Tile t = Tile.zombieTiles[int.Parse(GameManager.Instance.GetShuffledList()[0]), int.Parse(GameManager.Instance.GetShuffledList()[1])];
             yield return AttackFX(t.planted);
             yield return t.planted.ReceiveDamage(6, this);
         }

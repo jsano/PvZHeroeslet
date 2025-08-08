@@ -19,7 +19,7 @@ public class WildBerry : Card
             yield return new WaitForSeconds(1);
             var choice = choices[Random.Range(0, choices.Count)];
             yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col);
-            Move(int.Parse(GameManager.Instance.shuffledLists[^1][0]), int.Parse(GameManager.Instance.shuffledLists[^1][1]));
+            Move(int.Parse(GameManager.Instance.GetShuffledList()[0]), int.Parse(GameManager.Instance.GetShuffledList()[1]));
         }
 		yield return base.OnThisPlay();
 	}

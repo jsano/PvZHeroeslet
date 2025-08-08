@@ -20,14 +20,14 @@ public class Tankylosaurus : Card
             if (choice.GetComponent<Hero>() != null) yield return SyncRandomChoiceAcrossNetwork(-1 + " - " + -1);
             else yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col);
 
-            if (int.Parse(GameManager.Instance.shuffledLists[^1][0]) == -1)
+            if (int.Parse(GameManager.Instance.GetShuffledList()[0]) == -1)
             {
                 yield return AttackFX(Tile.plantHeroTiles[col]);
                 yield return Tile.plantHeroTiles[col].ReceiveDamage(2, this);
             }
             else
             {
-                Tile t = Tile.plantTiles[int.Parse(GameManager.Instance.shuffledLists[^1][0]), int.Parse(GameManager.Instance.shuffledLists[^1][1])];
+                Tile t = Tile.plantTiles[int.Parse(GameManager.Instance.GetShuffledList()[0]), int.Parse(GameManager.Instance.GetShuffledList()[1])];
                 yield return AttackFX(t.planted);
                 yield return t.planted.ReceiveDamage(2, this);
             }

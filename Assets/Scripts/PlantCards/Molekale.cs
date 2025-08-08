@@ -23,17 +23,19 @@ public class Molekale : Card
         if (toDestroy.Count > 0)
         {
             yield return new WaitForSeconds(1);
-            foreach (Card c in toDestroy)
-		    {
-                Tile t = Tile.plantTiles[c.row, c.col];
-                int ID = AllCards.RandomFromCost(c.team, (c.cost + 1, c.cost + 1), true);
-                if (GameManager.Instance.team == team) GameManager.Instance.PlayCardRpc(new FinalStats(ID), t.row, t.col);
+            string s = "";
+            for (int i = 0; i < toDestroy.Count; i++)
+            {
+                s += AllCards.RandomFromCost(toDestroy[i].team, (toDestroy[i].cost + 1, toDestroy[i].cost + 1), true) + " - ";
             }
-
+            yield return SyncRandomChoiceAcrossNetwork(s);
+            for (int i = 0; i < GameManager.Instance.GetShuffledList().Count - 1; i++)
+            {
+                Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[i])]);
+                Tile.plantTiles[toDestroy[i].row, toDestroy[i].col].Plant(c);
+            }
             foreach (Card c in toDestroy) Destroy(c.gameObject);
         }
-        
-
         yield return base.OnThisPlay();
 	}
 

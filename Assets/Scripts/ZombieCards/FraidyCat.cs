@@ -21,8 +21,8 @@ public class FraidyCat : Card
             if (choices.Count > 0)
             {
                 var choice = choices[Random.Range(0, choices.Count)];
-                yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col, "Plant");
-                Move(int.Parse(GameManager.Instance.shuffledLists[^1][0]), int.Parse(GameManager.Instance.shuffledLists[^1][1]));
+                yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col);
+                Move(int.Parse(GameManager.Instance.GetShuffledList()[0]), int.Parse(GameManager.Instance.GetShuffledList()[1]));
             }
             ChangeStats(1, 1);
         }

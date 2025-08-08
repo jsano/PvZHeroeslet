@@ -9,8 +9,8 @@ public class PluckyClover : Card
 	{        
         yield return new WaitForSeconds(1);
         yield return GameManager.Instance.DrawCard(team);
-        yield return SyncRandomChoiceAcrossNetwork(GameManager.Instance.GetHandCards()[0].orig.cost + "", "Plant");
-		ChangeStats(int.Parse(GameManager.Instance.shuffledLists[^1][0]), 0);
+        yield return SyncRandomChoiceAcrossNetwork(GameManager.Instance.GetHandCards()[0].orig.cost + "");
+		ChangeStats(int.Parse(GameManager.Instance.GetShuffledList()[0]), 0);
 		yield return base.OnThisPlay();
 	}
 

@@ -25,7 +25,7 @@ public class BadMoonRising : Card
             yield return SyncRandomChoiceAcrossNetwork(s);
             for (int i = 0; i < toDestroy.Count; i++)
             {
-                Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.shuffledLists[^1][i])]);
+                Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[i])]);
                 Tile.zombieTiles[0, toDestroy[i].col].Plant(c);
             }
             foreach (Card c in toDestroy) Destroy(c.gameObject);

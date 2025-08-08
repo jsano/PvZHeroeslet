@@ -32,13 +32,13 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(10));
         UserAccounts.allDecks["temp10"].cards = new() {
-            { AllCards.NameToID("Wild Berry"), 2 },
+            { AllCards.NameToID("Molekale"), 4 },
             { AllCards.NameToID("Plucky Clover"), 2 },
             { AllCards.NameToID("Banana Bomb"), 4 },
             { AllCards.NameToID("Mushroom Grotto"), 2 },
             { AllCards.NameToID("Transmogrify"), 2 },
             { AllCards.NameToID("Witch Hazel"), 2 },
-            { AllCards.NameToID("Jolly Holly"), 2 },
+            { AllCards.NameToID("Seedling"), 2 },
             { AllCards.NameToID("Sap-fling"), 2 }
         };
 
@@ -55,13 +55,13 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
-            { AllCards.NameToID("Trapper"), 2 },
-            { AllCards.NameToID("Imp-throwing Gargantuar"), 2 },
+            { AllCards.NameToID("Gargantuar's Feast"), 2 },
+            { AllCards.NameToID("Wannabe Hero"), 2 },
             { AllCards.NameToID("Captain Flameface"), 2 },
             { AllCards.NameToID("Imp-throwing Imp"), 2 },
             { AllCards.NameToID("Fire Rooster"), 2 },
             { AllCards.NameToID("Imposter"), 2 },
-            { AllCards.NameToID("Fraidy Cat"), 4 },
+            { AllCards.NameToID("Zombot Plank Walker"), 2 },
             { AllCards.NameToID("Evolutionary Leap"), 2 },
         };
 

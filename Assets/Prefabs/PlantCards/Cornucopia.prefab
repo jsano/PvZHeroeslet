@@ -183,6 +183,7 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
+  fig: 0
   description: 'When played: Make a random plant in each other lane'
   lore: Thanksgiving came early this year.
   row: 0

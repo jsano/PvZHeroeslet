@@ -343,7 +343,7 @@ public class Card : Damagable
         yield return null;
 	}
 
-    protected IEnumerator SyncRandomChoiceAcrossNetwork(string toStore, string priorityTeam = null)
+    protected IEnumerator SyncRandomChoiceAcrossNetwork(string toStore)
     {
         if (GameManager.Instance.phase == 2)
         {
@@ -353,7 +353,9 @@ public class Card : Damagable
         {
             if (GameManager.Instance.team == Team.Zombie) GameManager.Instance.StoreRpc(toStore);
         }
-        yield return new WaitUntil(() => GameManager.Instance.shuffledListsNextExpectedCount == GameManager.Instance.shuffledLists.Count);
+        yield return new WaitUntil(() => GameManager.Instance.shuffledListsNextExpectedCount <= GameManager.Instance.shuffledLists.Count);
+        Debug.Log("Received shuffled list starting with " + GameManager.Instance.shuffledLists[GameManager.Instance.shuffledListsNextExpectedCount - 1][0]
+            + " and length " + GameManager.Instance.shuffledLists[GameManager.Instance.shuffledListsNextExpectedCount - 1].Count);
         GameManager.Instance.shuffledListsNextExpectedCount += 1;
     }
 

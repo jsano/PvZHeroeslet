@@ -11,7 +11,7 @@ public class Transmogrify : Card
 		Tile.zombieTiles[row, col].Unplant(true);
 		yield return new WaitForSeconds(1);
         yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(Team.Zombie, (1, 1), true) + "");
-		Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.shuffledLists[^1][0])]);
+		Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[0])]);
 		Tile.zombieTiles[row, col].Plant(c);
 		Destroy(toDestroy.gameObject);
 		yield return base.OnThisPlay();

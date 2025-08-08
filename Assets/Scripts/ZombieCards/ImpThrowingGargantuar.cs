@@ -21,7 +21,7 @@ public class ImpThrowingGargantuar : Card
                 yield return new WaitForSeconds(1);
                 yield return SyncRandomChoiceAcrossNetwork(columns[UnityEngine.Random.Range(0, columns.Count)] + "");
                 Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Swabbie")]).GetComponent<Card>();
-                Tile.zombieTiles[0, int.Parse(GameManager.Instance.shuffledLists[^1][0])].Plant(c);
+                Tile.zombieTiles[0, int.Parse(GameManager.Instance.GetShuffledList()[0])].Plant(c);
             }            
         }
         yield return base.OnCardHurt(hurt);

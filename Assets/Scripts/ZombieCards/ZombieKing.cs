@@ -16,7 +16,7 @@ public class ZombieKing : Card
         {   
             yield return new WaitForSeconds(1);
             yield return SyncRandomChoiceAcrossNetwork(locations[Random.Range(0, locations.Count)] + "");
-            int chosen = int.Parse(GameManager.Instance.shuffledLists[^1][0]);
+            int chosen = int.Parse(GameManager.Instance.GetShuffledList()[0]);
             Destroy(Tile.zombieTiles[0, chosen].planted.gameObject);
             Tile.zombieTiles[0, chosen].Unplant();
             Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Knight of the Living Dead")]).GetComponent<Card>();
