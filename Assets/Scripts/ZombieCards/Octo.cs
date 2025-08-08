@@ -38,7 +38,7 @@ public class Octo : Card
 	{
 		if (died.Item1 == this)
 		{
-			yield return GameManager.Instance.GainHandCard(team, AllCards.NameToID("Octo"));
+			yield return GameManager.Instance.GainHandCard(team, AllCards.NameToID("Octo Zombie"));
 		}
 		yield return base.OnCardDeath(died);
 	}

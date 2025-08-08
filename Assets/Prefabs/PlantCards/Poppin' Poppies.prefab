@@ -142,6 +142,7 @@ MonoBehaviour:
   doubleStrike: 0
   frenzy: 0
   gravestone: 0
+  strengthHeart: 0
   hunt: 0
   overshoot: 0
   splash: 0
@@ -150,7 +151,13 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: 'When played: Make Lil'' Buddies here and next door'
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: 'When played: Make 0/1 Lil'' Buddies that say "When played: Heal your
+    hero for 2" here and next door'
   lore: Makes friends wherever she goes.
   row: 0
   col: 0

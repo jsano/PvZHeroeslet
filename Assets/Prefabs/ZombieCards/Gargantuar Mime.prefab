@@ -18,11 +18,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.0526316
+      value: 1.3333334
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.1042105
+      value: 1.3986666
       objectReference: {fileID: 0}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Sprite
@@ -165,7 +165,10 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
-  description: When a non-Mime does a Bonus Attack, this does a Bonus Attack
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: When a non-Mime card does a Bonus Attack, this does a Bonus Attack
   lore: 'The Gargantuar Mime groans like any other zombie. He just does it silently,
     and in French. '
   row: 0

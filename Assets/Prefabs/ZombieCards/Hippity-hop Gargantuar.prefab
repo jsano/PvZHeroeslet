@@ -169,8 +169,8 @@ MonoBehaviour:
   fusionBase: {fileID: 0}
   fig: 0
   description: 'When played and When hurt: Make a Mystery Egg that says "Start of
-    Tricks: Transform this into a random zombie that costs 2 brains or less." in
-    a random lane'
+    Tricks: Transform this into a random zombie that costs 2 brains or less" in a
+    random lane'
   lore: 'Sometimes, what has been seen... can''t be unseen. This is one of those
     times. '
   row: 0

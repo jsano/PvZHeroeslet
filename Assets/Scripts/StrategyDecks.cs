@@ -27,13 +27,13 @@ public class StrategyDecks
             { AllCards.NameToID("Mini Ninja"), 4 },
             { AllCards.NameToID("Smoke Bomb"), 4 },
             { AllCards.NameToID("Lurch for Lunch"), 2 },
-            //{ AllCards.NameToID("Toxic Waste Imp"), 3 },
+            { AllCards.NameToID("Toxic Waste Imp"), 3 },
             { AllCards.NameToID("Backyard Bounce"), 2 },
-            //{ AllCards.NameToID("Line Dancing"), 4 },
-            //{ AllCards.NameToID("Pogo"), 4 },
+            { AllCards.NameToID("Line Dancer"), 4 },
+            { AllCards.NameToID("Pogo Bouncer"), 4 },
             { AllCards.NameToID("Mixed-up Gravedigger"), 2 },
-            //{ AllCards.NameToID("Walrus Rider"), 2 },
-            { AllCards.NameToID("Fun-dead Raiser"), 2 },
+            { AllCards.NameToID("Walrus Rider"), 2 },
+            { AllCards.NameToID("Fun-Dead Raiser"), 2 },
         };
 
         UserAccounts.Instance.SaveData();

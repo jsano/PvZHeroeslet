@@ -153,8 +153,11 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'Dino-Roar: Shuffle a Magic Beanstalk that say "When played: Draw
-    a card" into your deckinto your deck'
+    a card" into your deck'
   lore: 'Sometimes one Plant provides both the Army and the Navy. '
   row: 0
   col: 0

@@ -29,7 +29,7 @@ public class Discotron3000 : Card
         yield return base.OnSelection(bc);
         yield return new WaitForSeconds(1);
 		Tile t = bc.GetComponent<Tile>();
-		Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Disco")]);
+		Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Disco Zombie")]);
 		Tile.zombieTiles[t.row, t.col].Plant(card);
     }
 

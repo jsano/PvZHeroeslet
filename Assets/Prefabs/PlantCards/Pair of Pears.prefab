@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: Make a Pear Pal with Team Up here'
+  description: 'When played: Make a 2/2 Pear Pal with Team Up here'
   lore: It's cute how they're always completing each other's sentences.
   row: 0
   col: 0

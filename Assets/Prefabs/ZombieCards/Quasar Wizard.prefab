@@ -151,7 +151,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: 'When played next to a zombie: Conjure a Superpower. '
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: 'When played next to a zombie: Conjure a Superpower'
   lore: 'You can call him Quazard for short. '
   row: 0
   col: 0

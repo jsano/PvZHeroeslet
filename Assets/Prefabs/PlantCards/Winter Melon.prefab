@@ -142,6 +142,7 @@ MonoBehaviour:
   doubleStrike: 0
   frenzy: 0
   gravestone: 0
+  strengthHeart: 0
   hunt: 0
   overshoot: 0
   splash: 4
@@ -150,7 +151,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 1
-  description: 'When played: Freeze a zombie\nWhen this hurts a zombie, Freeze that
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: 'When played: Freeze a zombie.\nWhen this hurts a zombie, Freeze that
     zombie'
   lore: Perfect for your winter picnics.
   row: 0

@@ -154,6 +154,7 @@ MonoBehaviour:
   doubleStrike: 0
   frenzy: 0
   gravestone: 0
+  strengthHeart: 0
   hunt: 0
   overshoot: 0
   splash: 0
@@ -162,7 +163,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: 'All Gargantuars have Bullseye\nWhen played: Transform another zombie
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: 'All Gargantuars have Bullseye.\nWhen played: Transform another zombie
     into a random zombie that costs 1 brain more'
   lore: 'A wizard did it. An enormous, green, Zombie wizard. '
   row: 0
