@@ -16,7 +16,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     /// <summary>
     /// The starting position that this should snap back to when let go
     /// </summary>
-    private Vector2 startPos;
+    private Vector3 startPos;
     /// <summary>
     /// The reference to the Tile array that represents the player's half of the board
     /// </summary>
@@ -49,13 +49,12 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        startPos = transform.position;
-        
         // Layer this above all other handcards
         GetComponent<SpriteRenderer>().sortingOrder += 10;
         GetComponent<Canvas>().sortingOrder += 10;
         
         if (!interactable) return;
+        startPos = transform.position;
         if (GetComponent<SpriteRenderer>().sortingLayerName != "Error") transform.localScale = Vector3.one;
 
         // Recalculate at every pointer down since the board state can change throughout the game
@@ -118,7 +117,8 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     public void OnDrag(PointerEventData eventData)
     {
         if (!interactable) return;
-        transform.position = (Vector2) Camera.main.ScreenToWorldPoint(eventData.position);
+        var pos = Camera.main.ScreenToWorldPoint(eventData.position);
+        transform.position = new Vector3(pos.x, pos.y, transform.position.z);
         if (validChoices.Count < 22) foreach (BoxCollider2D bc in validChoices)
 		{
             Tile t = bc.GetComponent<Tile>();
@@ -148,7 +148,6 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         {
             cardInfo.Show(orig, finalStats);
         }
-        transform.position = startPos;
 
         if (GetComponent<SpriteRenderer>().sortingLayerName != "Error") transform.localScale = Vector3.one * 0.9f;
         // Revert layering from pointer down
@@ -156,6 +155,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         GetComponent<Canvas>().sortingOrder -= 10;
         
         if (!interactable) return;
+        transform.position = startPos;
 
         // If the pointer let go at a valid choice, play this card
         if (!(orig.type == Card.Type.Trick && orig.GetType().GetMethod("IsValidTarget").DeclaringType == typeof(Card)))

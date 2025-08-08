@@ -37,12 +37,13 @@ public class Hero : Damagable
     private IEnumerator DotAnimation(int index)
     {
 		var dot = thinking.GetChild(index).gameObject;
+		var start = dot.transform.position.y;
         yield return new WaitForSeconds(index * 0.5f);
         while (true)
         {
             yield return new WaitForSeconds(3f);
 			LeanTween.moveY(dot, dot.transform.position.y + 0.1f, 0.25f).setEaseOutQuad().setOnComplete(() => 
-			LeanTween.moveY(dot, dot.transform.position.y - 0.1f, 0.75f).setEaseOutElastic());
+			LeanTween.moveY(dot, dot.transform.position.y - 0.1f, 0.75f).setEaseOutElastic().setOnComplete(() => dot.transform.position = new Vector3(dot.transform.position.x, start)));
         }
     }
     public void ToggleThinking(bool on)

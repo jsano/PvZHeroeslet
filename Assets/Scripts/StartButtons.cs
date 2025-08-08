@@ -53,7 +53,7 @@ public class StartButtons : NetworkBehaviour
 
     public void StartClient()
     {
-        UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
+        UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(21));
         UserAccounts.allDecks["temp11"].cards = new() {
             { AllCards.NameToID("Hippity-hop Gargantuar"), 2 },
             { AllCards.NameToID("Tomb Raiser"), 2 },
@@ -62,7 +62,7 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Fire Rooster"), 2 },
             { AllCards.NameToID("Imposter"), 2 },
             { AllCards.NameToID("Zombot Plank Walker"), 2 },
-            { AllCards.NameToID("Evolutionary Leap"), 2 },
+            { AllCards.NameToID("Transformation Station"), 4 },
         };
 
         UserAccounts.GameStats.DeckName = "temp11";

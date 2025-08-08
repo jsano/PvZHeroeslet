@@ -125,6 +125,7 @@ public class GameManager : NetworkBehaviour
 	public TextMeshProUGUI winner;
 	public TextMeshProUGUI score;
 	public TextMeshProUGUI change;
+	public GameObject waiting;
 
     /// <summary>
     /// Reference to plant hero script
@@ -418,7 +419,7 @@ public class GameManager : NetworkBehaviour
         yield return ProcessEvents();
         StartCoroutine(UpdateRemaining(0, Team.Plant));
         yield return UpdateRemaining(0, Team.Zombie);
-        EndRpc();
+        EndRpc(team);
 	}
 
 	public void ReplaceMulliganCard(Transform t)
@@ -456,7 +457,7 @@ public class GameManager : NetworkBehaviour
 				timerOn = false;
 				timer = 30;
 				if (waitingOnBlock) HoldTrickRpc(team);
-				else EndRpc();
+				else EndRpc(team);
 			}
 		}
 		else
@@ -553,6 +554,7 @@ public class GameManager : NetworkBehaviour
 			int numThisRow = Mathf.Min(5, handCards.childCount - index);
 			for (int i = 0; i < numThisRow; i++, index++)
 			{
+				if (LeanTween.isTweening(handCards.GetChild(index).gameObject)) continue;
 				handCards.GetChild(index).transform.localPosition = new Vector2(1.2f * (-(numThisRow - 1) / 2f + i), ypos);
 			}
 			ypos -= 0.8f;
@@ -570,16 +572,21 @@ public class GameManager : NetworkBehaviour
 		}
 	}
 
+	public void EndButton()
+	{
+		EndRpc(team);
+	}
+
     /// <summary>
     /// Signals to the network that it is ready for the next phase. Transitions to the next phase if possible
     /// </summary>
     [Rpc(SendTo.ClientsAndHost)]
-    public void EndRpc()
+    public void EndRpc(Team sourceTeam)
     {
-        StartCoroutine(EndRpcHelper());
+        StartCoroutine(EndRpcHelper(sourceTeam));
     }
 
-    private IEnumerator EndRpcHelper()
+    private IEnumerator EndRpcHelper(Team sourceTeam)
     {
 		yield return new WaitUntil(() => opponentPlayedQueue.Count == 0);
 
@@ -589,9 +596,18 @@ public class GameManager : NetworkBehaviour
 		if (phase == 0 || phase == 4)
 		{
 			nextTurnReady += 1;
-			if (nextTurnReady < 2) yield break;
+			if (nextTurnReady < 2)
+			{
+				if (team == sourceTeam)
+				{
+					yield return new WaitForSeconds(0.5f);
+					if (phase == 0) waiting.SetActive(true);
+				}
+				yield break;
+			}
 			nextTurnReady = 0;
 		}
+		waiting.SetActive(false);
 
         AudioManager.Instance.PlaySFX("Go");
         plantHero.ToggleThinking(false);
@@ -754,7 +770,7 @@ public class GameManager : NetworkBehaviour
 		if (wait) yield return new WaitForSeconds(1);
 
 		yield return ProcessEvents();
-		EndRpc();
+		EndRpc(team);
 		plantCombatBehindBy = 0;
 		shuffledLists.Clear();
 		shuffledListsNextExpectedCount = 1;
@@ -952,7 +968,7 @@ public class GameManager : NetworkBehaviour
 			if (Tile.plantTiles[1, i].planted != null) toDo.Add(Tile.plantTiles[1, i].planted);
 			if (Tile.plantTiles[0, i].planted != null) toDo.Add(Tile.plantTiles[0, i].planted);
 		}
-		foreach (Card c in toDo) yield return c.StartCoroutine(methodName, arg);
+		foreach (Card c in toDo) if (c != null) yield return c.StartCoroutine(methodName, arg);
 		foreach (Transform h in handCards) h.GetComponent<HandCard>().StartCoroutine(methodName, arg);
         yield return null;
 	}
@@ -1098,11 +1114,11 @@ public class GameManager : NetworkBehaviour
 			superpowerIndex += 1;
 			GameObject c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
-			c.transform.localPosition = new Vector2(0, 3);
+			c.transform.localPosition = new Vector3(0, 4, -2);
 			HandCard hc = c.GetComponent<HandCard>();
 			hc.ID = UserAccounts.allDecks[UserAccounts.GameStats.DeckName].superpowerOrder[superpowerIndex];
             hc.interactable = true;
-			FinalStats fs = new FinalStats(hc.ID);
+			FinalStats fs = new(hc.ID);
 			fs.cost = 0;
 			hc.OverrideFS(fs);
 			c.SetActive(true);

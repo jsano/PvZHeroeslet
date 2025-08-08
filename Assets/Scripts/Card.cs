@@ -243,6 +243,7 @@ public class Card : Damagable
         if (Tile.terrainTiles[col].planted != null && type == Type.Unit && team == Team.Zombie && AllCards.InstanceToPrefab(Tile.terrainTiles[col].planted).name == "Graveyard")
         {
             if (!gravestone) GameManager.Instance.currentlySpawningCards -= 1;
+            GameManager.Instance.waitingOnBlock = null;
             gravestone = true;
             baseGravestone = true;
             GameManager.Instance.EnablePlayableHandCards();
@@ -370,7 +371,7 @@ public class Card : Damagable
         yield return new WaitForSeconds(0.1f); // this only exists to give time for rpcs to instantiate before processing events (rough fix)
         if (type == Type.Unit) GameManager.Instance.currentlySpawningCards -= 1;
         GameManager.Instance.waitingOnBlock = null;
-        yield return new WaitUntil(() => GameManager.Instance.currentlySpawningCards == 0); // this exists for cards that spawn cards that spawn cards
+        yield return new WaitUntil(() => GameManager.Instance.currentlySpawningCards == 0); // this exists for cards that spawn cards
         if (type == Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
         Debug.Log(name + " reached currentlySpawningCards == 0");
         yield return GameManager.Instance.ProcessEvents();
