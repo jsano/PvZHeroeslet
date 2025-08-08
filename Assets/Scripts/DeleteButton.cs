@@ -12,16 +12,10 @@ public class DeleteButton : MonoBehaviour
         b = GetComponent<Button>();
     }
 
-    private void Update()
-    {
-        if (!DeckButton.deleting) b.interactable = true;
-    }
-
     public void OnClick()
     {
         if (UserAccounts.allDecks.Keys.Count == 0) return;
-        DeckButton.deleting = true;
-        b.interactable = false;
+        DeckButton.deleting = !DeckButton.deleting;
     }
 
 }

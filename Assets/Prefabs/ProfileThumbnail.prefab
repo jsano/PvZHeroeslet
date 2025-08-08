@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 8275104781625642579}
   - component: {fileID: 5273645290432011937}
   - component: {fileID: 1521774762591762099}
+  - component: {fileID: 4616735089779279242}
   m_Layer: 5
   m_Name: ProfileThumbnail
   m_TagString: Untagged
@@ -190,6 +191,18 @@ MonoBehaviour:
   usernameText: {fileID: 1320436582815481377}
   tier: {fileID: 7740321160782632757}
   trophies: {fileID: 53681476620454724}
+--- !u!114 &4616735089779279242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4200408839349722599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe29aa1e97624d84d85bec8e34a25dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4320708118575684540
 GameObject:
   m_ObjectHideFlags: 0

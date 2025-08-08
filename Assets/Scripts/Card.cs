@@ -556,6 +556,7 @@ public class Card : Damagable
         {
             yield return new WaitForSeconds(0.5f);
             frozen = false;
+            transform.Find("Frozen").gameObject.SetActive(false);
             SR.material.color = Color.white;
             yield break;
         }
@@ -839,6 +840,7 @@ public class Card : Damagable
     public void Freeze()
     {
         frozen = true;
+        transform.Find("Frozen").gameObject.SetActive(true);
         SR.material.color = Color.blue;
         GameManager.Instance.TriggerEvent("OnCardFreeze", this);
     }
@@ -968,7 +970,6 @@ public class Card : Damagable
         List<Sprite> ret = new();
         if (armor > 0) ret.Add(icons.armorSprite);
         if (untrickable > 0) ret.Add(icons.untrickableSprite);
-        if (frozen) ret.Add(icons.frozenSprite);
         if (invulnerable) ret.Add(icons.invulnerableSprite);
         if (strengthHeart > 0) ret.Add(icons.strengthHeartSprite);
         if (ret.Count > 1) return icons.multiSprite;

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5465042964448352151}
   - component: {fileID: 4470933633512049083}
   - component: {fileID: 7539668614123880078}
+  - component: {fileID: 2466686645748530578}
   m_Layer: 5
   m_Name: DeckListButton
   m_TagString: Untagged
@@ -147,6 +148,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
+--- !u!114 &2466686645748530578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4635244975141733033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe29aa1e97624d84d85bec8e34a25dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7919971533282990675
 GameObject:
   m_ObjectHideFlags: 0

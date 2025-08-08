@@ -235,6 +235,24 @@ MonoBehaviour:
     source: {fileID: 0}
     outputAudioMixerGroup: {fileID: 0}
     partnerName: 
+  - name: Tap
+    clip: {fileID: 8300000, guid: 5b3ed3174ede820408ba9511ad963c51, type: 3}
+    volume: 0.5
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: 
+  - name: Lock In
+    clip: {fileID: 8300000, guid: f73d0bb5ac4da7448803feb0d07b391f, type: 3}
+    volume: 0.3
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    source: {fileID: 0}
+    outputAudioMixerGroup: {fileID: 0}
+    partnerName: 
   musicMixerGroup: {fileID: 9128255555208657230, guid: 56a7d5e45a7c25e459c5e7afe583196a, type: 2}
   sfxMixerGroup: {fileID: 2315855057282387783, guid: 56a7d5e45a7c25e459c5e7afe583196a, type: 2}
   musicFadeDuration: 1.5

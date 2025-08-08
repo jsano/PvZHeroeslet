@@ -12,6 +12,7 @@ public class Pause : MonoBehaviour
     public Slider music;
     public Slider sfx;
     public TMP_Dropdown resolutions;
+    public GameObject logout;
     
     public void ToggleOptions()
     {
@@ -23,7 +24,7 @@ public class Pause : MonoBehaviour
         {
             if (Screen.width == int.Parse(resolutions.options[i].text.Split(" x ")[0])) resolutions.value = i;
         }
-        if (SessionManager.Instance.ActiveSession != null) transform.Find("Logout").gameObject.SetActive(false);
+        if (SessionManager.Instance.ActiveSession != null) logout.SetActive(false);
     }
 
     public void SetDimensions(int index)

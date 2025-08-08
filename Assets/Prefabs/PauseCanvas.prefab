@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2739040019235259334}
   - component: {fileID: 6532684226040516139}
   - component: {fileID: 2053478710783478459}
+  - component: {fileID: 3565079413014191105}
   m_Layer: 5
   m_Name: Pause
   m_TagString: Untagged
@@ -133,6 +134,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3565079413014191105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968430117864136868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe29aa1e97624d84d85bec8e34a25dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1106859486789543369
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,6 +570,7 @@ MonoBehaviour:
   music: {fileID: 261715519287138827}
   sfx: {fileID: 1961090661505775337}
   resolutions: {fileID: 9064296505633349149}
+  logout: {fileID: 2370939069701384249}
 --- !u!1 &2370939069701384249
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,6 +583,7 @@ GameObject:
   - component: {fileID: 5769032558355019283}
   - component: {fileID: 4702228167004052180}
   - component: {fileID: 1655889645776290686}
+  - component: {fileID: 556998757183137044}
   m_Layer: 5
   m_Name: Logout
   m_TagString: Untagged
@@ -691,6 +706,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &556998757183137044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2370939069701384249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe29aa1e97624d84d85bec8e34a25dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2585138253218570690
 GameObject:
   m_ObjectHideFlags: 0

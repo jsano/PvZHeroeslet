@@ -1682,6 +1682,7 @@ GameObject:
   - component: {fileID: 541937090}
   - component: {fileID: 541937089}
   - component: {fileID: 541937088}
+  - component: {fileID: 541937091}
   m_Layer: 5
   m_Name: LoginButton
   m_TagString: Untagged
@@ -1803,6 +1804,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541937086}
   m_CullTransparentMesh: 1
+--- !u!114 &541937091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541937086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe29aa1e97624d84d85bec8e34a25dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &551864883
 GameObject:
   m_ObjectHideFlags: 0
@@ -2087,6 +2100,7 @@ GameObject:
   - component: {fileID: 603185692}
   - component: {fileID: 603185691}
   - component: {fileID: 603185690}
+  - component: {fileID: 603185693}
   m_Layer: 5
   m_Name: ToSignup
   m_TagString: Untagged
@@ -2208,6 +2222,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 603185688}
   m_CullTransparentMesh: 1
+--- !u!114 &603185693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603185688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe29aa1e97624d84d85bec8e34a25dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &649768383
 GameObject:
   m_ObjectHideFlags: 0
@@ -3695,6 +3721,7 @@ GameObject:
   - component: {fileID: 1118935475}
   - component: {fileID: 1118935474}
   - component: {fileID: 1118935473}
+  - component: {fileID: 1118935476}
   m_Layer: 5
   m_Name: ToLogin
   m_TagString: Untagged
@@ -3816,6 +3843,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1118935471}
   m_CullTransparentMesh: 1
+--- !u!114 &1118935476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118935471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe29aa1e97624d84d85bec8e34a25dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1225815361
 GameObject:
   m_ObjectHideFlags: 0
@@ -4423,6 +4462,7 @@ GameObject:
   - component: {fileID: 1945194648}
   - component: {fileID: 1945194647}
   - component: {fileID: 1945194646}
+  - component: {fileID: 1945194649}
   m_Layer: 5
   m_Name: SignupButton
   m_TagString: Untagged
@@ -4544,6 +4584,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1945194644}
   m_CullTransparentMesh: 1
+--- !u!114 &1945194649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945194644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe29aa1e97624d84d85bec8e34a25dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2040461789
 GameObject:
   m_ObjectHideFlags: 0

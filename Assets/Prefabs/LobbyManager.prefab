@@ -388,6 +388,7 @@ GameObject:
   - component: {fileID: 8411358768321684688}
   - component: {fileID: 7124866715136298342}
   - component: {fileID: 1590693066063259676}
+  - component: {fileID: 8991947647364216112}
   m_Layer: 5
   m_Name: Either
   m_TagString: Untagged
@@ -477,7 +478,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 0.5019608, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -509,6 +510,18 @@ MonoBehaviour:
           m_StringArgument: Decks
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8991947647364216112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763365277483353422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe29aa1e97624d84d85bec8e34a25dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &793202615709525672
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,6 +806,7 @@ GameObject:
   - component: {fileID: 684026725305402893}
   - component: {fileID: 4719550691583978141}
   - component: {fileID: 4574812298729477568}
+  - component: {fileID: 3971486478550162426}
   m_Layer: 5
   m_Name: Zombies
   m_TagString: Untagged
@@ -841,7 +855,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7511146, g: 0.36222854, b: 0.8726415, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -882,7 +896,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.75294125, g: 0.36078432, b: 0.8745099, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -914,6 +928,18 @@ MonoBehaviour:
           m_StringArgument: Decks
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3971486478550162426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379562612966168451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe29aa1e97624d84d85bec8e34a25dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1439710694498620208
 GameObject:
   m_ObjectHideFlags: 0
@@ -1517,6 +1543,7 @@ GameObject:
   - component: {fileID: 7056897497790384874}
   - component: {fileID: 173058884490608753}
   - component: {fileID: 8045966920574150541}
+  - component: {fileID: 6202915874655681318}
   m_Layer: 5
   m_Name: Copy Button
   m_TagString: Untagged
@@ -1626,6 +1653,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6202915874655681318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931234553336993184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe29aa1e97624d84d85bec8e34a25dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2164868194935240991
 GameObject:
   m_ObjectHideFlags: 0
@@ -2618,6 +2657,7 @@ GameObject:
   - component: {fileID: 1453038126747425115}
   - component: {fileID: 3009088132083876121}
   - component: {fileID: 7186750511873761817}
+  - component: {fileID: 9022585350921765463}
   m_Layer: 5
   m_Name: Leave Session
   m_TagString: Untagged
@@ -2754,6 +2794,18 @@ MonoBehaviour:
           m_StringArgument: Start
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &9022585350921765463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824227978827657683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe29aa1e97624d84d85bec8e34a25dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5901227825543118535
 GameObject:
   m_ObjectHideFlags: 0
@@ -3483,6 +3535,7 @@ GameObject:
   - component: {fileID: 1084830352785533242}
   - component: {fileID: 9101199244196870892}
   - component: {fileID: 8296318442953787596}
+  - component: {fileID: 5571535226300479368}
   m_Layer: 5
   m_Name: Plants
   m_TagString: Untagged
@@ -3531,7 +3584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.22808382, g: 0.7216981, b: 0.2911863, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3572,7 +3625,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.227451, g: 0.72156864, b: 0.2901961, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -3604,6 +3657,18 @@ MonoBehaviour:
           m_StringArgument: Decks
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &5571535226300479368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9216583469932188380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe29aa1e97624d84d85bec8e34a25dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &267767235724426003
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -21,6 +21,7 @@ public class DeckListButton : MonoBehaviour
         foreach (Transform t in transform.parent) t.GetComponent<Image>().color = Color.clear;
         image.color = Color.yellow;
         dl.Show(ID);
+        DeckButton.deleting = false;
     }
 
 }

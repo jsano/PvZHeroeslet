@@ -111,6 +111,7 @@ public class LobbyManager : NetworkBehaviour
 
     public void LockedIn()
     {
+        AudioManager.Instance.PlaySFX("Lock In");
         lockIn.interactable = false;
         if (phase == 0)
         {

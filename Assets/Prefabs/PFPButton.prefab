@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5678008385302856828}
   - component: {fileID: 7887070056114997779}
   - component: {fileID: 1483243908915203647}
+  - component: {fileID: 1259399690803806717}
   m_Layer: 5
   m_Name: PFPButton
   m_TagString: Untagged
@@ -148,6 +149,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 0
   image: {fileID: 2310170711913318760}
+--- !u!114 &1259399690803806717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6482621063159209183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe29aa1e97624d84d85bec8e34a25dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7097994640997109093
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +226,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0e1d168c2ed1d0a4cb0c9c15c538231a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4852ea787390f874db96ee6c2987019b, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
