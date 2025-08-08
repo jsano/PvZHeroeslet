@@ -10,7 +10,7 @@ public class WitchHazel : Card
         List<int> locations = new();
         for (int col = 0; col < 5; col++)
         {
-            if (Tile.zombieTiles[0, col].HasRevealedPlanted() && Tile.zombieTiles[0, col].planted != this) locations.Add(col);
+            if (Tile.zombieTiles[0, col].HasRevealedPlanted() && !Tile.zombieTiles[0, col].planted.died) locations.Add(col);
         }
         if (locations.Count > 0)
         {

@@ -11,7 +11,6 @@ public class ImpThrowingImp : Card
     {
         if (hurt.Item1.GetComponent<Card>() == this)
         {
-            yield return new WaitForSeconds(1);
             List<int> columns = new();
             for (int col = 0; col < 5; col++)
             {

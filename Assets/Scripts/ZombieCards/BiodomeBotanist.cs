@@ -30,7 +30,9 @@ public class BiodomeBotanist : Card
         yield return new WaitForSeconds(1);
 		Tile t = bc.GetComponent<Tile>();
         string[] options = new string[] { "Weenie Beanie", "Peashooter", "Button Mushroom", "Bellflower", "Small-nut" };
-        if (GameManager.Instance.team == team) GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.NameToID(options[Random.Range(0, options.Length)])), t.row, t.col);
+		yield return SyncRandomChoiceAcrossNetwork(options[UnityEngine.Random.Range(0, options.Length)]);
+		Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID(GameManager.Instance.GetShuffledList()[0])]);
+		Tile.zombieTiles[0, t.col].Plant(c);
     }
 
 }

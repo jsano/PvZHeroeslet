@@ -21,8 +21,8 @@ public class TombRaiser : Card
                 var choice = choices[UnityEngine.Random.Range(0, choices.Count)];
                 yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col + " - " + RandomGravestone());
                 Tile t = Tile.zombieTiles[int.Parse(GameManager.Instance.GetShuffledList()[0]), int.Parse(GameManager.Instance.GetShuffledList()[1])];
-                int card = int.Parse(GameManager.Instance.GetShuffledList()[2]);
-                if (GameManager.Instance.team == team) GameManager.Instance.PlayCardRpc(new FinalStats(card), t.row, t.col);
+                Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[2])]);
+                Tile.zombieTiles[t.row, t.col].Plant(c);
             }
         }
 		yield return base.OnCardHurt(hurt);

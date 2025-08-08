@@ -11,8 +11,10 @@ public class PetalMorphosis : Card
 		Tile.plantTiles[row, col].Unplant(true);
 		yield return new WaitForSeconds(1);
 		Destroy(toDestroy.gameObject);
-		if (GameManager.Instance.team == team) GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.RandomFromCost(Team.Plant, (0,1,2,3,4,5,6,7,8,9,10), true, col == 4)), row, col);
-		yield return GameManager.Instance.DrawCard(team);
+        yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(Team.Plant, (0,1,2,3,4,5,6,7,8,9,10), true) + "");
+        Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[0])]);
+        Tile.plantTiles[row, col].Plant(c);
+        yield return GameManager.Instance.DrawCard(team);
 		yield return base.OnThisPlay();
 	}
 

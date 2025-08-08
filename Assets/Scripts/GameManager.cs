@@ -767,10 +767,9 @@ public class GameManager : NetworkBehaviour
     /// <param name="fromHandCard">If true, adds to the network spawning queue.
 	/// Otherwise, assumes it was called by another card and doesn't deduct from this player's remaining gold</param>
     [Rpc(SendTo.ClientsAndHost)]
-    public void PlayCardRpc(FinalStats fs, int row, int col, bool fromHandCard=false)
+    public void PlayCardRpc(FinalStats fs, int row, int col)
     {
-		if (!fromHandCard) fs.cost = 0;
-		if (AllCards.Instance.cards[fs.ID].team == team || !fromHandCard) PlayCardHelper(fs, row, col);
+		if (AllCards.Instance.cards[fs.ID].team == team) PlayCardHelper(fs, row, col);
 		else
 		{
 			opponentPlayedQueue.Add((fs, row, col, false));
@@ -913,56 +912,6 @@ public class GameManager : NetworkBehaviour
         var to = opponentHandCards.TransformPoint(-2.5f + (opponentHandCards.childCount - 1) * 0.5f, 0, 0);
 		LeanTween.move(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject, to, 0.5f).setEaseOutQuint();
 	}
-
-    /// <summary>
-    /// Signals to the network to move the unit with the given row/column and team to this new row/column. Triggers a card moved GameEvent
-    /// </summary>
-    /// <param name="tteam">Whether the given row/column represents the plant or zombie side of the board</param>
-    /// <param name="row">Old row</param>
-    /// <param name="col">Old column</param>
-    /// <param name="nrow">New row</param>
-    /// <param name="ncol">New column</param>
-    [Rpc(SendTo.ClientsAndHost)]
-	public void MoveRpc(Team tteam, int row, int col, int nrow, int ncol)
-	{
-		Card c;
-		if (tteam == Team.Plant)
-		{
-			c = Tile.plantTiles[row, col].planted;
-			Tile.plantTiles[row, col].Unplant();
-			Tile.plantTiles[nrow, ncol].Plant(c);
-		}
-		else
-		{
-			c = Tile.zombieTiles[row, col].planted;
-			Tile.zombieTiles[row, col].Unplant();
-			Tile.zombieTiles[nrow, ncol].Plant(c);
-		}
-		Debug.Log("Moving " + c + " from Row " + row + " Col " + col + " to Row " + nrow + " Col " + ncol);
-		TriggerEvent("OnCardMoved", c);
-    }
-
-    /// <summary>
-    /// Signals to the network to freeze the unit with the given row/column and team. Triggers a card freeze GameEvent
-    /// </summary>
-    /// <param name="tteam">Whether the given row/column represents the plant or zombie side of the board</param>
-    [Rpc(SendTo.ClientsAndHost)]
-    public void FreezeRpc(Team tteam, int row, int col)
-    {
-        if (tteam == Team.Plant) Tile.plantTiles[row, col].planted.Freeze();
-        else Tile.zombieTiles[row, col].planted.Freeze();
-    }
-
-    /// <summary>
-    /// Signals to the network to make the unit with the given row/column and team to do a bonus attack
-    /// </summary>
-    /// <param name="tteam">Whether the given row/column represents the plant or zombie side of the board</param>
-    [Rpc(SendTo.ClientsAndHost)]
-    public void BonusAttackRpc(Team tteam, int row, int col)
-    {
-        if (tteam == Team.Plant) StartCoroutine(Tile.plantTiles[row, col].planted.BonusAttack());
-        else StartCoroutine(Tile.zombieTiles[row, col].planted.BonusAttack());
-    }
 
     /// <summary>
     /// Signals to the network that the selecting player selected this tile as their selection choice. If targeting a hero, set row/column to -1

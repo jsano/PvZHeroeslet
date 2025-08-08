@@ -168,7 +168,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                     if (orig.type == Card.Type.Unit)
                     {
                         if (finalStats.cost < 0) finalStats.cost = 0;
-                        GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col, true);
+                        GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col);
                         transform.SetParent(null);
                         Destroy(gameObject);
                     }

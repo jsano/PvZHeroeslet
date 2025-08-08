@@ -11,11 +11,9 @@ public class Interdimensional : Card
 		{
             Tile.zombieTiles[0, col].Unplant(true);
             yield return new WaitForSeconds(1);
-            if (GameManager.Instance.team == team)
-            {
-                int newCard = AllCards.RandomFromCost(Team.Zombie, (3, 3), true);
-                GameManager.Instance.PlayCardRpc(new FinalStats(newCard), 0, col);
-            }
+            yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(Team.Zombie, (3, 3), true) + "");
+            Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[0])]);
+            Tile.zombieTiles[0, col].Plant(c);
             yield return null;
             Destroy(gameObject);
         }

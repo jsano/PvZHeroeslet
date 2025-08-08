@@ -11,22 +11,18 @@ public class Spawn2 : Card
 	{	    
         yield return new WaitForSeconds(1);
         var targets = team == Team.Zombie ? Tile.zombieTiles : Tile.plantTiles;
-        if (GameManager.Instance.team == team)
+        List<int> columns = new();
+        for (int i = 0; i < 5; i++)
         {
-            List<int> columns = new();
-            for (int i = 0; i < 5; i++)
-            {
-                if (Tile.CanPlantInCol(i, targets, toPlay.teamUp, toPlay.amphibious) && i != col) columns.Add(i);
-            }
-            for (int n = columns.Count - 1; n > 0; n--)
-            {
-                int k = UnityEngine.Random.Range(0, n + 1);
-                var temp = columns[n];
-                columns[n] = columns[k];
-                columns[k] = temp;
-            }
-            GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.NameToID(toPlay.name)), 0, col);
-            if (columns.Count > 0) GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.NameToID(toPlay.name)), 0, columns[0]);
+            if (Tile.CanPlantInCol(i, targets, toPlay.teamUp, toPlay.amphibious) && i != col) columns.Add(i);
+        }
+        Card c = Instantiate(toPlay);
+        targets[0, col].Plant(c);
+        if (columns.Count > 0)
+        {
+            yield return SyncRandomChoiceAcrossNetwork(columns[UnityEngine.Random.Range(0, columns.Count)] + "");
+            c = Instantiate(toPlay);
+            targets[0, int.Parse(GameManager.Instance.GetShuffledList()[0])].Plant(c);
         }
         yield return base.OnThisPlay();
 	}

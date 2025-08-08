@@ -33,7 +33,9 @@ public class ZombiesBestFriend : Card
         yield return base.OnSelection(bc);
         yield return new WaitForSeconds(1);
         Tile t = bc.GetComponent<Tile>();
-        if (GameManager.Instance.team == team) GameManager.Instance.PlayCardRpc(new FinalStats(AllCards.RandomFromCost(team, (1, 1), true)), t.row, t.col);
+        yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(team, (1, 1), true) + "");
+        Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[0])]);
+        Tile.zombieTiles[t.row, t.col].Plant(c);
     }
 
 }
