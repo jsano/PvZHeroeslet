@@ -156,50 +156,53 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         if (!interactable) return;
         transform.position = startPos;
 
-        // If the pointer let go at a valid choice, play this card
-        if (!(orig.type == Card.Type.Trick && orig.GetType().GetMethod("IsValidTarget").DeclaringType == typeof(Card)))
+        if (eventData.dragging)
         {
-            foreach (BoxCollider2D bc in validChoices)
+            // If the pointer let go at a valid choice, play this card
+            if (!(orig.type == Card.Type.Trick && orig.GetType().GetMethod("IsValidTarget").DeclaringType == typeof(Card)))
             {
-                Tile t = bc.GetComponent<Tile>();
-                if (bc.bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position)))
+                foreach (BoxCollider2D bc in validChoices)
                 {
-                    if (orig.type == Card.Type.Unit)
+                    Tile t = bc.GetComponent<Tile>();
+                    if (bc.bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position)))
                     {
-                        if (finalStats.cost < 0) finalStats.cost = 0;
-                        GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col);
-                        transform.SetParent(null);
-                        Destroy(gameObject);
-                    }
-                    else if (orig.IsValidTarget(bc))
-                    {
-                        if (finalStats.cost < 0) finalStats.cost = 0;
-                        if (t == null) GameManager.Instance.PlayTrickRpc(finalStats, -1, -1, bc.GetComponent<Hero>().team == Card.Team.Plant);
-                        else GameManager.Instance.PlayTrickRpc(finalStats, t.row, t.col, t.isPlantTile);
-                        transform.SetParent(null);
-                        Destroy(gameObject);
+                        if (orig.type == Card.Type.Unit)
+                        {
+                            if (finalStats.cost < 0) finalStats.cost = 0;
+                            GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col);
+                            transform.SetParent(null);
+                            Destroy(gameObject);
+                        }
+                        else if (orig.IsValidTarget(bc))
+                        {
+                            if (finalStats.cost < 0) finalStats.cost = 0;
+                            if (t == null) GameManager.Instance.PlayTrickRpc(finalStats, -1, -1, bc.GetComponent<Hero>().team == Card.Team.Plant);
+                            else GameManager.Instance.PlayTrickRpc(finalStats, t.row, t.col, t.isPlantTile);
+                            transform.SetParent(null);
+                            Destroy(gameObject);
+                        }
                     }
                 }
             }
-        }
-        else
-        {
-            // Global trick
-            if (GameManager.Instance.boardHighlight.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position)))
+            else
             {
-                if (finalStats.cost < 0) finalStats.cost = 0;
-                GameManager.Instance.PlayTrickRpc(finalStats, 1, 2, GameManager.Instance.team == Card.Team.Plant); // Params shouldn't matter beyond visual
-                transform.SetParent(null);
-                Destroy(gameObject);
+                // Global trick
+                if (GameManager.Instance.boardHighlight.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position)))
+                {
+                    if (finalStats.cost < 0) finalStats.cost = 0;
+                    GameManager.Instance.PlayTrickRpc(finalStats, 1, 2, GameManager.Instance.team == Card.Team.Plant); // Params shouldn't matter beyond visual
+                    transform.SetParent(null);
+                    Destroy(gameObject);
+                }
             }
-        }
-        // If this is a superpower HandCard created from a block, hold on to it if the pointer let go at the "HandCard area"
-        if (GameManager.Instance.waitingOnBlock && transform.parent != null && transform.parent.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position)))
-        {
-            GameManager.Instance.UpdateHandCardPositions();
-            startPos = transform.position;
-            interactable = false;
-            GameManager.Instance.HoldTrickRpc(GameManager.Instance.team);
+            // If this is a superpower HandCard created from a block, hold on to it if the pointer let go at the "HandCard area"
+            if (GameManager.Instance.waitingOnBlock && transform.parent != null && transform.parent.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position)))
+            {
+                GameManager.Instance.UpdateHandCardPositions();
+                startPos = transform.position;
+                interactable = false;
+                GameManager.Instance.HoldTrickRpc(GameManager.Instance.team);
+            }
         }
     }
 

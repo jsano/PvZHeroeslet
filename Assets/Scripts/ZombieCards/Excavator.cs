@@ -9,12 +9,9 @@ public class Excavator : Card
 	{
 		for (int col = 0; col < 5; col++)
 		{
-			for (int row = 0; row < 2; row++)
+			if (Tile.terrainTiles[col].planted != null)
 			{
-				if (Tile.plantTiles[row, col].planted != null || Tile.terrainTiles[col].planted != null)
-				{
-					choices.Add(Tile.plantTiles[row, col].GetComponent<BoxCollider2D>());
-				}
+				choices.Add(Tile.terrainTiles[col].GetComponent<BoxCollider2D>());
 			}
 		}
         if (choices.Count == 1) yield return OnSelection(choices[0]);

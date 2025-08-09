@@ -31,9 +31,13 @@ public class SumoWrestler : Card
 		Tile t = bc.GetComponent<Tile>();
 		toMove = t.planted;
         for (int row = 0; row < 2; row++) for (int col = 0; col < 5; col++)
-            if (Tile.CanPlantInCol(col, Tile.plantTiles, toMove.teamUp, toMove.amphibious))
-                if (row == 0 || row == 1 && (toMove.teamUp || Tile.plantTiles[0, col].planted != null && Tile.plantTiles[0, col].planted.teamUp))
-                    choices.Add(Tile.plantTiles[row, col].GetComponent<BoxCollider2D>());
+            {
+                if (row == t.row && col == t.col) continue;
+                if (Tile.CanPlantInCol(col, Tile.plantTiles, toMove.teamUp, toMove.amphibious))
+                    if (row == 0 || row == 1 && (toMove.teamUp || Tile.plantTiles[0, col].planted != null && Tile.plantTiles[0, col].planted.teamUp))
+                        choices.Add(Tile.plantTiles[row, col].GetComponent<BoxCollider2D>());
+            }
+            
 
         if (choices.Count == 1) yield return OnSelection1(choices[0]);
         if (choices.Count >= 2)

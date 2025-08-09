@@ -240,7 +240,7 @@ public class Card : Damagable
         
         initializedStats = true;
 
-        if (Tile.terrainTiles[col].planted != null && type == Type.Unit && team == Team.Zombie && AllCards.InstanceToPrefab(Tile.terrainTiles[col].planted).name == "Graveyard")
+        if (type == Type.Unit && Tile.terrainTiles[col].planted != null && team == Team.Zombie && AllCards.InstanceToPrefab(Tile.terrainTiles[col].planted).name == "Graveyard")
         {
             if (!gravestone) GameManager.Instance.currentlySpawningCards -= 1;
             GameManager.Instance.waitingOnBlock = null;
@@ -339,6 +339,7 @@ public class Card : Damagable
     /// </summary>
     protected virtual IEnumerator OnSelection(BoxCollider2D bc)
     {
+        choices.Clear();
         GameManager.Instance.ClearSelection();
         GameManager.Instance.timerImage.gameObject.SetActive(false);
         yield return null;
@@ -423,7 +424,6 @@ public class Card : Damagable
         if (died.Item1 == this)
         {
             yield return new WaitForSeconds(0.5f);
-            var tiles = team == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
             if (fusionBase != null) Destroy(fusionBase.gameObject);
             Destroy(gameObject);
         }
@@ -957,7 +957,7 @@ public class Card : Damagable
                 Card c;
                 if (GameManager.Instance.team == Team.Plant) c = Tile.plantTiles[row, col].planted;
                 else c = Tile.zombieTiles[row, col].planted;
-				if (c != null && !c.selected) return;
+				if (c != null && (!c.selected || c.fusionBase != null && !c.fusionBase.selected)) return;
 			}
 		}
         // Don't show gravestone card info for the plant perspective

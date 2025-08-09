@@ -33,9 +33,12 @@ public class EnsignUproot : Card
 		toMove = t.planted;
 		var targets = toMove.team == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
 		for (int row = 0; row < 2; row++) for (int col = 0; col < 5; col++)
-			if (Tile.CanPlantInCol(col, targets, toMove.teamUp, toMove.amphibious))
-				if (row == 0 || row == 1 && (toMove.teamUp || targets[0, col].planted != null && targets[0, col].planted.teamUp))
-					choices.Add(targets[row, col].GetComponent<BoxCollider2D>());
+			{
+                if (row == t.row && col == t.col) continue;
+                if (Tile.CanPlantInCol(col, targets, toMove.teamUp, toMove.amphibious))
+					if (row == 0 || row == 1 && (toMove.teamUp || targets[0, col].planted != null && targets[0, col].planted.teamUp))
+						choices.Add(targets[row, col].GetComponent<BoxCollider2D>());
+			}
 
         if (choices.Count == 1) yield return OnSelection1(choices[0]);
         if (choices.Count >= 2)

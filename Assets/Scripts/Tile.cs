@@ -122,6 +122,7 @@ public class Tile : Damagable
                     planted.transform.Find("ATK").gameObject.SetActive(false);
                     planted.transform.Find("HP").gameObject.SetActive(false);
                     planted.GetComponent<SpriteRenderer>().sortingOrder = c.GetComponent<SpriteRenderer>().sortingOrder - 1;
+                    Destroy(planted.fusionBase);
                     c.fusionBase = planted;
                     if (planted.amphibious) c.amphibious = true;
                 }
