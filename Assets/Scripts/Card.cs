@@ -553,7 +553,7 @@ public class Card : Damagable
     /// <summary>
 	/// Makes this card attack its target. Ignores if it's in a gravestone, and unfreezes if frozen. Its target, if damaged, will each asynchronously call <c>ReceiveDamage</c>
 	/// </summary>
-    public virtual IEnumerator Attack()
+    public virtual IEnumerator Attack(int savedHP = -1)
     {
         if (frozen)
         {
@@ -564,7 +564,12 @@ public class Card : Damagable
             yield break;
         }
         
-        int finalAtk = strengthHeart > 0 ? HP : atk;
+        int finalAtk = atk;
+        if (strengthHeart > 0)
+        {
+            if (savedHP != -1) finalAtk = savedHP;
+            else finalAtk = HP;
+        }
         if (finalAtk <= 0 || gravestone) yield break;
 
         yield return new WaitForSeconds(0.25f);
@@ -876,8 +881,16 @@ public class Card : Damagable
     /// <param name="ncol"></param>
     public void Move(int nrow, int ncol)
     {
-        oldRow = row;
-        oldCol = col;
+        if (onThisPlayed)
+        {
+            oldRow = row;
+            oldCol = col;
+        }
+        else
+        {
+            oldRow = -1;
+            oldCol = -1;
+        }
         if (team == Team.Plant)
         {
             Tile.plantTiles[row, col].Unplant();

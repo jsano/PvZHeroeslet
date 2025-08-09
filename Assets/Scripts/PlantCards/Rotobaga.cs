@@ -5,17 +5,23 @@ using UnityEngine;
 public class Rotobaga : Card
 {
 
-	public override IEnumerator Attack()
+	public override IEnumerator Attack(int savedHP = -1)
 	{
         if (frozen)
         {
             yield return new WaitForSeconds(0.5f);
             frozen = false;
+            transform.Find("Frozen").gameObject.SetActive(false);
             SR.material.color = Color.white;
             yield break;
         }
 
-        int finalAtk = strengthHeart > 0 ? HP : atk;
+        int finalAtk = atk;
+        if (strengthHeart > 0)
+        {
+            if (savedHP != -1) finalAtk = savedHP;
+            else finalAtk = HP;
+        }
         if (finalAtk <= 0 || gravestone) yield break;
 
         yield return new WaitForSeconds(0.25f);

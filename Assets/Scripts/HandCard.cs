@@ -6,7 +6,6 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static Unity.VisualScripting.Member;
 
 public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler
 {
@@ -233,6 +232,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         }
         if (ID == AllCards.NameToID("Clique Peas")) finalStats.cost += GameManager.Instance.cliquePeas;
         costUI.text = finalStats.cost + "";
+        ChangeCost(0);
 
         if (orig.team == Card.Team.Zombie) costUI.GetComponentInParent<Image>().sprite = AllCards.Instance.brainUI;
 
@@ -258,6 +258,9 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     {
         finalStats.cost += amount;
         costUI.text = Math.Max(0, finalStats.cost) + "";
+        if (finalStats.cost > orig.cost) costUI.color = new Color(1, 0, 0);
+        else if (finalStats.cost < orig.cost) costUI.color = new Color(0.5f, 1, 0.5f);
+        else costUI.color = Color.white;
     }
 
     public void ChangeAttack(int amount, bool absolute = false)

@@ -134,6 +134,7 @@ MonoBehaviour:
   HP: 20
   hpUI: {fileID: 2960550511376748428}
   blockMeter: {fileID: 2300728247404797493}
+  eight: {fileID: 759668105691904107}
   thinking: {fileID: 2129037250714736931}
 --- !u!212 &-9058245760563841667
 SpriteRenderer:

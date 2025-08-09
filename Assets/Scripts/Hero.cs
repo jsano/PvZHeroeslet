@@ -20,6 +20,7 @@ public class Hero : Damagable
 	public Image blockMeter;
 	private int block;
 	private int timesBlocked = 0;
+	public GameObject eight;
 
 	public Transform thinking;
 
@@ -121,7 +122,7 @@ public class Hero : Damagable
         block = 0;
         blockMeter.fillAmount = 0;
         blockMeter.color = Color.white;
-        if (timesBlocked == 3) transform.Find("Eight").gameObject.SetActive(false);
+        if (timesBlocked == 3) eight.SetActive(false);
     }
 
 	public override IEnumerator Heal(int amount)

@@ -139,6 +139,7 @@ public class GameManager : NetworkBehaviour
     /// Halt game flow if a player blocked. When set to null, game flow immediately resumes
     /// </summary>
     [HideInInspector] public Hero waitingOnBlock = null;
+	private bool blockChoiceMade = false;
     /// <summary>
     /// If a player is selecting a choice (ex. from moving a card), set this to using <c>SelectingChosenRpc</c> so both players can access the selection
     /// </summary>
@@ -283,7 +284,7 @@ public class GameManager : NetworkBehaviour
 			GameEvent currentEvent = eventStack[^(ignored + 1)];
 			if (combatVersion)
 			{
-				if (currentEvent.methodName == "OnCardHurt" || currentEvent.methodName == "OnCardDeath")
+				if (currentEvent.methodName == "OnCardHurt" || currentEvent.methodName == "OnCardDeath" || currentEvent.methodName == "OnBlock")
 				{
 					ignored += 1;
 					continue;
@@ -477,7 +478,7 @@ public class GameManager : NetworkBehaviour
 				FinishMulligan();
 			}
 		}
-		if (!isProcessingOpponentQueue && opponentPlayedQueue.Count == 0 && phase == 3 || waitingOnBlock)
+		if (opponentPlayedQueue.Count == 0 && phase == 3 || waitingOnBlock && !blockChoiceMade)
 		{
 			plantCombatBehindBy = Math.Max(plantCombatBehindBy - Time.deltaTime, 0);
 		}
@@ -664,7 +665,12 @@ public class GameManager : NetworkBehaviour
 			if (Tile.terrainTiles[col].planted != null) yield return Tile.terrainTiles[col].planted.BeforeCombat();
 			yield return ProcessEvents();
 
-			if (Tile.zombieTiles[0, col].planted != null)
+			int savedHP1 = -1;
+			int savedHP2 = -1;
+			if (Tile.plantTiles[1, col].planted != null) savedHP2 = Tile.plantTiles[1, col].planted.HP;
+            if (Tile.plantTiles[0, col].planted != null) savedHP1 = Tile.plantTiles[0, col].planted.HP;
+
+            if (Tile.zombieTiles[0, col].planted != null)
 			{
                 yield return Tile.zombieTiles[0, col].planted.BeforeCombat();
                 yield return ProcessEvents(true);
@@ -677,13 +683,13 @@ public class GameManager : NetworkBehaviour
 			{
                 yield return Tile.plantTiles[1, col].planted.BeforeCombat();
                 yield return ProcessEvents(true);
-                if (Tile.plantTiles[1, col].planted != null) yield return Tile.plantTiles[1, col].planted.Attack();
+                if (Tile.plantTiles[1, col].planted != null) yield return Tile.plantTiles[1, col].planted.Attack(savedHP2);
 			}
 			if (Tile.plantTiles[0, col].planted != null)
 			{
                 yield return Tile.plantTiles[0, col].planted.BeforeCombat();
                 yield return ProcessEvents(true);
-                if (Tile.plantTiles[0, col].planted != null) yield return Tile.plantTiles[0, col].planted.Attack();
+                if (Tile.plantTiles[0, col].planted != null) yield return Tile.plantTiles[0, col].planted.Attack(savedHP1);
 			}
 
 			yield return ProcessEvents();
@@ -786,7 +792,8 @@ public class GameManager : NetworkBehaviour
     public void PlayCardRpc(FinalStats fs, int row, int col)
     {
 		if (AllCards.Instance.cards[fs.ID].team == team) PlayCardHelper(fs, row, col);
-		else
+        else if (waitingOnBlock) PlayCardHelper(fs, row, col);
+        else
 		{
 			opponentPlayedQueue.Add((fs, row, col, false));
 			StartCoroutine(ProcessOpponentPlayedQueue());
@@ -827,6 +834,11 @@ public class GameManager : NetworkBehaviour
 	public void PlayTrickRpc(FinalStats fs, int row, int col, bool isPlantTarget)
 	{
 		if (AllCards.Instance.cards[fs.ID].team == team) PlayTrickHelper(fs, row, col, isPlantTarget);
+		else if (waitingOnBlock)
+		{
+			blockChoiceMade = true;
+			StartCoroutine(OpponentTrickAnimation(fs, row, col, isPlantTarget));
+		}
 		else
 		{
 			opponentPlayedQueue.Add((fs, row, col, isPlantTarget));
@@ -840,6 +852,7 @@ public class GameManager : NetworkBehaviour
 		GameObject hc = Instantiate(handcardPrefab, opponentHandCards.position, Quaternion.identity);
 		var hc1 = hc.GetComponent<HandCard>();
 		hc1.ID = fs.ID;
+		hc1.OverrideFS(fs);
 		yield return null;
 		hc1.ShowInfo();
         Vector3 oldScale = hc.transform.localScale;
@@ -922,11 +935,11 @@ public class GameManager : NetworkBehaviour
 	[Rpc(SendTo.ClientsAndHost)]
 	public void HoldTrickRpc(Team t)
 	{
-        waitingOnBlock = null;
 		TriggerEvent("OnCardDraw", t);
 		if (team == t) handCards.GetChild(handCards.childCount - 1).GetComponent<HandCard>().ChangeCost(1);
         var to = opponentHandCards.TransformPoint(-2.5f + (opponentHandCards.childCount - 1) * 0.5f, 0, 0);
 		LeanTween.move(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject, to, 0.5f).setEaseOutQuint();
+		waitingOnBlock = null;
 	}
 
     /// <summary>
@@ -1109,6 +1122,7 @@ public class GameManager : NetworkBehaviour
         h.ToggleThinking(true);
         h.ResetBlock();
 		waitingOnBlock = h;
+		blockChoiceMade = false;
 		if (team == h.team)
 		{
 			superpowerIndex += 1;

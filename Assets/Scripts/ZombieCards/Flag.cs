@@ -14,7 +14,7 @@ public class Flag : Card
 
     protected override IEnumerator OnCardDraw(Team t)
     {
-		if (t == team)
+		if (t == Team.Zombie && GameManager.Instance.team == Team.Zombie)
 		{
 			HandCard c = GameManager.Instance.GetHandCards()[0];
 			if (c.orig.type == Type.Unit) c.ChangeCost(-1);
