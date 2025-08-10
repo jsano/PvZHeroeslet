@@ -27,11 +27,15 @@ public class Tile : Damagable
     /// <summary>
     /// True if this tile belongs to the plant side, false if it's the zombie side
     /// </summary>
-    [HideInInspector] public bool isPlantTile;
+    public bool isPlantTile { get; private set; }
     /// <summary>
     /// The terrain tiles. Only index 1-3 is used, others don't matter, but still need to have them for consistency
     /// </summary>
     public static Tile[] terrainTiles = new Tile[5];
+    /// <summary>
+    /// True if this tile is columnwide/terrain
+    /// </summary>
+    public bool isTerrainTile { get; private set; }
 
     /// <summary>
     /// The reference to the card currently placed in this tile. Add/remove this using <c>Plant()</c> and <c>Unplant()</c>
@@ -58,9 +62,11 @@ public class Tile : Damagable
     {
         if (row == 2)
         {
+            isTerrainTile = true;
             terrainTiles[col] = this;
             return;
         }
+        else isTerrainTile = false;
         if (transform.position.y < 0)
         {
             if (GameManager.Instance.team == Card.Team.Plant)
@@ -90,7 +96,7 @@ public class Tile : Damagable
                 else plantTiles[row, col] = this;
                 isPlantTile = true;
             }
-		}
+        }
     }
 
     /// <summary>
@@ -105,6 +111,7 @@ public class Tile : Damagable
             if (row == 2)
             {
                 planted.Destroy();
+                planted.GetComponent<SpriteRenderer>().enabled = false;
                 terrainTiles[0].planted = planted; // Can't do Plant() since it changes col
             }
             else
@@ -122,7 +129,7 @@ public class Tile : Damagable
                     planted.transform.Find("ATK").gameObject.SetActive(false);
                     planted.transform.Find("HP").gameObject.SetActive(false);
                     planted.GetComponent<SpriteRenderer>().sortingOrder = c.GetComponent<SpriteRenderer>().sortingOrder - 1;
-                    Destroy(planted.fusionBase);
+                    if (planted.fusionBase != null) Destroy(planted.fusionBase.gameObject);
                     c.fusionBase = planted;
                     if (planted.amphibious) c.amphibious = true;
                 }
@@ -202,11 +209,11 @@ public class Tile : Damagable
     }
 
     /// <summary>
-    /// Whether this tile has a planted card that isn't hiding in a gravestone
+    /// Whether this tile has a planted unit that isn't hiding in a gravestone
     /// </summary>
     public bool HasRevealedPlanted()
     {
-        return planted != null && !planted.gravestone;
+        return !isTerrainTile && planted != null && !planted.gravestone;
     }
 
     public void ToggleHighlight(bool on)

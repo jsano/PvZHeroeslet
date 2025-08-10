@@ -894,7 +894,7 @@ public class GameManager : NetworkBehaviour
 		if (row == 2) // Terrain
         {
             card.transform.position = Tile.terrainTiles[col].transform.position;
-            Tile.terrainTiles[col].Plant(card);
+            if (card.type == Card.Type.Terrain) Tile.terrainTiles[col].Plant(card);
         }
 		else
 		{

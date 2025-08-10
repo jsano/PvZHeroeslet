@@ -61,6 +61,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         if (orig.type == Card.Type.Trick)
         {
             // If this is a trick, use its IsValidTarget method to determine where it can be played
+            foreach (Tile t in Tile.terrainTiles) if (orig.IsValidTarget(t.GetComponent<BoxCollider2D>())) validChoices.Add(t.GetComponent<BoxCollider2D>());
             foreach (Tile t in Tile.plantTiles) if (orig.IsValidTarget(t.GetComponent<BoxCollider2D>())) validChoices.Add(t.GetComponent<BoxCollider2D>());
             foreach (Tile t in Tile.zombieTiles) if (orig.IsValidTarget(t.GetComponent<BoxCollider2D>())) validChoices.Add(t.GetComponent<BoxCollider2D>());
             if (orig.IsValidTarget(GameManager.Instance.plantHero.GetComponent<BoxCollider2D>())) validChoices.Add(GameManager.Instance.plantHero.GetComponent<BoxCollider2D>());
@@ -68,7 +69,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         }
         else if (orig.type == Card.Type.Terrain)
         {
-            foreach (Tile t in Tile.terrainTiles) validChoices.Add(t.GetComponent<BoxCollider2D>());
+            for (int i = 1; i <= 3; i++) validChoices.Add(Tile.terrainTiles[i].GetComponent<BoxCollider2D>());
         }
         else
         {

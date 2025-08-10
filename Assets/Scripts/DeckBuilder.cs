@@ -109,6 +109,8 @@ public class DeckBuilder : MonoBehaviour
         {
             foreach (Transform t in allDeckCards) t.GetComponent<DeckCard>().add.interactable = false;
         }
+
+        SortAllCards(deckCards, "cost");
     }
 
     public void Remove(int id)

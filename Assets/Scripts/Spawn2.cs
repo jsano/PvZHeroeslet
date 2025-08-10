@@ -32,7 +32,7 @@ public class Spawn2 : Card
         Tile t = bc.GetComponent<Tile>();
         if (t == null) return false;
         var targets = team == Team.Zombie ? Tile.zombieTiles : Tile.plantTiles;
-        if (Tile.CanPlantInCol(t.col, targets, toPlay.teamUp, toPlay.amphibious)) return true;
+        if (t.isTerrainTile && Tile.CanPlantInCol(t.col, targets, toPlay.teamUp, toPlay.amphibious)) return true;
         return false;
     }
 

@@ -33,7 +33,7 @@ public class ImpThrowingImp : Card
         List<int> possible = new();
         for (int i = 0; i < AllCards.Instance.cards.Length; i++)
         {
-            if (AllCards.Instance.cards[i].tribes.Contains(Tribe.Imp) && AllCards.Instance.cards[i].cost <= 2)
+            if (AllCards.Instance.cards[i].tribes.Contains(Tribe.Imp) && AllCards.Instance.cards[i].cost <= 2 && AllCards.Instance.cards[i].type == Type.Unit)
             {
                 possible.Add(i);
             }

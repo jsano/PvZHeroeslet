@@ -20,8 +20,8 @@ public class Mushboom : Card
 	{
         if (!base.IsValidTarget(bc)) return false;
         Tile t = bc.GetComponent<Tile>();
-		if (t == null) return false;
-		return true;
+		if (t != null && t.isTerrainTile) return true;
+		return false;
 	}
 
 }
