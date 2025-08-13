@@ -192,7 +192,10 @@ public class DeckBuilder : MonoBehaviour
         List<DeckCard> lst = new();
         foreach (Transform t in source) lst.Add(t.GetComponent<DeckCard>());
         var field = AllCards.Instance.cards[0].GetType().GetField(key);
-        lst.Sort((a, b) => ((int)field.GetValue(AllCards.Instance.cards[a.ID])).CompareTo((int)field.GetValue(AllCards.Instance.cards[b.ID])));
+        lst.Sort((a, b) => {
+            if ((int)field.GetValue(AllCards.Instance.cards[a.ID]) == (int)field.GetValue(AllCards.Instance.cards[b.ID])) return a.ID.CompareTo(b.ID);
+            else return ((int)field.GetValue(AllCards.Instance.cards[a.ID])).CompareTo((int)field.GetValue(AllCards.Instance.cards[b.ID]));
+        });
         for (var i = lst.Count - 1; i >= 0; i--)
         {
             lst[i].transform.SetSiblingIndex(0);

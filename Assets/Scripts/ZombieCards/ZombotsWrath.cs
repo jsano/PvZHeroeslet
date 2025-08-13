@@ -17,9 +17,15 @@ public class ZombotsWrath : Card
 	{
         if (!base.IsValidTarget(bc)) return false;
         Tile t = bc.GetComponent<Tile>();
-		if (t == null) return false;
-		if (t.HasRevealedPlanted() && t.planted.team == Team.Plant) return true;
-		return false;
-	}
+        if (t != null)
+        {
+            if (!t.HasRevealedPlanted() || t.planted.team == Team.Zombie) return false;
+        }
+        else
+        {
+            if (bc.GetComponent<Hero>().team == Team.Zombie) return false;
+        }
+        return true;
+    }
 
 }

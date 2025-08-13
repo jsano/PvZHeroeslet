@@ -423,10 +423,16 @@ public class Card : Damagable
     {
         if (died.Item1 == this)
         {
-            yield return new WaitForSeconds(0.5f);
-            if (fusionBase != null) Destroy(fusionBase.gameObject);
-            Destroy(gameObject);
+            yield return new WaitForSeconds(0.4f);
+            StartCoroutine(DestroyAfterCoroutineFinishes());
         }
+    }
+
+    private IEnumerator DestroyAfterCoroutineFinishes()
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (fusionBase != null) Destroy(fusionBase.gameObject);
+        Destroy(gameObject);
     }
 
 	/// <summary>
@@ -536,7 +542,7 @@ public class Card : Damagable
 
     public virtual IEnumerator BeforeCombat()
     {
-        if (overshoot > 0)
+        if (overshoot > 0 && !gravestone)
         {
             yield return new WaitForSeconds(1);
             yield return AttackFX(team == Team.Plant ? Tile.zombieHeroTiles[col] : Tile.plantHeroTiles[col]);
@@ -559,7 +565,7 @@ public class Card : Damagable
         {
             yield return new WaitForSeconds(0.5f);
             frozen = false;
-            transform.Find("Frozen").gameObject.SetActive(false);
+            transform.Find("ATK/Frozen").gameObject.SetActive(false);
             SR.material.color = Color.white;
             yield break;
         }
@@ -848,7 +854,7 @@ public class Card : Damagable
     public void Freeze()
     {
         frozen = true;
-        transform.Find("Frozen").gameObject.SetActive(true);
+        transform.Find("ATK/Frozen").gameObject.SetActive(true);
         SR.material.color = Color.blue;
         GameManager.Instance.TriggerEvent("OnCardFreeze", this);
     }

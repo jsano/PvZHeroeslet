@@ -32,9 +32,9 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(10));
         UserAccounts.allDecks["temp10"].cards = new() {
-            { AllCards.NameToID("Punish-shroom"), 4 },
+            { AllCards.NameToID("Button Mushroom"), 4 },
             { AllCards.NameToID("2nd Best Taco of All Time"), 2 },
-            { AllCards.NameToID("Banana Bomb"), 4 },
+            { AllCards.NameToID("Gloom-shroom"), 4 },
             { AllCards.NameToID("Mushroom Grotto"), 2 },
             { AllCards.NameToID("Transmogrify"), 2 },
             { AllCards.NameToID("More Spore"), 2 },
@@ -62,7 +62,7 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Fire Rooster"), 2 },
             { AllCards.NameToID("Imposter"), 2 },
             { AllCards.NameToID("Zombot Plank Walker"), 2 },
-            { AllCards.NameToID("Laser Base Alpha"), 4 },
+            { AllCards.NameToID("Total Eclipse"), 4 },
         };
 
         UserAccounts.GameStats.DeckName = "temp11";

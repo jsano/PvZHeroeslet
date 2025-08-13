@@ -10,7 +10,6 @@ public class GloomShroom : Card
 		if (evolved)
         {
             List<Damagable> targets = new();
-            yield return new WaitForSeconds(1);
             for (int i = -1; i <= 1; i++)
             {
                 if (col + i < 0 || col + i > 4) continue;

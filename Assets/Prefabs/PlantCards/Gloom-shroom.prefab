@@ -151,7 +151,7 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  evolution: 20
+  evolution: 19
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}

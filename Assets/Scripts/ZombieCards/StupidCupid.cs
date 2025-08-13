@@ -28,7 +28,7 @@ public class StupidCupid : Card
         Tile t = bc.GetComponent<Tile>();
         yield return AttackFX(t.planted);
         t.planted.ChangeStats(-t.planted.atk, 0, true);
-        yield return t.planted.ReceiveDamage(1, this);
+        yield return t.planted.ReceiveDamage(1, this, bullseye > 0, Tile.IsOnField("Toxic Waste Imp"));
         
     }
 

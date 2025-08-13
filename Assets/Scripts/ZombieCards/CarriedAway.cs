@@ -9,7 +9,7 @@ public class CarriedAway : Card
 	{
 		for (int col = 0; col < 5; col++)
 		{
-			if (Tile.zombieTiles[0, col].planted == null && (col != 5 || Tile.zombieTiles[0, this.col].planted.amphibious))
+			if (Tile.zombieTiles[0, col].planted == null && (col != 4 || Tile.zombieTiles[0, this.col].planted.amphibious))
 			{
 				choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
 			}
