@@ -9,7 +9,7 @@ public class SavageSpinach : Card
 	{
 		if (evolved)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
             for (int row = 0; row < 2; row++)
             {
                 for (int col = 0; col < 5; col++)

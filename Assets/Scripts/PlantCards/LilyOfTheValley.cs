@@ -9,7 +9,7 @@ public class LilyOfTheValley : Card
     {
         if (played != this && played.type == Type.Unit && played.team == Team.Plant && played.col == 0)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             played.ChangeStats(2, 2);
         }
         yield return base.OnCardPlay(played);

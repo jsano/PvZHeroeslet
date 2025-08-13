@@ -10,6 +10,7 @@ public class MirrorNut : Card
 	{
 		if (hurt.Item1.GetComponent<Card>() != null && ((Card)hurt.Item1).tribes.Contains(Tribe.Nut))
 		{
+            yield return Glow();
             yield return AttackFX(Tile.zombieHeroTiles[col]);
             yield return Tile.zombieHeroTiles[col].ReceiveDamage(2, this);
 		}

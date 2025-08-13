@@ -9,7 +9,7 @@ public class Blockbuster : Card
 	{
 		if (evolved)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			for (int i = -1; i <= 1; i++)
 			{
 				if (col + i < 0 || col + i > 4) continue;

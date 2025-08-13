@@ -7,7 +7,7 @@ public class CosmicPea : Card
 
     protected override IEnumerator OnThisPlay()
     {
-        yield return new WaitForSeconds(1);
+        yield return Glow();
         int id = AllCards.RandomFromTribe((Tribe.Pea, Tribe.Pea));
         FinalStats fs = new(id, true);
         fs.abilities += "doubleStrike";

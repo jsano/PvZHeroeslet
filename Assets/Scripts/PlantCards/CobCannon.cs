@@ -15,7 +15,7 @@ public class CobCannon : Card
         }
         if (targets.Count > 0)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             foreach (Card c in targets) c.ChangeStats(-1, -1);
         }
         if (evolved)
@@ -41,7 +41,7 @@ public class CobCannon : Card
     protected override IEnumerator OnSelection(BoxCollider2D bc)
     {
         yield return base.OnSelection(bc);
-        yield return new WaitForSeconds(1);
+        yield return Glow();
         bc.GetComponent<Tile>().planted.Destroy();
     }
 

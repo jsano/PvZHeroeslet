@@ -10,7 +10,7 @@ public class MarsFlytrap : Card
 	{
 		if (hurt.Item1 == GameManager.Instance.zombieHero) 
 		{
-            yield return new WaitForSeconds(1);
+            yield return Glow();
 			int amount = GameManager.Instance.zombieHero.StealBlock(1);
 			GameManager.Instance.plantHero.StealBlock(-amount);
         }

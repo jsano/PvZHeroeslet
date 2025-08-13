@@ -9,7 +9,7 @@ public class PairOfPears : Card
 	{
         if (Tile.CanPlantInCol(col, Tile.plantTiles, true, false))
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Pear Pal")]).GetComponent<Card>();
             Tile.plantTiles[1, col].Plant(card);
         }

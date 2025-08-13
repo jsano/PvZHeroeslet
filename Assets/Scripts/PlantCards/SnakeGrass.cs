@@ -11,7 +11,7 @@ public class SnakeGrass : Card
 	{
 		if (col < 4 && Tile.CanPlantInCol(col + 1, Tile.plantTiles, false, true))
 		{
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Snake Grass")]);
             Tile.plantTiles[0, col + 1].Plant(c);
         }

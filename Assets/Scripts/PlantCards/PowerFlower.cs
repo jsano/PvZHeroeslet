@@ -7,7 +7,7 @@ public class PowerFlower : Card
 
 	protected override IEnumerator OnTurnStart()
 	{
-		yield return new WaitForSeconds(1);
+        yield return Glow();
         int count = 0;
         for (int row = 0; row < 2; row++)
         {

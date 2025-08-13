@@ -9,7 +9,8 @@ public class ThePodfather : Card
 	{
 		if (played != this && played.tribes.Contains(Tribe.Pea))
 		{
-			played.ChangeStats(2, 2);
+            yield return Glow();
+            played.ChangeStats(2, 2);
 		}
 		yield return base.OnCardPlay(played);
 	}

@@ -14,7 +14,7 @@ public class ElectricBlueberry : Card
         }
         choices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
 
-        yield return new WaitForSeconds(1);
+        yield return Glow();
         var choice = choices[Random.Range(0, choices.Count)];
         if (choice.GetComponent<Hero>() != null) yield return SyncRandomChoiceAcrossNetwork(-1 + " - " + -1);
         else yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col);

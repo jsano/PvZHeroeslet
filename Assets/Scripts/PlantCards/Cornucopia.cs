@@ -14,7 +14,7 @@ public class Cornucopia : Card
         }
         if (locations.Count > 0)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             string s = "";
             for (int i = 0; i < locations.Count; i++)
             {

@@ -9,7 +9,7 @@ public class Strawberrian : Card
     {
         if (evolved)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             yield return GameManager.Instance.GainHandCard(team, AllCards.NameToID("Berry Blast"));
         }
         yield return base.OnThisPlay();
@@ -24,6 +24,7 @@ public class Strawberrian : Card
 			{
 				if (Tile.zombieTiles[0, col + i].HasRevealedPlanted()) targets.Add(Tile.zombieTiles[0, col + i].planted);
 			}
+            yield return Glow();
             yield return AttackFXs(targets);
             foreach (Damagable c in targets) StartCoroutine(c.ReceiveDamage(1, this));
 		}

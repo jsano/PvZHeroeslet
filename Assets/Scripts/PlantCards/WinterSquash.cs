@@ -9,8 +9,8 @@ public class WinterSquash : Card
 	{
 		if (frozen.team == Team.Zombie && !frozen.died)
 		{
-			yield return new WaitForSeconds(1);
-			frozen.Destroy();
+            yield return Glow();
+            frozen.Destroy();
 		}
 		yield return null;
 	}

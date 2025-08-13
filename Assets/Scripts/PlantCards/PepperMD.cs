@@ -9,8 +9,8 @@ public class PepperMD : Card
 	{
 		if (healed.Item1.team == Team.Plant)
 		{
-			yield return new WaitForSeconds(1);
-			ChangeStats(2, 2);
+            yield return Glow();
+            ChangeStats(2, 2);
 		}
 		yield return null;
 	}
@@ -19,7 +19,7 @@ public class PepperMD : Card
     {
         if (healed.Item1.team == Team.Plant)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			ChangeStats(2, 2);
 		}
 		yield return null;

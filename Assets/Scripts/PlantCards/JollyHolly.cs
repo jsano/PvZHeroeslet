@@ -8,9 +8,9 @@ public class JollyHolly : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-        yield return new WaitForSeconds(1);
+        yield return Glow();
 
-		for (int i = 1; i >= -1; i -= 2)
+        for (int i = 1; i >= -1; i -= 2)
 		{
             if (col + i < 0 || col + i > 4) continue;
             if (Tile.zombieTiles[0, col + i].HasRevealedPlanted()) Tile.zombieTiles[0, col + i].planted.Freeze();

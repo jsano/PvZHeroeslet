@@ -9,6 +9,7 @@ public class AdmiralNavyBean : Card
 	{
 		if (played != this && played.tribes.Contains(Tribe.Bean))
 		{
+			yield return Glow();
             yield return AttackFX(Tile.zombieHeroTiles[col]);
             yield return Tile.zombieHeroTiles[col].ReceiveDamage(2, this);
 		}

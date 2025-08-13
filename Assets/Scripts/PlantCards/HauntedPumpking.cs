@@ -8,7 +8,7 @@ public class HauntedPumpking : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-        yield return new WaitForSeconds(1);
+        yield return Glow();
         yield return GameManager.Instance.GainHandCard(Team.Zombie, AllCards.RandomFromTribe((Tribe.Monster, Tribe.Monster)));
         yield return base.OnThisPlay();
 	}

@@ -11,7 +11,8 @@ public class GoNuts : Card
 		{
 			if (played.teamUp)
 			{
-				for (int i = 0; i < 2; i++) for (int col = 0; col < 5; col++)
+                yield return Glow();
+                for (int i = 0; i < 2; i++) for (int col = 0; col < 5; col++)
 				{
 					Card c = Tile.plantTiles[i, col].planted;
 					if (c != null && c.teamUp)

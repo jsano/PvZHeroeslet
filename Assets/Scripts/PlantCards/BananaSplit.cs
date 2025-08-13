@@ -12,8 +12,8 @@ public class BananaSplit : Card
 		if (died.Item1 == this)
 		{
 			Tile.plantTiles[row, col].Unplant();
-            yield return new WaitForSeconds(1);
-			if (col > 0 && Tile.CanPlantInCol(col - 1, Tile.plantTiles, false, false))
+            yield return Glow();
+            if (col > 0 && Tile.CanPlantInCol(col - 1, Tile.plantTiles, false, false))
 			{
 				Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Half-Banana")]);
 				Tile.plantTiles[0, col - 1].Plant(c);

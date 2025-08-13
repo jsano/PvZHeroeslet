@@ -16,6 +16,7 @@ public class SonicBloom : Card
 				count += Tile.plantTiles[i, j].HasRevealedPlanted() ? 1 : 0;
             }
 		}
+        yield return Glow();
         yield return AttackFX(Tile.zombieHeroTiles[col]);
         yield return GameManager.Instance.zombieHero.ReceiveDamage(count, this, bullseye > 0);
 		yield return base.OnThisPlay();

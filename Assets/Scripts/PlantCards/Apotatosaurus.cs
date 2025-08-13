@@ -7,7 +7,7 @@ public class Apotatosaurus : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-        yield return new WaitForSeconds(1);
+        yield return Glow();
         yield return GameManager.Instance.GainHandCard(team, AllCards.RandomFromTribe((Tribe.Root, Tribe.Root)));
 		yield return base.OnThisPlay();
 	}

@@ -7,7 +7,7 @@ public class CosmicNut : Card
 
     protected override IEnumerator OnThisPlay()
     {
-        yield return new WaitForSeconds(1);
+        yield return Glow();
         int id = AllCards.RandomFromTribe((Tribe.Nut, Tribe.Nut));
         FinalStats fs = new(id, true);
         fs.atk = 3;

@@ -13,7 +13,7 @@ public class Pineclone : Card
             yield return base.OnThisPlay();
             yield break;
         }
-		yield return new WaitForSeconds(1);
+		yield return Glow();
         for (int col = 4; col >= 0; col--)
         {
             for (int row = 0; row < 2; row++)

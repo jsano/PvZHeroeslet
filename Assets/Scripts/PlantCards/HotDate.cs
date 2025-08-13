@@ -30,7 +30,7 @@ public class HotDate : Card
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
         yield return base.OnSelection(bc);
-        yield return new WaitForSeconds(1);
+        yield return Glow();
 		Card c = bc.GetComponent<Tile>().planted;
         c.Move(c.row, col);
     }
@@ -39,6 +39,7 @@ public class HotDate : Card
     {
         if (died.Item1 == this && Tile.zombieTiles[0, col].planted != null)
         {
+            yield return Glow();
             yield return AttackFX(Tile.zombieTiles[0, col].planted);
             yield return Tile.zombieTiles[0, col].planted.ReceiveDamage(3, this);
         }

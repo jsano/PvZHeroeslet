@@ -7,7 +7,7 @@ public class CosmicBean : Card
 
     protected override IEnumerator OnThisPlay()
     {
-        yield return new WaitForSeconds(1);
+        yield return Glow();
         int id = AllCards.RandomFromTribe((Tribe.Bean, Tribe.Bean));
         FinalStats fs = new(id, true);
         fs.abilities += "teamUp";

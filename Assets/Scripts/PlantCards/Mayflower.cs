@@ -10,7 +10,7 @@ public class Mayflower : Card
 	{
 		if (hurt.Item1 == GameManager.Instance.zombieHero && hurt.Item2 == this) 
 		{
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             yield return GameManager.Instance.GainHandCard(team, AllCards.RandomFromTribe((Tribe.Corn, Tribe.Squash, Tribe.Bean)));
         }
 		yield return base.OnCardHurt(hurt);

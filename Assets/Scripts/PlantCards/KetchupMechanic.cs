@@ -14,7 +14,7 @@ public class KetchupMechanic : Card
         }
 		if (count > 0)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			ChangeStats(count, count);
 			yield return GameManager.Instance.plantHero.Heal(count);
 		}

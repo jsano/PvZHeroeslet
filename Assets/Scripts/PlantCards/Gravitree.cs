@@ -9,7 +9,7 @@ public class Gravitree : Card
     {
         if (played.type == Type.Unit && played.team == Team.Zombie && played.col != col && Tile.zombieTiles[0, col].planted == null)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             played.Move(0, col);
         }
         yield return base.OnCardPlay(played);

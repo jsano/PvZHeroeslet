@@ -9,7 +9,8 @@ public class PodFighter : Card
 	{
 		if (played != this && played.type == Type.Unit && played.team == Team.Plant && Mathf.Abs(played.col - col) <= 1)
 		{
-			yield return BonusAttack();
+            yield return Glow();
+            yield return BonusAttack();
 		}
 		yield return base.OnCardPlay(played);
 	}

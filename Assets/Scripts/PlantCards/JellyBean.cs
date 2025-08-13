@@ -30,13 +30,13 @@ public class JellyBean : Card
     protected override IEnumerator OnSelection(BoxCollider2D bc)
     {
         yield return base.OnSelection(bc);
-        yield return new WaitForSeconds(1);
+        yield return Glow();
         bc.GetComponent<Tile>().planted.Bounce();
     }
 
     protected override IEnumerator OnCardBounce(Card bounced)
     {
-        yield return new WaitForSeconds(1);
+        yield return Glow();
         ChangeStats(1, 1);
         yield return base.OnCardBounce(bounced);
     }

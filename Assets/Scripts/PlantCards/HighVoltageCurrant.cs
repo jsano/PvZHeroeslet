@@ -8,7 +8,7 @@ public class HighVoltageCurrant : Card
 
     protected override IEnumerator OnThisPlay()
     {
-		yield return new WaitForSeconds(1);
+		yield return Glow();
 		yield return GameManager.Instance.GainHandCard(team, AllCards.RandomFromTribe((Tribe.Berry, Tribe.Berry)));
         yield return base.OnThisPlay();
     }
@@ -17,7 +17,7 @@ public class HighVoltageCurrant : Card
 	{
 		if (hurt.Item2 != this && hurt.Item2.tribes.Contains(Tribe.Berry))
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			ChangeStats(1, 0);
 		}
 		yield return base.OnCardHurt(hurt);

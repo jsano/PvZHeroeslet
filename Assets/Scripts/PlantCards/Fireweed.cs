@@ -9,7 +9,7 @@ public class Fireweed : Card
 	{
         if (col >= 1 && col <= 3)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Hot Lava")]);
             Tile.terrainTiles[col].Plant(c);
         }

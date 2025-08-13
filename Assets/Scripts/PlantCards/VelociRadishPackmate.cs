@@ -9,7 +9,7 @@ public class VelociRadishPackmate : Card
 	{
         if (Tile.CanPlantInCol(col, Tile.plantTiles, true, false))
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Veloci-Radish Hatchling")]).GetComponent<Card>();
             Tile.plantTiles[1, col].Plant(card);
         }
@@ -21,7 +21,7 @@ public class VelociRadishPackmate : Card
     {
         if (team == this.team)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             ChangeStats(1, 0);
         }
         yield return base.OnCardDraw(team);

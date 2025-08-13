@@ -12,8 +12,8 @@ public class MixedNuts : Card
 			Card c = Tile.plantTiles[row, col].planted;
 			if (c != null && c.teamUp)
 			{
-				yield return new WaitForSeconds(1);
-				ChangeStats(2, 2);
+                yield return Glow();
+                ChangeStats(2, 2);
 				break;
 			}
 		}

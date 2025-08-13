@@ -9,7 +9,7 @@ public class RedStinger : Card
 	{
 		if (Tile.plantTiles[1, col].planted != null && row == 0)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			SetStats(7, 3);
 		}
 		yield return base.OnThisPlay();

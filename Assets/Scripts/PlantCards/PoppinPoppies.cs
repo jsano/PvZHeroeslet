@@ -7,9 +7,9 @@ public class PoppinPoppies : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-        yield return new WaitForSeconds(1);
+        yield return Glow();
 
-		for (int i = 1; i >= -1; i--)
+        for (int i = 1; i >= -1; i--)
 		{
             if (col + i < 0 || col + i > 4) continue;
             

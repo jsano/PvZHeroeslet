@@ -16,7 +16,7 @@ public class WildBerry : Card
         }
         if (choices.Count > 0)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             var choice = choices[Random.Range(0, choices.Count)];
             yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col);
             Move(int.Parse(GameManager.Instance.GetShuffledList()[0]), int.Parse(GameManager.Instance.GetShuffledList()[1]));

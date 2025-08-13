@@ -9,7 +9,8 @@ public class Heartichoke : Card
 	{
 		if (healed.Item1.team == Team.Plant)
 		{
-			yield return AttackFX(Tile.zombieHeroTiles[col]);
+            yield return Glow();
+            yield return AttackFX(Tile.zombieHeroTiles[col]);
 			yield return GameManager.Instance.zombieHero.ReceiveDamage(healed.Item2, this, bullseye > 0);
 		}
 		yield return null;
@@ -19,6 +20,7 @@ public class Heartichoke : Card
     {
         if (healed.Item1.team == Team.Plant)
 		{
+            yield return Glow();
             yield return AttackFX(Tile.zombieHeroTiles[col]);
             yield return GameManager.Instance.zombieHero.ReceiveDamage(healed.Item2, this, bullseye > 0);
         }

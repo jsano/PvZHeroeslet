@@ -9,7 +9,7 @@ public class Toadstool : Card
 	{
 		if (Tile.zombieTiles[0, col].HasRevealedPlanted() && Tile.zombieTiles[0, col].planted.atk <= 4)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			Tile.zombieTiles[0, col].planted.Destroy();
 		}
 		yield return base.OnThisPlay();
@@ -17,6 +17,7 @@ public class Toadstool : Card
 
     protected override IEnumerator OnTurnStart()
     {
+        yield return Glow();
         yield return GameManager.Instance.UpdateRemaining(1, team);
         yield return base.OnTurnStart();
     }

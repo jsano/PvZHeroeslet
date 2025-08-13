@@ -9,7 +9,7 @@ public class Bamboozle : Card
 	{
 		if (evolved)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			yield return GameManager.Instance.DrawCard(team, 2);
 		}
 		yield return base.OnThisPlay();

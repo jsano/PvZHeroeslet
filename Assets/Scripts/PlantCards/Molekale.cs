@@ -22,7 +22,7 @@ public class Molekale : Card
         }
         if (toDestroy.Count > 0)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             string s = "";
             for (int i = 0; i < toDestroy.Count; i++)
             {

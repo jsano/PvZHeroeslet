@@ -8,7 +8,8 @@ public class Sunflower : Card
 
 	protected override IEnumerator OnTurnStart()
 	{
-		yield return GameManager.Instance.UpdateRemaining(produceAmount, team);
+        yield return Glow();
+        yield return GameManager.Instance.UpdateRemaining(produceAmount, team);
 		yield return base.OnTurnStart();
 	}
 

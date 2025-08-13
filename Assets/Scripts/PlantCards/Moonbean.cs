@@ -10,7 +10,7 @@ public class Moonbean : Card
 	{
 		if (hurt.Item2 == this)
 		{
-			//yield return new WaitForSeconds(1);
+            yield return Glow();
             int id = AllCards.NameToID("Magic Beanstalk");
             GameManager.Instance.ShuffleIntoDeck(team, new() { id, id });
         }

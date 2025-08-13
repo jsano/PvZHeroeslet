@@ -9,7 +9,7 @@ public class Cabbagepult : Card
 	{
 		if (col == 0)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			ChangeStats(1, 1);
 		}
 		yield return base.OnThisPlay();

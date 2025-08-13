@@ -7,7 +7,7 @@ public class ThreeHeadedChomper : Card
 
 	protected override IEnumerator OnTurnEnd()
 	{
-		yield return new WaitForSeconds(1);
+		yield return Glow();
         for (int i = -1; i <= 1; i++)
         {
             if (col + i < 0 || col + i >= 5) continue;

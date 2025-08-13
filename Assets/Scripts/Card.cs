@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -145,6 +146,7 @@ public class Card : Damagable
     private Image hpSprite;
     protected SpriteRenderer SR;
     private Sprite baseSprite;
+    private GameObject glow;
 
     protected bool onThisPlayed = false;
     /// <summary>
@@ -177,6 +179,8 @@ public class Card : Damagable
     {
         transform.localPosition -= new Vector3(0, 0, 1); // FOR ONMOUSEDOWN TO WORK AGAINST TILES
 		SR = GetComponent<SpriteRenderer>();
+        glow = transform.Find("Glow").gameObject;
+        LeanTween.rotateAroundLocal(glow, Vector3.forward, -360f, 2f).setRepeat(-1);
         baseSprite = SR.sprite;
         baseHP = HP;
         baseAtk = atk;
@@ -400,7 +404,7 @@ public class Card : Damagable
         if (hunt > 0 && played.type == Type.Unit && played.team != team && (amphibious || played.col != 4))
         {
             if (team == Team.Plant && !Tile.CanPlantInCol(played.col, Tile.plantTiles, teamUp, amphibious) || team == Team.Zombie && Tile.zombieTiles[0, played.col].planted != null) yield break;
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             Move(row, played.col);
         }
         yield return null;
@@ -512,7 +516,7 @@ public class Card : Damagable
         {
             Tile.plantTiles[row, col].Unplant(true);
             yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(Team.Plant, (cost + 1, cost + 1), true) + "");
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.shuffledLists[^1][0])]);
             FinalStats fs = new(int.Parse(GameManager.Instance.shuffledLists[^1][0]));
             fs.abilities += "fig";
@@ -951,6 +955,12 @@ public class Card : Damagable
             g.GetComponent<AttackFX>().destination = d.transform;
         }
         yield return new WaitForSeconds(0.2f);
+    }
+
+    public IEnumerator Glow()
+    {
+        LeanTween.alpha(glow, 1, 0.5f).setOnComplete(() => LeanTween.alpha(glow, 0, 0.5f));
+        yield return new WaitForSeconds(0.5f);
     }
 
     void OnMouseDown()

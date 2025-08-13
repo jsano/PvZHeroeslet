@@ -12,7 +12,8 @@ public class SourGrapes : Card
 		{
 			if (Tile.zombieTiles[0, col].planted != null) targets.Add(Tile.zombieTiles[0, col].planted);
 		}
-		yield return AttackFXs(targets);
+        yield return Glow();
+        yield return AttackFXs(targets);
 
 		foreach (Damagable d in targets) StartCoroutine(d.ReceiveDamage(1, this));
 		yield return base.OnThisPlay();

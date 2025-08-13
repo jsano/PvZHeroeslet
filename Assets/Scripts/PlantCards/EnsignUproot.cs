@@ -54,7 +54,7 @@ public class EnsignUproot : Card
 		GameManager.Instance.ClearSelection();
         choices.Clear();
         Tile t = bc.GetComponent<Tile>();
-		yield return new WaitForSeconds(1);
+		yield return Glow();
 		toMove.Move(t.row, t.col);
 	}
 

@@ -19,7 +19,7 @@ public class TheGreatZucchini : Card
         }
         if (toDestroy.Count > 0)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             string[] options = new string[] { "Baseball Zombie", "Cardboard Robot", "Backup Dancer", "Imp", "Skunk Punk" };
             string s = "";
             for (int i = 0; i < toDestroy.Count; i++)

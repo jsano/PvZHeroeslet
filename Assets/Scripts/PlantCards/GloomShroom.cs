@@ -15,6 +15,7 @@ public class GloomShroom : Card
                 if (col + i < 0 || col + i > 4) continue;
                 if (Tile.zombieTiles[0, col + i].HasRevealedPlanted()) targets.Add(Tile.zombieTiles[0, col + i].planted);
             }
+            yield return Glow();
             yield return AttackFXs(targets);
             foreach (Damagable c in targets) StartCoroutine(c.ReceiveDamage(3, this));
         }

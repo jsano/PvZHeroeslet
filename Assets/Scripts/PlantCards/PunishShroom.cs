@@ -21,6 +21,7 @@ public class PunishShroom : Card
             if (choice.GetComponent<Hero>() != null) yield return SyncRandomChoiceAcrossNetwork(-1 + " - " + -1);
             else yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col);
 
+            yield return Glow();
             if (int.Parse(GameManager.Instance.GetShuffledList()[0]) == -1)
             {
                 yield return AttackFX(Tile.zombieHeroTiles[col]);

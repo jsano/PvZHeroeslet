@@ -8,7 +8,7 @@ public class SteelMagnolia : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-        yield return new WaitForSeconds(1);
+        yield return Glow();
 
 		for (int i = 1; i >= -1; i--)
 		{

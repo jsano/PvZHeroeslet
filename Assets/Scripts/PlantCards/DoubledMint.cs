@@ -7,8 +7,8 @@ public class DoubledMint : Card
 
 	protected override IEnumerator OnTurnStart()
 	{
-		yield return new WaitForSeconds(1);
-		ChangeStats(atk, HP);
+        yield return Glow();
+        ChangeStats(atk, HP);
 		yield return base.OnTurnStart();
 	}
 

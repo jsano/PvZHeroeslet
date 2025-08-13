@@ -9,7 +9,7 @@ public class Cosmoss : Card
 	{
 		if (played != this && played.type == Type.Terrain)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			ChangeStats(2, 2);
 		}
 		yield return base.OnCardPlay(played);

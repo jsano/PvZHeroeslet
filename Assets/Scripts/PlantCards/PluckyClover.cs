@@ -7,7 +7,7 @@ public class PluckyClover : Card
 
 	protected override IEnumerator OnThisPlay()
 	{        
-        yield return new WaitForSeconds(1);
+        yield return Glow();
         yield return GameManager.Instance.DrawCard(team);
         yield return SyncRandomChoiceAcrossNetwork(GameManager.Instance.GetHandCards()[0].orig.cost + "");
 		ChangeStats(int.Parse(GameManager.Instance.GetShuffledList()[0]), 0);

@@ -10,7 +10,7 @@ public class BriarRose : Card
 	{
 		if (hurt.Item1.GetComponent<Card>() != null && ((Card)hurt.Item1).tribes.Contains(Tribe.Flower) && hurt.Item2 != null && !hurt.Item2.died)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			hurt.Item2.Destroy();
 		}
 		yield return base.OnCardHurt(hurt);

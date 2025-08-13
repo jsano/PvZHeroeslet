@@ -12,7 +12,7 @@ public class SunflowerSeed : Card
 		if (died.Item1 == this)
 		{
             Tile.plantTiles[row, col].Unplant(true);
-            yield return new WaitForSeconds(1);
+            yield return Glow();
 			Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Sunflower")]);
 			Tile.plantTiles[row, col].Plant(c);
 			Destroy(gameObject);

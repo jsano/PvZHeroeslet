@@ -15,7 +15,7 @@ public class AppleSaucer : Card
         else if (GameManager.Instance.opponentRemainingTop >= 6) s = true;
         if (s)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             strikethrough += 1;
         }
 		yield return base.OnThisPlay();

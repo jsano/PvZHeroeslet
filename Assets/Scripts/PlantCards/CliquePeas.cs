@@ -7,7 +7,7 @@ public class CliquePeas : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		yield return new WaitForSeconds(1);
+		yield return Glow();
 		int id = AllCards.NameToID("Clique Peas");
 		GameManager.Instance.ShuffleIntoDeck(team, new() { id, id });
 		GameManager.Instance.cliquePeas += 1;

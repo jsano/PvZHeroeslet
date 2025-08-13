@@ -7,8 +7,8 @@ public class CoolBean : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		yield return new WaitForSeconds(1);
-		for (int col = 0; col < 5; col++)
+        yield return Glow();
+        for (int col = 0; col < 5; col++)
 		{
 			if (Tile.zombieTiles[0, col].planted != null && Tile.zombieTiles[0, col].planted.gravestone) Tile.zombieTiles[0, col].planted.Freeze();
 		}

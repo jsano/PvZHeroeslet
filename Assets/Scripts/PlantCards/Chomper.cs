@@ -9,7 +9,7 @@ public class Chomper : Card
 	{
 		if (Tile.zombieTiles[0, col].HasRevealedPlanted() && Tile.zombieTiles[0, col].planted.atk <= 3)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			Tile.zombieTiles[0, col].planted.Destroy();
 		}
 		yield return base.OnThisPlay();

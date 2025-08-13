@@ -19,7 +19,8 @@ public class GalactaCactus : Card
 					if (Tile.plantTiles[i, j].planted != null) targets.Add(Tile.plantTiles[i, j].planted);
                     if (Tile.zombieTiles[i, j].planted != null && Tile.zombieTiles[i, j].planted != this) targets.Add(Tile.zombieTiles[i, j].planted);
                 }
-			yield return AttackFXs(targets);
+            yield return Glow();
+            yield return AttackFXs(targets);
 			foreach (Damagable d in targets) StartCoroutine(d.ReceiveDamage(1, this));
         }
 		yield return base.OnCardDeath(died);

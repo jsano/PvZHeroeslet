@@ -9,8 +9,8 @@ public class BananasaurusRex : Card
 	{
 		if (team == this.team)
 		{
-			yield return new WaitForSeconds(1);
-			ChangeStats(1, 1);
+            yield return Glow();
+            ChangeStats(1, 1);
 		}
 		yield return base.OnCardDraw(team);
 	}

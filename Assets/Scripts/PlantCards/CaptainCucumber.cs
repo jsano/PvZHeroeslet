@@ -10,7 +10,7 @@ public class CaptainCucumber: Card
     {
         if (hurt.Item2 == this)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             int id = AllCards.NameToID("Reincarnation"); // TODO: LEGENDARIES
             yield return GameManager.Instance.GainHandCard(team, id);
         }

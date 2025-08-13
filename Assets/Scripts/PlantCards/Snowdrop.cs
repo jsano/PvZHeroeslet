@@ -9,7 +9,7 @@ public class Snowdrop : Card
 	{
 		if (frozen.team == Team.Zombie)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			ChangeStats(2, 2);
 		}
 		yield return base.OnCardFreeze(frozen);

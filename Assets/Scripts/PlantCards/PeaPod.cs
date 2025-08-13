@@ -7,7 +7,7 @@ public class PeaPod : Card
 
 	protected override IEnumerator OnTurnStart()
 	{
-		yield return new WaitForSeconds(1);
+		yield return Glow();
 		ChangeStats(1, 1);
 	}
 

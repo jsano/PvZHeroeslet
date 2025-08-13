@@ -14,7 +14,7 @@ public class WitchHazel : Card
         }
         if (locations.Count > 0)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             yield return SyncRandomChoiceAcrossNetwork(locations[UnityEngine.Random.Range(0, locations.Count)] + "");
             int chosen = int.Parse(GameManager.Instance.GetShuffledList()[0]);
             Tile.zombieTiles[0, chosen].planted.Destroy();

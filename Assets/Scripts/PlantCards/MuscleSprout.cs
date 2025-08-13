@@ -9,7 +9,7 @@ public class MuscleSprout : Card
 	{
 		if (played != this && played.type == Type.Unit && played.team == team)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			ChangeStats(1, 1);
 		}
 		yield return base.OnCardPlay(played);

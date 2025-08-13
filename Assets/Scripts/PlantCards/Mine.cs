@@ -14,7 +14,8 @@ public class Mine : Card
 		{
 			if (Tile.zombieTiles[0, col].planted != null)
 			{
-				yield return AttackFX(Tile.zombieTiles[0, col].planted);
+                yield return Glow();
+                yield return AttackFX(Tile.zombieTiles[0, col].planted);
 				yield return Tile.zombieTiles[0, col].planted.ReceiveDamage(deathDamage, this);
 			}
 		}

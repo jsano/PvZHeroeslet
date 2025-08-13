@@ -7,6 +7,7 @@ public class BananaLauncher : Card
 
     protected override IEnumerator OnTurnStart()
     {
+        yield return Glow();
         yield return GameManager.Instance.GainHandCard(team, AllCards.NameToID("Banana Bomb"));
         yield return base.OnTurnStart();
     }

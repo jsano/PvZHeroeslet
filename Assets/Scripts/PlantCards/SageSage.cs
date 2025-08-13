@@ -15,7 +15,7 @@ public class SageSage : Card
         else if (GameManager.Instance.opponentRemainingTop >= 6) s = true;
         if (s)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             yield return GameManager.Instance.DrawCard(team);
         }
 		yield return base.OnThisPlay();

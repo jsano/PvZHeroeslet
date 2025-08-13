@@ -9,6 +9,7 @@ public class LimaPleurodon : Card
 	{
 		if (team == this.team)
 		{
+            yield return Glow();
             int id = AllCards.NameToID("Magic Beanstalk");
             GameManager.Instance.ShuffleIntoDeck(team, new() { id });
         }

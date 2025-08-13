@@ -28,11 +28,13 @@ public class Bluesberry : Card
         Tile t = bc.GetComponent<Tile>();
         if (t == null)
         {
+            yield return Glow();
             yield return AttackFX(GameManager.Instance.zombieHero);
             yield return GameManager.Instance.zombieHero.ReceiveDamage(2, this);
         }
         else
         {
+            yield return Glow();
             yield return AttackFX(t.planted);
             yield return t.planted.ReceiveDamage(2, this);
         }

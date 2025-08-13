@@ -30,8 +30,8 @@ public class RescueRadish : Card
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
         yield return base.OnSelection(bc);
-        yield return new WaitForSeconds(1);
-		bc.GetComponent<Tile>().planted.Bounce();
+        yield return Glow();
+        bc.GetComponent<Tile>().planted.Bounce();
     }
 
 }

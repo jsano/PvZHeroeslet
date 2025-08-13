@@ -7,7 +7,11 @@ public class GatlingPea : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		if (evolved) yield return BonusAttack();
+		if (evolved)
+		{
+            yield return Glow();
+            yield return BonusAttack();
+		}
 		yield return base.OnThisPlay();
 	}
 

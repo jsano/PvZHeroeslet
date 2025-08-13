@@ -10,7 +10,7 @@ public class BloomingHeart : Card
 	{
 		if (hurt.Item2 == this) 
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			ChangeStats(1, 0);
         }
 		yield return base.OnCardHurt(hurt);
