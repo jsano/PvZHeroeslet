@@ -21,7 +21,7 @@ public class ZombotPlankWalker : Card
         }
         if (columns.Count > 0)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             string s = "";
             for (int i = 0; i < Mathf.Min(2, columns.Count); i++)
             {

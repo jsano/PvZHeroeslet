@@ -9,7 +9,7 @@ public class Moonwalker : Card
 	{
 		if (col == 0 || Tile.terrainTiles[col].planted != null)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			ChangeStats(2, 2);
 		}
 		yield return base.OnThisPlay();

@@ -26,6 +26,7 @@ public class Conga : Card
 	{
         yield return base.OnSelection(bc);
         Tile t = bc.GetComponent<Tile>();
+        yield return Glow();
         if (t == null)
         {
             yield return AttackFX(GameManager.Instance.plantHero);

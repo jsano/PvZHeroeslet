@@ -25,7 +25,7 @@ public class Trapper : Card
     {
         yield return base.OnSelection(bc);
         Tile t = bc.GetComponent<Tile>();
-        yield return new WaitForSeconds(1);
+        yield return Glow();
         Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Trapper Territory")]);
         Tile.terrainTiles[t.col].Plant(c);
 	}

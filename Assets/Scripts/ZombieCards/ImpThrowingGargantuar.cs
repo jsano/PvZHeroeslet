@@ -10,7 +10,6 @@ public class ImpThrowingGargantuar : Card
     {
         if (hurt.Item1.GetComponent<Card>() == this)
         {
-            yield return new WaitForSeconds(1);
             List<int> columns = new();
             for (int col = 0; col < 5; col++)
             {
@@ -18,7 +17,7 @@ public class ImpThrowingGargantuar : Card
             }
             if (columns.Count > 0)
             {
-                yield return new WaitForSeconds(1);
+                yield return Glow();
                 yield return SyncRandomChoiceAcrossNetwork(columns[UnityEngine.Random.Range(0, columns.Count)] + "");
                 Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Swabbie")]).GetComponent<Card>();
                 Tile.zombieTiles[0, int.Parse(GameManager.Instance.GetShuffledList()[0])].Plant(c);

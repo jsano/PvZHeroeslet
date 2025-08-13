@@ -20,6 +20,7 @@ public class Abracadaver : Card
                 var choice = choices[UnityEngine.Random.Range(0, choices.Count)];
                 yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col);
                 Tile t = Tile.plantTiles[int.Parse(GameManager.Instance.GetShuffledList()[0]), int.Parse(GameManager.Instance.GetShuffledList()[1])];
+                yield return Glow();
                 yield return AttackFX(t.planted);
                 yield return t.planted.ReceiveDamage(3, this);
             }

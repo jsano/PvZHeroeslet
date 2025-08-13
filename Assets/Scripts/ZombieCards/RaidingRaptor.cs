@@ -10,7 +10,7 @@ public class RaidingRaptor : Card
     {
         if (hurt.Item2 == this && hurt.Item1 == GameManager.Instance.plantHero)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             int id = AllCards.RandomFromCost(team, (0, 1, 2));
             yield return GameManager.Instance.GainHandCard(team, id);
         }
@@ -21,7 +21,7 @@ public class RaidingRaptor : Card
     {
 		if (t == team)
 		{
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             ChangeStats(2, 0);
         }
         yield return base.OnCardDraw(t);

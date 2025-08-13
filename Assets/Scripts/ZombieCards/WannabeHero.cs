@@ -7,7 +7,7 @@ public class WannabeHero : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		yield return new WaitForSeconds(1);
+		yield return Glow();
 		yield return GameManager.Instance.zombieHero.Heal(3);
 		ChangeStats(0, GameManager.Instance.zombieHero.HP);
 		yield return base.OnThisPlay();

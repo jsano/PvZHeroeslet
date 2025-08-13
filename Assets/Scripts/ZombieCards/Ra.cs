@@ -7,8 +7,8 @@ public class Ra : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		yield return new WaitForSeconds(1);
-		yield return GameManager.Instance.UpdateRemaining(-2, Team.Plant);
+        yield return Glow();
+        yield return GameManager.Instance.UpdateRemaining(-2, Team.Plant);
 		yield return base.OnThisPlay();
 	}
 

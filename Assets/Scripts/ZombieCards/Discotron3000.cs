@@ -27,7 +27,7 @@ public class Discotron3000 : Card
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
         yield return base.OnSelection(bc);
-        yield return new WaitForSeconds(1);
+        yield return Glow();
 		Tile t = bc.GetComponent<Tile>();
 		Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Disco Zombie")]);
 		Tile.zombieTiles[t.row, t.col].Plant(card);

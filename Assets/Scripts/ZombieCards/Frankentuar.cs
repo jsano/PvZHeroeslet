@@ -10,7 +10,7 @@ public class Frankentuar : Card
     {
         if (died.Item1.team == Team.Zombie)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             ChangeStats(1, 1);
         }
         yield return base.OnCardDeath(died);

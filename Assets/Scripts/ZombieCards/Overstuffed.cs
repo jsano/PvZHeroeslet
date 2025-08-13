@@ -10,7 +10,7 @@ public class Overstuffed : Card
     {
         if (died.Item1.team == Team.Plant && died.Item2 == this && !died.Item2.died)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             StartCoroutine(Heal(2000));
             yield return GameManager.Instance.zombieHero.Heal(2);
         }

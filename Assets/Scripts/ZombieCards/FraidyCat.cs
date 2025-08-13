@@ -17,7 +17,7 @@ public class FraidyCat : Card
                     choices.Add(Tile.zombieTiles[row, j].GetComponent<BoxCollider2D>());
                 }
             }
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             if (choices.Count > 0)
             {
                 var choice = choices[Random.Range(0, choices.Count)];

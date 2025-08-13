@@ -39,4 +39,14 @@ public class SmashingGargantuar : Card
         yield return base.OnCardDeath(died);
     }
 
+    void OnDestroy()
+    {
+        if (died) return;
+        for (int col = 0; col < 5; col++)
+        {
+            if (Tile.zombieTiles[0, col].HasRevealedPlanted() && Tile.zombieTiles[0, col].planted.tribes.Contains(Tribe.Gargantuar))
+                Tile.zombieTiles[0, col].planted.frenzy -= 1;
+        }
+    }
+
 }

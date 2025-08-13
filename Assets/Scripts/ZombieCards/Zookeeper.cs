@@ -11,7 +11,8 @@ public class Zookeeper : Card
 		{
 			if (played.tribes.Contains(Tribe.Pet))
 			{
-				for (int col = 0; col < 5; col++)
+                yield return Glow();
+                for (int col = 0; col < 5; col++)
 				{
 					Card c = Tile.zombieTiles[0, col].planted;
 					if (c != null && c.tribes.Contains(Tribe.Pet))

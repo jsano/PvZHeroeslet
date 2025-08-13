@@ -7,8 +7,8 @@ public class Regifting : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-        yield return new WaitForSeconds(1);
-		int id = AllCards.RandomFromCost(Team.Zombie, (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
+        yield return Glow();
+        int id = AllCards.RandomFromCost(Team.Zombie, (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
 		FinalStats fs = new(id);
 		fs.atk += 1;
 		//fs.hp += 1;

@@ -17,7 +17,7 @@ public class TombRaiser : Card
             }
             if (choices.Count > 0)
             {
-                yield return new WaitForSeconds(1);
+                yield return Glow();
                 var choice = choices[UnityEngine.Random.Range(0, choices.Count)];
                 yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col + " - " + RandomGravestone());
                 Tile t = Tile.zombieTiles[int.Parse(GameManager.Instance.GetShuffledList()[0]), int.Parse(GameManager.Instance.GetShuffledList()[1])];

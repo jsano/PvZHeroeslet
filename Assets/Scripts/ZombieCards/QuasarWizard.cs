@@ -10,7 +10,7 @@ public class QuasarWizard : Card
 	{
         if (col > 0 && Tile.zombieTiles[0, col - 1].HasRevealedPlanted() || col < 4 && Tile.zombieTiles[0, col + 1].HasRevealedPlanted())
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             yield return GameManager.Instance.GainHandCard(team, AllCards.RandomFromTribe((Tribe.Superpower, Tribe.Superpower), false, false, team));
         }
 		

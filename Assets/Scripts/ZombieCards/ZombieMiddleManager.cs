@@ -8,7 +8,7 @@ public class ZombieMiddleManager : Card
 
     protected override IEnumerator OnThisPlay()
     {
-		yield return new WaitForSeconds(1);
+		yield return Glow();
 		yield return GameManager.Instance.GainHandCard(team, AllCards.RandomFromTribe((Tribe.Professional, Tribe.Professional)));
         yield return base.OnThisPlay();
     }
@@ -17,7 +17,7 @@ public class ZombieMiddleManager : Card
 	{
 		if (hurt.Item1.GetComponent<Card>() != null && ((Card)hurt.Item1).tribes.Contains(Tribe.Professional))
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			ChangeStats(1, 0);
 		}
 		yield return base.OnCardHurt(hurt);

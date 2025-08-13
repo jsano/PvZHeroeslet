@@ -11,7 +11,7 @@ public class MustacheWaxer : Card
 		{
 			if (played.tribes.Contains(Tribe.Mustache))
 			{
-                yield return new WaitForSeconds(1);
+                yield return Glow();
                 ChangeStats(0, 2);
 				yield return GameManager.Instance.UpdateRemaining(1, team);
 			}

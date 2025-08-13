@@ -960,7 +960,7 @@ public class Card : Damagable
     public IEnumerator Glow()
     {
         LeanTween.alpha(glow, 1, 0.5f).setOnComplete(() => LeanTween.alpha(glow, 0, 0.5f));
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.75f);
     }
 
     void OnMouseDown()

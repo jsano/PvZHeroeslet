@@ -18,7 +18,8 @@ public class SpaceNinja : Card
 			{
 				if (Tile.plantTiles[i, col].planted != null) targets.Add(Tile.plantTiles[i, col].planted);
 			}
-			yield return AttackFXs(targets);
+            yield return Glow();
+            yield return AttackFXs(targets);
 
 			foreach (Damagable d in targets) StartCoroutine(d.ReceiveDamage(1, this));
 		}

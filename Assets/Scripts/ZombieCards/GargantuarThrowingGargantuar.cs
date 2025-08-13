@@ -17,7 +17,7 @@ public class GargantuarThrowingGargantuar : Card
             }
             if (columns.Count > 0)
             {
-                yield return new WaitForSeconds(1);
+                yield return Glow();
                 yield return SyncRandomChoiceAcrossNetwork(columns[UnityEngine.Random.Range(0, columns.Count)] + " - " + AllCards.RandomFromTribe((Tribe.Gargantuar, Tribe.Gargantuar), true));
                 Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[1])]).GetComponent<Card>();
                 Tile.zombieTiles[0, int.Parse(GameManager.Instance.GetShuffledList()[0])].Plant(c);

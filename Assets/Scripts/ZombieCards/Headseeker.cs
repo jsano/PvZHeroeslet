@@ -9,7 +9,7 @@ public class Headseeker : Card
     {
         if (evolved)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             bullseye += 1;
             ChangeStats(2, 2);
         }
@@ -20,6 +20,7 @@ public class Headseeker : Card
 	{
 		if (played != this && played.tribes.Contains(Tribe.Dancing))
 		{
+            yield return Glow();
             yield return AttackFX(Tile.plantHeroTiles[col]);
             yield return Tile.plantHeroTiles[col].ReceiveDamage(2, this, bullseye > 0);
 		}

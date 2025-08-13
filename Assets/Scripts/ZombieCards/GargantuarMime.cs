@@ -9,8 +9,8 @@ public class GargantuarMime : Card
 	{
 		if (!attacked.tribes.Contains(Tribe.Mime))
 		{
-			yield return new WaitForSeconds(1);
-			yield return BonusAttack();
+            yield return Glow();
+            yield return BonusAttack();
 			yield return base.OnCardBonusAttack(attacked);
 		}
     }

@@ -9,7 +9,7 @@ public class Paparazzi : Card
 	{
 		if (played.type == Type.Trick && played.team == Team.Zombie)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			ChangeStats(1, 1);
 		}
         yield return base.OnCardPlay(played);

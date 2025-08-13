@@ -8,7 +8,7 @@ public class CosmicDancer : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		yield return new WaitForSeconds(1);
+        yield return Glow();
         int id = AllCards.RandomFromTribe((Tribe.Dancing, Tribe.Dancing));
         FinalStats fs = new(id, true);
         fs.abilities += "overshoot2";

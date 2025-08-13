@@ -10,7 +10,7 @@ public class DrSpacetime : Card
     {
         if (hurt.Item2 == this && hurt.Item1 == GameManager.Instance.plantHero)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             int id = AllCards.RandomFromCost(team, (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)); // TODO: GALACTIC
             yield return GameManager.Instance.GainHandCard(team, id);
         }

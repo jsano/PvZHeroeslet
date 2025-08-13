@@ -9,8 +9,8 @@ public class ZombieHighDiver : Card
 	{
 		if (col == 0)
 		{
-			yield return new WaitForSeconds(1);
-			ChangeStats(1, 1);
+            yield return Glow();
+            ChangeStats(1, 1);
 			Move(row, 4);
 		}
 		yield return base.OnThisPlay();

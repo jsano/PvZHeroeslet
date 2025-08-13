@@ -9,7 +9,7 @@ public class HeadstoneCarver : Card
 	{
 		if (played != this && played.baseGravestone)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			played.ChangeStats(1, 1);
 		}
 		yield return base.OnCardPlay(played);

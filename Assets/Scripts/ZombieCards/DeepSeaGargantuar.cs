@@ -8,7 +8,11 @@ public class DeepSeaGargantuar : Card
 
 	protected override IEnumerator OnCardMoved(Card moved)
 	{
-		if (moved.team == Team.Zombie) moved.ChangeStats(1, 1);
+		if (moved.team == Team.Zombie)
+		{
+            yield return Glow();
+            moved.ChangeStats(1, 1);
+		}
 		yield return base.OnCardMoved(moved);
 	}
 

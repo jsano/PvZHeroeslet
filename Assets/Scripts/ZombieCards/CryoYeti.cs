@@ -27,13 +27,13 @@ public class CryoYeti : Card
     protected override IEnumerator OnSelection(BoxCollider2D bc)
     {
         yield return base.OnSelection(bc);
-        yield return new WaitForSeconds(1);
+        yield return Glow();
         bc.GetComponent<Tile>().planted.Freeze();
     }
 
     protected override IEnumerator OnCardFreeze(Card frozen)
     {
-        yield return new WaitForSeconds(1);
+        yield return Glow();
         ChangeStats(2, 2);
         yield return base.OnCardFreeze(frozen);
     }

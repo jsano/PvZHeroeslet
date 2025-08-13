@@ -7,8 +7,8 @@ public class TurquoiseSkull : Card
 
 	protected override IEnumerator OnTurnStart()
 	{
-		yield return new WaitForSeconds(1);
-		yield return GameManager.Instance.UpdateRemaining(-1, Team.Plant);
+        yield return Glow();
+        yield return GameManager.Instance.UpdateRemaining(-1, Team.Plant);
 		ChangeStats(1, 1);
 		yield return base.OnTurnStart();
 	}

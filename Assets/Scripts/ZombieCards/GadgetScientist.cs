@@ -7,7 +7,8 @@ public class GadgetScientist : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		for (int i = 0; i < 5; i++)
+        yield return Glow();
+        for (int i = 0; i < 5; i++)
 		{
 			if (Tile.zombieTiles[0, i].HasRevealedPlanted() && Tile.zombieTiles[0, i].planted.tribes.Contains(Tribe.Science)) yield return Tile.zombieTiles[0, i].planted.BonusAttack();
 		}

@@ -9,8 +9,8 @@ public class MondoBronto : Card
 	{
 		if (team == this.team)
 		{
-			yield return new WaitForSeconds(1);
-			ChangeStats(1, 1);
+            yield return Glow();
+            ChangeStats(1, 1);
 			for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].planted != null) Tile.plantTiles[i, col].planted.Destroy();
         }
 		yield return base.OnCardDraw(team);

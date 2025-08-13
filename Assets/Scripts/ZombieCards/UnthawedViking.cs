@@ -9,7 +9,7 @@ public class UnthawedViking : Card
 	{
 		if (evolved)
 		{
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             ChangeStats(1, 1);
 			for (int col = 0; col < 5; col++)
 			{
@@ -21,7 +21,7 @@ public class UnthawedViking : Card
 		}
 		else
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			for (int row = 0; row < 2; row++)
 			{
 				if (Tile.plantTiles[row, col].planted != null) Tile.plantTiles[row, col].planted.Freeze();

@@ -10,7 +10,7 @@ public class ZombotSharktronicSub : Card
 	{
 		if (hurt.Item1.GetComponent<Card>() != null && ((Card)hurt.Item1).team == Team.Plant)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			((Card)hurt.Item1).Destroy();
 		}
 		yield return base.OnCardHurt(hurt);
@@ -20,7 +20,7 @@ public class ZombotSharktronicSub : Card
     {
         if (died.Item1.team == Team.Plant)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             ChangeStats(1, 0);
         }
         yield return base.OnCardDeath(died);

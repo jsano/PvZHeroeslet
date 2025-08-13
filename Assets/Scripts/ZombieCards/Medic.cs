@@ -32,8 +32,8 @@ public class Medic : Card
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
         yield return base.OnSelection(bc);
-		yield return new WaitForSeconds(1);
-		Tile t = bc.GetComponent<Tile>();
+        yield return Glow();
+        Tile t = bc.GetComponent<Tile>();
 		if (t == null) yield return GameManager.Instance.zombieHero.Heal(4);
 		else yield return t.planted.Heal(4);
     }

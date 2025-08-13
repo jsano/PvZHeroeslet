@@ -25,7 +25,7 @@ public class FireRooster : Card
             }
             if (choices.Count > 0)
             {
-                yield return new WaitForSeconds(1);
+                yield return Glow();
                 var choice = choices[Random.Range(0, choices.Count)];
                 yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col);
                 Move(int.Parse(GameManager.Instance.GetShuffledList()[0]), int.Parse(GameManager.Instance.GetShuffledList()[1]));
@@ -44,6 +44,7 @@ public class FireRooster : Card
     {
         List<Damagable> targets = new();
         for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].planted != null) targets.Add(Tile.plantTiles[i, col].planted);
+        yield return Glow();
         yield return AttackFXs(targets);
         foreach (Damagable c in targets) StartCoroutine(c.ReceiveDamage(1, this, bullseye > 0, deadly > 0));
     }

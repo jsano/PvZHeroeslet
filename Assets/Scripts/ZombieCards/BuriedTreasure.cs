@@ -10,7 +10,8 @@ public class BuriedTreasure : Card
 		int id = AllCards.RandomFromCost(team, (7, 8, 9, 10, 11, 12));
 		FinalStats fs = new(id);
 		fs.cost -= 1;
-		yield return GameManager.Instance.GainHandCard(team, id, fs); // TODO: LEGENDARIES
+        yield return Glow();
+        yield return GameManager.Instance.GainHandCard(team, id, fs); // TODO: LEGENDARIES
 		yield return base.Fusion(parent);
     }
 

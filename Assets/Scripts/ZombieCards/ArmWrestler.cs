@@ -9,8 +9,8 @@ public class ArmWrestler : Card
 	{
 		if (played.col == col && played.type == Type.Unit && played.team == Team.Plant && played != this)
 		{
-			yield return new WaitForSeconds(1);
-			ChangeStats(1, 1);
+            yield return Glow();
+            ChangeStats(1, 1);
 		}
 		yield return base.OnCardPlay(played);
 	}

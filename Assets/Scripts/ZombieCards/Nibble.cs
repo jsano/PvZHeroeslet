@@ -6,8 +6,8 @@ public class Nibble : Card
 {
 	protected override IEnumerator OnThisPlay()
 	{
-		yield return new WaitForSeconds(1);
-		Tile.plantTiles[row, col].planted.ChangeStats(-1, -1);
+        yield return Glow();
+        Tile.plantTiles[row, col].planted.ChangeStats(-1, -1);
 		yield return GameManager.Instance.zombieHero.Heal(2);
 		yield return base.OnThisPlay();
 	}

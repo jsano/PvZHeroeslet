@@ -13,8 +13,8 @@ public class CatLady : Card
 		{
 			if (played.tribes.Contains(Tribe.Pet))
 			{
-				yield return new WaitForSeconds(1);
-				ChangeStats(3, 0);
+                yield return Glow();
+                ChangeStats(3, 0);
 				added += 3;
 			}
 		}

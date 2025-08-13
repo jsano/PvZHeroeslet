@@ -10,8 +10,8 @@ public class ShieldcrusherViking : Card
 	{
 		if (hurt.Item2 == this && hurt.Item1 == GameManager.Instance.plantHero)
 		{
-			yield return new WaitForSeconds(1);
-			GameManager.Instance.plantHero.StealBlock(10);
+            yield return Glow();
+            GameManager.Instance.plantHero.StealBlock(10);
 		}
 		yield return base.OnCardHurt(hurt);
 	}

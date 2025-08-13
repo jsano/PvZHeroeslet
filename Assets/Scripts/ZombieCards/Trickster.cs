@@ -7,7 +7,8 @@ public class Trickster : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		yield return BonusAttack();
+        yield return Glow();
+        yield return BonusAttack();
 		yield return base.OnThisPlay();
 	}
 

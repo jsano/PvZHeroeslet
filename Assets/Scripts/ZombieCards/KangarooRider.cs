@@ -10,8 +10,8 @@ public class KangarooRider : Card
 	{
 		if (hurt.Item1 == this && !died)
 		{
-			yield return new WaitForSeconds(1);
-			Bounce();
+            yield return Glow();
+            Bounce();
 		}
 		yield return base.OnCardHurt(hurt);
 	}

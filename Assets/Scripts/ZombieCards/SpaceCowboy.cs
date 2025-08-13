@@ -10,7 +10,7 @@ public class SpaceCowboy : Card
 	{
 		if (hurt.Item2 == this && hurt.Item1.GetComponent<Hero>() != null && col <= 3) 
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			Move(row, col + 1);
         }
 		yield return base.OnCardHurt(hurt);

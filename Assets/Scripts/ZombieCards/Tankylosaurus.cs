@@ -15,7 +15,7 @@ public class Tankylosaurus : Card
                     if (Tile.plantTiles[i, j].planted != null) choices.Add(Tile.plantTiles[i, j].GetComponent<BoxCollider2D>());
                 }
             choices.Add(GameManager.Instance.plantHero.GetComponent<BoxCollider2D>());
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             var choice = choices[Random.Range(0, choices.Count)];
             if (choice.GetComponent<Hero>() != null) yield return SyncRandomChoiceAcrossNetwork(-1 + " - " + -1);
             else yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col);

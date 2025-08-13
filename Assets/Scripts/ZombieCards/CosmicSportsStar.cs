@@ -8,7 +8,7 @@ public class CosmicSportsStar : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		yield return new WaitForSeconds(1);
+		yield return Glow();
         int id = AllCards.RandomFromTribe((Tribe.Sports, Tribe.Sports));
         FinalStats fs = new(id, true);
         fs.cost -= 2;

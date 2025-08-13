@@ -27,8 +27,8 @@ public class Disco : Card
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
         yield return base.OnSelection(bc);
-        yield return new WaitForSeconds(1);
-		Tile t = bc.GetComponent<Tile>();
+        yield return Glow();
+        Tile t = bc.GetComponent<Tile>();
 		Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Backup Dancer")]);
 		Tile.zombieTiles[t.row, t.col].Plant(card);
     }

@@ -8,15 +8,16 @@ public class Yeti : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		yield return new WaitForSeconds(1);
+		yield return Glow();
 		yield return GameManager.Instance.GainHandCard(team, AllCards.NameToID("Yeti Lunchbox"));
 		yield return base.OnThisPlay();
 	}
 
     protected override IEnumerator OnTurnEnd()
     {
-		Bounce();
-        return base.OnTurnEnd();
+        yield return Glow();
+        Bounce();
+        yield return base.OnTurnEnd();
     }
 
 }

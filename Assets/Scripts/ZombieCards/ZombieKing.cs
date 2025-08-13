@@ -13,8 +13,8 @@ public class ZombieKing : Card
             if (Tile.zombieTiles[0, col].HasRevealedPlanted() && Tile.zombieTiles[0, col].planted != this) locations.Add(col);
         }
         if (locations.Count > 0)
-        {   
-            yield return new WaitForSeconds(1);
+        {
+            yield return Glow();
             yield return SyncRandomChoiceAcrossNetwork(locations[Random.Range(0, locations.Count)] + "");
             int chosen = int.Parse(GameManager.Instance.GetShuffledList()[0]);
             Destroy(Tile.zombieTiles[0, chosen].planted.gameObject);

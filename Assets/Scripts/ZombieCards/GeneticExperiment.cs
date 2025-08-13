@@ -10,7 +10,7 @@ public class GeneticExperiment : Card
 	{
         if (col > 0 && Tile.zombieTiles[0, col - 1].HasRevealedPlanted() || col < 4 && Tile.zombieTiles[0, col + 1].HasRevealedPlanted())
         {
-            //yield return new WaitForSeconds(1);
+            yield return Glow();
             ChangeStats(1, 1);
         }
 		

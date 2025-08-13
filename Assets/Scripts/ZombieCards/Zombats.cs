@@ -10,8 +10,8 @@ public class Zombats : Card
 	{
 		if (hurt.Item2 == this && hurt.Item1.GetComponent<Card>() != null && hurt.Item1.GetComponent<Card>().team == Team.Plant)
 		{
-			yield return new WaitForSeconds(1);
-			yield return GameManager.Instance.DrawCard(team);
+            yield return Glow();
+            yield return GameManager.Instance.DrawCard(team);
 		}
 		yield return base.OnCardHurt(hurt);
 	}

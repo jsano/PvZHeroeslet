@@ -11,8 +11,8 @@ public class PiedPiper : Card
 		Card c1 = Tile.plantTiles[1, col].planted;
 		if (c != null || c1 != null)
 		{
-			yield return new WaitForSeconds(1);
-			if (c != null) c.ChangeStats(-1, -1);
+            yield return Glow();
+            if (c != null) c.ChangeStats(-1, -1);
 			if (c1 != null) c1.ChangeStats(-1, -1);
 		}
 		yield return base.OnThisPlay();

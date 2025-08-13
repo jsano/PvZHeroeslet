@@ -10,7 +10,7 @@ public class KingOfTheGrill : Card
     {
         if (died.Item1.team == Team.Plant && died.Item2 != null && died.Item2.tribes.Contains(Tribe.Gargantuar))
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             yield return GameManager.Instance.GainHandCard(team, AllCards.RandomFromTribe((Tribe.Gourmet, Tribe.Gourmet)));
         }
         yield return base.OnCardDeath(died);

@@ -27,7 +27,7 @@ public class Excavator : Card
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
         yield return base.OnSelection(bc);
-        yield return new WaitForSeconds(1);
+        yield return Glow();
 		Tile t = bc.GetComponent<Tile>();
 		if (Tile.plantTiles[1, t.col].planted != null) Tile.plantTiles[1, t.col].planted.Bounce();
         if (Tile.plantTiles[0, t.col].planted != null) Tile.plantTiles[0, t.col].planted.Bounce();

@@ -10,7 +10,7 @@ public class ImpCommander : Card
 	{
 		if (hurt.Item2.tribes.Contains(Tribe.Imp) && hurt.Item1.GetComponent<Hero>() != null) 
 		{
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             yield return GameManager.Instance.DrawCard(team);
 		}
 		yield return base.OnCardHurt(hurt);

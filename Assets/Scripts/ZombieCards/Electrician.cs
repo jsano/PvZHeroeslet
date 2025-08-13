@@ -30,7 +30,8 @@ public class Electrician : Card
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
         yield return base.OnSelection(bc);
-		yield return bc.GetComponent<Tile>().planted.BonusAttack();
+        yield return Glow();
+        yield return bc.GetComponent<Tile>().planted.BonusAttack();
     }
 
 }

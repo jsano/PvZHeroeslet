@@ -10,7 +10,7 @@ public class Vimpire : Card
     {
         if (died.Item2 == this && died.Item1.team == Team.Plant)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             ChangeStats(2, 2);
         }
         yield return base.OnCardDeath(died);

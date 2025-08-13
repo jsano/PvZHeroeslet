@@ -10,7 +10,7 @@ public class CheeseCutter : Card
 	{
 		if (hurt.Item2 == this && hurt.Item1 == GameManager.Instance.plantHero) 
 		{
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             int id = AllCards.RandomFromTribe((Tribe.Gourmet, Tribe.Gourmet));
             FinalStats fs = new(id);
             fs.cost -= 1;

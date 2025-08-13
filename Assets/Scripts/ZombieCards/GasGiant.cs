@@ -17,6 +17,7 @@ public class GasGiant : Card
                     if (Tile.plantTiles[i, j].planted != null) targets.Add(Tile.plantTiles[i, j].planted);
                     if (Tile.zombieTiles[i, j].planted != null && Tile.zombieTiles[i, j].planted != this) targets.Add(Tile.zombieTiles[i, j].planted);
                 }
+            yield return Glow();
             yield return AttackFXs(targets);
             foreach (Damagable d in targets) StartCoroutine(d.ReceiveDamage(1, this));
         }
@@ -27,6 +28,7 @@ public class GasGiant : Card
 	{
         if (died.Item1 == this)
         {
+            yield return Glow();
             yield return AttackFX(Tile.plantHeroTiles[col]);
             yield return Tile.plantHeroTiles[col].ReceiveDamage(5, this);
         }

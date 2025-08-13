@@ -39,4 +39,14 @@ public class ToxicWasteImp : Card
         yield return base.OnCardDeath(died);
     }
 
+    void OnDestroy()
+    {
+        if (died) return;
+        for (int col = 0; col < 5; col++)
+        {
+            if (Tile.zombieTiles[0, col].HasRevealedPlanted() && Tile.zombieTiles[0, col].planted.tribes.Contains(Tribe.Imp))
+                Tile.zombieTiles[0, col].planted.deadly -= 1;
+        }
+    }
+
 }

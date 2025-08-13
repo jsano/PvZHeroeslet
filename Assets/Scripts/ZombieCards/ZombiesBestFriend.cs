@@ -31,7 +31,7 @@ public class ZombiesBestFriend : Card
     protected override IEnumerator OnSelection(BoxCollider2D bc)
     {
         yield return base.OnSelection(bc);
-        yield return new WaitForSeconds(1);
+        yield return Glow();
         Tile t = bc.GetComponent<Tile>();
         yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(team, (1, 1), true) + "");
         Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[0])]);

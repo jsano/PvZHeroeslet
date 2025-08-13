@@ -12,7 +12,7 @@ public class MadChemist : Card
 		if (played.type == Type.Trick && played.team == Team.Zombie && first)
 		{
 			first = false;
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			int card = AllCards.RandomTrick(team);
 			FinalStats fs = new(card);
 			fs.cost -= 1;

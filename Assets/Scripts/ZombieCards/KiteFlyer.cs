@@ -10,7 +10,7 @@ public class KiteFlyer : Card
 	{
 		if (hurt.Item2 == this) 
 		{
-            yield return new WaitForSeconds(1);
+            yield return Glow();
 			yield return GameManager.Instance.DrawCard(team);
 		}
 		yield return base.OnCardHurt(hurt);

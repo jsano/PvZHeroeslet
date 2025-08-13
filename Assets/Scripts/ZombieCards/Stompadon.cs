@@ -9,7 +9,7 @@ public class Stompadon : Card
 	{
 		if (team == this.team)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			if (GameManager.Instance.team == team) foreach (HandCard hc in GameManager.Instance.GetHandCards()) if (hc.orig.type == Type.Unit)
 					{
 						hc.ChangeAttack(1);

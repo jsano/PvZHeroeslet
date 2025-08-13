@@ -25,7 +25,7 @@ public class SurpriseGargantuar : Card
 	{
         yield return base.OnSelection(bc);
 		Tile t = bc.GetComponent<Tile>();
-		yield return new WaitForSeconds(1);
+		yield return Glow();
 		Move(t.row, t.col);
 	}
 

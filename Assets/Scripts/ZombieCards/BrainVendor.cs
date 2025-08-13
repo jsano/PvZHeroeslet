@@ -7,7 +7,7 @@ public class BrainVendor : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		yield return new WaitForSeconds(1);
+		yield return Glow();
 		yield return GameManager.Instance.UpdateRemaining(3, team);
 		yield return base.OnThisPlay();
 	}

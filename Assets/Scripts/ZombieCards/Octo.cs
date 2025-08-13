@@ -28,8 +28,8 @@ public class Octo : Card
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
         yield return base.OnSelection(bc);
-        yield return new WaitForSeconds(1);
-		Tile t = bc.GetComponent<Tile>();
+        yield return Glow();
+        Tile t = bc.GetComponent<Tile>();
         Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Octo-pet")]);
         Tile.zombieTiles[t.row, t.col].Plant(card);
     }
@@ -38,7 +38,8 @@ public class Octo : Card
 	{
 		if (died.Item1 == this)
 		{
-			yield return GameManager.Instance.GainHandCard(team, AllCards.NameToID("Octo Zombie"));
+            yield return Glow();
+            yield return GameManager.Instance.GainHandCard(team, AllCards.NameToID("Octo Zombie"));
 		}
 		yield return base.OnCardDeath(died);
 	}

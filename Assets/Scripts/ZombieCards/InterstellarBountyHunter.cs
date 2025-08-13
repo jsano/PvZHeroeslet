@@ -10,7 +10,7 @@ public class InterstellarBountyHunter : Card
     {
         if (died.Item2 == this && died.Item1.team == Team.Plant)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             yield return GameManager.Instance.DrawCard(team);
         }
         yield return base.OnCardDeath(died);

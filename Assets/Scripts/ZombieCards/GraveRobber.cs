@@ -9,7 +9,7 @@ public class GraveRobber : Card
 	{
 		if (played != this && played.baseGravestone)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			ChangeStats(1, 0);
 		}
 		yield return base.OnCardPlay(played);

@@ -27,7 +27,7 @@ public class BiodomeBotanist : Card
 	protected override IEnumerator OnSelection(BoxCollider2D bc)
 	{
         yield return base.OnSelection(bc);
-        yield return new WaitForSeconds(1);
+        yield return Glow();
 		Tile t = bc.GetComponent<Tile>();
         string[] options = new string[] { "Weenie Beanie", "Peashooter", "Button Mushroom", "Bellflower", "Small-nut" };
 		yield return SyncRandomChoiceAcrossNetwork(options[UnityEngine.Random.Range(0, options.Length)]);

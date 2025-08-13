@@ -36,7 +36,7 @@ public class WizardGargantuar : Card
 		Tile t = bc.GetComponent<Tile>();
 		Card toDestroy = t.planted;
         t.Unplant(true);
-        yield return new WaitForSeconds(1);
+        yield return Glow();
         yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(Team.Zombie, (toDestroy.cost + 1, toDestroy.cost + 1), true, toDestroy.col == 4) + "");
         Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[0])]);
         Tile.zombieTiles[toDestroy.row, toDestroy.col].Plant(c);
@@ -61,6 +61,16 @@ public class WizardGargantuar : Card
                 }
             }
         yield return base.OnCardDeath(died);
+    }
+
+    void OnDestroy()
+    {
+        if (died) return;
+        for (int col = 0; col < 5; col++)
+        {
+            if (Tile.zombieTiles[0, col].HasRevealedPlanted() && Tile.zombieTiles[0, col].planted.tribes.Contains(Tribe.Gargantuar))
+                Tile.zombieTiles[0, col].planted.bullseye -= 1;
+        }
     }
 
 }

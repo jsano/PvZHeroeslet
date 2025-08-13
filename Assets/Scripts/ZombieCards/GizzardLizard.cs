@@ -14,7 +14,8 @@ public class GizzardLizard : Card
 			{
 				if (Tile.plantTiles[i, j].planted != null) targets.Add(Tile.plantTiles[i, j].planted);
 			}
-			yield return AttackFXs(targets);
+            yield return Glow();
+            yield return AttackFXs(targets);
 			foreach (Damagable c in targets) StartCoroutine(c.ReceiveDamage(3, this));
 		}
 		yield return base.OnThisPlay();

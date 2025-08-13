@@ -10,7 +10,7 @@ public class ZombotDroneEngineer : Card
 	{
 		if (hurt.Item2.tribes.Contains(Tribe.Science)) 
 		{
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             hurt.Item2.ChangeStats(1, 0);
 		}
 		yield return base.OnCardHurt(hurt);

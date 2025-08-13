@@ -33,7 +33,7 @@ public class MixedupGravedigger: Card
 			}
 			string s = columns[0] + "";
 			for (int i = 1; i < columns.Count; i++) s += " - " + columns[i];
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			yield return SyncRandomChoiceAcrossNetwork(s);
 			for (int i = 0; i < zombies.Count; i++)
 			{
