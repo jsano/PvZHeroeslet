@@ -50,11 +50,7 @@ public class DiscoNaut : Card
     {
         if (died.Item1 == this)
         {
-            foreach (Card c in buffed) if (c != null)
-                {
-                    c.bullseye -= 1;
-                    buffed.Remove(c);
-                }
+            foreach (Card c in buffed) if (c != null) c.bullseye -= 1;
         }
         yield return base.OnCardDeath(died);
     }

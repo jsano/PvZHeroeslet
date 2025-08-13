@@ -20,7 +20,7 @@ public class IronBoarder : Card
 
     protected override IEnumerator OnCardPlay(Card played)
     {
-        if (played.type == Type.Terrain && !buffed)
+        if (played.type == Type.Terrain && played.col == col && !buffed)
         {
             ChangeStats(1, 1);
             buffed = true;
@@ -45,5 +45,15 @@ public class IronBoarder : Card
         }
 		yield return base.OnCardMoved(moved);
 	}
+
+    protected override IEnumerator OnCardBounce(Card bounced)
+    {
+        if (Tile.terrainTiles[col].planted == null && buffed)
+        {
+            ChangeStats(-1, -1);
+            buffed = false;
+        }
+        yield return base.OnCardBounce(bounced);
+    }
 
 }

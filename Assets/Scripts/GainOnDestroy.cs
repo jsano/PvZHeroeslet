@@ -12,7 +12,7 @@ public class GainOnDestroy : Card
 	{
 		if (died.Item1 == this)
 		{
-			yield return new WaitForSeconds(1);
+			yield return Glow();
 			yield return GameManager.Instance.GainHandCard(team, AllCards.NameToID(toMake.name));
 		}
 		yield return base.OnCardDeath(died);

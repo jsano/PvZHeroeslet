@@ -439,11 +439,17 @@ public class Card : Damagable
         Destroy(gameObject);
     }
 
-	/// <summary>
-	/// Called whenever a card on the field moves
-	/// </summary>
-	/// <param name="moved"> The card that moved </param>
-	protected virtual IEnumerator OnCardMoved(Card moved)
+    void OnDestroy()
+    {
+        if (died) return;
+        if (fusionBase != null) Destroy(fusionBase.gameObject);
+    }
+
+    /// <summary>
+    /// Called whenever a card on the field moves
+    /// </summary>
+    /// <param name="moved"> The card that moved </param>
+    protected virtual IEnumerator OnCardMoved(Card moved)
 	{
 		yield return null;
 	}
@@ -548,7 +554,7 @@ public class Card : Damagable
     {
         if (overshoot > 0 && !gravestone)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             yield return AttackFX(team == Team.Plant ? Tile.zombieHeroTiles[col] : Tile.plantHeroTiles[col]);
             yield return team == Team.Plant ? GameManager.Instance.zombieHero.ReceiveDamage(overshoot, this, bullseye > 0) : GameManager.Instance.plantHero.ReceiveDamage(overshoot, this, bullseye > 0);
         }
@@ -959,8 +965,8 @@ public class Card : Damagable
 
     public IEnumerator Glow()
     {
-        LeanTween.alpha(glow, 1, 0.5f).setOnComplete(() => LeanTween.alpha(glow, 0, 0.5f));
-        yield return new WaitForSeconds(0.75f);
+        LeanTween.alpha(glow, 1, 0.5f).setRepeat(2).setLoopPingPong().setOnComplete(() => glow.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0));
+        yield return new WaitForSeconds(1f);
     }
 
     void OnMouseDown()

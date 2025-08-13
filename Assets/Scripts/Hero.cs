@@ -64,7 +64,7 @@ public class Hero : Damagable
 			Card s = Tile.IsOnField("Soul Patch");
 			if (s != null)
 			{
-				yield return new WaitForSeconds(0.5f);
+				yield return s.Glow();
 				yield return s.ReceiveDamage(dmg, source);
 				yield break;
 			}
@@ -73,12 +73,16 @@ public class Hero : Damagable
         if (team == Card.Team.Zombie)
 		{
             Card s = Tile.IsOnField("Undying Pharaoh");
-            if (s != null) dmg = Math.Min(dmg, HP - 1);
+			if (s != null)
+			{
+				StartCoroutine(s.Glow());
+				dmg = Math.Min(dmg, HP - 1);
+			}
 
             s = Tile.IsOnField("Planetary Gladiator");
             if (s != null)
             {
-                yield return new WaitForSeconds(0.5f);
+				yield return s.Glow();
                 yield return s.ReceiveDamage(dmg, source);
 				yield break;
             }
