@@ -19,10 +19,9 @@ public class Pecanolith : Card
 		yield return base.OnThisPlay();
 	}
 
-    protected override IEnumerator OnCardPlay(Card played)
+    protected override void OnCardPlayImmediate(Card played)
     {
         played.strengthHeart += 1;
-        yield return base.OnCardPlay(played);
     }
 
     protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)

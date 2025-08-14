@@ -19,13 +19,12 @@ public class UntrickableNextDoor : Card
         yield return base.OnThisPlay();
     }
 
-    protected override IEnumerator OnCardPlay(Card played)
+    protected override void OnCardPlayImmediate(Card played)
     {
         if (played != this && played.type == Type.Unit && played.team == targetTeam && HereAndNextDoor(played.col))
         {
             played.untrickable += 1;
         }
-        yield return base.OnCardPlay(played);
     }
 
     protected override IEnumerator OnCardMoved(Card moved)

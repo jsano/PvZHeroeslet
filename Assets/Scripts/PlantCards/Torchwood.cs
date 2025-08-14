@@ -9,8 +9,8 @@ public class Torchwood : Card
 
 	private Card buffing;
 
-	protected override IEnumerator OnCardPlay(Card played)
-	{
+    protected override void OnCardPlayImmediate(Card played)
+    {
 		if (played == this)
 		{
 			Card temp = Tile.plantTiles[0, col].planted;
@@ -25,7 +25,6 @@ public class Torchwood : Card
 			played.ChangeStats(2, 0);
 			buffing = played;
 		}
-		yield return base.OnCardPlay(played);
 	}
 
 	protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)

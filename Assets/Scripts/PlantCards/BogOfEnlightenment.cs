@@ -13,11 +13,10 @@ public class BogOfEnlightenment : Card
         yield return base.OnThisPlay();
     }
 
-    protected override IEnumerator OnCardPlay(Card played)
+    protected override void OnCardPlayImmediate(Card played)
     {
         if (played.type == Type.Unit && played.team == Team.Plant && played.col == col && played.amphibious) played.ChangeStats(2, 0);
         if (played.type == Type.Unit && played.team == Team.Zombie && played.col == col && !played.amphibious) played.ChangeStats(-2, 0);
-        yield return base.OnCardPlay(played);
     }
 
     protected override IEnumerator OnCardMoved(Card moved)

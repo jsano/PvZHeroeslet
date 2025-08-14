@@ -16,14 +16,13 @@ public class LaserBaseAlpha : Card
         yield return base.OnThisPlay();
     }
 
-    protected override IEnumerator OnCardPlay(Card played)
+    protected override void OnCardPlayImmediate(Card played)
     {
         if (played.type == Type.Unit && played.team == Team.Zombie && played.col == col)
         {
             played.strikethrough += 1;
             played.deadly += 1;
         }
-        yield return base.OnCardPlay(played);
     }
 
     protected override IEnumerator OnCardMoved(Card moved)

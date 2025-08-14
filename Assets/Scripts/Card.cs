@@ -261,7 +261,8 @@ public class Card : Damagable
             // Trick play GameEvents should always process last chronologially, so force it to be added first on the stack
             if (type != Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
             else AudioManager.Instance.PlaySFX("Place");
-                StartCoroutine(BeforeOnThisPlay());
+            CallLeftToRight();
+            StartCoroutine(BeforeOnThisPlay());
         }
 		cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
 	}
@@ -393,6 +394,15 @@ public class Card : Damagable
     {
         GameManager.Instance.ClearSelection();
         yield return null;
+    }
+
+    /// <summary>
+    /// Called the instant a card is played. This is not a GameEvent and is meant to be atomic
+    /// </summary>
+    /// <param name="played"> The card that was played </param>
+    protected virtual void OnCardPlayImmediate(Card played)
+    {
+
     }
 
 	/// <summary>
@@ -839,6 +849,7 @@ public class Card : Damagable
         UpdateAntihero();
         GameManager.Instance.currentlySpawningCards += 1;
         //play animation
+        CallLeftToRight();
         GameManager.Instance.DisableHandCards();
         yield return OnThisPlay();
     }
@@ -934,6 +945,19 @@ public class Card : Damagable
         if (strikethrough > 0) return ret;
         ret.RemoveRange(1, ret.Count - 1);
         return ret;
+    }
+
+    private void CallLeftToRight()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            if (Tile.terrainTiles[i].planted != null) Tile.terrainTiles[i].planted.OnCardPlayImmediate(this);
+
+            if (Tile.zombieTiles[0, i].HasRevealedPlanted()) Tile.zombieTiles[0, i].planted.OnCardPlayImmediate(this);
+
+            if (Tile.plantTiles[1, i].planted != null) Tile.plantTiles[1, i].planted.OnCardPlayImmediate(this);
+            if (Tile.plantTiles[0, i].planted != null) Tile.plantTiles[0, i].planted.OnCardPlayImmediate(this);
+        }
     }
 
     /// <summary>

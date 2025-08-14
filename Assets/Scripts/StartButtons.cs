@@ -32,7 +32,7 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(10));
         UserAccounts.allDecks["temp10"].cards = new() {
-            { AllCards.NameToID("Button Mushroom"), 4 },
+            { AllCards.NameToID("Haunted Pumpking"), 4 },
             { AllCards.NameToID("2nd Best Taco of All Time"), 2 },
             { AllCards.NameToID("Lima-Pleurodon"), 4 },
             { AllCards.NameToID("Mushroom Grotto"), 2 },
@@ -55,13 +55,13 @@ public class StartButtons : NetworkBehaviour
     {
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
-            { AllCards.NameToID("Valkyrie"), 2 },
-            { AllCards.NameToID("Sumo Wrestler"), 2 },
+            { AllCards.NameToID("Toxic Waste Imp"), 4 },
+            { AllCards.NameToID("Stupid Cupid"), 4 },
             { AllCards.NameToID("Excavator"), 2 },
             { AllCards.NameToID("Imp-throwing Imp"), 2 },
             { AllCards.NameToID("Fire Rooster"), 2 },
             { AllCards.NameToID("Imposter"), 2 },
-            { AllCards.NameToID("Zombot Plank Walker"), 2 },
+            { AllCards.NameToID("Total Eclipse"), 2 },
             { AllCards.NameToID("Disco-naut"), 4 },
         };
 

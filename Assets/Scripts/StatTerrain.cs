@@ -17,13 +17,12 @@ public class StatTerrain : Card
         yield return base.OnThisPlay();
     }
 
-    protected override IEnumerator OnCardPlay(Card played)
+    protected override void OnCardPlayImmediate(Card played)
     {
         if (played.type == Type.Unit && played.team == targetTeam && played.col == col)
         {
             played.ChangeStats(atkBuff, HPBuff);
         }
-        yield return base.OnCardPlay(played);
     }
 
     protected override IEnumerator OnCardMoved(Card moved)

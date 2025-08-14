@@ -21,14 +21,13 @@ public class DiscoNaut : Card
         yield return base.OnThisPlay();
     }
 
-    protected override IEnumerator OnCardPlay(Card played)
+    protected override void OnCardPlayImmediate(Card played)
     {
         if (played.team == Team.Zombie && played.type == Type.Unit && played.atk <= 2)
         {
             played.bullseye += 1;
             buffed.Add(played);
         }
-        yield return base.OnCardPlay(played);
     }
 
     protected override IEnumerator OnCardStatsChanged(Tuple<Card, int, int> changed)

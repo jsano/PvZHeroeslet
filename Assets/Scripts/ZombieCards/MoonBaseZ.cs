@@ -12,13 +12,12 @@ public class MoonBaseZ : Card
         yield return base.OnThisPlay();
     }
 
-    protected override IEnumerator OnCardPlay(Card played)
+    protected override void OnCardPlayImmediate(Card played)
     {
         if (played.type == Type.Unit && played.team == Team.Zombie && played.col == col)
         {
             played.overshoot = Math.Max(Tile.zombieTiles[0, col].planted.baseOvershoot, 3);
         }
-        yield return base.OnCardPlay(played);
     }
 
     protected override IEnumerator OnCardMoved(Card moved)

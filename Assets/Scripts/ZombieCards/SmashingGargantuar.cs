@@ -19,10 +19,9 @@ public class SmashingGargantuar : Card
 		yield return base.OnThisPlay();
 	}
 
-    protected override IEnumerator OnCardPlay(Card played)
+    protected override void OnCardPlayImmediate(Card played)
     {
         if (played.tribes.Contains(Tribe.Gargantuar)) played.frenzy += 1;
-        yield return base.OnCardPlay(played);
     }
 
     protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)

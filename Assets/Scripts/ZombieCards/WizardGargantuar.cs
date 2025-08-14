@@ -43,10 +43,9 @@ public class WizardGargantuar : Card
 		Destroy(toDestroy.gameObject);
     }
 
-    protected override IEnumerator OnCardPlay(Card played)
+    protected override void OnCardPlayImmediate(Card played)
     {
         if (played.tribes.Contains(Tribe.Gargantuar)) played.bullseye += 1;
-        yield return base.OnCardPlay(played);
     }
 
     protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)

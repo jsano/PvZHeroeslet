@@ -11,7 +11,6 @@ public class StupidCupid : Card
         {
             for (int row = 0; row < 2; row++) if (Tile.plantTiles[row, col].HasRevealedPlanted()) choices.Add(Tile.plantTiles[row, col].GetComponent<BoxCollider2D>());
         }
-        choices.Add(GameManager.Instance.plantHero.GetComponent<BoxCollider2D>());
         if (choices.Count == 1) yield return OnSelection(choices[0]);
         if (choices.Count >= 2)
         {
@@ -29,7 +28,7 @@ public class StupidCupid : Card
         yield return Glow();
         yield return AttackFX(t.planted);
         t.planted.ChangeStats(-t.planted.atk, 0, true);
-        yield return t.planted.ReceiveDamage(1, this, bullseye > 0, Tile.IsOnField("Toxic Waste Imp"));
+        yield return t.planted.ReceiveDamage(1, this, bullseye > 0, deadly > 0);
         
     }
 

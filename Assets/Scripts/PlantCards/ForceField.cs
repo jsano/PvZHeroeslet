@@ -12,13 +12,12 @@ public class ForceField : Card
         yield return base.OnThisPlay();
     }
 
-    protected override IEnumerator OnCardPlay(Card played)
+    protected override void OnCardPlayImmediate(Card played)
     {
         if (played.type == Type.Unit && played.team == Team.Plant && played.col == col)
         {
             played.ToggleInvulnerability(true);
         }
-        yield return base.OnCardPlay(played);
     }
 
     protected override IEnumerator OnCardMoved(Card moved)
