@@ -48,4 +48,11 @@ public class StatTerrain : Card
         yield return base.OnCardDeath(died);
     }
 
+    void OnDestroy()
+    {
+        if (died) return;
+        var targets = targetTeam == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
+        for (int i = 0; i < 2; i++) if (targets[i, col].planted != null) targets[i, col].planted.ChangeStats(-atkBuff, -HPBuff);
+    }
+
 }

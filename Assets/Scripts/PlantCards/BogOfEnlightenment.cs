@@ -39,4 +39,11 @@ public class BogOfEnlightenment : Card
         yield return base.OnCardDeath(died);
     }
 
+    void OnDestroy()
+    {
+        if (died) return;
+        for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].planted != null && Tile.plantTiles[i, col].planted.amphibious) Tile.plantTiles[i, col].planted.ChangeStats(-2, 0);
+        if (Tile.zombieTiles[0, col].HasRevealedPlanted() && !Tile.zombieTiles[0, col].planted.amphibious) Tile.zombieTiles[0, col].planted.ChangeStats(2, 0);
+    }
+
 }

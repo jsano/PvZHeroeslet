@@ -240,7 +240,7 @@ public class Card : Damagable
             atkSprite.gameObject.SetActive(false);
             hpSprite.gameObject.SetActive(false);
         }
-        if (type == Type.Terrain) SR.sortingOrder = -1;
+        if (type == Type.Terrain) SR.sortingOrder = -2;
         
         initializedStats = true;
 
@@ -437,6 +437,11 @@ public class Card : Damagable
     {
         if (died.Item1 == this)
         {
+            if (died.Item1.type == Type.Unit)
+            {
+                if (team == Team.Plant) Tile.plantTiles[row, col].Unplant();
+                else Tile.zombieTiles[row, col].Unplant();
+            }
             yield return new WaitForSeconds(0.4f);
             StartCoroutine(DestroyAfterCoroutineFinishes());
         }
@@ -617,12 +622,17 @@ public class Card : Damagable
         else if (splash > 0)
         {
             List<Damagable>[] targets = new List<Damagable>[] { null, null, null };
+            var tiles = team == Team.Plant ? Tile.zombieTiles : Tile.plantTiles;
             for (int i = -1; i <= 1; i++)
             {
                 if (col + i < 0 || col + i > 4) continue;
                 // For splash damage, its next door targets (not in-lane) should only hit units and not the hero 
                 if (i == 0) targets[i + 1] = GetTargets(col + i);
-                else if (Tile.zombieTiles[0, col + i].HasRevealedPlanted()) targets[i + 1] = new() { Tile.zombieTiles[0, col + i].planted };
+                else
+                {
+                    if (tiles[1, col + i].HasRevealedPlanted()) targets[i + 1] = new() { tiles[1, col + i].planted };
+                    else if (tiles[0, col + i].HasRevealedPlanted()) targets[i + 1] = new() { tiles[0, col + i].planted };
+                }
             }
             yield return AttackFX(targets[1][0]);
 

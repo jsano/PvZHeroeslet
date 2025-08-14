@@ -50,4 +50,10 @@ public class Torchwood : Card
 		yield return base.OnCardMoved(moved);
 	}
 
+    void OnDestroy()
+    {
+		if (died) return;
+        if (buffing != null) buffing.ChangeStats(-2, 0);
+    }
+
 }

@@ -50,4 +50,14 @@ public class LaserBaseAlpha : Card
         yield return base.OnCardDeath(died);
     }
 
+    void OnDestroy()
+    {
+        if (died) return;
+        if (Tile.zombieTiles[0, col].HasRevealedPlanted())
+        {
+            Tile.zombieTiles[0, col].planted.strikethrough -= 1;
+            Tile.zombieTiles[0, col].planted.deadly -= 1;
+        }
+    }
+
 }

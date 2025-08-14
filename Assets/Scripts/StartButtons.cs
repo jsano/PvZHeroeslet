@@ -34,7 +34,7 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks["temp10"].cards = new() {
             { AllCards.NameToID("Haunted Pumpking"), 4 },
             { AllCards.NameToID("2nd Best Taco of All Time"), 2 },
-            { AllCards.NameToID("Lima-Pleurodon"), 4 },
+            { AllCards.NameToID("Bog of Enlightenment"), 4 },
             { AllCards.NameToID("Mushroom Grotto"), 2 },
             { AllCards.NameToID("Transmogrify"), 2 },
             { AllCards.NameToID("More Spore"), 2 },
@@ -62,7 +62,7 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Fire Rooster"), 2 },
             { AllCards.NameToID("Imposter"), 2 },
             { AllCards.NameToID("Total Eclipse"), 2 },
-            { AllCards.NameToID("Disco-naut"), 4 },
+            { AllCards.NameToID("Graveyard"), 4 },
         };
 
         UserAccounts.GameStats.DeckName = "temp11";

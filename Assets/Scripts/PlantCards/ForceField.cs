@@ -45,4 +45,10 @@ public class ForceField : Card
         yield return base.OnTurnStart();
     }
 
+    void OnDestroy()
+    {
+        if (died) return;
+        for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].planted != null) Tile.plantTiles[i, col].planted.ToggleInvulnerability(false);
+    }
+
 }

@@ -39,4 +39,10 @@ public class CoffeeGrounds : Card
         yield return base.OnCardDeath(died);
     }
 
+    void OnDestroy()
+    {
+        if (died) return;
+        for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].planted != null) Tile.plantTiles[i, col].planted.doubleStrike -= 1;
+    }
+
 }

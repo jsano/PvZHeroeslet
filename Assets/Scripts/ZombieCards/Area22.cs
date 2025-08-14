@@ -53,4 +53,14 @@ public class Area22 : Card
         yield return base.OnCardDeath(died);
     }
 
+    void OnDestroy()
+    {
+        if (died) return;
+        if (Tile.zombieTiles[0, col].planted != null)
+        {
+            Tile.zombieTiles[0, col].planted.ChangeStats(-2, -2);
+            Tile.zombieTiles[0, col].planted.frenzy -= 1;
+        }
+    }
+
 }

@@ -37,6 +37,12 @@ public class MoonBaseZ : Card
     {
         if (died.Item1 == this) if (Tile.zombieTiles[0, col].HasRevealedPlanted()) Tile.zombieTiles[0, col].planted.overshoot = Math.Max(Tile.zombieTiles[0, col].planted.baseOvershoot, 0);
         yield return base.OnCardDeath(died);
-    } 
+    }
+
+    void OnDestroy()
+    {
+        if (died) return;
+        if (Tile.zombieTiles[0, col].HasRevealedPlanted()) Tile.zombieTiles[0, col].planted.overshoot = Math.Max(Tile.zombieTiles[0, col].planted.baseOvershoot, 0);
+    }
 
 }

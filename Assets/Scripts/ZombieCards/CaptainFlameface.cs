@@ -38,4 +38,17 @@ public class CaptainFlameface : Card
         yield return base.OnCardDeath(died);
     }
 
+    void OnDestroy()
+    {
+        if (died) return;
+        for (int row = 0; row < 2; row++)
+        {
+            for (int col = 0; col < 5; col++)
+            {
+                if (Tile.zombieTiles[row, col].HasRevealedPlanted() && Tile.zombieTiles[row, col].planted.tribes.Contains(Tribe.Pirate))
+                    Tile.zombieTiles[row, col].planted.strikethrough -= 1;
+            }
+        }
+    }
+
 }
