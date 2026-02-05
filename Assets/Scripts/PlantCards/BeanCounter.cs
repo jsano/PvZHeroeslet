@@ -15,7 +15,7 @@ public class BeanCounter : Card
 
     protected override IEnumerator OnCardPlay(Card played)
     {
-		if (played.tribes.Contains(Tribe.Bean))
+		if (played.tribes.Contains(Tribe.Bean) && played != this)
 		{
             yield return Glow();
             ChangeStats(1, 1);

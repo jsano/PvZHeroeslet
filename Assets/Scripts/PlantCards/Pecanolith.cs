@@ -31,8 +31,8 @@ public class Pecanolith : Card
             {
                 for (int col = 0; col < 5; col++)
                 {
-                    if (Tile.plantTiles[row, col].HasRevealedPlanted()) Tile.plantTiles[row, col].planted.strengthHeart += 1;
-                    if (Tile.zombieTiles[row, col].HasRevealedPlanted()) Tile.zombieTiles[row, col].planted.strengthHeart += 1;
+                    if (Tile.plantTiles[row, col].HasRevealedPlanted()) Tile.plantTiles[row, col].planted.strengthHeart -= 1;
+                    if (Tile.zombieTiles[row, col].HasRevealedPlanted()) Tile.zombieTiles[row, col].planted.strengthHeart -= 1;
                 }
             }
         yield return base.OnCardDeath(died);
@@ -45,8 +45,8 @@ public class Pecanolith : Card
         {
             for (int col = 0; col < 5; col++)
             {
-                if (Tile.plantTiles[row, col].HasRevealedPlanted()) Tile.plantTiles[row, col].planted.strengthHeart += 1;
-                if (Tile.zombieTiles[row, col].HasRevealedPlanted()) Tile.zombieTiles[row, col].planted.strengthHeart += 1;
+                if (Tile.plantTiles[row, col].HasRevealedPlanted()) Tile.plantTiles[row, col].planted.strengthHeart -= 1;
+                if (Tile.zombieTiles[row, col].HasRevealedPlanted()) Tile.zombieTiles[row, col].planted.strengthHeart -= 1;
             }
         }
     }

@@ -182,11 +182,28 @@ public class Card : Damagable
         glow = transform.Find("Glow").gameObject;
         LeanTween.rotateAroundLocal(glow, Vector3.forward, -360f, 2f).setRepeat(-1);
         baseSprite = SR.sprite;
+        
+        if (team == Team.Plant)
+        {
+            atk += GameManager.Instance.plantPermanentAttackBonus;
+            HP += GameManager.Instance.plantPermanentHPBonus;
+        }
+        else
+        {
+            atk += GameManager.Instance.zombiePermanentAttackBonus;
+            HP += GameManager.Instance.zombiePermanentHPBonus;
+        }
+        if (AllCards.InstanceToPrefab(this).name == "Clique Peas")
+        {
+            atk += GameManager.Instance.cliquePeas;
+            HP += GameManager.Instance.cliquePeas;
+        }
+        // Base stats should include permanent buffs, but not temporary buffs
         baseHP = HP;
         baseAtk = atk;
         baseGravestone = gravestone;
         baseOvershoot = overshoot;
-
+        
         if (sourceFS != null)
         {
             atk = sourceFS.atk;
@@ -210,20 +227,7 @@ public class Card : Damagable
         // The only way for a card to not have a FinalStats is if it was instantiated by something, in which case it should always be free
         else playedCost = 0;
 
-        if (team == Team.Plant)
-        {
-            atk += GameManager.Instance.plantPermanentAttackBonus;
-            HP += GameManager.Instance.plantPermanentHPBonus;
-        } else
-        {
-            atk += GameManager.Instance.zombiePermanentAttackBonus;
-            HP += GameManager.Instance.zombiePermanentHPBonus;
-        }
-        if (AllCards.InstanceToPrefab(this).name == "Clique Peas")
-        {
-            atk += GameManager.Instance.cliquePeas;
-            HP += GameManager.Instance.cliquePeas;
-        }
+        // Max HP still includes temporary buffs
         maxHP = HP;
 
         atkUI = transform.Find("ATK").GetComponentInChildren<TextMeshProUGUI>();
@@ -856,6 +860,9 @@ public class Card : Damagable
 		SR.sprite = baseSprite;
         atkSprite.gameObject.SetActive(true);
         hpSprite.gameObject.SetActive(true);
+        atkUI.text = atk + "";
+        hpUI.text = HP + "";
+        if (!isDamaged()) hpUI.color = Color.white;
         UpdateAntihero();
         GameManager.Instance.currentlySpawningCards += 1;
         //play animation
@@ -872,6 +879,7 @@ public class Card : Damagable
         AudioManager.Instance.PlaySFX("Grave");
         atk = baseAtk;
         HP = baseHP;
+        maxHP = HP;
         baseGravestone = true;
         gravestone = true;
         SR.sprite = AllCards.Instance.gravestoneSprite;

@@ -40,7 +40,11 @@ public class EndScreenButtons : NetworkBehaviour
     public void RematchRpc()
     {
         rematchers += 1;
-        if (rematchers == 2 && NetworkManager.Singleton.IsHost) NetworkManager.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+        if (rematchers == 2)
+        {
+            AudioManager.Instance.PlayMusic("Menu");
+            if (NetworkManager.Singleton.IsHost) NetworkManager.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+        }
     }
 
     public void Quit()
