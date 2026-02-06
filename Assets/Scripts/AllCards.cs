@@ -12,6 +12,7 @@ public class AllCards : MonoBehaviour
 
     public Card[] cards;
     public Hero[] heroes;
+    public Buff[] buffs;
     
     public Sprite attackSprite;
     public Sprite HPSprite;

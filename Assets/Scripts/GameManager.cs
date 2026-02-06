@@ -1,4 +1,3 @@
-using NUnit.Framework.Internal;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,6 +23,8 @@ public class GameManager : NetworkBehaviour
         
         handCards = transform.Find("HandCards");
         opponentHandCards = transform.Find("OpponentHandCards");
+        playerBuffs = transform.Find("UI").Find("PlayerBuffs");
+        opponentBuffs = transform.Find("UI").Find("OpponentBuffs");
         turn = 1;
 	}
 
@@ -160,7 +161,6 @@ public class GameManager : NetworkBehaviour
     /// Reference to any data that should be shared across the network that can't be achieved normally (ex. Mixed-up Gravedigger)
     /// </summary>
     public List<List<string>> shuffledLists { get; private set; }
-    //public List<string> shuffledList { get; private set; }
     [HideInInspector] public int shuffledListsNextExpectedCount = 1;
     /// <summary>
     /// For literally just Sun Strike only
@@ -170,6 +170,9 @@ public class GameManager : NetworkBehaviour
     /// For literally just Clique Peas only
     /// </summary>
     public int cliquePeas = 0;
+
+	public Transform playerBuffs { get; private set; }
+    public Transform opponentBuffs { get; private set; }
 
     /// <summary>
     /// Events with higher priority should be processed first. Those not on the list have no defined ordering

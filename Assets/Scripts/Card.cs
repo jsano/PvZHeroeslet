@@ -689,6 +689,7 @@ public class Card : Damagable
     public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1)
     {
         if (gravestone || invulnerable) yield break;
+        foreach (int a in Buff.CallAll("OnCardHurtImmediate", new Tuple<Damagable, Card, int>(this, source, dmg))) dmg += a;
         if (team != Team.Zombie && Tile.IsOnField("Binary Stars")) dmg *= 2;
         dmg = Mathf.Max(0, dmg - armor);
         HP -= dmg;
