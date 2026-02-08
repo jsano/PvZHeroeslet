@@ -70,6 +70,8 @@ public class GameManager : NetworkBehaviour
     /// What buffs were finalized for each player. Index 0 is player, index 1 is opponent
     /// </summary>
     private int[] chosenBuff = new int[2];
+	private List<int> availableBuffDatabase = new();
+
 	/// <summary>
 	/// 0 = prep, 1 = zombie, 2 = plant, 3 = zombie trick, 4 = fight
 	/// </summary>
@@ -400,6 +402,8 @@ public class GameManager : NetworkBehaviour
 		turn = 1;
 
 		shuffledLists = new();
+
+		for (int i = 0; i < AllCards.Instance.buffs.Length; i++) availableBuffDatabase.Add(i);
 
 		StartCoroutine(Mulligan());
     }
@@ -791,6 +795,9 @@ public class GameManager : NetworkBehaviour
 		yield return OfferBuffs();
 		Instantiate(AllCards.Instance.buffs[chosenBuff[0]], playerBuffs);
         Instantiate(AllCards.Instance.buffs[chosenBuff[1]], opponentBuffs);
+		availableBuffDatabase.Remove(chosenBuff[0]);
+        availableBuffDatabase.Remove(chosenBuff[1]);
+		buffChoices.Clear();
 
         // Setup for next turn
         StartCoroutine(AudioManager.Instance.ToggleBattleMusic(false));
@@ -823,46 +830,46 @@ public class GameManager : NetworkBehaviour
 
 	private IEnumerator OfferBuffs()
 	{
-		if (buffChoices.Count == 0)
+        foreach (Transform child in buffList) Destroy(child.gameObject);
+        if (buffChoices.Count == 0)
 		{
-			OfferBuffsRpc();
-			yield return new WaitUntil(() => buffChoices.Count > 2);
+			// TODO: duos
+			List<int> temp = new();
+			for (int i = 0; i < 3 && availableBuffDatabase.Count > temp.Count; i++)
+			{
+				int cur = availableBuffDatabase[UnityEngine.Random.Range(0, availableBuffDatabase.Count)];
+				temp.Add(cur);
+			}
+			while (temp.Count < 4) temp.Add(-1);
+			OfferBuffsRpc(temp[0], temp[1], temp[2], temp[3]);
+			yield return new WaitUntil(() => buffChoices.Count > 0 && buffChoices[^1] == -69);
 		}
 		chosenBuff = new int[] { -1, -1 };
 		buffSelectionUI.SetActive(true);
-        lockInButton.interactable = true;
+        if (buffChoices.Count == 1) lockInButton.interactable = true; // No options
 		rerollButton.interactable = rerolls > 0;
-        foreach (int i in buffChoices)
+        foreach (int b in buffChoices)
 		{
+			if (b < 0) break;
 			GameObject g = Instantiate(buffListing, buffList);
-			g.GetComponent<BuffSelection>().ID = i;
+			g.GetComponent<BuffSelection>().ID = b;
 		}
 		timerBOn = true;
 		timer = 15;
+		//TODO: handle when a player can't get a buff (no option)
 		yield return new WaitUntil(() => chosenBuff[0] != -1 && chosenBuff[1] != -1);
         buffSelectionUI.SetActive(false);
     }
 
     [Rpc(SendTo.ClientsAndHost)]
-    public void OfferBuffsRpc()
+    public void OfferBuffsRpc(int a, int b, int c, int d)
 	{
-		// TODO: duos
-		for (int i = 0; i < 3; i++)
-		{
-			int cur;
-			bool redo = false;
-			do
-			{
-				cur = UnityEngine.Random.Range(0, AllCards.Instance.buffs.Length);
-				string name = AllCards.Instance.buffs[cur].name;
-				foreach (Transform t in playerBuffs) if (t.GetComponent<Buff>().name == name) redo = true;
-                foreach (Transform t in opponentBuffs) if (t.GetComponent<Buff>().name == name) redo = true;
-				//if (buffChoices.Contains(cur)) redo = true;
-				//Debug.Log(cur);
-			} while (redo);
-			buffChoices.Add(cur);
-		}
-	}
+		if (a != -1) buffChoices.Add(a);
+        if (a != -1) buffChoices.Add(b);
+        if (a != -1) buffChoices.Add(c);
+        if (a != -1) buffChoices.Add(d);
+		buffChoices.Add(-69);
+    }
 
 	public void LockIn()
 	{

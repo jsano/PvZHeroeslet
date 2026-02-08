@@ -7,7 +7,6 @@ public class SuperpowerDeckCard : MonoBehaviour, IDragHandler, IPointerUpHandler
 {
 
     public int ID;
-    private CardInfo cardInfo;
     private DeckBuilder DB;
     public Image image;
 
@@ -17,7 +16,6 @@ public class SuperpowerDeckCard : MonoBehaviour, IDragHandler, IPointerUpHandler
         DB = FindAnyObjectByType<DeckBuilder>(FindObjectsInactive.Include).GetComponent<DeckBuilder>();
         Card orig = AllCards.Instance.cards[ID];
         image.sprite = orig.GetComponent<SpriteRenderer>().sprite;
-        cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
     }
 
     /*public void ShowCardInfo()
@@ -32,7 +30,7 @@ public class SuperpowerDeckCard : MonoBehaviour, IDragHandler, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (!eventData.dragging) cardInfo.Show(AllCards.Instance.cards[ID]);
+        if (!eventData.dragging) CardInfo.Instance.Show(AllCards.Instance.cards[ID]);
         else DB.UpdateSuperpowerOrder(transform, ID);
     }
 }

@@ -7,8 +7,23 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BuffInfo : CardInfo
+public class BuffInfo : InfoUI
 {
+
+    public Image image;
+    public TextMeshProUGUI cardClass;
+    public TextMeshProUGUI cardName;
+    public TextMeshProUGUI tribes;
+    public TextMeshProUGUI lore;
+
+    private static BuffInfo instance;
+    public static BuffInfo Instance { get { return instance; } }
+
+    void Awake()
+    {
+        if (instance != null && instance != this) Destroy(gameObject);
+        else instance = this;
+    }
 
     public void Show(Buff source)
     {

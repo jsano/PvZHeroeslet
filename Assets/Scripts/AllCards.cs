@@ -114,7 +114,14 @@ public class AllCards : MonoBehaviour
 				return i;
 			}
 		}
-		return -1;
+        for (int i = 0; i < Instance.buffs.Length; i++)
+        {
+            if (Instance.buffs[i].name == name)
+            {
+                return i;
+            }
+        }
+        return -1;
 	}
 
     public static Card InstanceToPrefab(Card instance)

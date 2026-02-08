@@ -25,8 +25,6 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     /// </summary>
 	private HashSet<BoxCollider2D> validChoices = new();
 
-    private CardInfo cardInfo;
-
 	[HideInInspector] public bool interactable = false;
     public Image image;
 	public TextMeshProUGUI atkUI;
@@ -146,7 +144,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         // Show card UI if it wasn't currently dragging. Only play if it was dragging
         if (!eventData.dragging)
         {
-            cardInfo.Show(orig, finalStats);
+            CardInfo.Instance.Show(orig, finalStats);
         }
 
         if (GetComponent<SpriteRenderer>().sortingLayerName != "Error") transform.localScale = Vector3.one * 0.9f;
@@ -242,8 +240,6 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
         if (GameManager.Instance.team == Card.Team.Plant) tileObjects = Tile.plantTiles;
         else tileObjects = Tile.zombieTiles;
-
-        cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
 	}
 
     // Update is called once per frame

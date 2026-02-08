@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -312013300205462730, guid: d306f9effc3093640949af61915d7b07, type: 3}
+      propertyPath: buffClass
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -312013300205462730, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: description
       value: 3 turns later, your cards have +3 attack +3 HP for the rest of the game
       objectReference: {fileID: 0}

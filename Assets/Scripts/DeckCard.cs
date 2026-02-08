@@ -8,7 +8,6 @@ public class DeckCard : MonoBehaviour
     public int ID;
     [HideInInspector]
     public bool hideButtons = false;
-    private CardInfo cardInfo;
     private DeckBuilder DB;
     public Button add;
     public Button remove;
@@ -20,7 +19,6 @@ public class DeckCard : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
         DB = FindAnyObjectByType<DeckBuilder>(FindObjectsInactive.Include).GetComponent<DeckBuilder>();
         Card orig = AllCards.Instance.cards[ID];
         image.sprite = orig.GetComponent<SpriteRenderer>().sprite;
@@ -60,7 +58,7 @@ public class DeckCard : MonoBehaviour
 
     public void ShowCardInfo()
     {
-        cardInfo.Show(AllCards.Instance.cards[ID]);
+        CardInfo.Instance.Show(AllCards.Instance.cards[ID]);
     }
 
 }

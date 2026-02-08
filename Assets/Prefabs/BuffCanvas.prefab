@@ -503,18 +503,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da61dc2c1cc2d084b8f922fd9f67cf27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  description: {fileID: 4409027081664133453}
+  exit: {fileID: 3693444336008905077}
+  tooltipContainer: {fileID: 6737319586052809011}
   image: {fileID: 4539229140684813006}
-  atk: {fileID: 0}
-  HP: {fileID: 0}
-  cost: {fileID: 0}
   cardClass: {fileID: 5094726232204004718}
   cardName: {fileID: 2651392147816586947}
   tribes: {fileID: 1347511855165052520}
-  description: {fileID: 4409027081664133453}
-  gained: {fileID: 0}
   lore: {fileID: 3887381196978122884}
   exit: {fileID: 3693444336008905077}
-  tooltipContainer: {fileID: 6737319586052809011}
 --- !u!1 &6737319586052809011
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,6 +1121,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8830237249925255375, guid: a055808c5cbfe9747bd483d67955a8e0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8830237251993412945, guid: a055808c5cbfe9747bd483d67955a8e0, type: 3}
       propertyPath: m_Pivot.x
       value: 0

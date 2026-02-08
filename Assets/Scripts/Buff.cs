@@ -20,7 +20,6 @@ public class Buff : MonoBehaviour
     public Card.Class buffClass;
     public string lore;
 
-    private BuffInfo buffInfo;
     public Image image;
 
     /// <summary>
@@ -58,12 +57,12 @@ public class Buff : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        buffInfo = FindAnyObjectByType<BuffInfo>(FindObjectsInactive.Include).GetComponent<BuffInfo>();
+        
     }
 
     public void ShowBuffInfo()
     {
-        buffInfo.Show(this);
+        BuffInfo.Instance.Show(this);
     }
 
 }

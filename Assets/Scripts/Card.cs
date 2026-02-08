@@ -161,8 +161,6 @@ public class Card : Damagable
 
     protected bool frozen;
 
-    private CardInfo cardInfo;
-
     void Awake()
     {
         if (!gravestone)
@@ -268,7 +266,6 @@ public class Card : Damagable
             CallLeftToRight();
             StartCoroutine(BeforeOnThisPlay());
         }
-		cardInfo = FindAnyObjectByType<CardInfo>(FindObjectsInactive.Include).GetComponent<CardInfo>();
 	}
 
     private IEnumerator BeforeOnThisPlay()
@@ -1026,7 +1023,7 @@ public class Card : Damagable
 			}
 		}
         // Don't show gravestone card info for the plant perspective
-		if (GameManager.Instance.team == Team.Zombie || !gravestone || Tile.IsOnField("Spyris")) cardInfo.Show(this);
+		if (GameManager.Instance.team == Team.Zombie || !gravestone || Tile.IsOnField("Spyris")) CardInfo.Instance.Show(this);
 	}
 
     public Sprite GetAttackIcon()

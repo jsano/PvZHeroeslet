@@ -33,10 +33,10 @@ public class BuffSelection : MonoBehaviour
                 BG.color = Color.red;
                 break;
             case Card.Class.Smarty:
-                BG.color = Color.magenta + Color.blue * 0.2f;
+                BG.color = Color.magenta + Color.blue * 0.5f;
                 break;
             case Card.Class.Solar:
-                BG.color = Color.red + Color.white * 0.4f;
+                BG.color = Color.red + Color.cyan * 0.5f;
                 break;
             case Card.Class.Beastly:
                 BG.color = Color.green;
@@ -45,12 +45,13 @@ public class BuffSelection : MonoBehaviour
                 BG.color = Color.white;
                 break;
         }
-        BG.color += Color.white * 0.5f;
+        BG.color += Color.white * 0.25f;
     }
 
     public void Select()
     {
         foreach (Transform t in GameManager.Instance.buffList) t.GetComponent<Image>().color = Color.black;
+        GameManager.Instance.lockInButton.interactable = true;
         GetComponent<Image>().color = Color.red;
         current = ID;
     }
