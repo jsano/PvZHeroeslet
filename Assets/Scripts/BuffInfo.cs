@@ -14,16 +14,17 @@ public class BuffInfo : CardInfo
     {
         if (isActiveAndEnabled) return;
         transform.parent.gameObject.SetActive(true);
+        Buff baseBuff = AllCards.InstanceToPrefab(source);
 
-        image.sprite = source.image.sprite;
+        image.sprite = baseBuff.image.sprite;
         
-        cardClass.text = Enum.GetName(typeof(Card.Class), source.buffClass);
-        cardName.text = source.name;
-        tribes.text = Enum.GetName(typeof(Buff.Rarity), source.rarity);
-        description.text = source.description;
+        cardClass.text = Enum.GetName(typeof(Card.Class), baseBuff.buffClass);
+        cardName.text = baseBuff.name;
+        tribes.text = Enum.GetName(typeof(Buff.Rarity), baseBuff.rarity);
+        description.text = baseBuff.description;
         FormatDescriptionForTooltip();
 
-        lore.text = source.lore;
+        lore.text = baseBuff.lore;
     }
 
 }

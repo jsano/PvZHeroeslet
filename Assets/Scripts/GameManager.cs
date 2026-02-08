@@ -56,6 +56,20 @@ public class GameManager : NetworkBehaviour
 	private float timer;
 	private bool timerOn;
 	private bool timerMOn;
+	private bool timerBOn;
+
+    /// <summary>
+    /// How many buff rerolls the player has
+    /// </summary>
+    private int rerolls = 1;
+    /// <summary>
+    /// The current randomized selection of buffs to offer each player. Only one player should fill these in each time so the second attempt should be ignored
+    /// </summary>
+    private List<int> buffChoices = new();
+    /// <summary>
+    /// What buffs were finalized for each player. Index 0 is player, index 1 is opponent
+    /// </summary>
+    private int[] chosenBuff = new int[2];
 	/// <summary>
 	/// 0 = prep, 1 = zombie, 2 = plant, 3 = zombie trick, 4 = fight
 	/// </summary>
@@ -110,6 +124,13 @@ public class GameManager : NetworkBehaviour
 	public SpriteRenderer boardHighlight;
 	public Image timerImageM;
 	public Image timerImage;
+	public Image timerImageB;
+	public GameObject buffSelectionUI;
+	public Transform buffList;
+	public GameObject buffListing;
+	public TextMeshProUGUI rerollText;
+	public Button lockInButton;
+	public Button rerollButton;
     public Button go;
     private LTDescr goTween;
     public GameObject phaseText;
@@ -481,7 +502,18 @@ public class GameManager : NetworkBehaviour
 				FinishMulligan();
 			}
 		}
-		if (opponentPlayedQueue.Count == 0 && phase == 3 || waitingOnBlock && !blockChoiceMade)
+        if (timerBOn)
+        {
+            timer -= Time.deltaTime;
+            timerImageB.fillAmount = timer / 15;
+            if (timer <= 0)
+            {
+                timerBOn = false;
+				BuffSelection.current = buffChoices[0];
+				LockIn();
+            }
+        }
+        if (opponentPlayedQueue.Count == 0 && phase == 3 || waitingOnBlock && !blockChoiceMade)
 		{
 			plantCombatBehindBy = Math.Max(plantCombatBehindBy - Time.deltaTime, 0);
 		}
@@ -756,6 +788,10 @@ public class GameManager : NetworkBehaviour
 		foreach (Card c in removeStrikethrough) c.strikethrough -= 1;
 		removeStrikethrough.Clear();
 
+		yield return OfferBuffs();
+		Instantiate(AllCards.Instance.buffs[chosenBuff[0]], playerBuffs);
+        Instantiate(AllCards.Instance.buffs[chosenBuff[1]], opponentBuffs);
+
         // Setup for next turn
         StartCoroutine(AudioManager.Instance.ToggleBattleMusic(false));
         turn += 1;
@@ -784,6 +820,64 @@ public class GameManager : NetworkBehaviour
 		shuffledLists.Clear();
 		shuffledListsNextExpectedCount = 1;
     }
+
+	private IEnumerator OfferBuffs()
+	{
+		if (buffChoices.Count == 0)
+		{
+			OfferBuffsRpc();
+			yield return new WaitUntil(() => buffChoices.Count > 2);
+		}
+		chosenBuff = new int[] { -1, -1 };
+		buffSelectionUI.SetActive(true);
+        lockInButton.interactable = true;
+		rerollButton.interactable = rerolls > 0;
+        foreach (int i in buffChoices)
+		{
+			GameObject g = Instantiate(buffListing, buffList);
+			g.GetComponent<BuffSelection>().ID = i;
+		}
+		timerBOn = true;
+		timer = 15;
+		yield return new WaitUntil(() => chosenBuff[0] != -1 && chosenBuff[1] != -1);
+        buffSelectionUI.SetActive(false);
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    public void OfferBuffsRpc()
+	{
+		// TODO: duos
+		for (int i = 0; i < 3; i++)
+		{
+			int cur;
+			bool redo = false;
+			do
+			{
+				cur = UnityEngine.Random.Range(0, AllCards.Instance.buffs.Length);
+				string name = AllCards.Instance.buffs[cur].name;
+				foreach (Transform t in playerBuffs) if (t.GetComponent<Buff>().name == name) redo = true;
+                foreach (Transform t in opponentBuffs) if (t.GetComponent<Buff>().name == name) redo = true;
+				//if (buffChoices.Contains(cur)) redo = true;
+				//Debug.Log(cur);
+			} while (redo);
+			buffChoices.Add(cur);
+		}
+	}
+
+	public void LockIn()
+	{
+        AudioManager.Instance.PlaySFX("Go");
+        lockInButton.interactable = false;
+		timerBOn = false;
+		LockInRpc(IsHost, BuffSelection.current);
+	}
+
+    [Rpc(SendTo.ClientsAndHost)]
+    public void LockInRpc(bool host, int chosen)
+	{
+		int index = IsHost == host ? 0 : 1;
+		chosenBuff[index] = chosen;
+	}
 
     /// <summary>
     /// Sends a unit to be played through the network under the given FinalStats, row, and column. Uses the card's team to decide which side to plant it on

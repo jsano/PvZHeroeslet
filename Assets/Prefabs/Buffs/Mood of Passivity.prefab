@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -312013300205462730, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: description
-      value: Your cards have +2 HP for the rest of the game
+      value: Your tricks cost 1 less for the rest of the game
       objectReference: {fileID: 0}
     - target: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Name
-      value: Mood of Attrition
+      value: Mood of Passivity
       objectReference: {fileID: 0}
     - target: {fileID: 8499147558775820694, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Pivot.x
