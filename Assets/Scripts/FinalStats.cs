@@ -10,14 +10,24 @@ using UnityEngine;
 public class FinalStats : INetworkSerializable
 {
 
+    /// <summary>
+    /// The final attack of the card. not including permanent buffs.
+    /// </summary>
     public int atk;
+    /// <summary>
+    /// The final HP of the card, not including permanent buffs.
+    /// </summary>
     public int hp;
     /// <summary>
     /// Any <b>additional</b> abilities that a card has. Should be stored in a " - " separated list (since that's the only way to serialize it...)
     /// </summary>
     public string abilities;
     public int ID;
-    public int cost;
+    /// <summary>
+    /// The final cost to play the card. Unlike every other FinalStats value, this is updated to the final cost including all discounts the moment before it's sent to
+    /// the network so it has the most accurate value. This is because costs are read/used by GameManager.
+    /// </summary>
+    public float cost;
 
     /// <summary>
     /// If true, the edits persist even when the card is bounced after playing

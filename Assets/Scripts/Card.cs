@@ -130,7 +130,7 @@ public class Card : Damagable
     /// <summary>
     /// Different from <c>cost</c> where this is the amount this card was actually played for (after all deductions, etc.)
     /// </summary>
-    public int playedCost { get; private set; }
+    public float playedCost { get; private set; }
     /// <summary>
     /// The FinalStats instance this got its stats from. Ok to be null (and will be if it's instantiated by another card)
     /// </summary>
@@ -180,23 +180,7 @@ public class Card : Damagable
         glow = transform.Find("Glow").gameObject;
         LeanTween.rotateAroundLocal(glow, Vector3.forward, -360f, 2f).setRepeat(-1);
         baseSprite = SR.sprite;
-        
-        if (team == Team.Plant)
-        {
-            atk += GameManager.Instance.plantPermanentAttackBonus;
-            HP += GameManager.Instance.plantPermanentHPBonus;
-        }
-        else
-        {
-            atk += GameManager.Instance.zombiePermanentAttackBonus;
-            HP += GameManager.Instance.zombiePermanentHPBonus;
-        }
-        if (AllCards.InstanceToPrefab(this).name == "Clique Peas")
-        {
-            atk += GameManager.Instance.cliquePeas;
-            HP += GameManager.Instance.cliquePeas;
-        }
-        // Base stats should include permanent buffs, but not temporary buffs
+        // Base stats should not include temporary buffs
         baseHP = HP;
         baseAtk = atk;
         baseGravestone = gravestone;
@@ -224,6 +208,8 @@ public class Card : Damagable
         }
         // The only way for a card to not have a FinalStats is if it was instantiated by something, in which case it should always be free
         else playedCost = 0;
+
+        AddPermanentBuffs();
 
         // Max HP still includes temporary buffs
         maxHP = HP;
@@ -855,6 +841,7 @@ public class Card : Damagable
     {
         AudioManager.Instance.PlaySFX("Reveal");
         gravestone = false;
+        AddPermanentBuffs();
 		SR.sprite = baseSprite;
         atkSprite.gameObject.SetActive(true);
         hpSprite.gameObject.SetActive(true);
@@ -1009,8 +996,28 @@ public class Card : Damagable
         yield return new WaitForSeconds(1f);
     }
 
+    private void AddPermanentBuffs()
+    {
+        if (team == Team.Plant)
+        {
+            atk += GameManager.Instance.plantPermanentAttackBonus;
+            HP += GameManager.Instance.plantPermanentHPBonus;
+        }
+        else
+        {
+            atk += GameManager.Instance.zombiePermanentAttackBonus;
+            HP += GameManager.Instance.zombiePermanentHPBonus;
+        }
+        if (AllCards.InstanceToPrefab(this).name == "Clique Peas")
+        {
+            atk += GameManager.Instance.cliquePeas;
+            HP += GameManager.Instance.cliquePeas;
+        }
+    }
+
     void OnMouseDown()
     {
+        if (GameManager.Instance.buffSelectionUI.activeSelf) return;
         // Don't show card info if the player is currently selecting something. TODO: doesn't work for trick selected
         for (int row = 0; row < 2; row++)
 		{

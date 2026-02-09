@@ -31,7 +31,7 @@ public class BuffInfo : InfoUI
         transform.parent.gameObject.SetActive(true);
         Buff baseBuff = AllCards.InstanceToPrefab(source);
 
-        image.sprite = baseBuff.image.sprite;
+        image.sprite = baseBuff.GetImage();
         
         cardClass.text = Enum.GetName(typeof(Card.Class), baseBuff.buffClass);
         cardName.text = baseBuff.name;

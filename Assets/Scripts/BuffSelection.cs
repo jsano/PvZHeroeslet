@@ -17,7 +17,7 @@ public class BuffSelection : MonoBehaviour
     void Start()
     {
         Buff source = AllCards.Instance.buffs[ID];
-        image.sprite = source.image.sprite;
+        image.sprite = source.GetImage();
         buffName.text = source.name;
         description.text = source.description;
 
@@ -45,7 +45,7 @@ public class BuffSelection : MonoBehaviour
                 BG.color = Color.white;
                 break;
         }
-        BG.color += Color.white * 0.25f;
+        BG.color += Color.white * 0.35f;
     }
 
     public void Select()

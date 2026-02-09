@@ -79,11 +79,11 @@ public class GameManager : NetworkBehaviour
 	/// <summary>
 	/// How much gold the player has left this turn
 	/// </summary>
-    private int remaining = 1;
+    private float remaining = 1;
 	/// <summary>
 	/// The highest gold the player had this turn
 	/// </summary>
-    public int remainingTop { get; private set; }
+    public float remainingTop { get; private set; }
     /// <summary>
     /// How much extra gold the player has for each turn (ex. from Sunburn)
     /// </summary>
@@ -91,11 +91,11 @@ public class GameManager : NetworkBehaviour
     /// <summary>
     /// How much gold the opponent has left this turn
     /// </summary>
-    private int opponentRemaining = 1;
+    private float opponentRemaining = 1;
 	/// <summary>
 	/// The highest gold the opponent had this turn
 	/// </summary>
-    public int opponentRemainingTop { get; private set; }
+    public float opponentRemainingTop { get; private set; }
     /// <summary>
     /// How much extra gold the opponent has for each turn (ex. from Cryo-brain)
     /// </summary>
@@ -116,6 +116,22 @@ public class GameManager : NetworkBehaviour
     /// How much extra HP the zombies have for the rest of the game
     /// </summary>
     [HideInInspector] public int zombiePermanentHPBonus = 0;
+    /// <summary>
+    /// How much less gold the plant cards cost for the rest of the game
+    /// </summary>
+    [HideInInspector] public float plantCardPermanentDiscount = 0;
+    /// <summary>
+    /// How much less gold the zombie cards cost for the rest of the game
+    /// </summary>
+    [HideInInspector] public float zombieCardPermanentDiscount = 0;
+    /// <summary>
+    /// How much less gold the plant tricks cost for the rest of the game
+    /// </summary>
+    [HideInInspector] public float plantTrickPermanentDiscount = 0;
+    /// <summary>
+    /// How much less gold the zombie tricks cost for the rest of the game
+    /// </summary>
+    [HideInInspector] public float zombieTrickPermanentDiscount = 0;
     /// <summary>
     /// The player's team (Plant/Zombie), derived from their hero's team
     /// </summary>
@@ -793,8 +809,10 @@ public class GameManager : NetworkBehaviour
 		removeStrikethrough.Clear();
 
 		yield return OfferBuffs();
-		Instantiate(AllCards.Instance.buffs[chosenBuff[0]], playerBuffs);
-        Instantiate(AllCards.Instance.buffs[chosenBuff[1]], opponentBuffs);
+		Buff b1 = Instantiate(AllCards.Instance.buffs[chosenBuff[0]], playerBuffs);
+		b1.team = team;
+        Buff b2 = Instantiate(AllCards.Instance.buffs[chosenBuff[1]], opponentBuffs);
+		b2.team = team == Team.Plant ? Team.Zombie : Team.Plant;
 		availableBuffDatabase.Remove(chosenBuff[0]);
         availableBuffDatabase.Remove(chosenBuff[1]);
 		buffChoices.Clear();
@@ -837,7 +855,12 @@ public class GameManager : NetworkBehaviour
 			List<int> temp = new();
 			for (int i = 0; i < 3 && availableBuffDatabase.Count > temp.Count; i++)
 			{
-				int cur = availableBuffDatabase[UnityEngine.Random.Range(0, availableBuffDatabase.Count)];
+				int cur;
+				do
+				{
+					cur = availableBuffDatabase[UnityEngine.Random.Range(0, availableBuffDatabase.Count)];
+				}
+				while (temp.Contains(cur));
 				temp.Add(cur);
 			}
 			while (temp.Count < 4) temp.Add(-1);
@@ -1087,6 +1110,13 @@ public class GameManager : NetworkBehaviour
 		}
 		foreach (Card c in toDo) if (c != null) yield return c.StartCoroutine(methodName, arg);
 		foreach (Transform h in handCards) h.GetComponent<HandCard>().StartCoroutine(methodName, arg);
+		Transform firstBuffs = team == Team.Plant ? opponentBuffs : playerBuffs;
+        Transform secondBuffs = team == Team.Zombie ? opponentBuffs : playerBuffs;
+		for (int i = 0; i < Math.Max(playerBuffs.childCount, opponentBuffs.childCount); i++)
+		{
+			if (i < firstBuffs.childCount) yield return firstBuffs.GetChild(i).GetComponent<Buff>().StartCoroutine(methodName, arg);
+            if (i < secondBuffs.childCount) yield return secondBuffs.GetChild(i).GetComponent<Buff>().StartCoroutine(methodName, arg);
+        }
         yield return null;
 	}
 
@@ -1169,7 +1199,7 @@ public class GameManager : NetworkBehaviour
 	/// <summary>
 	/// Adds to the given team's gold count by the given change. Gold counts can't go below 0. Updates UI
 	/// </summary>
-    public IEnumerator UpdateRemaining(int change, Team team)
+    public IEnumerator UpdateRemaining(float change, Team team)
     {
 		GameObject c = team == this.team ? remainingAnim : opponentRemainingAnim;
 		c.GetComponentInChildren<TextMeshProUGUI>().text = change + "";

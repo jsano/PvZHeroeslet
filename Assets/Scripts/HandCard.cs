@@ -167,6 +167,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                     {
                         if (orig.type == Card.Type.Unit)
                         {
+                            finalStats.cost = GetCost();
                             if (finalStats.cost < 0) finalStats.cost = 0;
                             GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col);
                             transform.SetParent(null);
@@ -174,6 +175,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                         }
                         else if (orig.IsValidTarget(bc))
                         {
+                            finalStats.cost = GetCost();
                             if (finalStats.cost < 0) finalStats.cost = 0;
                             if (t == null) GameManager.Instance.PlayTrickRpc(finalStats, -1, -1, bc.GetComponent<Hero>().team == Card.Team.Plant);
                             else GameManager.Instance.PlayTrickRpc(finalStats, t.row, t.col, t.isPlantTile);
@@ -188,6 +190,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                 // Global trick
                 if (GameManager.Instance.boardHighlight.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)Camera.main.ScreenToWorldPoint(eventData.position)))
                 {
+                    finalStats.cost = GetCost();
                     if (finalStats.cost < 0) finalStats.cost = 0;
                     GameManager.Instance.PlayTrickRpc(finalStats, 1, 2, GameManager.Instance.team == Card.Team.Plant); // Params shouldn't matter beyond visual
                     transform.SetParent(null);
@@ -232,8 +235,8 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             atkUI.transform.parent.gameObject.SetActive(false);
             hpUI.transform.parent.gameObject.SetActive(false);
         }
-        if (ID == AllCards.NameToID("Clique Peas")) finalStats.cost += GameManager.Instance.cliquePeas;
-        costUI.text = finalStats.cost + "";
+
+        costUI.text = GetCost() + "";
         ChangeCost(0);
 
         if (orig.team == Card.Team.Zombie) costUI.GetComponentInParent<Image>().sprite = AllCards.Instance.brainUI;
@@ -249,17 +252,27 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         else image.color = Color.white;
 	}
 
-    public int GetCost()
+    /// <summary>
+    /// Returns the final cost that the card would cost if played right now, which includes permanent discounts
+    /// </summary>
+    /// <returns></returns>
+    public float GetCost()
     {
-        return finalStats.cost;
+        float temp = finalStats.cost;
+        if (ID == AllCards.NameToID("Clique Peas")) temp += GameManager.Instance.cliquePeas;
+        if (orig.team == Card.Team.Plant && orig.type == Card.Type.Unit) temp -= GameManager.Instance.plantCardPermanentDiscount;
+        if (orig.team == Card.Team.Plant && orig.type == Card.Type.Trick) temp -= GameManager.Instance.plantTrickPermanentDiscount;
+        if (orig.team == Card.Team.Zombie && orig.type == Card.Type.Unit) temp -= GameManager.Instance.zombieCardPermanentDiscount;
+        if (orig.team == Card.Team.Zombie && orig.type == Card.Type.Trick) temp -= GameManager.Instance.zombieTrickPermanentDiscount;
+        return temp;
     }
 
     public void ChangeCost(int amount)
     {
         finalStats.cost += amount;
-        costUI.text = Math.Max(0, finalStats.cost) + "";
-        if (finalStats.cost > orig.cost) costUI.color = new Color(1, 0, 0);
-        else if (finalStats.cost < orig.cost) costUI.color = new Color(0.5f, 1, 0.5f);
+        costUI.text = Math.Max(0, GetCost()) + "";
+        if (GetCost() > orig.cost) costUI.color = new Color(1, 0, 0);
+        else if (GetCost() < orig.cost) costUI.color = new Color(0.5f, 1, 0.5f);
         else costUI.color = Color.white;
     }
 
