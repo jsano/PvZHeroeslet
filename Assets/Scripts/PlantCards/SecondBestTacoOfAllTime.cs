@@ -19,11 +19,11 @@ public class SecondBestTacoOfAllTime : Card
         Tile t = bc.GetComponent<Tile>();
 		if (t != null)
 		{
-			if (t.HasRevealedPlanted() && t.planted.team == Team.Plant && t.planted.isDamaged()) return true;
+			if (t.HasRevealedPlanted() && t.planted.team == Team.A && t.planted.isDamaged()) return true;
 		}
 		else
 		{
-			if (bc.GetComponent<Hero>().team == Team.Plant && bc.GetComponent<Hero>().isDamaged()) return true;
+			if (bc.GetComponent<Hero>().team == Team.A && bc.GetComponent<Hero>().isDamaged()) return true;
 		}
 		return false;
 	}

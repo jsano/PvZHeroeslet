@@ -18,7 +18,7 @@ public class LocustSwarm : Card
         Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
         if (!t.HasRevealedPlanted()) return false;
-        if (t.planted.team == Team.Plant) return true;
+        if (t.planted.team == Team.A) return true;
         return false;
 	}
 

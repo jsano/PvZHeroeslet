@@ -8,30 +8,34 @@ public class Tile : Damagable
     public int row;
     public int col;
 
+    public static int ROWS = 2;
+    public static int COLUMNS = 5;
+    public static int HEIGHTS = 0;
+    public static int WATER = 4;
     /// <summary>
     /// The plant tiles, which will be at the top or bottom depending on the user team
     /// </summary>
-    public static Tile[,] plantTiles = new Tile[2, 5];
+    public static Tile[,] playerTiles = new Tile[ROWS, COLUMNS];
 	/// <summary>
 	/// The zombie tiles, which will be at the top or bottom depending on the user team
 	/// </summary>
-	public static Tile[,] zombieTiles = new Tile[2, 5];
+	public static Tile[,] opponentTiles = new Tile[ROWS, COLUMNS];
     /// <summary>
     /// The plant hero tiles, which will be at the top or bottom depending on the user team
     /// </summary>
-    public static Tile[] plantHeroTiles = new Tile[5];
+    public static Tile[] playerHeroTiles = new Tile[COLUMNS];
     /// <summary>
     /// The zombie hero tiles, which will be at the top or bottom depending on the user team
     /// </summary>
-    public static Tile[] zombieHeroTiles = new Tile[5];
+    public static Tile[] opponentHeroTiles = new Tile[COLUMNS];
     /// <summary>
     /// True if this tile belongs to the plant side, false if it's the zombie side
     /// </summary>
-    public bool isPlantTile { get; private set; }
+    public bool isPlayerTile { get; private set; }
     /// <summary>
     /// The terrain tiles. Only index 1-3 is used, others don't matter, but still need to have them for consistency
     /// </summary>
-    public static Tile[] terrainTiles = new Tile[5];
+    public static Tile[] terrainTiles = new Tile[COLUMNS];
     /// <summary>
     /// True if this tile is columnwide/terrain
     /// </summary>
@@ -69,34 +73,25 @@ public class Tile : Damagable
         else isTerrainTile = false;
         if (transform.position.y < 0)
         {
-            if (GameManager.Instance.team == Card.Team.Plant)
-            {
-                if (row == -1) plantHeroTiles[col] = this;
-                else plantTiles[row, col] = this;
-                isPlantTile = true;
-            }
-            else
-            {
-                if (row == -1) zombieHeroTiles[col] = this;
-                else zombieTiles[row, col] = this;
-                isPlantTile = false;
-            }
+            if (row == -1) playerHeroTiles[col] = this;
+            else playerTiles[row, col] = this;
+            isPlayerTile = true;
         }
         else
         {
-            if (GameManager.Instance.team == Card.Team.Plant)
-            {
-                if (row == -1) zombieHeroTiles[col] = this;
-                else zombieTiles[row, col] = this;
-                isPlantTile = false;
-            }
-            else
-            {
-                if (row == -1) plantHeroTiles[col] = this;
-                else plantTiles[row, col] = this;
-                isPlantTile = true;
-            }
+            if (row == -1) opponentHeroTiles[col] = this;
+            else opponentTiles[row, col] = this;
+            isPlayerTile = false;
         }
+    }
+
+    /// <summary>
+    /// Gets the tile array (player or opponent) that corresponds to the given team by going off of GameManager team
+    /// </summary>
+    public static Tile[,] GetTeamTiles(Card.Team team)
+    {
+        if (team == GameManager.Instance.team) return playerTiles;
+        return opponentTiles;
     }
 
     /// <summary>
@@ -133,7 +128,7 @@ public class Tile : Damagable
                     c.fusionBase = planted;
                     if (planted.amphibious) c.amphibious = true;
                 }
-                if (move) plantTiles[1 - row, col].Plant(planted);
+                if (move) GetTeamTiles(c.team)[1 - row, col].Plant(planted);
             }
         }
         planted = c;
@@ -141,10 +136,10 @@ public class Tile : Damagable
         c.col = col;
         c.transform.position = transform.position;
 
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < ROWS; i++)
         {
-            if (plantTiles[i, col].HasRevealedPlanted()) plantTiles[i, col].planted.UpdateAntihero();
-            if (zombieTiles[i, col].HasRevealedPlanted()) zombieTiles[i, col].planted.UpdateAntihero();
+            if (playerTiles[i, col].HasRevealedPlanted()) playerTiles[i, col].planted.UpdateAntihero();
+            if (opponentTiles[i, col].HasRevealedPlanted()) opponentTiles[i, col].planted.UpdateAntihero();
         }
     }
 
@@ -159,8 +154,8 @@ public class Tile : Damagable
         if (!silent)
             for (int i = 0; i < 2; i++)
             {
-                if (plantTiles[i, col].HasRevealedPlanted()) plantTiles[i, col].planted.UpdateAntihero();
-                if (zombieTiles[i, col].HasRevealedPlanted()) zombieTiles[i, col].planted.UpdateAntihero();
+                if (playerTiles[i, col].HasRevealedPlanted()) playerTiles[i, col].planted.UpdateAntihero();
+                if (opponentTiles[i, col].HasRevealedPlanted()) opponentTiles[i, col].planted.UpdateAntihero();
             }
     }
 
@@ -191,16 +186,16 @@ public class Tile : Damagable
         {
             for (int row = 0; row < 2; row++)
             {
-                if (plantTiles[row, col].planted != null && plantTiles[row, col].planted.name.Contains(name))
+                if (playerTiles[row, col].HasRevealedPlanted() && AllCards.InstanceToPrefab(playerTiles[row, col].planted).name == name)
                 {
-                    return plantTiles[row, col].planted;
+                    return playerTiles[row, col].planted;
                 }
-                if (zombieTiles[row, col].HasRevealedPlanted() && zombieTiles[row, col].planted.name.Contains(name))
+                if (opponentTiles[row, col].HasRevealedPlanted() && AllCards.InstanceToPrefab(opponentTiles[row, col].planted).name == name)
                 {
-                    return zombieTiles[row, col].planted;
+                    return opponentTiles[row, col].planted;
                 }
             }
-            if (terrainTiles[col].planted != null && terrainTiles[col].planted.name.Contains(name))
+            if (terrainTiles[col].planted != null && AllCards.InstanceToPrefab(terrainTiles[col].planted).name == name)
             {
                 return terrainTiles[col].planted;
             }
@@ -233,8 +228,8 @@ public class Tile : Damagable
     /// This is what the hero's "column" should be registered as to maintain proper order</param>
     public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1)
     {
-        if (isPlantTile) yield return GameManager.Instance.plantHero.ReceiveDamage(dmg, source, bullseye, false, false, col);
-        else yield return GameManager.Instance.zombieHero.ReceiveDamage(dmg, source, bullseye, false, false, col);
+        if (isPlayerTile) yield return GameManager.Instance.playerHero.ReceiveDamage(dmg, source, bullseye, false, false, col);
+        else yield return GameManager.Instance.opponentHero.ReceiveDamage(dmg, source, bullseye, false, false, col);
     }
 
     /// <summary>

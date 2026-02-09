@@ -9,7 +9,7 @@ public class ExplodingFruitcake : Card
 	{
         yield return new WaitForSeconds(1);
 		yield return Tile.plantTiles[row, col].planted.ReceiveDamage(5, this);
-        yield return GameManager.Instance.GainHandCard(Team.Plant, AllCards.RandomFromTribe((Tribe.Fruit, Tribe.Fruit)));
+        yield return GameManager.Instance.GainHandCard(Team.A, AllCards.RandomFromTribe((Tribe.Fruit, Tribe.Fruit)));
         yield return base.OnThisPlay();
 	}
 
@@ -19,7 +19,7 @@ public class ExplodingFruitcake : Card
 		Tile t = bc.GetComponent<Tile>();
 		if (t != null)
 		{
-			if (t.HasRevealedPlanted() && t.planted.team == Team.Plant) return true;
+			if (t.HasRevealedPlanted() && t.planted.team == Team.A) return true;
 			return false;
 		}
 		return false;

@@ -42,7 +42,7 @@ public class DeckCard : MonoBehaviour
             hpUI.transform.parent.gameObject.SetActive(false);
         } 
         costUI.text = orig.cost + "";
-        if (orig.team == Card.Team.Zombie) costUI.GetComponentInParent<Image>().sprite = AllCards.Instance.brainUI;
+        if (orig.team == Card.Team.B) costUI.GetComponentInParent<Image>().sprite = AllCards.Instance.brainUI;
         if (hideButtons) add.gameObject.SetActive(false);
     }
 

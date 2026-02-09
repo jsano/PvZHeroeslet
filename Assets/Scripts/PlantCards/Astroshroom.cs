@@ -7,7 +7,7 @@ public class Astroshroom : Card
 
 	protected override IEnumerator OnCardPlay(Card played)
 	{
-		if (played != this && played.type == Type.Unit && played.team == Team.Plant)
+		if (played != this && played.type == Type.Unit && played.team == Team.A)
 		{
             yield return Glow();
             yield return AttackFX(GameManager.Instance.zombieHero);

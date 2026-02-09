@@ -7,7 +7,7 @@ public class PepperMD : Card
 
     protected override IEnumerator OnCardHeal(Tuple<Card, int> healed)
 	{
-		if (healed.Item1.team == Team.Plant)
+		if (healed.Item1.team == Team.A)
 		{
             yield return Glow();
             ChangeStats(2, 2);
@@ -17,7 +17,7 @@ public class PepperMD : Card
 	
 	protected override IEnumerator OnHeroHeal(Tuple<Hero, int> healed)
     {
-        if (healed.Item1.team == Team.Plant)
+        if (healed.Item1.team == Team.A)
 		{
 			yield return Glow();
 			ChangeStats(2, 2);

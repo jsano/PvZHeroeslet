@@ -13,7 +13,7 @@ public class MoodOfVolatility : Buff
     protected override void Start()
     {
         Tile[,] target;
-        if (team == Card.Team.Plant)
+        if (team == Card.Team.A)
         {
             GameManager.Instance.plantPermanentAttackBonus += 1;
             target = Tile.plantTiles;

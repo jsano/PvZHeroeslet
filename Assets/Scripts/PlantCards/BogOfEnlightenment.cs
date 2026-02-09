@@ -15,17 +15,17 @@ public class BogOfEnlightenment : Card
 
     protected override void OnCardPlayImmediate(Card played)
     {
-        if (played.type == Type.Unit && played.team == Team.Plant && played.col == col && played.amphibious) played.ChangeStats(2, 0);
-        if (played.type == Type.Unit && played.team == Team.Zombie && played.col == col && !played.amphibious) played.ChangeStats(-2, 0);
+        if (played.type == Type.Unit && played.team == Team.A && played.col == col && played.amphibious) played.ChangeStats(2, 0);
+        if (played.type == Type.Unit && played.team == Team.B && played.col == col && !played.amphibious) played.ChangeStats(-2, 0);
     }
 
     protected override IEnumerator OnCardMoved(Card moved)
     {
-        if (moved.oldCol == col && moved.col != col && moved.team == Team.Plant && moved.amphibious) moved.ChangeStats(-2, 0);
-        if (moved.oldCol == col && moved.col != col && moved.team == Team.Zombie && !moved.amphibious) moved.ChangeStats(2, 0);
+        if (moved.oldCol == col && moved.col != col && moved.team == Team.A && moved.amphibious) moved.ChangeStats(-2, 0);
+        if (moved.oldCol == col && moved.col != col && moved.team == Team.B && !moved.amphibious) moved.ChangeStats(2, 0);
         
-        if (moved.oldCol != col && moved.col == col && moved.team == Team.Plant && moved.amphibious) moved.ChangeStats(2, 0);
-        if (moved.oldCol != col && moved.col == col && moved.team == Team.Zombie && !moved.amphibious) moved.ChangeStats(-2, 0);
+        if (moved.oldCol != col && moved.col == col && moved.team == Team.A && moved.amphibious) moved.ChangeStats(2, 0);
+        if (moved.oldCol != col && moved.col == col && moved.team == Team.B && !moved.amphibious) moved.ChangeStats(-2, 0);
         yield return base.OnCardMoved(moved);
     }
 

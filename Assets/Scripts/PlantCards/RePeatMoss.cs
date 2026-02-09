@@ -7,7 +7,7 @@ public class RePeatMoss : Card
 
 	protected override IEnumerator OnCardPlay(Card played)
 	{
-		if (played.type == Type.Trick && played.team == Team.Plant)
+		if (played.type == Type.Trick && played.team == Team.A)
 		{
             yield return Glow();
             yield return BonusAttack();

@@ -51,7 +51,7 @@ public class CardInfo : InfoUI
 			HP.GetComponentInParent<Image>().sprite = baseCard.GetHPIcon();
         }
 		cost.text = baseCard.cost + "";
-        if (baseCard.team == Card.Team.Zombie) cost.GetComponentInParent<Image>().sprite = AllCards.Instance.brainUI;
+        if (baseCard.team == Card.Team.B) cost.GetComponentInParent<Image>().sprite = AllCards.Instance.brainUI;
         cardClass.text = Enum.GetName(typeof(Card.Class), baseCard._class);
 		cardName.text = baseCard.name;
 
@@ -62,7 +62,7 @@ public class CardInfo : InfoUI
 		}
 		if (baseCard.type == Card.Type.Trick) tribes.text += "Trick";
         else if (baseCard.type == Card.Type.Terrain) tribes.text += "Terrain";
-        else tribes.text += baseCard.team == Card.Team.Plant ? "Plant" : "Zombie";
+        else tribes.text += baseCard.team == Card.Team.A ? "Plant" : "Zombie";
 
 		description.text = "";
 		if (baseCard.amphibious) description.text += "Amphibious\n";

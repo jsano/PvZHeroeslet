@@ -11,8 +11,8 @@ public class DoDamage : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		var hero = targetTeam == Team.Plant ? GameManager.Instance.plantHero : GameManager.Instance.zombieHero;
-		var tiles = targetTeam == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
+		var hero = targetTeam == Team.A ? GameManager.Instance.plantHero : GameManager.Instance.zombieHero;
+		var tiles = targetTeam == Team.A ? Tile.plantTiles : Tile.zombieTiles;
         yield return new WaitForSeconds(1);
 		if (row == -1 && col == -1) yield return hero.ReceiveDamage(damage, this);
 		else yield return tiles[row, col].planted.ReceiveDamage(damage, this);

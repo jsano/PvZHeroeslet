@@ -9,7 +9,7 @@ public class PrimalPeashooter : Card
 	protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
 	{
 		Card target = hurt.Item1.GetComponent<Card>();
-		if (hurt.Item2 == this && target != null && target.team == Team.Zombie && !target.died) 
+		if (hurt.Item2 == this && target != null && target.team == Team.B && !target.died) 
 		{
             yield return Glow();
             target.Bounce();

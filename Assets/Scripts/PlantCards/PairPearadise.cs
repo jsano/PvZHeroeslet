@@ -8,7 +8,7 @@ public class PairPearadise : Card
 
 	protected override IEnumerator OnCardPlay(Card played)
 	{
-        if (played.col == col && played.type == Type.Unit && played.team == Team.Plant)
+        if (played.col == col && played.type == Type.Unit && played.team == Team.A)
         {
             if (Tile.CanPlantInCol(col, Tile.plantTiles, true, false))
             {

@@ -44,16 +44,16 @@ public class AllCards : MonoBehaviour
         else instance = this;
     }
 
-    public static int RandomFromTribe(ITuple tribe, bool forceUnit=false, bool forceAmphibious=false, Card.Team team = Card.Team.Plant)
+    public static int RandomFromTribe(ITuple tribe, bool forceUnit=false, bool forceAmphibious=false, Team team = Team.A)
     {
         List<int> possible = new();
         for (int i = 0; i < Instance.cards.Length; i++)
         {
 			for (int j = 0; j < tribe.Length; j++)
 			{
-                if (Instance.cards[i].tribes.Contains((Card.Tribe) tribe[j]) && (!forceUnit || Instance.cards[i].type == Card.Type.Unit) && (!forceAmphibious || Instance.cards[i].amphibious))
+                if (Instance.cards[i].tribes.Contains((Tribe) tribe[j]) && (!forceUnit || Instance.cards[i].type == Type.Unit) && (!forceAmphibious || Instance.cards[i].amphibious))
                 {
-                    if ((Card.Tribe)tribe[j] == Card.Tribe.Superpower && team != Instance.cards[i].team) break;
+                    if ((Tribe)tribe[j] == Tribe.Superpower && team != Instance.cards[i].team) break;
                     possible.Add(i);
                     break;
                 }
@@ -62,14 +62,14 @@ public class AllCards : MonoBehaviour
         return possible[Random.Range(0, possible.Count)];
     }
 
-	public static int RandomFromCost(Card.Team team, ITuple cost, bool forceUnit=false, bool forceAmphibious = false)
+	public static int RandomFromCost(Team team, ITuple cost, bool forceUnit=false, bool forceAmphibious = false)
 	{
 		List<int> possible = new();
 		for (int i = 0; i < Instance.cards.Length; i++)
 		{
 			for (int j = 0; j < cost.Length; j++)
 			{
-				if (Instance.cards[i].team == team && Instance.cards[i].cost == (int)cost[j] && (!forceUnit || Instance.cards[i].type == Card.Type.Unit) && (!forceAmphibious || Instance.cards[i].amphibious))
+				if (Instance.cards[i].team == team && Instance.cards[i].cost == (int)cost[j] && (!forceUnit || Instance.cards[i].type == Type.Unit) && (!forceAmphibious || Instance.cards[i].amphibious))
 				{
 					possible.Add(i);
 					break;
@@ -84,7 +84,7 @@ public class AllCards : MonoBehaviour
         List<int> possible = new();
         for (int i = 0; i < Instance.cards.Length; i++)
         {
-            if (Instance.cards[i].tribes.Contains(tribe) && Instance.cards[i].cost == cost && (!forceUnit || Instance.cards[i].type == Card.Type.Unit))
+            if (Instance.cards[i].tribes.Contains(tribe) && Instance.cards[i].cost == cost && (!forceUnit || Instance.cards[i].type == Type.Unit))
             {
                 possible.Add(i);
             }
@@ -92,12 +92,12 @@ public class AllCards : MonoBehaviour
         return possible[Random.Range(0, possible.Count)];
     }
 
-    public static int RandomTrick(Card.Team team)
+    public static int RandomTrick(Team team)
 	{
         List<int> possible = new();
         for (int i = 0; i < Instance.cards.Length; i++)
         {
-            if (Instance.cards[i].team == team && Instance.cards[i].type == Card.Type.Trick)
+            if (Instance.cards[i].team == team && Instance.cards[i].type == Type.Trick)
             {
                 possible.Add(i);
             }

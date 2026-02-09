@@ -7,7 +7,7 @@ public class PodFighter : Card
 
 	protected override IEnumerator OnCardPlay(Card played)
 	{
-		if (played != this && played.type == Type.Unit && played.team == Team.Plant && Mathf.Abs(played.col - col) <= 1)
+		if (played != this && played.type == Type.Unit && played.team == Team.A && Mathf.Abs(played.col - col) <= 1)
 		{
             yield return Glow();
             yield return BonusAttack();

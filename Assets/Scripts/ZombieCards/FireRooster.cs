@@ -14,7 +14,7 @@ public class FireRooster : Card
     protected override IEnumerator OnCardPlay(Card played)
 	{
         choices.Clear();
-		if (played.col == col && played.team == Team.Plant && played.type == Type.Unit)
+		if (played.col == col && played.team == Team.A && played.type == Type.Unit)
 		{
             for (int j = 0; j < 4; j++)
             {

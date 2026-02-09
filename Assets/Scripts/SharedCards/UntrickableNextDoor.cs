@@ -10,7 +10,7 @@ public class UntrickableNextDoor : Card
 
     protected override IEnumerator OnThisPlay()
     {
-        var tiles = targetTeam == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
+        var tiles = targetTeam == Team.A ? Tile.plantTiles : Tile.zombieTiles;
         for (int i = 0; i < 2; i++) for (int j = -1; j <= 1; j++)
         {
             if (col + j < 0 || col + j > 4) continue;
@@ -42,7 +42,7 @@ public class UntrickableNextDoor : Card
 
     protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
-        var tiles = targetTeam == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
+        var tiles = targetTeam == Team.A ? Tile.plantTiles : Tile.zombieTiles;
         if (died.Item1 == this) for (int i = 0; i < 2; i++) for (int j = -1; j <= 1; j++)
                 {
                     if (col + j < 0 || col + j > 4) continue;
@@ -53,7 +53,7 @@ public class UntrickableNextDoor : Card
 
     void OnDestroy() // When this is an evolution source
     {
-        var tiles = targetTeam == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
+        var tiles = targetTeam == Team.A ? Tile.plantTiles : Tile.zombieTiles;
         if (!died) for (int i = 0; i < 2; i++) for (int j = -1; j <= 1; j++)
                 {
                     if (col + j < 0 || col + j > 4) continue;

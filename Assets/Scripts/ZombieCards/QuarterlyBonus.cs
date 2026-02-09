@@ -19,7 +19,7 @@ public class QuarterlyBonus : Card
         if (!base.IsValidTarget(bc)) return false;
         Tile t = bc.GetComponent<Tile>();
         if (t == null) return false;
-        if (t.HasRevealedPlanted() && t.planted.team == Team.Zombie) return true;
+        if (t.HasRevealedPlanted() && t.planted.team == Team.B) return true;
         return false;
     }
 

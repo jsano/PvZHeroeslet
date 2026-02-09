@@ -58,8 +58,8 @@ public class Hero : Damagable
 	{
 		if (invulnerable) yield break;
         foreach (int a in Buff.CallAll("OnCardHurtImmediate", new Tuple<Damagable, Card, int>(this, source, dmg))) dmg += a;
-        if (team != Card.Team.Zombie && Tile.IsOnField("Binary Stars")) dmg *= 2;
-        if (team == Card.Team.Plant)
+        if (team != Card.Team.B && Tile.IsOnField("Binary Stars")) dmg *= 2;
+        if (team == Card.Team.A)
 		{
 			Card s = Tile.IsOnField("Soul Patch");
 			if (s != null)
@@ -70,7 +70,7 @@ public class Hero : Damagable
 			}
 		}
 					
-        if (team == Card.Team.Zombie)
+        if (team == Card.Team.B)
 		{
             Card s = Tile.IsOnField("Undying Pharaoh");
 			if (s != null)
@@ -113,7 +113,7 @@ public class Hero : Damagable
             AudioManager.Instance.PlaySFX("Hit");
             if (HP <= 0)
 			{
-				GameManager.Instance.GameEnded(team == Card.Team.Plant ? Card.Team.Zombie : Card.Team.Plant);
+				GameManager.Instance.GameEnded(Card.GetOpponent(team));
 			}
 			else StartCoroutine(HitVisual());
 
@@ -131,7 +131,7 @@ public class Hero : Damagable
 
 	public override IEnumerator Heal(int amount)
 	{
-		if (team == Card.Team.Plant && Tile.IsOnField("Sneezing")) yield break;
+		if (team == Card.Team.A && Tile.IsOnField("Sneezing")) yield break;
 		int HPBefore = HP;
 		HP += amount;
 		HP = Mathf.Min(maxHP, HP);

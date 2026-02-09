@@ -31,7 +31,7 @@ public class EnsignUproot : Card
         choices.Clear();
 		Tile t = bc.GetComponent<Tile>();
 		toMove = t.planted;
-		var targets = toMove.team == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
+		var targets = toMove.team == Team.A ? Tile.plantTiles : Tile.zombieTiles;
 		for (int row = 0; row < 2; row++) for (int col = 0; col < 5; col++)
 			{
                 if (row == t.row && col == t.col) continue;

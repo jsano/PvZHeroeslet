@@ -18,7 +18,7 @@ public class Lawnmower : Card
         Tile t = bc.GetComponent<Tile>();
 		if (t == null || t.col == 0 || t.col == 4) return false;
 		if (!t.HasRevealedPlanted()) return false;
-		if (t.planted.team == Team.Zombie) return true;
+		if (t.planted.team == Team.B) return true;
 		return false;
 	}
 

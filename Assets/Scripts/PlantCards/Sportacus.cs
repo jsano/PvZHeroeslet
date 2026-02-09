@@ -7,7 +7,7 @@ public class Sportacus : Card
 
 	protected override IEnumerator OnCardPlay(Card played)
 	{
-		if (played.type == Type.Trick && played.team == Team.Zombie)
+		if (played.type == Type.Trick && played.team == Team.B)
 		{
             yield return Glow();
             yield return AttackFX(GameManager.Instance.zombieHero);

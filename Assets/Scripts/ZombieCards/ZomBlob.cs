@@ -10,7 +10,7 @@ public class ZomBlob : Card
 		if (evolved)
 		{
 			yield return Glow();
-			ChangeStats(GameManager.Instance.team == Team.Zombie ? (int)GameManager.Instance.remainingTop : (int)GameManager.Instance.opponentRemainingTop, 0);
+			ChangeStats(GameManager.Instance.team == Team.B ? (int)GameManager.Instance.remainingTop : (int)GameManager.Instance.opponentRemainingTop, 0);
 		}
 		yield return base.OnThisPlay();
 	}

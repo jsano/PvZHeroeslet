@@ -14,7 +14,7 @@ public class DefensiveEnd : Card
 
     protected override IEnumerator OnCardDraw(Team t)
     {
-		if (t == Team.Plant && GameManager.Instance.team == Team.Plant)
+		if (t == Team.A && GameManager.Instance.team == Team.A)
 		{
 			HandCard c = GameManager.Instance.GetHandCards()[0];
 			if (c.orig.type == Type.Trick) c.ChangeCost(2);

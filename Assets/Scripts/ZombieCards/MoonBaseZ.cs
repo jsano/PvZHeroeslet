@@ -14,7 +14,7 @@ public class MoonBaseZ : Card
 
     protected override void OnCardPlayImmediate(Card played)
     {
-        if (played.type == Type.Unit && played.team == Team.Zombie && played.col == col)
+        if (played.type == Type.Unit && played.team == Team.B && played.col == col)
         {
             played.overshoot = Math.Max(Tile.zombieTiles[0, col].planted.baseOvershoot, 3);
         }
@@ -22,11 +22,11 @@ public class MoonBaseZ : Card
 
     protected override IEnumerator OnCardMoved(Card moved)
     {
-        if (moved.oldCol == col && moved.col != col && moved.team == Team.Zombie)
+        if (moved.oldCol == col && moved.col != col && moved.team == Team.B)
         {
             moved.overshoot = Math.Max(Tile.zombieTiles[0, col].planted.baseOvershoot, 0);
         }
-        if (moved.oldCol != col && moved.col == col && moved.team == Team.Zombie)
+        if (moved.oldCol != col && moved.col == col && moved.team == Team.B)
         {
             moved.overshoot = Math.Max(Tile.zombieTiles[0, col].planted.baseOvershoot, 3);
         }

@@ -14,7 +14,7 @@ public class CoffeeGrounds : Card
 
     protected override void OnCardPlayImmediate(Card played)
     {
-        if (played.type == Type.Unit && played.team == Team.Plant && played.col == col)
+        if (played.type == Type.Unit && played.team == Team.A && played.col == col)
         {
             played.doubleStrike += 1;
         }
@@ -22,11 +22,11 @@ public class CoffeeGrounds : Card
 
     protected override IEnumerator OnCardMoved(Card moved)
     {
-        if (moved.oldCol == col && moved.col != col && moved.team == Team.Plant)
+        if (moved.oldCol == col && moved.col != col && moved.team == Team.A)
         {
             moved.doubleStrike -= 1;
         }
-        if (moved.oldCol != col && moved.col == col && moved.team == Team.Plant)
+        if (moved.oldCol != col && moved.col == col && moved.team == Team.A)
         {
             moved.doubleStrike += 1;
         }

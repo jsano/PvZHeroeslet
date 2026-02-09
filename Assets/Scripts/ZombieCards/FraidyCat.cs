@@ -8,7 +8,7 @@ public class FraidyCat : Card
 	protected override IEnumerator OnCardPlay(Card played)
 	{
         choices.Clear();
-        if (played.type == Type.Trick && played.team == Team.Plant)
+        if (played.type == Type.Trick && played.team == Team.A)
         {
             for (int j = 0; j < 4; j++)
             {

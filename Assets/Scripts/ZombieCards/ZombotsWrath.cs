@@ -19,11 +19,11 @@ public class ZombotsWrath : Card
         Tile t = bc.GetComponent<Tile>();
         if (t != null)
         {
-            if (!t.HasRevealedPlanted() || t.planted.team == Team.Zombie) return false;
+            if (!t.HasRevealedPlanted() || t.planted.team == Team.B) return false;
         }
         else
         {
-            if (bc.GetComponent<Hero>().team == Team.Zombie) return false;
+            if (bc.GetComponent<Hero>().team == Team.B) return false;
         }
         return true;
     }

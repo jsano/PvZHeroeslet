@@ -14,11 +14,11 @@ public class BlackHole : Card
 
     protected override IEnumerator OnCardPlay(Card played)
     {
-        if (played.type == Type.Unit && played.team == Team.Plant && played.col == col)
+        if (played.type == Type.Unit && played.team == Team.A && played.col == col)
         {
             played.ChangeStats(-1, 0);
         }
-        if (played.type == Type.Unit && played.team == Team.Plant && played.col != col && Tile.CanPlantInCol(col, Tile.plantTiles, played.teamUp, played.amphibious))
+        if (played.type == Type.Unit && played.team == Team.A && played.col != col && Tile.CanPlantInCol(col, Tile.plantTiles, played.teamUp, played.amphibious))
         {
             yield return new WaitForSeconds(1);
             played.Move(played.row, col);
@@ -28,11 +28,11 @@ public class BlackHole : Card
 
     protected override IEnumerator OnCardMoved(Card moved)
     {
-        if (moved.oldCol == col && moved.col != col && moved.team == Team.Plant)
+        if (moved.oldCol == col && moved.col != col && moved.team == Team.A)
         {
             moved.ChangeStats(1, 0);
         }
-        if (moved.oldCol != col && moved.col == col && moved.team == Team.Plant)
+        if (moved.oldCol != col && moved.col == col && moved.team == Team.A)
         {
             moved.ChangeStats(-1, 0);
         }

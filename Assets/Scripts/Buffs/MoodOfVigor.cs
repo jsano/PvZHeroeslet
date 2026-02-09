@@ -12,7 +12,7 @@ public class MoodOfVigor : Buff
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
-        if (team == Card.Team.Plant)
+        if (team == Card.Team.A)
         {
             GameManager.Instance.plantCardPermanentDiscount += 0.5f;
             GameManager.Instance.plantTrickPermanentDiscount += 0.5f;

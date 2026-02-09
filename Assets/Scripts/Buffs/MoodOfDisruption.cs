@@ -12,7 +12,7 @@ public class MoodOfDisruption : Buff
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
-        if (team == Card.Team.Zombie)
+        if (team == Card.Team.B)
         {
             GameManager.Instance.plantCardPermanentDiscount -= 0.5f;
             GameManager.Instance.plantTrickPermanentDiscount -= 0.5f;

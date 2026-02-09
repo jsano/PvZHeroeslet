@@ -17,7 +17,7 @@ public class DestroyWithAttack : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		var targets = targetTeam == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
+		var targets = targetTeam == Team.A ? Tile.plantTiles : Tile.zombieTiles;
 		targets[row, col].planted.Destroy();
 		yield return base.OnThisPlay();
 	}

@@ -12,7 +12,7 @@ public class StatTerrain : Card
 
     protected override IEnumerator OnThisPlay()
     {
-        var targets = targetTeam == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
+        var targets = targetTeam == Team.A ? Tile.plantTiles : Tile.zombieTiles;
         for (int i = 0; i < 2; i++) if (targets[i, col].planted != null) targets[i, col].planted.ChangeStats(atkBuff, HPBuff);
         yield return base.OnThisPlay();
     }
@@ -42,7 +42,7 @@ public class StatTerrain : Card
     {
         if (died.Item1 == this)
         {
-            var targets = targetTeam == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
+            var targets = targetTeam == Team.A ? Tile.plantTiles : Tile.zombieTiles;
             for (int i = 0; i < 2; i++) if (targets[i, col].planted != null) targets[i, col].planted.ChangeStats(-atkBuff, -HPBuff);
         }
         yield return base.OnCardDeath(died);
@@ -51,7 +51,7 @@ public class StatTerrain : Card
     void OnDestroy()
     {
         if (died) return;
-        var targets = targetTeam == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
+        var targets = targetTeam == Team.A ? Tile.plantTiles : Tile.zombieTiles;
         for (int i = 0; i < 2; i++) if (targets[i, col].planted != null) targets[i, col].planted.ChangeStats(-atkBuff, -HPBuff);
     }
 

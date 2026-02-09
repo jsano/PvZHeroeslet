@@ -22,7 +22,7 @@ public class ZombotAerostaticGondola : Card
             {
                 yield return Glow();
                 var choice = choices[UnityEngine.Random.Range(0, choices.Count)];
-                yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col + " - " + AllCards.RandomFromCost(Team.Zombie, (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), true));
+                yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col + " - " + AllCards.RandomFromCost(Team.B, (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), true));
                 Move(int.Parse(GameManager.Instance.GetShuffledList()[0]), int.Parse(GameManager.Instance.GetShuffledList()[1]));
                 Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[2])]);
                 Tile.zombieTiles[oldRow, oldCol].Plant(c);

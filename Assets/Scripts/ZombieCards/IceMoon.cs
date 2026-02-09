@@ -18,7 +18,7 @@ public class IceMoon : Card
 
     protected override void OnCardPlayImmediate(Card played)
     {
-        if (played.type == Type.Unit && played.team == Team.Zombie && played.col == col)
+        if (played.type == Type.Unit && played.team == Team.B && played.col == col)
         {
             played.strikethrough += 1;
         }
@@ -26,11 +26,11 @@ public class IceMoon : Card
 
     protected override IEnumerator OnCardMoved(Card moved)
     {
-        if (moved.oldCol == col && moved.col != col && moved.team == Team.Zombie)
+        if (moved.oldCol == col && moved.col != col && moved.team == Team.B)
         {
             moved.strikethrough -= 1;
         }
-        if (moved.oldCol != col && moved.col == col && moved.team == Team.Zombie)
+        if (moved.oldCol != col && moved.col == col && moved.team == Team.B)
         {
             moved.strikethrough += 1;
         }

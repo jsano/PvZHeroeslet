@@ -8,7 +8,7 @@ public class AncientVimpire : Card
 
     protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
-        if (died.Item1.team == Team.Plant && died.Item2 != null && died.Item2.frenzy > 0)
+        if (died.Item1.team == Team.A && died.Item2 != null && died.Item2.frenzy > 0)
         {
             yield return Glow();
             died.Item2.ChangeStats(2, 2);

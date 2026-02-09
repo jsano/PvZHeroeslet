@@ -23,7 +23,7 @@ public class DiscoNaut : Card
 
     protected override void OnCardPlayImmediate(Card played)
     {
-        if (played.team == Team.Zombie && played.type == Type.Unit && played.atk <= 2)
+        if (played.team == Team.B && played.type == Type.Unit && played.atk <= 2)
         {
             played.bullseye += 1;
             buffed.Add(played);
@@ -32,12 +32,12 @@ public class DiscoNaut : Card
 
     protected override IEnumerator OnCardStatsChanged(Tuple<Card, int, int> changed)
     {
-        if (changed.Item1.team == Team.Zombie && changed.Item1.atk <= 2 && !buffed.Contains(changed.Item1))
+        if (changed.Item1.team == Team.B && changed.Item1.atk <= 2 && !buffed.Contains(changed.Item1))
         {
             changed.Item1.bullseye += 1;
             buffed.Add(changed.Item1);
         }
-        if (changed.Item1.team == Team.Zombie && changed.Item1.atk > 2 && buffed.Contains(changed.Item1))
+        if (changed.Item1.team == Team.B && changed.Item1.atk > 2 && buffed.Contains(changed.Item1))
         {
             changed.Item1.bullseye -= 1;
             buffed.Remove(changed.Item1);

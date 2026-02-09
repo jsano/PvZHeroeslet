@@ -18,7 +18,7 @@ public class MoodOfNovelty : Buff
         if (turns == 3)
         {
             Tile[,] target;
-            if (team == Card.Team.Plant)
+            if (team == Card.Team.A)
             {
                 GameManager.Instance.plantPermanentAttackBonus += 3;
                 GameManager.Instance.plantPermanentHPBonus += 3;

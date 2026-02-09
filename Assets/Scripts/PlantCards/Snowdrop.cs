@@ -7,7 +7,7 @@ public class Snowdrop : Card
 
 	protected override IEnumerator OnCardFreeze(Card frozen)
 	{
-		if (frozen.team == Team.Zombie)
+		if (frozen.team == Team.B)
 		{
 			yield return Glow();
 			ChangeStats(2, 2);

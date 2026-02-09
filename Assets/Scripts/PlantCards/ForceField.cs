@@ -14,7 +14,7 @@ public class ForceField : Card
 
     protected override void OnCardPlayImmediate(Card played)
     {
-        if (played.type == Type.Unit && played.team == Team.Plant && played.col == col)
+        if (played.type == Type.Unit && played.team == Team.A && played.col == col)
         {
             played.ToggleInvulnerability(true);
         }
@@ -22,11 +22,11 @@ public class ForceField : Card
 
     protected override IEnumerator OnCardMoved(Card moved)
     {
-        if (moved.oldCol == col && moved.col != col && moved.team == Team.Plant)
+        if (moved.oldCol == col && moved.col != col && moved.team == Team.A)
         {
             moved.ToggleInvulnerability(false);
         }
-        if (moved.oldCol != col && moved.col == col && moved.team == Team.Plant)
+        if (moved.oldCol != col && moved.col == col && moved.team == Team.A)
         {
             moved.ToggleInvulnerability(true);
         }

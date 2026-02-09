@@ -21,11 +21,11 @@ public class Sunburn : Card
         Tile t = bc.GetComponent<Tile>();
 		if (t != null)
 		{
-			if (!t.HasRevealedPlanted() || t.planted.team == Team.Plant) return false;
+			if (!t.HasRevealedPlanted() || t.planted.team == Team.A) return false;
 		}
 		else
 		{
-			if (bc.GetComponent<Hero>().team == Team.Plant) return false;
+			if (bc.GetComponent<Hero>().team == Team.A) return false;
 		}
 		return true;
 	}

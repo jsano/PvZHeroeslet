@@ -13,7 +13,7 @@ public class MoodOfAttrition : Buff
     protected override void Start()
     {
         Tile[,] target;
-        if (team == Card.Team.Plant)
+        if (team == Card.Team.A)
         {
             GameManager.Instance.plantPermanentHPBonus += 2;
             target = Tile.plantTiles;

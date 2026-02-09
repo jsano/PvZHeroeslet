@@ -93,7 +93,7 @@ public class LobbyManager : NetworkBehaviour
         LeanTween.moveLocalX(teamUI, -500, 0.5f).setEaseOutQuad();
         LeanTween.moveLocalX(note, -500, 0.5f).setEaseOutQuad();
         LeanTween.moveLocalX(banUI, 0, 0.5f).setEaseOutQuad();
-        if (team == Team.Plant) banUI.transform.Find("BansZ").gameObject.SetActive(true);
+        if (team == Team.A) banUI.transform.Find("BansZ").gameObject.SetActive(true);
         else banUI.transform.Find("BansP").gameObject.SetActive(true);
         title.text = "Choose your bans...";
     }
@@ -102,7 +102,7 @@ public class LobbyManager : NetworkBehaviour
     {
         LeanTween.moveLocalX(banUI, -500, 0.5f).setEaseOutQuad();
         LeanTween.moveLocalX(chooseUI, 0, 0.5f).setEaseOutQuad();
-        if (team == Team.Plant) chooseUI.transform.Find("ChooseP").gameObject.SetActive(true);
+        if (team == Team.A) chooseUI.transform.Find("ChooseP").gameObject.SetActive(true);
         else chooseUI.transform.Find("ChooseZ").gameObject.SetActive(true);
         title.text = "Choose your deck...";
         heroName.gameObject.SetActive(false);
@@ -172,7 +172,7 @@ public class LobbyManager : NetworkBehaviour
     {
         if (IsHost == host)
         {
-            team = plant ? Team.Plant : Team.Zombie;
+            team = plant ? Team.A : Team.B;
         }
     }
 
@@ -203,12 +203,12 @@ public class LobbyManager : NetworkBehaviour
     {
         if (IsHost != host)
         {
-            if (team == Team.Plant) UserAccounts.GameStats.ZombieHero = id;
+            if (team == Team.A) UserAccounts.GameStats.ZombieHero = id;
             else UserAccounts.GameStats.PlantHero = id;
         }
         else
         {
-            if (team == Team.Plant) UserAccounts.GameStats.PlantHero = id;
+            if (team == Team.A) UserAccounts.GameStats.PlantHero = id;
             else UserAccounts.GameStats.ZombieHero = id;
         }
         ready += 1;

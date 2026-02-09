@@ -9,7 +9,7 @@ public class MushroomGrotto : Card
 	protected override IEnumerator OnCardPlay(Card played)
 	{
         choices.Clear();
-        if (played.col == col && played.type == Type.Unit && played.team == Team.Plant)
+        if (played.col == col && played.type == Type.Unit && played.team == Team.A)
         {
             for (int j = 0; j < 5; j++)
             {

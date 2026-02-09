@@ -17,7 +17,7 @@ public class HuntingGrounds : Card
 
     protected override IEnumerator OnCardPlay(Card played)
     {
-        if (played.type == Type.Unit && played.team == Team.Zombie && played.col == col)
+        if (played.type == Type.Unit && played.team == Team.B && played.col == col)
         {
             played.hunt += 1;
             played.ChangeStats(1, 1);
@@ -27,12 +27,12 @@ public class HuntingGrounds : Card
 
     protected override IEnumerator OnCardMoved(Card moved)
     {
-        if (moved.oldCol == col && moved.col != col && moved.team == Team.Zombie)
+        if (moved.oldCol == col && moved.col != col && moved.team == Team.B)
         {
             moved.hunt -= 1;
             moved.ChangeStats(1, 1);
         }
-        if (moved.oldCol != col && moved.col == col && moved.team == Team.Zombie)
+        if (moved.oldCol != col && moved.col == col && moved.team == Team.B)
         {
             moved.hunt += 1;
             moved.ChangeStats(1, 1);

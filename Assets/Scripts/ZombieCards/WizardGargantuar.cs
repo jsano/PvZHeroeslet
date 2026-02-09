@@ -37,7 +37,7 @@ public class WizardGargantuar : Card
 		Card toDestroy = t.planted;
         t.Unplant(true);
         yield return Glow();
-        yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(Team.Zombie, (toDestroy.cost + 1, toDestroy.cost + 1), true, toDestroy.col == 4) + "");
+        yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(Team.B, (toDestroy.cost + 1, toDestroy.cost + 1), true, toDestroy.col == 4) + "");
         Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[0])]);
         Tile.zombieTiles[toDestroy.row, toDestroy.col].Plant(c);
 		Destroy(toDestroy.gameObject);
