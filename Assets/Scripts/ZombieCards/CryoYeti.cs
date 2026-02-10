@@ -9,9 +9,9 @@ public class CryoYeti : Card
     {
         for (int i = 0; i < 2; i++) for (int col = 0; col < 5; col++)
         {
-            if (Tile.plantTiles[i, col].HasRevealedPlanted())
+            if (Tile.GetTeamTiles(GetOpponent(team))[i, col].HasRevealedPlanted())
             {
-                choices.Add(Tile.plantTiles[i, col].GetComponent<BoxCollider2D>());
+                choices.Add(Tile.GetTeamTiles(GetOpponent(team))[i, col].GetComponent<BoxCollider2D>());
             }
         }
         if (choices.Count == 1) yield return OnSelection(choices[0]);

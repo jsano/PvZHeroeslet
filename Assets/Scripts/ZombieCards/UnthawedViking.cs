@@ -15,7 +15,7 @@ public class UnthawedViking : Card
 			{
 				for (int row = 0; row < 2; row++)
 				{
-					if (Tile.plantTiles[row, col].planted != null) Tile.plantTiles[row, col].planted.Freeze();
+					if (Tile.GetTeamTiles(GetOpponent(team))[row, col].planted != null) Tile.GetTeamTiles(GetOpponent(team))[row, col].planted.Freeze();
 				}
 			}
 		}
@@ -24,7 +24,7 @@ public class UnthawedViking : Card
 			yield return Glow();
 			for (int row = 0; row < 2; row++)
 			{
-				if (Tile.plantTiles[row, col].planted != null) Tile.plantTiles[row, col].planted.Freeze();
+				if (Tile.GetTeamTiles(GetOpponent(team))[row, col].planted != null) Tile.GetTeamTiles(GetOpponent(team))[row, col].planted.Freeze();
 			}
 		}
         yield return base.OnThisPlay();

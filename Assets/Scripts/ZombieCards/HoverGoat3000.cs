@@ -12,9 +12,9 @@ public class HoverGoat3000 : Card
 		{
 			for (int col = 0; col < 5; col++)
 			{
-				if (Tile.zombieTiles[row, col].HasRevealedPlanted() && Tile.zombieTiles[row, col].planted != this)
+				if (Tile.GetTeamTiles(team)[row, col].HasRevealedPlanted() && Tile.GetTeamTiles(team)[row, col].planted != this)
 				{
-					choices.Add(Tile.zombieTiles[row, col].GetComponent<BoxCollider2D>());
+					choices.Add(Tile.GetTeamTiles(team)[row, col].GetComponent<BoxCollider2D>());
 				}
 			}
 		}

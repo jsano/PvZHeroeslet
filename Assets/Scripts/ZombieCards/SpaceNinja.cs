@@ -16,7 +16,7 @@ public class SpaceNinja : Card
 			List<Damagable> targets = new();
 			for (int i = 0; i < 2; i++) for (int col = 0; col < 5; col++)
 			{
-				if (Tile.plantTiles[i, col].planted != null) targets.Add(Tile.plantTiles[i, col].planted);
+				if (Tile.GetTeamTiles(GetOpponent(team))[i, col].planted != null) targets.Add(Tile.GetTeamTiles(GetOpponent(team))[i, col].planted);
 			}
             yield return Glow();
             yield return AttackFXs(targets);

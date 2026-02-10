@@ -8,7 +8,7 @@ public class EscapeThroughTime : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		Tile.zombieTiles[row, col].planted.ToggleInvulnerability(true);
+		Tile.GetTeamTiles(team)[row, col].planted.ToggleInvulnerability(true);
 		yield return GameManager.Instance.GainHandCard(team, AllCards.RandomFromTribe((Tribe.History, Tribe.History)));
         yield return base.OnThisPlay();
 	}
@@ -18,7 +18,7 @@ public class EscapeThroughTime : Card
         if (!base.IsValidTarget(bc)) return false;
         Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
-		if (t.HasRevealedPlanted() && t.planted.team == Team.B) return true;
+		if (t.HasRevealedPlanted() && t.planted.team == team) return true;
 		return false;
 	}
 

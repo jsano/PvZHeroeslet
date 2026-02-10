@@ -7,20 +7,22 @@ public class ZombieKing : Card
 
 	protected override IEnumerator OnTurnEnd()
 	{
-        List<int> locations = new();
-        for (int col = 0; col < 5; col++)
+        List<Tile> locations = new();
+        for (int row = 0; row < 2; row++) for (int col = 0; col < 5; col++)
         {
-            if (Tile.zombieTiles[0, col].HasRevealedPlanted() && Tile.zombieTiles[0, col].planted != this) locations.Add(col);
+            if (Tile.GetTeamTiles(team)[row, col].HasRevealedPlanted() && Tile.GetTeamTiles(team)[row, col].planted != this) locations.Add(Tile.GetTeamTiles(team)[row, col]);
         }
         if (locations.Count > 0)
         {
             yield return Glow();
-            yield return SyncRandomChoiceAcrossNetwork(locations[Random.Range(0, locations.Count)] + "");
-            int chosen = int.Parse(GameManager.Instance.GetShuffledList()[0]);
-            Destroy(Tile.zombieTiles[0, chosen].planted.gameObject);
-            Tile.zombieTiles[0, chosen].Unplant();
+            Tile chosen0 = locations[Random.Range(0, locations.Count)];
+            yield return SyncRandomChoiceAcrossNetwork(chosen0.row + " - " + chosen0.col);
+            int r = int.Parse(GameManager.Instance.GetShuffledList()[0]);
+            int c = int.Parse(GameManager.Instance.GetShuffledList()[1]);
+            Destroy(Tile.GetTeamTiles(team)[r, c].planted.gameObject);
+            Tile.GetTeamTiles(team)[r, c].Unplant();
             Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Knight of the Living Dead")]).GetComponent<Card>();
-            Tile.zombieTiles[0, chosen].Plant(card);
+            Tile.GetTeamTiles(team)[r, c].Plant(card);
         }
         yield return base.OnTurnEnd();
     }

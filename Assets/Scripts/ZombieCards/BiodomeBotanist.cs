@@ -9,9 +9,9 @@ public class BiodomeBotanist : Card
 	{
 		for (int col = 0; col < 4; col++)
 		{
-			if (Tile.CanPlantInCol(col, Tile.plantTiles, false, false))
+			if (Tile.CanPlantInCol(col, Tile.GetTeamTiles(GetOpponent(team)), false, false))
 			{
-				choices.Add(Tile.plantTiles[0, col].GetComponent<BoxCollider2D>());
+				choices.Add(Tile.GetTeamTiles(GetOpponent(team))[0, col].GetComponent<BoxCollider2D>());
 			}
 		}		
 		if (choices.Count == 1) yield return OnSelection(choices[0]);
@@ -32,7 +32,7 @@ public class BiodomeBotanist : Card
         string[] options = new string[] { "Weenie Beanie", "Peashooter", "Button Mushroom", "Bellflower", "Small-nut" };
 		yield return SyncRandomChoiceAcrossNetwork(options[UnityEngine.Random.Range(0, options.Length)]);
 		Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID(GameManager.Instance.GetShuffledList()[0])]);
-		Tile.zombieTiles[0, t.col].Plant(c);
+		Tile.GetTeamTiles(GetOpponent(team))[0, t.col].Plant(c);
     }
 
 }

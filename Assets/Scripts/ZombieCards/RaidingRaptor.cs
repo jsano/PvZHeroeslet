@@ -8,7 +8,7 @@ public class RaidingRaptor : Card
 
     protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
     {
-        if (hurt.Item2 == this && hurt.Item1 == GameManager.Instance.plantHero)
+        if (hurt.Item2 == this && hurt.Item1 == GameManager.Instance.GetTeamHero(GetOpponent(team)))
         {
             yield return Glow();
             int id = AllCards.RandomFromCost(team, (0, 1, 2));

@@ -11,9 +11,9 @@ public class FootSoldier : Card
         {
             for (int col = 0; col < 5; col++)
             {
-                for (int row = 0; row < 2; row++) if (Tile.plantTiles[row, col].HasRevealedPlanted()) choices.Add(Tile.plantTiles[row, col].GetComponent<BoxCollider2D>());
+                for (int row = 0; row < 2; row++) if (Tile.GetTeamTiles(GetOpponent(team))[row, col].HasRevealedPlanted()) choices.Add(Tile.GetTeamTiles(GetOpponent(team))[row, col].GetComponent<BoxCollider2D>());
             }
-            choices.Add(GameManager.Instance.plantHero.GetComponent<BoxCollider2D>());
+            choices.Add(GameManager.Instance.GetTeamHero(GetOpponent(team)).GetComponent<BoxCollider2D>());
             if (choices.Count == 1) yield return OnSelection(choices[0]);
             if (choices.Count >= 2)
             {
@@ -32,8 +32,8 @@ public class FootSoldier : Card
         yield return Glow();
         if (t == null)
         {
-            yield return AttackFX(GameManager.Instance.plantHero);
-            yield return GameManager.Instance.plantHero.ReceiveDamage(3, this);
+            yield return AttackFX(GameManager.Instance.GetTeamHero(GetOpponent(team)));
+            yield return GameManager.Instance.GetTeamHero(GetOpponent(team)).ReceiveDamage(3, this);
         }
         else
         {

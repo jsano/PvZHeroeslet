@@ -15,7 +15,7 @@ public class SupernovaGargantuar : Card
             yield return Glow();
             for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++)
             {
-                var c = Tile.plantTiles[i, j].planted;
+                var c = Tile.GetTeamTiles(GetOpponent(team))[i, j].planted;
                 if (c != null && AllCards.InstanceToPrefab(c) == AllCards.InstanceToPrefab(died.Item1))
                 {
                     toDestroy.Add(c);

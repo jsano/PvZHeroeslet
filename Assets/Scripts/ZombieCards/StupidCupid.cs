@@ -9,7 +9,7 @@ public class StupidCupid : Card
 	{
         for (int col = 0; col < 5; col++)
         {
-            for (int row = 0; row < 2; row++) if (Tile.plantTiles[row, col].HasRevealedPlanted()) choices.Add(Tile.plantTiles[row, col].GetComponent<BoxCollider2D>());
+            for (int row = 0; row < 2; row++) if (Tile.GetTeamTiles(GetOpponent(team))[row, col].HasRevealedPlanted()) choices.Add(Tile.GetTeamTiles(GetOpponent(team))[row, col].GetComponent<BoxCollider2D>());
         }
         if (choices.Count == 1) yield return OnSelection(choices[0]);
         if (choices.Count >= 2)

@@ -8,7 +8,7 @@ public class HeroicHealth : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		yield return GameManager.Instance.zombieHero.Heal(6);
+		yield return GameManager.Instance.GetTeamHero(team).Heal(6);
 		yield return base.OnThisPlay();
 	}
 

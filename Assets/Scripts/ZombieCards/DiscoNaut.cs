@@ -13,17 +13,17 @@ public class DiscoNaut : Card
 
     protected override IEnumerator OnThisPlay()
     {
-        for (int j = 0; j < 5; j++) if (Tile.zombieTiles[0, j].HasRevealedPlanted() && Tile.zombieTiles[0, j].planted.atk <= 2)
+        for (int j = 0; j < 5; j++) if (Tile.GetTeamTiles(team)[0, j].HasRevealedPlanted() && Tile.GetTeamTiles(team)[0, j].planted.atk <= 2)
             {
-                Tile.zombieTiles[0, j].planted.bullseye += 1;
-                buffed.Add(Tile.zombieTiles[0, j].planted);
+                Tile.GetTeamTiles(team)[0, j].planted.bullseye += 1;
+                buffed.Add(Tile.GetTeamTiles(team)[0, j].planted);
             }
         yield return base.OnThisPlay();
     }
 
     protected override void OnCardPlayImmediate(Card played)
     {
-        if (played.team == Team.B && played.type == Type.Unit && played.atk <= 2)
+        if (played.team == team && played.type == Type.Unit && played.atk <= 2)
         {
             played.bullseye += 1;
             buffed.Add(played);
@@ -32,12 +32,12 @@ public class DiscoNaut : Card
 
     protected override IEnumerator OnCardStatsChanged(Tuple<Card, int, int> changed)
     {
-        if (changed.Item1.team == Team.B && changed.Item1.atk <= 2 && !buffed.Contains(changed.Item1))
+        if (changed.Item1.team == team && changed.Item1.atk <= 2 && !buffed.Contains(changed.Item1))
         {
             changed.Item1.bullseye += 1;
             buffed.Add(changed.Item1);
         }
-        if (changed.Item1.team == Team.B && changed.Item1.atk > 2 && buffed.Contains(changed.Item1))
+        if (changed.Item1.team == team && changed.Item1.atk > 2 && buffed.Contains(changed.Item1))
         {
             changed.Item1.bullseye -= 1;
             buffed.Remove(changed.Item1);

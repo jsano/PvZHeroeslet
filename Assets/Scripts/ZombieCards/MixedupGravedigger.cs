@@ -14,31 +14,31 @@ public class MixedupGravedigger: Card
 		else
 		{
 			activated = true;
-			List<int> columns = new();
+			List<Tile> tiles = new();
 			List<Card> zombies = new();
-			for (int col = 0; col < 5; col++)
+            for (int r = 0; r < Tile.ROWS; r++) for (int col = 0; col < 5; col++)
 			{
-				if (Tile.zombieTiles[0, col].planted != null)
+				if (Tile.GetTeamTiles(team)[r, col].planted != null)
 				{
-					columns.Add(col);
-					zombies.Add(Tile.zombieTiles[0, col].planted);
+					tiles.Add(Tile.GetTeamTiles(team)[r, col]);
+					zombies.Add(Tile.GetTeamTiles(team)[r, col].planted);
                 }
 			}
-			for (int n = columns.Count - 1; n > 0; n--)
+			for (int n = tiles.Count - 1; n > 0; n--)
 			{
 				int k = UnityEngine.Random.Range(0, n + 1);
-				var temp = columns[n];
-				columns[n] = columns[k];
-				columns[k] = temp;
+				var temp = tiles[n];
+				tiles[n] = tiles[k];
+				tiles[k] = temp;
 			}
-			string s = columns[0] + "";
-			for (int i = 1; i < columns.Count; i++) s += " - " + columns[i];
+			string s = tiles[0].row + " - " + tiles[0].col;
+			for (int i = 1; i < tiles.Count; i++) s += " - " + tiles[i].row + " - " + tiles[i].col;
 			yield return Glow();
 			yield return SyncRandomChoiceAcrossNetwork(s);
 			for (int i = 0; i < zombies.Count; i++)
 			{
-				Tile.zombieTiles[0, int.Parse(GameManager.Instance.GetShuffledList()[i])].Unplant();
-				Tile.zombieTiles[0, int.Parse(GameManager.Instance.GetShuffledList()[i])].Plant(zombies[i]);
+				Tile.GetTeamTiles(team)[int.Parse(GameManager.Instance.GetShuffledList()[i*2]), int.Parse(GameManager.Instance.GetShuffledList()[i * 2 + 1])].Unplant();
+				Tile.GetTeamTiles(team)[int.Parse(GameManager.Instance.GetShuffledList()[i]), int.Parse(GameManager.Instance.GetShuffledList()[i * 2 + 1])].Plant(zombies[i]);
 				zombies[i].Hide();
 			}
 			GameManager.Instance.currentlySpawningCards -= 1;

@@ -14,8 +14,8 @@ public class GasGiant : Card
 
             for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++)
                 {
-                    if (Tile.plantTiles[i, j].planted != null) targets.Add(Tile.plantTiles[i, j].planted);
-                    if (Tile.zombieTiles[i, j].planted != null && Tile.zombieTiles[i, j].planted != this) targets.Add(Tile.zombieTiles[i, j].planted);
+                    if (Tile.playerTiles[i, j].planted != null && Tile.playerTiles[i, j].planted != this) targets.Add(Tile.playerTiles[i, j].planted);
+                    if (Tile.opponentTiles[i, j].planted != null && Tile.opponentTiles[i, j].planted != this) targets.Add(Tile.opponentTiles[i, j].planted);
                 }
             yield return Glow();
             yield return AttackFXs(targets);
@@ -29,8 +29,8 @@ public class GasGiant : Card
         if (died.Item1 == this)
         {
             yield return Glow();
-            yield return AttackFX(Tile.plantHeroTiles[col]);
-            yield return Tile.plantHeroTiles[col].ReceiveDamage(5, this);
+            yield return AttackFX(Tile.GetTeamHeroTiles(GetOpponent(team))[col]);
+            yield return Tile.GetTeamHeroTiles(GetOpponent(team))[col].ReceiveDamage(5, this);
         }
         yield return base.OnCardDeath(died);
 	}

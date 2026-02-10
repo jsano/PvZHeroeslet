@@ -8,7 +8,7 @@ public class LocustSwarm : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		Tile.plantTiles[row, col].planted.Destroy();
+		Tile.GetTeamTiles(GetOpponent(team))[row, col].planted.Destroy();
 		yield return base.OnThisPlay();
 	}
 
@@ -18,7 +18,7 @@ public class LocustSwarm : Card
         Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
         if (!t.HasRevealedPlanted()) return false;
-        if (t.planted.team == Team.A) return true;
+        if (t.planted.team != team) return true;
         return false;
 	}
 

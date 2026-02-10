@@ -11,9 +11,9 @@ public class Electrician : Card
 		{
 			for (int col = 0; col < 5; col++)
 			{
-				if (Tile.zombieTiles[row, col].HasRevealedPlanted())
+				if (Tile.GetTeamTiles(team)[row, col].HasRevealedPlanted())
 				{
-					choices.Add(Tile.zombieTiles[row, col].GetComponent<BoxCollider2D>());
+					choices.Add(Tile.GetTeamTiles(team)[row, col].GetComponent<BoxCollider2D>());
 				}
 			}
 		}

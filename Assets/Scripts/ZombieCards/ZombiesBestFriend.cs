@@ -8,13 +8,14 @@ public class ZombiesBestFriend : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-        if (col > 0 && Tile.zombieTiles[0, col - 1].HasRevealedPlanted() || col < 4 && Tile.zombieTiles[0, col + 1].HasRevealedPlanted())
+        if (col > 0 && (Tile.GetTeamTiles(team)[0, col - 1].HasRevealedPlanted() || Tile.GetTeamTiles(team)[1, col - 1].HasRevealedPlanted()) ||
+            col < 4 && (Tile.GetTeamTiles(team)[0, col + 1].HasRevealedPlanted() || Tile.GetTeamTiles(team)[1, col + 1].HasRevealedPlanted()))
         {
-            for (int col = 0; col < 4; col++)
+            for (int row = 0; row < 2; row++) for (int col = 0; col < 4; col++)
             {
-                if (Tile.zombieTiles[0, col].planted == null)
+                if (Tile.CanPlantInCol(col, Tile.GetTeamTiles(team), false, false))
                 {
-                    choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
+                    choices.Add(Tile.GetTeamTiles(team)[row, col].GetComponent<BoxCollider2D>());
                 }
             }
             if (choices.Count == 1) yield return OnSelection(choices[0]);
@@ -35,7 +36,7 @@ public class ZombiesBestFriend : Card
         Tile t = bc.GetComponent<Tile>();
         yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(team, (1, 1), true) + "");
         Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[0])]);
-        Tile.zombieTiles[t.row, t.col].Plant(c);
+        Tile.GetTeamTiles(team)[t.row, t.col].Plant(c);
     }
 
 }

@@ -12,8 +12,8 @@ public class CaptainFlameface : Card
 		{
 			for (int col = 0; col < 5; col++)
 			{
-				if (Tile.zombieTiles[row, col].HasRevealedPlanted() && Tile.zombieTiles[row, col].planted.tribes.Contains(Tribe.Pirate))
-                    Tile.zombieTiles[row, col].planted.strikethrough += 1;
+				if (Tile.GetTeamTiles(team)[row, col].HasRevealedPlanted() && Tile.GetTeamTiles(team)[row, col].planted.tribes.Contains(Tribe.Pirate))
+                    Tile.GetTeamTiles(team)[row, col].planted.strikethrough += 1;
 			}
 		}
 		yield return base.OnThisPlay();
@@ -31,8 +31,8 @@ public class CaptainFlameface : Card
             {
                 for (int col = 0; col < 5; col++)
                 {
-                    if (Tile.zombieTiles[row, col].HasRevealedPlanted() && Tile.zombieTiles[row, col].planted.tribes.Contains(Tribe.Pirate))
-                        Tile.zombieTiles[row, col].planted.strikethrough -= 1;
+                    if (Tile.GetTeamTiles(team)[row, col].HasRevealedPlanted() && Tile.GetTeamTiles(team)[row, col].planted.tribes.Contains(Tribe.Pirate))
+                        Tile.GetTeamTiles(team)[row, col].planted.strikethrough -= 1;
                 }
             }
         yield return base.OnCardDeath(died);
@@ -45,8 +45,8 @@ public class CaptainFlameface : Card
         {
             for (int col = 0; col < 5; col++)
             {
-                if (Tile.zombieTiles[row, col].HasRevealedPlanted() && Tile.zombieTiles[row, col].planted.tribes.Contains(Tribe.Pirate))
-                    Tile.zombieTiles[row, col].planted.strikethrough -= 1;
+                if (Tile.GetTeamTiles(team)[row, col].HasRevealedPlanted() && Tile.GetTeamTiles(team)[row, col].planted.tribes.Contains(Tribe.Pirate))
+                    Tile.GetTeamTiles(team)[row, col].planted.strikethrough -= 1;
             }
         }
     }

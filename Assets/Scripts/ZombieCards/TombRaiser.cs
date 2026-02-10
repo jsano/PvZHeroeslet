@@ -11,18 +11,18 @@ public class TombRaiser : Card
         choices.Clear();
 		if (hurt.Item2 == this && hurt.Item1.GetComponent<Hero>() != null) 
 		{
-            for (int j = 0; j < 4; j++)
+            for (int row = 0; row < 2; row++) for (int j = 0; j < 4; j++)
             {
-                if (Tile.zombieTiles[0, j].planted == null) choices.Add(Tile.zombieTiles[0, j].GetComponent<BoxCollider2D>());
+                if (Tile.GetTeamTiles(team)[row, j].planted == null) choices.Add(Tile.GetTeamTiles(team)[row, j].GetComponent<BoxCollider2D>());
             }
             if (choices.Count > 0)
             {
                 yield return Glow();
                 var choice = choices[UnityEngine.Random.Range(0, choices.Count)];
                 yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col + " - " + RandomGravestone());
-                Tile t = Tile.zombieTiles[int.Parse(GameManager.Instance.GetShuffledList()[0]), int.Parse(GameManager.Instance.GetShuffledList()[1])];
+                Tile t = Tile.GetTeamTiles(team)[int.Parse(GameManager.Instance.GetShuffledList()[0]), int.Parse(GameManager.Instance.GetShuffledList()[1])];
                 Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[2])]);
-                Tile.zombieTiles[t.row, t.col].Plant(c);
+                Tile.GetTeamTiles(team)[t.row, t.col].Plant(c);
             }
         }
 		yield return base.OnCardHurt(hurt);

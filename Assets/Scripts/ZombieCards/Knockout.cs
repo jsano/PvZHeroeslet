@@ -8,7 +8,7 @@ public class Knockout : Card
 
     protected override IEnumerator OnThisPlay()
     {
-        for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].planted != null && Tile.plantTiles[i, col].planted.atk <= 3) Tile.plantTiles[i, col].planted.Destroy();
+        for (int i = 0; i < 2; i++) if (Tile.GetTeamTiles(GetOpponent(team))[i, col].planted != null && Tile.GetTeamTiles(GetOpponent(team))[i, col].planted.atk <= 3) Tile.GetTeamTiles(GetOpponent(team))[i, col].planted.Destroy();
         yield return base.OnThisPlay();
     }
 

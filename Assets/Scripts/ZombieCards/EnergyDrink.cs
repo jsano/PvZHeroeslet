@@ -15,9 +15,9 @@ public class EnergyDrink : Card
             moved = true;
             for (int j = 0; j < 4; j++)
             {
-                if (j != col && Tile.zombieTiles[row, j].planted == null)
+                if (j != col && Tile.GetTeamTiles(team)[row, j].planted == null)
                 {
-                    choices.Add(Tile.zombieTiles[row, j].GetComponent<BoxCollider2D>());
+                    choices.Add(Tile.GetTeamTiles(team)[row, j].GetComponent<BoxCollider2D>());
                 }
             }
             if (choices.Count > 0)

@@ -13,9 +13,9 @@ public class IcePirate : Card
             {
                 for (int col = 0; col < 5; col++)
                 {
-                    if (Tile.plantTiles[row, col].planted != null)
+                    if (Tile.GetTeamTiles(GetOpponent(team))[row, col].planted != null)
                     {
-                        choices.Add(Tile.plantTiles[row, col].GetComponent<BoxCollider2D>());
+                        choices.Add(Tile.GetTeamTiles(GetOpponent(team))[row, col].GetComponent<BoxCollider2D>());
                     }
                 }
             }
@@ -36,7 +36,7 @@ public class IcePirate : Card
         yield return base.OnSelection(bc);
         yield return Glow();
         Tile t = bc.GetComponent<Tile>();
-        Tile.plantTiles[t.row, t.col].planted.Freeze();
+        Tile.GetTeamTiles(GetOpponent(team))[t.row, t.col].planted.Freeze();
     }
 
 }

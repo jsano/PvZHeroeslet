@@ -8,7 +8,7 @@ public class Evaporate : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		Tile.plantTiles[row, col].planted.Destroy();
+		Tile.GetTeamTiles(GetOpponent(team))[row, col].planted.Destroy();
 		yield return GameManager.Instance.DrawCard(team);
 		yield return base.OnThisPlay();
 	}
@@ -18,7 +18,7 @@ public class Evaporate : Card
         if (!base.IsValidTarget(bc)) return false;
         Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
-        if (t.HasRevealedPlanted() && t.planted.team == Team.A && t.planted.isDamaged()) return true;
+        if (t.HasRevealedPlanted() && t.planted.team != team && t.planted.isDamaged()) return true;
         return false;
 	}
 

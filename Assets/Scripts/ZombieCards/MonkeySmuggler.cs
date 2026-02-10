@@ -8,8 +8,8 @@ public class MonkeySmuggler : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return Glow();
-		int amount = GameManager.Instance.plantHero.StealBlock(1);
-		GameManager.Instance.zombieHero.StealBlock(-amount);
+		int amount = GameManager.Instance.GetTeamHero(GetOpponent(team)).StealBlock(1);
+		GameManager.Instance.GetTeamHero(team).StealBlock(-amount);
 		yield return base.OnThisPlay();
 	}
 

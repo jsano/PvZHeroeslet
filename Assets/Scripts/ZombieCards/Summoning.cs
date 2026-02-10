@@ -10,7 +10,7 @@ public class Summoning : Card
 		yield return new WaitForSeconds(1);
         yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(Team.B, (0, 1, 2), true, col == 4) + "");
         Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[0])]);
-        Tile.zombieTiles[0, col].Plant(c);
+        Tile.GetTeamTiles(team)[row, col].Plant(c);
         yield return base.OnThisPlay();
 	}
 
@@ -18,7 +18,7 @@ public class Summoning : Card
 	{
 		Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
-		if (t.isPlantTile) return false;
+		if (!t.isPlayerTile) return false;
 		if (t.planted == null) return true;
 		return false;
 	}

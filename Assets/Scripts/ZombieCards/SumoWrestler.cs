@@ -12,7 +12,7 @@ public class SumoWrestler : Card
 		for (int row = 0; row < 2; row++)
 			for (int col = 0; col < 5; col++)
 			{
-                if (Tile.plantTiles[row, col].HasRevealedPlanted()) choices.Add(Tile.plantTiles[row, col].GetComponent<BoxCollider2D>());
+                if (Tile.GetTeamTiles(GetOpponent(team))[row, col].HasRevealedPlanted()) choices.Add(Tile.GetTeamTiles(GetOpponent(team))[row, col].GetComponent<BoxCollider2D>());
             }
         if (choices.Count == 1) yield return OnSelection(choices[0]);
         if (choices.Count >= 2)
@@ -33,9 +33,9 @@ public class SumoWrestler : Card
         for (int row = 0; row < 2; row++) for (int col = 0; col < 5; col++)
             {
                 if (row == t.row && col == t.col) continue;
-                if (Tile.CanPlantInCol(col, Tile.plantTiles, toMove.teamUp, toMove.amphibious))
-                    if (row == 0 || row == 1 && (toMove.teamUp || Tile.plantTiles[0, col].planted != null && Tile.plantTiles[0, col].planted.teamUp))
-                        choices.Add(Tile.plantTiles[row, col].GetComponent<BoxCollider2D>());
+                if (Tile.CanPlantInCol(col, Tile.GetTeamTiles(GetOpponent(team)), toMove.teamUp, toMove.amphibious))
+                    if (row == 0 || row == 1 && (toMove.teamUp || Tile.GetTeamTiles(GetOpponent(team))[0, col].planted != null && Tile.GetTeamTiles(GetOpponent(team))[0, col].planted.teamUp))
+                        choices.Add(Tile.GetTeamTiles(GetOpponent(team))[row, col].GetComponent<BoxCollider2D>());
             }
             
 
