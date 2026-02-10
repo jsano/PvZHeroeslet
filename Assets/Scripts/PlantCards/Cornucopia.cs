@@ -8,9 +8,9 @@ public class Cornucopia : Card
 	protected override IEnumerator OnThisPlay()
 	{		
         List<int> locations = new();
-        for (int col = 0; col < 5; col++)
+        for (int col = 0; col < Tile.COLUMNS; col++)
         {
-            if (Tile.CanPlantInCol(col, Tile.plantTiles, false, true)) locations.Add(col);
+            if (Tile.CanPlantInCol(col, Tile.GetTeamTiles(team), false, true)) locations.Add(col);
         }
         if (locations.Count > 0)
         {
@@ -24,7 +24,7 @@ public class Cornucopia : Card
             for (int i = 0; i < GameManager.Instance.shuffledLists[^1].Count - 1; i += 2)
             {
                 Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[i + 1])]);
-                Tile.plantTiles[0, int.Parse(GameManager.Instance.GetShuffledList()[i])].Plant(c);
+                Tile.GetTeamTiles(team)[0, int.Parse(GameManager.Instance.GetShuffledList()[i])].Plant(c);
             }
         }
 

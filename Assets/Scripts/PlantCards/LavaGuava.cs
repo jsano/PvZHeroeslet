@@ -12,7 +12,8 @@ public class LavaGuava : Card
         for (int i = -1; i <= 1; i++)
         {
             if (col + i < 0 || col + i > 4) continue;
-            if (Tile.zombieTiles[0, col + i].HasRevealedPlanted() && Tile.zombieTiles[0, col + i].planted.untrickable == 0) StartCoroutine(Tile.zombieTiles[0, col + i].planted.ReceiveDamage(2, this));
+            for (int r = 0; r < Tile.ROWS; r++) if (Tile.GetTeamTiles(GetOpponent(team))[r, col + i].HasRevealedPlanted() && Tile.GetTeamTiles(GetOpponent(team))[r, col + i].planted.untrickable == 0)
+                    StartCoroutine(Tile.GetTeamTiles(GetOpponent(team))[r, col + i].planted.ReceiveDamage(2, this));
         }
         if (col >= 1 && col <= 3)
         {

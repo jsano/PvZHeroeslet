@@ -7,8 +7,8 @@ public class SecondBestTacoOfAllTime : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		if (row == -1 && col == -1) yield return GameManager.Instance.plantHero.Heal(4);
-		else yield return Tile.plantTiles[row, col].planted.Heal(4);
+		if (row == -1 && col == -1) yield return GameManager.Instance.GetTeamHero(team).Heal(4);
+		else yield return Tile.GetTeamTiles(team)[row, col].planted.Heal(4);
 		yield return GameManager.Instance.DrawCard(team);
 		yield return base.OnThisPlay();
 	}
@@ -19,11 +19,11 @@ public class SecondBestTacoOfAllTime : Card
         Tile t = bc.GetComponent<Tile>();
 		if (t != null)
 		{
-			if (t.HasRevealedPlanted() && t.planted.team == Team.A && t.planted.isDamaged()) return true;
+			if (t.HasRevealedPlanted() && t.planted.team == team && t.planted.isDamaged()) return true;
 		}
 		else
 		{
-			if (bc.GetComponent<Hero>().team == Team.A && bc.GetComponent<Hero>().isDamaged()) return true;
+			if (bc.GetComponent<Hero>().team == team && bc.GetComponent<Hero>().isDamaged()) return true;
 		}
 		return false;
 	}

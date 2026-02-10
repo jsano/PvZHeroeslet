@@ -12,12 +12,12 @@ public class GalactaCactus : Card
 		{
             List<Damagable> targets = new();
 
-			targets.Add(GameManager.Instance.plantHero);
-            targets.Add(GameManager.Instance.zombieHero);
+			targets.Add(GameManager.Instance.playerHero);
+            targets.Add(GameManager.Instance.opponentHero);
             for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++)
 				{
-					if (Tile.plantTiles[i, j].planted != null) targets.Add(Tile.plantTiles[i, j].planted);
-                    if (Tile.zombieTiles[i, j].planted != null && Tile.zombieTiles[i, j].planted != this) targets.Add(Tile.zombieTiles[i, j].planted);
+					if (Tile.playerTiles[i, j].planted != null) targets.Add(Tile.playerTiles[i, j].planted);
+                    if (Tile.opponentTiles[i, j].planted != null && Tile.opponentTiles[i, j].planted != this) targets.Add(Tile.opponentTiles[i, j].planted);
                 }
             yield return Glow();
             yield return AttackFXs(targets);

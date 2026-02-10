@@ -10,8 +10,8 @@ public class Sportacus : Card
 		if (played.type == Type.Trick && played.team == Team.B)
 		{
             yield return Glow();
-            yield return AttackFX(GameManager.Instance.zombieHero);
-			yield return GameManager.Instance.zombieHero.ReceiveDamage(2, this, bullseye > 0);
+            yield return AttackFX(GameManager.Instance.GetTeamHero(GetOpponent(team)));
+			yield return GameManager.Instance.GetTeamHero(GetOpponent(team)).ReceiveDamage(2, this, bullseye > 0);
 		}
         yield return base.OnCardPlay(played);
     }

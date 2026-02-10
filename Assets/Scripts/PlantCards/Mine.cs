@@ -12,11 +12,12 @@ public class Mine : Card
 	{
 		if (died.Item1 == this)
 		{
-			if (Tile.zombieTiles[0, col].planted != null)
+			Damagable target = GetTargets(col)[0];
+			if (target.GetComponent<Card>() != null)
 			{
                 yield return Glow();
-                yield return AttackFX(Tile.zombieTiles[0, col].planted);
-				yield return Tile.zombieTiles[0, col].planted.ReceiveDamage(deathDamage, this);
+                yield return AttackFX(target);
+				yield return target.ReceiveDamage(deathDamage, this);
 			}
 		}
 		yield return base.OnCardDeath(died);

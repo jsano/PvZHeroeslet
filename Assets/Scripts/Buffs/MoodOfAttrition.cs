@@ -12,18 +12,15 @@ public class MoodOfAttrition : Buff
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
-        Tile[,] target;
-        if (team == Card.Team.A)
+        if (team == GameManager.Instance.team)
         {
-            GameManager.Instance.plantPermanentHPBonus += 2;
-            target = Tile.plantTiles;
+            GameManager.Instance.playerPermanentHPBonus += 2;
         }
         else
         {
-            GameManager.Instance.zombiePermanentHPBonus += 2;
-            target = Tile.zombieTiles;
+            GameManager.Instance.opponentPermanentHPBonus += 2;
         }
-        for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++) if (target[i, j].HasRevealedPlanted()) target[i, j].planted.ChangeStats(0, 2);
+        for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++) if (Tile.GetTeamTiles(team)[i, j].HasRevealedPlanted()) Tile.GetTeamTiles(team)[i, j].planted.ChangeStats(0, 2);
         if (team == GameManager.Instance.team) foreach (HandCard hc in GameManager.Instance.GetHandCards()) if (hc.orig.type == Card.Type.Unit)
             {
                 hc.ChangeAttack(0);

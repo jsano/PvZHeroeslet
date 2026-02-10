@@ -216,10 +216,8 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         hpUI.GetComponentInParent<Image>().sprite = orig.GetHPIcon();
         if (orig.type == Card.Type.Unit)
         {
-            atkUI.text = finalStats.atk + (orig.team == Card.Team.A ? GameManager.Instance.plantPermanentAttackBonus : GameManager.Instance.zombiePermanentAttackBonus) + 
-                                            (ID == AllCards.NameToID("Clique Peas") ? GameManager.Instance.cliquePeas : 0) + "";
-            hpUI.text = finalStats.hp + (orig.team == Card.Team.A ? GameManager.Instance.plantPermanentHPBonus : GameManager.Instance.zombiePermanentHPBonus) +
-                                            (ID == AllCards.NameToID("Clique Peas") ? GameManager.Instance.cliquePeas : 0) + "";
+            atkUI.text = finalStats.atk + GameManager.Instance.playerPermanentAttackBonus + (ID == AllCards.NameToID("Clique Peas") ? GameManager.Instance.playerCliquePeas : 0) + "";
+            hpUI.text = finalStats.hp + GameManager.Instance.playerPermanentHPBonus + (ID == AllCards.NameToID("Clique Peas") ? GameManager.Instance.playerCliquePeas : 0) + "";
         }
         else
         {
@@ -252,11 +250,9 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     public float GetCost()
     {
         float temp = finalStats.cost;
-        if (ID == AllCards.NameToID("Clique Peas")) temp += GameManager.Instance.cliquePeas;
-        if (orig.team == Card.Team.A && orig.type == Card.Type.Unit) temp -= GameManager.Instance.plantCardPermanentDiscount;
-        if (orig.team == Card.Team.A && orig.type == Card.Type.Trick) temp -= GameManager.Instance.plantTrickPermanentDiscount;
-        if (orig.team == Card.Team.B && orig.type == Card.Type.Unit) temp -= GameManager.Instance.zombieCardPermanentDiscount;
-        if (orig.team == Card.Team.B && orig.type == Card.Type.Trick) temp -= GameManager.Instance.zombieTrickPermanentDiscount;
+        if (ID == AllCards.NameToID("Clique Peas")) temp += GameManager.Instance.playerCliquePeas;
+        if (orig.type == Card.Type.Unit) temp -= GameManager.Instance.playerUnitPermanentDiscount;
+        if (orig.type == Card.Type.Trick) temp -= GameManager.Instance.playerTrickPermanentDiscount;
         return temp;
     }
 
@@ -274,8 +270,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         if (orig.type != Card.Type.Unit) return;
         finalStats.atk += amount;
         if (absolute) finalStats.atk = amount;
-        atkUI.text = finalStats.atk + (orig.team == Card.Team.A ? GameManager.Instance.plantPermanentAttackBonus : GameManager.Instance.zombiePermanentAttackBonus) +
-                                        (ID == AllCards.NameToID("Clique Peas") ? GameManager.Instance.cliquePeas : 0) + "";
+        atkUI.text = finalStats.atk + GameManager.Instance.playerPermanentAttackBonus + (ID == AllCards.NameToID("Clique Peas") ? GameManager.Instance.playerCliquePeas : 0) + "";
     }
 
     public void ChangeHP(int amount, bool absolute = false)
@@ -283,8 +278,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         if (orig.type != Card.Type.Unit) return;
         finalStats.hp += amount;
         if (absolute) finalStats.hp = amount;
-        hpUI.text = finalStats.hp + (orig.team == Card.Team.A ? GameManager.Instance.plantPermanentHPBonus : GameManager.Instance.zombiePermanentHPBonus) +
-                                        (ID == AllCards.NameToID("Clique Peas") ? GameManager.Instance.cliquePeas : 0) + "";
+        hpUI.text = finalStats.hp + GameManager.Instance.playerPermanentHPBonus + (ID == AllCards.NameToID("Clique Peas") ? GameManager.Instance.playerCliquePeas : 0) + "";
     }
 
     public void AddAbility(string ability)

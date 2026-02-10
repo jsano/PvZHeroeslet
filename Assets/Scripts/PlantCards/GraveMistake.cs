@@ -8,7 +8,7 @@ public class GraveMistake : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		Tile.zombieTiles[row, col].planted.Bounce();
+		Tile.GetTeamTiles(GetOpponent(team))[row, col].planted.Bounce();
 		yield return GameManager.Instance.DrawCard(team);
 		yield return base.OnThisPlay();
 	}
@@ -18,7 +18,7 @@ public class GraveMistake : Card
         if (!base.IsValidTarget(bc)) return false;
         Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
-		if (t.planted != null && t.planted.team == Team.B && t.planted.gravestone) return true;
+		if (t.planted != null && t.planted.team == GetOpponent(team) && t.planted.gravestone) return true;
 		return false;
 	}
 

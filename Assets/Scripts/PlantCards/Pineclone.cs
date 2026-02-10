@@ -16,14 +16,14 @@ public class Pineclone : Card
 		yield return Glow();
         for (int col = 4; col >= 0; col--)
         {
-            for (int row = 0; row < 2; row++)
+            for (int row = 0; row < Tile.ROWS; row++)
 			{
-				if (Tile.plantTiles[row, col].planted != null && Tile.plantTiles[row, col].planted != this)
+				if (Tile.GetTeamTiles(team)[row, col].planted != null && Tile.GetTeamTiles(team)[row, col].planted != this)
 				{
-                    Destroy(Tile.plantTiles[row, col].planted.gameObject);
-                    Tile.plantTiles[row, col].Unplant();
+                    Destroy(Tile.GetTeamTiles(team)[row, col].planted.gameObject);
+                    Tile.GetTeamTiles(team)[row, col].Unplant();
                     Pineclone card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Pineclone")]).GetComponent<Pineclone>();
-                    Tile.plantTiles[row, col].Plant(card);
+                    Tile.GetTeamTiles(team)[row, col].Plant(card);
                     card.suppress = true;
                 }
 			}

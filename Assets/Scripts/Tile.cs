@@ -95,6 +95,15 @@ public class Tile : Damagable
     }
 
     /// <summary>
+    /// Gets the tile array (player or opponent) that corresponds to the given team by going off of GameManager team
+    /// </summary>
+    public static Tile[] GetTeamHeroTiles(Card.Team team)
+    {
+        if (team == GameManager.Instance.team) return playerHeroTiles;
+        return opponentHeroTiles;
+    }
+
+    /// <summary>
     /// Places a card onto this tile and sets the card's position and row/column values.
     /// This assumes the card can legally be placed here. If there is already a card here, it will replant that card onto the opposite row.
     /// If there is a terrain here and <c>c</c> is also a terrain, destroys the old terrain. Updates any anti-hero

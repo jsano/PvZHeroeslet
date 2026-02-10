@@ -8,11 +8,11 @@ public class Spineapple : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return Glow();
-		for (int row = 0; row < 2;  row++)
+		for (int row = 0; row < Tile.ROWS; row++)
 		{
-			for (int col = 0; col < 5; col++)
+			for (int col = 0; col < Tile.COLUMNS; col++)
 			{
-				Card c = Tile.plantTiles[row, col].planted;
+				Card c = Tile.GetTeamTiles(team)[row, col].planted;
 				if (c != null && c.atk <= 0)
 				{
 					c.ChangeStats(2, 0);

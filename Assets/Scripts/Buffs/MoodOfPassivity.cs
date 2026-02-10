@@ -12,13 +12,13 @@ public class MoodOfPassivity : Buff
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
-        if (team == Card.Team.A)
+        if (team == GameManager.Instance.team)
         {
-            GameManager.Instance.plantTrickPermanentDiscount += 1;
+            GameManager.Instance.playerTrickPermanentDiscount += 1;
         }
         else
         {
-            GameManager.Instance.zombieTrickPermanentDiscount += 1f;
+            GameManager.Instance.opponentTrickPermanentDiscount += 1f;
         }
         if (team == GameManager.Instance.team) foreach (HandCard hc in GameManager.Instance.GetHandCards()) hc.ChangeCost(0);
         base.Start();

@@ -7,13 +7,13 @@ public class RescueRadish : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		for (int row = 0; row < 2; row++)
+		for (int row = 0; row < Tile.ROWS; row++)
 		{
-			for (int col = 0; col < 5; col++)
+			for (int col = 0; col < Tile.COLUMNS; col++)
 			{
-				if (Tile.plantTiles[row, col].planted != null && Tile.plantTiles[row, col].planted != this)
+				if (Tile.GetTeamTiles(team)[row, col].planted != null && Tile.GetTeamTiles(team)[row, col].planted != this)
 				{
-					choices.Add(Tile.plantTiles[row, col].GetComponent<BoxCollider2D>());
+					choices.Add(Tile.GetTeamTiles(team)[row, col].GetComponent<BoxCollider2D>());
 				}
 			}
 		}

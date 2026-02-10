@@ -8,14 +8,14 @@ public class PairPearadise : Card
 
 	protected override IEnumerator OnCardPlay(Card played)
 	{
-        if (played.col == col && played.type == Type.Unit && played.team == Team.A)
+        if (played.col == col && played.type == Type.Unit && played.team == team)
         {
-            if (Tile.CanPlantInCol(col, Tile.plantTiles, true, false))
+            if (Tile.CanPlantInCol(col, Tile.GetTeamTiles(team), true, false))
             {
                 yield return new WaitForSeconds(1);
                 Card c = Instantiate(AllCards.InstanceToPrefab(played)).GetComponent<Card>();
                 c.teamUp = true;
-                Tile.plantTiles[1, col].Plant(c);
+                Tile.GetTeamTiles(team)[1, col].Plant(c);
             }
         }
         

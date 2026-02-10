@@ -12,9 +12,9 @@ public class GoNuts : Card
 			if (played.teamUp)
 			{
                 yield return Glow();
-                for (int i = 0; i < 2; i++) for (int col = 0; col < 5; col++)
+                for (int i = 0; i < Tile.ROWS; i++) for (int col = 0; col < Tile.COLUMNS; col++)
 				{
-					Card c = Tile.plantTiles[i, col].planted;
+					Card c = Tile.GetTeamTiles(team)[i, col].planted;
 					if (c != null && c.teamUp)
 					{
 						c.ChangeStats(1, 0);

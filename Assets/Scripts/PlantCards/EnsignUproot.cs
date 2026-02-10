@@ -12,8 +12,8 @@ public class EnsignUproot : Card
 		for (int row = 0; row < 2; row++)
 			for (int col = 0; col < 5; col++)
 			{
-				if (Tile.plantTiles[row, col].HasRevealedPlanted() && Tile.plantTiles[row, col].planted != this) choices.Add(Tile.plantTiles[row, col].GetComponent<BoxCollider2D>());
-                if (Tile.zombieTiles[row, col].HasRevealedPlanted()) choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
+				if (Tile.playerTiles[row, col].HasRevealedPlanted() && Tile.playerTiles[row, col].planted != this) choices.Add(Tile.playerTiles[row, col].GetComponent<BoxCollider2D>());
+                if (Tile.opponentTiles[row, col].HasRevealedPlanted() && Tile.opponentTiles[row, col].planted != this) choices.Add(Tile.opponentTiles[0, col].GetComponent<BoxCollider2D>());
             }
         if (choices.Count == 1) yield return OnSelection(choices[0]);
         if (choices.Count >= 2)
@@ -31,7 +31,7 @@ public class EnsignUproot : Card
         choices.Clear();
 		Tile t = bc.GetComponent<Tile>();
 		toMove = t.planted;
-		var targets = toMove.team == Team.A ? Tile.plantTiles : Tile.zombieTiles;
+		var targets = Tile.GetTeamTiles(toMove.team);
 		for (int row = 0; row < 2; row++) for (int col = 0; col < 5; col++)
 			{
                 if (row == t.row && col == t.col) continue;

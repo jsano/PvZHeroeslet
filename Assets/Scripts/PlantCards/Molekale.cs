@@ -12,7 +12,7 @@ public class Molekale : Card
         {
             for (int row = 1; row >= 0; row--)
             {
-                Tile t = Tile.plantTiles[row, col];
+                Tile t = Tile.GetTeamTiles(team)[row, col];
                 if (t.HasRevealedPlanted() && t.planted != this)
                 {
                     toDestroy.Add(t.planted);
@@ -32,7 +32,7 @@ public class Molekale : Card
             for (int i = 0; i < GameManager.Instance.GetShuffledList().Count - 1; i++)
             {
                 Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[i])]);
-                Tile.plantTiles[toDestroy[i].row, toDestroy[i].col].Plant(c);
+                Tile.GetTeamTiles(team)[toDestroy[i].row, toDestroy[i].col].Plant(c);
             }
             foreach (Card c in toDestroy) Destroy(c.gameObject);
         }

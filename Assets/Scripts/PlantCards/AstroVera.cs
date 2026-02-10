@@ -8,8 +8,8 @@ public class AstroVera : Card
 	protected override IEnumerator OnThisPlay()
 	{
         yield return Glow();
-		GameManager.Instance.plantHero.ChangeStats(0, 10);
-		yield return GameManager.Instance.plantHero.Heal(10);
+		GameManager.Instance.GetTeamHero(team).ChangeStats(0, 10);
+		yield return GameManager.Instance.GetTeamHero(team).Heal(10);
 		yield return base.OnThisPlay();
 	}
 

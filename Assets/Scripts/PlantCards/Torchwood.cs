@@ -13,14 +13,14 @@ public class Torchwood : Card
     {
 		if (played == this)
 		{
-			Card temp = Tile.plantTiles[0, col].planted;
+			Card temp = Tile.GetTeamTiles(team)[0, col].planted;
 			if (temp != null && temp.tribes.Contains(Tribe.Pea))
 			{
 				temp.ChangeStats(2, 0);
 				buffing = temp;
 			}
 		}
-		else if (buffing == null && played.col == col && played.row == 0 && played.tribes.Contains(Tribe.Pea))
+		else if (buffing == null && played.col == col && played.row == 0 && played.tribes.Contains(Tribe.Pea) && played.team == team)
 		{
 			played.ChangeStats(2, 0);
 			buffing = played;
@@ -40,7 +40,7 @@ public class Torchwood : Card
 		{
 			if (buffing != null) buffing.ChangeStats(-2, 0);
 			buffing = null;
-			StartCoroutine(OnCardPlay(Tile.plantTiles[1 - row, col].planted));
+			StartCoroutine(OnCardPlay(Tile.GetTeamTiles(team)[1 - row, col].planted));
 		}
 		if (moved == buffing)
 		{

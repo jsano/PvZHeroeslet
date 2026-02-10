@@ -10,7 +10,8 @@ public class CherryBomb : Card
 		for (int i = -1; i <= 1; i++)
 		{
 			if (col + i < 0 || col + i > 4) continue;
-			if (Tile.zombieTiles[0, col + i].HasRevealedPlanted() && Tile.zombieTiles[0, col + i].planted.untrickable == 0) StartCoroutine(Tile.zombieTiles[0, col + i].planted.ReceiveDamage(4, this));
+			if (Tile.GetTeamTiles(GetOpponent(team))[0, col + i].HasRevealedPlanted() && Tile.GetTeamTiles(GetOpponent(team))[0, col + i].planted.untrickable == 0)
+				StartCoroutine(Tile.GetTeamTiles(GetOpponent(team))[0, col + i].planted.ReceiveDamage(4, this));
 		}
 		yield return base.OnThisPlay();
 	}

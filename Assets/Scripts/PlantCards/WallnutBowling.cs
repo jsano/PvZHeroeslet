@@ -12,17 +12,17 @@ public class WallnutBowling : Card
         int heroDmg = 0;
 		for (int i = 3; i >= 1; i--)
 		{
-			if (Tile.zombieTiles[0, i].planted != null) yield return Tile.zombieTiles[0, i].planted.ReceiveDamage(6, this);
+			if (Tile.GetTeamTiles(GetOpponent(team))[0, i].planted != null) yield return Tile.GetTeamTiles(GetOpponent(team))[0, i].planted.ReceiveDamage(6, this);
 			else heroDmg += 6;
 		}
-		yield return GameManager.Instance.zombieHero.ReceiveDamage(heroDmg, this);
+		yield return GameManager.Instance.GetTeamHero(GetOpponent(team)).ReceiveDamage(heroDmg, this);
 
         for (int i = 1; i <= 3; i++)
         {
-            if (Tile.CanPlantInCol(i, Tile.plantTiles, true, false))
+            if (Tile.CanPlantInCol(i, Tile.GetTeamTiles(team), true, false))
             {
                 Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Wall-nut")]);
-                Tile.plantTiles[1, i].Plant(card);
+                Tile.GetTeamTiles(team)[1, i].Plant(card);
             }
         }
 

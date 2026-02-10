@@ -11,9 +11,8 @@ public class RaiseStats : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		var tiles = targetTeam == Team.A ? Tile.plantTiles : Tile.zombieTiles;
 		yield return new WaitForSeconds(1);
-		tiles[row, col].planted.ChangeStats(atkAmount, HPAmount);
+		Tile.GetTeamTiles(targetTeam)[row, col].planted.ChangeStats(atkAmount, HPAmount);
 		yield return base.OnThisPlay();
 	}
 

@@ -7,11 +7,11 @@ public class SunShroom : Card
 
 	protected override IEnumerator OnTurnStart()
 	{
-        Tile.plantTiles[row, col].Unplant(true);
+        Tile.GetTeamTiles(team)[row, col].Unplant(true);
         yield return Glow();
         yield return GameManager.Instance.UpdateRemaining(1, team);
         Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Sunnier-shroom")]);
-        Tile.plantTiles[row, col].Plant(c);
+        Tile.GetTeamTiles(team)[row, col].Plant(c);
         Destroy(gameObject);
     }
 

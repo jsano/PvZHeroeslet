@@ -982,20 +982,28 @@ public class Card : Damagable
 
     private void AddPermanentBuffs()
     {
-        if (team == Team.A)
+        if (team == GameManager.Instance.team)
         {
-            atk += GameManager.Instance.plantPermanentAttackBonus;
-            HP += GameManager.Instance.plantPermanentHPBonus;
+            atk += GameManager.Instance.playerPermanentAttackBonus;
+            HP += GameManager.Instance.playerPermanentHPBonus;
         }
         else
         {
-            atk += GameManager.Instance.zombiePermanentAttackBonus;
-            HP += GameManager.Instance.zombiePermanentHPBonus;
+            atk += GameManager.Instance.opponentPermanentAttackBonus;
+            HP += GameManager.Instance.opponentPermanentHPBonus;
         }
         if (AllCards.InstanceToPrefab(this).name == "Clique Peas")
         {
-            atk += GameManager.Instance.cliquePeas;
-            HP += GameManager.Instance.cliquePeas;
+            if (team == GameManager.Instance.team)
+            {
+                atk += GameManager.Instance.playerCliquePeas;
+                HP += GameManager.Instance.playerCliquePeas;
+            }
+            else
+            {
+                atk += GameManager.Instance.opponentCliquePeas;
+                HP += GameManager.Instance.opponentCliquePeas;
+            }
         }
     }
 

@@ -9,7 +9,7 @@ public class Devour : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		Tile.zombieTiles[row, col].planted.Destroy();
+		Tile.GetTeamTiles(GetOpponent(team))[row, col].planted.Destroy();
 		yield return base.OnThisPlay();
 	}
 
@@ -18,13 +18,13 @@ public class Devour : Card
         if (!base.IsValidTarget(bc)) return false;
         List<BoxCollider2D> targets = new();
 		int lowest = 999;
-		for (int i = 0; i < 5; i++) if (Tile.zombieTiles[0, i].HasRevealedPlanted() && Tile.zombieTiles[0, i].planted.HP < lowest)
+        for (int r = 0; r < Tile.ROWS; r++) for (int i = 0; i < 5; i++) if (Tile.GetTeamTiles(GetOpponent(team))[r, i].HasRevealedPlanted() && Tile.GetTeamTiles(GetOpponent(team))[r, i].planted.HP < lowest)
 			{
-				lowest = Tile.zombieTiles[0, i].planted.HP;
+				lowest = Tile.GetTeamTiles(GetOpponent(team))[r, i].planted.HP;
             }
-        for (int i = 0; i < 5; i++) if (Tile.zombieTiles[0, i].HasRevealedPlanted() && Tile.zombieTiles[0, i].planted.HP == lowest)
+        for (int r = 0; r < Tile.ROWS; r++) for (int i = 0; i < 5; i++) if (Tile.GetTeamTiles(GetOpponent(team))[r, i].HasRevealedPlanted() && Tile.GetTeamTiles(GetOpponent(team))[r, i].planted.HP == lowest)
             {
-                targets.Add(Tile.zombieTiles[0, i].GetComponent<BoxCollider2D>());
+                targets.Add(Tile.GetTeamTiles(GetOpponent(team))[r, i].GetComponent<BoxCollider2D>());
             }
         if (targets.Contains(bc)) return true;
 		return false;

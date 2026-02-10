@@ -9,10 +9,10 @@ public class Imitator : Card
 	{
 		if (played != this && played.type == Type.Unit && played.team == team)
 		{
-            Tile.plantTiles[row, col].Unplant(true);
+            Tile.GetTeamTiles(team)[row, col].Unplant(true);
             yield return Glow();
             Card c = Instantiate(AllCards.InstanceToPrefab(played));
-            Tile.plantTiles[row, col].Plant(c);
+            Tile.GetTeamTiles(team)[row, col].Plant(c);
             Destroy(gameObject);
         }
     }

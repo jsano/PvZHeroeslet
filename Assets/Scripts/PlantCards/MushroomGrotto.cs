@@ -9,11 +9,11 @@ public class MushroomGrotto : Card
 	protected override IEnumerator OnCardPlay(Card played)
 	{
         choices.Clear();
-        if (played.col == col && played.type == Type.Unit && played.team == Team.A)
+        if (played.col == col && played.type == Type.Unit && played.team == team)
         {
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < Tile.COLUMNS; j++)
             {
-                if (Tile.CanPlantInCol(j, Tile.plantTiles, true, false)) choices.Add(Tile.plantTiles[1, j].GetComponent<BoxCollider2D>());
+                if (Tile.CanPlantInCol(j, Tile.GetTeamTiles(team), true, false)) choices.Add(Tile.GetTeamTiles(team)[1, j].GetComponent<BoxCollider2D>());
             }
             if (choices.Count > 0)
             {
@@ -21,7 +21,7 @@ public class MushroomGrotto : Card
                 var choice = choices[UnityEngine.Random.Range(0, choices.Count)];
                 yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col);
                 Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Puff-shroom")]).GetComponent<Card>();
-                Tile.plantTiles[int.Parse(GameManager.Instance.GetShuffledList()[0]), int.Parse(GameManager.Instance.GetShuffledList()[1])].Plant(c);
+                Tile.GetTeamTiles(team)[int.Parse(GameManager.Instance.GetShuffledList()[0]), int.Parse(GameManager.Instance.GetShuffledList()[1])].Plant(c);
             }
         }
         

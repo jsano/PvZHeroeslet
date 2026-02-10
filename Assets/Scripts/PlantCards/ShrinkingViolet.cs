@@ -12,10 +12,10 @@ public class ShrinkingViolet : Card
         for (int i = -1; i <= 1; i++)
         {
             if (col + i < 0 || col + i > 4) continue;
-            if (Tile.zombieTiles[0, col + i].HasRevealedPlanted() && Tile.zombieTiles[0, col + i].planted.untrickable == 0)
+            for (int r = 0; r < Tile.ROWS; r++) if (Tile.GetTeamTiles(GetOpponent(team))[r, col + i].HasRevealedPlanted() && Tile.GetTeamTiles(GetOpponent(team))[r, col + i].planted.untrickable == 0)
             {
-                Tile.zombieTiles[0, col + i].planted.ChangeStats(-2, 0);
-                if (Tile.zombieTiles[0, col + i].planted.atk <= 0) Tile.zombieTiles[0, col + i].planted.Destroy();
+                Tile.GetTeamTiles(GetOpponent(team))[r, col + i].planted.ChangeStats(-2, 0);
+                if (Tile.GetTeamTiles(GetOpponent(team))[r, col + i].planted.atk <= 0) Tile.GetTeamTiles(GetOpponent(team))[r, col + i].planted.Destroy();
             }
         }
 		yield return base.OnThisPlay();

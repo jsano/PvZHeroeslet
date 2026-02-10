@@ -13,9 +13,9 @@ public class SteelMagnolia : Card
 		for (int i = 1; i >= -1; i--)
 		{
             if (col + i < 0 || col + i > 4) continue;
-            for (int r = 0; r < 2; r++)
+            for (int r = 0; r < Tile.ROWS; r++)
             {
-                if (Tile.plantTiles[r, col + i].HasRevealedPlanted()) Tile.plantTiles[r, col + i].planted.ChangeStats(0, 2);
+                if (Tile.GetTeamTiles(team)[r, col + i].HasRevealedPlanted()) Tile.GetTeamTiles(team)[r, col + i].planted.ChangeStats(0, 2);
             }
 		}
 

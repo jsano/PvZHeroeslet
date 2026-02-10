@@ -8,8 +8,8 @@ public class BogOfEnlightenment : Card
 
     protected override IEnumerator OnThisPlay()
     {
-        for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].planted != null && Tile.plantTiles[i, col].planted.amphibious) Tile.plantTiles[i, col].planted.ChangeStats(2, 0);
-        if (Tile.zombieTiles[0, col].HasRevealedPlanted() && !Tile.zombieTiles[0, col].planted.amphibious) Tile.zombieTiles[0, col].planted.ChangeStats(-2, 0);
+        for (int i = 0; i < Tile.ROWS; i++) if (Tile.GetTeamTiles(team)[i, col].planted != null && Tile.GetTeamTiles(team)[i, col].planted.amphibious) Tile.GetTeamTiles(team)[i, col].planted.ChangeStats(2, 0);
+        if (Tile.GetTeamTiles(GetOpponent(team))[0, col].HasRevealedPlanted() && !Tile.GetTeamTiles(GetOpponent(team))[0, col].planted.amphibious) Tile.GetTeamTiles(GetOpponent(team))[0, col].planted.ChangeStats(-2, 0);
         yield return base.OnThisPlay();
     }
 
@@ -33,8 +33,8 @@ public class BogOfEnlightenment : Card
     {
         if (died.Item1 == this)
         {
-            for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].planted != null && Tile.plantTiles[i, col].planted.amphibious) Tile.plantTiles[i, col].planted.ChangeStats(-2, 0);
-            if (Tile.zombieTiles[0, col].HasRevealedPlanted() && !Tile.zombieTiles[0, col].planted.amphibious) Tile.zombieTiles[0, col].planted.ChangeStats(2, 0);
+            for (int i = 0; i < Tile.ROWS; i++) if (Tile.GetTeamTiles(team)[i, col].planted != null && Tile.GetTeamTiles(team)[i, col].planted.amphibious) Tile.GetTeamTiles(team)[i, col].planted.ChangeStats(-2, 0);
+            if (Tile.GetTeamTiles(GetOpponent(team))[0, col].HasRevealedPlanted() && !Tile.GetTeamTiles(GetOpponent(team))[0, col].planted.amphibious) Tile.GetTeamTiles(GetOpponent(team))[0, col].planted.ChangeStats(2, 0);
         }
         yield return base.OnCardDeath(died);
     }
@@ -42,8 +42,8 @@ public class BogOfEnlightenment : Card
     void OnDestroy()
     {
         if (died) return;
-        for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].planted != null && Tile.plantTiles[i, col].planted.amphibious) Tile.plantTiles[i, col].planted.ChangeStats(-2, 0);
-        if (Tile.zombieTiles[0, col].HasRevealedPlanted() && !Tile.zombieTiles[0, col].planted.amphibious) Tile.zombieTiles[0, col].planted.ChangeStats(2, 0);
+        for (int i = 0; i < Tile.ROWS; i++) if (Tile.GetTeamTiles(team)[i, col].planted != null && Tile.GetTeamTiles(team)[i, col].planted.amphibious) Tile.GetTeamTiles(team)[i, col].planted.ChangeStats(-2, 0);
+        if (Tile.GetTeamTiles(GetOpponent(team))[0, col].HasRevealedPlanted() && !Tile.GetTeamTiles(GetOpponent(team))[0, col].planted.amphibious) Tile.GetTeamTiles(GetOpponent(team))[0, col].planted.ChangeStats(2, 0);
     }
 
 }

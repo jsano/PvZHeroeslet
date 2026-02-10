@@ -8,10 +8,10 @@ public class DoomShroom : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-        for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++)
+        for (int i = 0; i < Tile.ROWS; i++) for (int j = 0; j < Tile.COLUMNS; j++)
         {
-            if (Tile.zombieTiles[i, j].HasRevealedPlanted() && Tile.zombieTiles[i, j].planted.atk >= 4 && Tile.zombieTiles[i, j].planted.untrickable == 0) Tile.zombieTiles[i, j].planted.Destroy();
-            if (Tile.plantTiles[i, j].HasRevealedPlanted() && Tile.plantTiles[i, j].planted.atk >= 4) Tile.plantTiles[i, j].planted.Destroy();
+            if (Tile.opponentTiles[i, j].HasRevealedPlanted() && Tile.opponentTiles[i, j].planted.atk >= 4 && Tile.opponentTiles[i, j].planted.untrickable == 0) Tile.opponentTiles[i, j].planted.Destroy();
+            if (Tile.playerTiles[i, j].HasRevealedPlanted() && Tile.playerTiles[i, j].planted.atk >= 4 && Tile.playerTiles[i, j].planted.untrickable == 0) Tile.playerTiles[i, j].planted.Destroy();
         }
 		yield return base.OnThisPlay();
 	}

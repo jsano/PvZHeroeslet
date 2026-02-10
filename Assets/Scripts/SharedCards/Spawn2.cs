@@ -10,7 +10,7 @@ public class Spawn2 : Card
 	protected override IEnumerator OnThisPlay()
 	{	    
         yield return new WaitForSeconds(1);
-        var targets = team == Team.B ? Tile.zombieTiles : Tile.plantTiles;
+        var targets = Tile.GetTeamTiles(team);
         List<int> columns = new();
         for (int i = 0; i < 5; i++)
         {
@@ -31,8 +31,7 @@ public class Spawn2 : Card
     {
         Tile t = bc.GetComponent<Tile>();
         if (t == null) return false;
-        var targets = team == Team.B ? Tile.zombieTiles : Tile.plantTiles;
-        if (t.isTerrainTile && Tile.CanPlantInCol(t.col, targets, toPlay.teamUp, toPlay.amphibious)) return true;
+        if (t.isTerrainTile && Tile.CanPlantInCol(t.col, Tile.GetTeamTiles(team), toPlay.teamUp, toPlay.amphibious)) return true;
         return false;
     }
 

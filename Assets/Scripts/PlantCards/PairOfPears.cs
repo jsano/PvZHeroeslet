@@ -7,11 +7,11 @@ public class PairOfPears : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-        if (Tile.CanPlantInCol(col, Tile.plantTiles, true, false))
+        if (Tile.CanPlantInCol(col, Tile.GetTeamTiles(team), true, false))
         {
             yield return Glow();
             Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Pear Pal")]).GetComponent<Card>();
-            Tile.plantTiles[1, col].Plant(card);
+            Tile.GetTeamTiles(team)[1, col].Plant(card);
         }
 
 		yield return base.OnThisPlay();

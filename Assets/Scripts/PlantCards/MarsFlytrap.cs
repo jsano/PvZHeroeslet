@@ -8,11 +8,11 @@ public class MarsFlytrap : Card
 
 	protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
 	{
-		if (hurt.Item1 == GameManager.Instance.zombieHero) 
+		if (hurt.Item1 == GameManager.Instance.GetTeamHero(GetOpponent(team))) 
 		{
             yield return Glow();
-			int amount = GameManager.Instance.zombieHero.StealBlock(1);
-			GameManager.Instance.plantHero.StealBlock(-amount);
+			int amount = GameManager.Instance.GetTeamHero(GetOpponent(team)).StealBlock(1);
+			GameManager.Instance.GetTeamHero(team).StealBlock(-amount);
         }
 		yield return base.OnCardHurt(hurt);
 	}

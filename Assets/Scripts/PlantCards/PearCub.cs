@@ -11,16 +11,16 @@ public class PearCub : Card
 	{
 		if (died.Item1 == this)
 		{
-            Tile.plantTiles[row, col].Unplant(true);
+            Tile.GetTeamTiles(team)[row, col].Unplant(true);
             yield return Glow();
             Card c1 = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Grizzly Pear")]);
-			Tile.plantTiles[row, col].Plant(c1);
+			Tile.GetTeamTiles(team)[row, col].Plant(c1);
 
-            for (int row = 0; row < 2; row++)
+            for (int row = 0; row < Tile.ROWS; row++)
             {
-                for (int col = 0; col < 5; col++)
+                for (int col = 0; col < Tile.COLUMNS; col++)
                 {
-                    Card c = Tile.plantTiles[row, col].planted;
+                    Card c = Tile.GetTeamTiles(team)[row, col].planted;
                     if (c != null && c.tribes.Contains(Tribe.Fruit))
                     {
                         c.ChangeStats(1, 1);

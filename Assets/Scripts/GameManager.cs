@@ -84,10 +84,7 @@ public class GameManager : NetworkBehaviour
 	/// The highest gold the player had this turn
 	/// </summary>
     public float remainingTop { get; private set; }
-    /// <summary>
-    /// How much extra gold the player has for each turn (ex. from Sunburn)
-    /// </summary>
-    [HideInInspector] public int permanentBonus = 0;
+    
     /// <summary>
     /// How much gold the opponent has left this turn
     /// </summary>
@@ -96,42 +93,54 @@ public class GameManager : NetworkBehaviour
 	/// The highest gold the opponent had this turn
 	/// </summary>
     public float opponentRemainingTop { get; private set; }
+	/// <summary>
+    /// How much extra gold the player has for each turn (ex. from Sunburn)
+    /// </summary>
+    [HideInInspector] public int playerPermanentBonus = 0;
     /// <summary>
     /// How much extra gold the opponent has for each turn (ex. from Cryo-brain)
     /// </summary>
     [HideInInspector] public int opponentPermanentBonus = 0;
     /// <summary>
-    /// How much extra attack the plants have for the rest of the game
+    /// How much extra attack the player cards have for the rest of the game
     /// </summary>
-    [HideInInspector] public int plantPermanentAttackBonus = 0;
+    [HideInInspector] public int playerPermanentAttackBonus = 0;
     /// <summary>
-    /// How much extra HP the plants have for the rest of the game
+    /// How much extra HP the player cards have for the rest of the game
     /// </summary>
-    [HideInInspector] public int plantPermanentHPBonus = 0;
+    [HideInInspector] public int playerPermanentHPBonus = 0;
     /// <summary>
-    /// How much extra attack the zombies have for the rest of the game
+    /// How much extra attack the opponent cards have for the rest of the game
     /// </summary>
-    [HideInInspector] public int zombiePermanentAttackBonus = 0;
+    [HideInInspector] public int opponentPermanentAttackBonus = 0;
     /// <summary>
-    /// How much extra HP the zombies have for the rest of the game
+    /// How much extra HP the opponent cards have for the rest of the game
     /// </summary>
-    [HideInInspector] public int zombiePermanentHPBonus = 0;
+    [HideInInspector] public int opponentPermanentHPBonus = 0;
     /// <summary>
-    /// How much less gold the plant cards cost for the rest of the game
+    /// How much less gold the player units cost for the rest of the game
     /// </summary>
-    [HideInInspector] public float plantCardPermanentDiscount = 0;
+    [HideInInspector] public float playerUnitPermanentDiscount = 0;
     /// <summary>
-    /// How much less gold the zombie cards cost for the rest of the game
+    /// How much less gold the opponent units cost for the rest of the game
     /// </summary>
-    [HideInInspector] public float zombieCardPermanentDiscount = 0;
+    [HideInInspector] public float opponentUnitPermanentDiscount = 0;
     /// <summary>
-    /// How much less gold the plant tricks cost for the rest of the game
+    /// How much less gold the player tricks cost for the rest of the game
     /// </summary>
-    [HideInInspector] public float plantTrickPermanentDiscount = 0;
+    [HideInInspector] public float playerTrickPermanentDiscount = 0;
     /// <summary>
-    /// How much less gold the zombie tricks cost for the rest of the game
+    /// How much less gold the opponent tricks cost for the rest of the game
     /// </summary>
-    [HideInInspector] public float zombieTrickPermanentDiscount = 0;
+    [HideInInspector] public float opponentTrickPermanentDiscount = 0;
+    /// <summary>
+    /// For literally just Clique Peas only
+    /// </summary>
+    [HideInInspector] public int playerCliquePeas = 0;
+    /// <summary>
+    /// For literally just Clique Peas only
+    /// </summary>
+    [HideInInspector] public int opponentCliquePeas = 0;
     /// <summary>
     /// The player's team (A/B)
     /// </summary>
@@ -205,10 +214,6 @@ public class GameManager : NetworkBehaviour
     /// For literally just Sun Strike only
     /// </summary>
     public List<Card> removeStrikethrough = new();
-    /// <summary>
-    /// For literally just Clique Peas only
-    /// </summary>
-    public int cliquePeas = 0;
 
 	public Transform playerBuffs { get; private set; }
     public Transform opponentBuffs { get; private set; }
@@ -819,7 +824,7 @@ public class GameManager : NetworkBehaviour
 		Buff b1 = Instantiate(AllCards.Instance.buffs[chosenBuff[0]], playerBuffs);
 		b1.team = team;
         Buff b2 = Instantiate(AllCards.Instance.buffs[chosenBuff[1]], opponentBuffs);
-		b2.team = team == Team.A ? Team.B : Team.A;
+		b2.team = GetOpponent(team);
 		availableBuffDatabase.Remove(chosenBuff[0]);
         availableBuffDatabase.Remove(chosenBuff[1]);
 		buffChoices.Clear();
@@ -831,8 +836,8 @@ public class GameManager : NetworkBehaviour
 		opponentRemaining = 0;
 		yield return UpdateRemaining(0, Team.A);
 		yield return UpdateRemaining(0, Team.B);
-        StartCoroutine(UpdateRemaining(turn + permanentBonus, team));
-		yield return UpdateRemaining(turn + opponentPermanentBonus, team == Team.A ? Team.B : Team.A);
+        StartCoroutine(UpdateRemaining(turn + playerPermanentBonus, team));
+		yield return UpdateRemaining(turn + opponentPermanentBonus, GetOpponent(team));
 		phase = 0;
 		allowZombieCards = false;
 		
@@ -1397,5 +1402,14 @@ public class GameManager : NetworkBehaviour
 	{
 		return turn % 2 == 0 ? Team.B : Team.A;
 	}
+
+    /// <summary>
+    /// Gets the hero that corresponds to the given team
+    /// </summary>
+    public Hero GetTeamHero(Card.Team team)
+    {
+        if (team == this.team) return playerHero;
+        return opponentHero;
+    }
 
 }

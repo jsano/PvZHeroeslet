@@ -7,7 +7,7 @@ public class RedStinger : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		if (Tile.plantTiles[1, col].planted != null && row == 0)
+		if (Tile.GetTeamTiles(team)[1, col].planted != null && row == 0)
 		{
 			yield return Glow();
 			SetStats(7, 3);

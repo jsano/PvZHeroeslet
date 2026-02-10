@@ -8,9 +8,9 @@ public class SourGrapes : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		List<Damagable> targets = new();
-		for (int col = 0; col < 5; col++)
+        for (int r = 0; r < Tile.ROWS; r++) for (int col = 0; col < Tile.COLUMNS; col++)
 		{
-			if (Tile.zombieTiles[0, col].planted != null) targets.Add(Tile.zombieTiles[0, col].planted);
+			if (Tile.GetTeamTiles(GetOpponent(team))[r, col].planted != null) targets.Add(Tile.GetTeamTiles(GetOpponent(team))[r, col].planted);
 		}
         yield return Glow();
         yield return AttackFXs(targets);

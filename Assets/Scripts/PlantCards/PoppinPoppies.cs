@@ -13,10 +13,10 @@ public class PoppinPoppies : Card
 		{
             if (col + i < 0 || col + i > 4) continue;
             
-			if (Tile.CanPlantInCol(col + i, Tile.plantTiles, true, false))
+			if (Tile.CanPlantInCol(col + i, Tile.GetTeamTiles(team), true, false))
 			{
 				Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Lil' Buddy")]).GetComponent<Card>();
-				Tile.plantTiles[1, col + i].Plant(card);
+				Tile.GetTeamTiles(team)[1, col + i].Plant(card);
 			}
 		}
 

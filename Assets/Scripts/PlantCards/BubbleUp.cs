@@ -7,14 +7,14 @@ public class BubbleUp : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		Card chosen = Tile.plantTiles[row, col].planted;
+		Card chosen = Tile.GetTeamTiles(team)[row, col].planted;
         for (int i = 0; i < 2; i++)
 		{
 			for (int j = 0; j < 5; j++)
 			{
-				if (!(i == chosen.row && j == chosen.col) && Tile.CanPlantInCol(j, Tile.plantTiles, chosen.teamUp, chosen.amphibious))
+				if (!(i == chosen.row && j == chosen.col) && Tile.CanPlantInCol(j, Tile.GetTeamTiles(team), chosen.teamUp, chosen.amphibious))
 				{
-					choices.Add(Tile.plantTiles[i, j].GetComponent<BoxCollider2D>());
+					choices.Add(Tile.GetTeamTiles(team)[i, j].GetComponent<BoxCollider2D>());
 				}
 			}
 		}
@@ -33,8 +33,8 @@ public class BubbleUp : Card
         yield return base.OnSelection(bc);
         yield return new WaitForSeconds(1);
         Tile t = bc.GetComponent<Tile>();
-        Tile.plantTiles[row, col].planted.ChangeStats(0, 4);
-        Tile.plantTiles[row, col].planted.Move(t.row, t.col);
+        Tile.GetTeamTiles(team)[row, col].planted.ChangeStats(0, 4);
+        Tile.GetTeamTiles(team)[row, col].planted.Move(t.row, t.col);
     }
 
 	public override bool IsValidTarget(BoxCollider2D bc)

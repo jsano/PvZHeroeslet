@@ -5,7 +5,6 @@ using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
 
 public class MoodOfNovelty : Buff
 {
@@ -17,20 +16,17 @@ public class MoodOfNovelty : Buff
         turns += 1;
         if (turns == 3)
         {
-            Tile[,] target;
-            if (team == Card.Team.A)
+            if (team == GameManager.Instance.team)
             {
-                GameManager.Instance.plantPermanentAttackBonus += 3;
-                GameManager.Instance.plantPermanentHPBonus += 3;
-                target = Tile.plantTiles;
+                GameManager.Instance.playerPermanentAttackBonus += 3;
+                GameManager.Instance.playerPermanentHPBonus += 3;
             }
             else
             {
-                GameManager.Instance.zombiePermanentAttackBonus += 3;
-                GameManager.Instance.zombiePermanentHPBonus += 3;
-                target = Tile.zombieTiles;
+                GameManager.Instance.opponentPermanentAttackBonus += 3;
+                GameManager.Instance.opponentPermanentHPBonus += 3;
             }
-            for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++) if (target[i, j].HasRevealedPlanted()) target[i, j].planted.ChangeStats(3, 3);
+            for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++) if (Tile.GetTeamTiles(team)[i, j].HasRevealedPlanted()) Tile.GetTeamTiles(team)[i, j].planted.ChangeStats(3, 3);
             if (team == GameManager.Instance.team) foreach (HandCard hc in GameManager.Instance.GetHandCards()) if (hc.orig.type == Card.Type.Unit)
                     {
                         hc.ChangeAttack(0);

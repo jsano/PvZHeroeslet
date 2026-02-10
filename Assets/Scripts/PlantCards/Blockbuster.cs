@@ -13,7 +13,7 @@ public class Blockbuster : Card
 			for (int i = -1; i <= 1; i++)
 			{
 				if (col + i < 0 || col + i > 4) continue;
-				if (Tile.zombieTiles[0, col + i].planted != null && Tile.zombieTiles[0, col + i].planted.gravestone) Tile.zombieTiles[0, col + i].planted.Destroy();
+				if (Tile.GetTeamTiles(GetOpponent(team))[0, col + i].planted != null && Tile.GetTeamTiles(GetOpponent(team))[0, col + i].planted.gravestone) Tile.GetTeamTiles(GetOpponent(team))[0, col + i].planted.Destroy();
 			}
 		}
 		yield return base.OnThisPlay();
