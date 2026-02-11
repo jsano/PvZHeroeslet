@@ -23,19 +23,19 @@ public class BuffSelection : MonoBehaviour
 
         switch (source.buffClass)
         {
-            case Card.Class.Misery:
+            case Card.Class.Elation:
                 BG.color = Color.yellow;
                 break;
-            case Card.Class.Wrath:
+            case Card.Class.Misery:
                 BG.color = Color.blue;
                 break;
-            case Card.Class.Awe:
+            case Card.Class.Wrath:
                 BG.color = Color.red;
                 break;
             case Card.Class.Fright:
                 BG.color = Color.magenta + Color.blue * 0.5f;
                 break;
-            case Card.Class.Elation:
+            case Card.Class.Awe:
                 BG.color = Color.red + Color.cyan * 0.5f;
                 break;
             case Card.Class.Contempt:

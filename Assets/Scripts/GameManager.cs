@@ -539,6 +539,11 @@ public class GameManager : NetworkBehaviour
     /// </summary>
     public IEnumerator DrawCard(Team t, int count = 1, bool animation = true)
 	{
+		if (Buff.PlayerHasBuff("Altered Expectations", t))
+		{
+			if (phase == 0) count = 0;
+			else count += 1;
+		}
 		for (int i = 0; i < count; i++)
 		{
             if (team == t && handCards.childCount < 10) deck.RemoveAt(0);
