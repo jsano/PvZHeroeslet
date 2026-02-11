@@ -26,6 +26,8 @@ public class UserAccounts : MonoBehaviour
 		public static int ZombieHero { get; set; }
 
 		public static Card.Team team;
+
+		public static int[] Buffs;
     }
 
 	public static Dictionary<string, Deck> allDecks = new();

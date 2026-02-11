@@ -419,7 +419,8 @@ public class GameManager : NetworkBehaviour
 
 		shuffledLists = new();
 
-		for (int i = 0; i < AllCards.Instance.buffs.Length; i++) availableBuffDatabase.Add(i);
+		if (UserAccounts.GameStats.Buffs != null) foreach (int i in UserAccounts.GameStats.Buffs) availableBuffDatabase.Add(i);
+        else for (int i = 0; i < AllCards.Instance.buffs.Length; i++) availableBuffDatabase.Add(i);
 
 		StartCoroutine(Mulligan());
     }

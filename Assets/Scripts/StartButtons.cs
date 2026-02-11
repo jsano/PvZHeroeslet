@@ -41,6 +41,11 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Cherry Bomb"), 2 },
             { AllCards.NameToID("Mush-boom"), 2 }
         };
+        UserAccounts.GameStats.Buffs = new int[]
+        {
+            AllCards.NameToID("Dulled Pain"),
+            AllCards.NameToID("External Pressure"),
+        };
 
         NetworkManager.Singleton.StartHost();
         GameObject.Find("Host").SetActive(false);
@@ -57,13 +62,18 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
             { AllCards.NameToID("Toxic Waste Imp"), 2 },
-            { AllCards.NameToID("Mini Ninja"), 4 },
+            { AllCards.NameToID("Loose Cannon"), 4 },
             { AllCards.NameToID("Excavator"), 2 },
             { AllCards.NameToID("Imp-throwing Imp"), 2 },
             { AllCards.NameToID("Fire Rooster"), 2 },
             { AllCards.NameToID("Imposter"), 2 },
             { AllCards.NameToID("Total Eclipse"), 2 },
             { AllCards.NameToID("Graveyard"), 2 },
+        };
+        UserAccounts.GameStats.Buffs = new int[]
+        {
+            AllCards.NameToID("Dulled Pain"),
+            AllCards.NameToID("External Pressure"),
         };
 
         UserAccounts.GameStats.DeckName = "temp11";

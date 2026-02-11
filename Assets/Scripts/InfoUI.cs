@@ -42,6 +42,8 @@ public abstract class InfoUI : MonoBehaviour
         { "Strikethrough", "Attacks all targets in lane and the hero" },
         { "Team Up", "Can be played on a lane that\nalready contains a card" },
         { "Untrickable", "Unaffected by the opponent's tricks" },
+        { "half", "Round down the damage" },
+        { "halves", "Round down the damage" }
     };
 
     public GameObject tooltipContainer;
