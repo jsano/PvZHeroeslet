@@ -57,11 +57,15 @@ public class GameManager : NetworkBehaviour
 	private bool timerOn;
 	private bool timerMOn;
 	private bool timerBOn;
+	[HideInInspector] public int turnTimerMax = 30;
+    [HideInInspector] public int mulliganTimerMax = 15;
+    [HideInInspector] public int blockTimerMax = 10;
+    [HideInInspector] public int buffTimerMax = 15;
 
     /// <summary>
     /// How many buff rerolls the player has
     /// </summary>
-    private int rerolls = 1;
+    [HideInInspector] public int rerolls = 1;
     /// <summary>
     /// The current randomized selection of buffs to offer each player. Only one player should fill these in each time so the second attempt should be ignored
     /// </summary>
@@ -437,7 +441,7 @@ public class GameManager : NetworkBehaviour
             deck.RemoveAt(0);
         }
 		timerMOn = true;
-		timer = 15;
+		timer = mulliganTimerMax;
 		yield return new WaitUntil(() => mulliganed == true);
 
 		mulliganUI.SetActive(false);
@@ -492,11 +496,11 @@ public class GameManager : NetworkBehaviour
 		if (timerOn)
 		{
 			timer -= Time.deltaTime;
-			timerImage.fillAmount = 0.18f + 0.64f * (waitingOnBlock ? timer / 10 : timer / 30);
+			timerImage.fillAmount = 0.18f + 0.64f * (waitingOnBlock ? timer / blockTimerMax : timer / turnTimerMax);
 			if (timer <= 0)
 			{
 				timerOn = false;
-				timer = 30;
+				timer = turnTimerMax;
 				if (waitingOnBlock) HoldTrickRpc(team);
 				else EndRpc(team);
 			}
@@ -510,7 +514,7 @@ public class GameManager : NetworkBehaviour
 		if (timerMOn)
 		{
 			timer -= Time.deltaTime;
-			timerImageM.fillAmount = timer / 15;
+			timerImageM.fillAmount = timer / mulliganTimerMax;
 			if (timer <= 0)
 			{
 				timerMOn = false;
@@ -520,7 +524,7 @@ public class GameManager : NetworkBehaviour
         if (timerBOn)
         {
             timer -= Time.deltaTime;
-            timerImageB.fillAmount = timer / 15;
+            timerImageB.fillAmount = timer / buffTimerMax;
             if (timer <= 0)
             {
                 timerBOn = false;
@@ -695,7 +699,7 @@ public class GameManager : NetworkBehaviour
 			}
 		}
 
-		timer = 30;
+		timer = turnTimerMax;
         if (phase == 4) StartCoroutine(Combat());
 		else EnablePlayableHandCards();
 	}
@@ -884,6 +888,7 @@ public class GameManager : NetworkBehaviour
 		chosenBuff = new int[] { -1, -1 };
 		buffSelectionUI.SetActive(true);
         if (buffChoices.Count == 1) lockInButton.interactable = true; // No options
+		rerollText.text = rerolls + " remaining";
 		rerollButton.interactable = rerolls > 0;
         foreach (int b in buffChoices)
 		{
@@ -892,7 +897,7 @@ public class GameManager : NetworkBehaviour
 			g.GetComponent<BuffSelection>().ID = b;
 		}
 		timerBOn = true;
-		timer = 15;
+		timer = buffTimerMax;
 		//TODO: handle when a player can't get a buff (no option)
 		yield return new WaitUntil(() => chosenBuff[0] != -1 && chosenBuff[1] != -1);
         buffSelectionUI.SetActive(false);
@@ -1290,7 +1295,7 @@ public class GameManager : NetworkBehaviour
 
             timerImage.gameObject.SetActive(true);
             timerOn = true;
-			timer = 10;
+			timer = blockTimerMax;
 		}
 		else
 		{
