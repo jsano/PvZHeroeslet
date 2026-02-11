@@ -12,12 +12,7 @@ public class MoodOfDisruption : Buff
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
-        if (team == GameManager.Instance.team)
-        {
-            GameManager.Instance.opponentUnitPermanentDiscount -= 0.5f;
-            GameManager.Instance.opponentTrickPermanentDiscount -= 0.5f;
-        }
-        else
+        if (team != GameManager.Instance.team)
         {
             GameManager.Instance.playerUnitPermanentDiscount -= 0.5f;
             GameManager.Instance.playerTrickPermanentDiscount -= 0.5f;

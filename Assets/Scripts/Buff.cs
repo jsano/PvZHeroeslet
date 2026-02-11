@@ -24,6 +24,15 @@ public class Buff : MonoBehaviour
     [HideInInspector] public Card.Team team;
 
     /// <summary>
+    /// Called the instant a HandCard is dropped onto the board.
+    /// </summary>
+    /// <param name="played"> [The team that played, the ID of the card that was played] </param>
+    protected virtual void OnHandCardPlayImmediate(Tuple<Card.Team, int> played)
+    {
+
+    }
+
+    /// <summary>
     /// Called the instant a card is played.
     /// </summary>
     /// <param name="played"> The card that was played </param>
@@ -41,7 +50,7 @@ public class Buff : MonoBehaviour
         return 0;
     }
 
-    public static List<object> CallAll(string name, object arg)
+    public static List<object> CallAllImmediate(string name, object arg)
     {
         List<object> result = new ();
         foreach (Transform t in GameManager.Instance.playerBuffs)

@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab4c2674f557524dbcc1e67363b1f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rarity: 0
+  rarity: 2
   description: Opponent cards cost 0.5 more for the rest of the game
   buffClass: 5
   lore: 

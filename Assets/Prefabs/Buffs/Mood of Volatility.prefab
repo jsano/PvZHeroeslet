@@ -126,8 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9f319da51c4537468776e5e7fa8a0a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rarity: 0
+  rarity: 2
   description: Your cards have +1 attack for the rest of the game
-  buffClass: 2
+  buffClass: 1
   lore: 
   team: 0

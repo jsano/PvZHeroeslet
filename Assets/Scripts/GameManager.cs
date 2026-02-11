@@ -122,17 +122,9 @@ public class GameManager : NetworkBehaviour
     /// </summary>
     [HideInInspector] public float playerUnitPermanentDiscount = 0;
     /// <summary>
-    /// How much less gold the opponent units cost for the rest of the game
-    /// </summary>
-    [HideInInspector] public float opponentUnitPermanentDiscount = 0;
-    /// <summary>
     /// How much less gold the player tricks cost for the rest of the game
     /// </summary>
     [HideInInspector] public float playerTrickPermanentDiscount = 0;
-    /// <summary>
-    /// How much less gold the opponent tricks cost for the rest of the game
-    /// </summary>
-    [HideInInspector] public float opponentTrickPermanentDiscount = 0;
     /// <summary>
     /// For literally just Clique Peas only
     /// </summary>
@@ -380,17 +372,22 @@ public class GameManager : NetworkBehaviour
 		AudioManager.Instance.PlayMusic(choices[UnityEngine.Random.Range(0, choices.Count)]);
 		endScreen.SetActive(false);
 		// Setup board structure depending on the player's team
-		playerHero = Instantiate(AllCards.Instance.heroes[0/*UserAccounts.GameStats.PlantHero*/]).GetComponent<Hero>();
-		opponentHero = Instantiate(AllCards.Instance.heroes[12/*UserAccounts.GameStats.ZombieHero*/]).GetComponent<Hero>();
 		team = UserAccounts.GameStats.team;
         if (team == Team.B)
 		{
+			playerHero = Instantiate(AllCards.Instance.heroes[12/*UserAccounts.GameStats.PlantHero*/]).GetComponent<Hero>();
+			opponentHero = Instantiate(AllCards.Instance.heroes[0/*UserAccounts.GameStats.ZombieHero*/]).GetComponent<Hero>();
             remainingText.transform.parent.GetComponent<Image>().sprite = AllCards.Instance.brainUI;
             opponentRemainingText.transform.parent.GetComponent<Image>().sprite = AllCards.Instance.sunUI;
             remainingAnim.GetComponent<Image>().sprite = AllCards.Instance.brainUI;
             opponentRemainingAnim.GetComponent<Image>().sprite = AllCards.Instance.sunUI;
         }
-        playerHero.transform.position = new Vector2(0, -3.25f);
+		else
+		{
+            playerHero = Instantiate(AllCards.Instance.heroes[0]).GetComponent<Hero>();
+            opponentHero = Instantiate(AllCards.Instance.heroes[12]).GetComponent<Hero>();
+        }
+		playerHero.transform.position = new Vector2(0, -3.25f);
         opponentHero.transform.position = new Vector2(0, 3.5f);
         opponentHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
         opponentHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
@@ -644,7 +641,7 @@ public class GameManager : NetworkBehaviour
     {
 		yield return new WaitUntil(() => opponentPlayedQueue.Count == 0);
 
-        string[] pnames = new string[] { "", "Zombies\nPlay", "Plants\nPlay", "Zombie\nTricks", "FIGHT!" };
+        string[] pnames = new string[] { "", "Initiative\nPlay", "Reactive\nPlay", "Initiative\nTricks", "FIGHT!" };
 
 		// Only start the next turn when both players are ready
 		if (phase == 0 || phase == 4)
@@ -1048,7 +1045,7 @@ public class GameManager : NetworkBehaviour
                 else card.transform.position = Tile.GetTeamTiles(Team.B)[row, col].transform.position;
 			}
 		}
-
+        card.team = playingTeam;
         if (card.team != team) Destroy(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject);
 		StartCoroutine(UpdateRemaining(-fs.cost, card.team));
 	}
@@ -1152,7 +1149,7 @@ public class GameManager : NetworkBehaviour
     /// </summary>
     public void EnablePlayableHandCards()
     {
-		if (team == Team.A)
+		if (team != WentFirst())
 		{
             if (phase == 2)
             {
@@ -1187,7 +1184,7 @@ public class GameManager : NetworkBehaviour
             else foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = false;
         }
 
-		if (team == Team.A)
+		if (team != WentFirst())
 		{
 			if (phase == 2)
 			{

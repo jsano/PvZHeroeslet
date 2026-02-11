@@ -16,10 +16,6 @@ public class MoodOfPassivity : Buff
         {
             GameManager.Instance.playerTrickPermanentDiscount += 1;
         }
-        else
-        {
-            GameManager.Instance.opponentTrickPermanentDiscount += 1f;
-        }
         if (team == GameManager.Instance.team) foreach (HandCard hc in GameManager.Instance.GetHandCards()) hc.ChangeCost(0);
         base.Start();
     }

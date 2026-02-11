@@ -245,6 +245,7 @@ public class Card : Damagable
             if (type != Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
             else AudioManager.Instance.PlaySFX("Place");
             CallLeftToRight();
+            Buff.CallAllImmediate("OnCardPlayImmediate", this);
             StartCoroutine(BeforeOnThisPlay());
         }
 	}
@@ -665,7 +666,7 @@ public class Card : Damagable
     public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1)
     {
         if (gravestone || invulnerable) yield break;
-        foreach (int a in Buff.CallAll("OnCardHurtImmediate", new Tuple<Damagable, Card, int>(this, source, dmg))) dmg += a;
+        foreach (int a in Buff.CallAllImmediate("OnCardHurtImmediate", new Tuple<Damagable, Card, int>(this, source, dmg))) dmg += a;
         if (team != Team.B && Tile.IsOnField("Binary Stars")) dmg *= 2;
         dmg = Mathf.Max(0, dmg - armor);
         HP -= dmg;
@@ -845,6 +846,7 @@ public class Card : Damagable
         GameManager.Instance.currentlySpawningCards += 1;
         //play animation
         CallLeftToRight();
+        Buff.CallAllImmediate("OnCardPlayImmediate", this);
         GameManager.Instance.DisableHandCards();
         yield return OnThisPlay();
     }

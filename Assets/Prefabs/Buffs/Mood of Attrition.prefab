@@ -126,8 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97799948328031147a7411e8f88343e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rarity: 0
+  rarity: 2
   description: Your cards have +2 HP for the rest of the game
-  buffClass: 1
+  buffClass: 0
   lore: 
   team: 0

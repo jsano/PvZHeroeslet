@@ -122,8 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 749bde81b09426742997967bd348c384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rarity: 0
+  rarity: 2
   description: Your cards cost 0.5 less for the rest of the game
-  buffClass: 0
+  buffClass: 4
   lore: 
   team: 0

@@ -126,9 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5dc6431ecd95974286f959ac1ddff2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rarity: 0
+  rarity: 2
   description: 3 turns later, your cards have +3 attack +3 HP for the rest of the
     game
-  buffClass: 4
+  buffClass: 2
   lore: 
   team: 0

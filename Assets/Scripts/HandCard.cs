@@ -166,6 +166,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                             finalStats.cost = GetCost();
                             if (finalStats.cost < 0) finalStats.cost = 0;
                             GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col, GameManager.Instance.team);
+                            Buff.CallAllImmediate("OnHandCardPlayImmediate", new Tuple<Card.Team, int>(GameManager.Instance.team, ID));
                             transform.SetParent(null);
                             Destroy(gameObject);
                         }
@@ -175,6 +176,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                             if (finalStats.cost < 0) finalStats.cost = 0;
                             if (t == null) GameManager.Instance.PlayTrickRpc(finalStats, -1, -1, bc.GetComponent<Hero>().team == Card.Team.A, GameManager.Instance.team);
                             else GameManager.Instance.PlayTrickRpc(finalStats, t.row, t.col, t.isPlayerTile == (GameManager.Instance.team == Card.Team.A), GameManager.Instance.team);
+                            Buff.CallAllImmediate("OnHandCardPlayImmediate", new Tuple<Card.Team, int>(GameManager.Instance.team, ID));
                             transform.SetParent(null);
                             Destroy(gameObject);
                         }
@@ -189,6 +191,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                     finalStats.cost = GetCost();
                     if (finalStats.cost < 0) finalStats.cost = 0;
                     GameManager.Instance.PlayTrickRpc(finalStats, 1, 2, GameManager.Instance.team == Card.Team.A, GameManager.Instance.team); // Params shouldn't matter beyond visual
+                    Buff.CallAllImmediate("OnHandCardPlayImmediate", new Tuple<Card.Team, int>(GameManager.Instance.team, ID));
                     transform.SetParent(null);
                     Destroy(gameObject);
                 }
@@ -252,7 +255,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         float temp = finalStats.cost;
         if (ID == AllCards.NameToID("Clique Peas")) temp += GameManager.Instance.playerCliquePeas;
         if (orig.type == Card.Type.Unit) temp -= GameManager.Instance.playerUnitPermanentDiscount;
-        if (orig.type == Card.Type.Trick) temp -= GameManager.Instance.playerTrickPermanentDiscount;
+        else temp -= GameManager.Instance.playerTrickPermanentDiscount;
         return temp;
     }
 

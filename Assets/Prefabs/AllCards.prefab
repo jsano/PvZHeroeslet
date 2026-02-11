@@ -646,6 +646,7 @@ MonoBehaviour:
   - {fileID: 2527749567161473024, guid: 7961edb21ccbb544ca44acb78e88d9b9, type: 3}
   - {fileID: 8079719823691847104, guid: e94f44f52d0e7344b8380a6f3df7b10d, type: 3}
   - {fileID: 6212646309808583680, guid: 103a4ad9a8672e948972353e61bed173, type: 3}
+  - {fileID: -6932973715082067448, guid: 8602dddb3b36eef49997d5c8c63be936, type: 3}
   attackSprite: {fileID: -614008370759134500, guid: de892fa4810ff12498de293c60ad7297, type: 3}
   HPSprite: {fileID: 21300000, guid: a827faf4f440ba347b00f7fbaecbf259, type: 3}
   multiSprite: {fileID: 21300000, guid: 7e20defee86495544b5cbcab63bf8dfb, type: 3}
