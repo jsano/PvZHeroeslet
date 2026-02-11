@@ -827,6 +827,16 @@ public class Card : Damagable
         }
     }
 
+    public void RaiseAntiheroValue(int amount)
+    {
+        if (AHactive)
+        {
+            atk += amount;
+            atkUI.text = atk + "";
+        }
+        antihero += amount;
+    }
+
     /// <summary>
     /// Toggles off the gravestone state.
     /// Reveals the card sprite, updates UI, increments <c>GameManager.instance.currentlySpawningCards</c>, disables HandCards, then calls <c>OnThisPlay</c> (where it'll be enabled again)
