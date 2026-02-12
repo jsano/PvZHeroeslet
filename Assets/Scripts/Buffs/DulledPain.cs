@@ -15,7 +15,6 @@ public class DulledPain : Buff
     {
         if (hurt.Item1 == GameManager.Instance.GetTeamHero(team) && active)
         {
-            Debug.Log(hurt.Item3);
             active = false;
             return -(int)Mathf.Ceil(hurt.Item3 / 2f);
         }

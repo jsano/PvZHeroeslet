@@ -45,6 +45,8 @@ public class StartButtons : NetworkBehaviour
         {
             AllCards.NameToID("Dulled Pain"),
             AllCards.NameToID("External Pressure"),
+            AllCards.NameToID("Held Breath"),
+            AllCards.NameToID("Emotional Spectrum"),
         };
 
         NetworkManager.Singleton.StartHost();
@@ -74,6 +76,8 @@ public class StartButtons : NetworkBehaviour
         {
             AllCards.NameToID("Dulled Pain"),
             AllCards.NameToID("External Pressure"),
+            AllCards.NameToID("Held Breath"),
+            AllCards.NameToID("Emotional Spectrum"),
         };
 
         UserAccounts.GameStats.DeckName = "temp11";
