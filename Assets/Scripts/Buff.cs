@@ -106,9 +106,9 @@ public class Buff : MonoBehaviour
     }
 
     /// <summary>
-    /// Called whenever a card on the field dies
-    /// </summary>
-    /// <param name="died"> The card that died </param>
+	/// Called whenever a card on the field dies
+	/// </summary>
+	/// <param name="died"> [The card that died, the card that destroyed it] </param>
     protected virtual IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
         yield return null;

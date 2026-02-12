@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Name
-      value: Emotional Spectrum
+      value: Victory Lap
       objectReference: {fileID: 0}
     - target: {fileID: 8499147558775820694, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Pivot.x
@@ -103,14 +103,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1212290814548857404}
+      addedObject: {fileID: 9079992847574061925}
   m_SourcePrefab: {fileID: 100100000, guid: d306f9effc3093640949af61915d7b07, type: 3}
 --- !u!1 &7342781260868842934 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
   m_PrefabInstance: {fileID: 5710839442665679260}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1212290814548857404
+--- !u!114 &9079992847574061925
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,12 +119,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7342781260868842934}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87f2af6f867117c42a2f85723d02cc27, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a16a7985cbd21248b09b3c0ab2e37fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rarity: 0
-  description: Upon choosing this, you get +1 gold every time you play a new emotion's
-    card
-  buffClass: 2
+  rarity: 2
+  description: Your elation cards refund their gold when destroyed
+  buffClass: 4
   lore: 
   team: 0

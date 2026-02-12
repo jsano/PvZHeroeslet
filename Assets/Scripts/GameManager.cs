@@ -566,7 +566,7 @@ public class GameManager : NetworkBehaviour
 		GameObject c = null;
 		if (team == t)
 		{
-			if (handCards.childCount >= 10) yield break;
+			if (handCards.childCount >= 10 || Buff.PlayerHasBuff("Suffocating Limits", GetOpponent(t)) && handCards.childCount >= 8) yield break;
 			if (AllCards.Instance.cards[id].specialHandCard != null) c = Instantiate(AllCards.Instance.cards[id].specialHandCard, handCards);
             else c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
@@ -578,8 +578,7 @@ public class GameManager : NetworkBehaviour
 		} 
 		else
 		{
-			Debug.Log(opponentHandCards.childCount);
-			if (opponentHandCards.childCount >= 10) yield break;
+			if (opponentHandCards.childCount >= 10 || Buff.PlayerHasBuff("Suffocating Limits", GetOpponent(t)) && opponentHandCards.childCount >= 8) yield break;
 			int current = opponentHandCards.childCount;
 			c = Instantiate(cardBackPrefab, opponentHandCards);
 			c.transform.SetSiblingIndex(current);
@@ -691,8 +690,6 @@ public class GameManager : NetworkBehaviour
 				Card c = Tile.GetTeamTiles(WentFirst())[0, col].planted;
 				if (c != null && c.gravestone)
 				{
-					// Update zombie brain UI only for the plant side
-					if (c.team != team) StartCoroutine(UpdateRemaining(-c.playedCost, team));
 					yield return c.Reveal();
                     DisableHandCards();
                 }
@@ -952,13 +949,6 @@ public class GameManager : NetworkBehaviour
 		if (playingTeam != team)
 		{
 			Destroy(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject);
-			// From the opponent's perspective, only deduct the gold UI if it's not a gravestone
-			if (!card.gravestone) StartCoroutine(UpdateRemaining(-fs.cost, playingTeam));
-		}
-		else
-		{
-			// From the player's perspective, always deduct the gold UI
-			StartCoroutine(UpdateRemaining(-fs.cost, team));
 		}
 		
 		card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
@@ -1058,8 +1048,7 @@ public class GameManager : NetworkBehaviour
 		}
         card.team = playingTeam;
         if (card.team != team) Destroy(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject);
-		StartCoroutine(UpdateRemaining(-fs.cost, card.team));
-	}
+    }
 
 	private IEnumerator ProcessOpponentPlayedQueue()
 	{

@@ -97,8 +97,10 @@ public class Hero : Damagable
 			else block += 3;
 			blockMeter.fillAmount = block/8f;
 		}
-		if (block >= 8 && !bullseye && 
-            (GameManager.Instance.team == team && GameManager.Instance.GetHandCards().Count < 10 || GameManager.Instance.team != team && GameManager.Instance.opponentHandCards.childCount < 10))
+
+		int max = Buff.PlayerHasBuff("Suffocating Limits", Card.GetOpponent(team)) ? 8 : 10;
+        if (block >= 8 && !bullseye && 
+            (GameManager.Instance.team == team && GameManager.Instance.GetHandCards().Count < max || GameManager.Instance.team != team && GameManager.Instance.opponentHandCards.childCount < max))
 		{ if (blockMeter.color != Color.yellow)
 			{
                 Debug.Log(GameManager.Instance.opponentHandCards.childCount);

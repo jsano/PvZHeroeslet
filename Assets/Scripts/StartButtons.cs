@@ -47,6 +47,8 @@ public class StartButtons : NetworkBehaviour
             AllCards.NameToID("External Pressure"),
             AllCards.NameToID("Held Breath"),
             AllCards.NameToID("Emotional Spectrum"),
+            AllCards.NameToID("Suffocating Limits"),
+            AllCards.NameToID("Victory Lap"),
         };
 
         NetworkManager.Singleton.StartHost();
@@ -78,6 +80,8 @@ public class StartButtons : NetworkBehaviour
             AllCards.NameToID("External Pressure"),
             AllCards.NameToID("Held Breath"),
             AllCards.NameToID("Emotional Spectrum"),
+            AllCards.NameToID("Suffocating Limits"),
+            AllCards.NameToID("Victory Lap"),
         };
 
         UserAccounts.GameStats.DeckName = "temp11";

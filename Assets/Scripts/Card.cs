@@ -123,13 +123,10 @@ public class Card : Damagable
     public int oldCol { get; private set; }
 
     /// <summary>
-    /// Different from <c>cost</c> where this is the amount this card was actually played for (after all deductions, etc.)
-    /// </summary>
-    public float playedCost { get; private set; }
-    /// <summary>
     /// The FinalStats instance this got its stats from. Ok to be null (and will be if it's instantiated by another card)
     /// </summary>
     public FinalStats sourceFS;
+    public float playedCost {  get; private set; }
 
     /// <summary>
     /// Use if this card has a unique HandCard that reacts to GameEvents (ex. Trickster)
@@ -180,7 +177,7 @@ public class Card : Damagable
         baseAtk = atk;
         baseGravestone = gravestone;
         baseOvershoot = overshoot;
-        
+
         if (sourceFS != null)
         {
             atk = sourceFS.atk;
@@ -202,7 +199,11 @@ public class Card : Damagable
             playedCost = sourceFS.cost;
         }
         // The only way for a card to not have a FinalStats is if it was instantiated by something, in which case it should always be free
-        else playedCost = 0;
+        else
+        {
+            sourceFS = new(AllCards.NameToID(AllCards.InstanceToPrefab(this).name));
+            sourceFS.cost = 0;
+        }
 
         AddPermanentBuffs();
 
@@ -236,9 +237,14 @@ public class Card : Damagable
             GameManager.Instance.EnablePlayableHandCards();
         }
 
-        if (gravestone) Hide();
+        if (gravestone)
+        {
+            if (team == GameManager.Instance.team) StartCoroutine(GameManager.Instance.UpdateRemaining(-sourceFS.cost, team));
+            Hide();
+        }
         else
         {
+            StartCoroutine(GameManager.Instance.UpdateRemaining(-sourceFS.cost, team));
             UpdateAntihero();
             //play animation
             // Trick play GameEvents should always process last chronologially, so force it to be added first on the stack
@@ -364,7 +370,7 @@ public class Card : Damagable
         Debug.Log(name + " reached currentlySpawningCards == 0");
         yield return GameManager.Instance.ProcessEvents();
         Debug.Log(name + " processed events");
-        playedCost = 0; // For any consecutive gravestone reveals
+        sourceFS.cost = 0; // For any consecutive gravestone reveals
         if (type == Type.Trick)
         {
             yield return new WaitForSeconds(0.5f);
@@ -710,7 +716,7 @@ public class Card : Damagable
         {
             gravestone = false;
             SR.sprite = baseSprite;
-            if (team != GameManager.Instance.team) StartCoroutine(GameManager.Instance.UpdateRemaining(playedCost, team));
+            if (team != GameManager.Instance.team) StartCoroutine(GameManager.Instance.UpdateRemaining(sourceFS.cost, team));
         }
         GameManager.Instance.TriggerEvent("OnCardDeath", new Tuple<Card, Card>(this, null));
     }
@@ -852,6 +858,7 @@ public class Card : Damagable
         atkUI.text = atk + "";
         hpUI.text = HP + "";
         if (!isDamaged()) hpUI.color = Color.white;
+        if (team != GameManager.Instance.team) StartCoroutine(GameManager.Instance.UpdateRemaining(-sourceFS.cost, team));
         UpdateAntihero();
         GameManager.Instance.currentlySpawningCards += 1;
         //play animation

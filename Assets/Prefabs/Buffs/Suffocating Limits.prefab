@@ -9,12 +9,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -312013300205462730, guid: d306f9effc3093640949af61915d7b07, type: 3}
+      propertyPath: rarity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -312013300205462730, guid: d306f9effc3093640949af61915d7b07, type: 3}
+      propertyPath: buffClass
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -312013300205462730, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: description
-      value: Your cards cost 0.5 less for the rest of the game
+      value: Your opponent cannot draw beyond 8 cards
       objectReference: {fileID: 0}
     - target: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Name
-      value: Emotional Spectrum
+      value: Suffocating Limits
       objectReference: {fileID: 0}
     - target: {fileID: 8499147558775820694, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Pivot.x
@@ -96,35 +104,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -312013300205462730, guid: d306f9effc3093640949af61915d7b07, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1212290814548857404}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d306f9effc3093640949af61915d7b07, type: 3}
---- !u!1 &7342781260868842934 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
-  m_PrefabInstance: {fileID: 5710839442665679260}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1212290814548857404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7342781260868842934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87f2af6f867117c42a2f85723d02cc27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rarity: 0
-  description: Upon choosing this, you get +1 gold every time you play a new emotion's
-    card
-  buffClass: 2
-  lore: 
-  team: 0
