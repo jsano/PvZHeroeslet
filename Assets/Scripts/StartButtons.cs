@@ -34,7 +34,7 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks["temp10"].cards = new() {
             { AllCards.NameToID("Haunted Pumpking"), 4 },
             { AllCards.NameToID("2nd Best Taco of All Time"), 2 },
-            { AllCards.NameToID("Bog of Enlightenment"), 4 },
+            { AllCards.NameToID("Big Chill"), 4 },
             { AllCards.NameToID("Mushroom Grotto"), 2 },
             { AllCards.NameToID("Transmogrify"), 2 },
             { AllCards.NameToID("More Spore"), 2 },
@@ -49,6 +49,8 @@ public class StartButtons : NetworkBehaviour
             AllCards.NameToID("Emotional Spectrum"),
             AllCards.NameToID("Suffocating Limits"),
             AllCards.NameToID("Victory Lap"),
+            AllCards.NameToID("Deep Freeze"),
+            AllCards.NameToID("Big Leagues"),
         };
 
         NetworkManager.Singleton.StartHost();
@@ -66,7 +68,7 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
             { AllCards.NameToID("Toxic Waste Imp"), 2 },
-            { AllCards.NameToID("Loose Cannon"), 4 },
+            { AllCards.NameToID("Conga Zombie"), 4 },
             { AllCards.NameToID("Excavator"), 2 },
             { AllCards.NameToID("Imp-throwing Imp"), 2 },
             { AllCards.NameToID("Fire Rooster"), 2 },
@@ -82,6 +84,8 @@ public class StartButtons : NetworkBehaviour
             AllCards.NameToID("Emotional Spectrum"),
             AllCards.NameToID("Suffocating Limits"),
             AllCards.NameToID("Victory Lap"),
+            AllCards.NameToID("Deep Freeze"),
+            AllCards.NameToID("Big Leagues"),
         };
 
         UserAccounts.GameStats.DeckName = "temp11";

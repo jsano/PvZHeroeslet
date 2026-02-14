@@ -151,7 +151,7 @@ public class Card : Damagable
 	protected List<BoxCollider2D> choices = new();
     private float timer = 10;
 
-    protected bool frozen;
+    protected int frozen;
 
     void Awake()
     {
@@ -573,12 +573,15 @@ public class Card : Damagable
 	/// </summary>
     public virtual IEnumerator Attack(int savedHP = -1)
     {
-        if (frozen)
+        if (frozen > 0)
         {
             yield return new WaitForSeconds(0.5f);
-            frozen = false;
-            transform.Find("ATK/Frozen").gameObject.SetActive(false);
-            SR.material.color = Color.white;
+            frozen -= 1;
+            if (frozen == 0)
+            {
+                transform.Find("ATK/Frozen").gameObject.SetActive(false);
+                SR.material.color = Color.white;
+            }
             yield break;
         }
         
@@ -889,7 +892,7 @@ public class Card : Damagable
     /// </summary>
     public void Freeze()
     {
-        frozen = true;
+        frozen = atk >= 4 && Buff.PlayerHasBuff("Deep Freeze", GetOpponent(team)) ? 2 : 1;
         transform.Find("ATK/Frozen").gameObject.SetActive(true);
         SR.material.color = Color.blue;
         GameManager.Instance.TriggerEvent("OnCardFreeze", this);
