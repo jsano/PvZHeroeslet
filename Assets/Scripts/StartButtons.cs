@@ -44,12 +44,12 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.GameStats.Buffs = new int[]
         {
             AllCards.NameToID("Dulled Pain"),
-            AllCards.NameToID("Fight or Flight"),
+            AllCards.NameToID("Harmonic Strike"),
             AllCards.NameToID("Held Breath"),
             AllCards.NameToID("Suffocating Limits"),
             AllCards.NameToID("Victory Lap"),
             AllCards.NameToID("Deep Freeze"),
-            AllCards.NameToID("Big Leagues"),
+            AllCards.NameToID("Mood of Disdain"),
         };
 
         NetworkManager.Singleton.StartHost();
@@ -78,12 +78,12 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.GameStats.Buffs = new int[]
         {
             AllCards.NameToID("Dulled Pain"),
-            AllCards.NameToID("Fight or Flight"),
+            AllCards.NameToID("Harmonic Strike"),
             AllCards.NameToID("Held Breath"),
             AllCards.NameToID("Suffocating Limits"),
             AllCards.NameToID("Victory Lap"),
             AllCards.NameToID("Deep Freeze"),
-            AllCards.NameToID("Big Leagues"),
+            AllCards.NameToID("Mood of Disdain"),
         };
 
         UserAccounts.GameStats.DeckName = "temp11";

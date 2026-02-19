@@ -92,7 +92,8 @@ public class Hero : Damagable
 
         if (!bullseye && timesBlocked < 3)
 		{
-			if (dmg <= 1) block += 1;
+			if (dmg <= 0) yield break;
+            else if (dmg <= 1) block += 1;
 			else if (dmg <= 3) block += 2;
 			else block += 3;
 			blockMeter.fillAmount = block/8f;

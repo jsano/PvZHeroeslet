@@ -226,8 +226,9 @@ public class GameManager : NetworkBehaviour
 		{ "OnCardHurt", 5 }, 
 		{ "OnHeroHeal" , 6 }, 
 		{ "OnCardHeal" , 7 },
-		{ "OnCardBonusAttack", 8 },
-		{ "OnCardDraw", 9 } 
+		{ "OnCardStatsChanged", 8 },
+		{ "OnCardBonusAttack", 9 },
+		{ "OnCardDraw", 10 } 
 	};
     
 	/// <summary>
@@ -648,9 +649,11 @@ public class GameManager : NetworkBehaviour
 
     private IEnumerator EndRpcHelper(Team sourceTeam)
     {
+		Debug.Log("one");
 		yield return new WaitUntil(() => opponentPlayedQueue.Count == 0);
+		Debug.Log("two");
 
-        string[] pnames = new string[] { "", "Initiative\nPlay", "Reactive\nPlay", "Initiative\nTricks", "FIGHT!" };
+		string[] pnames = new string[] { "", "Initiative\nPlay", "Reactive\nPlay", "Initiative\nTricks", "FIGHT!" };
 
 		// Only start the next turn when both players are ready
 		if (phase == 0 || phase == 4)
