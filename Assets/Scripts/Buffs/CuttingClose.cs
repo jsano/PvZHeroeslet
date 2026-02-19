@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ThinPatience : Buff
+public class CuttingClose : Buff
 {
 
     protected override void Start()

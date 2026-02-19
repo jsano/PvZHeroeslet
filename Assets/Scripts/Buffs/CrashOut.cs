@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MoodOfAttrition : Buff
+public class CrashOut : Buff
 {
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -14,13 +14,13 @@ public class MoodOfAttrition : Buff
     {
         if (team == GameManager.Instance.team)
         {
-            GameManager.Instance.playerPermanentHPBonus += 2;
+            GameManager.Instance.playerPermanentAttackBonus += 1;
         }
         else
         {
-            GameManager.Instance.opponentPermanentHPBonus += 2;
+            GameManager.Instance.opponentPermanentAttackBonus += 1;
         }
-        for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++) if (Tile.GetTeamTiles(team)[i, j].HasRevealedPlanted()) Tile.GetTeamTiles(team)[i, j].planted.ChangeStats(0, 2);
+        for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++) if (Tile.GetTeamTiles(team)[i, j].HasRevealedPlanted()) Tile.GetTeamTiles(team)[i, j].planted.ChangeStats(1, 0);
         if (team == GameManager.Instance.team) foreach (HandCard hc in GameManager.Instance.GetHandCards()) if (hc.orig.type == Card.Type.Unit)
             {
                 hc.ChangeAttack(0);

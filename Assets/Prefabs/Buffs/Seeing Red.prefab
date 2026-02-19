@@ -103,14 +103,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2493743696897441572}
+      addedObject: {fileID: -990776030433713157}
   m_SourcePrefab: {fileID: 100100000, guid: d306f9effc3093640949af61915d7b07, type: 3}
 --- !u!1 &7342781260868842934 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
   m_PrefabInstance: {fileID: 5710839442665679260}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2493743696897441572
+--- !u!114 &-990776030433713157
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,11 +119,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7342781260868842934}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3aa725bea784b6b42a0728f36d658d2f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8227f40d32fb3b74ea26cdc6a8b7b71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 0
-  description: Your Overshoot effects are more effective by 1
+  description: Your Anti-hero effects are more effective by 1
   buffClass: 1
   lore: 
   team: 0

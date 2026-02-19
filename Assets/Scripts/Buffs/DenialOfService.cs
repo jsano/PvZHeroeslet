@@ -6,15 +6,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MoodOfPassivity : Buff
+public class DenialOfService : Buff
 {
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
-        if (team == GameManager.Instance.team)
+        if (team != GameManager.Instance.team)
         {
-            GameManager.Instance.playerTrickPermanentDiscount += 1;
+            GameManager.Instance.playerUnitPermanentDiscount -= 0.5f;
+            GameManager.Instance.playerTrickPermanentDiscount -= 0.5f;
         }
         if (team == GameManager.Instance.team) foreach (HandCard hc in GameManager.Instance.GetHandCards()) hc.ChangeCost(0);
         base.Start();

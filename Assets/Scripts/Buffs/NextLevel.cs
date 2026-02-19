@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MoodOfNovelty : Buff
+public class NextLevel : Buff
 {
 
     private int turns = 0;

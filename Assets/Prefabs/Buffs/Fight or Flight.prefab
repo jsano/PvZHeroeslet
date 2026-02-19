@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Name
-      value: External Pressure
+      value: Fight or Flight
       objectReference: {fileID: 0}
     - target: {fileID: 8499147558775820694, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Pivot.x
@@ -103,14 +103,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2493743696897441572}
+      addedObject: {fileID: 2644953638573698627}
   m_SourcePrefab: {fileID: 100100000, guid: d306f9effc3093640949af61915d7b07, type: 3}
 --- !u!1 &7342781260868842934 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
   m_PrefabInstance: {fileID: 5710839442665679260}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2493743696897441572
+--- !u!114 &2644953638573698627
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,11 +119,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7342781260868842934}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3aa725bea784b6b42a0728f36d658d2f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bcb79623b495324d9b552788d6d116a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 0
-  description: Your Overshoot effects are more effective by 1
-  buffClass: 1
+  description: When you play a card in a lane that has an opponent card, it gets
+    +2 attack
+  buffClass: 3
   lore: 
   team: 0

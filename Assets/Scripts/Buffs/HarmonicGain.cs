@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EmotionalSpectrum : Buff
+public class HarmonicGain : Buff
 {
 
     private HashSet<Card.Class> done = new();

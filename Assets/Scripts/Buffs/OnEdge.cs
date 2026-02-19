@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MoodOfVigor : Buff
+public class OnEdge : Buff
 {
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -14,8 +14,7 @@ public class MoodOfVigor : Buff
     {
         if (team == GameManager.Instance.team)
         {
-            GameManager.Instance.playerUnitPermanentDiscount += 0.5f;
-            GameManager.Instance.playerTrickPermanentDiscount += 0.5f;
+            GameManager.Instance.playerTrickPermanentDiscount += 1;
         }
         if (team == GameManager.Instance.team) foreach (HandCard hc in GameManager.Instance.GetHandCards()) hc.ChangeCost(0);
         base.Start();
