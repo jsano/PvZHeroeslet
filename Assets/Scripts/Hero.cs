@@ -21,6 +21,7 @@ public class Hero : Damagable
 	private int block;
 	private int timesBlocked = 0;
 	public GameObject eight;
+	[HideInInspector] public int blockActivationLimit;
 
 	public Transform thinking;
 
@@ -33,7 +34,17 @@ public class Hero : Damagable
 		maxHP = HP;
 
 		for (int i = 0; i < 3; i++) StartCoroutine(DotAnimation(i));
+		blockActivationLimit = 3;
 	}
+
+    void Update()
+    {
+		if (timesBlocked >= blockActivationLimit)
+		{
+			eight.SetActive(false);
+			ResetBlock();
+		}
+    }
 
     private IEnumerator DotAnimation(int index)
     {
@@ -95,7 +106,7 @@ public class Hero : Damagable
             }
         }
 
-        if (!bullseye && timesBlocked < 3)
+        if (!bullseye && timesBlocked < blockActivationLimit)
 		{
 			if (dmg <= 0) yield break;
             else if (dmg <= 1) block += 1;
@@ -109,7 +120,6 @@ public class Hero : Damagable
             (GameManager.Instance.team == team && GameManager.Instance.GetHandCards().Count < max || GameManager.Instance.team != team && GameManager.Instance.opponentHandCards.childCount < max))
 		{ if (blockMeter.color != Color.yellow)
 			{
-                Debug.Log(GameManager.Instance.opponentHandCards.childCount);
                 AudioManager.Instance.PlaySFX("Block");
 				GameManager.Instance.TriggerEvent("OnBlock", this);
 				blockMeter.color = Color.yellow;
@@ -136,7 +146,6 @@ public class Hero : Damagable
         block = 0;
         blockMeter.fillAmount = 0;
         blockMeter.color = Color.white;
-        if (timesBlocked == 3) eight.SetActive(false);
     }
 
 	public override IEnumerator Heal(int amount)

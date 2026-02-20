@@ -26,7 +26,7 @@ public class MoodOfPassivity : Buff
 
     protected override void OnCardPlayImmediate(Card played)
     {
-        if (played._class == Card.Class.Fright)
+        if (played.team == team && played._class == Card.Class.Fright)
         {
             played.ToggleInvulnerability(true, true);
         }

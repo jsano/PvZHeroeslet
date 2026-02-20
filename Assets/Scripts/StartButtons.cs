@@ -38,15 +38,15 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Mushroom Grotto"), 2 },
             { AllCards.NameToID("Transmogrify"), 2 },
             { AllCards.NameToID("More Spore"), 2 },
-            { AllCards.NameToID("Cherry Bomb"), 2 },
+            { AllCards.NameToID("Sunflower"), 2 },
             { AllCards.NameToID("Mush-boom"), 2 }
         };
         UserAccounts.GameStats.Buffs = new int[]
         {
             AllCards.NameToID("Dulled Pain"),
-            AllCards.NameToID("Eye for an Eye"),
+            AllCards.NameToID("Prime the Moment"),
             AllCards.NameToID("Held Breath"),
-            AllCards.NameToID("Suffocating Limits"),
+            AllCards.NameToID("Guard Break"),
             AllCards.NameToID("Deep Freeze"),
             AllCards.NameToID("Mood of Passivity"),
         };
@@ -66,7 +66,7 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
             { AllCards.NameToID("Toxic Waste Imp"), 2 },
-            { AllCards.NameToID("Conga Zombie"), 4 },
+            { AllCards.NameToID("Aerobics Instructor"), 4 },
             { AllCards.NameToID("Excavator"), 2 },
             { AllCards.NameToID("Imp-throwing Imp"), 2 },
             { AllCards.NameToID("Fire Rooster"), 2 },
@@ -77,9 +77,9 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.GameStats.Buffs = new int[]
         {
             AllCards.NameToID("Dulled Pain"),
-            AllCards.NameToID("Eye for an Eye"),
+            AllCards.NameToID("Prime the Moment"),
             AllCards.NameToID("Held Breath"),
-            AllCards.NameToID("Suffocating Limits"),
+            AllCards.NameToID("Guard Break"),
             AllCards.NameToID("Deep Freeze"),
             AllCards.NameToID("Mood of Passivity"),
         };
