@@ -33,8 +33,8 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(10));
         UserAccounts.allDecks["temp10"].cards = new() {
             { AllCards.NameToID("Haunted Pumpking"), 4 },
-            { AllCards.NameToID("2nd Best Taco of All Time"), 2 },
-            { AllCards.NameToID("Force Field"), 4 },
+            { AllCards.NameToID("2nd Best Taco of All Time"), 4 },
+            { AllCards.NameToID("Force Field"), 2 },
             { AllCards.NameToID("Mushroom Grotto"), 2 },
             { AllCards.NameToID("Transmogrify"), 2 },
             { AllCards.NameToID("More Spore"), 2 },
@@ -46,9 +46,9 @@ public class StartButtons : NetworkBehaviour
             AllCards.NameToID("Dulled Pain"),
             AllCards.NameToID("Prime the Moment"),
             AllCards.NameToID("Held Breath"),
-            AllCards.NameToID("Guard Break"),
+            AllCards.NameToID("Victory Lap"),
             AllCards.NameToID("Deep Freeze"),
-            AllCards.NameToID("Mood of Passivity"),
+            AllCards.NameToID("Lingering Relief"),
         };
 
         NetworkManager.Singleton.StartHost();
@@ -66,7 +66,7 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
         UserAccounts.allDecks["temp11"].cards = new() {
             { AllCards.NameToID("Toxic Waste Imp"), 2 },
-            { AllCards.NameToID("Aerobics Instructor"), 4 },
+            { AllCards.NameToID("Overstuffed Zombie"), 4 },
             { AllCards.NameToID("Excavator"), 2 },
             { AllCards.NameToID("Imp-throwing Imp"), 2 },
             { AllCards.NameToID("Fire Rooster"), 2 },
@@ -79,9 +79,9 @@ public class StartButtons : NetworkBehaviour
             AllCards.NameToID("Dulled Pain"),
             AllCards.NameToID("Prime the Moment"),
             AllCards.NameToID("Held Breath"),
-            AllCards.NameToID("Guard Break"),
+            AllCards.NameToID("Victory Lap"),
             AllCards.NameToID("Deep Freeze"),
-            AllCards.NameToID("Mood of Passivity"),
+            AllCards.NameToID("Lingering Relief"),
         };
 
         UserAccounts.GameStats.DeckName = "temp11";

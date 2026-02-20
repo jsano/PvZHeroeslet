@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.VisualScripting.Member;
 
 public class Card : Damagable
 {
@@ -469,7 +470,7 @@ public class Card : Damagable
     /// <summary>
 	/// Called whenever a card on the field gets healed. NOT called when a card's max HP is raised
 	/// </summary>
-	/// <param name="healed"> The card that got healed </param>
+	/// <param name="healed"> [The card that got healed, the final amount healed] </param>
 	protected virtual IEnumerator OnCardHeal(Tuple<Card, int> healed)
     {
         yield return null;
@@ -681,7 +682,9 @@ public class Card : Damagable
             ToggleInvulnerability(false);
             yield break;
         }
-        foreach (int a in Buff.CallAllImmediate("OnCardHurtImmediate", new Tuple<Damagable, Card, int>(this, source, dmg))) dmg += a;
+        int change = 0;
+        foreach (int a in Buff.CallAllImmediate("OnCardHurtImmediate", new Tuple<Damagable, Card, int>(this, source, dmg))) change += a;
+        dmg += change;
         if (team != Team.B && Tile.IsOnField("Binary Stars")) dmg *= 2;
         dmg = Mathf.Max(0, dmg - armor);
         HP -= dmg;
@@ -738,10 +741,11 @@ public class Card : Damagable
 	public override IEnumerator Heal(int amount)
     {
         if (gravestone || team == Team.A && Tile.IsOnField("Sneezing")) yield break;
+        foreach (int a in Buff.CallAllImmediate("OnCardHealImmediate", new Tuple<Card, int>(this, amount))) amount += a;
         int HPBefore = HP;
         HP += amount;
         HP = Mathf.Min(maxHP, HP);
-        if (amount > 0 && HPBefore < maxHP) GameManager.Instance.TriggerEvent("OnCardHeal", new Tuple<Card, int>(this, maxHP - HPBefore));
+        if (amount > 0 && HPBefore < HP) GameManager.Instance.TriggerEvent("OnCardHeal", new Tuple<Card, int>(this, HP - HPBefore));
         hpUI.text = HP + "";
         if (!isDamaged()) hpUI.color = Color.white;
         yield return GameManager.Instance.ProcessEvents(false, true);

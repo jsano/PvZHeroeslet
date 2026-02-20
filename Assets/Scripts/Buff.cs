@@ -42,10 +42,28 @@ public class Buff : MonoBehaviour
     }
 
     /// <summary>
-    /// Called the instant a card is played.
+    /// Called the instant a card is hurt.
     /// </summary>
     /// <param name="hurt"> [The card that received damage, the card that dealt the damage, the final amount dealt] </param>
     protected virtual int OnCardHurtImmediate(Tuple<Damagable, Card, int> hurt)
+    {
+        return 0;
+    }
+
+    /// <summary>
+    /// Called the instant a card is healed.
+    /// </summary>
+    /// <param name="healed"> [The card that got healed, the initial amount to heal] </param>
+    protected virtual int OnCardHealImmediate(Tuple<Card, int> healed)
+    {
+        return 0;
+    }
+
+    /// <summary>
+    /// Called the instant a hero is healed.
+    /// </summary>
+    /// <param name="healed"> [The hero that got healed, the initial amount to heal] </param>
+    protected virtual int OnHeroHealImmediate(Tuple<Hero, int> healed)
     {
         return 0;
     }

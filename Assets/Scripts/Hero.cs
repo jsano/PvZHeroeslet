@@ -5,6 +5,7 @@ using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.VisualScripting.Member;
 
 public class Hero : Damagable
 {
@@ -151,11 +152,15 @@ public class Hero : Damagable
 	public override IEnumerator Heal(int amount)
 	{
 		if (team == Card.Team.A && Tile.IsOnField("Sneezing")) yield break;
-		int HPBefore = HP;
+		foreach (int a in Buff.CallAllImmediate("OnHeroHealImmediate", new Tuple<Hero, int>(this, amount)))
+		{
+			Debug.Log(a); amount += a;
+		}
+        int HPBefore = HP;
 		HP += amount;
 		HP = Mathf.Min(maxHP, HP);
 		hpUI.text = HP + "";
-		if (amount > 0 && HPBefore < maxHP) GameManager.Instance.TriggerEvent("OnHeroHeal", new Tuple<Hero, int>(this, maxHP - HPBefore));
+		if (amount > 0 && HPBefore < HP) GameManager.Instance.TriggerEvent("OnHeroHeal", new Tuple<Hero, int>(this, HP - HPBefore));
 		yield return GameManager.Instance.ProcessEvents(false, true);
 	}
 
