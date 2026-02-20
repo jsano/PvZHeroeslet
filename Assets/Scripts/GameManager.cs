@@ -422,6 +422,7 @@ public class GameManager : NetworkBehaviour
 
 		if (UserAccounts.GameStats.Buffs != null) foreach (int i in UserAccounts.GameStats.Buffs) availableBuffDatabase.Add(i);
         else for (int i = 0; i < AllCards.Instance.buffs.Length; i++) availableBuffDatabase.Add(i);
+		Debug.Log(availableBuffDatabase.Count + "  COUNTT");
 
 		StartCoroutine(Mulligan());
     }
@@ -649,9 +650,7 @@ public class GameManager : NetworkBehaviour
 
     private IEnumerator EndRpcHelper(Team sourceTeam)
     {
-		Debug.Log("one");
 		yield return new WaitUntil(() => opponentPlayedQueue.Count == 0);
-		Debug.Log("two");
 
 		string[] pnames = new string[] { "", "Initiative\nPlay", "Reactive\nPlay", "Initiative\nTricks", "FIGHT!" };
 

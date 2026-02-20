@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VictoryLap : Buff
+public class MoodOfVigor : Buff
 {
 
     protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)

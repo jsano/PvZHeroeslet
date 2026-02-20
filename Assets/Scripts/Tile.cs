@@ -268,7 +268,7 @@ public class Tile : Damagable
     /// <summary>
     /// This should never be called
     /// </summary>
-    public override void ToggleInvulnerability(bool active)
+    public override void ToggleInvulnerability(bool active, bool oneTime = false)
     {
         
     }

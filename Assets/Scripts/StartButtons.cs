@@ -34,7 +34,7 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks["temp10"].cards = new() {
             { AllCards.NameToID("Haunted Pumpking"), 4 },
             { AllCards.NameToID("2nd Best Taco of All Time"), 2 },
-            { AllCards.NameToID("Big Chill"), 4 },
+            { AllCards.NameToID("Force Field"), 4 },
             { AllCards.NameToID("Mushroom Grotto"), 2 },
             { AllCards.NameToID("Transmogrify"), 2 },
             { AllCards.NameToID("More Spore"), 2 },
@@ -44,12 +44,11 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.GameStats.Buffs = new int[]
         {
             AllCards.NameToID("Dulled Pain"),
-            AllCards.NameToID("Harmonic Strike"),
+            AllCards.NameToID("Eye for an Eye"),
             AllCards.NameToID("Held Breath"),
             AllCards.NameToID("Suffocating Limits"),
-            AllCards.NameToID("Victory Lap"),
             AllCards.NameToID("Deep Freeze"),
-            AllCards.NameToID("Mood of Disdain"),
+            AllCards.NameToID("Mood of Passivity"),
         };
 
         NetworkManager.Singleton.StartHost();
@@ -78,12 +77,11 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.GameStats.Buffs = new int[]
         {
             AllCards.NameToID("Dulled Pain"),
-            AllCards.NameToID("Harmonic Strike"),
+            AllCards.NameToID("Eye for an Eye"),
             AllCards.NameToID("Held Breath"),
             AllCards.NameToID("Suffocating Limits"),
-            AllCards.NameToID("Victory Lap"),
             AllCards.NameToID("Deep Freeze"),
-            AllCards.NameToID("Mood of Disdain"),
+            AllCards.NameToID("Mood of Passivity"),
         };
 
         UserAccounts.GameStats.DeckName = "temp11";

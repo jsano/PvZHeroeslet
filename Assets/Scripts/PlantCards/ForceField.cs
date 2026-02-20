@@ -6,19 +6,18 @@ using UnityEngine;
 public class ForceField : Card
 {
 
-    protected override IEnumerator OnThisPlay()
+    void LateUpdate()
     {
         for (int i = 0; i < Tile.ROWS; i++) if (Tile.GetTeamTiles(team)[i, col].planted != null) Tile.GetTeamTiles(team)[i, col].planted.ToggleInvulnerability(true);
-        yield return base.OnThisPlay();
     }
 
-    protected override void OnCardPlayImmediate(Card played)
+    /*protected override void OnCardPlayImmediate(Card played)
     {
         if (played.type == Type.Unit && played.team == team && played.col == col)
         {
             played.ToggleInvulnerability(true);
         }
-    }
+    }*/
 
     protected override IEnumerator OnCardMoved(Card moved)
     {
@@ -39,11 +38,11 @@ public class ForceField : Card
         yield return base.OnCardDeath(died);
     }
 
-    protected override IEnumerator OnTurnStart()
+    /*protected override IEnumerator OnTurnStart()
     {
         for (int i = 0; i < Tile.ROWS; i++) if (Tile.GetTeamTiles(team)[i, col].planted != null) Tile.GetTeamTiles(team)[i, col].planted.ToggleInvulnerability(true);
         yield return base.OnTurnStart();
-    }
+    }*/
 
     void OnDestroy()
     {

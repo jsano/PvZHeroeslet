@@ -368,7 +368,8 @@ public class Card : Damagable
         yield return new WaitUntil(() => GameManager.Instance.currentlySpawningCards == 0); // this exists for cards that spawn cards
         if (type == Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
         Debug.Log(name + " reached currentlySpawningCards == 0");
-        yield return GameManager.Instance.ProcessEvents();
+        //yield return GameManager.Instance.ProcessEvents();
+        GameManager.Instance.StartCoroutine(GameManager.Instance.ProcessEvents());
         Debug.Log(name + " processed events");
         sourceFS.cost = 0; // For any consecutive gravestone reveals
         if (type == Type.Trick)
@@ -674,7 +675,12 @@ public class Card : Damagable
     /// <param name="heroCol">Never pass in directly. See <c>Tile.ReceiveDamage</c></param>
     public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1)
     {
-        if (gravestone || invulnerable) yield break;
+        if (gravestone || invulnerable == 1) yield break;
+        if (invulnerable == 0.5f)
+        {
+            ToggleInvulnerability(false);
+            yield break;
+        }
         foreach (int a in Buff.CallAllImmediate("OnCardHurtImmediate", new Tuple<Damagable, Card, int>(this, source, dmg))) dmg += a;
         if (team != Team.B && Tile.IsOnField("Binary Stars")) dmg *= 2;
         dmg = Mathf.Max(0, dmg - armor);
@@ -972,9 +978,11 @@ public class Card : Damagable
     /// <summary>
     /// Toggles the card's invulnerability status
     /// </summary>
-    public override void ToggleInvulnerability(bool active)
+    /// <param name="oneTime"> If true, this will only last for one instance of damage, and will automatically toggle off afterwards </param>
+    public override void ToggleInvulnerability(bool active, bool oneTime = false)
     {
-        invulnerable = active;
+        if (oneTime) invulnerable = active ? 0.5f : 0;
+        else invulnerable = active ? 1 : 0;
         if (active) SR.material.color = Color.yellow;
         else if (SR.material.color != Color.blue) SR.material.color = Color.white;
     }
@@ -1067,7 +1075,7 @@ public class Card : Damagable
         List<Sprite> ret = new();
         if (armor > 0) ret.Add(icons.armorSprite);
         if (untrickable > 0) ret.Add(icons.untrickableSprite);
-        if (invulnerable) ret.Add(icons.invulnerableSprite);
+        if (invulnerable > 0) ret.Add(icons.invulnerableSprite);
         if (strengthHeart > 0) ret.Add(icons.strengthHeartSprite);
         if (ret.Count > 1) return icons.multiSprite;
         if (ret.Count == 0) return icons.HPSprite;

@@ -56,8 +56,13 @@ public class Hero : Damagable
 
 	public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1)
 	{
-		if (invulnerable) yield break;
-		int change = 0;
+		if (invulnerable == 1) yield break;
+		if (invulnerable == 0.5f)
+		{
+			ToggleInvulnerability(false);
+			yield break;
+		}
+        int change = 0;
         foreach (int a in Buff.CallAllImmediate("OnCardHurtImmediate", new Tuple<Damagable, Card, int>(this, source, dmg))) change += a;
 		dmg += change;
         if (team != Card.Team.B && Tile.IsOnField("Binary Stars")) dmg *= 2;
@@ -171,9 +176,10 @@ public class Hero : Damagable
 		return HP < maxHP;
 	}
 
-    public override void ToggleInvulnerability(bool active)
+    public override void ToggleInvulnerability(bool active, bool oneTime = false)
     {
-        invulnerable = active;
+        if (oneTime) invulnerable = active ? 0.5f : 0;
+        else invulnerable = active ? 1 : 0;
         if (active) SR.material.color = Color.yellow;
         else SR.material.color = Color.white;
     }
