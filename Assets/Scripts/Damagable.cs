@@ -12,7 +12,7 @@ public abstract class Damagable : MonoBehaviour
 
 	public abstract IEnumerator Heal(int amount);
 
-	public abstract void ChangeStats(int atkAmount, int hpAmount, bool temporary = false);
+	public abstract void ChangeStats(int atkAmount, int hpAmount, bool temporary = false, bool silent = false);
 
 	public abstract bool isDamaged();
 

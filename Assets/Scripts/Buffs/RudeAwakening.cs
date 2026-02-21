@@ -1,5 +1,4 @@
 using System;
-using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,13 +8,16 @@ using UnityEngine.UI;
 public class RudeAwakening : Buff
 {
 
-    protected override void OnCardPlayImmediate(Card played)
+    protected override IEnumerator OnCardPlay(Card played)
     {
-        if (played.baseGravestone)
+        if (played.team != team)
         {
-            played.ChangeStats(1, 0);
+            if (played.type == Card.Type.Unit && played.HP > 1)
+            {
+                yield return played.ReceiveDamage(1, null);
+            }
         }
-        base.OnCardPlayImmediate(played);
+        yield return base.OnCardPlay(played);
     }
 
 }

@@ -103,14 +103,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -8183047973807122400}
+      addedObject: {fileID: 5803201761276559854}
   m_SourcePrefab: {fileID: 100100000, guid: d306f9effc3093640949af61915d7b07, type: 3}
 --- !u!1 &7342781260868842934 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
   m_PrefabInstance: {fileID: 5710839442665679260}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-8183047973807122400
+--- !u!114 &5803201761276559854
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,12 +119,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7342781260868842934}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8ff5ba59dbb48941a3b59f393ab1c42, type: 3}
+  m_Script: {fileID: 11500000, guid: edcd03548b65bec4791eaff775bf0a24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rarity: 1
-  description: When the opponent plays a card with more than 1 HP, do 1 damage to
-    it
-  buffClass: 5
+  rarity: 0
+  description: When a gravestone is revealed, it gets +1 attack
+  buffClass: 3
   lore: 
   team: 0

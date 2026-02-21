@@ -5,7 +5,6 @@ using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static Unity.VisualScripting.Member;
 
 public class Hero : Damagable
 {
@@ -170,7 +169,7 @@ public class Hero : Damagable
 		yield return GameManager.Instance.ProcessEvents(false, true);
 	}
 
-    public override void ChangeStats(int atkAmount, int hpAmount, bool temporary = false)
+    public override void ChangeStats(int atkAmount, int hpAmount, bool temporary = false, bool silent = false)
     {
         maxHP += hpAmount;
     }

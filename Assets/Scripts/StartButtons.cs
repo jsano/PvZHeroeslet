@@ -33,7 +33,7 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(10));
         UserAccounts.allDecks["temp10"].cards = new() {
             { AllCards.NameToID("Haunted Pumpking"), 4 },
-            { AllCards.NameToID("2nd Best Taco of All Time"), 4 },
+            { AllCards.NameToID("Embiggen"), 4 },
             { AllCards.NameToID("Force Field"), 2 },
             { AllCards.NameToID("Mushroom Grotto"), 2 },
             { AllCards.NameToID("Transmogrify"), 2 },
@@ -44,9 +44,9 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.GameStats.Buffs = new int[]
         {
             AllCards.NameToID("Dulled Pain"),
-            AllCards.NameToID("Spiked Shell"),
+            AllCards.NameToID("Overgrowth"),
             AllCards.NameToID("Held Breath"),
-            AllCards.NameToID("Mood of Volatility"),
+            AllCards.NameToID("Rude Awakening"),
             AllCards.NameToID("Deep Freeze"),
             AllCards.NameToID("Lingering Relief"),
         };
@@ -77,9 +77,9 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.GameStats.Buffs = new int[]
         {
             AllCards.NameToID("Dulled Pain"),
-            AllCards.NameToID("Spiked Shell"),
+            AllCards.NameToID("Overgrowth"),
             AllCards.NameToID("Held Breath"),
-            AllCards.NameToID("Mood of Volatility"),
+            AllCards.NameToID("Rude Awakening"),
             AllCards.NameToID("Deep Freeze"),
             AllCards.NameToID("Lingering Relief"),
         };

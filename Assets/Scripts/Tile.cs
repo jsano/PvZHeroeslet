@@ -252,7 +252,7 @@ public class Tile : Damagable
     /// <summary>
     /// This should never be called
     /// </summary>
-    public override void ChangeStats(int atkAmount, int hpAmount, bool temporary = false)
+    public override void ChangeStats(int atkAmount, int hpAmount, bool temporary = false, bool silent = false)
     {
 
     }

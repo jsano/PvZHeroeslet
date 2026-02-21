@@ -762,7 +762,7 @@ public class Card : Damagable
     /// Raises attack and HP by the given amounts. Ignores if it's in a gravestone. Updates UI. Attack won't go below 0.
     /// If HP ends up as 0 afterwards, marks this card to be destroyed and triggers <c>OnCardDeath</c> so that it's destroyed during the next <c>ProcessEvent</c>, and updates any anti-hero immediately.
     /// </summary>
-    public override void ChangeStats(int atkAmount, int hpAmount, bool temporary = false)
+    public override void ChangeStats(int atkAmount, int hpAmount, bool temporary = false, bool silent = false)
 	{
         if (gravestone) return;
 		atk += atkAmount;
@@ -773,7 +773,7 @@ public class Card : Damagable
         HP += hpAmount;
         if (hpUI != null) hpUI.text = HP + "";
 
-        GameManager.Instance.TriggerEvent("OnCardStatsChanged", new Tuple<Card, int, int>(this, atkAmount, hpAmount));
+        if (!silent) GameManager.Instance.TriggerEvent("OnCardStatsChanged", new Tuple<Card, int, int>(this, atkAmount, hpAmount));
         if (HP <= 0)
         {
             died = true;
