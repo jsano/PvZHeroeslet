@@ -44,8 +44,8 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.GameStats.Buffs = new int[]
         {
             AllCards.NameToID("Dulled Pain"),
-            AllCards.NameToID("Exaggerated Weakness"),
-            AllCards.NameToID("Harmonic Convergence"),
+            AllCards.NameToID("Burdened Support"),
+            AllCards.NameToID("Hyper Fixation"),
             AllCards.NameToID("Enduring Resolve"),
             AllCards.NameToID("Deep Freeze"),
             AllCards.NameToID("Lingering Relief"),
@@ -77,8 +77,8 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.GameStats.Buffs = new int[]
         {
             AllCards.NameToID("Dulled Pain"),
-            AllCards.NameToID("Exaggerated Weakness"),
-            AllCards.NameToID("Harmonic Convergence"),
+            AllCards.NameToID("Burdened Support"),
+            AllCards.NameToID("Hyper Fixation"),
             AllCards.NameToID("Enduring Resolve"),
             AllCards.NameToID("Deep Freeze"),
             AllCards.NameToID("Lingering Relief"),
