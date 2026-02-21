@@ -669,6 +669,8 @@ public class Card : Damagable
         yield return GameManager.Instance.ProcessEvents(false, true);
     }
 
+    private bool moaUsed = false;
+
     /// <summary>
 	/// Called when this unit receives any form of damage. Ignores if it's in a gravestone or invulnerable. 
     /// If the final damage dealt > 0, applies any effects and triggers <c>OnCardHurt</c>
@@ -688,6 +690,11 @@ public class Card : Damagable
         if (team != Team.B && Tile.IsOnField("Binary Stars")) dmg *= 2;
         dmg = Mathf.Max(0, dmg - armor);
         HP -= dmg;
+        if (_class == Class.Misery && HP < 1 && Buff.PlayerHasBuff("Mood of Attrition", team) && !moaUsed)
+        {
+            moaUsed = true;
+            HP = 1;
+        }
         hpUI.text = Mathf.Max(0, HP) + "";
         if (dmg > 0)
         {
