@@ -24,6 +24,15 @@ public class Buff : MonoBehaviour
     [HideInInspector] public Card.Team team;
 
     /// <summary>
+    /// Called the instant a Buff is gained.
+    /// </summary>
+    /// <param name="gained"> The buff that was gained </param>
+    protected virtual void OnBuffGainedImmediate(Buff gained)
+    {
+        
+    }
+
+    /// <summary>
     /// Called the instant a HandCard is dropped onto the board.
     /// </summary>
     /// <param name="played"> [The team that played, the ID of the card that was played] </param>
@@ -86,6 +95,7 @@ public class Buff : MonoBehaviour
     protected virtual void Start()
     {
         GetComponent<Button>().onClick.AddListener(ShowBuffInfo);
+        CallAllImmediate("OnBuffGainedImmediate", this);
     }
 
     public static bool PlayerHasBuff(string name, Card.Team team)

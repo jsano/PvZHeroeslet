@@ -26,6 +26,7 @@ public class LastStand : Buff
                         hc.ChangeHP(0);
                     }
             }
+            else GameManager.Instance.opponentPermanentAttackBonus += 3;
         }
         yield return base.OnCardHurt(hurt);
     }
