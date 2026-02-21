@@ -81,8 +81,9 @@ public class Hero : Damagable
 			yield break;
 		}
         int change = 0;
-        foreach (int a in Buff.CallAllImmediate("OnCardHurtImmediate", new Tuple<Damagable, Card, int>(this, source, dmg))) change += a;
+        foreach (int a in Buff.CallAllImmediate("CardHurtModifiers", new Tuple<Damagable, Card, int>(this, source, dmg))) change += a;
 		dmg += change;
+        foreach (int a in Buff.CallAllImmediate("OnCardHurtImmediate", new Tuple<Damagable, Card, int>(this, source, dmg))) dmg += a;
         if (team != Card.Team.B && Tile.IsOnField("Binary Stars")) dmg *= 2;
         if (team == Card.Team.A)
 		{
@@ -112,6 +113,8 @@ public class Hero : Damagable
 				yield break;
             }
         }
+
+		if (dmg >= 5 && Buff.PlayerHasBuff("Panic Reflex", team)) block += 10;
 
         if (!bullseye && timesBlocked < blockActivationLimit)
 		{

@@ -6,14 +6,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BigLeagues : Buff
+public class FirstBlood : Buff
 {
 
     protected override int CardHurtModifiers(Tuple<Damagable, Card, int> hurt)
     {
-        if (hurt.Item2.team == team && hurt.Item3 < 2)
+        if (hurt.Item1 == GameManager.Instance.GetTeamHero(Card.GetOpponent(team)))
         {
-            return 2 - hurt.Item3;
+            return Math.Max(0, 5 - GameManager.Instance.turn);
         }
         return base.CardHurtModifiers(hurt);
     }

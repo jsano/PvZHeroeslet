@@ -51,6 +51,15 @@ public class Buff : MonoBehaviour
     }
 
     /// <summary>
+    /// Called the instant a card is hurt to modify how much damage will be dealt.
+    /// </summary>
+    /// <param name="hurt"> [The card that received damage, the card that dealt the damage, the final amount dealt] </param>
+    protected virtual int CardHurtModifiers(Tuple<Damagable, Card, int> hurt)
+    {
+        return 0;
+    }
+
+    /// <summary>
     /// Called the instant a card is hurt.
     /// </summary>
     /// <param name="hurt"> [The card that received damage, the card that dealt the damage, the final amount dealt] </param>
