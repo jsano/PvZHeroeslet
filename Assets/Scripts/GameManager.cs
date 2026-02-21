@@ -792,7 +792,7 @@ public class GameManager : NetworkBehaviour
             if (ENDED) yield break;
 
             // Handle doublestrike if applicable
-            if (initiate[1, col].planted != null && initiate[0, col].planted.doubleStrike > 0) yield return initiate[1, col].planted.BonusAttack();
+            if (initiate[1, col].planted != null && initiate[1, col].planted.doubleStrike > 0) yield return initiate[1, col].planted.BonusAttack();
             if (initiate[0, col].planted != null && initiate[0, col].planted.doubleStrike > 0) yield return initiate[0, col].planted.BonusAttack();
 
 			if (retaliate[1, col].planted != null && retaliate[1, col].planted.doubleStrike > 0) yield return retaliate[1, col].planted.BonusAttack();

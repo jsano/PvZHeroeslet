@@ -22,9 +22,11 @@ public class Hero : Damagable
 	private int block;
 	private int timesBlocked = 0;
 	public GameObject eight;
+	public Sprite sixImage;
 	[HideInInspector] public int blockActivationLimit;
+    [HideInInspector] public int segmentsToActivation = 8;
 
-	public Transform thinking;
+    public Transform thinking;
 
 	// Start is called before the first frame update
 	void Start()
@@ -44,6 +46,11 @@ public class Hero : Damagable
 		{
 			eight.SetActive(false);
 			ResetBlock();
+		}
+		else
+		{
+			blockMeter.fillAmount = block / (1f * segmentsToActivation);
+			if (segmentsToActivation == 6) eight.GetComponent<Image>().sprite = sixImage;
 		}
     }
 
@@ -113,11 +120,10 @@ public class Hero : Damagable
             else if (dmg <= 1) block += 1;
 			else if (dmg <= 3) block += 2;
 			else block += 3;
-			blockMeter.fillAmount = block/8f;
 		}
 
 		int max = Buff.PlayerHasBuff("Suffocating Limits", Card.GetOpponent(team)) ? 8 : 10;
-        if (block >= 8 && !bullseye && 
+        if (block >= segmentsToActivation && !bullseye && 
             (GameManager.Instance.team == team && GameManager.Instance.GetHandCards().Count < max || GameManager.Instance.team != team && GameManager.Instance.opponentHandCards.childCount < max))
 		{ if (blockMeter.color != Color.yellow)
 			{
