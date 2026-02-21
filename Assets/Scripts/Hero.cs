@@ -159,7 +159,7 @@ public class Hero : Damagable
 		if (team == Card.Team.A && Tile.IsOnField("Sneezing")) yield break;
 		foreach (int a in Buff.CallAllImmediate("OnHeroHealImmediate", new Tuple<Hero, int>(this, amount)))
 		{
-			Debug.Log(a); amount += a;
+			amount += a;
 		}
         int HPBefore = HP;
 		HP += amount;
@@ -169,9 +169,22 @@ public class Hero : Damagable
 		yield return GameManager.Instance.ProcessEvents(false, true);
 	}
 
+	/// <summary>
+	/// Unlike in <c>Card</c>, <c>hpAmount</c> merely raises the HP cap without affecting HP, unless <c>temporary</c> is true
+	/// </summary>
+	/// <param name="atkAmount"></param>
+	/// <param name="hpAmount"></param>
+	/// <param name="temporary"></param>
+	/// <param name="silent"></param>
     public override void ChangeStats(int atkAmount, int hpAmount, bool temporary = false, bool silent = false)
     {
         maxHP += hpAmount;
+		if (temporary)
+		{
+            HP += hpAmount;
+            HP = Mathf.Min(maxHP, HP);
+            hpUI.text = HP + "";
+        }
     }
 
 	public int StealBlock(int amount)

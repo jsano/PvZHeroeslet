@@ -240,12 +240,12 @@ public class Card : Damagable
 
         if (gravestone)
         {
-            if (team == GameManager.Instance.team) StartCoroutine(GameManager.Instance.UpdateRemaining(-sourceFS.cost, team));
+            if (team == GameManager.Instance.team) StartCoroutine(GameManager.Instance.UpdateRemaining(-sourceFS.cost, team, false));
             Hide();
         }
         else
         {
-            StartCoroutine(GameManager.Instance.UpdateRemaining(-sourceFS.cost, team));
+            StartCoroutine(GameManager.Instance.UpdateRemaining(-sourceFS.cost, team, false));
             UpdateAntihero();
             //play animation
             // Trick play GameEvents should always process last chronologially, so force it to be added first on the stack
@@ -735,7 +735,7 @@ public class Card : Damagable
         {
             gravestone = false;
             SR.sprite = baseSprite;
-            if (team != GameManager.Instance.team) StartCoroutine(GameManager.Instance.UpdateRemaining(sourceFS.cost, team));
+            if (team != GameManager.Instance.team) StartCoroutine(GameManager.Instance.UpdateRemaining(sourceFS.cost, team, false));
         }
         GameManager.Instance.TriggerEvent("OnCardDeath", new Tuple<Card, Card>(this, null));
     }
@@ -878,7 +878,7 @@ public class Card : Damagable
         atkUI.text = atk + "";
         hpUI.text = HP + "";
         if (!isDamaged()) hpUI.color = Color.white;
-        if (team != GameManager.Instance.team) StartCoroutine(GameManager.Instance.UpdateRemaining(-sourceFS.cost, team));
+        if (team != GameManager.Instance.team) StartCoroutine(GameManager.Instance.UpdateRemaining(-sourceFS.cost, team, false));
         UpdateAntihero();
         GameManager.Instance.currentlySpawningCards += 1;
         //play animation

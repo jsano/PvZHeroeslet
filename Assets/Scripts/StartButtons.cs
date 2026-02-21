@@ -38,15 +38,15 @@ public class StartButtons : NetworkBehaviour
             { AllCards.NameToID("Mushroom Grotto"), 2 },
             { AllCards.NameToID("Transmogrify"), 2 },
             { AllCards.NameToID("More Spore"), 2 },
-            { AllCards.NameToID("Sunflower"), 2 },
+            { AllCards.NameToID("Sunflower"), 4 },
             { AllCards.NameToID("Mush-boom"), 2 }
         };
         UserAccounts.GameStats.Buffs = new int[]
         {
             AllCards.NameToID("Dulled Pain"),
-            AllCards.NameToID("Overgrowth"),
+            AllCards.NameToID("Money Hungry"),
             AllCards.NameToID("Held Breath"),
-            AllCards.NameToID("Rude Awakening"),
+            AllCards.NameToID("Enduring Resolve"),
             AllCards.NameToID("Deep Freeze"),
             AllCards.NameToID("Lingering Relief"),
         };
@@ -77,9 +77,9 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.GameStats.Buffs = new int[]
         {
             AllCards.NameToID("Dulled Pain"),
-            AllCards.NameToID("Overgrowth"),
+            AllCards.NameToID("Money Hungry"),
             AllCards.NameToID("Held Breath"),
-            AllCards.NameToID("Rude Awakening"),
+            AllCards.NameToID("Enduring Resolve"),
             AllCards.NameToID("Deep Freeze"),
             AllCards.NameToID("Lingering Relief"),
         };
