@@ -504,7 +504,7 @@ public class GameManager : NetworkBehaviour
 				timerOn = false;
 				timer = turnTimerMax;
 				if (waitingOnBlock) HoldTrickRpc(team);
-				else EndRpc(team);
+				else EndRpc(team, true);
 			}
 		}
 		else
@@ -642,14 +642,15 @@ public class GameManager : NetworkBehaviour
     /// Signals to the network that it is ready for the next phase. Transitions to the next phase if possible
     /// </summary>
     [Rpc(SendTo.ClientsAndHost)]
-    public void EndRpc(Team sourceTeam)
+    public void EndRpc(Team sourceTeam, bool timeOut = false)
     {
+		if (timeOut) if (Buff.PlayerHasBuff("Thin Patience", GetOpponent(sourceTeam))) StartCoroutine(GetTeamHero(sourceTeam).ReceiveDamage(5, null, true));
         StartCoroutine(EndRpcHelper(sourceTeam));
     }
 
     private IEnumerator EndRpcHelper(Team sourceTeam)
     {
-		yield return new WaitUntil(() => opponentPlayedQueue.Count == 0);
+		yield return new WaitUntil(() => opponentPlayedQueue.Count == 0 && isProcessing == false);
 
 		string[] pnames = new string[] { "", "Initiative\nPlay", "Reactive\nPlay", "Initiative\nTricks", "FIGHT!" };
 

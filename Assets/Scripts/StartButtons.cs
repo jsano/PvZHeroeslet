@@ -44,8 +44,8 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.GameStats.Buffs = new int[]
         {
             AllCards.NameToID("Dulled Pain"),
-            AllCards.NameToID("First Blood"),
-            AllCards.NameToID("Panic Reflex"),
+            AllCards.NameToID("Thin Patience"),
+            AllCards.NameToID("Mood of Novelty"),
             AllCards.NameToID("Enduring Resolve"),
             AllCards.NameToID("Deep Freeze"),
             AllCards.NameToID("Lingering Relief"),
@@ -77,8 +77,8 @@ public class StartButtons : NetworkBehaviour
         UserAccounts.GameStats.Buffs = new int[]
         {
             AllCards.NameToID("Dulled Pain"),
-            AllCards.NameToID("Panic Reflex"),
-            AllCards.NameToID("First Blood"),
+            AllCards.NameToID("Thin Patience"),
+            AllCards.NameToID("Mood of Novelty"),
             AllCards.NameToID("Enduring Resolve"),
             AllCards.NameToID("Deep Freeze"),
             AllCards.NameToID("Lingering Relief"),
