@@ -19,6 +19,7 @@ public class Buff : MonoBehaviour
     public Rarity rarity;
     public string description;
     public Card.Class buffClass;
+    public Card.Class duoSecondClass;
     public string lore;
 
     [HideInInspector] public Card.Team team;
@@ -224,6 +225,14 @@ public class Buff : MonoBehaviour
     protected virtual IEnumerator OnTurnEnd()
     {
         yield return null;
+    }
+
+    /// <summary>
+	/// Called after OnTurnEnd but before OnTurnStart, useful for buffs that shouldn't interact with those methods 
+	/// </summary>
+    protected virtual void AfterTurnEndBeforeTurnStart(object arg)
+    {
+        
     }
 
     /// <summary>

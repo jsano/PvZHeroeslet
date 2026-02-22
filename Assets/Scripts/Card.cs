@@ -774,7 +774,7 @@ public class Card : Damagable
         HP += hpAmount;
         if (hpUI != null) hpUI.text = HP + "";
 
-        if (!silent) GameManager.Instance.TriggerEvent("OnCardStatsChanged", new Tuple<Card, int, int>(this, atkAmount, hpAmount));
+        if (!silent && (atkAmount > 0 || hpAmount > 0)) GameManager.Instance.TriggerEvent("OnCardStatsChanged", new Tuple<Card, int, int>(this, atkAmount, hpAmount));
         if (HP <= 0)
         {
             died = true;
@@ -996,7 +996,7 @@ public class Card : Damagable
         if (oneTime) invulnerable = active ? 0.5f : 0;
         else invulnerable = active ? 1 : 0;
         if (active) SR.material.color = Color.yellow;
-        else if (SR.material.color != Color.blue) SR.material.color = Color.white;
+        else if (SR.material.color == Color.yellow) SR.material.color = Color.white;
     }
 
     protected IEnumerator AttackFX(Damagable dest)

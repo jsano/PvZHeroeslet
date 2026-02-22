@@ -835,6 +835,8 @@ public class GameManager : NetworkBehaviour
         availableBuffDatabase.Remove(chosenBuff[1]);
 		buffChoices.Clear();
 
+		Buff.CallAllImmediate("AfterTurnEndBeforeTurnStart", null);
+
         // Setup for next turn
         StartCoroutine(AudioManager.Instance.ToggleBattleMusic(false));
         turn += 1;
