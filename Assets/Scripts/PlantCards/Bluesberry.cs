@@ -7,9 +7,9 @@ public class Bluesberry : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-        for (int col = 0; col < Tile.COLUMNS; col++)
+        for (int row = 0; row < Tile.ROWS; row++) for (int col = 0; col < Tile.COLUMNS; col++)
         {
-            if (Tile.GetTeamTiles(GetOpponent(team))[0, col].HasRevealedPlanted()) choices.Add(Tile.GetTeamTiles(GetOpponent(team))[0, col].GetComponent<BoxCollider2D>());
+            if (Tile.GetTeamTiles(GetOpponent(team))[row, col].HasRevealedPlanted()) choices.Add(Tile.GetTeamTiles(GetOpponent(team))[row, col].GetComponent<BoxCollider2D>());
         }
         choices.Add(GameManager.Instance.GetTeamHero(GetOpponent(team)).GetComponent<BoxCollider2D>());
         if (choices.Count == 1) yield return OnSelection(choices[0]);

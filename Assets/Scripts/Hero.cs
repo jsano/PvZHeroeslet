@@ -135,6 +135,7 @@ public class Hero : Damagable
 				GameManager.Instance.TriggerEvent("OnBlock", this);
 				blockMeter.color = Color.yellow;
 				timesBlocked++;
+				if (Buff.PlayerHasBuff("Hands Off", team)) source.ChangeStats(-100, 0);
 			}
 		}
 		else
