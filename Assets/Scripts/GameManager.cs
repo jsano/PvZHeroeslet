@@ -338,7 +338,8 @@ public class GameManager : NetworkBehaviour
 
 			if (currentEvent.methodName == "OnBlock")
 			{
-				yield return HandleHeroBlocks((Hero)currentEvent.arg);
+				Buff.CallAllImmediate("OnBlock", (Hero)currentEvent.arg);
+                yield return HandleHeroBlocks((Hero)currentEvent.arg);
 				continue;
 			}
 

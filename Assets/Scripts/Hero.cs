@@ -114,7 +114,9 @@ public class Hero : Damagable
             }
         }
 
-		if (dmg >= 5 && Buff.PlayerHasBuff("Panic Reflex", team)) block += 10;
+		if (Buff.PlayerHasBuff("Death by 1000 Cuts", Card.GetOpponent(team)) && dmg == 1) bullseye = true;
+
+        if (dmg >= 5 && !bullseye && Buff.PlayerHasBuff("Panic Reflex", team)) block += 10;
 
         if (!bullseye && timesBlocked < blockActivationLimit)
 		{

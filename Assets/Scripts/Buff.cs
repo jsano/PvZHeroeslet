@@ -87,6 +87,11 @@ public class Buff : MonoBehaviour
         return 0;
     }
 
+    protected virtual void OnBlock(Hero hero)
+    {
+
+    }
+
     public static List<object> CallAllImmediate(string name, object arg)
     {
         List<object> result = new ();
