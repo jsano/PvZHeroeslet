@@ -190,6 +190,8 @@ public class Hero : Damagable
             HP += hpAmount;
             HP = Mathf.Min(maxHP, HP);
             hpUI.text = HP + "";
+
+            if (HP <= 0) GameManager.Instance.GameEnded(Card.GetOpponent(team));
         }
     }
 
