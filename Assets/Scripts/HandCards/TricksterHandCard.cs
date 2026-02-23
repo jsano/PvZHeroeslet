@@ -11,7 +11,7 @@ public class TricksterHandCard : HandCard
 
     protected override IEnumerator OnCardPlay(Card played)
     {
-        if (played.team == Card.Team.B && played.type == Card.Type.Trick) ChangeCost(-1);
+        if (played.team == GameManager.Instance.team && played.type == Card.Type.Trick) ChangeCost(-1);
         return base.OnCardPlay(played);
     }
 

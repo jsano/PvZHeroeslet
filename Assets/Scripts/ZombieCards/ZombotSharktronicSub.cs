@@ -8,7 +8,7 @@ public class ZombotSharktronicSub : Card
 
 	protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
 	{
-		if (hurt.Item1.GetComponent<Card>() != null && ((Card)hurt.Item1).team == Team.A)
+		if (hurt.Item1.GetComponent<Card>() != null && ((Card)hurt.Item1).team == GetOpponent(team))
 		{
 			yield return Glow();
 			((Card)hurt.Item1).Destroy();
@@ -18,7 +18,7 @@ public class ZombotSharktronicSub : Card
 
     protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
-        if (died.Item1.team == Team.A)
+        if (died.Item1.team == GetOpponent(team))
         {
             yield return Glow();
             ChangeStats(1, 0);

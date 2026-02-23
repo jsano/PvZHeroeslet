@@ -14,7 +14,7 @@ public class Gargologist : Card
 
     protected override IEnumerator OnCardDraw(Team t)
     {
-		if (t == Team.B && GameManager.Instance.team == Team.B)
+		if (t == team && GameManager.Instance.team == t)
 		{
 			HandCard c = GameManager.Instance.GetHandCards()[0];
 			if (c.orig.tribes.Contains(Tribe.Gargantuar)) c.ChangeCost(-2);

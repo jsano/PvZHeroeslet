@@ -34,6 +34,7 @@ public class BuffInfo : InfoUI
         image.sprite = baseBuff.GetImage();
         
         cardClass.text = Enum.GetName(typeof(Card.Class), baseBuff.buffClass);
+        if (baseBuff.rarity == Buff.Rarity.Duo) cardClass.text += "\n" + Enum.GetName(typeof(Card.Class), baseBuff.duoSecondClass);
         cardName.text = baseBuff.name;
         tribes.text = Enum.GetName(typeof(Buff.Rarity), baseBuff.rarity);
         description.text = baseBuff.description;

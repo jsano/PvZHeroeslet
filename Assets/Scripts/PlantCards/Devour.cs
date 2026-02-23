@@ -18,13 +18,13 @@ public class Devour : Card
         if (!base.IsValidTarget(bc)) return false;
         List<BoxCollider2D> targets = new();
 		int lowest = 999;
-        for (int r = 0; r < Tile.ROWS; r++) for (int i = 0; i < 5; i++) if (Tile.GetTeamTiles(GetOpponent(team))[r, i].HasRevealedPlanted() && Tile.GetTeamTiles(GetOpponent(team))[r, i].planted.HP < lowest)
+        for (int r = 0; r < Tile.ROWS; r++) for (int i = 0; i < 5; i++) if (Tile.GetTeamTiles(GetOpponent(GameManager.Instance.team))[r, i].HasRevealedPlanted() && Tile.GetTeamTiles(GetOpponent(GameManager.Instance.team))[r, i].planted.HP < lowest)
 			{
-				lowest = Tile.GetTeamTiles(GetOpponent(team))[r, i].planted.HP;
+				lowest = Tile.GetTeamTiles(GetOpponent(GameManager.Instance.team))[r, i].planted.HP;
             }
-        for (int r = 0; r < Tile.ROWS; r++) for (int i = 0; i < 5; i++) if (Tile.GetTeamTiles(GetOpponent(team))[r, i].HasRevealedPlanted() && Tile.GetTeamTiles(GetOpponent(team))[r, i].planted.HP == lowest)
+        for (int r = 0; r < Tile.ROWS; r++) for (int i = 0; i < 5; i++) if (Tile.GetTeamTiles(GetOpponent(GameManager.Instance.team))[r, i].HasRevealedPlanted() && Tile.GetTeamTiles(GetOpponent(GameManager.Instance.team))[r, i].planted.HP == lowest)
             {
-                targets.Add(Tile.GetTeamTiles(GetOpponent(team))[r, i].GetComponent<BoxCollider2D>());
+                targets.Add(Tile.GetTeamTiles(GetOpponent(GameManager.Instance.team))[r, i].GetComponent<BoxCollider2D>());
             }
         if (targets.Contains(bc)) return true;
 		return false;

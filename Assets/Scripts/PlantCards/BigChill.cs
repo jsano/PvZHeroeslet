@@ -19,7 +19,7 @@ public class BigChill : Card
         Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
 		if (!t.HasRevealedPlanted()) return false;
-		if (t.planted.team == GetOpponent(team)) return true;
+		if (t.planted.team == GetOpponent(GameManager.Instance.team)) return true;
 		return false;
 	}
 

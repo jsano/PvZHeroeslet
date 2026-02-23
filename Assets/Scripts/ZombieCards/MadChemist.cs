@@ -9,11 +9,11 @@ public class MadChemist : Card
 
 	protected override IEnumerator OnCardPlay(Card played)
 	{
-		if (played.type == Type.Trick && played.team == Team.B && first)
+		if (played.type == Type.Trick && played.team == team && first)
 		{
 			first = false;
 			yield return Glow();
-			int card = AllCards.RandomTrick(team);
+			int card = AllCards.RandomTrick();
 			FinalStats fs = new(card);
 			fs.cost -= 1;
 			yield return GameManager.Instance.GainHandCard(team, card, fs);

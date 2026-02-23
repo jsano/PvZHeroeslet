@@ -84,35 +84,31 @@ public class Hero : Damagable
         foreach (int a in Buff.CallAllImmediate("CardHurtModifiers", new Tuple<Damagable, Card, int>(this, source, dmg))) change += a;
 		dmg += change;
         foreach (int a in Buff.CallAllImmediate("OnCardHurtImmediate", new Tuple<Damagable, Card, int>(this, source, dmg))) dmg += a;
-        if (team != Card.Team.B && Tile.IsOnField("Binary Stars")) dmg *= 2;
-        if (team == Card.Team.A)
+        
+		if (Tile.IsOnField("Binary Stars", Card.GetOpponent(team)) != null) dmg *= 2;
+        
+		Card s = Tile.IsOnField("Soul Patch", team);
+		if (s != null)
 		{
-			Card s = Tile.IsOnField("Soul Patch");
-			if (s != null)
-			{
-				yield return s.Glow();
-				yield return s.ReceiveDamage(dmg, source);
-				yield break;
-			}
-		}
-					
-        if (team == Card.Team.B)
-		{
-            Card s = Tile.IsOnField("Undying Pharaoh");
-			if (s != null)
-			{
-				StartCoroutine(s.Glow());
-				dmg = Math.Min(dmg, HP - 1);
-			}
-
-            s = Tile.IsOnField("Planetary Gladiator");
-            if (s != null)
-            {
-				yield return s.Glow();
-                yield return s.ReceiveDamage(dmg, source);
-				yield break;
-            }
+			yield return s.Glow();
+			yield return s.ReceiveDamage(dmg, source);
+			yield break;
+		}	
+        
+        s = Tile.IsOnField("Planetary Gladiator", team);
+        if (s != null)
+        {
+			yield return s.Glow();
+            yield return s.ReceiveDamage(dmg, source);
+			yield break;
         }
+		
+		s = Tile.IsOnField("Undying Pharaoh", team);
+		if (s != null)
+		{
+			StartCoroutine(s.Glow());
+			dmg = Math.Min(dmg, HP - 1);
+		}
 
 		if (Buff.PlayerHasBuff("Death by 1000 Cuts", Card.GetOpponent(team)) && dmg == 1) bullseye = true;
 
@@ -162,7 +158,7 @@ public class Hero : Damagable
 
 	public override IEnumerator Heal(int amount)
 	{
-		if (team == Card.Team.A && Tile.IsOnField("Sneezing")) yield break;
+		if (Tile.IsOnField("Sneezing", Card.GetOpponent(team))) yield break;
 		foreach (int a in Buff.CallAllImmediate("OnHeroHealImmediate", new Tuple<Hero, int>(this, amount)))
 		{
 			amount += a;

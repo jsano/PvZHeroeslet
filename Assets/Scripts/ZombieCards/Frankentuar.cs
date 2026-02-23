@@ -8,7 +8,7 @@ public class Frankentuar : Card
 
     protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
-        if (died.Item1.team == Team.B)
+        if (died.Item1.team == team)
         {
             yield return Glow();
             ChangeStats(1, 1);

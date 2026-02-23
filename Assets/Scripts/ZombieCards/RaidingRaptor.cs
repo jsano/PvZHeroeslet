@@ -11,7 +11,7 @@ public class RaidingRaptor : Card
         if (hurt.Item2 == this && hurt.Item1 == GameManager.Instance.GetTeamHero(GetOpponent(team)))
         {
             yield return Glow();
-            int id = AllCards.RandomFromCost(team, (0, 1, 2));
+            int id = AllCards.RandomFromCost((0, 1, 2));
             yield return GameManager.Instance.GainHandCard(team, id);
         }
         yield return base.OnCardHurt(hurt);

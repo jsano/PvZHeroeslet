@@ -13,7 +13,7 @@ public class PortalTechnician : Card
 		{
             Tile.GetTeamTiles(team)[row, col].Unplant(true);
             yield return Glow();
-            yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(team, (4, 5, 6, 7, 8, 9, 10, 11), true) + "");
+            yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost((4, 5, 6, 7, 8, 9, 10, 11), true) + "");
             Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[0])]);
             Tile.GetTeamTiles(team)[row, col].Plant(c);
         }

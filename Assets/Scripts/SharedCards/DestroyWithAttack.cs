@@ -12,13 +12,11 @@ public class DestroyWithAttack : Card
 		OrMore
 	}
 	public Compare comparator;
-	public Team targetTeam;
 
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		var targets = targetTeam == team ? Tile.playerTiles : Tile.opponentTiles;
-		targets[row, col].planted.Destroy();
+		Tile.GetTeamTiles(GetOpponent(team))[row, col].planted.Destroy();
 		yield return base.OnThisPlay();
 	}
 
@@ -27,7 +25,7 @@ public class DestroyWithAttack : Card
         if (!base.IsValidTarget(bc)) return false;
         Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
-		if (t.HasRevealedPlanted() && t.planted.team == targetTeam)
+		if (t.HasRevealedPlanted() && t.planted.team == GetOpponent(GameManager.Instance.team))
 		{
 			if (comparator == Compare.OrLess && t.planted.atk <= attackCutoff) return true;
             if (comparator == Compare.OrMore && t.planted.atk >= attackCutoff) return true;

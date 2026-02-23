@@ -62,7 +62,7 @@ public class CardInfo : InfoUI
 		}
 		if (baseCard.type == Card.Type.Trick) tribes.text += "Trick";
         else if (baseCard.type == Card.Type.Terrain) tribes.text += "Terrain";
-        else tribes.text += baseCard.team == Card.Team.A ? "Plant" : "Zombie";
+        else tribes.text += "Tribe";
 
 		description.text = "";
 		if (baseCard.amphibious) description.text += "Amphibious\n";

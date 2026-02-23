@@ -21,13 +21,13 @@ public class Goatify : Card
         if (!base.IsValidTarget(bc)) return false;
         List<BoxCollider2D> targets = new();
         int highest = -1;
-        for (int r = 0; r < Tile.ROWS; r++) for (int i = 0; i < 5; i++) if (Tile.GetTeamTiles(GetOpponent(team))[r, i].HasRevealedPlanted() && Tile.GetTeamTiles(GetOpponent(team))[r, i].planted.atk > highest)
+        for (int r = 0; r < Tile.ROWS; r++) for (int i = 0; i < 5; i++) if (Tile.GetTeamTiles(GetOpponent(GameManager.Instance.team))[r, i].HasRevealedPlanted() && Tile.GetTeamTiles(GetOpponent(GameManager.Instance.team))[r, i].planted.atk > highest)
             {
-                highest = Tile.GetTeamTiles(GetOpponent(team))[r, i].planted.atk;
+                highest = Tile.GetTeamTiles(GetOpponent(GameManager.Instance.team))[r, i].planted.atk;
             }
-        for (int r = 0; r < Tile.ROWS; r++) for (int i = 0; i < 5; i++) if (Tile.GetTeamTiles(GetOpponent(team))[r, i].HasRevealedPlanted() && Tile.GetTeamTiles(GetOpponent(team))[r, i].planted.atk == highest)
+        for (int r = 0; r < Tile.ROWS; r++) for (int i = 0; i < 5; i++) if (Tile.GetTeamTiles(GetOpponent(GameManager.Instance.team))[r, i].HasRevealedPlanted() && Tile.GetTeamTiles(GetOpponent(GameManager.Instance.team))[r, i].planted.atk == highest)
             {
-                targets.Add(Tile.GetTeamTiles(GetOpponent(team))[r, i].GetComponent<BoxCollider2D>());
+                targets.Add(Tile.GetTeamTiles(GetOpponent(GameManager.Instance.team))[r, i].GetComponent<BoxCollider2D>());
             }
         if (targets.Contains(bc)) return true;
         return false;

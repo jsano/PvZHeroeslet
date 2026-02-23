@@ -8,7 +8,7 @@ public class SergeantStrongberry : Card
 
 	protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
 	{
-		if ((hurt.Item1.GetComponent<Card>() != null && ((Card)hurt.Item1).team == Team.B || hurt.Item1.GetComponent<Hero>() != null && ((Hero)hurt.Item1).team == Team.B)
+		if ((hurt.Item1.GetComponent<Card>() != null && ((Card)hurt.Item1).team == GetOpponent(team) || hurt.Item1.GetComponent<Hero>() != null && ((Hero)hurt.Item1).team == GetOpponent(team))
 			&& hurt.Item2.tribes.Contains(Tribe.Berry) && hurt.Item2 != this) 
 		{
             yield return Glow();

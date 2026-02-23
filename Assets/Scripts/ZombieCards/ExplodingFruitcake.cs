@@ -19,7 +19,7 @@ public class ExplodingFruitcake : Card
 		Tile t = bc.GetComponent<Tile>();
 		if (t != null)
 		{
-			if (t.HasRevealedPlanted() && t.planted.team != team) return true;
+			if (t.HasRevealedPlanted() && t.planted.team != GameManager.Instance.team) return true;
 			return false;
 		}
 		return false;

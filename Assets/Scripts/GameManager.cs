@@ -302,7 +302,7 @@ public class GameManager : NetworkBehaviour
                         }
                         else if (methodName == "OnCardDeath") stackTeam = ((Tuple<Card, Card>)eventStack[i].arg).Item1.GetComponent<Card>().team;
                         else stackTeam = ((Damagable)eventStack[i].arg).GetComponent<Card>().team;
-                        if (stackTeam == Team.A) continue;
+                        if (stackTeam == GetOpponent(WentFirst())) continue;
 					}
 				}
 				break;
@@ -431,8 +431,8 @@ public class GameManager : NetworkBehaviour
 
 	private IEnumerator Mulligan()
 	{
-        StartCoroutine(DrawCard(team == Team.A ? Team.B : Team.A, 4, false));
-        StartCoroutine(GainHandCard(team == Team.A ? Team.B : Team.A, 0, null, false, false));
+        StartCoroutine(DrawCard(GetOpponent(team), 4, false));
+        StartCoroutine(GainHandCard(GetOpponent(team), 0, null, false, false));
 
 		Vector2[] pos = new Vector2[] { new(-1, 1), new(1, 1), new(-1, -1), new(1, -1) };
         for (int i = 0; i < 4; i++)
@@ -688,13 +688,13 @@ public class GameManager : NetworkBehaviour
         phaseText.transform.localScale = Vector3.zero;
         goTween = LeanTween.scale(phaseText, Vector3.one, 0.5f).setEaseOutBack().setOnComplete(() => LeanTween.scale(phaseText, Vector3.zero, 0.5f).setEaseInBack().setDelay(1));
 
-		// Start of zombie tricks: Reveal gravestones
+		// Start of initiative tricks: Reveal their gravestones
         DisableHandCards();
         if (phase == 3)
         {
-			for (int col = 0; col < Tile.COLUMNS; col++)
+			for (int row = 0; row < Tile.ROWS; row++) for (int col = 0; col < Tile.COLUMNS; col++)
 			{
-				Card c = Tile.GetTeamTiles(WentFirst())[0, col].planted;
+				Card c = Tile.GetTeamTiles(WentFirst())[row, col].planted;
 				if (c != null && c.gravestone)
 				{
 					yield return c.Reveal();
@@ -704,7 +704,21 @@ public class GameManager : NetworkBehaviour
 			}
 		}
 
-		timer = turnTimerMax;
+		// Start of the reactive player's next turn: Reveal their gravestones
+        if (phase == 1)
+        {
+            for (int row = 0; row < Tile.ROWS; row++) for (int col = 0; col < Tile.COLUMNS; col++)
+            {
+                Card c = Tile.GetTeamTiles(WentFirst())[row, col].planted;
+                if (c != null && c.gravestone)
+                {
+                    yield return c.Reveal();
+                    DisableHandCards();
+                }
+            }
+        }
+
+        timer = turnTimerMax;
         if (phase == 4) StartCoroutine(Combat());
 		else EnablePlayableHandCards();
 	}
@@ -1186,7 +1200,7 @@ public class GameManager : NetworkBehaviour
             {
 				foreach (Transform t in handCards)
 				{
-                    if ((AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type != Card.Type.Unit || allowZombieCards || Tile.IsOnField("Teleportation")) &&
+                    if ((AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type != Card.Type.Unit || allowZombieCards || Tile.IsOnField("Teleportation", team) && WentFirst() == team) &&
 						t.GetComponent<HandCard>().GetCost() <= remaining) t.GetComponent<HandCard>().interactable = true;
                     else t.GetComponent<HandCard>().interactable = false;
 				}

@@ -10,7 +10,7 @@ public class Transmogrify : Card
 		Card toDestroy = Tile.GetTeamTiles(GetOpponent(team))[row, col].planted;
 		Tile.GetTeamTiles(GetOpponent(team))[row, col].Unplant(true);
 		yield return new WaitForSeconds(1);
-        yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(Team.B, (1, 1), true) + "");
+        yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost((1, 1), true) + "");
 		Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[0])]);
 		Tile.GetTeamTiles(GetOpponent(team))[row, col].Plant(c);
 		Destroy(toDestroy.gameObject);
@@ -22,7 +22,7 @@ public class Transmogrify : Card
         if (!base.IsValidTarget(bc)) return false;
         Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
-		if (t.HasRevealedPlanted() && t.planted.team == GetOpponent(team)) return true;
+		if (t.HasRevealedPlanted() && t.planted.team == GetOpponent(GameManager.Instance.team)) return true;
 		return false;
 	}
 

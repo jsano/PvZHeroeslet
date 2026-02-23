@@ -18,7 +18,7 @@ public class Heartichoke : Card
 	
 	protected override IEnumerator OnHeroHeal(Tuple<Hero, int> healed)
     {
-        if (healed.Item1.team == Team.A)
+        if (healed.Item1.team == team)
 		{
             yield return Glow();
             yield return AttackFX(Tile.GetTeamHeroTiles(GetOpponent(team))[col]);

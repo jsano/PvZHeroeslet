@@ -11,7 +11,7 @@ public class ValkyrieHandCard : HandCard
 
     protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
-        if (died.Item1.team == Card.Team.B && died.Item1.type == Card.Type.Unit) ChangeAttack(2);
+        if (died.Item1.team == GameManager.Instance.team && died.Item1.type == Card.Type.Unit) ChangeAttack(2);
         return base.OnCardDeath(died);
     }
 

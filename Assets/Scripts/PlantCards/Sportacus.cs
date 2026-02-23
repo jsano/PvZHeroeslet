@@ -7,7 +7,7 @@ public class Sportacus : Card
 
 	protected override IEnumerator OnCardPlay(Card played)
 	{
-		if (played.type == Type.Trick && played.team == Team.B)
+		if (played.type == Type.Trick && played.team == GetOpponent(team))
 		{
             yield return Glow();
             yield return AttackFX(GameManager.Instance.GetTeamHero(GetOpponent(team)));

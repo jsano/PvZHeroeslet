@@ -13,7 +13,7 @@ public class SunStrike : Card
 					Tile.GetTeamTiles(team)[i, j].planted.strikethrough += 1;
 					GameManager.Instance.removeStrikethrough.Add(Tile.GetTeamTiles(team)[i, j].planted);
 				}
-		yield return GameManager.Instance.GainHandCard(team, AllCards.RandomTrick(team));
+		yield return GameManager.Instance.GainHandCard(team, AllCards.RandomTrick());
 		yield return base.OnThisPlay();
 	}
 

@@ -8,7 +8,7 @@ public class DeepSeaGargantuar : Card
 
 	protected override IEnumerator OnCardMoved(Card moved)
 	{
-		if (moved.team == Team.B)
+		if (moved.team == team)
 		{
             yield return Glow();
             moved.ChangeStats(1, 1);

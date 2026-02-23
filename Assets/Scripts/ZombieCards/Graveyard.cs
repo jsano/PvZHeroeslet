@@ -8,7 +8,7 @@ public class Graveyard : Card
 
     protected override IEnumerator OnCardPlay(Card played)
     {
-        if (played.type == Type.Unit && played.team == Team.B && played.col == col && played.baseGravestone)
+        if (played.type == Type.Unit && played.team == team && played.col == col && played.baseGravestone)
         {
             yield return new WaitForSeconds(1);
             played.ChangeStats(1, 0);

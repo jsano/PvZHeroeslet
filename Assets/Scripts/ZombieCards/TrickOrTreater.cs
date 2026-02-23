@@ -9,7 +9,7 @@ public class TrickOrTreater : Card
 
 	protected override IEnumerator OnCardPlay(Card played)
 	{
-		if (played.type == Type.Trick && played.team == Team.B && first)
+		if (played.type == Type.Trick && played.team == team && first)
 		{
 			first = false;
             yield return Glow();

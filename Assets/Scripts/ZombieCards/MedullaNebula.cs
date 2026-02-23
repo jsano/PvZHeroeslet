@@ -8,7 +8,7 @@ public class MedullaNebula : Card
 
     protected override IEnumerator OnCardPlay(Card played)
     {
-        if (played.type == Type.Unit && played.team == Team.B && played.col == col)
+        if (played.type == Type.Unit && played.team == team && played.col == col)
         {
             yield return new WaitForSeconds(1);
             yield return GameManager.Instance.UpdateRemaining(2, team);

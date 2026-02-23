@@ -7,7 +7,7 @@ public class WinterSquash : Card
 
 	protected override IEnumerator OnCardFreeze(Card frozen)
 	{
-		if (frozen.team == Team.B && !frozen.died)
+		if (frozen.team == GetOpponent(team) && !frozen.died)
 		{
             yield return Glow();
             frozen.Destroy();

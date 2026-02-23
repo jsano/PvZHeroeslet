@@ -20,8 +20,8 @@ public class BadMoonRising : Card
         if (toDestroy.Count > 0)
         {
             yield return new WaitForSeconds(1);
-            string s = AllCards.RandomFromCost(team, (5, 6, 7, 8, 9, 10, 11, 12), true) + "";
-            for (int i = 1; i < toDestroy.Count; i++) s += " - " + AllCards.RandomFromCost(team, (5, 6, 7, 8, 9, 10, 11, 12), true);
+            string s = AllCards.RandomFromCost((5, 6, 7, 8, 9, 10, 11, 12), true) + "";
+            for (int i = 1; i < toDestroy.Count; i++) s += " - " + AllCards.RandomFromCost((5, 6, 7, 8, 9, 10, 11, 12), true);
             yield return SyncRandomChoiceAcrossNetwork(s);
             for (int i = 0; i < toDestroy.Count; i++)
             {

@@ -26,7 +26,7 @@ public class Molekale : Card
             string s = "";
             for (int i = 0; i < toDestroy.Count; i++)
             {
-                s += AllCards.RandomFromCost(toDestroy[i].team, (toDestroy[i].cost + 1, toDestroy[i].cost + 1), true) + " - ";
+                s += AllCards.RandomFromCost((toDestroy[i].cost + 1, toDestroy[i].cost + 1), true) + " - ";
             }
             yield return SyncRandomChoiceAcrossNetwork(s);
             for (int i = 0; i < GameManager.Instance.GetShuffledList().Count - 1; i++)

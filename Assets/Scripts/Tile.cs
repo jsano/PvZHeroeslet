@@ -189,22 +189,18 @@ public class Tile : Damagable
         return false;
     }
 
-    public static Card IsOnField(string name)
+    public static Card IsOnField(string name, Card.Team team)
     {
         for (int col = 0; col < 5; col++)
         {
             for (int row = 0; row < 2; row++)
             {
-                if (playerTiles[row, col].HasRevealedPlanted() && AllCards.InstanceToPrefab(playerTiles[row, col].planted).name == name)
+                if (GetTeamTiles(team)[row, col].HasRevealedPlanted() && AllCards.InstanceToPrefab(GetTeamTiles(team)[row, col].planted).name == name)
                 {
-                    return playerTiles[row, col].planted;
-                }
-                if (opponentTiles[row, col].HasRevealedPlanted() && AllCards.InstanceToPrefab(opponentTiles[row, col].planted).name == name)
-                {
-                    return opponentTiles[row, col].planted;
+                    return GetTeamTiles(team)[row, col].planted;
                 }
             }
-            if (terrainTiles[col].planted != null && AllCards.InstanceToPrefab(terrainTiles[col].planted).name == name)
+            if (terrainTiles[col].planted != null && AllCards.InstanceToPrefab(terrainTiles[col].planted).name == name && terrainTiles[col].planted.team == team)
             {
                 return terrainTiles[col].planted;
             }

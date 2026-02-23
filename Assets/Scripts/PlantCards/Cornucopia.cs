@@ -18,7 +18,7 @@ public class Cornucopia : Card
             string s = "";
             for (int i = 0; i < locations.Count; i++)
             {
-                s += locations[i] + " - " + AllCards.RandomFromCost(team, (0,1,2,3,4,5,6,7,8,9,10,11,12), true, col == 4) + " - ";
+                s += locations[i] + " - " + AllCards.RandomFromCost((0,1,2,3,4,5,6,7,8,9,10,11,12), true, col == 4) + " - ";
             }
             yield return SyncRandomChoiceAcrossNetwork(s);
             for (int i = 0; i < GameManager.Instance.shuffledLists[^1].Count - 1; i += 2)

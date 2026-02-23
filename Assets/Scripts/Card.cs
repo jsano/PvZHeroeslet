@@ -370,7 +370,7 @@ public class Card : Damagable
         if (type == Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
         Debug.Log(name + " reached currentlySpawningCards == 0");
         //yield return GameManager.Instance.ProcessEvents();
-        GameManager.Instance.StartCoroutine(GameManager.Instance.ProcessEvents());
+        yield return GameManager.Instance.StartCoroutine(GameManager.Instance.ProcessEvents());
         Debug.Log(name + " processed events");
         sourceFS.cost = 0; // For any consecutive gravestone reveals
         if (type == Type.Trick)
@@ -525,7 +525,7 @@ public class Card : Damagable
         if (fig)
         {
             Tile.GetTeamTiles(team)[row, col].Unplant(true);
-            yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(Team.A, (cost + 1, cost + 1), true) + "");
+            yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost((cost + 1, cost + 1), true) + "");
             yield return Glow();
             Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.shuffledLists[^1][0])]);
             FinalStats fs = new(int.Parse(GameManager.Instance.shuffledLists[^1][0]));
@@ -652,16 +652,8 @@ public class Card : Damagable
 	/// </summary>
     public IEnumerator BonusAttack()
     {
-        if (team == Team.A)
-        {
-            Card s = Tile.IsOnField("Bonus Track Buckethead");
-            if (s != null) yield break;
-        }
-        if (team == Team.B)
-        {
-            Card s = Tile.IsOnField("Wing-nut");
-            if (s != null) yield break;
-        }
+        if (Tile.IsOnField("Bonus Track Buckethead", GetOpponent(team)) != null) yield break; 
+        if (Tile.IsOnField("Wing-nut", GetOpponent(team)) != null) yield break;
 
         GameManager.Instance.DisableHandCards();
         yield return Attack();
@@ -688,7 +680,7 @@ public class Card : Damagable
         foreach (int a in Buff.CallAllImmediate("CardHurtModifiers", new Tuple<Damagable, Card, int>(this, source, dmg))) change += a;
         dmg += change;
         foreach (int a in Buff.CallAllImmediate("OnCardHurtImmediate", new Tuple<Damagable, Card, int>(this, source, dmg))) dmg += a;
-        if (team != Team.B && Tile.IsOnField("Binary Stars")) dmg *= 2;
+        if (Tile.IsOnField("Binary Stars", GetOpponent(team)) != null) dmg *= 2;
         dmg = Mathf.Max(0, dmg - armor);
         HP -= dmg;
         if (_class == Class.Misery && HP < 1 && Buff.PlayerHasBuff("Mood of Attrition", team) && !moaUsed)
@@ -748,7 +740,7 @@ public class Card : Damagable
     /// <param name="raiseCap">If true, this will affect the maxHP, which also means it won't be considered damaged if amount is negative</param>
 	public override IEnumerator Heal(int amount)
     {
-        if (gravestone || team == Team.A && Tile.IsOnField("Sneezing")) yield break;
+        if (gravestone || Tile.IsOnField("Sneezing", GetOpponent(team))) yield break;
         foreach (int a in Buff.CallAllImmediate("OnCardHealImmediate", new Tuple<Card, int>(this, amount))) amount += a;
         int HPBefore = HP;
         HP += amount;
@@ -965,8 +957,8 @@ public class Card : Damagable
     {
         List<Damagable> ret = new();
         Tile[,] opponentTiles = Tile.GetTeamTiles(GetOpponent(team));
-		if (opponentTiles[1, col].planted != null && !opponentTiles[1, col].planted.died) ret.Add(opponentTiles[1, col].planted);
-		if (opponentTiles[0, col].planted != null && !opponentTiles[0, col].planted.died) ret.Add(opponentTiles[0, col].planted);
+		if (opponentTiles[1, col].HasRevealedPlanted() && !opponentTiles[1, col].planted.died) ret.Add(opponentTiles[1, col].planted);
+		if (opponentTiles[0, col].HasRevealedPlanted() && !opponentTiles[0, col].planted.died) ret.Add(opponentTiles[0, col].planted);
 		if (team == GameManager.Instance.team) ret.Add(Tile.opponentHeroTiles[col]);
         else ret.Add(Tile.playerHeroTiles[col]);
         if (strikethrough > 0) return ret;
@@ -1062,7 +1054,7 @@ public class Card : Damagable
 			}
 		}
         // Don't show gravestone card info for the plant perspective
-		if (GameManager.Instance.team == Team.B || !gravestone || Tile.IsOnField("Spyris")) CardInfo.Instance.Show(this);
+		if (GameManager.Instance.team == team || !gravestone || Tile.IsOnField("Spyris", GetOpponent(team))) CardInfo.Instance.Show(this);
 	}
 
     public Sprite GetAttackIcon()

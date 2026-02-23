@@ -17,7 +17,7 @@ public class WeedWhack : Card
         if (!base.IsValidTarget(bc)) return false;
         Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
-		if (t.HasRevealedPlanted() && t.planted.team == GetOpponent(team)) return true;
+		if (t.HasRevealedPlanted() && t.planted.team == GetOpponent(GameManager.Instance.team)) return true;
 		return false;
 	}
 

@@ -11,7 +11,7 @@ public class PetalMorphosis : Card
 		Tile.GetTeamTiles(team)[row, col].Unplant(true);
 		yield return new WaitForSeconds(1);
 		Destroy(toDestroy.gameObject);
-        yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(Team.A, (0,1,2,3,4,5,6,7,8,9,10), true) + "");
+        yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost((0,1,2,3,4,5,6,7,8,9,10), true) + "");
         Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[0])]);
         Tile.GetTeamTiles(team)[row, col].Plant(c);
         yield return GameManager.Instance.DrawCard(team);
@@ -23,7 +23,7 @@ public class PetalMorphosis : Card
         if (!base.IsValidTarget(bc)) return false;
         Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
-		if (t.HasRevealedPlanted() && t.planted.team == team) return true;
+		if (t.HasRevealedPlanted() && t.planted.team == GameManager.Instance.team) return true;
 		return false;
 	}
 
