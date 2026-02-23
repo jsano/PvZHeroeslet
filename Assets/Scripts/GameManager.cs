@@ -465,6 +465,8 @@ public class GameManager : NetworkBehaviour
         }
 		yield return new WaitUntil(() => done == true);
 
+		yield return OfferBuffs();
+
         yield return GainHandCard(team, UserAccounts.allDecks[UserAccounts.GameStats.DeckName].superpowerOrder[superpowerIndex], null, false);
         yield return ProcessEvents();
         StartCoroutine(UpdateRemaining(0, Team.A, false));
@@ -830,21 +832,14 @@ public class GameManager : NetworkBehaviour
 		removeStrikethrough.Clear();
 
 		yield return OfferBuffs();
-		Buff b1 = Instantiate(AllCards.Instance.buffs[chosenBuff[0]], playerBuffs);
-		b1.team = team;
-        Buff b2 = Instantiate(AllCards.Instance.buffs[chosenBuff[1]], opponentBuffs);
-		b2.team = GetOpponent(team);
-		availableBuffDatabase.Remove(chosenBuff[0]);
-        availableBuffDatabase.Remove(chosenBuff[1]);
-		buffChoices.Clear();
 
 		Buff.CallAllImmediate("AfterTurnEndBeforeTurnStart", null);
 
         // Setup for next turn
         StartCoroutine(AudioManager.Instance.ToggleBattleMusic(false));
         turn += 1;
-        remaining = 0;
-		opponentRemaining = 0;
+        if (!Buff.PlayerHasBuff("Nervous Laughter", team)) remaining = 0;
+        if (!Buff.PlayerHasBuff("Nervous Laughter", GetOpponent(team))) opponentRemaining = 0;
 		yield return UpdateRemaining(0, Team.A, false);
 		yield return UpdateRemaining(0, Team.B, false);
         StartCoroutine(UpdateRemaining(turn + playerPermanentBonus, team, false));
@@ -906,6 +901,14 @@ public class GameManager : NetworkBehaviour
 		//TODO: handle when a player can't get a buff (no option)
 		yield return new WaitUntil(() => chosenBuff[0] != -1 && chosenBuff[1] != -1);
         buffSelectionUI.SetActive(false);
+
+        Buff b1 = Instantiate(AllCards.Instance.buffs[chosenBuff[0]], playerBuffs);
+        b1.team = team;
+        Buff b2 = Instantiate(AllCards.Instance.buffs[chosenBuff[1]], opponentBuffs);
+        b2.team = GetOpponent(team);
+        availableBuffDatabase.Remove(chosenBuff[0]);
+        availableBuffDatabase.Remove(chosenBuff[1]);
+        buffChoices.Clear();
     }
 
     [Rpc(SendTo.ClientsAndHost)]
