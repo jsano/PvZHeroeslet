@@ -1124,7 +1124,7 @@ public class GameManager : NetworkBehaviour
 		{
 			if (Tile.terrainTiles[i].planted != null) toDo.Add(Tile.terrainTiles[i].planted);
 
-            if (initiate[1, i].HasRevealedPlanted()) toDo.Add(initiate[0, i].planted);
+            if (initiate[1, i].HasRevealedPlanted()) toDo.Add(initiate[1, i].planted);
             if (initiate[0, i].HasRevealedPlanted()) toDo.Add(initiate[0, i].planted);
 			
 			if (retaliate[1, i].HasRevealedPlanted()) toDo.Add(retaliate[1, i].planted);

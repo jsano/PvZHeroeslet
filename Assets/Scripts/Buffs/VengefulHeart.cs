@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BitterResentment : Buff
+public class VengefulHeart : Buff
 {
 
     protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
