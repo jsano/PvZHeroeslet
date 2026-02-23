@@ -742,7 +742,7 @@ public class Card : Damagable
     }
 
     /// <summary>
-	/// Heals HP by the given amount. Ignores if it's in a gravestone. Also triggers <c>OnCardHeal</c> if not raising the maxHP.
+	/// Heals HP by the given amount. Ignores if it's in a gravestone. Also triggers <c>OnCardHeal</c>
     /// 
 	/// </summary>
     /// <param name="raiseCap">If true, this will affect the maxHP, which also means it won't be considered damaged if amount is negative</param>
