@@ -46,11 +46,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: 'classes.Array.data[0]'
-      value: 9
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: 'classes.Array.data[1]'
-      value: 7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3301991882423044987, guid: 5ca8f10881a25fe4da7b65bddc54d266, type: 3}
       propertyPath: superpowers.Array.size

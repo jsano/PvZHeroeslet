@@ -20,10 +20,10 @@ public class UserAccounts : MonoBehaviour
     public static class GameStats
     {
 		public static string DeckName;
-        public static int PlantHero { get; set; }
+        public static int AHero { get; set; }
         public static int[] Superpowers { get; set; }
 
-		public static int ZombieHero { get; set; }
+		public static int BHero { get; set; }
 
 		public static Card.Team team;
 

@@ -55,8 +55,8 @@ public class StartButtons : NetworkBehaviour
         GameObject.Find("Host").SetActive(false);
         GameObject.Find("Client").SetActive(false);
         UserAccounts.GameStats.DeckName = "temp10";
-        UserAccounts.GameStats.PlantHero = 0;
-        UserAccounts.GameStats.ZombieHero = 15;
+        UserAccounts.GameStats.AHero = 0;
+        UserAccounts.GameStats.BHero = 15;
         UserAccounts.GameStats.team = Card.Team.A;
         NetworkManager.OnConnectionEvent += P2Joined;
     }
@@ -85,8 +85,8 @@ public class StartButtons : NetworkBehaviour
         };
 
         UserAccounts.GameStats.DeckName = "temp11";
-        UserAccounts.GameStats.PlantHero = 0;
-        UserAccounts.GameStats.ZombieHero = 15;
+        UserAccounts.GameStats.AHero = 0;
+        UserAccounts.GameStats.BHero = 15;
         UserAccounts.GameStats.team = Card.Team.B;
         NetworkManager.Singleton.StartClient();
     }

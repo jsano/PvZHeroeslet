@@ -381,8 +381,8 @@ public class GameManager : NetworkBehaviour
 		team = UserAccounts.GameStats.team;
         if (team == Team.B)
 		{
-			playerHero = Instantiate(AllCards.Instance.heroes[12/*UserAccounts.GameStats.PlantHero*/]).GetComponent<Hero>();
-			opponentHero = Instantiate(AllCards.Instance.heroes[0/*UserAccounts.GameStats.ZombieHero*/]).GetComponent<Hero>();
+			playerHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.BHero]).GetComponent<Hero>();
+			opponentHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.AHero]).GetComponent<Hero>();
             remainingText.transform.parent.GetComponent<Image>().sprite = AllCards.Instance.brainUI;
             opponentRemainingText.transform.parent.GetComponent<Image>().sprite = AllCards.Instance.sunUI;
             remainingAnim.GetComponent<Image>().sprite = AllCards.Instance.brainUI;
@@ -390,8 +390,8 @@ public class GameManager : NetworkBehaviour
         }
 		else
 		{
-            playerHero = Instantiate(AllCards.Instance.heroes[0]).GetComponent<Hero>();
-            opponentHero = Instantiate(AllCards.Instance.heroes[12]).GetComponent<Hero>();
+            playerHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.AHero]).GetComponent<Hero>();
+            opponentHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.BHero]).GetComponent<Hero>();
         }
 		playerHero.transform.position = new Vector2(0, -3.25f);
         opponentHero.transform.position = new Vector2(0, 3.5f);

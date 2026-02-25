@@ -48,14 +48,14 @@ public class LobbyManager : NetworkBehaviour
         // Returning with an existing session
         if (SessionManager.Instance.ActiveSession.PlayerCount == 2)
         {
-            TeamPhase();
+            StartCoroutine(FadeIn());//TeamPhase();
             return;
         }
 
         FindAnyObjectByType<ShowJoinCode>().OnSessionJoined();
         LeanTween.rotateAroundLocal(loading, Vector3.forward, -360f, 2f).setRepeat(-1);
         if (IsHost) NetworkManager.OnConnectionEvent += P2Joined;
-        else TeamPhase();
+        else StartCoroutine(FadeIn()); //TeamPhase();
     }
 
     private void P2Joined(NetworkManager nm, ConnectionEventData data)
@@ -63,8 +63,19 @@ public class LobbyManager : NetworkBehaviour
         if (data.EventType == ConnectionEvent.PeerConnected)
         {
             Debug.Log(data.EventType + " " + data.ClientId);
-            TeamPhase();
+            StartCoroutine(FadeIn()); //TeamPhase();
         }
+    }
+
+    private IEnumerator FadeIn()
+    {
+        float time = 0;
+        while (time < 2)
+        {
+            time += Time.deltaTime;
+            yield return null;
+        }
+        TeamPhase();
     }
 
     private void TeamPhase()
@@ -83,9 +94,10 @@ public class LobbyManager : NetworkBehaviour
         loading.SetActive(false);
         bottomUI.SetActive(false);
         teamUI.SetActive(true);
-        note.SetActive(true);
+        //note.SetActive(true);
         lockIn.gameObject.SetActive(true);
-        title.text = "Choose your team...";
+        //title.text = "Choose your team...";*/
+        LockInTeamRpc(IsHost, 0);
     }
 
     private void BanPhase()
@@ -93,8 +105,6 @@ public class LobbyManager : NetworkBehaviour
         LeanTween.moveLocalX(teamUI, -500, 0.5f).setEaseOutQuad();
         LeanTween.moveLocalX(note, -500, 0.5f).setEaseOutQuad();
         LeanTween.moveLocalX(banUI, 0, 0.5f).setEaseOutQuad();
-        if (team == Team.A) banUI.transform.Find("BansZ").gameObject.SetActive(true);
-        else banUI.transform.Find("BansP").gameObject.SetActive(true);
         title.text = "Choose your bans...";
     }
 
@@ -102,8 +112,6 @@ public class LobbyManager : NetworkBehaviour
     {
         LeanTween.moveLocalX(banUI, -500, 0.5f).setEaseOutQuad();
         LeanTween.moveLocalX(chooseUI, 0, 0.5f).setEaseOutQuad();
-        if (team == Team.A) chooseUI.transform.Find("ChooseP").gameObject.SetActive(true);
-        else chooseUI.transform.Find("ChooseZ").gameObject.SetActive(true);
         title.text = "Choose your deck...";
         heroName.gameObject.SetActive(false);
         deckName.gameObject.SetActive(true);
@@ -120,12 +128,12 @@ public class LobbyManager : NetworkBehaviour
         }
         else if (phase == 1)
         {
-            foreach (Transform _t in banUI.transform) foreach (Transform t in _t) t.GetComponent<Button>().interactable = false;
+            foreach (Transform t in banUI.transform) t.GetComponent<Button>().interactable = false;
             LockInBanRpc(bans[0].ID, bans[1].ID, IsHost);
         }
         else if (phase == 2)
         {
-            foreach (Transform _t in chooseUI.transform) foreach (Transform t in _t) t.GetComponent<Button>().interactable = false;
+            foreach (Transform t in chooseUI.transform) t.GetComponent<Button>().interactable = false;
             LockInGameRpc(IsHost, hero);
         }
     }
@@ -174,6 +182,7 @@ public class LobbyManager : NetworkBehaviour
         {
             team = plant ? Team.A : Team.B;
         }
+        UserAccounts.GameStats.team = team;
     }
 
     [Rpc(SendTo.ClientsAndHost)]
@@ -181,7 +190,7 @@ public class LobbyManager : NetworkBehaviour
     {
         if (isHost != IsHost)
         {
-            foreach (Transform _t in chooseUI.transform) foreach (Transform t in _t)
+            foreach (Transform t in chooseUI.transform)
             {
                 LobbyUIButton b = t.GetComponent<LobbyUIButton>();
                 if (b.ID == ban1 || b.ID == ban2) b.Disable();
@@ -203,13 +212,13 @@ public class LobbyManager : NetworkBehaviour
     {
         if (IsHost != host)
         {
-            if (team == Team.A) UserAccounts.GameStats.ZombieHero = id;
-            else UserAccounts.GameStats.PlantHero = id;
+            if (team == Team.A) UserAccounts.GameStats.BHero = id;
+            else UserAccounts.GameStats.AHero = id;
         }
         else
         {
-            if (team == Team.A) UserAccounts.GameStats.PlantHero = id;
-            else UserAccounts.GameStats.ZombieHero = id;
+            if (team == Team.A) UserAccounts.GameStats.AHero = id;
+            else UserAccounts.GameStats.BHero = id;
         }
         ready += 1;
         if (ready == 2)
@@ -233,12 +242,12 @@ public class LobbyManager : NetworkBehaviour
         
         if (bans.Count >= 2)
         {
-            foreach (Transform _t in banUI.transform) foreach (Transform t in _t) if (!t.GetComponent<LobbyUIButton>().selected) t.GetComponent<Button>().interactable = false;
+            foreach (Transform t in banUI.transform) if (!t.GetComponent<LobbyUIButton>().selected) t.GetComponent<Button>().interactable = false;
             lockIn.interactable = true;
         }
         else
         {
-            foreach (Transform _t in banUI.transform) foreach (Transform t in _t) t.GetComponent<Button>().interactable = true;
+            foreach (Transform t in banUI.transform) t.GetComponent<Button>().interactable = true;
             lockIn.interactable = false;
         }
     }
@@ -262,7 +271,7 @@ public class LobbyManager : NetworkBehaviour
     public void ChoseDeck()
     {
         hero = UserAccounts.allDecks[UserAccounts.GameStats.DeckName].heroID;
-        foreach (Transform _t in chooseUI.transform) foreach (Transform t in _t)
+        foreach (Transform t in chooseUI.transform)
         {
             LobbyUIButton l = t.GetComponent<LobbyUIButton>();
             if (UserAccounts.allDecks[UserAccounts.GameStats.DeckName].heroID == l.ID && !l.selected) l.Toggle();
