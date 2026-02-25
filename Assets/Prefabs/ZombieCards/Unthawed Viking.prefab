@@ -46,11 +46,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.0526316
+      value: 1.1764706
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.9652631
+      value: 1.0788236
       objectReference: {fileID: 0}
     - target: {fileID: 8010029174977732602, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_RootOrder
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 9
+  _class: 3
   tribes: 1a000000
   token: 0
   cost: 4
@@ -155,6 +155,7 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
+  fig: 0
   description: 'When played: Freeze all plants here.\nPirate Evolution: Instead,
     this gets +1 attack +1 HP and Freeze all plants'
   lore: 'What''s the best way to cross the ocean? Freeze it first. How hard could

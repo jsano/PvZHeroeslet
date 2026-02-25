@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 2
-  _class: 8
+  _class: 0
   tribes: 1b000000
   token: 0
   cost: 2
@@ -163,6 +163,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: Zombies here get +3 HP
   lore: 'You are about to enter another dimension. A dimension not only of sight
     and sound, but of cones. '

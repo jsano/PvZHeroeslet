@@ -54,11 +54,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 3.17
+      value: 1.0566666
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 3.7
+      value: 1.2333333
       objectReference: {fileID: 0}
     - target: {fileID: 8010029174977732602, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_RootOrder
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 8
+  _class: 0
   tribes: 1d00000001000000
   token: 0
   cost: 6
@@ -163,6 +163,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'When revealed: Zombies can''t be hurt this turn'
   lore: 'Not space legal in 35 different galaxies. '
   row: 0

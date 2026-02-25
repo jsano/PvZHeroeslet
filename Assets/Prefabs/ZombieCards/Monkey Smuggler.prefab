@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 9
+  _class: 3
   tribes: 1a00000018000000
   token: 0
   cost: 2
@@ -167,6 +167,7 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
+  fig: 0
   description: 'When revealed: Steal a section from the plant hero''s Block Meter'
   lore: 'Piracy is serious monkey business. '
   row: 0

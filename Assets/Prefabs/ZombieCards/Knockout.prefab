@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 1
-  _class: 8
+  _class: 0
   tribes: 
   token: 0
   cost: 3
@@ -167,6 +167,7 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
+  fig: 0
   description: Choose a lane. Destroy all plants there with 3 attack or less
   lore: 'No one knows where the giant green hand and the giant purple hand comes
     from. What will happen when they clap? '

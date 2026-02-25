@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 8
+  _class: 0
   tribes: 1b00000014000000
   token: 0
   cost: 4
@@ -155,6 +155,7 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
+  fig: 0
   description: 'Start of turn: The plant hero loses 1 sun. This gets +1 attack +1
     HP'
   lore: 'The mystical Turquoise Skull stole the sun itself, lighting the way to the

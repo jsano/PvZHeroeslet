@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 1
-  _class: 7
+  _class: 1
   tribes: 0c000000
   token: 0
   cost: 2
@@ -165,6 +165,9 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: A zombie gets +3 attack +1 HP
   lore: 'Tooth decay: Not exactly a big concern for Zombies. '
   row: 0

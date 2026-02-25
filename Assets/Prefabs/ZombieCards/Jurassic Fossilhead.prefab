@@ -136,7 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 8
+  _class: 0
   tribes: 1b0000000d000000
   token: 0
   cost: 2
@@ -161,6 +161,9 @@ MonoBehaviour:
   freeze: 0
   evolution: 27
   evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'Professional Evolution: This gets +2 attack +2 HP'
   lore: 'For him, Fossilheading isn''t just a hobby. It''s a career. '
   row: 0

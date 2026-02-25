@@ -160,7 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 1
-  _class: 7
+  _class: 1
   tribes: 21000000
   token: 0
   cost: 1
@@ -174,6 +174,7 @@ MonoBehaviour:
   doubleStrike: 0
   frenzy: 0
   gravestone: 0
+  strengthHeart: 0
   hunt: 0
   overshoot: 0
   splash: 0
@@ -182,6 +183,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: Do 3 damage to a plant
   lore: 'Ever get zapped by static electricity? It''s like that, times a bazillion. '
   row: 0

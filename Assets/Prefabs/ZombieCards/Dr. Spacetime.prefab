@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 9
+  _class: 3
   tribes: 1d0000000d000000
   token: 0
   cost: 2
@@ -163,6 +163,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: Cards you Conjure cost 1 brain less.\nWhen this hurts the plant hero,
     Conjure a card
   lore: 'He insists it''s more than a screwdriver. Much more. '

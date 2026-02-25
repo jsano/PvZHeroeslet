@@ -18,11 +18,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.4444444
+      value: 1.625
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 4.4444447
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8115076607138759330, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Sprite
@@ -163,6 +163,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: Plants here get -1 attack -1 HP
   lore: 'Zombies love a good eclipse. They usually celebrate by eating Plants. And
     brains. '

@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 6
+  _class: 2
   tribes: 1b00000014000000
   token: 0
   cost: 1
@@ -167,6 +167,7 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
+  fig: 0
   description: When you play a Mustache, this gets +2 HP and you get +1 brain
   lore: 'Customers have been telling him "Get a brain" for years now. '
   row: 0

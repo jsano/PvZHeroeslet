@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 6
+  _class: 2
   tribes: 1d00000018000000
   token: 0
   cost: 7
@@ -167,6 +167,7 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
+  fig: 0
   description: 'Dino-Roar: Make a random History zombie in a random lane'
   lore: 'What''s better than a dinosaur? A gigantic, metal, laser monster that gates
     in four more dinosaurs. '

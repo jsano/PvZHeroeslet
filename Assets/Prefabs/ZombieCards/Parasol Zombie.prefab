@@ -38,15 +38,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2888182505860702926, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_Name
-      value: Parasol
+      value: Parasol Zombie
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.0276923
+      value: 1.1133333
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.2092308
+      value: 1.31
       objectReference: {fileID: 0}
     - target: {fileID: 8010029174977732602, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_RootOrder
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 6
+  _class: 2
   tribes: 16000000
   token: 0
   cost: 4
@@ -149,6 +149,9 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: Other zombies here and next door are Untrickable
   lore: 'Her favorite author is Brain Austen. '
   row: 0

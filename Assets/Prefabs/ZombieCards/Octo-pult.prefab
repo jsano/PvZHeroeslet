@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 1
-  _class: 9
+  _class: 3
   tribes: 1800000021000000
   token: 0
   cost: 1
@@ -165,6 +165,9 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: Make a 3/2 Octo-Pet with Amphibious, Frenzy
   lore: 'Octopus incoming! Two words a Plant never wants to hear. '
   row: 0

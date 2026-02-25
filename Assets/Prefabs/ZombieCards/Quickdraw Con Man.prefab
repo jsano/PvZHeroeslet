@@ -54,11 +54,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.0526316
+      value: 1.1764706
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.14
+      value: 1.2741176
       objectReference: {fileID: 0}
     - target: {fileID: 8010029174977732602, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_RootOrder
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 7
+  _class: 1
   tribes: 11000000
   token: 0
   cost: 1
@@ -165,6 +165,9 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: When the plant hero draws a card, do 1 damage to them
   lore: 'How did he know the Plants were coming? Because four-armed is forewarned. '
   row: 0

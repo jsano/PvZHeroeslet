@@ -54,11 +54,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 2.0833333
+      value: 2.7777777
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 4.25
+      value: 5.6666665
       objectReference: {fileID: 0}
     - target: {fileID: 8010029174977732602, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_RootOrder
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 2
-  _class: 6
+  _class: 2
   tribes: 1d00000021000000
   token: 0
   cost: 1
@@ -162,6 +162,7 @@ MonoBehaviour:
   doubleStrike: 0
   frenzy: 0
   gravestone: 0
+  strengthHeart: 0
   hunt: 0
   overshoot: 0
   splash: 0
@@ -170,6 +171,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'Start of turn: If there''s a zombie here, gain a Teleport'
   lore: 'Teleportation is a relatively new technology. Has a few kinks that need
     ironing out. So yeah, sometimes things get a little...mixed up. '
