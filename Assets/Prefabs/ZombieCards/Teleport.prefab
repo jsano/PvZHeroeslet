@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 1
-  _class: 6
+  _class: 2
   tribes: 1d000000
   token: 0
   cost: 1
@@ -154,6 +154,7 @@ MonoBehaviour:
   doubleStrike: 0
   frenzy: 0
   gravestone: 0
+  strengthHeart: 0
   hunt: 0
   overshoot: 0
   splash: 0
@@ -162,10 +163,14 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: You may play a zombie when it's time for Tricks this turn. Draw a
     card
   lore: 'Feels like cheating. '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
-  count: 0

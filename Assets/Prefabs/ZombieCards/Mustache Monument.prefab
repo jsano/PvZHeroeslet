@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 6
+  _class: 2
   tribes: 0d00000014000000
   token: 0
   cost: 3
@@ -155,6 +155,7 @@ MonoBehaviour:
   evolved: 0
   fusion: 1
   fusionBase: {fileID: 0}
+  fig: 0
   description: 'Fusion: A zombie played on this does a Bonus Attack'
   lore: 'If Neptuna''s Triassic Invasion force can align all of Hollow Earth''s Mustache
     Monuments at once, she will become truly unstoppable. '

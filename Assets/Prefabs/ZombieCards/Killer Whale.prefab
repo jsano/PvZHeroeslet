@@ -155,6 +155,7 @@ MonoBehaviour:
   evolved: 0
   fusion: 1
   fusionBase: {fileID: 0}
+  fig: 0
   description: 'Fusion: A zombie played on this gets +2 attack +1 HP and Amphibious'
   lore: 'Flooding Hollow Earth with water from above, Neptuna attacked with flying
     whale cavalry. Or really, falling whale cavalry. '

@@ -165,6 +165,9 @@ MonoBehaviour:
   freeze: 0
   evolution: 30
   evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'Zombie Evolution: Destroy a plant'
   lore: 'He''s wheely cheesy. '
   row: 0

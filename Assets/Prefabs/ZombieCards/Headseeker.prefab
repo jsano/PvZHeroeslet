@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 7
+  _class: 1
   tribes: 0600000014000000
   token: 0
   cost: 4
@@ -167,6 +167,7 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
+  fig: 0
   description: 'When you play a Dancing card, do 2 damage to the plant hero.\nDancing
     Evolution: This gets +2 attack +2 HP and Bullseye'
   lore: 'He offers a special deal: Two of his heads for one of yours. Anyway you

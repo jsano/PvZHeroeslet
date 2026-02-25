@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 9
+  _class: 3
   tribes: 1d0000001a000000
   token: 0
   cost: 6
@@ -165,6 +165,9 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: When this hurts the plant hero, it moves to a random lane and leaves
     behind a random zombie
   lore: 'These pirates hit hard, then escape at 3 miles per hour. '

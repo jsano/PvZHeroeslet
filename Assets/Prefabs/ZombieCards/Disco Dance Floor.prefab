@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 7
+  _class: 1
   tribes: 060000001d000000
   token: 0
   cost: 2
@@ -155,6 +155,7 @@ MonoBehaviour:
   evolved: 0
   fusion: 1
   fusionBase: {fileID: 0}
+  fig: 0
   description: 'Fusion: A zombie played on this gets Overshoot 2'
   lore: 'The Triassic Invasion brought the very best of Zombie culture: Disco. '
   row: 0

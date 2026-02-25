@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 7
+  _class: 1
   tribes: 06000000
   token: 0
   cost: 1
@@ -151,6 +151,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: Zombies with 2 attack or less have Bullseye
   lore: 'Nothing focuses your aim like the super-sick wailing of a space keytar solo. '
   row: 0

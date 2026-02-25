@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 9
+  _class: 3
   tribes: 0e00000018000000
   token: 0
   cost: 4
@@ -167,6 +167,7 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
+  fig: 0
   description: This moves to the right when it hurts the plant hero
   lore: 'Only in the big wide sky will he find Serenity. '
   row: 0

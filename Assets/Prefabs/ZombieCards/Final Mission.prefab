@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 1
-  _class: 7
+  _class: 1
   tribes: 1d00000001000000
   token: 0
   cost: 2
@@ -163,6 +163,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: Destroy a zombie. Then do 4 damage to a plant
   lore: 'The round-trip ticket is the same price as the one-way. '
   row: 0

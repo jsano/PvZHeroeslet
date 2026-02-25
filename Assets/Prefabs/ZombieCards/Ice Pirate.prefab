@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 9
+  _class: 3
   tribes: 1a000000
   token: 0
   cost: 2
@@ -163,6 +163,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'When revealed in a Terrain: Freeze a plant'
   lore: 'You wouldn''t believe how many brains a chunk of space ice goes for on a
     black market. Let''s just say, she''s rolling in gray matter. '

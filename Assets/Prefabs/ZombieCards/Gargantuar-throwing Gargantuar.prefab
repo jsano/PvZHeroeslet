@@ -167,6 +167,7 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
+  fig: 0
   description: 'When hurt: Make another random Gargantuar in a random lane'
   lore: 'The ultimate, epic, last, absolutely final conclusion to the Zombie-throwing
     Zombie saga. ...or is it? '

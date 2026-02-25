@@ -165,6 +165,9 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'Dino-Roar: This gets +1 attack +1 HP and destroy all plants here'
   lore: 'Deep in Hollow Earth, Zombie warrior women tame herds of enormous dinosaurs.
     Any good history book will tell you that. '

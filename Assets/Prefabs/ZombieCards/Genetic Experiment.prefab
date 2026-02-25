@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 8
+  _class: 0
   tribes: 1d00000001000000
   token: 0
   cost: 1
@@ -163,6 +163,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'Start of Tricks: This gets +1 attack +1 HP if there''s a zombie next
     door'
   lore: Pickled Zombie is the best kind of Zombie1

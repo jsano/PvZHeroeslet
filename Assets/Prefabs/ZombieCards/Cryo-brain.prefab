@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 1
-  _class: 6
+  _class: 2
   tribes: 0c0000001d000000
   token: 0
   cost: 2
@@ -163,6 +163,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: You get +1 brains for the rest of the game
   lore: 'Putting brains on ice is the best way to keep them fresh. Ask any Zombie. '
   row: 0
