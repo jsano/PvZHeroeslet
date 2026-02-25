@@ -12,7 +12,7 @@ public class GizzardLizard : Card
 			List<Damagable> targets = new();
 			for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++)
 			{
-				if (Tile.plantTiles[i, j].planted != null) targets.Add(Tile.plantTiles[i, j].planted);
+				if (Tile.GetTeamTiles(GetOpponent(team))[i, j].planted != null) targets.Add(Tile.GetTeamTiles(GetOpponent(team))[i, j].planted);
 			}
             yield return Glow();
             yield return AttackFXs(targets);

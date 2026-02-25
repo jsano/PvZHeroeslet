@@ -7,11 +7,12 @@ public class SpikeweedSector : Card
 
 	public override IEnumerator BeforeCombat()
 	{
-		if (Tile.zombieTiles[0, col].HasRevealedPlanted())
+		if (Tile.GetTeamTiles(GetOpponent(team))[0, col].HasRevealedPlanted() || Tile.GetTeamTiles(GetOpponent(team))[1, col].HasRevealedPlanted())
 		{
 			yield return new WaitForSeconds(1);
-			yield return Tile.zombieTiles[0, col].planted.ReceiveDamage(2, this);
-		}
+			if (Tile.GetTeamTiles(GetOpponent(team))[0, col].HasRevealedPlanted()) StartCoroutine(Tile.GetTeamTiles(GetOpponent(team))[0, col].planted.ReceiveDamage(2, this));
+            if (Tile.GetTeamTiles(GetOpponent(team))[1, col].HasRevealedPlanted()) StartCoroutine(Tile.GetTeamTiles(GetOpponent(team))[1, col].planted.ReceiveDamage(2, this));
+        }
 		yield return base.BeforeCombat();
 	}
 

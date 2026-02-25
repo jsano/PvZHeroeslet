@@ -8,17 +8,17 @@ public class LaserBaseAlpha : Card
 
     protected override IEnumerator OnThisPlay()
     {
-        if (Tile.zombieTiles[0, col].HasRevealedPlanted())
+        for (int r = 0; r < Tile.ROWS; r++) if (Tile.GetTeamTiles(team)[r, col].HasRevealedPlanted())
         {
-            Tile.zombieTiles[0, col].planted.strikethrough += 1;
-            Tile.zombieTiles[0, col].planted.deadly += 1;
+            Tile.GetTeamTiles(team)[r, col].planted.strikethrough += 1;
+            Tile.GetTeamTiles(team)[r, col].planted.deadly += 1;
         }
         yield return base.OnThisPlay();
     }
 
     protected override void OnCardPlayImmediate(Card played)
     {
-        if (played.type == Type.Unit && played.team == Team.Zombie && played.col == col)
+        if (played.type == Type.Unit && played.team == team && played.col == col)
         {
             played.strikethrough += 1;
             played.deadly += 1;
@@ -27,12 +27,12 @@ public class LaserBaseAlpha : Card
 
     protected override IEnumerator OnCardMoved(Card moved)
     {
-        if (moved.oldCol == col && moved.col != col && moved.team == Team.Zombie)
+        if (moved.oldCol == col && moved.col != col && moved.team == team)
         {
             moved.strikethrough -= 1;
             moved.deadly -= 1;
         }
-        if (moved.oldCol != col && moved.col == col && moved.team == Team.Zombie)
+        if (moved.oldCol != col && moved.col == col && moved.team == team)
         {
             moved.strikethrough += 1;
             moved.deadly += 1;
@@ -42,10 +42,10 @@ public class LaserBaseAlpha : Card
 
     protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
-        if (died.Item1 == this) if (Tile.zombieTiles[0, col].HasRevealedPlanted())
+        if (died.Item1 == this) for (int r = 0; r < Tile.ROWS; r++) if (Tile.GetTeamTiles(team)[r, col].HasRevealedPlanted())
             {
-                Tile.zombieTiles[0, col].planted.strikethrough -= 1;
-                Tile.zombieTiles[0, col].planted.deadly -= 1;
+                Tile.GetTeamTiles(team)[r, col].planted.strikethrough -= 1;
+                Tile.GetTeamTiles(team)[r, col].planted.deadly -= 1;
             }
         yield return base.OnCardDeath(died);
     }
@@ -53,10 +53,10 @@ public class LaserBaseAlpha : Card
     void OnDestroy()
     {
         if (died) return;
-        if (Tile.zombieTiles[0, col].HasRevealedPlanted())
+        for (int r = 0; r < Tile.ROWS; r++) if (Tile.GetTeamTiles(team)[r, col].HasRevealedPlanted())
         {
-            Tile.zombieTiles[0, col].planted.strikethrough -= 1;
-            Tile.zombieTiles[0, col].planted.deadly -= 1;
+            Tile.GetTeamTiles(team)[r, col].planted.strikethrough -= 1;
+            Tile.GetTeamTiles(team)[r, col].planted.deadly -= 1;
         }
     }
 

@@ -7,11 +7,11 @@ public class SolarWinds : Card
 
 	protected override IEnumerator OnTurnEnd()
 	{
-		if (!Tile.zombieTiles[0, col].HasRevealedPlanted() && Tile.CanPlantInCol(col, Tile.plantTiles, true, false))
+		if (!Tile.GetTeamTiles(GetOpponent(team))[0, col].HasRevealedPlanted() && Tile.CanPlantInCol(col, Tile.GetTeamTiles(team), true, false))
 		{
 			yield return new WaitForSeconds(1);
 			Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Sunflower")]).GetComponent<Card>();
-			Tile.plantTiles[1, col].Plant(card);	
+			Tile.GetTeamTiles(team)[1, col].Plant(card);	
 		}
 		yield return base.OnTurnEnd();
 	}

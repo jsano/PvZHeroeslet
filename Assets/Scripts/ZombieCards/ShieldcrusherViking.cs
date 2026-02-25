@@ -8,10 +8,10 @@ public class ShieldcrusherViking : Card
 
 	protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
 	{
-		if (hurt.Item2 == this && hurt.Item1 == GameManager.Instance.plantHero)
+		if (hurt.Item2 == this && hurt.Item1 == GameManager.Instance.GetTeamHero(GetOpponent(team)))
 		{
             yield return Glow();
-            GameManager.Instance.plantHero.StealBlock(10);
+            GameManager.Instance.GetTeamHero(GetOpponent(team)).StealBlock(10);
 		}
 		yield return base.OnCardHurt(hurt);
 	}

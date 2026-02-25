@@ -7,11 +7,11 @@ public class Bluesberry : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-        for (int col = 0; col < 5; col++)
+        for (int row = 0; row < Tile.ROWS; row++) for (int col = 0; col < Tile.COLUMNS; col++)
         {
-            if (Tile.zombieTiles[0, col].HasRevealedPlanted()) choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
+            if (Tile.GetTeamTiles(GetOpponent(team))[row, col].HasRevealedPlanted()) choices.Add(Tile.GetTeamTiles(GetOpponent(team))[row, col].GetComponent<BoxCollider2D>());
         }
-        choices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
+        choices.Add(GameManager.Instance.GetTeamHero(GetOpponent(team)).GetComponent<BoxCollider2D>());
         if (choices.Count == 1) yield return OnSelection(choices[0]);
         if (choices.Count >= 2)
         {
@@ -29,8 +29,8 @@ public class Bluesberry : Card
         if (t == null)
         {
             yield return Glow();
-            yield return AttackFX(GameManager.Instance.zombieHero);
-            yield return GameManager.Instance.zombieHero.ReceiveDamage(2, this);
+            yield return AttackFX(GameManager.Instance.GetTeamHero(GetOpponent(team)));
+            yield return GameManager.Instance.GetTeamHero(GetOpponent(team)).ReceiveDamage(2, this);
         }
         else
         {

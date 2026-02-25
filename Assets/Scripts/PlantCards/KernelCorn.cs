@@ -8,9 +8,9 @@ public class KernelCorn : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		List<Damagable> targets = new();
-		for (int col = 0; col < 5; col++)
+        for (int i = 0; i < Tile.ROWS; i++) for (int col = 0; col < Tile.COLUMNS; col++)
 		{
-			if (Tile.zombieTiles[0, col].planted != null) targets.Add(Tile.zombieTiles[0, col].planted);
+			if (Tile.GetTeamTiles(GetOpponent(team))[i, col].planted != null) targets.Add(Tile.GetTeamTiles(GetOpponent(team))[i, col].planted);
 		}
         yield return Glow();
         yield return AttackFXs(targets);

@@ -8,11 +8,12 @@ public class PricklyPear : Card
 
 	protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
 	{
-		if (hurt.Item1 == this && Tile.zombieTiles[0, col].planted != null)
+		Damagable target = GetTargets(col)[0];
+		if (hurt.Item1 == this && target.GetComponent<Card>() != null)
 		{
             yield return Glow();
-            yield return AttackFX(Tile.zombieTiles[0, col].planted);
-            yield return Tile.zombieTiles[0, col].planted.ReceiveDamage(4, this);
+            yield return AttackFX(target);
+            yield return target.ReceiveDamage(4, this);
 		}
 		yield return base.OnCardHurt(hurt);
 	}

@@ -11,8 +11,8 @@ public class GrapesOfWrath : Card
 		if (died.Item1 == this)
 		{
             yield return Glow();
-            yield return AttackFX(Tile.zombieHeroTiles[col]);
-			yield return Tile.zombieHeroTiles[col].ReceiveDamage(6, this);
+            yield return AttackFX(Tile.GetTeamHeroTiles(GetOpponent(team))[col]);
+			yield return Tile.GetTeamHeroTiles(GetOpponent(team))[col].ReceiveDamage(6, this);
 		}
 		yield return base.OnCardDeath(died);
     }

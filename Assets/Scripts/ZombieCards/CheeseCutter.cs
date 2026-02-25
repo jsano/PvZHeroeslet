@@ -8,7 +8,7 @@ public class CheeseCutter : Card
 
 	protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
 	{
-		if (hurt.Item2 == this && hurt.Item1 == GameManager.Instance.plantHero) 
+		if (hurt.Item2 == this && hurt.Item1 == GameManager.Instance.GetTeamHero(GetOpponent(team))) 
 		{
             yield return Glow();
             int id = AllCards.RandomFromTribe((Tribe.Gourmet, Tribe.Gourmet));

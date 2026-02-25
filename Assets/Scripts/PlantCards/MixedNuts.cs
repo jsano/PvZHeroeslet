@@ -7,9 +7,9 @@ public class MixedNuts : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		for (int row = 0; row < 2; row++)
+		for (int row = 0; row < Tile.ROWS; row++)
 		{
-			Card c = Tile.plantTiles[row, col].planted;
+			Card c = Tile.GetTeamTiles(team)[row, col].planted;
 			if (c != null && c.teamUp)
 			{
                 yield return Glow();

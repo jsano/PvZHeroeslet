@@ -11,11 +11,11 @@ public class ChumChampion : Card
 		yield return Glow();
         for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++)
         {
-            if (Tile.plantTiles[i, j].HasRevealedPlanted()) Tile.plantTiles[i, j].planted.ChangeStats(-1, 0);
+            if (Tile.GetTeamTiles(GetOpponent(team))[i, j].HasRevealedPlanted()) Tile.GetTeamTiles(GetOpponent(team))[i, j].planted.ChangeStats(-1, 0);
         }
         if (evolved) for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++)
         {
-            if (Tile.plantTiles[i, j].HasRevealedPlanted() && Tile.plantTiles[i, j].planted.atk <= 2) Tile.plantTiles[i, j].planted.Destroy();
+            if (Tile.GetTeamTiles(GetOpponent(team))[i, j].HasRevealedPlanted() && Tile.GetTeamTiles(GetOpponent(team))[i, j].planted.atk <= 2) Tile.GetTeamTiles(GetOpponent(team))[i, j].planted.Destroy();
         }
         yield return base.OnThisPlay();
 	}

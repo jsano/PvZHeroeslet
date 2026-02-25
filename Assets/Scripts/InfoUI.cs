@@ -35,13 +35,15 @@ public abstract class InfoUI : MonoBehaviour
         { "Freeze", "Cannot attack during its combat,\nand wears off afterwards" },
         { "Frenzy", "When this attacks, kills its target,\nand survives, it does a bonus attack" },
         { "Fusion", "Play a card over this to use this ability" },
-        { "Gravestone", "Hides its identity to the opponent\nuntil it's time for Zombie Tricks" },
+        { "Gravestone", "Hides its identity to the opponent\nuntil the next phase its player can act" },
         { "Hunt", "When an opponent card is played,\nthis moves to that lane (if possible)" },
         { "Overshoot", "Before its combat, do damage\nto the opponent hero" },
         { "Splash Damage", "Attacks any opponent cards next door" },
         { "Strikethrough", "Attacks all targets in lane and the hero" },
         { "Team Up", "Can be played on a lane that\nalready contains a card" },
         { "Untrickable", "Unaffected by the opponent's tricks" },
+        { "half", "Round down the damage" },
+        { "halves", "Round down the damage" }
     };
 
     public GameObject tooltipContainer;

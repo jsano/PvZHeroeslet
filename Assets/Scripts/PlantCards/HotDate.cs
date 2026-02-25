@@ -8,14 +8,14 @@ public class HotDate : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-        for (int col = 0; col < 5; col++)
+        for (int i = 0; i < Tile.ROWS; i++) for (int col = 0; col < Tile.COLUMNS; col++)
         {
-            if (Tile.zombieTiles[0, col].planted != null && col == this.col) 
+            if (Tile.GetTeamTiles(GetOpponent(team))[i, col].planted != null && col == this.col) 
             {
                 yield return base.OnThisPlay();
                 yield break;
             }
-            if (Tile.zombieTiles[0, col].HasRevealedPlanted()) choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
+            if (Tile.GetTeamTiles(GetOpponent(team))[i, col].HasRevealedPlanted()) choices.Add(Tile.GetTeamTiles(GetOpponent(team))[i, col].GetComponent<BoxCollider2D>());
         }
         if (choices.Count == 1) yield return OnSelection(choices[0]);
         if (choices.Count >= 2)
@@ -37,11 +37,12 @@ public class HotDate : Card
 
     protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
-        if (died.Item1 == this && Tile.zombieTiles[0, col].planted != null)
+        Damagable target = GetTargets(col)[0];
+        if (died.Item1 == this && target.GetComponent<Card>() != null)
         {
             yield return Glow();
-            yield return AttackFX(Tile.zombieTiles[0, col].planted);
-            yield return Tile.zombieTiles[0, col].planted.ReceiveDamage(3, this);
+            yield return AttackFX(target);
+            yield return target.ReceiveDamage(3, this);
         }
         yield return base.OnCardDeath(died);
     }

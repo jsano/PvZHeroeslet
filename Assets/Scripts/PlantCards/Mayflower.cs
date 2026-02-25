@@ -8,7 +8,7 @@ public class Mayflower : Card
 
 	protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
 	{
-		if (hurt.Item1 == GameManager.Instance.zombieHero && hurt.Item2 == this) 
+		if (hurt.Item1 == GameManager.Instance.GetTeamHero(GetOpponent(team)) && hurt.Item2 == this) 
 		{
             yield return Glow();
             yield return GameManager.Instance.GainHandCard(team, AllCards.RandomFromTribe((Tribe.Corn, Tribe.Squash, Tribe.Bean)));

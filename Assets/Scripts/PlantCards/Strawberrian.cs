@@ -22,7 +22,7 @@ public class Strawberrian : Card
 			List<Damagable> targets = new();
 			for (int i = -1; i <= 1; i += 2)
 			{
-				if (Tile.zombieTiles[0, col + i].HasRevealedPlanted()) targets.Add(Tile.zombieTiles[0, col + i].planted);
+                for (int r = 0; r < Tile.ROWS; r++) if (Tile.GetTeamTiles(GetOpponent(team))[r, col + i].HasRevealedPlanted()) targets.Add(Tile.GetTeamTiles(GetOpponent(team))[r, col + i].planted);
 			}
             yield return Glow();
             yield return AttackFXs(targets);

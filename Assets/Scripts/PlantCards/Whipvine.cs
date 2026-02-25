@@ -9,10 +9,10 @@ public class Whipvine : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		for (int row = 0; row < 2; row++)
-			for (int col = 0; col < 5; col++)
+		for (int row = 0; row < Tile.ROWS; row++)
+			for (int col = 0; col < Tile.COLUMNS; col++)
 			{
-                if (Tile.zombieTiles[row, col].HasRevealedPlanted()) choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
+                if (Tile.GetTeamTiles(GetOpponent(team))[row, col].HasRevealedPlanted()) choices.Add(Tile.GetTeamTiles(GetOpponent(team))[row, col].GetComponent<BoxCollider2D>());
             }
         if (choices.Count == 1) yield return OnSelection(choices[0]);
         if (choices.Count >= 2)
@@ -30,8 +30,8 @@ public class Whipvine : Card
         choices.Clear();
 		Tile t = bc.GetComponent<Tile>();
 		toMove = t.planted;
-		for (int col = 0; col < 5; col++) if (Tile.CanPlantInCol(col, Tile.zombieTiles, toMove.teamUp, toMove.amphibious))
-                choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
+        for (int r = 0; r < Tile.ROWS; r++) for (int col = 0; col < 5; col++) if (Tile.CanPlantInCol(col, Tile.GetTeamTiles(GetOpponent(team)), toMove.teamUp, toMove.amphibious))
+                choices.Add(Tile.GetTeamTiles(GetOpponent(team))[r, col].GetComponent<BoxCollider2D>());
 
         if (choices.Count == 1) yield return OnSelection1(choices[0]);
         if (choices.Count >= 2)

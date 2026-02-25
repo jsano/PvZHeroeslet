@@ -7,11 +7,11 @@ public class Disco : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		for (int col = 0; col < 4; col++)
+        for (int r = 0; r < Tile.ROWS; r++) for (int col = 0; col < 4; col++)
 		{
-			if (Tile.zombieTiles[0, col].planted == null)
+			if (Tile.GetTeamTiles(team)[r, col].planted == null)
 			{
-				choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
+				choices.Add(Tile.GetTeamTiles(team)[r, col].GetComponent<BoxCollider2D>());
 			}
 		}		
 		if (choices.Count == 1) yield return OnSelection(choices[0]);
@@ -30,7 +30,7 @@ public class Disco : Card
         yield return Glow();
         Tile t = bc.GetComponent<Tile>();
 		Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Backup Dancer")]);
-		Tile.zombieTiles[t.row, t.col].Plant(card);
+		Tile.GetTeamTiles(team)[t.row, t.col].Plant(card);
     }
 
 }

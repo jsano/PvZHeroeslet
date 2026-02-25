@@ -11,9 +11,9 @@ public class FinalMission : Card
 		{
 			for (int col = 0; col < 5; col++)
 			{
-				if (Tile.plantTiles[row, col].planted != null && Tile.plantTiles[row, col].planted.untrickable == 0 && Tile.plantTiles[row, col].planted != this)
+				if (Tile.GetTeamTiles(GetOpponent(team))[row, col].planted != null && Tile.GetTeamTiles(GetOpponent(team))[row, col].planted.untrickable == 0 && Tile.GetTeamTiles(GetOpponent(team))[row, col].planted != this)
 				{
-					choices.Add(Tile.plantTiles[row, col].GetComponent<BoxCollider2D>());
+					choices.Add(Tile.GetTeamTiles(GetOpponent(team))[row, col].GetComponent<BoxCollider2D>());
 				}
 			}
 		}
@@ -31,7 +31,7 @@ public class FinalMission : Card
 	{
         yield return base.OnSelection(bc);
         yield return new WaitForSeconds(1);
-        Tile.zombieTiles[row, col].planted.Destroy();
+        Tile.GetTeamTiles(team)[row, col].planted.Destroy();
 		Card c = bc.GetComponent<Tile>().planted;
         yield return c.ReceiveDamage(4, this);
     }
@@ -41,7 +41,7 @@ public class FinalMission : Card
         if (!base.IsValidTarget(bc)) return false;
         Tile t = bc.GetComponent<Tile>();
         if (t == null) return false;
-        if (t.HasRevealedPlanted() && t.planted.team == Team.Zombie) return true;
+        if (t.HasRevealedPlanted() && t.planted.team == GameManager.Instance.team) return true;
         return false;
     }
 

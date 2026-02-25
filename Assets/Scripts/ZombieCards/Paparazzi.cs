@@ -7,7 +7,7 @@ public class Paparazzi : Card
 
 	protected override IEnumerator OnCardPlay(Card played)
 	{
-		if (played.type == Type.Trick && played.team == Team.Zombie)
+		if (played.type == Type.Trick && played.team == team)
 		{
 			yield return Glow();
 			ChangeStats(1, 1);

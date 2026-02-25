@@ -21,8 +21,11 @@ public class Hero : Damagable
 	private int block;
 	private int timesBlocked = 0;
 	public GameObject eight;
+	public Sprite sixImage;
+	[HideInInspector] public int blockActivationLimit;
+    [HideInInspector] public int segmentsToActivation = 8;
 
-	public Transform thinking;
+    public Transform thinking;
 
 	// Start is called before the first frame update
 	void Start()
@@ -33,7 +36,22 @@ public class Hero : Damagable
 		maxHP = HP;
 
 		for (int i = 0; i < 3; i++) StartCoroutine(DotAnimation(i));
+		blockActivationLimit = 3;
 	}
+
+    void Update()
+    {
+		if (timesBlocked >= blockActivationLimit)
+		{
+			eight.SetActive(false);
+			ResetBlock();
+		}
+		else
+		{
+			blockMeter.fillAmount = block / (1f * segmentsToActivation);
+			if (segmentsToActivation == 6) eight.GetComponent<Image>().sprite = sixImage;
+		}
+    }
 
     private IEnumerator DotAnimation(int index)
     {
@@ -56,54 +74,64 @@ public class Hero : Damagable
 
 	public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1)
 	{
-		if (invulnerable) yield break;
-        foreach (int a in Buff.CallAll("OnCardHurtImmediate", new Tuple<Damagable, Card, int>(this, source, dmg))) dmg += a;
-        if (team != Card.Team.Zombie && Tile.IsOnField("Binary Stars")) dmg *= 2;
-        if (team == Card.Team.Plant)
+		if (invulnerable == 1) yield break;
+		if (invulnerable == 0.5f)
 		{
-			Card s = Tile.IsOnField("Soul Patch");
-			if (s != null)
-			{
-				yield return s.Glow();
-				yield return s.ReceiveDamage(dmg, source);
-				yield break;
-			}
+			ToggleInvulnerability(false);
+			yield break;
 		}
-					
-        if (team == Card.Team.Zombie)
+        int change = 0;
+        foreach (int a in Buff.CallAllImmediate("CardHurtModifiers", new Tuple<Damagable, Card, int>(this, source, dmg))) change += a;
+		dmg += change;
+        foreach (int a in Buff.CallAllImmediate("OnCardHurtImmediate", new Tuple<Damagable, Card, int>(this, source, dmg))) dmg += a;
+        
+		if (Tile.IsOnField("Binary Stars", Card.GetOpponent(team)) != null) dmg *= 2;
+        
+		Card s = Tile.IsOnField("Soul Patch", team);
+		if (s != null)
 		{
-            Card s = Tile.IsOnField("Undying Pharaoh");
-			if (s != null)
-			{
-				StartCoroutine(s.Glow());
-				dmg = Math.Min(dmg, HP - 1);
-			}
-
-            s = Tile.IsOnField("Planetary Gladiator");
-            if (s != null)
-            {
-				yield return s.Glow();
-                yield return s.ReceiveDamage(dmg, source);
-				yield break;
-            }
+			yield return s.Glow();
+			yield return s.ReceiveDamage(dmg, source);
+			yield break;
+		}	
+        
+        s = Tile.IsOnField("Planetary Gladiator", team);
+        if (s != null)
+        {
+			yield return s.Glow();
+            yield return s.ReceiveDamage(dmg, source);
+			yield break;
         }
-
-        if (!bullseye && timesBlocked < 3)
+		
+		s = Tile.IsOnField("Undying Pharaoh", team);
+		if (s != null)
 		{
-			if (dmg <= 1) block += 1;
+			StartCoroutine(s.Glow());
+			dmg = Math.Min(dmg, HP - 1);
+		}
+
+		if (Buff.PlayerHasBuff("Death by 1000 Cuts", Card.GetOpponent(team)) && dmg == 1) bullseye = true;
+
+        if (dmg >= 5 && !bullseye && Buff.PlayerHasBuff("Panic Reflex", team)) block += 10;
+
+        if (!bullseye && timesBlocked < blockActivationLimit)
+		{
+			if (dmg <= 0) yield break;
+            else if (dmg <= 1) block += 1;
 			else if (dmg <= 3) block += 2;
 			else block += 3;
-			blockMeter.fillAmount = block/8f;
 		}
-		if (block >= 8 && !bullseye && 
-            (GameManager.Instance.team == team && GameManager.Instance.GetHandCards().Count < 10 || GameManager.Instance.team != team && GameManager.Instance.opponentHandCards.childCount < 10))
+
+		int max = Buff.PlayerHasBuff("Suffocating Limits", Card.GetOpponent(team)) ? 8 : 10;
+        if (block >= segmentsToActivation && !bullseye && 
+            (GameManager.Instance.team == team && GameManager.Instance.GetHandCards().Count < max || GameManager.Instance.team != team && GameManager.Instance.opponentHandCards.childCount < max))
 		{ if (blockMeter.color != Color.yellow)
 			{
-                Debug.Log(GameManager.Instance.opponentHandCards.childCount);
                 AudioManager.Instance.PlaySFX("Block");
 				GameManager.Instance.TriggerEvent("OnBlock", this);
 				blockMeter.color = Color.yellow;
 				timesBlocked++;
+				if (Buff.PlayerHasBuff("Hands Off", team)) source.ChangeStats(-100, 0);
 			}
 		}
 		else
@@ -113,7 +141,7 @@ public class Hero : Damagable
             AudioManager.Instance.PlaySFX("Hit");
             if (HP <= 0)
 			{
-				GameManager.Instance.GameEnded(team == Card.Team.Plant ? Card.Team.Zombie : Card.Team.Plant);
+				GameManager.Instance.GameEnded(Card.GetOpponent(team));
 			}
 			else StartCoroutine(HitVisual());
 
@@ -126,23 +154,41 @@ public class Hero : Damagable
         block = 0;
         blockMeter.fillAmount = 0;
         blockMeter.color = Color.white;
-        if (timesBlocked == 3) eight.SetActive(false);
     }
 
 	public override IEnumerator Heal(int amount)
 	{
-		if (team == Card.Team.Plant && Tile.IsOnField("Sneezing")) yield break;
-		int HPBefore = HP;
+		if (Tile.IsOnField("Sneezing", Card.GetOpponent(team))) yield break;
+		foreach (int a in Buff.CallAllImmediate("OnHeroHealImmediate", new Tuple<Hero, int>(this, amount)))
+		{
+			amount += a;
+		}
+        int HPBefore = HP;
 		HP += amount;
 		HP = Mathf.Min(maxHP, HP);
 		hpUI.text = HP + "";
-		if (amount > 0 && HPBefore < maxHP) GameManager.Instance.TriggerEvent("OnHeroHeal", new Tuple<Hero, int>(this, maxHP - HPBefore));
+		if (amount > 0 && HPBefore < HP) GameManager.Instance.TriggerEvent("OnHeroHeal", new Tuple<Hero, int>(this, HP - HPBefore));
 		yield return GameManager.Instance.ProcessEvents(false, true);
 	}
 
-    public override void ChangeStats(int atkAmount, int hpAmount, bool temporary = false)
+	/// <summary>
+	/// Unlike in <c>Card</c>, <c>hpAmount</c> merely raises the HP cap without affecting HP, unless <c>temporary</c> is true
+	/// </summary>
+	/// <param name="atkAmount"></param>
+	/// <param name="hpAmount"></param>
+	/// <param name="temporary"></param>
+	/// <param name="silent"></param>
+    public override void ChangeStats(int atkAmount, int hpAmount, bool temporary = false, bool silent = false)
     {
         maxHP += hpAmount;
+		if (temporary)
+		{
+            HP += hpAmount;
+            HP = Mathf.Min(maxHP, HP);
+            hpUI.text = HP + "";
+
+            if (HP <= 0) GameManager.Instance.GameEnded(Card.GetOpponent(team));
+        }
     }
 
 	public int StealBlock(int amount)
@@ -166,9 +212,10 @@ public class Hero : Damagable
 		return HP < maxHP;
 	}
 
-    public override void ToggleInvulnerability(bool active)
+    public override void ToggleInvulnerability(bool active, bool oneTime = false)
     {
-        invulnerable = active;
+        if (oneTime) invulnerable = active ? 0.5f : 0;
+        else invulnerable = active ? 1 : 0;
         if (active) SR.material.color = Color.yellow;
         else SR.material.color = Color.white;
     }

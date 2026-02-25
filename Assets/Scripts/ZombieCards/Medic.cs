@@ -12,13 +12,13 @@ public class Medic : Card
 		{
 			for (int col = 0; col < 5; col++)
 			{
-				if (Tile.zombieTiles[row, col].planted != null && Tile.zombieTiles[row, col].planted.isDamaged())
+				if (Tile.GetTeamTiles(team)[row, col].planted != null && Tile.GetTeamTiles(team)[row, col].planted.isDamaged())
 				{
-					choices.Add(Tile.zombieTiles[row, col].GetComponent<BoxCollider2D>());
+					choices.Add(Tile.GetTeamTiles(team)[row, col].GetComponent<BoxCollider2D>());
 				}
 			}
 		}
-        if (GameManager.Instance.zombieHero.isDamaged()) choices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
+        if (GameManager.Instance.GetTeamHero(team).isDamaged()) choices.Add(GameManager.Instance.GetTeamHero(team).GetComponent<BoxCollider2D>());
 		if (choices.Count == 1) yield return OnSelection(choices[0]);
         if (choices.Count >= 2)
         {
@@ -34,7 +34,7 @@ public class Medic : Card
         yield return base.OnSelection(bc);
         yield return Glow();
         Tile t = bc.GetComponent<Tile>();
-		if (t == null) yield return GameManager.Instance.zombieHero.Heal(4);
+		if (t == null) yield return GameManager.Instance.GetTeamHero(team).Heal(4);
 		else yield return t.planted.Heal(4);
     }
 

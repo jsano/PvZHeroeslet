@@ -8,8 +8,8 @@ public class HotLava : Card
 	public override IEnumerator BeforeCombat()
 	{
 		List<Damagable> targets = new();
-		for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].HasRevealedPlanted()) targets.Add(Tile.plantTiles[i, col].planted);
-		if (Tile.zombieTiles[0, col].HasRevealedPlanted()) targets.Add(Tile.zombieTiles[0, col].planted);
+		for (int i = 0; i < Tile.ROWS; i++) if (Tile.playerTiles[i, col].HasRevealedPlanted()) targets.Add(Tile.playerTiles[i, col].planted);
+        for (int i = 0; i < Tile.ROWS; i++) if (Tile.opponentTiles[i, col].HasRevealedPlanted()) targets.Add(Tile.opponentTiles[i, col].planted);
 
         if (targets.Count > 0) {
 			yield return new WaitForSeconds(1);

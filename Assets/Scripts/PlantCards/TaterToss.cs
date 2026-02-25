@@ -9,7 +9,7 @@ public class TaterToss : Card
 	{
 		yield return new WaitForSeconds(1);
 		Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Hothead")]).GetComponent<Card>();
-		Tile.plantTiles[row, col].Plant(card);
+		Tile.GetTeamTiles(team)[row, col].Plant(card);
         yield return base.OnThisPlay();
 	}
 
@@ -17,8 +17,8 @@ public class TaterToss : Card
 	{
 		Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
-        if (!t.isPlantTile) return false;
-        if (Tile.CanPlantInCol(t.col, Tile.plantTiles, true, false)) return true;
+        if (!t.isPlayerTile) return false;
+        if (Tile.CanPlantInCol(t.col, Tile.GetTeamTiles(team), true, false)) return true;
 		return false;
 	}
 

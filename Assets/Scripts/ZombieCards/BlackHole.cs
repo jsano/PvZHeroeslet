@@ -8,17 +8,17 @@ public class BlackHole : Card
 
     protected override IEnumerator OnThisPlay()
     {
-        for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].planted != null) Tile.plantTiles[i, col].planted.ChangeStats(-1, 0);
+        for (int i = 0; i < 2; i++) if (Tile.GetTeamTiles(GetOpponent(team))[i, col].planted != null) Tile.GetTeamTiles(GetOpponent(team))[i, col].planted.ChangeStats(-1, 0);
         yield return base.OnThisPlay();
     }
 
     protected override IEnumerator OnCardPlay(Card played)
     {
-        if (played.type == Type.Unit && played.team == Team.Plant && played.col == col)
+        if (played.type == Type.Unit && played.team != team && played.col == col)
         {
             played.ChangeStats(-1, 0);
         }
-        if (played.type == Type.Unit && played.team == Team.Plant && played.col != col && Tile.CanPlantInCol(col, Tile.plantTiles, played.teamUp, played.amphibious))
+        if (played.type == Type.Unit && played.team != team && played.col != col && Tile.CanPlantInCol(col, Tile.GetTeamTiles(GetOpponent(team)), played.teamUp, played.amphibious))
         {
             yield return new WaitForSeconds(1);
             played.Move(played.row, col);
@@ -28,11 +28,11 @@ public class BlackHole : Card
 
     protected override IEnumerator OnCardMoved(Card moved)
     {
-        if (moved.oldCol == col && moved.col != col && moved.team == Team.Plant)
+        if (moved.oldCol == col && moved.col != col && moved.team != team)
         {
             moved.ChangeStats(1, 0);
         }
-        if (moved.oldCol != col && moved.col == col && moved.team == Team.Plant)
+        if (moved.oldCol != col && moved.col == col && moved.team != team)
         {
             moved.ChangeStats(-1, 0);
         }
@@ -43,7 +43,7 @@ public class BlackHole : Card
     {
         if (died.Item1 == this)
         {
-            for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].planted != null) Tile.plantTiles[i, col].planted.ChangeStats(1, 0);
+            for (int i = 0; i < 2; i++) if (Tile.GetTeamTiles(GetOpponent(team))[i, col].planted != null) Tile.GetTeamTiles(GetOpponent(team))[i, col].planted.ChangeStats(1, 0);
         }
         yield return base.OnCardDeath(died);
     }

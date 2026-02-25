@@ -11,8 +11,8 @@ public class Jester : Card
 		if (hurt.Item1.GetComponent<Card>() == this)
 		{
             yield return Glow();
-            yield return AttackFX(Tile.plantHeroTiles[col]);
-            yield return Tile.plantHeroTiles[col].ReceiveDamage(2, this);
+            yield return AttackFX(Tile.GetTeamHeroTiles(GetOpponent(team))[col]);
+            yield return Tile.GetTeamHeroTiles(GetOpponent(team))[col].ReceiveDamage(2, this);
 		}
 		yield return base.OnCardHurt(hurt);
 	}

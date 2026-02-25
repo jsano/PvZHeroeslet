@@ -23,7 +23,7 @@ public class HippityHopGargantuar : Card
         choices.Clear();
         for (int j = 0; j < 5; j++)
         {
-            if (Tile.CanPlantInCol(j, Tile.zombieTiles, false, false)) choices.Add(Tile.zombieTiles[0, j].GetComponent<BoxCollider2D>());
+            if (Tile.CanPlantInCol(j, Tile.GetTeamTiles(team), false, false)) choices.Add(Tile.GetTeamTiles(team)[0, j].GetComponent<BoxCollider2D>());
         }
         if (choices.Count > 0)
         {
@@ -31,7 +31,7 @@ public class HippityHopGargantuar : Card
             var choice = choices[UnityEngine.Random.Range(0, choices.Count)];
             yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col);
             Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Mystery Egg")]).GetComponent<Card>();
-            Tile.zombieTiles[int.Parse(GameManager.Instance.GetShuffledList()[0]), int.Parse(GameManager.Instance.GetShuffledList()[1])].Plant(c);
+            Tile.GetTeamTiles(team)[int.Parse(GameManager.Instance.GetShuffledList()[0]), int.Parse(GameManager.Instance.GetShuffledList()[1])].Plant(c);
         }
     }
 

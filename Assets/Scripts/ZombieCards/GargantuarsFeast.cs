@@ -11,7 +11,7 @@ public class GargantuarsFeast : Card
         List<int> locations = new();
         for (int col = 0; col < 5; col++)
         {
-            if (Tile.zombieTiles[0, col].planted == null) locations.Add(col);
+            if (Tile.CanPlantInCol(col, Tile.GetTeamTiles(team), false, true)) locations.Add(col);
         }
         for (int n = locations.Count - 1; n > 0; n--)
         {
@@ -31,7 +31,7 @@ public class GargantuarsFeast : Card
             for (int i = 0; i < GameManager.Instance.GetShuffledList().Count - 1; i += 2)
             {
                 Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[i + 1])]);
-                Tile.zombieTiles[0, int.Parse(GameManager.Instance.GetShuffledList()[i])].Plant(c);
+                Tile.GetTeamTiles(team)[0, int.Parse(GameManager.Instance.GetShuffledList()[i])].Plant(c);
             }
         }
         yield return base.OnThisPlay();

@@ -7,10 +7,10 @@ public class AstrocadoPit : Card
 
 	protected override IEnumerator OnTurnStart()
 	{
-		Tile.plantTiles[row, col].Unplant();
+		Tile.GetTeamTiles(team)[row, col].Unplant();
 		yield return Glow();
 		Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Astrocado")]);
-		Tile.plantTiles[row, col].Plant(c);
+		Tile.GetTeamTiles(team)[row, col].Plant(c);
 		Destroy(gameObject);
 	}
 

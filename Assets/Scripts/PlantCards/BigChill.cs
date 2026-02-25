@@ -8,7 +8,7 @@ public class BigChill : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		Tile.zombieTiles[row, col].planted.Freeze();
+		Tile.GetTeamTiles(GetOpponent(team))[row, col].planted.Freeze();
 		yield return GameManager.Instance.DrawCard(team);
 		yield return base.OnThisPlay();
 	}
@@ -19,7 +19,7 @@ public class BigChill : Card
         Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
 		if (!t.HasRevealedPlanted()) return false;
-		if (t.planted.team == Team.Zombie) return true;
+		if (t.planted.team == GetOpponent(GameManager.Instance.team)) return true;
 		return false;
 	}
 

@@ -9,8 +9,8 @@ public class ZombieCoach : Card
 	{
         yield return Glow();
 
-        for (int j = 0; j < 5; j++) if (Tile.zombieTiles[0, j].HasRevealedPlanted() && Tile.zombieTiles[0, j].planted.tribes.Contains(Tribe.Sports))
-            Tile.zombieTiles[0, j].planted.ToggleInvulnerability(true);
+        for (int row = 0; row < 2; row++) for (int j = 0; j < 5; j++) if (Tile.GetTeamTiles(team)[row, j].HasRevealedPlanted() && Tile.GetTeamTiles(team)[row, j].planted.tribes.Contains(Tribe.Sports))
+            Tile.GetTeamTiles(team)[row, j].planted.ToggleInvulnerability(true);
 
         yield return base.OnThisPlay();
 	}

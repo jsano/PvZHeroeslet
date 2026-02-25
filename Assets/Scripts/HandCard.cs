@@ -17,10 +17,6 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     /// </summary>
     private Vector3 startPos;
     /// <summary>
-    /// The reference to the Tile array that represents the player's half of the board
-    /// </summary>
-    private Tile[,] tileObjects;
-    /// <summary>
     /// All of the valid tiles/heroes that this can legally be played on
     /// </summary>
 	private HashSet<BoxCollider2D> validChoices = new();
@@ -60,10 +56,10 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         {
             // If this is a trick, use its IsValidTarget method to determine where it can be played
             foreach (Tile t in Tile.terrainTiles) if (orig.IsValidTarget(t.GetComponent<BoxCollider2D>())) validChoices.Add(t.GetComponent<BoxCollider2D>());
-            foreach (Tile t in Tile.plantTiles) if (orig.IsValidTarget(t.GetComponent<BoxCollider2D>())) validChoices.Add(t.GetComponent<BoxCollider2D>());
-            foreach (Tile t in Tile.zombieTiles) if (orig.IsValidTarget(t.GetComponent<BoxCollider2D>())) validChoices.Add(t.GetComponent<BoxCollider2D>());
-            if (orig.IsValidTarget(GameManager.Instance.plantHero.GetComponent<BoxCollider2D>())) validChoices.Add(GameManager.Instance.plantHero.GetComponent<BoxCollider2D>());
-            if (orig.IsValidTarget(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>())) validChoices.Add(GameManager.Instance.zombieHero.GetComponent<BoxCollider2D>());
+            foreach (Tile t in Tile.playerTiles) if (orig.IsValidTarget(t.GetComponent<BoxCollider2D>())) validChoices.Add(t.GetComponent<BoxCollider2D>());
+            foreach (Tile t in Tile.opponentTiles) if (orig.IsValidTarget(t.GetComponent<BoxCollider2D>())) validChoices.Add(t.GetComponent<BoxCollider2D>());
+            if (orig.IsValidTarget(GameManager.Instance.playerHero.GetComponent<BoxCollider2D>())) validChoices.Add(GameManager.Instance.playerHero.GetComponent<BoxCollider2D>());
+            if (orig.IsValidTarget(GameManager.Instance.opponentHero.GetComponent<BoxCollider2D>())) validChoices.Add(GameManager.Instance.opponentHero.GetComponent<BoxCollider2D>());
         }
         else if (orig.type == Card.Type.Terrain)
         {
@@ -76,24 +72,24 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    if (Tile.CanPlantInCol(j, tileObjects, finalStats.abilities.Contains("teamUp") || orig.teamUp, finalStats.abilities.Contains("amphibious") || orig.amphibious))
+                    if (Tile.CanPlantInCol(j, Tile.playerTiles, finalStats.abilities.Contains("teamUp") || orig.teamUp, finalStats.abilities.Contains("amphibious") || orig.amphibious))
                     {
                         if (i == 0 ||
                             i == 1 && (finalStats.abilities.Contains("teamUp") || orig.teamUp ||
-                                        tileObjects[0, j].planted != null && tileObjects[0, j].planted.teamUp || tileObjects[1, j].planted != null && tileObjects[1, j].planted.teamUp))
-                            validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
+                                        Tile.playerTiles[0, j].planted != null && Tile.playerTiles[0, j].planted.teamUp || Tile.playerTiles[1, j].planted != null && Tile.playerTiles[1, j].planted.teamUp))
+                            validChoices.Add(Tile.playerTiles[i, j].GetComponent<BoxCollider2D>());
                     }
-                    if (tileObjects[i, j].HasRevealedPlanted() && orig.evolution != Card.Tribe.Animal && !orig.gravestone) {
+                    if (Tile.playerTiles[i, j].HasRevealedPlanted() && orig.evolution != Card.Tribe.Animal && !orig.gravestone) {
                         if (orig.evolution == Card.Tribe.Moss) {
-                            if (tileObjects[i, j].planted.teamUp) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
+                            if (Tile.playerTiles[i, j].planted.teamUp) validChoices.Add(Tile.playerTiles[i, j].GetComponent<BoxCollider2D>());
                         }
                         else if (orig.evolution == Card.Tribe.Seed)
                         {
-                            if (tileObjects[i, j].planted.team == orig.team) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
+                            if (Tile.playerTiles[i, j].planted.team == orig.team) validChoices.Add(Tile.playerTiles[i, j].GetComponent<BoxCollider2D>());
                         }
-                        else if (tileObjects[i, j].planted.tribes.Contains(orig.evolution)) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
+                        else if (Tile.playerTiles[i, j].planted.tribes.Contains(orig.evolution)) validChoices.Add(Tile.playerTiles[i, j].GetComponent<BoxCollider2D>());
                     }
-                    if (tileObjects[i, j].HasRevealedPlanted() && tileObjects[i, j].planted.fusion && !orig.gravestone) validChoices.Add(tileObjects[i, j].GetComponent<BoxCollider2D>());
+                    if (Tile.playerTiles[i, j].HasRevealedPlanted() && Tile.playerTiles[i, j].planted.fusion && !orig.gravestone) validChoices.Add(Tile.playerTiles[i, j].GetComponent<BoxCollider2D>());
                 }
             }
         }
@@ -169,7 +165,8 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                         {
                             finalStats.cost = GetCost();
                             if (finalStats.cost < 0) finalStats.cost = 0;
-                            GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col);
+                            GameManager.Instance.PlayCardRpc(finalStats, t.row, t.col, GameManager.Instance.team);
+                            Buff.CallAllImmediate("OnHandCardPlayImmediate", new Tuple<Card.Team, int>(GameManager.Instance.team, ID));
                             transform.SetParent(null);
                             Destroy(gameObject);
                         }
@@ -177,8 +174,9 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                         {
                             finalStats.cost = GetCost();
                             if (finalStats.cost < 0) finalStats.cost = 0;
-                            if (t == null) GameManager.Instance.PlayTrickRpc(finalStats, -1, -1, bc.GetComponent<Hero>().team == Card.Team.Plant);
-                            else GameManager.Instance.PlayTrickRpc(finalStats, t.row, t.col, t.isPlantTile);
+                            if (t == null) GameManager.Instance.PlayTrickRpc(finalStats, -1, -1, bc.GetComponent<Hero>().team == Card.Team.A, GameManager.Instance.team);
+                            else GameManager.Instance.PlayTrickRpc(finalStats, t.row, t.col, t.isPlayerTile == (GameManager.Instance.team == Card.Team.A), GameManager.Instance.team);
+                            Buff.CallAllImmediate("OnHandCardPlayImmediate", new Tuple<Card.Team, int>(GameManager.Instance.team, ID));
                             transform.SetParent(null);
                             Destroy(gameObject);
                         }
@@ -192,7 +190,8 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                 {
                     finalStats.cost = GetCost();
                     if (finalStats.cost < 0) finalStats.cost = 0;
-                    GameManager.Instance.PlayTrickRpc(finalStats, 1, 2, GameManager.Instance.team == Card.Team.Plant); // Params shouldn't matter beyond visual
+                    GameManager.Instance.PlayTrickRpc(finalStats, 1, 2, GameManager.Instance.team == Card.Team.A, GameManager.Instance.team); // Params shouldn't matter beyond visual
+                    Buff.CallAllImmediate("OnHandCardPlayImmediate", new Tuple<Card.Team, int>(GameManager.Instance.team, ID));
                     transform.SetParent(null);
                     Destroy(gameObject);
                 }
@@ -220,10 +219,8 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         hpUI.GetComponentInParent<Image>().sprite = orig.GetHPIcon();
         if (orig.type == Card.Type.Unit)
         {
-            atkUI.text = finalStats.atk + (orig.team == Card.Team.Plant ? GameManager.Instance.plantPermanentAttackBonus : GameManager.Instance.zombiePermanentAttackBonus) + 
-                                            (ID == AllCards.NameToID("Clique Peas") ? GameManager.Instance.cliquePeas : 0) + "";
-            hpUI.text = finalStats.hp + (orig.team == Card.Team.Plant ? GameManager.Instance.plantPermanentHPBonus : GameManager.Instance.zombiePermanentHPBonus) +
-                                            (ID == AllCards.NameToID("Clique Peas") ? GameManager.Instance.cliquePeas : 0) + "";
+            atkUI.text = finalStats.atk + GameManager.Instance.playerPermanentAttackBonus + (ID == AllCards.NameToID("Clique Peas") ? GameManager.Instance.playerCliquePeas : 0) + "";
+            hpUI.text = finalStats.hp + GameManager.Instance.playerPermanentHPBonus + (ID == AllCards.NameToID("Clique Peas") ? GameManager.Instance.playerCliquePeas : 0) + "";
         }
         else
         {
@@ -239,10 +236,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         costUI.text = GetCost() + "";
         ChangeCost(0);
 
-        if (orig.team == Card.Team.Zombie) costUI.GetComponentInParent<Image>().sprite = AllCards.Instance.brainUI;
-
-        if (GameManager.Instance.team == Card.Team.Plant) tileObjects = Tile.plantTiles;
-        else tileObjects = Tile.zombieTiles;
+        if (orig.team == Card.Team.B) costUI.GetComponentInParent<Image>().sprite = AllCards.Instance.brainUI;
 	}
 
     // Update is called once per frame
@@ -259,11 +253,9 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     public float GetCost()
     {
         float temp = finalStats.cost;
-        if (ID == AllCards.NameToID("Clique Peas")) temp += GameManager.Instance.cliquePeas;
-        if (orig.team == Card.Team.Plant && orig.type == Card.Type.Unit) temp -= GameManager.Instance.plantCardPermanentDiscount;
-        if (orig.team == Card.Team.Plant && orig.type == Card.Type.Trick) temp -= GameManager.Instance.plantTrickPermanentDiscount;
-        if (orig.team == Card.Team.Zombie && orig.type == Card.Type.Unit) temp -= GameManager.Instance.zombieCardPermanentDiscount;
-        if (orig.team == Card.Team.Zombie && orig.type == Card.Type.Trick) temp -= GameManager.Instance.zombieTrickPermanentDiscount;
+        if (ID == AllCards.NameToID("Clique Peas")) temp += GameManager.Instance.playerCliquePeas;
+        if (orig.type == Card.Type.Unit) temp -= GameManager.Instance.playerUnitPermanentDiscount;
+        else temp -= GameManager.Instance.playerTrickPermanentDiscount;
         return temp;
     }
 
@@ -281,8 +273,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         if (orig.type != Card.Type.Unit) return;
         finalStats.atk += amount;
         if (absolute) finalStats.atk = amount;
-        atkUI.text = finalStats.atk + (orig.team == Card.Team.Plant ? GameManager.Instance.plantPermanentAttackBonus : GameManager.Instance.zombiePermanentAttackBonus) +
-                                        (ID == AllCards.NameToID("Clique Peas") ? GameManager.Instance.cliquePeas : 0) + "";
+        atkUI.text = finalStats.atk + GameManager.Instance.playerPermanentAttackBonus + (ID == AllCards.NameToID("Clique Peas") ? GameManager.Instance.playerCliquePeas : 0) + "";
     }
 
     public void ChangeHP(int amount, bool absolute = false)
@@ -290,8 +281,7 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         if (orig.type != Card.Type.Unit) return;
         finalStats.hp += amount;
         if (absolute) finalStats.hp = amount;
-        hpUI.text = finalStats.hp + (orig.team == Card.Team.Plant ? GameManager.Instance.plantPermanentHPBonus : GameManager.Instance.zombiePermanentHPBonus) +
-                                        (ID == AllCards.NameToID("Clique Peas") ? GameManager.Instance.cliquePeas : 0) + "";
+        hpUI.text = finalStats.hp + GameManager.Instance.playerPermanentHPBonus + (ID == AllCards.NameToID("Clique Peas") ? GameManager.Instance.playerCliquePeas : 0) + "";
     }
 
     public void AddAbility(string ability)
@@ -326,9 +316,9 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     }
 
     /// <summary>
-    /// Called whenever a card on the field dies
-    /// </summary>
-    /// <param name="died"> The card that died </param>
+	/// Called whenever a card on the field dies
+	/// </summary>
+	/// <param name="died"> [The card that died, the card that destroyed it] </param>
     protected virtual IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
         yield return null;

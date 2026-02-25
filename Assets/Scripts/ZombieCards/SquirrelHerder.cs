@@ -11,9 +11,9 @@ public class SquirrelHerder : Card
         {
             for (int col = 0; col < 5; col++)
             {
-                if (Tile.plantTiles[row, col].planted != null && (Tile.plantTiles[row, col].planted.tribes.Contains(Tribe.Berry) || Tile.plantTiles[row, col].planted.tribes.Contains(Tribe.Nut)))
+                if (Tile.GetTeamTiles(GetOpponent(team))[row, col].planted != null && (Tile.GetTeamTiles(GetOpponent(team))[row, col].planted.tribes.Contains(Tribe.Berry) || Tile.GetTeamTiles(GetOpponent(team))[row, col].planted.tribes.Contains(Tribe.Nut)))
                 {
-                    choices.Add(Tile.plantTiles[row, col].GetComponent<BoxCollider2D>());
+                    choices.Add(Tile.GetTeamTiles(GetOpponent(team))[row, col].GetComponent<BoxCollider2D>());
                 }
             }
         }

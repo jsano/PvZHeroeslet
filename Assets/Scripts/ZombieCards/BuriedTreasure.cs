@@ -7,7 +7,7 @@ public class BuriedTreasure : Card
 
 	protected override IEnumerator Fusion(Card parent)
 	{
-		int id = AllCards.RandomFromCost(team, (7, 8, 9, 10, 11, 12));
+		int id = AllCards.RandomFromCost((7, 8, 9, 10, 11, 12));
 		FinalStats fs = new(id);
 		fs.cost -= 1;
         yield return Glow();

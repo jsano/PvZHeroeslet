@@ -9,21 +9,13 @@ using UnityEngine.UI;
 public class MoodOfVigor : Buff
 {
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    protected override void Start()
+    protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
-        if (team == Card.Team.Plant)
+        if (died.Item1.team == team && died.Item1._class == Card.Class.Elation)
         {
-            GameManager.Instance.plantCardPermanentDiscount += 0.5f;
-            GameManager.Instance.plantTrickPermanentDiscount += 0.5f;
+            yield return GameManager.Instance.UpdateRemaining(died.Item1.playedCost, team);
         }
-        else
-        {
-            GameManager.Instance.zombieCardPermanentDiscount += 0.5f;
-            GameManager.Instance.zombieTrickPermanentDiscount += 0.5f;
-        }
-        if (team == GameManager.Instance.team) foreach (HandCard hc in GameManager.Instance.GetHandCards()) hc.ChangeCost(0);
-        base.Start();
+        yield return base.OnCardDeath(died);
     }
 
 }

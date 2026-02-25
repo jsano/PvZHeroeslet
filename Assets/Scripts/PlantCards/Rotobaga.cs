@@ -7,12 +7,15 @@ public class Rotobaga : Card
 
 	public override IEnumerator Attack(int savedHP = -1)
 	{
-        if (frozen)
+        if (frozen > 0)
         {
             yield return new WaitForSeconds(0.5f);
-            frozen = false;
-            transform.Find("Frozen").gameObject.SetActive(false);
-            SR.material.color = Color.white;
+            frozen -= 1;
+            if (frozen == 0)
+            {
+                transform.Find("ATK/Frozen").gameObject.SetActive(false);
+                SR.material.color = Color.white;
+            }
             yield break;
         }
 

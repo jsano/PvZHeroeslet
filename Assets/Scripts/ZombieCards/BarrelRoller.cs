@@ -11,15 +11,15 @@ public class BarrelRoller : Card
 		if (died.Item1 == this)
 		{
             yield return Glow();
-            if (col - 1 >= 0 && Tile.zombieTiles[0, col - 1].planted == null)
+            if (col - 1 >= 0 && Tile.GetTeamTiles(team)[1, col - 1].planted == null)
 			{
 				Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Swabbie")]).GetComponent<Card>();
-				Tile.zombieTiles[row, col - 1].Plant(card);
+				Tile.GetTeamTiles(team)[1, col - 1].Plant(card);
 			}
-            if (col + 1 <= 4 && Tile.zombieTiles[0, col + 1].planted == null)
+            if (col + 1 <= 4 && Tile.GetTeamTiles(team)[1, col + 1].planted == null)
             {
                 Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Swabbie")]).GetComponent<Card>();
-                Tile.zombieTiles[row, col + 1].Plant(card);
+                Tile.GetTeamTiles(team)[1, col + 1].Plant(card);
             }
         }
 		yield return base.OnCardDeath(died);

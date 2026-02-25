@@ -9,7 +9,7 @@ public class BuffSelection : MonoBehaviour
     public TextMeshProUGUI buffName;
     public TextMeshProUGUI description;
     public Image image;
-    public Image BG;
+    public GradientImage BG;
 
     public static int current = -1;
     
@@ -21,31 +21,33 @@ public class BuffSelection : MonoBehaviour
         buffName.text = source.name;
         description.text = source.description;
 
-        switch (source.buffClass)
+        BG.Color1 = source.buffClass switch
         {
-            case Card.Class.Guardian:
-                BG.color = Color.yellow;
-                break;
-            case Card.Class.Kabloom:
-                BG.color = Color.blue;
-                break;
-            case Card.Class.MegaGrow:
-                BG.color = Color.red;
-                break;
-            case Card.Class.Smarty:
-                BG.color = Color.magenta + Color.blue * 0.5f;
-                break;
-            case Card.Class.Solar:
-                BG.color = Color.red + Color.cyan * 0.5f;
-                break;
-            case Card.Class.Beastly:
-                BG.color = Color.green;
-                break;
-            default:
-                BG.color = Color.white;
-                break;
+            Card.Class.Elation => Color.yellow,
+            Card.Class.Misery => Color.blue,
+            Card.Class.Wrath => Color.red,
+            Card.Class.Fright => Color.magenta + Color.blue * 0.5f,
+            Card.Class.Awe => Color.red + Color.cyan * 0.5f,
+            Card.Class.Contempt => Color.green,
+            _ => Color.white,
+        };
+        if (source.rarity == Buff.Rarity.Duo)
+        {
+            BG.Color2 = source.duoSecondClass switch
+            {
+                Card.Class.Elation => Color.yellow,
+                Card.Class.Misery => Color.blue,
+                Card.Class.Wrath => Color.red,
+                Card.Class.Fright => Color.magenta + Color.blue * 0.5f,
+                Card.Class.Awe => Color.red + Color.cyan * 0.5f,
+                Card.Class.Contempt => Color.green,
+                _ => Color.white,
+            };
         }
-        BG.color += Color.white * 0.35f;
+        else BG.Color2 = BG.Color1;
+
+        BG.Color1 += Color.white * 0.35f;
+        BG.Color2 += Color.white * 0.35f;
     }
 
     public void Select()

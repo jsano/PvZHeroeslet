@@ -8,10 +8,10 @@ public class SecretAgent : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		FinalStats fs = new(AllCards.NameToID(AllCards.InstanceToPrefab(Tile.zombieTiles[row, col].planted).name));
+		FinalStats fs = new(AllCards.NameToID(AllCards.InstanceToPrefab(Tile.GetTeamTiles(team)[row, col].planted).name));
 		fs.atk += 3;
 		fs.hp += 3;
-		Tile.zombieTiles[row, col].planted.Bounce(fs);
+		Tile.GetTeamTiles(team)[row, col].planted.Bounce(fs);
 		yield return base.OnThisPlay();
 	}
 
@@ -20,7 +20,7 @@ public class SecretAgent : Card
         if (!base.IsValidTarget(bc)) return false;
         Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
-		if (t.HasRevealedPlanted() && t.planted.team == Team.Zombie) return true;
+		if (t.HasRevealedPlanted() && t.planted.team == GameManager.Instance.team) return true;
 		return false;
 	}
 

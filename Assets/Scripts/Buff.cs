@@ -19,9 +19,28 @@ public class Buff : MonoBehaviour
     public Rarity rarity;
     public string description;
     public Card.Class buffClass;
+    public Card.Class duoSecondClass;
     public string lore;
 
     [HideInInspector] public Card.Team team;
+
+    /// <summary>
+    /// Called the instant a Buff is gained.
+    /// </summary>
+    /// <param name="gained"> The buff that was gained </param>
+    protected virtual void OnBuffGainedImmediate(Buff gained)
+    {
+        
+    }
+
+    /// <summary>
+    /// Called the instant a HandCard is dropped onto the board.
+    /// </summary>
+    /// <param name="played"> [The team that played, the ID of the card that was played] </param>
+    protected virtual void OnHandCardPlayImmediate(Tuple<Card.Team, int> played)
+    {
+
+    }
 
     /// <summary>
     /// Called the instant a card is played.
@@ -33,7 +52,16 @@ public class Buff : MonoBehaviour
     }
 
     /// <summary>
-    /// Called the instant a card is played.
+    /// Called the instant a card is hurt to modify how much damage will be dealt.
+    /// </summary>
+    /// <param name="hurt"> [The card that received damage, the card that dealt the damage, the final amount dealt] </param>
+    protected virtual int CardHurtModifiers(Tuple<Damagable, Card, int> hurt)
+    {
+        return 0;
+    }
+
+    /// <summary>
+    /// Called the instant a card is hurt.
     /// </summary>
     /// <param name="hurt"> [The card that received damage, the card that dealt the damage, the final amount dealt] </param>
     protected virtual int OnCardHurtImmediate(Tuple<Damagable, Card, int> hurt)
@@ -41,7 +69,30 @@ public class Buff : MonoBehaviour
         return 0;
     }
 
-    public static List<object> CallAll(string name, object arg)
+    /// <summary>
+    /// Called the instant a card is healed.
+    /// </summary>
+    /// <param name="healed"> [The card that got healed, the initial amount to heal] </param>
+    protected virtual int OnCardHealImmediate(Tuple<Card, int> healed)
+    {
+        return 0;
+    }
+
+    /// <summary>
+    /// Called the instant a hero is healed.
+    /// </summary>
+    /// <param name="healed"> [The hero that got healed, the initial amount to heal] </param>
+    protected virtual int OnHeroHealImmediate(Tuple<Hero, int> healed)
+    {
+        return 0;
+    }
+
+    protected virtual void OnBlock(Hero hero)
+    {
+
+    }
+
+    public static List<object> CallAllImmediate(string name, object arg)
     {
         List<object> result = new ();
         foreach (Transform t in GameManager.Instance.playerBuffs)
@@ -59,6 +110,14 @@ public class Buff : MonoBehaviour
     protected virtual void Start()
     {
         GetComponent<Button>().onClick.AddListener(ShowBuffInfo);
+        CallAllImmediate("OnBuffGainedImmediate", this);
+    }
+
+    public static bool PlayerHasBuff(string name, Card.Team team)
+    {
+        Transform search = GameManager.Instance.team == team ? GameManager.Instance.playerBuffs : GameManager.Instance.opponentBuffs;
+        foreach (Transform t in search) if (AllCards.InstanceToPrefab(t.GetComponent<Buff>()).name == name) return true;
+        return false;
     }
 
     public Sprite GetImage()
@@ -90,9 +149,9 @@ public class Buff : MonoBehaviour
     }
 
     /// <summary>
-    /// Called whenever a card on the field dies
-    /// </summary>
-    /// <param name="died"> The card that died </param>
+	/// Called whenever a card on the field dies
+	/// </summary>
+	/// <param name="died"> [The card that died, the card that destroyed it] </param>
     protected virtual IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
         yield return null;
@@ -171,6 +230,14 @@ public class Buff : MonoBehaviour
     protected virtual IEnumerator OnTurnEnd()
     {
         yield return null;
+    }
+
+    /// <summary>
+	/// Called after OnTurnEnd but before OnTurnStart, useful for buffs that shouldn't interact with those methods 
+	/// </summary>
+    protected virtual void AfterTurnEndBeforeTurnStart(object arg)
+    {
+        
     }
 
     /// <summary>

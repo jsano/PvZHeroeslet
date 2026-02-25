@@ -11,9 +11,9 @@ public class BlowgunImp : Card
         {
             for (int i = 0; i < 2; i++) for (int col = 0; col < 5; col++)
             {
-                if (Tile.plantTiles[i, col].HasRevealedPlanted() && Tile.plantTiles[i, col].planted != this)
+                if (Tile.GetTeamTiles(GetOpponent(team))[i, col].HasRevealedPlanted() && Tile.GetTeamTiles(GetOpponent(team))[i, col].planted != this)
                 {
-                    choices.Add(Tile.plantTiles[i, col].GetComponent<BoxCollider2D>());
+                    choices.Add(Tile.GetTeamTiles(GetOpponent(team))[i, col].GetComponent<BoxCollider2D>());
                 }
             }
             if (choices.Count == 1) yield return OnSelection(choices[0]);

@@ -7,11 +7,11 @@ public class AdmiralNavyBean : Card
 
 	protected override IEnumerator OnCardPlay(Card played)
 	{
-		if (played != this && played.tribes.Contains(Tribe.Bean))
+		if (played != this && played.tribes.Contains(Tribe.Bean) && played.team == team)
 		{
 			yield return Glow();
-            yield return AttackFX(Tile.zombieHeroTiles[col]);
-            yield return Tile.zombieHeroTiles[col].ReceiveDamage(2, this);
+            yield return AttackFX(Tile.GetTeamHeroTiles(GetOpponent(team))[col]);
+            yield return Tile.GetTeamHeroTiles(GetOpponent(team))[col].ReceiveDamage(2, this);
 		}
 		yield return base.OnCardPlay(played);
 	}

@@ -8,13 +8,13 @@ public class FraidyCat : Card
 	protected override IEnumerator OnCardPlay(Card played)
 	{
         choices.Clear();
-        if (played.type == Type.Trick && played.team == Team.Plant)
+        if (played.type == Type.Trick && played.team != team)
         {
             for (int j = 0; j < 4; j++)
             {
-                if (j != col && Tile.zombieTiles[row, j].planted == null)
+                if (j != col && Tile.CanPlantInCol(j, Tile.GetTeamTiles(team), teamUp, amphibious))
                 {
-                    choices.Add(Tile.zombieTiles[row, j].GetComponent<BoxCollider2D>());
+                    choices.Add(Tile.GetTeamTiles(team)[row, j].GetComponent<BoxCollider2D>());
                 }
             }
             yield return Glow();

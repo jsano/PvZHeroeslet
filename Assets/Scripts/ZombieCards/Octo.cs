@@ -10,9 +10,9 @@ public class Octo : Card
 	{
 		for (int col = 0; col < 5; col++)
 		{
-			if (Tile.zombieTiles[0, col].planted == null)
+			if (Tile.CanPlantInCol(col, Tile.GetTeamTiles(team), false, true))
 			{
-				choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
+				choices.Add(Tile.GetTeamTiles(team)[0, col].GetComponent<BoxCollider2D>());
 			}
 		}
         if (choices.Count == 1) yield return OnSelection(choices[0]);
@@ -31,7 +31,7 @@ public class Octo : Card
         yield return Glow();
         Tile t = bc.GetComponent<Tile>();
         Card card = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Octo-pet")]);
-        Tile.zombieTiles[t.row, t.col].Plant(card);
+        Tile.GetTeamTiles(team)[t.row, t.col].Plant(card);
     }
 
 	protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)

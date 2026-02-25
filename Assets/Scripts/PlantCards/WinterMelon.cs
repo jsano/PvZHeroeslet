@@ -7,11 +7,11 @@ public class WinterMelon : Card
 
     protected override IEnumerator OnThisPlay()
     {
-        for (int col = 0; col < 5; col++)
+        for (int r = 0; r < Tile.ROWS; r++) for (int col = 0; col < Tile.COLUMNS; col++)
         {
-            if (Tile.zombieTiles[0, col].HasRevealedPlanted())
+            if (Tile.GetTeamTiles(GetOpponent(team))[r, col].HasRevealedPlanted())
             {
-                choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
+                choices.Add(Tile.GetTeamTiles(GetOpponent(team))[r, col].GetComponent<BoxCollider2D>());
             }
         }
         if (choices.Count == 1) yield return OnSelection(choices[0]);

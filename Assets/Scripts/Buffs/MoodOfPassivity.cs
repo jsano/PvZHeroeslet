@@ -9,19 +9,28 @@ using UnityEngine.UI;
 public class MoodOfPassivity : Buff
 {
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    protected override void Start()
+    protected override IEnumerator OnTurnStart()
     {
-        if (team == Card.Team.Plant)
+        for (int i = 0; i < Tile.ROWS; i++)
         {
-            GameManager.Instance.plantTrickPermanentDiscount += 1;
+            for (int j = 0; j < Tile.COLUMNS; j++)
+            {
+                if (Tile.GetTeamTiles(team)[i, j].HasRevealedPlanted() && Tile.GetTeamTiles(team)[i, j].planted._class == Card.Class.Fright)
+                {
+                    Tile.GetTeamTiles(team)[i, j].planted.ToggleInvulnerability(true, true);
+                }
+            }
         }
-        else
+        yield return base.OnTurnStart();
+    }
+
+    protected override void OnCardPlayImmediate(Card played)
+    {
+        if (played.team == team && played._class == Card.Class.Fright)
         {
-            GameManager.Instance.zombieTrickPermanentDiscount += 1f;
+            played.ToggleInvulnerability(true, true);
         }
-        if (team == GameManager.Instance.team) foreach (HandCard hc in GameManager.Instance.GetHandCards()) hc.ChangeCost(0);
-        base.Start();
+        base.OnCardPlayImmediate(played);
     }
 
 }

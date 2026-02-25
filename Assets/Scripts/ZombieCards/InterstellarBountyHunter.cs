@@ -8,7 +8,7 @@ public class InterstellarBountyHunter : Card
 
     protected override IEnumerator OnCardDeath(Tuple<Card, Card> died)
     {
-        if (died.Item2 == this && died.Item1.team == Team.Plant)
+        if (died.Item2 == this && died.Item1.team == GetOpponent(team))
         {
             yield return Glow();
             yield return GameManager.Instance.DrawCard(team);

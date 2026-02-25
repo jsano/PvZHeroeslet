@@ -8,10 +8,10 @@ public class GoingViral : Card
 	protected override IEnumerator OnThisPlay()
 	{
 		yield return new WaitForSeconds(1);
-		for (int j = 0; j < 5; j++) if (Tile.zombieTiles[0, j].HasRevealedPlanted())
+        for (int r = 0; r < Tile.ROWS; r++) for (int j = 0; j < 5; j++) if (Tile.GetTeamTiles(team)[r, j].HasRevealedPlanted())
 			{
-				Tile.zombieTiles[0, j].planted.ChangeStats(1, 1);
-				Tile.zombieTiles[0, j].planted.frenzy += 1;
+				Tile.GetTeamTiles(team)[r, j].planted.ChangeStats(1, 1);
+				Tile.GetTeamTiles(team)[r, j].planted.frenzy += 1;
             }
 		int id = AllCards.NameToID("Going Viral");
 		GameManager.Instance.ShuffleIntoDeck(team, new() { id, id, id });

@@ -11,7 +11,7 @@ public class VenusFlytrap : Card
 		if (hurt.Item2 == this)
 		{
 			yield return Glow();
-			yield return GameManager.Instance.plantHero.Heal(hurt.Item3);
+			yield return GameManager.Instance.GetTeamHero(team).Heal(hurt.Item3);
 		}
 		yield return base.OnCardHurt(hurt);
 	}

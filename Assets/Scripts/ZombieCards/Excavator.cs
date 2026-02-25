@@ -29,8 +29,8 @@ public class Excavator : Card
         yield return base.OnSelection(bc);
         yield return Glow();
 		Tile t = bc.GetComponent<Tile>();
-		if (Tile.plantTiles[1, t.col].planted != null) Tile.plantTiles[1, t.col].planted.Bounce();
-        if (Tile.plantTiles[0, t.col].planted != null) Tile.plantTiles[0, t.col].planted.Bounce();
+		if (Tile.GetTeamTiles(GetOpponent(team))[1, t.col].planted != null) Tile.GetTeamTiles(GetOpponent(team))[1, t.col].planted.Bounce();
+        if (Tile.GetTeamTiles(GetOpponent(team))[0, t.col].planted != null) Tile.GetTeamTiles(GetOpponent(team))[0, t.col].planted.Bounce();
         if (Tile.terrainTiles[t.col].planted != null) Tile.terrainTiles[t.col].planted.Bounce();
     }
 

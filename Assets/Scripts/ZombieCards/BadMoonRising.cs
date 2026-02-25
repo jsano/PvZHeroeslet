@@ -8,9 +8,9 @@ public class BadMoonRising : Card
 	protected override IEnumerator OnThisPlay()
 	{		
         List<Card> toDestroy = new();
-        for (int col = 4; col >= 0; col--)
+        for (int r = 0; r < Tile.ROWS; r++) for (int col = 4; col >= 0; col--)
         {
-            Tile t = Tile.zombieTiles[0, col];
+            Tile t = Tile.GetTeamTiles(team)[r, col];
             if (t.HasRevealedPlanted())
             {
                 toDestroy.Add(t.planted);
@@ -20,13 +20,13 @@ public class BadMoonRising : Card
         if (toDestroy.Count > 0)
         {
             yield return new WaitForSeconds(1);
-            string s = AllCards.RandomFromCost(team, (5, 6, 7, 8, 9, 10, 11, 12), true) + "";
-            for (int i = 1; i < toDestroy.Count; i++) s += " - " + AllCards.RandomFromCost(team, (5, 6, 7, 8, 9, 10, 11, 12), true);
+            string s = AllCards.RandomFromCost((5, 6, 7, 8, 9, 10, 11, 12), true) + "";
+            for (int i = 1; i < toDestroy.Count; i++) s += " - " + AllCards.RandomFromCost((5, 6, 7, 8, 9, 10, 11, 12), true);
             yield return SyncRandomChoiceAcrossNetwork(s);
             for (int i = 0; i < toDestroy.Count; i++)
             {
                 Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[i])]);
-                Tile.zombieTiles[0, toDestroy[i].col].Plant(c);
+                Tile.GetTeamTiles(team)[toDestroy[i].row, toDestroy[i].col].Plant(c);
             }
             foreach (Card c in toDestroy) Destroy(c.gameObject);
         }

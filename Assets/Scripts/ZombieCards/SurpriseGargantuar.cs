@@ -7,9 +7,9 @@ public class SurpriseGargantuar : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		for (int col = 0; col < 4; col++)
+        for (int row = 0; row < 2; row++) for (int col = 0; col < 4; col++)
 		{
-            if (Tile.zombieTiles[0, col].planted == null) choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
+            if (Tile.CanPlantInCol(col, Tile.GetTeamTiles(team), teamUp, amphibious)) choices.Add(Tile.GetTeamTiles(team)[row, col].GetComponent<BoxCollider2D>());
         }
         if (choices.Count == 1) yield return OnSelection(choices[0]);
         if (choices.Count >= 2)

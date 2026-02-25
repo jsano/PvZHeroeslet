@@ -8,7 +8,7 @@ public class Zombats : Card
 
 	protected override IEnumerator OnCardHurt(Tuple<Damagable, Card, int, int> hurt)
 	{
-		if (hurt.Item2 == this && hurt.Item1.GetComponent<Card>() != null && hurt.Item1.GetComponent<Card>().team == Team.Plant)
+		if (hurt.Item2 == this && hurt.Item1.GetComponent<Card>() != null && hurt.Item1.GetComponent<Card>().team == GetOpponent(team))
 		{
             yield return Glow();
             yield return GameManager.Instance.DrawCard(team);

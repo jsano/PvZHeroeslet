@@ -9,12 +9,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -312013300205462730, guid: d306f9effc3093640949af61915d7b07, type: 3}
-      propertyPath: buffClass
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: -312013300205462730, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: description
-      value: Your cards have +1 attack for the rest of the game
+      value: Your cards cost 0.5 less for the rest of the game
       objectReference: {fileID: 0}
     - target: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Name
@@ -107,14 +103,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -751206900546112073}
+      addedObject: {fileID: 2617900016027226735}
   m_SourcePrefab: {fileID: 100100000, guid: d306f9effc3093640949af61915d7b07, type: 3}
 --- !u!1 &7342781260868842934 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
   m_PrefabInstance: {fileID: 5710839442665679260}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-751206900546112073
+--- !u!114 &2617900016027226735
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,11 +119,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7342781260868842934}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9f319da51c4537468776e5e7fa8a0a9, type: 3}
+  m_Script: {fileID: 11500000, guid: b3139bded414ffb40b34f04e3d06118f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rarity: 0
-  description: Your cards have +1 attack for the rest of the game
-  buffClass: 2
+  rarity: 2
+  description: Your Wrath cards get +4 attack when played, then are destroyed next
+    turn
+  buffClass: 1
   lore: 
   team: 0

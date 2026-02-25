@@ -21,8 +21,8 @@ public class Headseeker : Card
 		if (played != this && played.tribes.Contains(Tribe.Dancing))
 		{
             yield return Glow();
-            yield return AttackFX(Tile.plantHeroTiles[col]);
-            yield return Tile.plantHeroTiles[col].ReceiveDamage(2, this, bullseye > 0);
+            yield return AttackFX(Tile.GetTeamHeroTiles(GetOpponent(team))[col]);
+            yield return Tile.GetTeamHeroTiles(GetOpponent(team))[col].ReceiveDamage(2, this, bullseye > 0);
 		}
 		yield return base.OnCardPlay(played);
 	}

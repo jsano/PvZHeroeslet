@@ -12,10 +12,10 @@ public class Coffee : Card
 		{
 			for (int col = 0; col < 5; col++)
 			{
-				if (Tile.zombieTiles[row, col].HasRevealedPlanted())
+				if (Tile.GetTeamTiles(team)[row, col].HasRevealedPlanted())
 				{
-					Tile.zombieTiles[row, col].planted.ChangeStats(1, 1);
-					Tile.zombieTiles[row, col].planted.frenzy += 1;
+					Tile.GetTeamTiles(team)[row, col].planted.ChangeStats(1, 1);
+					Tile.GetTeamTiles(team)[row, col].planted.frenzy += 1;
                 }
 			}
 		}

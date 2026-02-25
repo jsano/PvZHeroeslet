@@ -9,11 +9,11 @@ public class SnakeGrass : Card
 
 	protected override IEnumerator OnTurnStart()
 	{
-		if (col < 4 && Tile.CanPlantInCol(col + 1, Tile.plantTiles, false, true))
+		if (col < 4 && Tile.CanPlantInCol(col + 1, Tile.GetTeamTiles(team), false, true))
 		{
             yield return Glow();
             Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Snake Grass")]);
-            Tile.plantTiles[0, col + 1].Plant(c);
+            Tile.GetTeamTiles(team)[0, col + 1].Plant(c);
         }
 		yield return base.OnTurnStart();
 	}

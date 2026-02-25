@@ -13,7 +13,7 @@ public class JollyHolly : Card
         for (int i = 1; i >= -1; i -= 2)
 		{
             if (col + i < 0 || col + i > 4) continue;
-            if (Tile.zombieTiles[0, col + i].HasRevealedPlanted()) Tile.zombieTiles[0, col + i].planted.Freeze();
+            for (int r = 0; r < Tile.ROWS; r++) if (Tile.GetTeamTiles(GetOpponent(team))[r, col + i].HasRevealedPlanted()) Tile.GetTeamTiles(GetOpponent(team))[r, col + i].planted.Freeze();
 		}
 
 		yield return base.OnThisPlay();

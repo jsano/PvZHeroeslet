@@ -14,13 +14,13 @@ public class FireRooster : Card
     protected override IEnumerator OnCardPlay(Card played)
 	{
         choices.Clear();
-		if (played.col == col && played.team == Team.Plant && played.type == Type.Unit)
+		if (played.col == col && played.team != team && played.type == Type.Unit)
 		{
             for (int j = 0; j < 4; j++)
             {
-                if (j != col && Tile.zombieTiles[row, j].planted == null)
+                if (j != col && Tile.CanPlantInCol(j, Tile.GetTeamTiles(team), teamUp, amphibious))
                 {
-                    choices.Add(Tile.zombieTiles[row, j].GetComponent<BoxCollider2D>());
+                    choices.Add(Tile.GetTeamTiles(team)[row, j].GetComponent<BoxCollider2D>());
                 }
             }
             if (choices.Count > 0)
@@ -43,7 +43,7 @@ public class FireRooster : Card
     private IEnumerator DamageLane()
     {
         List<Damagable> targets = new();
-        for (int i = 0; i < 2; i++) if (Tile.plantTiles[i, col].planted != null) targets.Add(Tile.plantTiles[i, col].planted);
+        for (int i = 0; i < 2; i++) if (Tile.GetTeamTiles(GetOpponent(team))[i, col].planted != null) targets.Add(Tile.GetTeamTiles(GetOpponent(team))[i, col].planted);
         yield return Glow();
         yield return AttackFXs(targets);
         foreach (Damagable c in targets) StartCoroutine(c.ReceiveDamage(1, this, bullseye > 0, deadly > 0));

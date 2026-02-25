@@ -13,8 +13,6 @@ using TMPro;
 using Unity.Services.Leaderboards;
 using Unity.Services.CloudSave.Models.Data.Player;
 using Unity.Services.Friends;
-using Unity.Services.Samples.Friends;
-using System.Net.Security;
 
 public class UserAccounts : MonoBehaviour
 {
@@ -22,10 +20,14 @@ public class UserAccounts : MonoBehaviour
     public static class GameStats
     {
 		public static string DeckName;
-        public static int PlantHero { get; set; }
+        public static int AHero { get; set; }
         public static int[] Superpowers { get; set; }
 
-		public static int ZombieHero { get; set; }
+		public static int BHero { get; set; }
+
+		public static Card.Team team;
+
+		public static int[] Buffs;
     }
 
 	public static Dictionary<string, Deck> allDecks = new();

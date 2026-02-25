@@ -8,15 +8,15 @@ public class KetchupMechanic : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		for (int j = 0; j < 5; j++)
+        for (int i = 0; i < Tile.ROWS; i++) for (int j = 0; j < Tile.COLUMNS; j++)
 		{
-            count += Tile.zombieTiles[0, j].HasRevealedPlanted() ? 1 : 0;
+            count += Tile.GetTeamTiles(GetOpponent(team))[i, j].HasRevealedPlanted() ? 1 : 0;
         }
 		if (count > 0)
 		{
 			yield return Glow();
 			ChangeStats(count, count);
-			yield return GameManager.Instance.plantHero.Heal(count);
+			yield return GameManager.Instance.GetTeamHero(team).Heal(count);
 		}
 		yield return base.OnThisPlay();
 	}

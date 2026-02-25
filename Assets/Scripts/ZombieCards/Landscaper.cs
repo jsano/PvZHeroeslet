@@ -11,9 +11,9 @@ public class Landscaper : Card
         {
             for (int col = 0; col < 5; col++)
             {
-                if (Tile.plantTiles[row, col].planted != null && Tile.plantTiles[row, col].planted != this)
+                if (Tile.GetTeamTiles(GetOpponent(team))[row, col].planted != null && Tile.GetTeamTiles(GetOpponent(team))[row, col].planted != this)
                 {
-                    choices.Add(Tile.plantTiles[row, col].GetComponent<BoxCollider2D>());
+                    choices.Add(Tile.GetTeamTiles(GetOpponent(team))[row, col].GetComponent<BoxCollider2D>());
                 }
             }
         }

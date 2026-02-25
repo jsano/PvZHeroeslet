@@ -10,9 +10,9 @@ public class PrimevalYeti : Card
 		if (evolved)
 		{
             yield return Glow();
-            for (int j = 0; j < 5; j++)
+            for (int r = 0; r < Tile.ROWS; r++) for (int j = 0; j < 5; j++)
 			{
-				if (Tile.zombieTiles[0, j].HasRevealedPlanted()) Tile.zombieTiles[0, j].planted.ChangeStats(2, 2);
+				if (Tile.GetTeamTiles(team)[r, j].HasRevealedPlanted()) Tile.GetTeamTiles(team)[r, j].planted.ChangeStats(2, 2);
 			}
 		}
 		yield return base.OnThisPlay();

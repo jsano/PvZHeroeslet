@@ -9,11 +9,11 @@ public class Interdimensional : Card
 	{
 		if (played != this && played.tribes.Contains(Tribe.Science))
 		{
-            Tile.zombieTiles[0, col].Unplant(true);
+            Tile.GetTeamTiles(team)[0, col].Unplant(true);
             yield return Glow();
-            yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(Team.Zombie, (3, 3), true) + "");
+            yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost((3, 3), true) + "");
             Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.GetShuffledList()[0])]);
-            Tile.zombieTiles[0, col].Plant(c);
+            Tile.GetTeamTiles(team)[0, col].Plant(c);
             yield return null;
             Destroy(gameObject);
         }

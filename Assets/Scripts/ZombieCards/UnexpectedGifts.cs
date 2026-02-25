@@ -9,7 +9,7 @@ public class UnexpectedGifts : Card
     {
         yield return new WaitForSeconds(1);
         yield return GameManager.Instance.DrawCard(team, 3);
-        yield return GameManager.Instance.DrawCard(Team.Plant, 1);
+        yield return GameManager.Instance.DrawCard(GetOpponent(team), 1);
         yield return base.OnThisPlay();
     }
 

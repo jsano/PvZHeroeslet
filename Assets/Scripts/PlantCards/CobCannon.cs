@@ -11,7 +11,7 @@ public class CobCannon : Card
         for (int i = -1; i <= 1; i++)
         {
             if (col + i < 0 || col + i > 4) continue;
-            if (Tile.zombieTiles[0, col + i].HasRevealedPlanted()) targets.Add(Tile.zombieTiles[0, col + i].planted);
+            for (int r = 0; r < Tile.ROWS; r++) if (Tile.GetTeamTiles(GetOpponent(team))[r, col + i].HasRevealedPlanted()) targets.Add(Tile.GetTeamTiles(GetOpponent(team))[r, col + i].planted);
         }
         if (targets.Count > 0)
         {
@@ -22,9 +22,9 @@ public class CobCannon : Card
         {
             for (int col = 0; col < 5; col++)
             {
-                if (Tile.zombieTiles[0, col].HasRevealedPlanted() && !Tile.zombieTiles[0, col].planted.died)
+                if (Tile.GetTeamTiles(GetOpponent(team))[0, col].HasRevealedPlanted() && !Tile.GetTeamTiles(GetOpponent(team))[0, col].planted.died)
                 {
-                    choices.Add(Tile.zombieTiles[0, col].GetComponent<BoxCollider2D>());
+                    choices.Add(Tile.GetTeamTiles(GetOpponent(team))[0, col].GetComponent<BoxCollider2D>());
                 }
             }
             if (choices.Count == 1) yield return OnSelection(choices[0]);

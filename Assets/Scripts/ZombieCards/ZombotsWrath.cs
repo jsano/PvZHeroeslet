@@ -8,8 +8,8 @@ public class ZombotsWrath : Card
 	{
 		yield return new WaitForSeconds(1);
 		int count = 0;
-		for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++) if (Tile.zombieTiles[i, j].HasRevealedPlanted()) count += 1;
-		yield return Tile.plantTiles[row, col].planted.ReceiveDamage(count + 1, this);
+		for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++) if (Tile.GetTeamTiles(team)[i, j].HasRevealedPlanted()) count += 1;
+		yield return Tile.GetTeamTiles(GetOpponent(team))[row, col].planted.ReceiveDamage(count + 1, this);
 		yield return base.OnThisPlay();
 	}
 
@@ -19,11 +19,11 @@ public class ZombotsWrath : Card
         Tile t = bc.GetComponent<Tile>();
         if (t != null)
         {
-            if (!t.HasRevealedPlanted() || t.planted.team == Team.Zombie) return false;
+            if (!t.HasRevealedPlanted() || t.planted.team == GameManager.Instance.team) return false;
         }
         else
         {
-            if (bc.GetComponent<Hero>().team == Team.Zombie) return false;
+            if (bc.GetComponent<Hero>().team == GameManager.Instance.team) return false;
         }
         return true;
     }

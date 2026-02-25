@@ -11,8 +11,8 @@ public class Fireworks : Card
             
 		for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++)
 			{
-				if (Tile.plantTiles[i, j].planted != null) targets.Add(Tile.plantTiles[i, j].planted);
-                if (Tile.zombieTiles[i, j].planted != null) targets.Add(Tile.zombieTiles[i, j].planted);
+				if (Tile.playerTiles[i, j].planted != null) targets.Add(Tile.playerTiles[i, j].planted);
+                if (Tile.opponentTiles[i, j].planted != null) targets.Add(Tile.opponentTiles[i, j].planted);
             }
         yield return Glow();
         yield return AttackFXs(targets);

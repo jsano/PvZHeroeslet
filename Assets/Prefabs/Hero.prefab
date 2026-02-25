@@ -131,10 +131,13 @@ MonoBehaviour:
   team: 0
   classes: 
   superpowers: []
-  HP: 20
+  HP: 30
   hpUI: {fileID: 2960550511376748428}
   blockMeter: {fileID: 2300728247404797493}
   eight: {fileID: 759668105691904107}
+  sixImage: {fileID: 21300000, guid: 9558a66745712ff4caadaa3864d41cd5, type: 3}
+  blockActivationLimit: 0
+  segmentsToActivation: 8
   thinking: {fileID: 2129037250714736931}
 --- !u!212 &-9058245760563841667
 SpriteRenderer:

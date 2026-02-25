@@ -7,8 +7,8 @@ public class PiedPiper : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		Card c = Tile.plantTiles[0, col].planted;
-		Card c1 = Tile.plantTiles[1, col].planted;
+		Card c = Tile.GetTeamTiles(GetOpponent(team))[0, col].planted;
+		Card c1 = Tile.GetTeamTiles(GetOpponent(team))[1, col].planted;
 		if (c != null || c1 != null)
 		{
             yield return Glow();

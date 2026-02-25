@@ -7,10 +7,11 @@ public class Toadstool : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		if (Tile.zombieTiles[0, col].HasRevealedPlanted() && Tile.zombieTiles[0, col].planted.atk <= 4)
+		Damagable target = GetTargets(col)[0];
+		if (target.GetComponent<Card>() != null && !target.GetComponent<Card>().gravestone && target.GetComponent<Card>().atk <= 4)
 		{
 			yield return Glow();
-			Tile.zombieTiles[0, col].planted.Destroy();
+            target.GetComponent<Card>().Destroy();
 		}
 		yield return base.OnThisPlay();
     }

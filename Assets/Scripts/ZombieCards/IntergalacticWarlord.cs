@@ -11,9 +11,17 @@ public class IntergalacticWarlord : Card
 
     protected override IEnumerator OnThisPlay()
     {
-        GameManager.Instance.zombiePermanentAttackBonus += 1;
-        GameManager.Instance.zombiePermanentHPBonus += 1;
-        for (int j = 0; j < 5; j++) if (Tile.zombieTiles[0, j].HasRevealedPlanted()) Tile.zombieTiles[0, j].planted.ChangeStats(1, 1);
+        if (team == GameManager.Instance.team)
+        {
+            GameManager.Instance.playerPermanentAttackBonus += 1;
+            GameManager.Instance.playerPermanentHPBonus += 1;
+        }
+        else
+        {
+            GameManager.Instance.opponentPermanentAttackBonus += 1;
+            GameManager.Instance.opponentPermanentHPBonus += 1;
+        }
+        for (int r = 0; r < Tile.ROWS; r++) for (int j = 0; j < 5; j++) if (Tile.GetTeamTiles(team)[r, j].HasRevealedPlanted()) Tile.GetTeamTiles(team)[r, j].planted.ChangeStats(1, 1);
         foreach (HandCard hc in GameManager.Instance.GetHandCards()) if (hc.orig.type == Type.Unit)
             {
                 hc.ChangeAttack(0);

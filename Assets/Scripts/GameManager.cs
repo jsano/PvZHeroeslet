@@ -57,11 +57,15 @@ public class GameManager : NetworkBehaviour
 	private bool timerOn;
 	private bool timerMOn;
 	private bool timerBOn;
+	[HideInInspector] public int turnTimerMax = 30;
+    [HideInInspector] public int mulliganTimerMax = 15;
+    [HideInInspector] public int blockTimerMax = 10;
+    [HideInInspector] public int buffTimerMax = 15;
 
     /// <summary>
     /// How many buff rerolls the player has
     /// </summary>
-    private int rerolls = 1;
+    [HideInInspector] public int rerolls = 1;
     /// <summary>
     /// The current randomized selection of buffs to offer each player. Only one player should fill these in each time so the second attempt should be ignored
     /// </summary>
@@ -79,61 +83,62 @@ public class GameManager : NetworkBehaviour
 	/// <summary>
 	/// How much gold the player has left this turn
 	/// </summary>
-    private float remaining = 1;
+    public float remaining { get; private set; }
 	/// <summary>
 	/// The highest gold the player had this turn
 	/// </summary>
     public float remainingTop { get; private set; }
-    /// <summary>
-    /// How much extra gold the player has for each turn (ex. from Sunburn)
-    /// </summary>
-    [HideInInspector] public int permanentBonus = 0;
+    
     /// <summary>
     /// How much gold the opponent has left this turn
     /// </summary>
-    private float opponentRemaining = 1;
+    public float opponentRemaining { get; private set; }
 	/// <summary>
 	/// The highest gold the opponent had this turn
 	/// </summary>
     public float opponentRemainingTop { get; private set; }
+	/// <summary>
+    /// How much extra gold the player has for each turn (ex. from Sunburn)
+    /// </summary>
+    [HideInInspector] public int playerPermanentBonus = 0;
     /// <summary>
     /// How much extra gold the opponent has for each turn (ex. from Cryo-brain)
     /// </summary>
     [HideInInspector] public int opponentPermanentBonus = 0;
     /// <summary>
-    /// How much extra attack the plants have for the rest of the game
+    /// How much extra attack the player cards have for the rest of the game
     /// </summary>
-    [HideInInspector] public int plantPermanentAttackBonus = 0;
+    [HideInInspector] public int playerPermanentAttackBonus = 0;
     /// <summary>
-    /// How much extra HP the plants have for the rest of the game
+    /// How much extra HP the player cards have for the rest of the game
     /// </summary>
-    [HideInInspector] public int plantPermanentHPBonus = 0;
+    [HideInInspector] public int playerPermanentHPBonus = 0;
     /// <summary>
-    /// How much extra attack the zombies have for the rest of the game
+    /// How much extra attack the opponent cards have for the rest of the game
     /// </summary>
-    [HideInInspector] public int zombiePermanentAttackBonus = 0;
+    [HideInInspector] public int opponentPermanentAttackBonus = 0;
     /// <summary>
-    /// How much extra HP the zombies have for the rest of the game
+    /// How much extra HP the opponent cards have for the rest of the game
     /// </summary>
-    [HideInInspector] public int zombiePermanentHPBonus = 0;
+    [HideInInspector] public int opponentPermanentHPBonus = 0;
     /// <summary>
-    /// How much less gold the plant cards cost for the rest of the game
+    /// How much less gold the player units cost for the rest of the game
     /// </summary>
-    [HideInInspector] public float plantCardPermanentDiscount = 0;
+    [HideInInspector] public float playerUnitPermanentDiscount = 0;
     /// <summary>
-    /// How much less gold the zombie cards cost for the rest of the game
+    /// How much less gold the player tricks cost for the rest of the game
     /// </summary>
-    [HideInInspector] public float zombieCardPermanentDiscount = 0;
+    [HideInInspector] public float playerTrickPermanentDiscount = 0;
     /// <summary>
-    /// How much less gold the plant tricks cost for the rest of the game
+    /// For literally just Clique Peas only
     /// </summary>
-    [HideInInspector] public float plantTrickPermanentDiscount = 0;
+    [HideInInspector] public int playerCliquePeas = 0;
     /// <summary>
-    /// How much less gold the zombie tricks cost for the rest of the game
+    /// For literally just Clique Peas only
     /// </summary>
-    [HideInInspector] public float zombieTrickPermanentDiscount = 0;
+    [HideInInspector] public int opponentCliquePeas = 0;
     /// <summary>
-    /// The player's team (Plant/Zombie), derived from their hero's team
+    /// The player's team (A/B)
     /// </summary>
     public Team team;
 
@@ -170,11 +175,11 @@ public class GameManager : NetworkBehaviour
     /// <summary>
     /// Reference to plant hero script
     /// </summary>
-    [HideInInspector] public Hero plantHero;
+    [HideInInspector] public Hero playerHero;
     /// <summary>
     /// Reference to zombie hero script
     /// </summary>
-    [HideInInspector] public Hero zombieHero;
+    [HideInInspector] public Hero opponentHero;
     /// <summary>
     /// Halt game flow if a player blocked. When set to null, game flow immediately resumes
     /// </summary>
@@ -205,10 +210,6 @@ public class GameManager : NetworkBehaviour
     /// For literally just Sun Strike only
     /// </summary>
     public List<Card> removeStrikethrough = new();
-    /// <summary>
-    /// For literally just Clique Peas only
-    /// </summary>
-    public int cliquePeas = 0;
 
 	public Transform playerBuffs { get; private set; }
     public Transform opponentBuffs { get; private set; }
@@ -225,8 +226,9 @@ public class GameManager : NetworkBehaviour
 		{ "OnCardHurt", 5 }, 
 		{ "OnHeroHeal" , 6 }, 
 		{ "OnCardHeal" , 7 },
-		{ "OnCardBonusAttack", 8 },
-		{ "OnCardDraw", 9 } 
+		{ "OnCardStatsChanged", 8 },
+		{ "OnCardBonusAttack", 9 },
+		{ "OnCardDraw", 10 } 
 	};
     
 	/// <summary>
@@ -300,7 +302,7 @@ public class GameManager : NetworkBehaviour
                         }
                         else if (methodName == "OnCardDeath") stackTeam = ((Tuple<Card, Card>)eventStack[i].arg).Item1.GetComponent<Card>().team;
                         else stackTeam = ((Damagable)eventStack[i].arg).GetComponent<Card>().team;
-                        if (stackTeam == Team.Plant) continue;
+                        if (stackTeam == GetOpponent(WentFirst())) continue;
 					}
 				}
 				break;
@@ -336,7 +338,8 @@ public class GameManager : NetworkBehaviour
 
 			if (currentEvent.methodName == "OnBlock")
 			{
-				yield return HandleHeroBlocks((Hero)currentEvent.arg);
+				Buff.CallAllImmediate("OnBlock", (Hero)currentEvent.arg);
+                yield return HandleHeroBlocks((Hero)currentEvent.arg);
 				continue;
 			}
 
@@ -375,30 +378,31 @@ public class GameManager : NetworkBehaviour
 		AudioManager.Instance.PlayMusic(choices[UnityEngine.Random.Range(0, choices.Count)]);
 		endScreen.SetActive(false);
 		// Setup board structure depending on the player's team
-		plantHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.PlantHero]).GetComponent<Hero>();
-		zombieHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.ZombieHero]).GetComponent<Hero>();
-        if (AllCards.Instance.heroes[UserAccounts.allDecks[UserAccounts.GameStats.DeckName].heroID].team == Team.Plant)
+		team = UserAccounts.GameStats.team;
+        if (team == Team.B)
 		{
-			team = Team.Plant;
-			plantHero.transform.position = new Vector2(0, -3.25f);
-		    zombieHero.transform.position = new Vector2(0, 3.5f);
-            zombieHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
-            zombieHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
-		}
-		else
-		{
-			team = Team.Zombie;
-			zombieHero.transform.position = new Vector2(0, -3.25f);
-			plantHero.transform.position = new Vector2(0, 3.5f);
-			plantHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
-			plantHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
+			playerHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.BHero]).GetComponent<Hero>();
+			opponentHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.AHero]).GetComponent<Hero>();
             remainingText.transform.parent.GetComponent<Image>().sprite = AllCards.Instance.brainUI;
             opponentRemainingText.transform.parent.GetComponent<Image>().sprite = AllCards.Instance.sunUI;
             remainingAnim.GetComponent<Image>().sprite = AllCards.Instance.brainUI;
             opponentRemainingAnim.GetComponent<Image>().sprite = AllCards.Instance.sunUI;
         }
+		else
+		{
+            playerHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.AHero]).GetComponent<Hero>();
+            opponentHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.BHero]).GetComponent<Hero>();
+        }
+		playerHero.transform.position = new Vector2(0, -3.25f);
+        opponentHero.transform.position = new Vector2(0, 3.5f);
+        opponentHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
+        opponentHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
+		playerHero.team = team;
+		opponentHero.team = GetOpponent(team);
+		remaining = 1;
+		opponentRemaining = 1;
 
-		foreach (Transform t in GameObject.Find("Tiles").transform)
+        foreach (Transform t in GameObject.Find("Tiles").transform)
 		{
             t.GetComponent<Tile>().AssignSide();
 		}
@@ -419,15 +423,16 @@ public class GameManager : NetworkBehaviour
 
 		shuffledLists = new();
 
-		for (int i = 0; i < AllCards.Instance.buffs.Length; i++) availableBuffDatabase.Add(i);
+		if (UserAccounts.GameStats.Buffs != null) foreach (int i in UserAccounts.GameStats.Buffs) availableBuffDatabase.Add(i);
+        else for (int i = 0; i < AllCards.Instance.buffs.Length; i++) availableBuffDatabase.Add(i);
 
 		StartCoroutine(Mulligan());
     }
 
 	private IEnumerator Mulligan()
 	{
-        StartCoroutine(DrawCard(team == Team.Plant ? Team.Zombie : Team.Plant, 4, false));
-        StartCoroutine(GainHandCard(team == Team.Plant ? Team.Zombie : Team.Plant, 0, null, false, false));
+        StartCoroutine(DrawCard(GetOpponent(team), 4, false));
+        StartCoroutine(GainHandCard(GetOpponent(team), 0, null, false, false));
 
 		Vector2[] pos = new Vector2[] { new(-1, 1), new(1, 1), new(-1, -1), new(1, -1) };
         for (int i = 0; i < 4; i++)
@@ -441,7 +446,7 @@ public class GameManager : NetworkBehaviour
             deck.RemoveAt(0);
         }
 		timerMOn = true;
-		timer = 15;
+		timer = mulliganTimerMax;
 		yield return new WaitUntil(() => mulliganed == true);
 
 		mulliganUI.SetActive(false);
@@ -460,10 +465,12 @@ public class GameManager : NetworkBehaviour
         }
 		yield return new WaitUntil(() => done == true);
 
+		yield return OfferBuffs();
+
         yield return GainHandCard(team, UserAccounts.allDecks[UserAccounts.GameStats.DeckName].superpowerOrder[superpowerIndex], null, false);
         yield return ProcessEvents();
-        StartCoroutine(UpdateRemaining(0, Team.Plant));
-        yield return UpdateRemaining(0, Team.Zombie);
+        StartCoroutine(UpdateRemaining(0, Team.A, false));
+        yield return UpdateRemaining(0, Team.B, false);
         EndRpc(team);
 	}
 
@@ -496,26 +503,25 @@ public class GameManager : NetworkBehaviour
 		if (timerOn)
 		{
 			timer -= Time.deltaTime;
-			timerImage.fillAmount = 0.18f + 0.64f * (waitingOnBlock ? timer / 10 : timer / 30);
+			timerImage.fillAmount = 0.18f + 0.64f * (waitingOnBlock ? timer / blockTimerMax : timer / turnTimerMax);
 			if (timer <= 0)
 			{
 				timerOn = false;
-				timer = 30;
+				timer = turnTimerMax;
 				if (waitingOnBlock) HoldTrickRpc(team);
-				else EndRpc(team);
+				else EndRpc(team, true);
 			}
 		}
 		else
 		{
-			if (waitingOnBlock == null) if (phase == 3 && team == Team.Plant || phase == 2 && team == Team.Zombie || phase == 1 && team == Team.Plant) {
-				var hero = team == Team.Plant ? zombieHero : plantHero;
-				hero.ToggleThinking(true);
+			if (waitingOnBlock == null) if (phase == 3 && team != WentFirst() || phase == 2 && team == WentFirst() || phase == 1 && team != WentFirst()) {
+				opponentHero.ToggleThinking(true);
             }
 		}
 		if (timerMOn)
 		{
 			timer -= Time.deltaTime;
-			timerImageM.fillAmount = timer / 15;
+			timerImageM.fillAmount = timer / mulliganTimerMax;
 			if (timer <= 0)
 			{
 				timerMOn = false;
@@ -525,7 +531,7 @@ public class GameManager : NetworkBehaviour
         if (timerBOn)
         {
             timer -= Time.deltaTime;
-            timerImageB.fillAmount = timer / 15;
+            timerImageB.fillAmount = timer / buffTimerMax;
             if (timer <= 0)
             {
                 timerBOn = false;
@@ -544,6 +550,11 @@ public class GameManager : NetworkBehaviour
     /// </summary>
     public IEnumerator DrawCard(Team t, int count = 1, bool animation = true)
 	{
+		if (Buff.PlayerHasBuff("Altered Expectations", t))
+		{
+			if (phase == 0) count = 0;
+			else count += 1;
+		}
 		for (int i = 0; i < count; i++)
 		{
             if (team == t && handCards.childCount < 10) deck.RemoveAt(0);
@@ -561,7 +572,7 @@ public class GameManager : NetworkBehaviour
 		GameObject c = null;
 		if (team == t)
 		{
-			if (handCards.childCount >= 10) yield break;
+			if (handCards.childCount >= 10 || Buff.PlayerHasBuff("Suffocating Limits", GetOpponent(t)) && handCards.childCount >= 8) yield break;
 			if (AllCards.Instance.cards[id].specialHandCard != null) c = Instantiate(AllCards.Instance.cards[id].specialHandCard, handCards);
             else c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
@@ -573,14 +584,13 @@ public class GameManager : NetworkBehaviour
 		} 
 		else
 		{
-			Debug.Log(opponentHandCards.childCount);
-			if (opponentHandCards.childCount >= 10) yield break;
+			if (opponentHandCards.childCount >= 10 || Buff.PlayerHasBuff("Suffocating Limits", GetOpponent(t)) && opponentHandCards.childCount >= 8) yield break;
 			int current = opponentHandCards.childCount;
 			c = Instantiate(cardBackPrefab, opponentHandCards);
 			c.transform.SetSiblingIndex(current);
             c.transform.localPosition = new Vector2(-2.5f + current * 0.5f, 0);
 			c.GetComponent<SpriteRenderer>().sortingOrder = current;
-            if (t == Team.Zombie) c.GetComponent<SpriteRenderer>().sprite = AllCards.Instance.zombieCardBack;
+            if (t == Team.B) c.GetComponent<SpriteRenderer>().sprite = AllCards.Instance.zombieCardBack;
         }
         TriggerEvent("OnCardDraw", t);
 		if (animation)
@@ -637,16 +647,17 @@ public class GameManager : NetworkBehaviour
     /// Signals to the network that it is ready for the next phase. Transitions to the next phase if possible
     /// </summary>
     [Rpc(SendTo.ClientsAndHost)]
-    public void EndRpc(Team sourceTeam)
+    public void EndRpc(Team sourceTeam, bool timeOut = false)
     {
+		if (timeOut) if (Buff.PlayerHasBuff("Thin Patience", GetOpponent(sourceTeam))) StartCoroutine(GetTeamHero(sourceTeam).ReceiveDamage(5, null, true));
         StartCoroutine(EndRpcHelper(sourceTeam));
     }
 
     private IEnumerator EndRpcHelper(Team sourceTeam)
     {
-		yield return new WaitUntil(() => opponentPlayedQueue.Count == 0);
+		yield return new WaitUntil(() => opponentPlayedQueue.Count == 0 && isProcessing == false);
 
-        string[] pnames = new string[] { "", "Zombies\nPlay", "Plants\nPlay", "Zombie\nTricks", "FIGHT!" };
+		string[] pnames = new string[] { "", "Initiative\nPlay", "Reactive\nPlay", "Initiative\nTricks", "FIGHT!" };
 
 		// Only start the next turn when both players are ready
 		if (phase == 0 || phase == 4)
@@ -666,8 +677,8 @@ public class GameManager : NetworkBehaviour
 		waiting.SetActive(false);
 
         AudioManager.Instance.PlaySFX("Go");
-        plantHero.ToggleThinking(false);
-        zombieHero.ToggleThinking(false);
+        playerHero.ToggleThinking(false);
+        opponentHero.ToggleThinking(false);
         phase += 1;
 
         phaseText.GetComponent<TextMeshProUGUI>().text = pnames[phase];
@@ -677,17 +688,15 @@ public class GameManager : NetworkBehaviour
         phaseText.transform.localScale = Vector3.zero;
         goTween = LeanTween.scale(phaseText, Vector3.one, 0.5f).setEaseOutBack().setOnComplete(() => LeanTween.scale(phaseText, Vector3.zero, 0.5f).setEaseInBack().setDelay(1));
 
-		// Start of zombie tricks: Reveal gravestones
+		// Start of initiative tricks: Reveal their gravestones
         DisableHandCards();
         if (phase == 3)
         {
-			for (int col = 0; col < 5; col++)
+			for (int row = 0; row < Tile.ROWS; row++) for (int col = 0; col < Tile.COLUMNS; col++)
 			{
-				Card c = Tile.zombieTiles[0, col].planted;
+				Card c = Tile.GetTeamTiles(WentFirst())[row, col].planted;
 				if (c != null && c.gravestone)
 				{
-					// Update zombie brain UI only for the plant side
-					if (c.team != team) StartCoroutine(UpdateRemaining(-c.playedCost, Team.Zombie));
 					yield return c.Reveal();
                     DisableHandCards();
                 }
@@ -695,7 +704,21 @@ public class GameManager : NetworkBehaviour
 			}
 		}
 
-		timer = 30;
+		// Start of the reactive player's next turn: Reveal their gravestones
+        if (phase == 1)
+        {
+            for (int row = 0; row < Tile.ROWS; row++) for (int col = 0; col < Tile.COLUMNS; col++)
+            {
+                Card c = Tile.GetTeamTiles(WentFirst())[row, col].planted;
+                if (c != null && c.gravestone)
+                {
+                    yield return c.Reveal();
+                    DisableHandCards();
+                }
+            }
+        }
+
+        timer = turnTimerMax;
         if (phase == 4) StartCoroutine(Combat());
 		else EnablePlayableHandCards();
 	}
@@ -713,38 +736,46 @@ public class GameManager : NetworkBehaviour
 
 		laneHighlight.gameObject.SetActive(true);
 		// Cards attack left to right
-        for (int col = 0; col < 5; col++)
+        for (int col = 0; col < Tile.COLUMNS; col++)
 		{
-			laneHighlight.position = new Vector3(Tile.plantTiles[0, col].transform.position.x, 0, 0);
+			laneHighlight.position = new Vector3(Tile.playerTiles[0, col].transform.position.x, 0, 0);
 
 			if (Tile.terrainTiles[col].planted != null) yield return Tile.terrainTiles[col].planted.BeforeCombat();
 			yield return ProcessEvents();
 
+			Tile[,] initiate = Tile.GetTeamTiles(WentFirst());
+			Tile[,] retaliate = Tile.GetTeamTiles(GetOpponent(WentFirst()));
 			int savedHP1 = -1;
 			int savedHP2 = -1;
-			if (Tile.plantTiles[1, col].planted != null) savedHP2 = Tile.plantTiles[1, col].planted.HP;
-            if (Tile.plantTiles[0, col].planted != null) savedHP1 = Tile.plantTiles[0, col].planted.HP;
+			if (retaliate[1, col].planted != null) savedHP2 = retaliate[1, col].planted.HP;
+            if (retaliate[0, col].planted != null) savedHP1 = retaliate[0, col].planted.HP;
 
-            if (Tile.zombieTiles[0, col].planted != null)
-			{
-                yield return Tile.zombieTiles[0, col].planted.BeforeCombat();
+            if (initiate[1, col].planted != null)
+            {
+                yield return initiate[1, col].planted.BeforeCombat();
                 yield return ProcessEvents(true);
-                if (Tile.zombieTiles[0, col].planted != null) yield return Tile.zombieTiles[0, col].planted.Attack();
+                if (initiate[1, col].planted != null) yield return initiate[1, col].planted.Attack();
+            }
+            if (initiate[0, col].planted != null)
+			{
+                yield return initiate[0, col].planted.BeforeCombat();
+                yield return ProcessEvents(true);
+                if (initiate[0, col].planted != null) yield return initiate[0, col].planted.Attack();
 			}
 
             if (ENDED) yield break;
 
-			if (Tile.plantTiles[1, col].planted != null)
+			if (retaliate[1, col].planted != null)
 			{
-                yield return Tile.plantTiles[1, col].planted.BeforeCombat();
+                yield return retaliate[1, col].planted.BeforeCombat();
                 yield return ProcessEvents(true);
-                if (Tile.plantTiles[1, col].planted != null) yield return Tile.plantTiles[1, col].planted.Attack(savedHP2);
+                if (retaliate[1, col].planted != null) yield return retaliate[1, col].planted.Attack(savedHP2);
 			}
-			if (Tile.plantTiles[0, col].planted != null)
+			if (retaliate[0, col].planted != null)
 			{
-                yield return Tile.plantTiles[0, col].planted.BeforeCombat();
+                yield return retaliate[0, col].planted.BeforeCombat();
                 yield return ProcessEvents(true);
-                if (Tile.plantTiles[0, col].planted != null) yield return Tile.plantTiles[0, col].planted.Attack(savedHP1);
+                if (retaliate[0, col].planted != null) yield return retaliate[0, col].planted.Attack(savedHP1);
 			}
 
 			yield return ProcessEvents();
@@ -754,32 +785,38 @@ public class GameManager : NetworkBehaviour
             if (Tile.terrainTiles[col].planted != null) yield return Tile.terrainTiles[col].planted.AfterCombat();
             yield return ProcessEvents();
 
-            if (Tile.zombieTiles[0, col].planted != null)
+            if (initiate[1, col].planted != null)
             {
-                yield return Tile.zombieTiles[0, col].planted.AfterCombat();
+                yield return initiate[1, col].planted.AfterCombat();
+                yield return ProcessEvents(true);
+            }
+            if (initiate[0, col].planted != null)
+            {
+                yield return initiate[0, col].planted.AfterCombat();
                 yield return ProcessEvents(true);
             }
 
             if (ENDED) yield break;
 
-            if (Tile.plantTiles[1, col].planted != null)
+            if (retaliate[1, col].planted != null)
             {
-                yield return Tile.plantTiles[1, col].planted.AfterCombat();
+                yield return retaliate[1, col].planted.AfterCombat();
                 yield return ProcessEvents(true);
             }
-            if (Tile.plantTiles[0, col].planted != null)
+            if (retaliate[0, col].planted != null)
             {
-                yield return Tile.plantTiles[0, col].planted.AfterCombat();
+                yield return retaliate[0, col].planted.AfterCombat();
                 yield return ProcessEvents(true);
             }
 
             if (ENDED) yield break;
 
             // Handle doublestrike if applicable
-            if (Tile.zombieTiles[0, col].planted != null && Tile.zombieTiles[0, col].planted.doubleStrike > 0) yield return Tile.zombieTiles[0, col].planted.BonusAttack();
+            if (initiate[1, col].planted != null && initiate[1, col].planted.doubleStrike > 0) yield return initiate[1, col].planted.BonusAttack();
+            if (initiate[0, col].planted != null && initiate[0, col].planted.doubleStrike > 0) yield return initiate[0, col].planted.BonusAttack();
 
-			if (Tile.plantTiles[1, col].planted != null && Tile.plantTiles[1, col].planted.doubleStrike > 0) yield return Tile.plantTiles[1, col].planted.BonusAttack();
-			if (Tile.plantTiles[0, col].planted != null && Tile.plantTiles[0, col].planted.doubleStrike > 0) yield return Tile.plantTiles[0, col].planted.BonusAttack();
+			if (retaliate[1, col].planted != null && retaliate[1, col].planted.doubleStrike > 0) yield return retaliate[1, col].planted.BonusAttack();
+			if (retaliate[0, col].planted != null && retaliate[0, col].planted.doubleStrike > 0) yield return retaliate[0, col].planted.BonusAttack();
 
             if (ENDED) yield break;
 
@@ -795,37 +832,32 @@ public class GameManager : NetworkBehaviour
         else yield return new WaitForSeconds(1);
 
         // Any invulnerable objects lose invulnerability at end of turn
-        plantHero.ToggleInvulnerability(false);
-		zombieHero.ToggleInvulnerability(false);
+        playerHero.ToggleInvulnerability(false);
+		opponentHero.ToggleInvulnerability(false);
 		for (int col = 0; col < 5; col++)
 		{
 			for (int row = 0; row < 2; row++)
 			{
-                if (Tile.plantTiles[row, col].HasRevealedPlanted()) Tile.plantTiles[row, col].planted.ToggleInvulnerability(false);
-                if (Tile.zombieTiles[row, col].HasRevealedPlanted()) Tile.zombieTiles[row, col].planted.ToggleInvulnerability(false);
+                if (Tile.playerTiles[row, col].HasRevealedPlanted()) Tile.playerTiles[row, col].planted.ToggleInvulnerability(false);
+                if (Tile.opponentTiles[row, col].HasRevealedPlanted()) Tile.opponentTiles[row, col].planted.ToggleInvulnerability(false);
 			}
 		}
 		foreach (Card c in removeStrikethrough) c.strikethrough -= 1;
 		removeStrikethrough.Clear();
 
 		yield return OfferBuffs();
-		Buff b1 = Instantiate(AllCards.Instance.buffs[chosenBuff[0]], playerBuffs);
-		b1.team = team;
-        Buff b2 = Instantiate(AllCards.Instance.buffs[chosenBuff[1]], opponentBuffs);
-		b2.team = team == Team.Plant ? Team.Zombie : Team.Plant;
-		availableBuffDatabase.Remove(chosenBuff[0]);
-        availableBuffDatabase.Remove(chosenBuff[1]);
-		buffChoices.Clear();
+
+		Buff.CallAllImmediate("AfterTurnEndBeforeTurnStart", null);
 
         // Setup for next turn
         StartCoroutine(AudioManager.Instance.ToggleBattleMusic(false));
         turn += 1;
-        remaining = 0;
-		opponentRemaining = 0;
-		yield return UpdateRemaining(0, Team.Plant);
-		yield return UpdateRemaining(0, Team.Zombie);
-        StartCoroutine(UpdateRemaining(turn + permanentBonus, team));
-		yield return UpdateRemaining(turn + opponentPermanentBonus, team == Team.Plant ? Team.Zombie : Team.Plant);
+        if (!Buff.PlayerHasBuff("Nervous Laughter", team)) remaining = 0;
+        if (!Buff.PlayerHasBuff("Nervous Laughter", GetOpponent(team))) opponentRemaining = 0;
+		yield return UpdateRemaining(0, Team.A, false);
+		yield return UpdateRemaining(0, Team.B, false);
+        StartCoroutine(UpdateRemaining(turn + playerPermanentBonus, team, false));
+		yield return UpdateRemaining(turn + opponentPermanentBonus, GetOpponent(team), false);
 		phase = 0;
 		allowZombieCards = false;
 		
@@ -835,8 +867,8 @@ public class GameManager : NetworkBehaviour
 		bool wait = false;
 		// If at least 1 side drew, this is how long it should theoretically take. TODO: fix?
 		if (handCards.childCount < 10 || opponentHandCards.childCount < 10) wait = true;
-		StartCoroutine(DrawCard(Team.Zombie));
-        StartCoroutine(DrawCard(Team.Plant));
+		StartCoroutine(DrawCard(Team.B));
+        StartCoroutine(DrawCard(Team.A));
 		if (wait) yield return new WaitForSeconds(1);
 
 		yield return ProcessEvents();
@@ -870,6 +902,7 @@ public class GameManager : NetworkBehaviour
 		chosenBuff = new int[] { -1, -1 };
 		buffSelectionUI.SetActive(true);
         if (buffChoices.Count == 1) lockInButton.interactable = true; // No options
+		rerollText.text = rerolls + " remaining";
 		rerollButton.interactable = rerolls > 0;
         foreach (int b in buffChoices)
 		{
@@ -878,10 +911,18 @@ public class GameManager : NetworkBehaviour
 			g.GetComponent<BuffSelection>().ID = b;
 		}
 		timerBOn = true;
-		timer = 15;
+		timer = buffTimerMax;
 		//TODO: handle when a player can't get a buff (no option)
 		yield return new WaitUntil(() => chosenBuff[0] != -1 && chosenBuff[1] != -1);
         buffSelectionUI.SetActive(false);
+
+        Buff b1 = Instantiate(AllCards.Instance.buffs[chosenBuff[0]], playerBuffs);
+        b1.team = team;
+        Buff b2 = Instantiate(AllCards.Instance.buffs[chosenBuff[1]], opponentBuffs);
+        b2.team = GetOpponent(team);
+        availableBuffDatabase.Remove(chosenBuff[0]);
+        availableBuffDatabase.Remove(chosenBuff[1]);
+        buffChoices.Clear();
     }
 
     [Rpc(SendTo.ClientsAndHost)]
@@ -913,13 +954,12 @@ public class GameManager : NetworkBehaviour
     /// Sends a unit to be played through the network under the given FinalStats, row, and column. Uses the card's team to decide which side to plant it on
     /// </summary>
     /// <param name="fs">The played card's stats</param>
-    /// <param name="fromHandCard">If true, adds to the network spawning queue.
-	/// Otherwise, assumes it was called by another card and doesn't deduct from this player's remaining gold</param>
+    /// <param name="playingTeam">Which player is playing this card and sent this RPC </param>
     [Rpc(SendTo.ClientsAndHost)]
-    public void PlayCardRpc(FinalStats fs, int row, int col)
+    public void PlayCardRpc(FinalStats fs, int row, int col, Team playingTeam)
     {
-		if (AllCards.Instance.cards[fs.ID].team == team) PlayCardHelper(fs, row, col);
-        else if (waitingOnBlock) PlayCardHelper(fs, row, col);
+		if (playingTeam == team) PlayCardHelper(fs, row, col, playingTeam);
+        else if (waitingOnBlock) PlayCardHelper(fs, row, col, playingTeam);
         else
 		{
 			opponentPlayedQueue.Add((fs, row, col, false));
@@ -927,26 +967,19 @@ public class GameManager : NetworkBehaviour
 		}
     }
 
-	private void PlayCardHelper(FinalStats fs, int row, int col)
+	private void PlayCardHelper(FinalStats fs, int row, int col, Team playingTeam)
 	{
 		Card card = AllCards.Instance.cards[fs.ID];
-		if (card.team != team)
+		if (playingTeam != team)
 		{
 			Destroy(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject);
-			// From the opponent's perspective, only deduct the gold UI if it's not a gravestone
-			if (!card.gravestone) StartCoroutine(UpdateRemaining(-fs.cost, card.team));
-		}
-		else
-		{
-			// From the player's perspective, always deduct the gold UI
-			StartCoroutine(UpdateRemaining(-fs.cost, team));
 		}
 		
 		card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
 		card.sourceFS = fs;
+		card.team = playingTeam;
 
-		if (card.team == Team.Zombie) Tile.zombieTiles[row, col].Plant(card);
-		else Tile.plantTiles[row, col].Plant(card);
+		Tile.GetTeamTiles(card.team)[row, col].Plant(card);
 
 		// Disable after 1 card play by default
 		allowZombieCards = false;
@@ -956,24 +989,25 @@ public class GameManager : NetworkBehaviour
     /// Sends a trick to be played through the network under the given FinalStats, row, and column. If targeting a hero, set row/column to -1
     /// </summary>
     /// <param name="fs">The played card's stats</param>
-    /// <param name="isPlantTarget">Whether the given row/column represents the plant or zombie side of the board</param>
+    /// <param name="isTargetingTeamA">Whether the given row/column represents Team A's side of the board</param>
+	/// <param name="playingTeam">Which player is playing this card and sent this RPC </param>
     [Rpc(SendTo.ClientsAndHost)]
-	public void PlayTrickRpc(FinalStats fs, int row, int col, bool isPlantTarget)
+	public void PlayTrickRpc(FinalStats fs, int row, int col, bool isTargetingTeamA, Team playingTeam)
 	{
-		if (AllCards.Instance.cards[fs.ID].team == team) PlayTrickHelper(fs, row, col, isPlantTarget);
+		if (playingTeam == team) PlayTrickHelper(fs, row, col, isTargetingTeamA, playingTeam);
 		else if (waitingOnBlock)
 		{
 			blockChoiceMade = true;
-			StartCoroutine(OpponentTrickAnimation(fs, row, col, isPlantTarget));
+			StartCoroutine(OpponentTrickAnimation(fs, row, col, isTargetingTeamA, playingTeam));
 		}
 		else
 		{
-			opponentPlayedQueue.Add((fs, row, col, isPlantTarget));
+			opponentPlayedQueue.Add((fs, row, col, isTargetingTeamA));
 			StartCoroutine(ProcessOpponentPlayedQueue());
 		}
     }
 
-	private IEnumerator OpponentTrickAnimation(FinalStats fs, int row, int col, bool isPlantTarget)
+	private IEnumerator OpponentTrickAnimation(FinalStats fs, int row, int col, bool isTargetingTeamA, Team playingTeam)
 	{
 		if (phase >= 3) plantCombatBehindBy += 2f;
 		GameObject hc = Instantiate(handcardPrefab, opponentHandCards.position, Quaternion.identity);
@@ -986,17 +1020,17 @@ public class GameManager : NetworkBehaviour
         hc.transform.localScale = Vector3.one * 0.5f;
 
 		Vector2 dest;
-        if (!isPlantTarget)
+        if (isTargetingTeamA)
         {
-			if (row == -1 && col == -1) dest = zombieHero.transform.position;
+			if (row == -1 && col == -1) dest = team == Team.A ? playerHero.transform.position : opponentHero.transform.position;
 			else if (row == 2) dest = Tile.terrainTiles[col].transform.position;
-			else dest = Tile.zombieTiles[row, col].transform.position;
+			else dest = Tile.GetTeamTiles(Team.A)[row, col].transform.position;
         }
         else
         {
-            if (row == -1 && col == -1) dest = plantHero.transform.position;
+            if (row == -1 && col == -1) dest = team == Team.B ? playerHero.transform.position : opponentHero.transform.position;
             else if (row == 2) dest = Tile.terrainTiles[col].transform.position;
-            else dest = Tile.plantTiles[row, col].transform.position;
+            else dest = Tile.GetTeamTiles(Team.B)[row, col].transform.position;
         }
         bool done = false;
         LeanTween.move(hc, new Vector2(0, 0), 0.5f).setEaseOutQuad().setOnComplete(() => done = true);
@@ -1008,10 +1042,10 @@ public class GameManager : NetworkBehaviour
         LeanTween.scale(hc, Vector2.one * 0.25f, 0.25f);
         yield return new WaitUntil(() => done == true);
 		Destroy(hc);
-		PlayTrickHelper(fs, row, col, isPlantTarget);
+		PlayTrickHelper(fs, row, col, isTargetingTeamA, playingTeam);
     }
 
-	private void PlayTrickHelper(FinalStats fs, int row, int col, bool isPlantTarget)
+	private void PlayTrickHelper(FinalStats fs, int row, int col, bool isTargetingTeamA, Team playingTeam)
 	{
 		Card card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
 		card.row = row;
@@ -1025,21 +1059,20 @@ public class GameManager : NetworkBehaviour
         }
 		else
 		{
-			if (!isPlantTarget)
+			if (isTargetingTeamA)
 			{
-				if (row == -1 && col == -1) card.transform.position = zombieHero.transform.position;
-				else card.transform.position = Tile.zombieTiles[row, col].transform.position;
+				if (row == -1 && col == -1) card.transform.position = team == Team.A ? playerHero.transform.position : opponentHero.transform.position;
+                else card.transform.position = Tile.GetTeamTiles(Team.A)[row, col].transform.position;
 			}
 			else
 			{
-				if (row == -1 && col == -1) card.transform.position = plantHero.transform.position;
-				else card.transform.position = Tile.plantTiles[row, col].transform.position;
+				if (row == -1 && col == -1) card.transform.position = team == Team.B ? playerHero.transform.position : opponentHero.transform.position;
+                else card.transform.position = Tile.GetTeamTiles(Team.B)[row, col].transform.position;
 			}
 		}
-
+        card.team = playingTeam;
         if (card.team != team) Destroy(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject);
-		StartCoroutine(UpdateRemaining(-fs.cost, card.team));
-	}
+    }
 
 	private IEnumerator ProcessOpponentPlayedQueue()
 	{
@@ -1048,8 +1081,8 @@ public class GameManager : NetworkBehaviour
 		{
 			isProcessingOpponentQueue = true;
 			var cur = opponentPlayedQueue[0];
-			if (AllCards.Instance.cards[((FinalStats)cur[0]).ID].type == Card.Type.Unit) PlayCardHelper((FinalStats)cur[0], (int)cur[1], (int)cur[2]);
-			else yield return OpponentTrickAnimation((FinalStats)cur[0], (int)cur[1], (int)cur[2], (bool)cur[3]);
+			if (AllCards.Instance.cards[((FinalStats)cur[0]).ID].type == Card.Type.Unit) PlayCardHelper((FinalStats)cur[0], (int)cur[1], (int)cur[2], GetOpponent(team));
+			else yield return OpponentTrickAnimation((FinalStats)cur[0], (int)cur[1], (int)cur[2], (bool)cur[3], GetOpponent(team));
 			yield return new WaitUntil(() => isProcessingOpponentQueue == false);
 			opponentPlayedQueue.RemoveAt(0);
         }
@@ -1076,17 +1109,17 @@ public class GameManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     public void SelectingChosenRpc(Team tteam, int row, int col)
     {
-        if (tteam == Team.Plant) 
+        if (tteam == team) 
 		{
-			if (row == -1 && col == -1) selection = plantHero.GetComponent<BoxCollider2D>();
+			if (row == -1 && col == -1) selection = playerHero.GetComponent<BoxCollider2D>();
 			else if (row == 2) selection = Tile.terrainTiles[col].GetComponent<BoxCollider2D>();
-            else selection = Tile.plantTiles[row, col].GetComponent<BoxCollider2D>();
+            else selection = Tile.playerTiles[row, col].GetComponent<BoxCollider2D>();
         }
 		else
 		{
-            if (row == -1 && col == -1) selection = zombieHero.GetComponent<BoxCollider2D>();
+            if (row == -1 && col == -1) selection = opponentHero.GetComponent<BoxCollider2D>();
             else if (row == 2) selection = Tile.terrainTiles[col].GetComponent<BoxCollider2D>();
-            else selection = Tile.zombieTiles[row, col].GetComponent<BoxCollider2D>();
+            else selection = Tile.opponentTiles[row, col].GetComponent<BoxCollider2D>();
         }
     }
 
@@ -1099,19 +1132,22 @@ public class GameManager : NetworkBehaviour
     private IEnumerator CallLeftToRight(string methodName, object arg)
 	{
 		List<Card> toDo = new(); // Need it all at the beginning or else cards that move to the right call multiple times
-		for (int i = 0; i < 5; i++)
+        Tile[,] initiate = Tile.GetTeamTiles(WentFirst());
+        Tile[,] retaliate = Tile.GetTeamTiles(GetOpponent(WentFirst()));
+        for (int i = 0; i < Tile.COLUMNS; i++)
 		{
 			if (Tile.terrainTiles[i].planted != null) toDo.Add(Tile.terrainTiles[i].planted);
 
-			if (Tile.zombieTiles[0, i].HasRevealedPlanted()) toDo.Add(Tile.zombieTiles[0, i].planted);
+            if (initiate[1, i].HasRevealedPlanted()) toDo.Add(initiate[1, i].planted);
+            if (initiate[0, i].HasRevealedPlanted()) toDo.Add(initiate[0, i].planted);
 			
-			if (Tile.plantTiles[1, i].planted != null) toDo.Add(Tile.plantTiles[1, i].planted);
-			if (Tile.plantTiles[0, i].planted != null) toDo.Add(Tile.plantTiles[0, i].planted);
+			if (retaliate[1, i].HasRevealedPlanted()) toDo.Add(retaliate[1, i].planted);
+			if (retaliate[0, i].HasRevealedPlanted()) toDo.Add(retaliate[0, i].planted);
 		}
 		foreach (Card c in toDo) if (c != null) yield return c.StartCoroutine(methodName, arg);
 		foreach (Transform h in handCards) h.GetComponent<HandCard>().StartCoroutine(methodName, arg);
-		Transform firstBuffs = team == Team.Plant ? opponentBuffs : playerBuffs;
-        Transform secondBuffs = team == Team.Zombie ? opponentBuffs : playerBuffs;
+		Transform firstBuffs = team == WentFirst() ? playerBuffs : opponentBuffs;
+        Transform secondBuffs = team == WentFirst() ? opponentBuffs : playerBuffs;
 		for (int i = 0; i < Math.Max(playerBuffs.childCount, opponentBuffs.childCount); i++)
 		{
 			if (i < firstBuffs.childCount) yield return firstBuffs.GetChild(i).GetComponent<Buff>().StartCoroutine(methodName, arg);
@@ -1137,7 +1173,7 @@ public class GameManager : NetworkBehaviour
     /// </summary>
     public void EnablePlayableHandCards()
     {
-		if (team == Team.Plant)
+		if (team != WentFirst())
 		{
             if (phase == 2)
             {
@@ -1164,7 +1200,7 @@ public class GameManager : NetworkBehaviour
             {
 				foreach (Transform t in handCards)
 				{
-                    if ((AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type != Card.Type.Unit || allowZombieCards || Tile.IsOnField("Teleportation")) &&
+                    if ((AllCards.Instance.cards[t.GetComponent<HandCard>().ID].type != Card.Type.Unit || allowZombieCards || Tile.IsOnField("Teleportation", team) && WentFirst() == team) &&
 						t.GetComponent<HandCard>().GetCost() <= remaining) t.GetComponent<HandCard>().interactable = true;
                     else t.GetComponent<HandCard>().interactable = false;
 				}
@@ -1172,7 +1208,7 @@ public class GameManager : NetworkBehaviour
             else foreach (Transform t in handCards) t.GetComponent<HandCard>().interactable = false;
         }
 
-		if (team == Team.Plant)
+		if (team != WentFirst())
 		{
 			if (phase == 2)
 			{
@@ -1199,23 +1235,27 @@ public class GameManager : NetworkBehaviour
 	/// <summary>
 	/// Adds to the given team's gold count by the given change. Gold counts can't go below 0. Updates UI
 	/// </summary>
-    public IEnumerator UpdateRemaining(float change, Team team)
-    {
+	/// <param name="generated"> Whether this was generated by a card or merely systemwide </param>
+	public IEnumerator UpdateRemaining(float change, Team team, bool generated = true)
+	{
+		if (change > 0 && generated && Buff.PlayerHasBuff("Money Hungry", team)) change += 0.5f;
 		GameObject c = team == this.team ? remainingAnim : opponentRemainingAnim;
+		Vector3 orig = ((RectTransform)c.transform).anchoredPosition;
 		c.GetComponentInChildren<TextMeshProUGUI>().text = change + "";
 		if (change > 0)
 		{
-			if (team == Team.Plant) AudioManager.Instance.PlaySFX("Sun");
+			if (team == Team.A) AudioManager.Instance.PlaySFX("Sun");
 			else AudioManager.Instance.PlaySFX("Brain");
 			bool done = false;
 			c.GetComponent<Image>().color = Color.white;
 			var t = c.GetComponentInChildren<TextMeshProUGUI>();
 			t.color = new Color(t.color.r, t.color.g, t.color.b, 1);
-            ((RectTransform)c.transform).anchoredPosition = team == this.team ? new(-100, -50f) : new(100, 50f);
-			var lt = LeanTween.moveX((RectTransform)c.transform, team == this.team ? 400 : -400, 0.5f).setEaseOutQuint().setOnComplete(() => {
-                var dest = team == this.team ? ((RectTransform)remainingText.transform.parent).anchoredPosition : ((RectTransform)opponentRemainingText.transform.parent).anchoredPosition;
-                LeanTween.move((RectTransform)c.transform, dest, 0.5f).setDelay(0.25f).setEaseOutQuad().setOnComplete(() => done = true);
-            });
+			((RectTransform)c.transform).anchoredPosition = team == this.team ? new(-100, -50f) : new(100, 50f);
+			var lt = LeanTween.moveX((RectTransform)c.transform, team == this.team ? 400 : -400, 0.5f).setEaseOutQuint().setOnComplete(() =>
+			{
+				var dest = team == this.team ? ((RectTransform)remainingText.transform.parent).anchoredPosition : ((RectTransform)opponentRemainingText.transform.parent).anchoredPosition;
+				LeanTween.move((RectTransform)c.transform, dest, 0.5f).setDelay(0.25f).setEaseOutQuad().setOnComplete(() => done = true);
+			});
 			yield return new WaitUntil(() => done == true);
 		}
 		if (team == this.team)
@@ -1232,27 +1272,32 @@ public class GameManager : NetworkBehaviour
 			opponentRemainingText.text = opponentRemaining + "";
 			opponentRemainingTop = Mathf.Max(opponentRemaining, opponentRemainingTop);
 		}
-        if (change < 0)
+		if (change < 0)
 		{
-			LeanTween.moveY((RectTransform)c.transform, ((RectTransform)c.transform).anchoredPosition.y + 75, 0.5f).setEaseOutQuad();
-            var i = c.GetComponent<Image>();
+			LeanTween.moveY((RectTransform)c.transform, ((RectTransform)c.transform).anchoredPosition.y + 75, 0.5f).setEaseOutQuad().setOnComplete(() =>
+			{
+                ((RectTransform)c.transform).anchoredPosition = orig;
+			});
+			var i = c.GetComponent<Image>();
 			var t = c.GetComponentInChildren<TextMeshProUGUI>();
-            while (i.color.a > 0)
+			while (i.color.a > 0)
 			{
 				i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a - Time.deltaTime * 2);
 				t.color = new Color(t.color.r, t.color.g, t.color.b, t.color.a - Time.deltaTime * 2);
-                yield return null;
+				yield return null;
 			}
+			i.color = new Color(i.color.r, i.color.g, i.color.b, 1);
+			t.color = new Color(t.color.r, t.color.g, t.color.b, 1);
 		}
-    }
+	}
 
     /// <summary>
     /// Called when a block GameEvent is being processed. Makes a 0-cost superpower HandCard, update superpower index, and waits for the given hero to make a decision
     /// </summary>
     public IEnumerator HandleHeroBlocks(Hero h)
 	{
-        plantHero.ToggleThinking(false);
-        zombieHero.ToggleThinking(false);
+        playerHero.ToggleThinking(false);
+        opponentHero.ToggleThinking(false);
         h.ToggleThinking(true);
         h.ResetBlock();
 		waitingOnBlock = h;
@@ -1273,7 +1318,7 @@ public class GameManager : NetworkBehaviour
 
             timerImage.gameObject.SetActive(true);
             timerOn = true;
-			timer = 10;
+			timer = blockTimerMax;
 		}
 		else
 		{
@@ -1282,11 +1327,11 @@ public class GameManager : NetworkBehaviour
             c.transform.SetSiblingIndex(current);
 			c.transform.localPosition = new Vector2(0, -3);
             c.GetComponent<SpriteRenderer>().sortingOrder = current;
-            if (h.team == Team.Zombie) c.GetComponent<SpriteRenderer>().sprite = AllCards.Instance.zombieCardBack;
+            if (h.team == Team.B) c.GetComponent<SpriteRenderer>().sprite = AllCards.Instance.zombieCardBack;
         }
 		yield return new WaitUntil(() => waitingOnBlock == null);
-        plantHero.ToggleThinking(false);
-        zombieHero.ToggleThinking(false);
+        playerHero.ToggleThinking(false);
+        opponentHero.ToggleThinking(false);
     }
 
     /// <summary>
@@ -1312,7 +1357,7 @@ public class GameManager : NetworkBehaviour
         AudioManager.Instance.PlaySFX("Dead");
         ENDED = true;
 		
-		winner.text = (won == Team.Plant ? "PLANTS" : "ZOMBIES") + " WIN";
+		winner.text = "YOU" + (won == team ? "WIN" : "LOSE");
 		if (SessionManager.Instance.ActiveSession.Properties["Ranked"].Value == "True")
 		{
 			int oldScore = 0;
@@ -1378,5 +1423,23 @@ public class GameManager : NetworkBehaviour
 	{
 		selection = null;
 	}
+
+	/// <summary>
+	/// On turn 1, Team A goes first. Then on turn 2, Team B goes first. And so on
+	/// </summary>
+	/// <returns></returns>
+	public Team WentFirst()
+	{
+		return turn % 2 == 0 ? Team.B : Team.A;
+	}
+
+    /// <summary>
+    /// Gets the hero that corresponds to the given team
+    /// </summary>
+    public Hero GetTeamHero(Card.Team team)
+    {
+        if (team == this.team) return playerHero;
+        return opponentHero;
+    }
 
 }

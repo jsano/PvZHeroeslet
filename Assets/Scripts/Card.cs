@@ -1,18 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.VisualScripting.Member;
 
 public class Card : Damagable
 {
 
     public enum Team
     {
-        Plant,
-        Zombie
+        A,
+        B
     }
 
     public enum Type
@@ -24,16 +24,12 @@ public class Card : Damagable
 
     public enum Class
     {
-        Guardian,
-        Kabloom,
-        MegaGrow,
-        Smarty,
-        Solar,
-        Beastly,
-        Brainy,
-        Crazy,
-        Hearty,
-        Sneaky
+        Misery,
+        Wrath,
+        Awe,
+        Fright,
+        Elation,
+        Contempt
     }
 
     public enum Tribe
@@ -128,13 +124,10 @@ public class Card : Damagable
     public int oldCol { get; private set; }
 
     /// <summary>
-    /// Different from <c>cost</c> where this is the amount this card was actually played for (after all deductions, etc.)
-    /// </summary>
-    public float playedCost { get; private set; }
-    /// <summary>
     /// The FinalStats instance this got its stats from. Ok to be null (and will be if it's instantiated by another card)
     /// </summary>
     public FinalStats sourceFS;
+    public float playedCost {  get; private set; }
 
     /// <summary>
     /// Use if this card has a unique HandCard that reacts to GameEvents (ex. Trickster)
@@ -159,7 +152,7 @@ public class Card : Damagable
 	protected List<BoxCollider2D> choices = new();
     private float timer = 10;
 
-    protected bool frozen;
+    protected int frozen;
 
     void Awake()
     {
@@ -185,7 +178,7 @@ public class Card : Damagable
         baseAtk = atk;
         baseGravestone = gravestone;
         baseOvershoot = overshoot;
-        
+
         if (sourceFS != null)
         {
             atk = sourceFS.atk;
@@ -207,7 +200,11 @@ public class Card : Damagable
             playedCost = sourceFS.cost;
         }
         // The only way for a card to not have a FinalStats is if it was instantiated by something, in which case it should always be free
-        else playedCost = 0;
+        else
+        {
+            sourceFS = new(AllCards.NameToID(AllCards.InstanceToPrefab(this).name));
+            sourceFS.cost = 0;
+        }
 
         AddPermanentBuffs();
 
@@ -232,7 +229,7 @@ public class Card : Damagable
         
         initializedStats = true;
 
-        if (type == Type.Unit && Tile.terrainTiles[col].planted != null && team == Team.Zombie && AllCards.InstanceToPrefab(Tile.terrainTiles[col].planted).name == "Graveyard")
+        if (type == Type.Unit && Tile.terrainTiles[col].planted != null && team == Tile.terrainTiles[col].planted.team && AllCards.InstanceToPrefab(Tile.terrainTiles[col].planted).name == "Graveyard")
         {
             if (!gravestone) GameManager.Instance.currentlySpawningCards -= 1;
             GameManager.Instance.waitingOnBlock = null;
@@ -241,15 +238,21 @@ public class Card : Damagable
             GameManager.Instance.EnablePlayableHandCards();
         }
 
-        if (gravestone) Hide();
+        if (gravestone)
+        {
+            if (team == GameManager.Instance.team) StartCoroutine(GameManager.Instance.UpdateRemaining(-sourceFS.cost, team, false));
+            Hide();
+        }
         else
         {
+            StartCoroutine(GameManager.Instance.UpdateRemaining(-sourceFS.cost, team, false));
             UpdateAntihero();
             //play animation
             // Trick play GameEvents should always process last chronologially, so force it to be added first on the stack
             if (type != Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
             else AudioManager.Instance.PlaySFX("Place");
             CallLeftToRight();
+            Buff.CallAllImmediate("OnCardPlayImmediate", this);
             StartCoroutine(BeforeOnThisPlay());
         }
 	}
@@ -259,8 +262,7 @@ public class Card : Damagable
         while (true)
         {
             bool ready = true;
-            var tiles = team == Team.Plant ? Tile.plantTiles : Tile.zombieTiles;
-            for (int i = 0; i < 2; i++) for (int j = 0; j < col; j++) if (tiles[i, j].HasRevealedPlanted() && !tiles[i, j].planted.onThisPlayed) ready = false;
+            for (int i = 0; i < Tile.ROWS; i++) for (int j = 0; j < col; j++) if (Tile.GetTeamTiles(team)[i, j].HasRevealedPlanted() && !Tile.GetTeamTiles(team)[i, j].planted.onThisPlayed) ready = false;
             if (ready) break;
             yield return null;
         }
@@ -295,8 +297,8 @@ public class Card : Damagable
 
                         selected = true;
                         Tile t = bc.GetComponent<Tile>();
-                        if (t != null) GameManager.Instance.SelectingChosenRpc(t.isPlantTile ? Team.Plant : Team.Zombie, t.row, t.col);
-                        else GameManager.Instance.SelectingChosenRpc(bc.GetComponent<Hero>().team, -1, -1);
+                        if (t != null) GameManager.Instance.SelectingChosenRpc(t.isPlayerTile ? team : GetOpponent(team), t.row, t.col);
+                        else GameManager.Instance.SelectingChosenRpc(bc.GetComponent<Hero>().team, -1, -1); // TODO: will likely break
                         break;
 					}
 				}
@@ -315,7 +317,7 @@ public class Card : Damagable
                 selected = true;
                 var bc = choices[0];
                 Tile t = bc.GetComponent<Tile>();
-                if (t != null) GameManager.Instance.SelectingChosenRpc(t.isPlantTile ? Team.Plant : Team.Zombie, t.row, t.col);
+                if (t != null) GameManager.Instance.SelectingChosenRpc(t.isPlayerTile ? team : GetOpponent(team), t.row, t.col);
                 else GameManager.Instance.SelectingChosenRpc(bc.GetComponent<Hero>().team, -1, -1);
             }
 		}
@@ -341,11 +343,11 @@ public class Card : Damagable
     {
         if (GameManager.Instance.phase == 2)
         {
-            if (GameManager.Instance.team == Team.Plant) GameManager.Instance.StoreRpc(toStore);
+            if (GameManager.Instance.team != GameManager.Instance.WentFirst()) GameManager.Instance.StoreRpc(toStore);
         }
         else
         {
-            if (GameManager.Instance.team == Team.Zombie) GameManager.Instance.StoreRpc(toStore);
+            if (GameManager.Instance.team == GameManager.Instance.WentFirst()) GameManager.Instance.StoreRpc(toStore);
         }
         yield return new WaitUntil(() => GameManager.Instance.shuffledListsNextExpectedCount <= GameManager.Instance.shuffledLists.Count);
         Debug.Log("Received shuffled list starting with " + GameManager.Instance.shuffledLists[GameManager.Instance.shuffledListsNextExpectedCount - 1][0]
@@ -367,9 +369,10 @@ public class Card : Damagable
         yield return new WaitUntil(() => GameManager.Instance.currentlySpawningCards == 0); // this exists for cards that spawn cards
         if (type == Type.Unit) GameManager.Instance.TriggerEvent("OnCardPlay", this);
         Debug.Log(name + " reached currentlySpawningCards == 0");
-        yield return GameManager.Instance.ProcessEvents();
+        //yield return GameManager.Instance.ProcessEvents();
+        yield return GameManager.Instance.StartCoroutine(GameManager.Instance.ProcessEvents());
         Debug.Log(name + " processed events");
-        playedCost = 0; // For any consecutive gravestone reveals
+        sourceFS.cost = 0; // For any consecutive gravestone reveals
         if (type == Type.Trick)
         {
             yield return new WaitForSeconds(0.5f);
@@ -400,7 +403,7 @@ public class Card : Damagable
     {
         if (hunt > 0 && played.type == Type.Unit && played.team != team && (amphibious || played.col != 4))
         {
-            if (team == Team.Plant && !Tile.CanPlantInCol(played.col, Tile.plantTiles, teamUp, amphibious) || team == Team.Zombie && Tile.zombieTiles[0, played.col].planted != null) yield break;
+            if (!Tile.CanPlantInCol(played.col, Tile.GetTeamTiles(team), teamUp, amphibious)) yield break;
             yield return Glow();
             Move(row, played.col);
         }
@@ -426,8 +429,7 @@ public class Card : Damagable
         {
             if (died.Item1.type == Type.Unit)
             {
-                if (team == Team.Plant) Tile.plantTiles[row, col].Unplant();
-                else Tile.zombieTiles[row, col].Unplant();
+                Tile.GetTeamTiles(team)[row, col].Unplant();
             }
             yield return new WaitForSeconds(0.4f);
             StartCoroutine(DestroyAfterCoroutineFinishes());
@@ -468,7 +470,7 @@ public class Card : Damagable
     /// <summary>
 	/// Called whenever a card on the field gets healed. NOT called when a card's max HP is raised
 	/// </summary>
-	/// <param name="healed"> The card that got healed </param>
+	/// <param name="healed"> [The card that got healed, the final amount healed] </param>
 	protected virtual IEnumerator OnCardHeal(Tuple<Card, int> healed)
     {
         yield return null;
@@ -522,14 +524,14 @@ public class Card : Damagable
         if (tempAtkChange != 0 || tempHPChange != 0) ChangeStats(-tempAtkChange, -tempHPChange);
         if (fig)
         {
-            Tile.plantTiles[row, col].Unplant(true);
-            yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost(Team.Plant, (cost + 1, cost + 1), true) + "");
+            Tile.GetTeamTiles(team)[row, col].Unplant(true);
+            yield return SyncRandomChoiceAcrossNetwork(AllCards.RandomFromCost((cost + 1, cost + 1), true) + "");
             yield return Glow();
             Card c = Instantiate(AllCards.Instance.cards[int.Parse(GameManager.Instance.shuffledLists[^1][0])]);
             FinalStats fs = new(int.Parse(GameManager.Instance.shuffledLists[^1][0]));
             fs.abilities += "fig";
             c.sourceFS = fs;
-            Tile.plantTiles[row, col].Plant(c);
+            Tile.GetTeamTiles(team)[row, col].Plant(c);
             Destroy(gameObject);
         }
         else yield return null;
@@ -557,8 +559,8 @@ public class Card : Damagable
         if (overshoot > 0 && !gravestone)
         {
             yield return Glow();
-            yield return AttackFX(team == Team.Plant ? Tile.zombieHeroTiles[col] : Tile.plantHeroTiles[col]);
-            yield return team == Team.Plant ? GameManager.Instance.zombieHero.ReceiveDamage(overshoot, this, bullseye > 0) : GameManager.Instance.plantHero.ReceiveDamage(overshoot, this, bullseye > 0);
+            yield return AttackFX(team == GameManager.Instance.team ? Tile.opponentHeroTiles[col] : Tile.playerHeroTiles[col]);
+            yield return team == GameManager.Instance.team ? GameManager.Instance.opponentHero.ReceiveDamage(overshoot, this, bullseye > 0) : GameManager.Instance.playerHero.ReceiveDamage(overshoot, this, bullseye > 0);
         }
         yield return null;
     }
@@ -573,12 +575,15 @@ public class Card : Damagable
 	/// </summary>
     public virtual IEnumerator Attack(int savedHP = -1)
     {
-        if (frozen)
+        if (frozen > 0)
         {
             yield return new WaitForSeconds(0.5f);
-            frozen = false;
-            transform.Find("ATK/Frozen").gameObject.SetActive(false);
-            SR.material.color = Color.white;
+            frozen -= 1;
+            if (frozen == 0)
+            {
+                transform.Find("ATK/Frozen").gameObject.SetActive(false);
+                SR.material.color = Color.white;
+            }
             yield break;
         }
         
@@ -609,7 +614,7 @@ public class Card : Damagable
         else if (splash > 0)
         {
             List<Damagable>[] targets = new List<Damagable>[] { null, null, null };
-            var tiles = team == Team.Plant ? Tile.zombieTiles : Tile.plantTiles;
+            var tiles = Tile.GetTeamTiles(GetOpponent(team));
             for (int i = -1; i <= 1; i++)
             {
                 if (col + i < 0 || col + i > 4) continue;
@@ -647,22 +652,16 @@ public class Card : Damagable
 	/// </summary>
     public IEnumerator BonusAttack()
     {
-        if (team == Team.Plant)
-        {
-            Card s = Tile.IsOnField("Bonus Track Buckethead");
-            if (s != null) yield break;
-        }
-        if (team == Team.Zombie)
-        {
-            Card s = Tile.IsOnField("Wing-nut");
-            if (s != null) yield break;
-        }
+        if (Tile.IsOnField("Bonus Track Buckethead", GetOpponent(team)) != null) yield break; 
+        if (Tile.IsOnField("Wing-nut", GetOpponent(team)) != null) yield break;
 
         GameManager.Instance.DisableHandCards();
         yield return Attack();
         GameManager.Instance.TriggerEvent("OnCardBonusAttack", this);
         yield return GameManager.Instance.ProcessEvents(false, true);
     }
+
+    private bool moaUsed = false;
 
     /// <summary>
 	/// Called when this unit receives any form of damage. Ignores if it's in a gravestone or invulnerable. 
@@ -671,11 +670,24 @@ public class Card : Damagable
     /// <param name="heroCol">Never pass in directly. See <c>Tile.ReceiveDamage</c></param>
     public override IEnumerator ReceiveDamage(int dmg, Card source, bool bullseye = false, bool deadly = false, bool freeze = false, int heroCol = -1)
     {
-        if (gravestone || invulnerable) yield break;
-        foreach (int a in Buff.CallAll("OnCardHurtImmediate", new Tuple<Damagable, Card, int>(this, source, dmg))) dmg += a;
-        if (team != Team.Zombie && Tile.IsOnField("Binary Stars")) dmg *= 2;
+        if (gravestone || invulnerable == 1) yield break;
+        if (invulnerable == 0.5f)
+        {
+            ToggleInvulnerability(false);
+            yield break;
+        }
+        int change = 0;
+        foreach (int a in Buff.CallAllImmediate("CardHurtModifiers", new Tuple<Damagable, Card, int>(this, source, dmg))) change += a;
+        dmg += change;
+        foreach (int a in Buff.CallAllImmediate("OnCardHurtImmediate", new Tuple<Damagable, Card, int>(this, source, dmg))) dmg += a;
+        if (Tile.IsOnField("Binary Stars", GetOpponent(team)) != null) dmg *= 2;
         dmg = Mathf.Max(0, dmg - armor);
         HP -= dmg;
+        if (_class == Class.Misery && HP < 1 && Buff.PlayerHasBuff("Mood of Attrition", team) && !moaUsed)
+        {
+            moaUsed = true;
+            HP = 1;
+        }
         hpUI.text = Mathf.Max(0, HP) + "";
         if (dmg > 0)
         {
@@ -684,10 +696,10 @@ public class Card : Damagable
             if ((HP <= 0 || hitByDeadly) && !died)
             {
                 died = true;
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < Tile.ROWS; i++)
                 {
-                    if (Tile.plantTiles[i, col].HasRevealedPlanted()) Tile.plantTiles[i, col].planted.UpdateAntihero();
-                    if (Tile.zombieTiles[i, col].HasRevealedPlanted()) Tile.zombieTiles[i, col].planted.UpdateAntihero();
+                    if (Tile.playerTiles[i, col].HasRevealedPlanted()) Tile.playerTiles[i, col].planted.UpdateAntihero();
+                    if (Tile.opponentTiles[i, col].HasRevealedPlanted()) Tile.opponentTiles[i, col].planted.UpdateAntihero();
                 }
                 GameManager.Instance.TriggerEvent("OnCardDeath", new Tuple<Card, Card>(this, source));
             }
@@ -707,32 +719,33 @@ public class Card : Damagable
 	{
         if (died) return;
         died = true;
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < Tile.ROWS; i++)
         {
-            if (Tile.plantTiles[i, col].HasRevealedPlanted()) Tile.plantTiles[i, col].planted.UpdateAntihero();
-            if (Tile.zombieTiles[i, col].HasRevealedPlanted()) Tile.zombieTiles[i, col].planted.UpdateAntihero();
+            if (Tile.playerTiles[i, col].HasRevealedPlanted()) Tile.playerTiles[i, col].planted.UpdateAntihero();
+            if (Tile.opponentTiles[i, col].HasRevealedPlanted()) Tile.opponentTiles[i, col].planted.UpdateAntihero();
         }
         if (gravestone)
         {
             gravestone = false;
             SR.sprite = baseSprite;
-            if (team != GameManager.Instance.team) StartCoroutine(GameManager.Instance.UpdateRemaining(playedCost, team));
+            if (team != GameManager.Instance.team) StartCoroutine(GameManager.Instance.UpdateRemaining(sourceFS.cost, team, false));
         }
         GameManager.Instance.TriggerEvent("OnCardDeath", new Tuple<Card, Card>(this, null));
     }
 
     /// <summary>
-	/// Heals HP by the given amount. Ignores if it's in a gravestone. Also triggers <c>OnCardHeal</c> if not raising the maxHP.
+	/// Heals HP by the given amount. Ignores if it's in a gravestone. Also triggers <c>OnCardHeal</c>
     /// 
 	/// </summary>
     /// <param name="raiseCap">If true, this will affect the maxHP, which also means it won't be considered damaged if amount is negative</param>
 	public override IEnumerator Heal(int amount)
     {
-        if (gravestone || team == Team.Plant && Tile.IsOnField("Sneezing")) yield break;
+        if (gravestone || Tile.IsOnField("Sneezing", GetOpponent(team))) yield break;
+        foreach (int a in Buff.CallAllImmediate("OnCardHealImmediate", new Tuple<Card, int>(this, amount))) amount += a;
         int HPBefore = HP;
         HP += amount;
         HP = Mathf.Min(maxHP, HP);
-        if (amount > 0 && HPBefore < maxHP) GameManager.Instance.TriggerEvent("OnCardHeal", new Tuple<Card, int>(this, maxHP - HPBefore));
+        if (amount > 0 && HPBefore < HP) GameManager.Instance.TriggerEvent("OnCardHeal", new Tuple<Card, int>(this, HP - HPBefore));
         hpUI.text = HP + "";
         if (!isDamaged()) hpUI.color = Color.white;
         yield return GameManager.Instance.ProcessEvents(false, true);
@@ -742,7 +755,7 @@ public class Card : Damagable
     /// Raises attack and HP by the given amounts. Ignores if it's in a gravestone. Updates UI. Attack won't go below 0.
     /// If HP ends up as 0 afterwards, marks this card to be destroyed and triggers <c>OnCardDeath</c> so that it's destroyed during the next <c>ProcessEvent</c>, and updates any anti-hero immediately.
     /// </summary>
-    public override void ChangeStats(int atkAmount, int hpAmount, bool temporary = false)
+    public override void ChangeStats(int atkAmount, int hpAmount, bool temporary = false, bool silent = false)
 	{
         if (gravestone) return;
 		atk += atkAmount;
@@ -753,14 +766,14 @@ public class Card : Damagable
         HP += hpAmount;
         if (hpUI != null) hpUI.text = HP + "";
 
-        GameManager.Instance.TriggerEvent("OnCardStatsChanged", new Tuple<Card, int, int>(this, atkAmount, hpAmount));
+        if (!silent && (atkAmount > 0 || hpAmount > 0)) GameManager.Instance.TriggerEvent("OnCardStatsChanged", new Tuple<Card, int, int>(this, atkAmount, hpAmount));
         if (HP <= 0)
         {
             died = true;
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < Tile.ROWS; i++)
             {
-                if (Tile.plantTiles[i, col].HasRevealedPlanted()) Tile.plantTiles[i, col].planted.UpdateAntihero();
-                if (Tile.zombieTiles[i, col].HasRevealedPlanted()) Tile.zombieTiles[i, col].planted.UpdateAntihero();
+                if (Tile.playerTiles[i, col].HasRevealedPlanted()) Tile.playerTiles[i, col].planted.UpdateAntihero();
+                if (Tile.opponentTiles[i, col].HasRevealedPlanted()) Tile.opponentTiles[i, col].planted.UpdateAntihero();
             }
             GameManager.Instance.TriggerEvent("OnCardDeath", new Tuple<Card, Card>(this, null));
         }
@@ -833,6 +846,16 @@ public class Card : Damagable
         }
     }
 
+    public void RaiseAntiheroValue(int amount)
+    {
+        if (AHactive)
+        {
+            atk += amount;
+            atkUI.text = atk + "";
+        }
+        antihero += amount;
+    }
+
     /// <summary>
     /// Toggles off the gravestone state.
     /// Reveals the card sprite, updates UI, increments <c>GameManager.instance.currentlySpawningCards</c>, disables HandCards, then calls <c>OnThisPlay</c> (where it'll be enabled again)
@@ -848,10 +871,12 @@ public class Card : Damagable
         atkUI.text = atk + "";
         hpUI.text = HP + "";
         if (!isDamaged()) hpUI.color = Color.white;
+        if (team != GameManager.Instance.team) StartCoroutine(GameManager.Instance.UpdateRemaining(-sourceFS.cost, team, false));
         UpdateAntihero();
         GameManager.Instance.currentlySpawningCards += 1;
         //play animation
         CallLeftToRight();
+        Buff.CallAllImmediate("OnCardPlayImmediate", this);
         GameManager.Instance.DisableHandCards();
         yield return OnThisPlay();
     }
@@ -877,7 +902,7 @@ public class Card : Damagable
     /// </summary>
     public void Freeze()
     {
-        frozen = true;
+        frozen = atk >= 4 && Buff.PlayerHasBuff("Deep Freeze", GetOpponent(team)) ? 2 : 1;
         transform.Find("ATK/Frozen").gameObject.SetActive(true);
         SR.material.color = Color.blue;
         GameManager.Instance.TriggerEvent("OnCardFreeze", this);
@@ -890,8 +915,7 @@ public class Card : Damagable
     {
         if (!onThisPlayed) GameManager.Instance.currentlySpawningCards -= 1;
         if (type == Type.Terrain) Tile.terrainTiles[col].Unplant(true);
-        else if (team == Team.Plant) Tile.plantTiles[row, col].Unplant();
-        else Tile.zombieTiles[row, col].Unplant();
+        else Tile.GetTeamTiles(team)[row, col].Unplant();
         StartCoroutine(BounceHelper(newFS));
         GameManager.Instance.TriggerEvent("OnCardBounce", this);
     }
@@ -921,16 +945,8 @@ public class Card : Damagable
             oldRow = -1;
             oldCol = -1;
         }
-        if (team == Team.Plant)
-        {
-            Tile.plantTiles[row, col].Unplant();
-            Tile.plantTiles[nrow, ncol].Plant(this);
-        }
-        else
-        {
-            Tile.zombieTiles[row, col].Unplant();
-            Tile.zombieTiles[nrow, ncol].Plant(this);
-        }
+        Tile.GetTeamTiles(team)[row, col].Unplant();
+        Tile.GetTeamTiles(team)[nrow, ncol].Plant(this);
         GameManager.Instance.TriggerEvent("OnCardMoved", this);
     }
 
@@ -940,11 +956,11 @@ public class Card : Damagable
     protected List<Damagable> GetTargets(int col)
     {
         List<Damagable> ret = new();
-		Tile[,] opponentTiles = team == Team.Plant ? Tile.zombieTiles : Tile.plantTiles;
-		if (opponentTiles[1, col].planted != null && !opponentTiles[1, col].planted.died) ret.Add(opponentTiles[1, col].planted);
-		if (opponentTiles[0, col].planted != null && !opponentTiles[0, col].planted.died) ret.Add(opponentTiles[0, col].planted);
-		if (team == Team.Plant) ret.Add(Tile.zombieHeroTiles[col]);
-        else ret.Add(Tile.plantHeroTiles[col]);
+        Tile[,] opponentTiles = Tile.GetTeamTiles(GetOpponent(team));
+		if (opponentTiles[1, col].HasRevealedPlanted() && !opponentTiles[1, col].planted.died) ret.Add(opponentTiles[1, col].planted);
+		if (opponentTiles[0, col].HasRevealedPlanted() && !opponentTiles[0, col].planted.died) ret.Add(opponentTiles[0, col].planted);
+		if (team == GameManager.Instance.team) ret.Add(Tile.opponentHeroTiles[col]);
+        else ret.Add(Tile.playerHeroTiles[col]);
         if (strikethrough > 0) return ret;
         ret.RemoveRange(1, ret.Count - 1);
         return ret;
@@ -952,25 +968,27 @@ public class Card : Damagable
 
     private void CallLeftToRight()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < Tile.COLUMNS; i++)
         {
             if (Tile.terrainTiles[i].planted != null) Tile.terrainTiles[i].planted.OnCardPlayImmediate(this);
-
-            if (Tile.zombieTiles[0, i].HasRevealedPlanted()) Tile.zombieTiles[0, i].planted.OnCardPlayImmediate(this);
-
-            if (Tile.plantTiles[1, i].planted != null) Tile.plantTiles[1, i].planted.OnCardPlayImmediate(this);
-            if (Tile.plantTiles[0, i].planted != null) Tile.plantTiles[0, i].planted.OnCardPlayImmediate(this);
+            for (int j = 0; j < Tile.ROWS; j++)
+            {
+                if (Tile.playerTiles[j, i].HasRevealedPlanted()) Tile.playerTiles[j, i].planted.OnCardPlayImmediate(this);
+                if (Tile.opponentTiles[j, i].HasRevealedPlanted()) Tile.opponentTiles[j, i].planted.OnCardPlayImmediate(this);
+            }
         }
     }
 
     /// <summary>
     /// Toggles the card's invulnerability status
     /// </summary>
-    public override void ToggleInvulnerability(bool active)
+    /// <param name="oneTime"> If true, this will only last for one instance of damage, and will automatically toggle off afterwards </param>
+    public override void ToggleInvulnerability(bool active, bool oneTime = false)
     {
-        invulnerable = active;
+        if (oneTime) invulnerable = active ? 0.5f : 0;
+        else invulnerable = active ? 1 : 0;
         if (active) SR.material.color = Color.yellow;
-        else if (SR.material.color != Color.blue) SR.material.color = Color.white;
+        else if (SR.material.color == Color.yellow) SR.material.color = Color.white;
     }
 
     protected IEnumerator AttackFX(Damagable dest)
@@ -998,20 +1016,28 @@ public class Card : Damagable
 
     private void AddPermanentBuffs()
     {
-        if (team == Team.Plant)
+        if (team == GameManager.Instance.team)
         {
-            atk += GameManager.Instance.plantPermanentAttackBonus;
-            HP += GameManager.Instance.plantPermanentHPBonus;
+            atk += GameManager.Instance.playerPermanentAttackBonus;
+            HP += GameManager.Instance.playerPermanentHPBonus;
         }
         else
         {
-            atk += GameManager.Instance.zombiePermanentAttackBonus;
-            HP += GameManager.Instance.zombiePermanentHPBonus;
+            atk += GameManager.Instance.opponentPermanentAttackBonus;
+            HP += GameManager.Instance.opponentPermanentHPBonus;
         }
         if (AllCards.InstanceToPrefab(this).name == "Clique Peas")
         {
-            atk += GameManager.Instance.cliquePeas;
-            HP += GameManager.Instance.cliquePeas;
+            if (team == GameManager.Instance.team)
+            {
+                atk += GameManager.Instance.playerCliquePeas;
+                HP += GameManager.Instance.playerCliquePeas;
+            }
+            else
+            {
+                atk += GameManager.Instance.opponentCliquePeas;
+                HP += GameManager.Instance.opponentCliquePeas;
+            }
         }
     }
 
@@ -1023,14 +1049,12 @@ public class Card : Damagable
 		{
 			for (int col = 0; col < 5; col++)
 			{
-                Card c;
-                if (GameManager.Instance.team == Team.Plant) c = Tile.plantTiles[row, col].planted;
-                else c = Tile.zombieTiles[row, col].planted;
+                Card c = Tile.playerTiles[row, col].planted;
 				if (c != null && (!c.selected || c.fusionBase != null && !c.fusionBase.selected)) return;
 			}
 		}
         // Don't show gravestone card info for the plant perspective
-		if (GameManager.Instance.team == Team.Zombie || !gravestone || Tile.IsOnField("Spyris")) CardInfo.Instance.Show(this);
+		if (GameManager.Instance.team == team || !gravestone || Tile.IsOnField("Spyris", GetOpponent(team))) CardInfo.Instance.Show(this);
 	}
 
     public Sprite GetAttackIcon()
@@ -1055,11 +1079,19 @@ public class Card : Damagable
         List<Sprite> ret = new();
         if (armor > 0) ret.Add(icons.armorSprite);
         if (untrickable > 0) ret.Add(icons.untrickableSprite);
-        if (invulnerable) ret.Add(icons.invulnerableSprite);
+        if (invulnerable > 0) ret.Add(icons.invulnerableSprite);
         if (strengthHeart > 0) ret.Add(icons.strengthHeartSprite);
         if (ret.Count > 1) return icons.multiSprite;
         if (ret.Count == 0) return icons.HPSprite;
         return ret[0];
+    }
+
+    /// <summary>
+    /// A -> B, B -> A
+    /// </summary>
+    public static Team GetOpponent(Team team)
+    {
+        return team == Team.A ? Team.B : Team.A;
     }
 
 }

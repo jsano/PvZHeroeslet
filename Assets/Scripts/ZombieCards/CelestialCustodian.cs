@@ -13,9 +13,9 @@ public class CelestialCustodian : Card
             {
                 for (int col = 0; col < 5; col++)
                 {
-                    if (Tile.plantTiles[row, col].planted != null && Tile.plantTiles[row, col].planted.atk <= 3)
+                    if (Tile.GetTeamTiles(GetOpponent(team))[row, col].planted != null && Tile.GetTeamTiles(GetOpponent(team))[row, col].planted.atk <= 3)
                     {
-                        choices.Add(Tile.plantTiles[row, col].GetComponent<BoxCollider2D>());
+                        choices.Add(Tile.GetTeamTiles(GetOpponent(team))[row, col].GetComponent<BoxCollider2D>());
                     }
                 }
             }
@@ -36,7 +36,7 @@ public class CelestialCustodian : Card
         yield return base.OnSelection(bc);
         yield return Glow();
         Tile t = bc.GetComponent<Tile>();
-        Tile.plantTiles[t.row, t.col].planted.Destroy();
+        Tile.GetTeamTiles(GetOpponent(team))[t.row, t.col].planted.Destroy();
     }
 
 }

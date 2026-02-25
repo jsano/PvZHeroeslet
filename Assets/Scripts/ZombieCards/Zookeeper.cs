@@ -12,9 +12,9 @@ public class Zookeeper : Card
 			if (played.tribes.Contains(Tribe.Pet))
 			{
                 yield return Glow();
-                for (int col = 0; col < 5; col++)
+                for (int row = 0; row < 2; row++) for (int col = 0; col < 5; col++)
 				{
-					Card c = Tile.zombieTiles[0, col].planted;
+					Card c = Tile.GetTeamTiles(team)[row, col].planted;
 					if (c != null && c.tribes.Contains(Tribe.Pet))
 					{
 						c.ChangeStats(1, 0);

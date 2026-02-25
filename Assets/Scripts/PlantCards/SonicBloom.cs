@@ -9,16 +9,16 @@ public class SonicBloom : Card
 
 	protected override IEnumerator OnThisPlay()
 	{
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < Tile.ROWS; i++)
 		{
-			for (int j = 0; j < 5; j++)
+			for (int j = 0; j < Tile.COLUMNS; j++)
 			{
-				count += Tile.plantTiles[i, j].HasRevealedPlanted() ? 1 : 0;
+				count += Tile.GetTeamTiles(team)[i, j].HasRevealedPlanted() ? 1 : 0;
             }
 		}
         yield return Glow();
-        yield return AttackFX(Tile.zombieHeroTiles[col]);
-        yield return GameManager.Instance.zombieHero.ReceiveDamage(count, this, bullseye > 0);
+        yield return AttackFX(Tile.GetTeamHeroTiles(GetOpponent(team))[col]);
+        yield return GameManager.Instance.GetTeamHero(GetOpponent(team)).ReceiveDamage(count, this, bullseye > 0);
 		yield return base.OnThisPlay();
 	}
 
