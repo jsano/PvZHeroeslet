@@ -160,7 +160,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: This gets +1 attack +1 HP if you made at least 6 sun
+  description: 'When played: This gets +1 attack +1 HP if you made at least 6 energy
     this turn'
   lore: Just don't talk to her before she's had her Coffee Bean.
   row: 0

@@ -160,7 +160,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Start of turn: You get +1 sun this turn'
+  description: 'Start of turn: You get +1 energy this turn'
   lore: '"Time to put the metal to the petal, baby!"'
   row: 0
   col: 0

@@ -180,8 +180,8 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Start of Turn: You get +1 sun this turn and this transforms into
-    a 0/3 Sunnier-shroom that says "Start of turn: You get +2 sun this turn"'
+  description: 'Start of Turn: You get +1 energy this turn and this transforms into
+    a 0/3 Sunnier-shroom that says "Start of turn: You get +2 energy this turn"'
   lore: '"Fun in the Sun? That''s for other Plants. I just make the stuff. I don''t
     actually like it." '
   row: 0

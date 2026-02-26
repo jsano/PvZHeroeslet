@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: ' When played: Conjure a card that costs 4 sun or more'
+  description: ' When played: Conjure a card that costs 4 energy or more'
   lore: 'You can''t be destroyed by a Rolling Stone when you basically are a Rolling
     Stone. '
   row: 0

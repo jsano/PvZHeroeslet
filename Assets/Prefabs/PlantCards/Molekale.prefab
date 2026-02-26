@@ -153,7 +153,7 @@ MonoBehaviour:
   fusionBase: {fileID: 0}
   fig: 0
   description: 'When played: Each other ally transforms into a random ally that costs
-    1 sun more'
+    1 energy more'
   lore: '"And you thought spinach made you strong. Please. I am spinach times infinity." '
   row: 0
   col: 0

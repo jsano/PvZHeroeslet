@@ -156,8 +156,8 @@ MonoBehaviour:
   fusion: 1
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Fusion: Conjure a card that costs 7 brains or more, and it costs
-    1 brain less'
+  description: 'Fusion: Conjure a card that costs 7 energy or more, and it costs
+    1 energy less'
   lore: 'Neptuna knew only one way to motivate an army of invading zombie pirates.
     Tell them about the secret treasure. '
   row: 0

@@ -123,8 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 0
-  description: When a card raises its attack or HP (excluding global buffs), raise
+  description: When an ally raises its attack or HP (excluding global buffs), raise
     it by 1 more
   buffClass: 2
+  duoSecondClass: 0
   lore: 
   team: 0

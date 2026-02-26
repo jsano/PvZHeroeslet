@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When hurt: Make a random Gargantuar that costs 5 brains in a random
+  description: 'When hurt: Make a random Gargantuar that costs 5 energy in a random
     lane'
   lore: 'When lifting a Gargantuar, always bend at the knees. He learned this the
     hard way. '

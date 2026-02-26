@@ -169,7 +169,7 @@ MonoBehaviour:
   fusionBase: {fileID: 0}
   fig: 0
   description: 'Start of turn: Transform the ally here into a random ally that costs
-    1 brain more'
+    1 energy more'
   lore: 'According to the Transformation Station brochure, every Zombie who visits
     is guaranteed to shuffle away feeling like a brand new Zombie. '
   row: 0

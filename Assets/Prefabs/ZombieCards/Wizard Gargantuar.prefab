@@ -169,7 +169,7 @@ MonoBehaviour:
   fusionBase: {fileID: 0}
   fig: 0
   description: 'All Gargantuars have Bullseye.\nWhen played: Transform another ally
-    into a random ally that costs 1 brain more'
+    into a random ally that costs 1 energy more'
   lore: 'A wizard did it. An enormous, green, Zombie wizard. '
   row: 0
   col: 0

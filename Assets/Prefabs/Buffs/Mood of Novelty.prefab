@@ -123,7 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 2
-  description: 'Start of every 2 turns: Awe cards double their attack and HP'
+  description: 'Start of every 2 turns: Ally Awe cards double their attack and HP'
   buffClass: 2
+  duoSecondClass: 0
   lore: 
   team: 0

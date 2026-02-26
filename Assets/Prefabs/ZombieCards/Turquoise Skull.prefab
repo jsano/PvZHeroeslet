@@ -156,8 +156,8 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Start of turn: The enemy hero loses 1 sun. This gets +1 attack +1
-    HP'
+  description: 'Start of turn: The enemy hero loses 1 energy. This gets +1 attack
+    +1 HP'
   lore: 'The mystical Turquoise Skull stole the sun itself, lighting the way to the
     Mustache Monuments. '
   row: 0

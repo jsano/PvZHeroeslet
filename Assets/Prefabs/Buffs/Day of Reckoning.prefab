@@ -126,7 +126,6 @@ MonoBehaviour:
   description: When opponent cards are hurt, they're marked. Next time they're hurt,
     they receive 3 more damage and removes the mark
   buffClass: 1
-  duo: 1
   duoSecondClass: 2
   lore: 
   team: 0

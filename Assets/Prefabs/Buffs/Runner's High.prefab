@@ -123,8 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 0
-  description: 'End of turn: If you have more cards in play than the opponent, draw
+  description: 'End of turn: If you have more cards in play than the enemy, draw
     a card'
   buffClass: 4
+  duoSecondClass: 0
   lore: 
   team: 0

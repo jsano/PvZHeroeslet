@@ -157,7 +157,7 @@ MonoBehaviour:
   fusionBase: {fileID: 0}
   fig: 0
   description: 'Dino-Roar: This gets +2 attack.\nWhen this hurts the enemy hero,
-    Conjure a card that costs 2 brains or less'
+    Conjure a card that costs 2 energy or less'
   lore: 'Amazomb helmets mostly protect their ears from all the roaring. '
   row: 0
   col: 0

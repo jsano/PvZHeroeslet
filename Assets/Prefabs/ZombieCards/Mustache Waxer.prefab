@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When you play a Mustache, this gets +2 HP and you get +1 brain
+  description: When you play a Mustache, this gets +2 HP and you get +1 energy
   lore: 'Customers have been telling him "Get a brain" for years now. '
   row: 0
   col: 0

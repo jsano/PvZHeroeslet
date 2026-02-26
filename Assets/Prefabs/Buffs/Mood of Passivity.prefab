@@ -123,7 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 2
-  description: Fright cards can't be hurt for the first instance of damage each turn
+  description: Ally Fright cards can't be hurt for the first instance of damage each
+    turn
   buffClass: 3
+  duoSecondClass: 0
   lore: 
   team: 0

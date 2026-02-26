@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: If you made at least 6 sun this turn, this gets Strikethrough'
+  description: 'When played: If you made at least 6 energy this turn, this gets Strikethrough'
   lore: 'Watchful Quasar Wizards sometimes spot an Unidentified Fruiting Object. '
   row: 0
   col: 0

@@ -157,7 +157,7 @@ MonoBehaviour:
   fusionBase: {fileID: 0}
   fig: 0
   description: When you play your first Trick each turn, Conjure a Trick, and it
-    costs 1 brain less
+    costs 1 energy less
   lore: 'He''s not so much "mad" as he is "mildly annoyed." '
   row: 0
   col: 0

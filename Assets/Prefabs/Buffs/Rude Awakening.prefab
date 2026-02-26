@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 1
-  description: When the opponent plays a card with more than 1 HP, do 1 damage to
-    it
+  description: When an enemy card with more than 1 HP is played, do 1 damage to it
   buffClass: 5
+  duoSecondClass: 0
   lore: 
   team: 0

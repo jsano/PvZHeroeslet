@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Ally Tricks cost 1 brain less
+  description: Ally Tricks cost 1 energy less
   lore: '"If you don''t pay attention in class, you''ll never improve your brains..." '
   row: 0
   col: 0

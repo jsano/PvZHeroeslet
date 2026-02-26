@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: You get +1 brains for the rest of the game
+  description: You get +1 energy for the rest of the game
   lore: 'Putting brains on ice is the best way to keep them fresh. Ask any Zombie. '
   row: 0
   col: 0

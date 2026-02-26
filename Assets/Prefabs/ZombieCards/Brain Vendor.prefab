@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: You get +3 brains this turn'
+  description: 'When played: You get +3 energy this turn'
   lore: 'Sells only 100% organic brains. '
   row: 0
   col: 0

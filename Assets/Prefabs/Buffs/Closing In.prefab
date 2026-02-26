@@ -123,8 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 0
-  description: 'End of turn: If no opponent cards were destroyed this turn, destroy
-    the leftmost opponent card with highest HP'
+  description: 'End of turn: If no enemies were destroyed this turn, destroy the
+    leftmost enemy with highest HP'
   buffClass: 4
+  duoSecondClass: 0
   lore: 
   team: 0

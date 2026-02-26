@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -312013300205462730, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: description
-      value: Your gold-generating abilities give 0.5 more
+      value: Your energy-generating abilities give 0.5 more
       objectReference: {fileID: 0}
     - target: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Name

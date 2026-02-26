@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 3
-  description: When the opponent plays a card on a lane that has a card, the one
-    behind gets -2 attack
+  description: When an enemy is played on a lane that has an enemy, the one behind
+    gets -2 attack
   buffClass: 0
   duoSecondClass: 5
   lore: 

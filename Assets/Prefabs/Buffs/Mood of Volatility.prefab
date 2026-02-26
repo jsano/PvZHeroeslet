@@ -123,8 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 2
-  description: Your Wrath cards get +4 attack when played, then are destroyed next
+  description: Ally Wrath cards get +4 attack when played, then are destroyed next
     turn
   buffClass: 1
+  duoSecondClass: 0
   lore: 
   team: 0

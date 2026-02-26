@@ -157,7 +157,7 @@ MonoBehaviour:
   fusionBase: {fileID: 0}
   fig: 0
   description: 'When this hurts the enemy hero: Conjure a Gourmet card, and it costs
-    1 brain less'
+    1 energy less'
   lore: 'Is that the exquisite scent of an aged Camembert, or just rotting flesh? '
   row: 0
   col: 0

@@ -123,7 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 1
-  description: 'Start of turn: The opponent hero loses 1 block charge'
+  description: 'Start of turn: The enemy hero loses 1 block charge'
   buffClass: 5
+  duoSecondClass: 0
   lore: 
   team: 0

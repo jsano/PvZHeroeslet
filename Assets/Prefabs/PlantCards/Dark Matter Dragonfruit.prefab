@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Enemy Tricks cost 6 brains more
+  description: Enemy Tricks cost 6 energy more
   lore: 'Their ancestors were hunted to the depths of space. Now their descendants
     are back for cold, fruity vengeance. '
   row: 0

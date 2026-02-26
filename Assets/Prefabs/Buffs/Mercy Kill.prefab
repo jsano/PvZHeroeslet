@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 3
-  description: When an opponent card is hurt and its HP falls to 1, destroy it instantly
+  description: When an enemy is hurt and its HP falls to 1, destroy it instantly
   buffClass: 4
   duoSecondClass: 5
   lore: 

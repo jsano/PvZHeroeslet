@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Allies cost 1 brain less
+  description: Allies cost 1 energy less
   lore: 'He''s not patriotic; he just likes fabric suspended from sticks. '
   row: 0
   col: 0

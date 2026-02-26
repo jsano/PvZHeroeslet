@@ -169,7 +169,7 @@ MonoBehaviour:
   fusionBase: {fileID: 0}
   fig: 0
   description: 'When played: Destroy an enemy here with 4 attack or less.\nStart
-    of turn: You get +1 sun this turn'
+    of turn: You get +1 energy this turn'
   lore: 'Toadstool can''t stand being idle. When there''s work to be done, she''s
     always the first to hop to it. '
   row: 0

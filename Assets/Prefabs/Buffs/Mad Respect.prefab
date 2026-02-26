@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 3
-  description: When you damage the opponent hero, do 2 damage more for each opponent
-    card in play
+  description: When you damage the enemy hero, do 2 damage more for each enemy card
+    in play
   buffClass: 4
   duoSecondClass: 1
   lore: 

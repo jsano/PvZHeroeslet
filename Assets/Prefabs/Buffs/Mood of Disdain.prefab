@@ -123,8 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 2
-  description: When your opponent plays a card and you have at least 3 Contempt cards
-    in play, it gets -1 attack -1 HP
+  description: When an enemy is played and you have at least 3 Contempt cards in
+    play, it gets -1 attack -1 HP
   buffClass: 5
+  duoSecondClass: 0
   lore: 
   team: 0

@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Gargantuars cost 2 brains less
+  description: Gargantuars cost 2 energy less
   lore: 'After years of studying Gargantuars in the wild, she''s dedicated herself
     to telling the world they''re just misunderstood gentle giants. So far, nobody''s
     buying it. '

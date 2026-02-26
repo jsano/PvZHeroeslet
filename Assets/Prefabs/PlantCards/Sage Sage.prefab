@@ -160,7 +160,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: If you made at least 6 sun this turn, draw a card'
+  description: 'When played: If you made at least 6 energy this turn, draw a card'
   lore: 'Got his start writing messages for fortune cookies. '
   row: 0
   col: 0

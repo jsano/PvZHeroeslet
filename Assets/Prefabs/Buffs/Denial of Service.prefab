@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Name
-      value: Mood of Disruption
+      value: Denial of Service
       objectReference: {fileID: 0}
     - target: {fileID: 8499147558775820694, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Pivot.x
@@ -127,7 +127,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 2
-  description: Opponent cards cost 0.5 more for the rest of the game
+  description: Enemy cards cost 0.5 more for the rest of the game
   buffClass: 5
+  duoSecondClass: 0
   lore: 
   team: 0

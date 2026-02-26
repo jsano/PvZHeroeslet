@@ -168,7 +168,8 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Ally Evolution: This gets +1 attack for each brain you got this turn'
+  description: 'Ally Evolution: This gets +1 attack for each energy you got this
+    turn'
   lore: 'This is why you shouldn''t drink primordial soup. '
   row: 0
   col: 0

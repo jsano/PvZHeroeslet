@@ -184,7 +184,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: This gets +1 attack for each sun you made this turn'
+  description: 'When played: This gets +1 attack for each energy you made this turn'
   lore: Zombies may appear closer than they are
   row: 0
   col: 0

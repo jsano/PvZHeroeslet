@@ -123,7 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 0
-  description: 'End of turn: If you have exactly 1 card in play, it gets Double Strike'
+  description: 'End of turn: If you have exactly 1 ally in play, it gets Double Strike'
   buffClass: 4
+  duoSecondClass: 0
   lore: 
   team: 0

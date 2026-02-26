@@ -845,7 +845,7 @@ public class GameManager : NetworkBehaviour
 		foreach (Card c in removeStrikethrough) c.strikethrough -= 1;
 		removeStrikethrough.Clear();
 
-		yield return OfferBuffs();
+		if (turn % 2 == 0) yield return OfferBuffs();
 
 		Buff.CallAllImmediate("AfterTurnEndBeforeTurnStart", null);
 

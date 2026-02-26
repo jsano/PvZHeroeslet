@@ -18,8 +18,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -312013300205462730, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: description
-      value: When Misery cards take damage that would reduce their health to 0, it
-        survives with 1 HP once
+      value: When ally Misery cards take damage that would reduce their health to
+        0, it survives with 1 HP once
       objectReference: {fileID: 0}
     - target: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Name

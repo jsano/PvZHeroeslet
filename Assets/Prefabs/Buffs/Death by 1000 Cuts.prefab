@@ -18,8 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -312013300205462730, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: description
-      value: Any damage that would charge your opponent's block by 1 no longer charge
-        block
+      value: Any damage that would charge the enemy block by 1 no longer charge block
       objectReference: {fileID: 0}
     - target: {fileID: -312013300205462730, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: duoSecondClass

@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Start of turn: You get +2 sun this turn'
+  description: 'Start of turn: You get +2 energy this turn'
   lore: '"We''re actually only fraternal twins." '
   row: 0
   col: 0

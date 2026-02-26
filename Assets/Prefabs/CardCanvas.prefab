@@ -1638,7 +1638,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e7f9e1f553a300d47afdbaab60b49a1d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 244106569778a8e4db3627bf0fcd0c46, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2101,7 +2101,6 @@ MonoBehaviour:
   tribes: {fileID: 2577899694203545312}
   gained: {fileID: 8069614407331903950}
   lore: {fileID: 4424686838654944656}
-  exit: {fileID: 8830237250851967764}
 --- !u!1 &8830237251993412949
 GameObject:
   m_ObjectHideFlags: 0

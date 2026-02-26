@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'End of turn: This transforms into a random ally that costs 1 sun
+  description: 'End of turn: This transforms into a random ally that costs 1 energy
     more. It keeps this ability'
   lore: '"By Heisenberg''s Uncertainty Principle, if you look at a Plant too closely,
     you actually change what that Plant is..." '

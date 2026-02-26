@@ -123,8 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 0
-  description: When your hero is hurt, deal half of the damage taken to the opponent
+  description: When your hero is hurt, deal half of the damage taken to the enemy
     hero
   buffClass: 1
+  duoSecondClass: 0
   lore: 
   team: 0

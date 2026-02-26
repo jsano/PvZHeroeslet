@@ -123,7 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 0
-  description: Your opponent can activate block 1 less time
+  description: The enemy hero can activate block 1 less time
   buffClass: 5
+  duoSecondClass: 0
   lore: 
   team: 0

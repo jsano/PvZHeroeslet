@@ -160,7 +160,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Enemy Tricks cost 1 brain more
+  description: Enemy Tricks cost 1 energy more
   lore: '"I''d forget my own flower if it wasn''t stuck to my head. Wait, what were
     we talking about?" '
   row: 0

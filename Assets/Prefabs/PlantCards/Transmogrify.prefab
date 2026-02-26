@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Transform an enemy into a random enemy that costs 1 brain
+  description: Transform an enemy into a random enemy that costs 1 energy
   lore: It's a life-changing experience. Actually, it's an everything-changing experience.
   row: 0
   col: 0

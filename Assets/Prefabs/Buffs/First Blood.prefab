@@ -123,8 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 0
-  description: When you damage the opponent hero do extra damage equal to (5 - turn
+  description: When you damage the enemy hero do extra damage equal to (5 - turn
     count)
   buffClass: 1
+  duoSecondClass: 0
   lore: 
   team: 0

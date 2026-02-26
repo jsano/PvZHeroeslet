@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Name
-      value: Emotional Spectrum
+      value: Harmonic Gain
       objectReference: {fileID: 0}
     - target: {fileID: 8499147558775820694, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Pivot.x
@@ -123,8 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 0
-  description: Upon choosing this, you get +1 gold every time you play a new emotion's
+  description: Upon choosing this, you get +1 energy every time you play a new emotion's
     card
   buffClass: 2
+  duoSecondClass: 0
   lore: 
   team: 0

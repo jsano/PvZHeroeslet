@@ -123,8 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 0
-  description: When you play a card on a lane that has another card, the one in front
+  description: When you play a card on a lane that has another ally, the one in front
     gains +3 HP
   buffClass: 0
+  duoSecondClass: 0
   lore: 
   team: 0

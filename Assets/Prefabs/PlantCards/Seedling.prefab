@@ -153,7 +153,7 @@ MonoBehaviour:
   fusionBase: {fileID: 0}
   fig: 0
   description: 'Start of turn: This transforms into a random ally that costs up to
-    6 sun'
+    6 energy'
   lore: It's the tiny seed of a... nobody actually knows.
   row: 0
   col: 0

@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 3
-  description: When your hero is hurt, you lose gold before you lose HP
+  description: When your hero is hurt, you lose energy before you lose HP
   buffClass: 0
   duoSecondClass: 3
   lore: 

@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When hurt: Make a random Imp that costs 2 brains or less in a random
+  description: 'When hurt: Make a random Imp that costs 2 energy or less in a random
     lane'
   lore: 'But where is the Imp-Throwing-Imp-Throwing-Imp?? We have to go deeper... '
   row: 0

@@ -123,7 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 0
-  description: 'End of turn: Heal your cards in the water by 1'
+  description: 'End of turn: Heal your allies in the water by 1'
   buffClass: 0
+  duoSecondClass: 0
   lore: 
   team: 0

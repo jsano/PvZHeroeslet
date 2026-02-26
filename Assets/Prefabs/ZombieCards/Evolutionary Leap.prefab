@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Transform an ally into a random ally that costs 1 brain more. Draw
+  description: Transform an ally into a random ally that costs 1 energy more. Draw
     a card
   lore: 'When Dr. Zomboss sent Meteor Z and Huge-Gigantacus from space, they smashed
     a tunnel to the center of the Earth. There, Plants and Zombies had evolved into

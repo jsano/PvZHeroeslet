@@ -123,8 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 0
-  description: 'Start of turn: Deal 1 damage to the opponent hero for each other
-    emotion you own buffs from'
+  description: 'Start of turn: Deal 1 damage to the enemy hero for each other emotion
+    you own buffs from'
   buffClass: 2
+  duoSecondClass: 0
   lore: 
   team: 0

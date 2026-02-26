@@ -160,7 +160,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Cards you Conjure cost 1 sun less. When this does damage, Conjure
+  description: Cards you Conjure cost 1 energy less. When this does damage, Conjure
     a Reincarnation
   lore: 'He''s steered his crew through many a pickle. '
   row: 0

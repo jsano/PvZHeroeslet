@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'While in your hand: This costs 1 brain less when you play a Trick.\nWhen
+  description: 'While in your hand: This costs 1 energy less when you play a Trick.\nWhen
     played: This does a bonus attack'
   lore: 'Never gets tired of the rubber chicken gag. '
   row: 0

@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Start of Tricks: You get +2 brains this turn'
+  description: 'Start of Tricks: You get +2 energy this turn'
   lore: 'Life comes and goes, but proper manners are forever. '
   row: 0
   col: 0

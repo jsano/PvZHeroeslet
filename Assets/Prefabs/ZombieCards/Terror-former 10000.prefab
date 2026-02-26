@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Conjure a Trick. All Trick cards in your hand cost 1 brain less
+  description: Conjure a Trick. All Trick cards in your hand cost 1 energy less
   lore: 'This is Huge-Gigantacus'' greatest invention ever. It''s also his only invention.
     But it''s best not to point that out to him. '
   row: 0

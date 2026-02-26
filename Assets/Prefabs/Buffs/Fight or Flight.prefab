@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 0
-  description: When you play a card in a lane that has an opponent card, it gets
-    +2 attack
+  description: When you play a card in a lane that has an enemy, it gets +2 attack
   buffClass: 3
+  duoSecondClass: 0
   lore: 
   team: 0

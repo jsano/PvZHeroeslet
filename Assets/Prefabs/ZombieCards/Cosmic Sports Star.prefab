@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: Conjure a Sports card, and it costs 2 brains less'
+  description: 'When played: Conjure a Sports card, and it costs 2 energy less'
   lore: 'He''s been named Most Valuable Zombie of the Galaxy two years in a row! '
   row: 0
   col: 0

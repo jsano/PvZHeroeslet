@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 0
-  description: When an opponent card has its attack or HP lowered, lower it by 1
-    more
+  description: When an enemy has its attack or HP lowered, lower it by 1 more
   buffClass: 5
+  duoSecondClass: 0
   lore: 
   team: 0

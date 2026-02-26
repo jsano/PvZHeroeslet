@@ -184,7 +184,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: The enemy hero loses their brains'
+  description: 'When played: The enemy hero loses their energy'
   lore: In this case, "brain drain" is a good thing.
   row: 0
   col: 0

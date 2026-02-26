@@ -157,7 +157,7 @@ MonoBehaviour:
   fusionBase: {fileID: 0}
   fig: 0
   description: 'When played: Shuffle two Clique Peas into your deck. For the rest
-    of the game, all Clique Peas get +1 attack +1 HP and cost +1 sun'
+    of the game, all Clique Peas get +1 attack +1 HP and cost +1 energy'
   lore: 'On Wednesdays we wear sunglasses. '
   row: 0
   col: 0
