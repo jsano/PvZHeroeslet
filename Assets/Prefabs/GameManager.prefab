@@ -1929,7 +1929,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e7f9e1f553a300d47afdbaab60b49a1d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 244106569778a8e4db3627bf0fcd0c46, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2301,12 +2301,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  permanentBonus: 0
+  turnTimerMax: 30
+  mulliganTimerMax: 15
+  blockTimerMax: 10
+  buffTimerMax: 15
+  rerolls: 1
+  playerPermanentBonus: 0
   opponentPermanentBonus: 0
-  plantPermanentAttackBonus: 0
-  plantPermanentHPBonus: 0
-  zombiePermanentAttackBonus: 0
-  zombiePermanentHPBonus: 0
+  playerPermanentAttackBonus: 0
+  playerPermanentHPBonus: 0
+  opponentPermanentAttackBonus: 0
+  opponentPermanentHPBonus: 0
+  playerUnitPermanentDiscount: 0
+  playerTrickPermanentDiscount: 0
+  playerCliquePeas: 0
+  opponentCliquePeas: 0
   team: 0
   mulliganUI: {fileID: 5870684246202692947}
   laneHighlight: {fileID: 6838658211467925747}
@@ -2334,15 +2343,14 @@ MonoBehaviour:
   score: {fileID: 1945424795119038871}
   change: {fileID: 4711270805475885982}
   waiting: {fileID: 2918583819582469568}
-  plantHero: {fileID: 0}
-  zombieHero: {fileID: 0}
+  playerHero: {fileID: 0}
+  opponentHero: {fileID: 0}
   waitingOnBlock: {fileID: 0}
   currentlySpawningCards: 0
   frenzyActivate: {fileID: 0}
   allowZombieCards: 0
   shuffledListsNextExpectedCount: 1
   removeStrikethrough: []
-  cliquePeas: 0
 --- !u!1 &2472384048606196413
 GameObject:
   m_ObjectHideFlags: 0
@@ -5459,7 +5467,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e7f9e1f553a300d47afdbaab60b49a1d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 244106569778a8e4db3627bf0fcd0c46, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

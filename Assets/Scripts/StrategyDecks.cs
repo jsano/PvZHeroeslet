@@ -10,7 +10,7 @@ public class StrategyDecks
             { AllCards.NameToID("Black-eyed Pea"), 3 },
             { AllCards.NameToID("Fire Peashooter"), 2 },
             { AllCards.NameToID("Snow Pea"), 4 },
-            { AllCards.NameToID("Fertilize"), 2 },
+            { AllCards.NameToID("Vitamin Z"), 2 },
             { AllCards.NameToID("Flourish"), 2 },
             { AllCards.NameToID("Grow-shroom"), 4 },
             { AllCards.NameToID("Repeater"), 2 },
@@ -21,7 +21,7 @@ public class StrategyDecks
             { AllCards.NameToID("Brainana"), 1 },
             { AllCards.NameToID("Plant Food"), 1 },
         };
-        UserAccounts.allDecks.Add("Hit Face", new DeckBuilder.Deck(11));
+        UserAccounts.allDecks.Add("Hit Face", new DeckBuilder.Deck(12));
         UserAccounts.allDecks["Hit Face"].cards = new() {
             { AllCards.NameToID("Chimney Sweep"), 2 },
             { AllCards.NameToID("Mini Ninja"), 4 },
@@ -33,7 +33,7 @@ public class StrategyDecks
             { AllCards.NameToID("Pogo Bouncer"), 4 },
             { AllCards.NameToID("Mixed-up Gravedigger"), 2 },
             { AllCards.NameToID("Walrus Rider"), 2 },
-            { AllCards.NameToID("Fun-Dead Raiser"), 2 },
+            { AllCards.NameToID("Zombie High Diver"), 2 },
         };
 
         UserAccounts.Instance.SaveData();

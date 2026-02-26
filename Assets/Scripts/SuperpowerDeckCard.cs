@@ -16,6 +16,8 @@ public class SuperpowerDeckCard : MonoBehaviour, IDragHandler, IPointerUpHandler
         DB = FindAnyObjectByType<DeckBuilder>(FindObjectsInactive.Include).GetComponent<DeckBuilder>();
         Card orig = AllCards.Instance.cards[ID];
         image.sprite = orig.GetComponent<SpriteRenderer>().sprite;
+
+        GetComponent<Image>().color = Color.Lerp(Buff.classColors[orig._class], Color.white, 0.8f);
     }
 
     /*public void ShowCardInfo()

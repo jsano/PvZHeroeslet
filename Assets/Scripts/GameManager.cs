@@ -383,10 +383,6 @@ public class GameManager : NetworkBehaviour
 		{
 			playerHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.BHero]).GetComponent<Hero>();
 			opponentHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.AHero]).GetComponent<Hero>();
-            remainingText.transform.parent.GetComponent<Image>().sprite = AllCards.Instance.brainUI;
-            opponentRemainingText.transform.parent.GetComponent<Image>().sprite = AllCards.Instance.sunUI;
-            remainingAnim.GetComponent<Image>().sprite = AllCards.Instance.brainUI;
-            opponentRemainingAnim.GetComponent<Image>().sprite = AllCards.Instance.sunUI;
         }
 		else
 		{

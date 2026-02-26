@@ -30,7 +30,7 @@ public class StartButtons : NetworkBehaviour
     // DEBUG ===
     public void StartHost()
     {
-        UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(10));
+        UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(0));
         UserAccounts.allDecks["temp10"].cards = new() {
             { AllCards.NameToID("Conga Zombie"), 4 },
             { AllCards.NameToID("Embiggen"), 4 },
@@ -48,7 +48,7 @@ public class StartButtons : NetworkBehaviour
             AllCards.NameToID("Cold War"),
             AllCards.NameToID("Enduring Resolve"),
             AllCards.NameToID("Deep Freeze"),
-            AllCards.NameToID("Lingering Relief"),
+            AllCards.NameToID("Next Level"),
         };
 
         NetworkManager.Singleton.StartHost();
@@ -56,14 +56,14 @@ public class StartButtons : NetworkBehaviour
         GameObject.Find("Client").SetActive(false);
         UserAccounts.GameStats.DeckName = "temp10";
         UserAccounts.GameStats.AHero = 0;
-        UserAccounts.GameStats.BHero = 15;
+        UserAccounts.GameStats.BHero = 10;
         UserAccounts.GameStats.team = Card.Team.A;
         NetworkManager.OnConnectionEvent += P2Joined;
     }
 
     public void StartClient()
     {
-        UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(18));
+        UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(10));
         UserAccounts.allDecks["temp11"].cards = new() {
             { AllCards.NameToID("Toxic Waste Imp"), 2 },
             { AllCards.NameToID("Overstuffed Zombie"), 4 },
@@ -81,12 +81,12 @@ public class StartButtons : NetworkBehaviour
             AllCards.NameToID("Cold War"),
             AllCards.NameToID("Enduring Resolve"),
             AllCards.NameToID("Deep Freeze"),
-            AllCards.NameToID("Lingering Relief"),
+            AllCards.NameToID("Next Level"),
         };
 
         UserAccounts.GameStats.DeckName = "temp11";
         UserAccounts.GameStats.AHero = 0;
-        UserAccounts.GameStats.BHero = 15;
+        UserAccounts.GameStats.BHero = 10;
         UserAccounts.GameStats.team = Card.Team.B;
         NetworkManager.Singleton.StartClient();
     }

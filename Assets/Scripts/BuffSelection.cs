@@ -8,6 +8,7 @@ public class BuffSelection : MonoBehaviour
     [HideInInspector] public int ID;
     public TextMeshProUGUI buffName;
     public TextMeshProUGUI description;
+    public TextMeshProUGUI rarity;
     public Image image;
     public GradientImage BG;
 
@@ -20,34 +21,14 @@ public class BuffSelection : MonoBehaviour
         image.sprite = source.GetImage();
         buffName.text = source.name;
         description.text = source.description;
+        rarity.text = source.rarity.ToString();
 
-        BG.Color1 = source.buffClass switch
-        {
-            Card.Class.Elation => Color.yellow,
-            Card.Class.Misery => Color.blue,
-            Card.Class.Wrath => Color.red,
-            Card.Class.Fright => Color.magenta + Color.blue * 0.5f,
-            Card.Class.Awe => Color.red + Color.cyan * 0.5f,
-            Card.Class.Contempt => Color.green,
-            _ => Color.white,
-        };
-        if (source.rarity == Buff.Rarity.Duo)
-        {
-            BG.Color2 = source.duoSecondClass switch
-            {
-                Card.Class.Elation => Color.yellow,
-                Card.Class.Misery => Color.blue,
-                Card.Class.Wrath => Color.red,
-                Card.Class.Fright => Color.magenta + Color.blue * 0.5f,
-                Card.Class.Awe => Color.red + Color.cyan * 0.5f,
-                Card.Class.Contempt => Color.green,
-                _ => Color.white,
-            };
-        }
+        BG.Color1 = Buff.classColors[source.buffClass];
+        if (source.rarity == Buff.Rarity.Duo) BG.Color2 = Buff.classColors[source.duoSecondClass];
         else BG.Color2 = BG.Color1;
 
-        BG.Color1 += Color.white * 0.35f;
-        BG.Color2 += Color.white * 0.35f;
+        BG.Color1 = Color.Lerp(BG.Color1, Color.white, 0.3f);
+        BG.Color2 = Color.Lerp(BG.Color2, Color.white, 0.3f);
     }
 
     public void Select()

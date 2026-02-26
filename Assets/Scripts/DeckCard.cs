@@ -42,8 +42,9 @@ public class DeckCard : MonoBehaviour
             hpUI.transform.parent.gameObject.SetActive(false);
         } 
         costUI.text = orig.cost + "";
-        if (orig.team == Card.Team.B) costUI.GetComponentInParent<Image>().sprite = AllCards.Instance.brainUI;
         if (hideButtons) add.gameObject.SetActive(false);
+
+        transform.Find("BG").GetComponent<Image>().color = Color.Lerp(Buff.classColors[orig._class], Color.white, 0.8f);
     }
 
     public void Add()

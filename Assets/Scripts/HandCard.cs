@@ -236,8 +236,8 @@ public class HandCard : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         costUI.text = GetCost() + "";
         ChangeCost(0);
 
-        if (orig.team == Card.Team.B) costUI.GetComponentInParent<Image>().sprite = AllCards.Instance.brainUI;
-	}
+        transform.Find("BG").GetComponent<Image>().color = Color.Lerp(Buff.classColors[orig._class], Color.white, 0.8f);
+    }
 
     // Update is called once per frame
     void Update()

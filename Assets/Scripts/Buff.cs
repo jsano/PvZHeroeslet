@@ -16,6 +16,16 @@ public class Buff : MonoBehaviour
         Duo
     }
 
+    public static Dictionary<Card.Class, Color> classColors = new()
+    {
+        { Card.Class.Elation, Color.yellow },
+        { Card.Class.Misery, Color.blue + Color.yellow * 0.1f },
+        { Card.Class.Wrath, Color.red },
+        { Card.Class.Fright, Color.magenta + Color.blue * 0.5f },
+        { Card.Class.Awe, Color.red + Color.cyan * 0.5f },
+        { Card.Class.Contempt, Color.green }
+    };
+
     public Rarity rarity;
     public string description;
     public Card.Class buffClass;
