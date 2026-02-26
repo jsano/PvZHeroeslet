@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: This copies the attack and HP of another zombie'
+  description: 'When played: This copies the attack and HP of another ally'
   lore: 'It takes a lot of practice for two Zombies'' heads to fall off at the exact
     same time. '
   row: 0

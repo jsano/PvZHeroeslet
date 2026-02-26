@@ -46,11 +46,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.128
+      value: 0.94
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.44
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 8010029174977732602, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_RootOrder
@@ -155,8 +155,9 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
-  description: 'When played next to a Leafy plant: This gets +1 HP and Conjure a
-    Leafy card'
+  fig: 0
+  description: 'When played next to a Leafy ally: This gets +1 HP and Conjure a Leafy
+    card'
   lore: '"Everyone''s magic in their own special way. Everyone except me." '
   row: 0
   col: 0

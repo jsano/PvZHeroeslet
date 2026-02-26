@@ -46,11 +46,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.0093334
+      value: 0.94625
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.3546667
+      value: 1.27
       objectReference: {fileID: 0}
     - target: {fileID: 8010029174977732602, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_RootOrder
@@ -155,8 +155,9 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
-  description: 'When played: Move a zombie to this lane.\nWhen destroyed: Do 3 damage
-    to a zombie here'
+  fig: 0
+  description: 'When played: Move an enemy to this lane.\nWhen destroyed: Do 3 damage
+    to an enemy here'
   lore: 'He''s a hot commodity on dating sites such as eGardening, Thatch.com, and
     OKTulip. '
   row: 0

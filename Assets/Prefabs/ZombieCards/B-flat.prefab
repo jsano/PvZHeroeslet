@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 1
-  _class: 5
+  _class: 4
   tribes: 06000000
   token: 0
   cost: 3
@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Destroy a random plant
+  description: Destroy a random enemy
   lore: 'Just wait until you C-Sharp. '
   row: 0
   col: 0

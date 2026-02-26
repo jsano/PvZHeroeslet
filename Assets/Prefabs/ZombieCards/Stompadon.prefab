@@ -164,7 +164,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Dino-Roar: All zombies in your hand get +1 attack +1 HP'
+  description: 'Dino-Roar: All allies in your hand get +1 attack +1 HP'
   lore: 'With a cerebellum the size of a Wall-Nut, it specializes in oversized bodies
     for little brains. '
   row: 0

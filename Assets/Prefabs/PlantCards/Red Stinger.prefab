@@ -155,7 +155,8 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
-  description: 'When played behind a plant: This becomes 7/3'
+  fig: 0
+  description: 'When played behind an ally: This becomes 7/3'
   lore: '"I do stretching exercises every morning," he says. "It''s important to
     stay physically and mentally nimble." '
   row: 0

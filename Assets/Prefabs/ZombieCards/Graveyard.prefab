@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: ' Zombies played here are Gravestones. When a zombie is revealed from
+  description: ' Allies played here are Gravestones. When an ally is revealed from
     a Gravestone here, it gets +1 attack'
   lore: 'Super Brainz always wanted a house with a nice yard. '
   row: 0

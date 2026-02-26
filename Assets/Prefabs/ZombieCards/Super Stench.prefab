@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: All zombies are Deadly. Draw a card
+  description: All allies are Deadly. Draw a card
   lore: 'That''s the smell of victory! '
   row: 0
   col: 0

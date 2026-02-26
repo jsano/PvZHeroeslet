@@ -169,7 +169,7 @@ MonoBehaviour:
   fusionBase: {fileID: 0}
   fig: 0
   description: 'When destroyed: Gain a 2/1 Haunting Ghost that says "Amphibious.
-    When played: A plant gets -1 attack -1 HP"'
+    When played: An enemy gets -1 attack -1 HP"'
   lore: 'He doesn''t realize he would look even scarier without the spooky ghost
     costume... '
   row: 0

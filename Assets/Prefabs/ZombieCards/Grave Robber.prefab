@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 1
+  _class: 3
   tribes: 140000001a000000
   token: 0
   cost: 1
@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: This gets +1 attack when a zombie is revealed from a Gravestone
+  description: This gets +1 attack when an ally is revealed from a Gravestone
   lore: 'Why not rob graves? They''re not going to miss it. It''s not like the dead
     are rising up or anything. '
   row: 0

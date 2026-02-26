@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 0
   type: 0
-  _class: 3
+  _class: 5
   tribes: 070000000a000000
   token: 0
   cost: 8
@@ -163,7 +163,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: Zombie Tricks cost 6 brains more
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: Enemy Tricks cost 6 brains more
   lore: 'Their ancestors were hunted to the depths of space. Now their descendants
     are back for cold, fruity vengeance. '
   row: 0

@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: A zombie can't be hurt this turn. Conjure a History card
+  description: An ally can't be hurt this turn. Conjure a History card
   lore: 'Possible side effects include: the creation of a temporal paradox, the unraveling
     of the fabric of reality, erasing your entire existence, a mild foot rash. '
   row: 0

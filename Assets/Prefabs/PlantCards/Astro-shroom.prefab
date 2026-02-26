@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When you play a plant, do 1 damage to the zombie hero
+  description: When you play an ally, do 1 damage to the enemy hero
   lore: He's had good meetings with a lot of smaller asteroids. They really made
     an impression
   row: 0

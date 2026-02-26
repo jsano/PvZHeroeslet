@@ -184,7 +184,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: Damage the zombie hero for half their health, rounded
+  description: 'When played: Damage the enemy hero for half their health, rounded
     down'
   lore: He's developed a taste for Zombie Heroes.
   row: 0

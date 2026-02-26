@@ -176,7 +176,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Start of turn: If there''s a zombie here, gain a Teleport'
+  description: 'Start of turn: If there''s an ally here, gain a Teleport'
   lore: 'Teleportation is a relatively new technology. Has a few kinks that need
     ironing out. So yeah, sometimes things get a little...mixed up. '
   row: 0

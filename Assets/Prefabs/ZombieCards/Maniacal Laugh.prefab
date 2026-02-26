@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: A zombie gets +5 attack +5 HP and Frenzy
+  description: An ally gets +5 attack +5 HP and Frenzy
   lore: 'It''s not so much "hahaha" as it is "mwahahaha." '
   row: 0
   col: 0

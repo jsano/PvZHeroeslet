@@ -163,11 +163,15 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: Do 2 damage to a zombie
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: Do 2 damage to an enemy
   lore: 'Beware fruity vengeance from above. '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
   includeHero: 0
-  targetTeam: 1
   damage: 2

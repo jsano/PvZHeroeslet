@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: Another zombie gets +2 attack +2 HP.\nWhen hurt: Bounce
+  description: 'When played: Another ally gets +2 attack +2 HP.\nWhen hurt: Bounce
     this card'
   lore: 'The future is Hovering. The future is Radical. The future is Goat. '
   row: 0

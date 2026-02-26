@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: Each zombie hides in a Gravestone. Mix them up randomly'
+  description: 'When played: Each ally hides in a Gravestone. Mix them up randomly'
   lore: 'Digging graves is hard work, but seeing customers rise out of them makes
     it all worth it. '
   row: 0

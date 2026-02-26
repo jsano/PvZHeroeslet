@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When revealed: Plants here get -1 attack -1 HP'
+  description: 'When revealed: Enemies here get -1 attack -1 HP'
   lore: 'He was told that playing the pipe would summon raccoons. But whatevs. '
   row: 0
   col: 0

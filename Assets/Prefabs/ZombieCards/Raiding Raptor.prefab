@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Dino-Roar: This gets +2 attack.\nWhen this hurts the plant hero,
+  description: 'Dino-Roar: This gets +2 attack.\nWhen this hurts the enemy hero,
     Conjure a card that costs 2 brains or less'
   lore: 'Amazomb helmets mostly protect their ears from all the roaring. '
   row: 0

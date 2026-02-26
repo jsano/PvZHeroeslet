@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Do 5 damage to a plant. The plant hero Conjures a Fruit
+  description: Do 5 damage to an enemy. The enemy hero Conjures a Fruit
   lore: 'Once you get past all the dynamite and bombs, fruitcakes actually contain
     at least 5% Fruit. '
   row: 0

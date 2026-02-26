@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When the plant hero draws a card, do 1 damage to them
+  description: When the enemy hero draws a card, do 1 damage to them
   lore: 'How did he know the Plants were coming? Because four-armed is forewarned. '
   row: 0
   col: 0

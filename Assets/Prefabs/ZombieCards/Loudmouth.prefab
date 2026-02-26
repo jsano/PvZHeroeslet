@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When revealed: A zombie gets +2 attack +2 HP'
+  description: 'When revealed: An ally gets +2 attack +2 HP'
   lore: 'What he lacks in size, he makes up for in volume. '
   row: 0
   col: 0

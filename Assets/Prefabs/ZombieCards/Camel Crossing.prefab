@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: All zombies get +2 HP
+  description: All allies get +2 HP
   lore: 'Camels - they''re filthy, ill-tempered animals that''ll spit on you just
     for fun. But Zombies love ''em all the same. '
   row: 0

@@ -163,7 +163,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: Plants here get +5 attack +5 HP
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: Allies here get +5 attack +5 HP
   lore: 'It may seem an inhospitable place for Plants, but with a little TLC and
     some patience, it''ll grow more than just potatoes. Much more. '
   row: 0

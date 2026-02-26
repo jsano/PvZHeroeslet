@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When revealed: Bounce a Terrain and all plants there'
+  description: 'When revealed: Bounce a Terrain and all enemies there'
   lore: 'He loved finding dinosaur fossils, until the dinosaurs started finding him. '
   row: 0
   col: 0

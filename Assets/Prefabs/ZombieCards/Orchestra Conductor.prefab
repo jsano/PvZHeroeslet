@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: All zombies get +2 attack'
+  description: 'When played: All allies get +2 attack'
   lore: 'He isn''t in it for the music. He just likes waving sticks. '
   row: 0
   col: 0

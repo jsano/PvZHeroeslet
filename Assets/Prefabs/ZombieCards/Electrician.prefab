@@ -184,7 +184,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When revealed: A zombie does a Bonus Attack'
+  description: 'When revealed: An ally does a Bonus Attack'
   lore: 'He charges for the full hour. '
   row: 0
   col: 0

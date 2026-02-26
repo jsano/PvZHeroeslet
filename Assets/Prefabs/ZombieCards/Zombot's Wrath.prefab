@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Do damage equal to the number of zombies + 1
+  description: Do damage equal to the number of allies + 1
   lore: 'Dr. Zomboss believes that there''s no problem that can''t be solved by a
     giant robot. '
   row: 0

@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Dino-Roar: Do 2 damage to a random plant or plant hero'
+  description: 'Dino-Roar: Do 2 damage to a random enemy or enemy hero'
   lore: 'When not exploring Hollow Earth''s jungles, they like to go clubbing. '
   row: 0
   col: 0

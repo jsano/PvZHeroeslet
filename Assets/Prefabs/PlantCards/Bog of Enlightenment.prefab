@@ -163,7 +163,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: Plants here that are Amphibious get +2 attack. Zombies here that aren't
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: Allies here that are Amphibious get +2 attack. Enemies here that aren't
     Amphibious get -2 attack
   lore: 'Good for Plants, it is. Good for Zombies, it is not! '
   row: 0

@@ -168,8 +168,8 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'This moves to a random lane when a plant is played here.\nWhen this
-    enters a lane: Do 1 damage to all plants here'
+  description: 'This moves to a random lane when an enemy is played here.\nWhen this
+    enters a lane: Do 1 damage to all enemies here'
   lore: 'According to the Chinese Zodiac, it''s the year of the Fire Rooster. Crispy
     fried Plants for all your Zombies! '
   row: 0

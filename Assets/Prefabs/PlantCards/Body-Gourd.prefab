@@ -163,6 +163,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'When played: Fill your Block Meter to full'
   lore: 'He moonlights as a decorative center piece during the fall. '
   row: 0

@@ -168,8 +168,8 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When any zombie with Frenzy destroys a plant, that zombie gets +2
-    attack +2 HP
+  description: When any ally with Frenzy destroys an enemy, that ally gets +2 attack
+    +2 HP
   lore: 'Vimpirism - an ancient curse evolved from the dawn of time. '
   row: 0
   col: 0

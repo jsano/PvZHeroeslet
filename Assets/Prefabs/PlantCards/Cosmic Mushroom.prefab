@@ -163,6 +163,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'When played: Conjure a Mushroom, and it gets +2 attack'
   lore: 'He''s far out all right. Like, waaaay far out. '
   row: 0

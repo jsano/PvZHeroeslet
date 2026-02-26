@@ -153,8 +153,11 @@ MonoBehaviour:
   freeze: 0
   evolution: 2
   evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'This gets +1 attack +1 HP when a card is bounced.\nBean Evolution:
-    Bounce a zombie'
+    Bounce an enemy'
   lore: '"It''s not how hard the Zombies knock you down. It''s how hard you bounce
     back." '
   row: 0

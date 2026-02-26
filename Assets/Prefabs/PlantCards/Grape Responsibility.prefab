@@ -177,7 +177,10 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
-  description: Double a plant's HP
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: Double an ally's HP
   lore: 'When you think of responsibility, think of grapes. '
   row: 0
   col: 0

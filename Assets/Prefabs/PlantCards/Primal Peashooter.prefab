@@ -155,7 +155,8 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
-  description: When this hurts a zombie, Bounce that zombie
+  fig: 0
+  description: When this hurts an enemy, Bounce that enemy
   lore: 'Found in groups of 3, 5, 7, 11, and 31. '
   row: 0
   col: 0

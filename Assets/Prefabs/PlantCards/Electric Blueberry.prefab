@@ -155,7 +155,8 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
-  description: 'After combat here: Do 6 damage to a random zombie or the zombie hero'
+  fig: 0
+  description: 'After combat here: Do 6 damage to a random enemy or the enemy hero'
   lore: 'Does she strike a "random" Zombie with her lightning? Really? Or is she
     settling an old, unspoken score? '
   row: 0

@@ -163,7 +163,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: Move a zombie. Conjure a Fruit
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: Move an enemy. Conjure a Fruit
   lore: 'A slapstick comedy staple that, somehow, the Zombies never see coming. '
   row: 0
   col: 0

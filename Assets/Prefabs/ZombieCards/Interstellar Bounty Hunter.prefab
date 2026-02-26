@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When this destroys a plant, draw a card
+  description: When this destroys an enemy, draw a card
   lore: 'If you have a bounty on your head, she won''t stop until she eats your brains.
     It''s not personal. It''s just business. '
   row: 0

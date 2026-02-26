@@ -46,11 +46,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.7525
+      value: 1.0352942
       objectReference: {fileID: 0}
     - target: {fileID: 3727030900474692294, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.7525
+      value: 1.2352941
       objectReference: {fileID: 0}
     - target: {fileID: 8010029174977732602, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: m_RootOrder
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 0
   type: 0
-  _class: 1
+  _class: 2
   tribes: 0f0000000a000000
   token: 0
   cost: 4
@@ -155,7 +155,8 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
-  description: 'End of turn: This transforms into a random plant that costs 1 sun
+  fig: 0
+  description: 'End of turn: This transforms into a random ally that costs 1 sun
     more. It keeps this ability'
   lore: '"By Heisenberg''s Uncertainty Principle, if you look at a Plant too closely,
     you actually change what that Plant is..." '

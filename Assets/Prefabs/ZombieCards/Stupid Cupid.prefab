@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: Do 1 damage to a plant. That plant has 0 attack this
+  description: 'When played: Do 1 damage to an enemy. That enemy has 0 attack this
     turn'
   lore: 'What''s love got to do with it? Honestly, he has no idea. '
   row: 0

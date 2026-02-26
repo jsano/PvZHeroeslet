@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When revealed: A plant gets -2 attack'
+  description: 'When revealed: An enemy gets -2 attack'
   lore: 'If barren rock and wilted Plants are what you want, he''s the landscaper
     for the job. '
   row: 0

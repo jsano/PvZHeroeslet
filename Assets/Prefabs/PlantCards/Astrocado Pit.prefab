@@ -159,6 +159,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'Start of turn: This transforms into an Astrocado'
   lore: 'Getting defeated is the pits. '
   row: 0

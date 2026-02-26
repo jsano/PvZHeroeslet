@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Zombies here get Strikethrough\nWhen played: Freeze all plants here'
+  description: 'Allies here get Strikethrough\nWhen played: Freeze all enemies here'
   lore: 'Be sure to pack a warm sweater. '
   row: 0
   col: 0

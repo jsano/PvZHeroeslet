@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 0
+  _class: 3
   tribes: 1f000000
   token: 0
   cost: 2
@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When revealed: Move a plant'
+  description: 'When revealed: Move an enemy'
   lore: 'Hey, he''s in shape. Round is a shape. '
   row: 0
   col: 0

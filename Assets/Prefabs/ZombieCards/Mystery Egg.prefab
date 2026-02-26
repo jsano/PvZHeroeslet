@@ -168,8 +168,8 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Start of Tricks: Transform this into a random zombie that costs 2
-    brains or less'
+  description: 'Start of Tricks: Transform this into a random ally that costs 2 brains
+    or less'
   lore: '"Mommy, where do little Zombies come from?" Asked and answered. '
   row: 0
   col: 0

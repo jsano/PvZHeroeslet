@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 1
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Fusion: A zombie played on this does a Bonus Attack'
+  description: 'Fusion: An ally played on this does a Bonus Attack'
   lore: 'If Neptuna''s Triassic Invasion force can align all of Hollow Earth''s Mustache
     Monuments at once, she will become truly unstoppable. '
   row: 0

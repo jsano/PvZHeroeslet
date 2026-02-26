@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Conjure an Imp, a zombie, and a Gargantuar
+  description: Conjure an Imp, an ally, and a Gargantuar
   lore: 'An Imp, a Zombie, and Gargantuar walk into a bar... '
   row: 0
   col: 0

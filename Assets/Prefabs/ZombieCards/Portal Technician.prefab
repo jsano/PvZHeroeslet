@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When destroyed: Make a random zombie that costs 4 or more here'
+  description: 'When destroyed: Make a random ally that costs 4 or more here'
   lore: 'Soon everyone will own their own portal. But for now, he enjoys being an
     early adopter. '
   row: 0

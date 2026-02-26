@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: A plant gets -3 attack -3 HP. If it's on Heights or a Terrain, it
+  description: An enemy gets -3 attack -3 HP. If it's on Heights or a Terrain, it
     gets -6 attack -6 HP instead
   lore: 'Oozin'' for a bruisin! '
   row: 0

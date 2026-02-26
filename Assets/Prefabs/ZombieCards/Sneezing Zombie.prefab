@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Plants and the plant hero can''t be healed. When played: All plants
+  description: 'Enemies and the enemy hero can''t be healed. When played: All enemies
     get -1 attack -1 HP'
   lore: 'Flowers give her awful allergies and sickening sneezes. Is that why she
     wears one on her head? '

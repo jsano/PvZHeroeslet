@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 3
+  _class: 5
   tribes: 1800000014000000
   token: 0
   cost: 4
@@ -169,7 +169,7 @@ MonoBehaviour:
   fusionBase: {fileID: 0}
   fig: 0
   description: 'When revealed: Make a Trapper Territory that says "Before combat
-    here: Do 1 damage to each plant here"'
+    here: Do 1 damage to each enemy here"'
   lore: 'Purveyor of only the finest banana peel coats. '
   row: 0
   col: 0

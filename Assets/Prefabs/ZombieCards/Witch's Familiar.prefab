@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Make a 2/2 Zom-bats that says "Amphibious. When this hurts a plant,
+  description: Make a 2/2 Zom-bats that says "Amphibious. When this hurts an enemy,
     draw a card"
   lore: 'Immorticia was cleaning her belfry when, lo and behold, she found bats in
     there. '

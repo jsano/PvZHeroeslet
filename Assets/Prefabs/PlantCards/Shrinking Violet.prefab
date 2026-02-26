@@ -179,8 +179,9 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
-  description: A zombie and zombies next door to it get -2 attack. Then destroy any
-    of those zombies that have 0 attack
+  fig: 0
+  description: An enemy and enemies next door to it get -2 attack. Then destroy any
+    of those enemies that have 0 attack
   lore: 'Is she cute or terrifying? Yes. '
   row: 0
   col: 0

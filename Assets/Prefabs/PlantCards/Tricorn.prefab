@@ -165,7 +165,10 @@ MonoBehaviour:
   freeze: 0
   evolution: 30
   evolved: 0
-  description: 'Attacks here and next door.\nPlant Evolution: This gets +2 attack'
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: 'Attacks here and next door.\nAlly Evolution: This gets +2 attack'
   lore: '"Labor to keep alive in your breast that little spark of celestial fire
     called conscience." -Gourd Squashington '
   row: 0

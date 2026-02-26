@@ -163,7 +163,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: 'End of Turn: If there are no revealed zombies here, make a Sunflower
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: 'End of Turn: If there are no revealed enemies here, make a Sunflower
     here'
   lore: 'There''s something in the wind. Sunflower seeds, in fact. '
   row: 0

@@ -170,6 +170,7 @@ MonoBehaviour:
   doubleStrike: 0
   frenzy: 0
   gravestone: 0
+  strengthHeart: 0
   hunt: 0
   overshoot: 0
   splash: 0
@@ -178,7 +179,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: 'End of turn: Destroy all zombies here and next door'
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: 'End of turn: Destroy all enemies here and next door'
   lore: '"You know the old saying, ''Three heads are better than one''? Totally true."'
   row: 0
   col: 0

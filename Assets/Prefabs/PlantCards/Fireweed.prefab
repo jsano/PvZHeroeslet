@@ -153,6 +153,9 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'When played on the Ground: Make Hot Lava here that says "Before combat
     here: Do 1 damage to each card here"'
   lore: 'Don''t touch the floor. The floor is lava. '

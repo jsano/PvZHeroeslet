@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 1
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Fusion: A zombie played on this gets Overshoot 2'
+  description: 'Fusion: An ally played on this gets Overshoot 2'
   lore: 'The Triassic Invasion brought the very best of Zombie culture: Disco. '
   row: 0
   col: 0

@@ -156,8 +156,8 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: All plants get -1 attack.\nSports Evolution: Destroy
-    all plants with 2 attack or less'
+  description: 'When played: All enemies get -1 attack.\nSports Evolution: Destroy
+    all enemies with 2 attack or less'
   lore: 'The Retiarius gladiator was classically armed with a trident, a net, and
     a 10-day-old fish. '
   row: 0

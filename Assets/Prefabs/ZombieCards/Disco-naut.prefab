@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Zombies with 2 attack or less have Bullseye
+  description: Allies with 2 attack or less have Bullseye
   lore: 'Nothing focuses your aim like the super-sick wailing of a space keytar solo. '
   row: 0
   col: 0

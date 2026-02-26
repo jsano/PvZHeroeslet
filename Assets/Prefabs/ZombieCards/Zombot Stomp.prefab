@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Bounce all plants on the ground
+  description: Bounce all enemies on the ground
   lore: 'Don''t make him put his foot down! '
   row: 0
   col: 0

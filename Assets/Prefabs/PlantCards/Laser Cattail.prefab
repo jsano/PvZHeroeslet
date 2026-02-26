@@ -155,7 +155,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: This gets +1 attack +1 HP when you play a plant here
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: This gets +1 attack +1 HP when you play an ally here
   lore: 'He''s really good at entertaining himself. '
   row: 0
   col: 0

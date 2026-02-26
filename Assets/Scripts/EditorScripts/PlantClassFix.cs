@@ -2,16 +2,16 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 
-public class ZombieClassFix : EditorWindow
+public class PlantClassFix : EditorWindow
 {
     // Define the component type and field name you want to modify
     private const string FieldNameToModify = "_class"; // Replace with the name of your field
-    private string folderPath = "Assets/Prefabs/ZombieCards"; // Replace with your specific folder path
+    private string folderPath = "Assets/Prefabs/PlantCards"; // Replace with your specific folder path
 
-    [MenuItem("Tools/Zombie Card Prefab Modifier")]
+    [MenuItem("Tools/Plant Card Prefab Modifier")]
     public static void ShowWindow()
     {
-        GetWindow<ZombieClassFix>("Zombie Class Fixes");
+        GetWindow<PlantClassFix>("Plant Class Fixes");
     }
 
     void OnGUI()
@@ -72,19 +72,19 @@ public class ZombieClassFix : EditorWindow
                 {
                     // Modify the value based on the property type
                     // This example assumes a float; adjust for other types (intValue, boolValue, stringValue, etc)
-                    property.stringValue = property.stringValue.Replace("a zombie", "an ally");
-                    property.stringValue = property.stringValue.Replace("A zombie", "An ally");
-                    property.stringValue = property.stringValue.Replace("zombies", "allies");
-                    property.stringValue = property.stringValue.Replace("Zombies", "Allies");
-                    property.stringValue = property.stringValue.Replace("zombie", "ally");
-                    property.stringValue = property.stringValue.Replace("Zombie", "Ally");
+                    property.stringValue = property.stringValue.Replace("a zombie", "an enemy");
+                    property.stringValue = property.stringValue.Replace("A zombie", "An enemy");
+                    property.stringValue = property.stringValue.Replace("zombies", "enemies");
+                    property.stringValue = property.stringValue.Replace("Zombies", "Enemies");
+                    property.stringValue = property.stringValue.Replace("zombie", "enemy");
+                    property.stringValue = property.stringValue.Replace("Zombie", "Enemy");
 
-                    property.stringValue = property.stringValue.Replace("a plant", "an enemy");
-                    property.stringValue = property.stringValue.Replace("A plant", "An enemy");
-                    property.stringValue = property.stringValue.Replace("plants", "enemies");
-                    property.stringValue = property.stringValue.Replace("Plants", "Enemies");
-                    property.stringValue = property.stringValue.Replace("plant", "enemy");
-                    property.stringValue = property.stringValue.Replace("Plant", "Enemy");
+                    property.stringValue = property.stringValue.Replace("a plant", "an ally");
+                    property.stringValue = property.stringValue.Replace("A plant", "An ally");
+                    property.stringValue = property.stringValue.Replace("plants", "allies");
+                    property.stringValue = property.stringValue.Replace("Plants", "Allies");
+                    property.stringValue = property.stringValue.Replace("plant", "ally");
+                    property.stringValue = property.stringValue.Replace("Plant", "Ally");
                     serializedObject.ApplyModifiedProperties(); // Apply the changes to the serialized object
                     Debug.Log($"Updated {FieldNameToModify} on {prefabRoot.name}");
                 }

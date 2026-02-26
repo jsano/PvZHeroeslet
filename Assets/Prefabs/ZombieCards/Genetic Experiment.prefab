@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Start of Tricks: This gets +1 attack +1 HP if there''s a zombie next
+  description: 'Start of Tricks: This gets +1 attack +1 HP if there''s an ally next
     door'
   lore: Pickled Zombie is the best kind of Zombie1
   row: 0

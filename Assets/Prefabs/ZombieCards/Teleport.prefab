@@ -168,8 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: You may play a zombie when it's time for Tricks this turn. Draw a
-    card
+  description: You may play an ally when it's time for Tricks this turn. Draw a card
   lore: 'Feels like cheating. '
   row: 0
   col: 0

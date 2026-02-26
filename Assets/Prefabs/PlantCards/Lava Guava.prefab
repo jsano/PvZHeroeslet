@@ -163,9 +163,13 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: 'Do 2 damage to each zombie here and next door.\nIf played on the
-    Ground, make Hot Lava here that says "Before combat here: Do 1 damage to each
-    card here"'
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: 'Do 2 damage to each enemy here and next door.\nIf played on the Ground,
+    make Hot Lava here that says "Before combat here: Do 1 damage to each card here"'
   lore: 
   row: 0
   col: 0

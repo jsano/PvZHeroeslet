@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Move a plant. Conjure a Monster
+  description: Move an enemy. Conjure a Monster
   lore: 'Just a disembodied Zombie head screaming uncontrollably. Nope. Nothing terrifying
     about that. '
   row: 0

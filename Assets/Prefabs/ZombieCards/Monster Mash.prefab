@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: All zombies get +2 attack +2 HP
+  description: All allies get +2 attack +2 HP
   lore: 'Zombies never feel more alive than when they''re dancing. '
   row: 0
   col: 0

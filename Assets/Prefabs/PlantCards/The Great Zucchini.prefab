@@ -156,7 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 0
   type: 0
-  _class: 3
+  _class: 5
   tribes: 20000000
   token: 0
   cost: 9
@@ -184,7 +184,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: Transform all zombies into 1/1 zombies with no abilities'
+  description: 'When played: Transform all enemies into 1/1 enemies with no abilities'
   lore: '"Presto change-o! Now you see a powerful Zombie. Now you don''t!"'
   row: 0
   col: 0

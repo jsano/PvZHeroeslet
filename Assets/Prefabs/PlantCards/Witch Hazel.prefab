@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 0
   type: 0
-  _class: 3
+  _class: 5
   tribes: 08000000
   token: 0
   cost: 4
@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'End of turn: Destroy a random zombie and make a 1/1 Puff-shroom with
+  description: 'End of turn: Destroy a random enemy and make a 1/1 Puff-shroom with
     Team Up there'
   lore: 'Zombies are always trying to build a bridge out of her. '
   row: 0

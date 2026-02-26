@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Zombie Evolution: Bounce a plant'
+  description: 'Ally Evolution: Bounce an enemy'
   lore: 'Much more successful than his cousin, the Inhalegun Imp. '
   row: 0
   col: 0

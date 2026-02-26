@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When an Imp hurts the plant hero, draw a card
+  description: When an Imp hurts the enemy hero, draw a card
   lore: 'He''s got a bit of a Napoleon Complex. Obviously. '
   row: 0
   col: 0

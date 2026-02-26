@@ -169,7 +169,7 @@ MonoBehaviour:
   fusionBase: {fileID: 0}
   fig: 0
   description: 'When hurt: Do 1 damage to each other card.\nWhen destroyed: Do 5
-    damage to the plant hero'
+    damage to the enemy hero'
   lore: 'There isn''t a fart joke he hasn''t heard. '
   row: 0
   col: 0

@@ -168,8 +168,8 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Zombie here have Hunt. When a zombie enters or leaves this lane, it
-    gets +1 attack +1 HP
+  description: Ally here have Hunt. When an ally enters or leaves this lane, it gets
+    +1 attack +1 HP
   lore: 'Are the Zombies hunting dinosaurs, or are the dinosaurs hunting them? '
   row: 0
   col: 0

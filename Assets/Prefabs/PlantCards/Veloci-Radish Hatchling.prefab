@@ -159,6 +159,7 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
+  fig: 0
   description: 'Dino-Roar: This gets +1 attack'
   lore: The root of all primeval
   row: 0

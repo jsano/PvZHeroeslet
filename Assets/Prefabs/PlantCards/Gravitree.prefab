@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 0
   type: 0
-  _class: 0
+  _class: 5
   tribes: 0a00000022000000
   token: 0
   cost: 6
@@ -163,7 +163,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: When a zombie is played, move it here
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: When an enemy is played, move it here
   lore: 'The apple doesn''t fall far from the tree. Neither does anything else. '
   row: 0
   col: 0

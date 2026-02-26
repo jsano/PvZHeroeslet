@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When you play a zombie here, you get +2 brains this turn
+  description: When you play an ally here, you get +2 brains this turn
   lore: 'Zombies often find brains in space. It''s usually the space between your
     ears. '
   row: 0

@@ -179,7 +179,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: 'When played in a Terrain: Bounce a zombie or Gravestone'
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: 'When played in a Terrain: Bounce an enemy or Gravestone'
   lore: '"You wanna keep your lawn tidy? Tired of lookin'' at those unsightly Zombies?
     Then I''M your guy." '
   row: 0

@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When destroyed: Gain a Leftovers that says "When played: All zombies
+  description: 'When destroyed: Gain a Leftovers that says "When played: All allies
     gets +1 attack +1 HP"'
   lore: 'He insists that, as far as modes of transportation go, turkeys outperform
     dolphins, walruses, and kangaroos any day. '

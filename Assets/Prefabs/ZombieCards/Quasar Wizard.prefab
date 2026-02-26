@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played next to a zombie: Conjure a Superpower'
+  description: 'When played next to an ally: Conjure a Superpower'
   lore: 'You can call him Quazard for short. '
   row: 0
   col: 0

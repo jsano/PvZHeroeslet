@@ -180,7 +180,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: The zombie hero Conjures a Monster'
+  description: 'When played: The enemy hero Conjures a Monster'
   lore: 'For generations, the Pumpkings have kept their realms safe from a terrible
     curse. Tonight, they finally face their greatest fear. '
   row: 0

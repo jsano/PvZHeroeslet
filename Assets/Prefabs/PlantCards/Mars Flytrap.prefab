@@ -187,8 +187,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: When this hurts the zombie hero, steal a section from their Block
-    Meter
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: When this hurts the enemy hero, steal a section from their Block Meter
   lore: 'He loves Venus Flytrap, but sometimes they see things SO differently! '
   row: 0
   col: 0

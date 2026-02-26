@@ -167,11 +167,11 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
-  description: Destroy a zombie with 4 attack or more
+  fig: 0
+  description: Destroy an enemy with 4 attack or more
   lore: 'The bigger they are, the harder they go boom. '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
   attackCutoff: 4
   comparator: 1
-  targetTeam: 1

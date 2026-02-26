@@ -155,7 +155,8 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
-  description: 'When you play a Berry, do 1 damage to zombies next door.\nBerry Evolution:
+  fig: 0
+  description: 'When you play a Berry, do 1 damage to enemies next door.\nBerry Evolution:
     Gain a Berry Blast'
   lore: 'When it''s time to fight, he gets pretty juiced. '
   row: 0

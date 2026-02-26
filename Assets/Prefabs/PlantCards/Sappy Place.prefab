@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Zombies here get -3 attack
+  description: Enemies here get -3 attack
   lore: 'Zombies just hate a sappy ending. '
   row: 0
   col: 0

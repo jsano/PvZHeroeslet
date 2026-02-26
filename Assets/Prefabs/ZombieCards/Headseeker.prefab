@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When you play a Dancing card, do 2 damage to the plant hero.\nDancing
+  description: 'When you play a Dancing card, do 2 damage to the enemy hero.\nDancing
     Evolution: This gets +2 attack +2 HP and Bullseye'
   lore: 'He offers a special deal: Two of his heads for one of yours. Anyway you
     slice it, you still come out a head. '

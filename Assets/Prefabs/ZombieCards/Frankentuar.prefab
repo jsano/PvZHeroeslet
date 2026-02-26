@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: This gets +1 attack +1 HP when a zombie is destroyed
+  description: This gets +1 attack +1 HP when an ally is destroyed
   lore: 'IT''S ALIVE! IT''S ALI-I-I-IVE! Ok, strictly speaking, it''s not alive. '
   row: 0
   col: 0

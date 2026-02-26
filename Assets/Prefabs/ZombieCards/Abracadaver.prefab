@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When this hurts the plant hero, do 3 damage to a random plant
+  description: When this hurts the enemy hero, do 3 damage to a random enemy
   lore: 'Keeps forgetting that the magic word is "Please." '
   row: 0
   col: 0

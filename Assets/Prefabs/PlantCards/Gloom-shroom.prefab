@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Mushroom Evolution: Do 3 damage to zombies here and next door'
+  description: 'Mushroom Evolution: Do 3 damage to enemies here and next door'
   lore: 'Some see him as depressed, but he''s got a lot of sides. '
   row: 0
   col: 0

@@ -168,8 +168,8 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'All Gargantuars have Bullseye.\nWhen played: Transform another zombie
-    into a random zombie that costs 1 brain more'
+  description: 'All Gargantuars have Bullseye.\nWhen played: Transform another ally
+    into a random ally that costs 1 brain more'
   lore: 'A wizard did it. An enormous, green, Zombie wizard. '
   row: 0
   col: 0

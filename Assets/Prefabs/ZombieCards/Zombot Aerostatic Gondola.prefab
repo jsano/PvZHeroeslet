@@ -168,8 +168,8 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When this hurts the plant hero, it moves to a random lane and leaves
-    behind a random zombie
+  description: When this hurts the enemy hero, it moves to a random lane and leaves
+    behind a random ally
   lore: 'These pirates hit hard, then escape at 3 miles per hour. '
   row: 0
   col: 0

@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Do 3 damage to a plant. Heal your hero for 3
+  description: Do 3 damage to an enemy. Heal your hero for 3
   lore: 'For Electric Boogaloo, "alive" is a relative term. '
   row: 0
   col: 0

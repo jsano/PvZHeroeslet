@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When a zombie is revealed from a Gravestone, that zombie gets +1 attack
+  description: When an ally is revealed from a Gravestone, that ally gets +1 attack
     +1 HP
   lore: 'His epitaphs have been published on headstones around the world. '
   row: 0

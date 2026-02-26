@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When revealed: Steal 2 sections from the plant hero''s Block Meter.\nEnd
+  description: 'When revealed: Steal 2 sections from the enemy hero''s Block Meter.\nEnd
     of turn: All Gargantuars hide in Gravestones'
   lore: 'The lost temples of Hollow Earth were mysterious and inviting. Until they
     started to move. '

@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 1
-  _class: 0
+  _class: 4
   tribes: 
   token: 0
   cost: 3
@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Destroy each plant with 2 attack or less
+  description: Destroy each enemy with 2 attack or less
   lore: 'Act now! Rids your lawn of pesky weeds... and Peashooters and Sunflowers.
     Also Wall-Nuts. '
   row: 0

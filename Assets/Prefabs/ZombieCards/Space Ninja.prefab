@@ -169,7 +169,7 @@ MonoBehaviour:
   fusionBase: {fileID: 0}
   fig: 0
   description: 'While in a Terrain: The first time each turn this does damage, do
-    1 damage to each plant'
+    1 damage to each enemy'
   lore: 'You will never hear him coming in the vacuum of space. '
   row: 0
   col: 0

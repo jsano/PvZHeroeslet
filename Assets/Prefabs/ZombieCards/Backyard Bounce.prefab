@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Bounce a plant
+  description: Bounce an enemy
   lore: 'Zombies love trampolines. Not everyone knows that. '
   row: 0
   col: 0

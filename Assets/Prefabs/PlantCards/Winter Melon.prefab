@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 0
   type: 0
-  _class: 3
+  _class: 0
   tribes: 0a000000
   token: 0
   cost: 6
@@ -156,8 +156,8 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: Freeze a zombie.\nWhen this hurts a zombie, Freeze that
-    zombie'
+  description: 'When played: Freeze an enemy.\nWhen this hurts an enemy, Freeze that
+    enemy'
   lore: Perfect for your winter picnics.
   row: 0
   col: 0

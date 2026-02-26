@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: This gets +2 attack +2 HP when it destroys a plant
+  description: This gets +2 attack +2 HP when it destroys an enemy
   lore: 'He vants to suck your chlorophyll. '
   row: 0
   col: 0

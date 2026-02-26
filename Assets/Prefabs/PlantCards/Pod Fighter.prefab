@@ -163,7 +163,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: This does a Bonus Attack when you play a plant here or next door
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: This does a Bonus Attack when you play an ally here or next door
   lore: 'They''re just trying to create peas in our time. '
   row: 0
   col: 0

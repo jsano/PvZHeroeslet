@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: A plant gets -1 attack -1 HP'
+  description: 'When played: An enemy gets -1 attack -1 HP'
   lore: 'Is he a zombie? Is he a ghost? He refuses to be pigeonholed. '
   row: 0
   col: 0

@@ -175,7 +175,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: 'When played: Move a zombie to this lane.'
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: 'When played: Move an enemy to this lane.'
   lore: 'Zombies may only have four teeth left, but one of them''s a sweet tooth. '
   row: 0
   col: 0

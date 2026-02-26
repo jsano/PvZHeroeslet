@@ -168,8 +168,8 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: Conjure a zombie, and it gets +1 attack. The plant hero
-    Conjures a plant, and it gets -1 attack'
+  description: 'When played: Conjure an ally, and it gets +1 attack. The enemy hero
+    Conjures an enemy, and it gets -1 attack'
   lore: 'Regifting: Is it really an embarrassing social faux pas? Or is it just good
     ol'' recycling? '
   row: 0

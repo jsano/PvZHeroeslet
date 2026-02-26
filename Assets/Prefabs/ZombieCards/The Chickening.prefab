@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Do 2 damage to each plant
+  description: Do 2 damage to each enemy
   lore: 'So. Many. Feathers. '
   row: 0
   col: 0

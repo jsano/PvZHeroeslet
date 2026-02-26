@@ -165,6 +165,9 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'Dino-Roar: This gets +1 attack +1 HP'
   lore: 'Beta-Carrotina tracked Huge-Gigantacus all the way down the Meteor-Z-carved
     tunnel to Hollow Earth. Carrots there had evolved in a very different direction. '

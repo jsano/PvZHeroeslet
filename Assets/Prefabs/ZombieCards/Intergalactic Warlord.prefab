@@ -156,8 +156,8 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: For the rest of the game, all zombies get +1 attack
-    +1 HP'
+  description: 'When played: For the rest of the game, all allies get +1 attack +1
+    HP'
   lore: 'In space Zombie circles, he''s a very powerful figure. Just don''t talk
     about him in front of Huge-Gigantacus. There''s some jealousy there. '
   row: 0

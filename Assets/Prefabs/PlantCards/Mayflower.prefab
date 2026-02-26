@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When this hurts the zombie hero, Conjure a Corn, Squash or Bean
+  description: When this hurts the enemy hero, Conjure a Corn, Squash or Bean
   lore: 'Do April showers bring Mayflowers? My goodness, isn''t that a personal question! '
   row: 0
   col: 0

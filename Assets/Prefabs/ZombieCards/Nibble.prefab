@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: A plant gets -1 attack -1 HP. Heal your hero for 2
+  description: An enemy gets -1 attack -1 HP. Heal your hero for 2
   lore: 'Just a quick bite. '
   row: 0
   col: 0

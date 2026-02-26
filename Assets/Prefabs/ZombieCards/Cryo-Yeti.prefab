@@ -169,7 +169,7 @@ MonoBehaviour:
   fusionBase: {fileID: 0}
   fig: 0
   description: 'This gets +2 attack +2 HP when a card is frozen.\nWhen played: Freeze
-    a plant'
+    an enemy'
   lore: 'Freezing Plants in the far reaches of Space is not what he''d imagined he''d
     spend his life doing. But as the old Yeti saying goes, "When life hands you snow,
     you make snow cones." '

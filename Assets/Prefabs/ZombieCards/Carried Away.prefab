@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Move a zombie, then it does a bonus attack
+  description: Move an ally, then it does a bonus attack
   lore: 'It''s just Super Brainz'' way of sharing the wonder of flight with his fellow
     Zombies. '
   row: 0

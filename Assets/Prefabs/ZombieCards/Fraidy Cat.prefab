@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When a plant Trick is played, this gets +1 attack +1 HP and moves
+  description: When an enemy Trick is played, this gets +1 attack +1 HP and moves
     to a random lane
   lore: 'What''s a black cat''s favorite color? Purrrrr-ple. '
   row: 0

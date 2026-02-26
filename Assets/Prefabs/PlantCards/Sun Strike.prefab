@@ -179,7 +179,8 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
-  description: All plants get Strikethrough this turn. Conjure a Trick
+  fig: 0
+  description: All allies get Strikethrough this turn. Conjure a Trick
   lore: Why did they get rid of this?
   row: 0
   col: 0

@@ -158,6 +158,7 @@ MonoBehaviour:
   doubleStrike: 0
   frenzy: 0
   gravestone: 0
+  strengthHeart: 0
   hunt: 0
   overshoot: 0
   splash: 0
@@ -166,7 +167,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: A non-amphibious zombie gets -2 attack -2 HP. If you made at least
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: A non-amphibious enemy gets -2 attack -2 HP. If you made at least
     6 sun this turn, it gets -3 attack -3 HP instead
   lore: You're gonna need a towel for this one.
   row: 0

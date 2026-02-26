@@ -168,8 +168,8 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: For each zombie, this gets +1 attack +1 HP and heal
-    the plant hero for 1'
+  description: 'When played: For each enemy, this gets +1 attack +1 HP and heal the
+    ally hero for 1'
   lore: 'Catchup mechanics help you get back in a game when you''re behind. Ketchup
     Mechanics fix your fruit. '
   row: 0

@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: This moves to a random lane when a plant is played here
+  description: This moves to a random lane when an enemy is played here
   lore: 'At first he just dabbled in space piracy, but then he got hooked. '
   row: 0
   col: 0

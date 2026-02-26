@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 0
+  _class: 3
   tribes: 1d00000001000000
   token: 0
   cost: 6
@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When revealed: Zombies can''t be hurt this turn'
+  description: 'When revealed: Allies can''t be hurt this turn'
   lore: 'Not space legal in 35 different galaxies. '
   row: 0
   col: 0

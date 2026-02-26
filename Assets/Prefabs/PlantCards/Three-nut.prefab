@@ -149,7 +149,10 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
-  description: When a plant is played, that plant's attack becomes 3
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: When an ally is played, that ally's attack becomes 3
   lore: 'They say two heads are better than one. Three-Nut just took the next evolutionary
     step. '
   row: 0

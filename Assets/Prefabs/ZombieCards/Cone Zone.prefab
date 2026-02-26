@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Zombies here get +3 HP
+  description: Allies here get +3 HP
   lore: 'You are about to enter another dimension. A dimension not only of sight
     and sound, but of cones. '
   row: 0

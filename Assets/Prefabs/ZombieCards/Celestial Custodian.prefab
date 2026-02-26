@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 0
+  _class: 4
   tribes: 1b00000014000000
   token: 0
   cost: 4
@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played in a Terrain: Destroy a plant with 3 attack or less'
+  description: 'When played in a Terrain: Destroy an enemy with 3 attack or less'
   lore: 'Don''t call him a "Space Janitor." He''s a "Celestial Custodian" and darn
     proud of it. '
   row: 0

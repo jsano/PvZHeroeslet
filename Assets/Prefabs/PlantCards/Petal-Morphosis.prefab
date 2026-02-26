@@ -154,6 +154,7 @@ MonoBehaviour:
   doubleStrike: 0
   frenzy: 0
   gravestone: 0
+  strengthHeart: 0
   hunt: 0
   overshoot: 0
   splash: 0
@@ -162,7 +163,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: ' Transform a plant into a random plant. Draw a card'
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: ' Transform an ally into a random ally. Draw a card'
   lore: 'For when it''s time to turn over a new leaf. '
   row: 0
   col: 0

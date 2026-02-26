@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: A zombie's attack becomes 4, then it does a Bonus Attack
+  description: An ally's attack becomes 4, then it does a Bonus Attack
   lore: This card prepatch is what made me make this game
   row: 0
   col: 0

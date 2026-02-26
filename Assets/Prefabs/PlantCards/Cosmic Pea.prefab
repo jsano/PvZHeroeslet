@@ -179,6 +179,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'When played: Conjure a Pea, and it gets Double Strike'
   lore: '"The cosmos is so big and a pea is so small. The juxtaposition just really
     makes me think, you know?" '

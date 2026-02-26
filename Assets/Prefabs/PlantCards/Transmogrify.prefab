@@ -154,6 +154,7 @@ MonoBehaviour:
   doubleStrike: 0
   frenzy: 0
   gravestone: 0
+  strengthHeart: 0
   hunt: 0
   overshoot: 0
   splash: 0
@@ -162,9 +163,13 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: Transform a zombie into a random zombie that costs 1 brain
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: Transform an enemy into a random enemy that costs 1 brain
   lore: It's a life-changing experience. Actually, it's an everything-changing experience.
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}

@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 0
+  _class: 5
   tribes: 1f0000000b000000
   token: 0
   cost: 6
@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Plant Tricks cost 2 sun more
+  description: Enemy Tricks cost 2 sun more
   lore: 'Someone once told him the best defense is a good offence. He disagrees.
     Da fence he like best is da one he SMASH through. '
   row: 0

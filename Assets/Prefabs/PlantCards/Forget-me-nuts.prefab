@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 0
   type: 0
-  _class: 0
+  _class: 5
   tribes: 0800000015000000
   token: 0
   cost: 1
@@ -159,7 +159,8 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
-  description: Zombie Tricks cost 1 brain more
+  fig: 0
+  description: Enemy Tricks cost 1 brain more
   lore: '"I''d forget my own flower if it wasn''t stuck to my head. Wait, what were
     we talking about?" '
   row: 0

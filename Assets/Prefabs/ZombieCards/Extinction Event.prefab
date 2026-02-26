@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: A plant and all other copies of that plant get -2 attack -2 HP
+  description: An enemy and all other copies of that enemy get -2 attack -2 HP
   lore: 'Sometimes the evolutionary tree withers at the root. '
   row: 0
   col: 0

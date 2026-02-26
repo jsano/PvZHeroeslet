@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When revealed: Bounce a plant'
+  description: 'When revealed: Bounce an enemy'
   lore: 'Not the most efficient mode of transportation, but definitely the most fun. '
   row: 0
   col: 0

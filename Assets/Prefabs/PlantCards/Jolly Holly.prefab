@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: Freeze zombies next door'
+  description: 'When played: Freeze enemies next door'
   lore: 'No exaggeration, she is ALWAYS in a great mood. Even when fighting Zombies.
     "What''s not to love about saving the world?" she says. '
   row: 0

@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Draw 3 cards. Then the plant hero draws a card
+  description: Draw 3 cards. Then the enemy hero draws a card
   lore: '"For the 4th day of Feastivus, my true love gave to me: 1 Fire Rooster,
     1 Sneezing Zombie, 1 Bad Moon Rising, and a partridge in a Pear Tree!" '
   row: 0

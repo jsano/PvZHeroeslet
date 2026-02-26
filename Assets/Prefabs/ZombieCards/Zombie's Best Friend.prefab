@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played next to a zombie: Make another random zombie that costs
+  description: 'When played next to an ally: Make another random ally that costs
     1 brain'
   lore: '"What counts is not necessarily the size of the dog in the fight; it''s
     the size of the fight in the dog." - Wight Z. Diesenhower '

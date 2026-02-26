@@ -163,6 +163,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: Attacks in all 5 lanes
   lore: 'When you see a Shooting Starfruit, make a wish, any wish! Any wish that
     involves takin'' down Zombies, that is. '

@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When revealed: Steal a section from the plant hero''s Block Meter'
+  description: 'When revealed: Steal a section from the enemy hero''s Block Meter'
   lore: 'Piracy is serious monkey business. '
   row: 0
   col: 0

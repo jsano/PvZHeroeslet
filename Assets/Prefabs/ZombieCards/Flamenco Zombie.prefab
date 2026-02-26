@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: Do 2 damage to the plant hero for each Dancing zombie'
+  description: 'When played: Do 2 damage to the enemy hero for each Dancing ally'
   lore: 'Also enjoys dancing the rumba, tango, and the Hokey Pokey. '
   row: 0
   col: 0

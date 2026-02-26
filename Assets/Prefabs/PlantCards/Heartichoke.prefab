@@ -179,7 +179,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: When a plant or your hero is healed, do that much damage to the zombie
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: When an ally or your hero is healed, do that much damage to the enemy
     hero
   lore: 'She''s a sweetheart, she really is. But fighting Zombies...it''s made her
     hard. '

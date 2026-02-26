@@ -155,7 +155,8 @@ MonoBehaviour:
   evolved: 0
   fusion: 1
   fusionBase: {fileID: 0}
-  description: 'Fusion: Destroy a zombie here'
+  fig: 0
+  description: 'Fusion: Destroy an enemy here'
   lore: 'Really good at staring contests. '
   row: 0
   col: 0

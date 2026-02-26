@@ -163,7 +163,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: When you play a plant here, make a 1/1 Puff-shroom with Team Up in
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: When you play an ally here, make a 1/1 Puff-shroom with Team Up in
     another random lane
   lore: 'Sometimes beautiful things grow out of the darkest places. Ponder that for
     a few moments. '

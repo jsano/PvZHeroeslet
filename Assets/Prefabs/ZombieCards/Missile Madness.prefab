@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Do 3 damage to a plant and 1 damage to all other plants
+  description: Do 3 damage to an enemy and 1 damage to all other enemies
   lore: 'For Z-Mech, any target is a good target. '
   row: 0
   col: 0

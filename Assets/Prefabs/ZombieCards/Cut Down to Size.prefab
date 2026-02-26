@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Destroy a plant with 5 attack or more
+  description: Destroy an enemy with 5 attack or more
   lore: '"The tallest blade of grass is the first to get cut. Braaainz!" - Ancient
     Zombie Proverb '
   row: 0
@@ -176,4 +176,3 @@ MonoBehaviour:
   specialHandCard: {fileID: 0}
   attackCutoff: 5
   comparator: 1
-  targetTeam: 0

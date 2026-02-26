@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Destroy a damaged plant. Draw a card
+  description: Destroy a damaged enemy. Draw a card
   lore: 'Did you know that Plants are 62 percent water? Well, not any more. '
   row: 0
   col: 0

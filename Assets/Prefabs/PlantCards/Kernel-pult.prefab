@@ -169,7 +169,10 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
-  description: 'When played on the Heights: A zombie gets -1 attack -1 HP'
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: 'When played on the Heights: An enemy gets -1 attack -1 HP'
   lore: 'Insert corny joke here. '
   row: 0
   col: 0

@@ -180,7 +180,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Destroy a plant with 4 attack or less
+  description: Destroy an enemy with 4 attack or less
   lore: 'The Smash''s wrestling moves are real all right. Too real. Just ask any
     Plant. '
   row: 0
@@ -188,4 +188,3 @@ MonoBehaviour:
   specialHandCard: {fileID: 0}
   attackCutoff: 4
   comparator: 0
-  targetTeam: 0

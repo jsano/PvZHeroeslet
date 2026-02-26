@@ -179,6 +179,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'While in a Terrain: This gets +3 attack'
   lore: '"Call me a ''weed.'' Go on. I consider it a compliment." '
   row: 0

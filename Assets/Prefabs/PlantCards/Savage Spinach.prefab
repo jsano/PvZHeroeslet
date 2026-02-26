@@ -189,7 +189,8 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
-  description: 'Leafy Evolution: All plants in all lanes and your hand get +2 attack'
+  fig: 0
+  description: 'Leafy Evolution: All allies in all lanes and your hand get +2 attack'
   lore: 'Neptuna planned her Triassic Invasion perfectly. But like so many conquerors
     before her, she underestimated the Spinach. '
   row: 0

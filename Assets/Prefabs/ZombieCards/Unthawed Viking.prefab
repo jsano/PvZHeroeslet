@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 3
+  _class: 0
   tribes: 1a000000
   token: 0
   cost: 4
@@ -156,8 +156,8 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: Freeze all plants here.\nPirate Evolution: Instead,
-    this gets +1 attack +1 HP and Freeze all plants'
+  description: 'When played: Freeze all enemies here.\nPirate Evolution: Instead,
+    this gets +1 attack +1 HP and Freeze all enemies'
   lore: 'What''s the best way to cross the ocean? Freeze it first. How hard could
     it be? '
   row: 0

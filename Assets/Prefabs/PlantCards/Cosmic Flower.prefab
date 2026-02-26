@@ -179,6 +179,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'When played: Conjure a Flower, and it gets Strikethrough'
   lore: 'She enjoys the simple things in life - hanging out with friends, fighting
     Zombies, and basking in cosmic rays. '

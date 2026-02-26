@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Zombie Evolution: Do 3 damage to each plant'
+  description: 'Ally Evolution: Do 3 damage to each enemy'
   lore: 'He''s the missing skink. '
   row: 0
   col: 0

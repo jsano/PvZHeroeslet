@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 1
-  _class: 3
+  _class: 5
   tribes: 01000000
   token: 0
   cost: 2
@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: A zombie becomes Deadly. Conjure a Barrel
+  description: An ally becomes Deadly. Conjure a Barrel
   lore: 'If you put a container in another container, you''ll have twice the storage
     space! '
   row: 0

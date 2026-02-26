@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Cards you Conjure cost 1 brain less.\nWhen this hurts the plant hero,
+  description: Cards you Conjure cost 1 brain less.\nWhen this hurts the enemy hero,
     Conjure a card
   lore: 'He insists it''s more than a screwdriver. Much more. '
   row: 0

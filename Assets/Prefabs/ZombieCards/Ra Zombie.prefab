@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 0
+  _class: 5
   tribes: 0d00000018000000
   token: 0
   cost: 5
@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: The plant hero loses 2 sun this turn'
+  description: 'When played: The enemy hero loses 2 sun this turn'
   lore: 'Some nights sundown comes early... '
   row: 0
   col: 0

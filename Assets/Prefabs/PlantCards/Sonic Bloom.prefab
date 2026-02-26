@@ -155,7 +155,8 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
-  description: 'When played: Do 1 damage to the zombie hero for each plant'
+  fig: 0
+  description: 'When played: Do 1 damage to the enemy hero for each ally'
   lore: 'Victory faster than the speed of sound. '
   row: 0
   col: 0

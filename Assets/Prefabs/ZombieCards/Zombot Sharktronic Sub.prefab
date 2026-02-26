@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 3
+  _class: 5
   tribes: 1d00000018000000
   token: 0
   cost: 6
@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When a plant gets hurt, destroy it.\nWhen any plant is destroyed,
+  description: When an enemy gets hurt, destroy it.\nWhen any enemy is destroyed,
     this gets +1 attack
   lore: 'Ever dream of piloting a giant shark robot? Join Dr. Zomboss now! '
   row: 0

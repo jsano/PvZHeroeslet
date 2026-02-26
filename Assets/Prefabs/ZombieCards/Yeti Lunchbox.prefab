@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: A zombie gets +1 attack +1 HP
+  description: An ally gets +1 attack +1 HP
   lore: 'What''s inside? A peanut butter and brains sandwich... with the crusts cut
     off. '
   row: 0
@@ -176,4 +176,3 @@ MonoBehaviour:
   specialHandCard: {fileID: 0}
   atkAmount: 1
   HPAmount: 1
-  targetTeam: 1

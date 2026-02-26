@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 5
+  _class: 4
   tribes: 0c0000000d000000
   token: 0
   cost: 4
@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Zombie Evolution: Destroy a plant'
+  description: 'Ally Evolution: Destroy an enemy'
   lore: 'He''s wheely cheesy. '
   row: 0
   col: 0

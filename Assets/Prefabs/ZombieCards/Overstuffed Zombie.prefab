@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When this destroys a Plant and survives, it heals to full and heal
+  description: When this destroys a Enemy and survives, it heals to full and heal
     your hero for 2
   lore: 'His cholesterol level is off the charts, and yet he seems to be in remarkably
     good Health. '

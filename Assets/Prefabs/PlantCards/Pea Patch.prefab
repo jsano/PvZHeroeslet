@@ -155,7 +155,8 @@ MonoBehaviour:
   evolved: 0
   fusion: 1
   fusionBase: {fileID: 0}
-  description: 'Fusion: A plant played on this gets +2 attack +2 HP'
+  fig: 0
+  description: 'Fusion: An ally played on this gets +2 attack +2 HP'
   lore: 'Don''t let the Dog Walker anywhere near it. '
   row: 0
   col: 0

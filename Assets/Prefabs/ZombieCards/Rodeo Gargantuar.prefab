@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When revealed: Move a plant'
+  description: 'When revealed: Move an enemy'
   lore: 'Why yes, this IS his first rodeo. '
   row: 0
   col: 0

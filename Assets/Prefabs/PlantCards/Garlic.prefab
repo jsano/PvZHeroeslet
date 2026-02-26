@@ -159,8 +159,9 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
-  description: When a zombie hurts this, move that zombie to the left. If it's a
-    Vimpire, destroy it
+  fig: 0
+  description: When an enemy hurts this, move that enemy to the left. If it's a Vimpire,
+    destroy it
   lore: '"Vimpires. They''re the worst. I don''t like to use the word ''hate'' but
     yeah, I hate ''em." '
   row: 0

@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Move a zombie. It gets +1 attack
+  description: Move an ally. It gets +1 attack
   lore: 'Good for eluding the enemy. Bad for the lungs. '
   row: 0
   col: 0

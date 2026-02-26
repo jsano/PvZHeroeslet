@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Zombies here get +2 attack +2 HP and Frenzy
+  description: Allies here get +2 attack +2 HP and Frenzy
   lore: '"Zombies from outer space? What an absurd conspiracy theory! Now move along.
     Nothing to see here." - Dr. Zomboss '
   row: 0

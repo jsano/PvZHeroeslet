@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Make a 2/3 Space Cadet zombie
+  description: Make a 2/3 Space Cadet ally
   lore: 'A sure way to get Space Cadet''s attention. '
   row: 0
   col: 0

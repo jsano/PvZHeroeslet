@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 5
+  _class: 4
   tribes: 0d00000018000000
   token: 0
   cost: 5
@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Dino-Roar: This gets +1 attack +1 HP and destroy all plants here'
+  description: 'Dino-Roar: This gets +1 attack +1 HP and destroy all enemies here'
   lore: 'Deep in Hollow Earth, Zombie warrior women tame herds of enormous dinosaurs.
     Any good history book will tell you that. '
   row: 0

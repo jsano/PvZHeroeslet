@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Start of turn: All sports zombies get +1 attack +1 HP'
+  description: 'Start of turn: All sports allies get +1 attack +1 HP'
   lore: 'Say what you will about the costume - Zombie morale has never been better. '
   row: 0
   col: 0

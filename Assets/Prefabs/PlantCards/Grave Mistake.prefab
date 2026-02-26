@@ -177,6 +177,9 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: Bounce a Gravestone. Draw a card
   lore: 'Warning: Don''t flick gravestones in real life. '
   row: 0

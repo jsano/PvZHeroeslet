@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Before combat here: Do 1 damage to each plant here'
+  description: 'Before combat here: Do 1 damage to each enemy here'
   lore: 'Plants do not like feeling trapped. Can you blame them? '
   row: 0
   col: 0

@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: Make a Sappy Place terrain that says "Zombies here get
+  description: 'When played: Make a Sappy Place terrain that says "Enemies here get
     -3 attack"'
   lore: 'He dates a lot of different branches, but nothing ever sticks. '
   row: 0

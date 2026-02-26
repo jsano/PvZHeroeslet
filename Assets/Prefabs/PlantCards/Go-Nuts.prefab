@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When you play a Team Up plant, all Team Up plants get +1 attack
+  description: When you play a Team Up ally, all Team Up allies get +1 attack
   lore: '"GROW-Nuts! THROW-Nuts! When we get big we GO-Nuts! Goooooooo PLANTS!" '
   row: 0
   col: 0

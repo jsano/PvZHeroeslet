@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Zombies here get +2 attack
+  description: Allies here get +2 attack
   lore: 'Huge-Gigantacus drove Meteor Z deep into the Earth, creating a tunnel to
     a hidden world of strange creatures...but what''s down there??? '
   row: 0

@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Zombies here get Overshoot 3
+  description: Allies here get Overshoot 3
   lore: 'Zombies landed on the Moon? Many believe it''s nothing but a conspiracy
     theory, and yet, here''s the proof. '
   row: 0

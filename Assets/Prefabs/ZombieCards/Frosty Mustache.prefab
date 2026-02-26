@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 1
-  _class: 3
+  _class: 0
   tribes: 14000000
   token: 0
   cost: 2
@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Freeze a plant. Conjure a Mustache
+  description: Freeze an enemy. Conjure a Mustache
   lore: 'So stylish! So cool! '
   row: 0
   col: 0

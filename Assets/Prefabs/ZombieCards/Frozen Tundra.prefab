@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 1
-  _class: 5
+  _class: 0
   tribes: 1800000021000000
   token: 0
   cost: 1
@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Freeze all plants
+  description: Freeze all enemies
   lore: 'Brain Freeze has a knack for making the Plants chill out. '
   row: 0
   col: 0

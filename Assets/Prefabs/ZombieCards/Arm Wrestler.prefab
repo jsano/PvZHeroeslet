@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: This gets +1 attack +1 HP when a plant enters this lane
+  description: This gets +1 attack +1 HP when an enemy enters this lane
   lore: 'Lots of carbs, lots of protein, and five brain shakes a day. '
   row: 0
   col: 0

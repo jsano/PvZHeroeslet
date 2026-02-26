@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When revealed: Bounce another zombie'
+  description: 'When revealed: Bounce another ally'
   lore: 'He''s a little too eager to rescue kittens from trees. '
   row: 0
   col: 0

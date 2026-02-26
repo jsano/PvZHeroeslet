@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When this hurts the plant hero, make a random Gravestone in a random
+  description: When this hurts the enemy hero, make a random Gravestone in a random
     lane
   lore: 'He''s good at making friends. '
   row: 0

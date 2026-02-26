@@ -177,7 +177,10 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
-  description: Double a plant's attack. Gain a Grape Responsibility
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: Double an ally's attack. Gain a Grape Responsibility
   lore: 'A dinosaur''s favorite primordial snack. '
   row: 0
   col: 0

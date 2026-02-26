@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 0
+  _class: 4
   tribes: 1b0000001d000000
   token: 0
   cost: 1
@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Zombie Tricks cost 1 brain less
+  description: Ally Tricks cost 1 brain less
   lore: '"If you don''t pay attention in class, you''ll never improve your brains..." '
   row: 0
   col: 0

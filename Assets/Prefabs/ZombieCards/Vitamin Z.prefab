@@ -168,11 +168,10 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: A zombie gets +3 attack +3 HP
+  description: An ally gets +3 attack +3 HP
   lore: 'Side effects include headaches, blurred vision, and insatiable hunger. '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
   atkAmount: 3
   HPAmount: 3
-  targetTeam: 1

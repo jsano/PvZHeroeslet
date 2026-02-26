@@ -152,7 +152,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Other zombies here and next door are Untrickable
+  description: Other allies here and next door are Untrickable
   lore: 'Her favorite author is Brain Austen. '
   row: 0
   col: 0

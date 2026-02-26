@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 1
+  _class: 4
   tribes: 0600000016000000
   token: 0
   cost: 1
@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: This gets +1 attack +1 HP when you play a zombie
+  description: This gets +1 attack +1 HP when you play an ally
   lore: 'His archenemy is the Wall-Flower. '
   row: 0
   col: 0

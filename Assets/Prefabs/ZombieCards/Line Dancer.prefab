@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When revealed: Move this zombie'
+  description: 'When revealed: Move this ally'
   lore: 'In her opinion, there''s no better song to line dance to than the "Zombie
     Shuffle." '
   row: 0

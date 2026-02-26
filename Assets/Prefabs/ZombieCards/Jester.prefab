@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When hurt: Do 2 damage to the plant hero'
+  description: 'When hurt: Do 2 damage to the enemy hero'
   lore: 'The joke''s on you! '
   row: 0
   col: 0

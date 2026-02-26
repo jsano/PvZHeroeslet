@@ -155,6 +155,7 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
+  fig: 0
   description: This attacks both lanes next door instead of this lane
   lore: 'Without flying roots, how would we get Sky-Trees?? '
   row: 0

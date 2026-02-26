@@ -174,5 +174,4 @@ MonoBehaviour:
   col: 0
   specialHandCard: {fileID: 0}
   includeHero: 1
-  targetTeam: 0
   damage: 2

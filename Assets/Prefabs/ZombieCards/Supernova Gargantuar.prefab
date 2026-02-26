@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When a Gargantuar destroys a plant, destroy all copies of that plant
+  description: When a Gargantuar destroys an enemy, destroy all copies of that enemy
   lore: 'This one''s got a real temper on him. When he decides to take out a Plant...it''s
     brutal. Just brutal. '
   row: 0

@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When revealed in a Terrain: Freeze a plant'
+  description: 'When revealed in a Terrain: Freeze an enemy'
   lore: 'You wouldn''t believe how many brains a chunk of space ice goes for on a
     black market. Let''s just say, she''s rolling in gray matter. '
   row: 0

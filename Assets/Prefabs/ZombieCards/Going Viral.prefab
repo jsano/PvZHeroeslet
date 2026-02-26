@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 1
-  _class: 0
+  _class: 2
   tribes: 
   token: 0
   cost: 3
@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: All zombies get +1 attack +1 HP and Frenzy. Shuffle three Going Viral
+  description: All allies get +1 attack +1 HP and Frenzy. Shuffle three Going Viral
     cards into your deck. Draw a card
   lore: 'Though Zombies can''t get ill, this plague is totally sick. '
   row: 0

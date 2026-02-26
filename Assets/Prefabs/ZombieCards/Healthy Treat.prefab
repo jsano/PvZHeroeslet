@@ -168,11 +168,10 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: A zombie gets +1 attack +3 HP
+  description: An ally gets +1 attack +3 HP
   lore: 'Great for Zombie Health. Like a vitamin only sweeter. '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
   atkAmount: 1
   HPAmount: 3
-  targetTeam: 1

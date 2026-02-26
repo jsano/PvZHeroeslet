@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Destroy a zombie. Then do 4 damage to a plant
+  description: Destroy an ally. Then do 4 damage to an enemy
   lore: 'The round-trip ticket is the same price as the one-way. '
   row: 0
   col: 0

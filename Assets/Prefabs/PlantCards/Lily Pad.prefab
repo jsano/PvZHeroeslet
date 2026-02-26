@@ -155,7 +155,8 @@ MonoBehaviour:
   evolved: 0
   fusion: 1
   fusionBase: {fileID: 0}
-  description: 'Fusion: A plant played on this gets Amphibious. Conjure a Leafy card'
+  fig: 0
+  description: 'Fusion: An ally played on this gets Amphibious. Conjure a Leafy card'
   lore: 'When Neptuna''s Triassic Invasion flooded Hollow Earth with vast new oceans,
     Plants quickly evolved to survive. '
   row: 0

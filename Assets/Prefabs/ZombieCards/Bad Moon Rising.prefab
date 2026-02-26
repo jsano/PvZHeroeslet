@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Transform every zombie into random zombies that cost 5 brains or more
+  description: Transform every ally into random allies that cost 5 brains or more
   lore: 'Sometimes a full moon turns bad dreams into horrible nightmares. '
   row: 0
   col: 0

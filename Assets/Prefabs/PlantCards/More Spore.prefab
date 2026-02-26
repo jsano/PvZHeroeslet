@@ -154,6 +154,7 @@ MonoBehaviour:
   doubleStrike: 0
   frenzy: 0
   gravestone: 0
+  strengthHeart: 0
   hunt: 0
   overshoot: 0
   splash: 0
@@ -162,11 +163,15 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: Make a Button Mushroom in the lane of your choice and one in a random
     lane
   lore: One good mushroom deserves another.
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}
   toPlay: {fileID: 196874616353379560, guid: 7445d17bb5875b8478432d7d28a7ab91, type: 3}

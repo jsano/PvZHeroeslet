@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: This gets +2 attack +2 HP when a plant or your hero is healed
+  description: This gets +2 attack +2 HP when an ally or your hero is healed
   lore: '"A toast to your health... and mine!"'
   row: 0
   col: 0

@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: Make a 1/1 plant with no abilities'
+  description: 'When played: Make a 1/1 enemy with no abilities'
   lore: 'Growing Plants in Space? Some of his fellow Zombies think he''s crazy, but
     others appreciate the effort. '
   row: 0

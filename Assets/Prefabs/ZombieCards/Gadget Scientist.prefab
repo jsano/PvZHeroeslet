@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: Each Science zombie does a Bonus Attack'
+  description: 'When played: Each Science ally does a Bonus Attack'
   lore: 'Wishes the Mad Chemist would stop copying his hair style. '
   row: 0
   col: 0

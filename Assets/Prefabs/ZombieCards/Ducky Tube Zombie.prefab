@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: This gets +1 attack +1 HP when it hurts the plant hero
+  description: This gets +1 attack +1 HP when it hurts the enemy hero
   lore: 'Zombie Ducky, joy of joys. When it squeezes, you make noise! '
   row: 0
   col: 0

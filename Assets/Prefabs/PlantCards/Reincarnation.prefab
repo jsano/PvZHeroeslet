@@ -44,7 +44,7 @@ PrefabInstance:
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: description
       value: ' While in your hand: At end of turn, this transforms into a random
-        plant with +1 attack +1 HP. It keeps this ability'
+        ally with +1 attack +1 HP. It keeps this ability'
       objectReference: {fileID: 0}
     - target: {fileID: 2840486405656637432, guid: 5f31abe414ba16d4b9f95d1a64ed2bfc, type: 3}
       propertyPath: specialHandCard

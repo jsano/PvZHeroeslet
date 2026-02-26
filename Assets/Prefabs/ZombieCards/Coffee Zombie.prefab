@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: All zombies get +1 attack +1 HP and Frenzy'
+  description: 'When played: All allies get +1 attack +1 HP and Frenzy'
   lore: 'He''s been trying to cut back. '
   row: 0
   col: 0

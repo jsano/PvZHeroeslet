@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When you play a Science card, this transforms into a zombie that costs
+  description: When you play a Science card, this transforms into an ally that costs
     3 brains
   lore: 'In a parallel dimension, this zombie is a Space Pirate. In another he''s
     a Trash Can Zombie. Turns out, little choices in life can make a big difference. '

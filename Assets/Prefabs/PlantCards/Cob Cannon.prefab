@@ -165,8 +165,11 @@ MonoBehaviour:
   freeze: 0
   evolution: 18
   evolved: 0
-  description: 'When played: Zombies here and next door get -1 attack -1 HP.\nTeam
-    Up Evolution: Destroy a zombie'
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: 'When played: Enemies here and next door get -1 attack -1 HP.\nTeam
+    Up Evolution: Destroy an enemy'
   lore: 'He focuses his fearsome firepower with a single, ringing credo: "One Team.
     One Dream." '
   row: 0

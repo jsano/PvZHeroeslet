@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Start of Turn: All Dancing zombies get +2 attack'
+  description: 'Start of Turn: All Dancing allies get +2 attack'
   lore: 'Aerobics really bring the dead to life. '
   row: 0
   col: 0

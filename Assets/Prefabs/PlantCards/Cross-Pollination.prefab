@@ -179,6 +179,7 @@ MonoBehaviour:
   evolved: 0
   fusion: 0
   fusionBase: {fileID: 0}
+  fig: 0
   description: Conjure a Flower. Conjure a Fruit. They both cost 1 sun less
   lore: 'Each Plant is grown with the power of solar radiation. Sometimes you just
     have to let it out. '

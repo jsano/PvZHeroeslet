@@ -153,7 +153,10 @@ MonoBehaviour:
   freeze: 0
   evolution: 30
   evolved: 0
-  description: 'Plant Evolution: This gets +3 attack'
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: 'Ally Evolution: This gets +3 attack'
   lore: 'He makes yelling "Get off my lawn" into an art form. '
   row: 0
   col: 0

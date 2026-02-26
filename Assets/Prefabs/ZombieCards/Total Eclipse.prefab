@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Plants here get -1 attack -1 HP
+  description: Enemies here get -1 attack -1 HP
   lore: 'Zombies love a good eclipse. They usually celebrate by eating Plants. And
     brains. '
   row: 0

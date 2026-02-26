@@ -156,7 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 0
   type: 0
-  _class: 3
+  _class: 5
   tribes: 0a000000
   token: 0
   cost: 6
@@ -170,6 +170,7 @@ MonoBehaviour:
   doubleStrike: 0
   frenzy: 0
   gravestone: 0
+  strengthHeart: 0
   hunt: 0
   overshoot: 0
   splash: 0
@@ -178,7 +179,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: 'When played: The zombie hero loses their brains'
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: 'When played: The enemy hero loses their brains'
   lore: In this case, "brain drain" is a good thing.
   row: 0
   col: 0

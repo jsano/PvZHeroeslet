@@ -166,6 +166,7 @@ MonoBehaviour:
   doubleStrike: 0
   frenzy: 0
   gravestone: 0
+  strengthHeart: 0
   hunt: 0
   overshoot: 0
   splash: 0
@@ -174,7 +175,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: All plants get +2 attack
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: All allies get +2 attack
   lore: '"Now you''ve done it! That''s the last straw! I''m gonna berry you!"'
   row: 0
   col: 0

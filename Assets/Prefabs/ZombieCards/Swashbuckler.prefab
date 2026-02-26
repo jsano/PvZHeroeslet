@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When a Pirate hurts the plant hero, that Pirate gets +1 attack +1
+  description: When a Pirate hurts the enemy hero, that Pirate gets +1 attack +1
     HP
   lore: 'Buckles his swash like no other. '
   row: 0

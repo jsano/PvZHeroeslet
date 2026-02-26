@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: All Sports zombies can''t be hurt this turn'
+  description: 'When played: All Sports allies can''t be hurt this turn'
   lore: 'There''s no "i" in Zombee! '
   row: 0
   col: 0

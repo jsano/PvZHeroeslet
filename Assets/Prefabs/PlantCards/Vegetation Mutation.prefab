@@ -163,7 +163,12 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: All plants on Heights and Terrains get +2 attack+2 HP
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: All allies on Heights and Terrains get +2 attack+2 HP
   lore: 'Environmentalism at its finest. '
   row: 0
   col: 0

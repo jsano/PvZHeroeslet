@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: When a Science zombie does damage, that zombie gets +1 attack
+  description: When a Science ally does damage, that ally gets +1 attack
   lore: 'He''s not entirely sure how to fly this thing. '
   row: 0
   col: 0

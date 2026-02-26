@@ -168,11 +168,10 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Destroy a plant with 4 attack or more
+  description: Destroy an enemy with 4 attack or more
   lore: 'Turns out, it IS rocket science. '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
   attackCutoff: 4
   comparator: 1
-  targetTeam: 0

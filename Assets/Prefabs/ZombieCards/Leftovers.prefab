@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: All zombies get +1 attack +1 HP
+  description: All allies get +1 attack +1 HP
   lore: 'Zombies love them almost as much as brains. '
   row: 0
   col: 0

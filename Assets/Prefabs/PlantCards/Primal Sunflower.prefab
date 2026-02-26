@@ -153,6 +153,9 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'Start of turn: You get +1 sun this turn'
   lore: 'Sunflowers are notorious pacifists. But isolated in the center of Hollow
     Earth, they evolved a new savagery. Sunny, adorable savagery. '

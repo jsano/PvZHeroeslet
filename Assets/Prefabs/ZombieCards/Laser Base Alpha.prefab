@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Zombies here get Deadly and Strikethrough
+  description: Allies here get Deadly and Strikethrough
   lore: 'Zombies with LASERS. What could possibly go wrong? '
   row: 0
   col: 0

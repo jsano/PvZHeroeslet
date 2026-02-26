@@ -149,7 +149,10 @@ MonoBehaviour:
   freeze: 0
   evolution: 0
   evolved: 0
-  description: 'When destroyed: Do 3 damage to a zombie here'
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: 'When destroyed: Do 3 damage to an enemy here'
   lore: 'Hidden long ago in Hollow Earth, Dinosaurs ran rampant in The Land Before
     Mine. '
   row: 0

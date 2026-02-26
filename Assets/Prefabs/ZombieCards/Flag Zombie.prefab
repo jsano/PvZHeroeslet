@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 0
+  _class: 4
   tribes: 1b000000
   token: 0
   cost: 2
@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Zombies cost 1 brain less
+  description: Allies cost 1 brain less
   lore: 'He''s not patriotic; he just likes fabric suspended from sticks. '
   row: 0
   col: 0

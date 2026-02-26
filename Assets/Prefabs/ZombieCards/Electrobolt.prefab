@@ -188,11 +188,10 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Do 3 damage to a plant
+  description: Do 3 damage to an enemy
   lore: 'Ever get zapped by static electricity? It''s like that, times a bazillion. '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
   includeHero: 0
-  targetTeam: 0
   damage: 3

@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 2
-  _class: 0
+  _class: 5
   tribes: 
   token: 0
   cost: 1
@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Plants here get -1 attack. When a plant is played, move it here
+  description: Enemies here get -1 attack. When an enemy is played, move it here
   lore: 'Plants usually like being planted in holes. Black holes? Not so much. '
   row: 0
   col: 0

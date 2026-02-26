@@ -163,6 +163,11 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'When this does damage, shuffle two 4/4 Magic Beanstalks that say
     "When played: Draw a card" into your deck'
   lore: 'She and Sunflower are besties. It''s just too bad their schedules make it

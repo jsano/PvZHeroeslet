@@ -168,11 +168,10 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Do 4 damage to a plant
+  description: Do 4 damage to an enemy
   lore: '4 eggs. 2 cups flour. 10 sticks TNT. '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
   includeHero: 0
-  targetTeam: 0
   damage: 4

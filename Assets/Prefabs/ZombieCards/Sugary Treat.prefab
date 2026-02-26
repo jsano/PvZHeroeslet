@@ -168,11 +168,10 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: A zombie gets +3 attack +1 HP
+  description: An ally gets +3 attack +1 HP
   lore: 'Tooth decay: Not exactly a big concern for Zombies. '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
   atkAmount: 3
   HPAmount: 1
-  targetTeam: 1

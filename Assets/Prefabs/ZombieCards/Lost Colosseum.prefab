@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 1
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Fusion: A zombie played on this gets +2 attack +3 HP and Frenzy'
+  description: 'Fusion: An ally played on this gets +2 attack +3 HP and Frenzy'
   lore: 'The Legend of the Mustache Monuments led Zombie explorers to uncover ancient
     colosseums. '
   row: 0

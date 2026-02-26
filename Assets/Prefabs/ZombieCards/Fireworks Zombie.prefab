@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: Do 1 damage to all plants and zombies '
+  description: 'When played: Do 1 damage to all enemies and allies '
   lore: 'Want to clear some mushrooms? Fire works. '
   row: 0
   col: 0

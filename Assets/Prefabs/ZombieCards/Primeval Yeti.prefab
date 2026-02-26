@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Zombie Evolution: All zombies get +2 attack +2 HP'
+  description: 'Ally Evolution: All allies get +2 attack +2 HP'
   lore: 'What''s for lunch? Mostly solid stone. '
   row: 0
   col: 0

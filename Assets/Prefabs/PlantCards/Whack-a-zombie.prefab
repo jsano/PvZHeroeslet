@@ -154,6 +154,7 @@ MonoBehaviour:
   doubleStrike: 0
   frenzy: 0
   gravestone: 0
+  strengthHeart: 0
   hunt: 0
   overshoot: 0
   splash: 0
@@ -162,11 +163,15 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
-  description: Destroy a zombie with 3 attack or less
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
+  description: Destroy an enemy with 3 attack or less
   lore: 'It''s hammer time. #hadtobesaid '
   row: 0
   col: 0
   specialHandCard: {fileID: 0}
   attackCutoff: 3
   comparator: 0
-  targetTeam: 1

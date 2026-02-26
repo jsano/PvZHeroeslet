@@ -154,6 +154,7 @@ MonoBehaviour:
   doubleStrike: 0
   frenzy: 0
   gravestone: 0
+  strengthHeart: 0
   hunt: 0
   overshoot: 0
   splash: 0
@@ -162,10 +163,14 @@ MonoBehaviour:
   untrickable: 0
   nextDoor: 0
   freeze: 0
+  evolution: 0
+  evolved: 0
+  fusion: 0
+  fusionBase: {fileID: 0}
+  fig: 0
   description: 'Make a 1 Health Hothead that says "Team-Up. When destroyed: Do 6
-    damage to a zombie here"'
+    damage to an enemy here"'
   lore: Spudow is one tranquil tuber. Still, sometimes he loses his head.
   row: 0
   col: 0
-  playedCost: 0
   specialHandCard: {fileID: 0}
