@@ -32,7 +32,8 @@ public class BuffInfo : InfoUI
         Buff baseBuff = AllCards.InstanceToPrefab(source);
 
         image.sprite = baseBuff.GetImage();
-        
+        image.color = Color.Lerp(Buff.classColors[source.buffClass], Color.white, 0.5f);
+
         cardClass.text = Enum.GetName(typeof(Card.Class), baseBuff.buffClass);
         if (baseBuff.rarity == Buff.Rarity.Duo) cardClass.text += "\n" + Enum.GetName(typeof(Card.Class), baseBuff.duoSecondClass);
         cardName.text = baseBuff.name;

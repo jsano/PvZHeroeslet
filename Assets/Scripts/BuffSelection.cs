@@ -19,6 +19,7 @@ public class BuffSelection : MonoBehaviour
     {
         Buff source = AllCards.Instance.buffs[ID];
         image.sprite = source.GetImage();
+        image.color = Color.Lerp(Buff.classColors[source.buffClass], Color.white, 0.5f);
         buffName.text = source.name;
         description.text = source.description;
         rarity.text = source.rarity.ToString();

@@ -119,6 +119,8 @@ public class Buff : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
+        transform.Find("BG/Mask/Image").GetComponent<Image>().color = Color.Lerp(classColors[buffClass], Color.white, 0.5f);
+
         GetComponent<Button>().onClick.AddListener(ShowBuffInfo);
         CallAllImmediate("OnBuffGainedImmediate", this);
     }
