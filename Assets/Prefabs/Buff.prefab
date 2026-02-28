@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8368367113765776111}
   - component: {fileID: 7261021131513083773}
   - component: {fileID: -312013300205462730}
-  - component: {fileID: 8514503884154597101}
   m_Layer: 0
   m_Name: Buff
   m_TagString: Untagged
@@ -141,19 +140,6 @@ MonoBehaviour:
   duoSecondClass: 0
   lore: 
   team: 0
---- !u!114 &8514503884154597101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3073203788100394026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShowMaskGraphic: 1
 --- !u!1 &4632804912774552200
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,6 +151,7 @@ GameObject:
   - component: {fileID: 2154740399226797530}
   - component: {fileID: 1727100305093977151}
   - component: {fileID: 1494084753664546570}
+  - component: {fileID: 463877240284588047}
   m_Layer: 0
   m_Name: BG
   m_TagString: Untagged
@@ -230,6 +217,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &463877240284588047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4632804912774552200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
 --- !u!1 &7869364827902805593
 GameObject:
   m_ObjectHideFlags: 0

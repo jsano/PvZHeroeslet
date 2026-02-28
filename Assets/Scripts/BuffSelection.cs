@@ -17,7 +17,7 @@ public class BuffSelection : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Buff source = AllCards.Instance.buffs[ID];
+        Buff source = AllCards.Instance.buffs[ID]; Debug.Log(ID + "    " + source);
         image.sprite = source.GetImage();
         image.color = Color.Lerp(Buff.classColors[source.buffClass], Color.white, 0.5f);
         buffName.text = source.name;
