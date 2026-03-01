@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 2
-  _class: 3
+  _class: 5
   tribes: 1d000000
   token: 0
   cost: 3
