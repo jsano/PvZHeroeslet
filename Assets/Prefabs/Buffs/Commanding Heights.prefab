@@ -16,6 +16,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Commanding Heights
       objectReference: {fileID: 0}
+    - target: {fileID: 4398987987412575606, guid: d306f9effc3093640949af61915d7b07, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b64c25e41da86c94abb0cf4ed14fa5ce, type: 3}
+    - target: {fileID: 6528579000735427259, guid: d306f9effc3093640949af61915d7b07, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b64c25e41da86c94abb0cf4ed14fa5ce, type: 3}
     - target: {fileID: 8499147558775820694, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -125,5 +133,7 @@ MonoBehaviour:
   rarity: 1
   description: When you play a card on the heights, it gets +1 armor
   buffClass: 2
+  duoSecondClass: 0
   lore: 
   team: 0
+  visualOnly: 0

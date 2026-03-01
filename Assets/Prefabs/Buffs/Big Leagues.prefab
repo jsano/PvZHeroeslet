@@ -12,11 +12,31 @@ PrefabInstance:
       propertyPath: description
       value: Your cards cost 0.5 less for the rest of the game
       objectReference: {fileID: 0}
+    - target: {fileID: 1494084753664546570, guid: d306f9effc3093640949af61915d7b07, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494084753664546570, guid: d306f9effc3093640949af61915d7b07, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494084753664546570, guid: d306f9effc3093640949af61915d7b07, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Name
       value: Big Leagues
       objectReference: {fileID: 0}
     - target: {fileID: 4398987987412575606, guid: d306f9effc3093640949af61915d7b07, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: faa9df6d85d278a4789772bfdb7bbcd9, type: 3}
+    - target: {fileID: 4398987987412575606, guid: d306f9effc3093640949af61915d7b07, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528579000735427259, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: faa9df6d85d278a4789772bfdb7bbcd9, type: 3}
@@ -132,3 +152,4 @@ MonoBehaviour:
   duoSecondClass: 0
   lore: 
   team: 0
+  visualOnly: 0

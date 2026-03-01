@@ -1,7 +1,7 @@
 using System;
-using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -119,10 +119,29 @@ public class Buff : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
-        transform.Find("BG/Image").GetComponent<Image>().color = Color.Lerp(classColors[buffClass], Color.white, 0.5f);
+        SetColors();
 
         GetComponent<Button>().onClick.AddListener(ShowBuffInfo);
         CallAllImmediate("OnBuffGainedImmediate", this);
+    }
+
+    public void SetVisualMode()
+    {
+        SetColors();
+        var t = GetComponent<RectTransform>();
+        t.anchorMin = Vector2.zero;
+        t.anchorMax = Vector2.one;
+        t.anchoredPosition = Vector2.zero;
+        t.sizeDelta = Vector2.zero;
+        enabled = false;
+    }
+
+    private void SetColors()
+    {
+        var gi = transform.Find("BG/Image").GetComponent<GradientImage>();
+        gi.Color1 = Color.Lerp(classColors[buffClass], Color.white, 0.5f);
+        if (rarity == Rarity.Duo) gi.Color2 = Color.Lerp(classColors[duoSecondClass], Color.white, 0.5f);
+        else gi.Color2 = gi.Color1;
     }
 
     public static bool PlayerHasBuff(string name, Card.Team team)
@@ -134,7 +153,7 @@ public class Buff : MonoBehaviour
 
     public Sprite GetImage()
     {
-        return transform.Find("BG/Image").GetComponent<Image>().sprite;
+        return transform.Find("BG/Image").GetComponent<GradientImage>().Sprite;
     }
 
     public void ShowBuffInfo()

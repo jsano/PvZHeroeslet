@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class BuffInfo : InfoUI
 {
 
-    public Image image;
+    public Transform icon;
     public TextMeshProUGUI cardClass;
     public TextMeshProUGUI cardName;
     public TextMeshProUGUI tribes;
@@ -31,8 +31,8 @@ public class BuffInfo : InfoUI
         transform.parent.gameObject.SetActive(true);
         Buff baseBuff = AllCards.InstanceToPrefab(source);
 
-        image.sprite = baseBuff.GetImage();
-        image.color = Color.Lerp(Buff.classColors[source.buffClass], Color.white, 0.5f);
+        var b = Instantiate(source, icon).GetComponent<Buff>();
+        b.SetVisualMode();
 
         cardClass.text = Enum.GetName(typeof(Card.Class), baseBuff.buffClass);
         if (baseBuff.rarity == Buff.Rarity.Duo) cardClass.text += "\n" + Enum.GetName(typeof(Card.Class), baseBuff.duoSecondClass);

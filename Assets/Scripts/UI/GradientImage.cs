@@ -16,10 +16,32 @@ public class GradientImage : MaskableGraphic
         Vertical,
         Diagonal
     }
+    [Header("Optional Sprite")]
+    [SerializeField] private Sprite m_Sprite;
 
     [SerializeField] private Color m_Color1 = Color.white;
     [SerializeField] private Color m_Color2 = Color.black;
     [SerializeField] private Direction m_Direction = Direction.Horizontal;
+
+    public Sprite Sprite
+    {
+        get => m_Sprite;
+        set
+        {
+            if (m_Sprite == value) return;
+            m_Sprite = value;
+            SetAllDirty();
+        }
+    }
+
+    public override Texture mainTexture
+    {
+        get
+        {
+            if (m_Sprite != null && m_Sprite.texture != null) return m_Sprite.texture;
+            return base.mainTexture;
+        }
+    }
 
     public Color Color1
     {
@@ -70,42 +92,111 @@ public class GradientImage : MaskableGraphic
         vh.Clear();
 
         Rect r = rectTransform.rect;
-        Vector3 bl = new Vector3(r.xMin, r.yMin);
-        Vector3 tl = new Vector3(r.xMin, r.yMax);
-        Vector3 tr = new Vector3(r.xMax, r.yMax);
-        Vector3 br = new Vector3(r.xMax, r.yMin);
 
-        Color32 c1 = m_Color1;
-        Color32 c2 = m_Color2;
+        // Optionally preserve aspect of the sprite (similar to UnityEngine.UI.Image.preserveAspect)
+        Rect drawRect = r;
+        if (m_Sprite != null)
+        {
+            // Use sprite rect (in pixels) to compute aspect ratio
+            float spriteW = m_Sprite.rect.width;
+            float spriteH = m_Sprite.rect.height;
+            if (spriteH > 0f && r.height > 0f)
+            {
+                float spriteAspect = spriteW / spriteH;
+                float rectAspect = r.width / r.height;
+
+                if (spriteAspect > rectAspect)
+                {
+                    // Fit width, adjust height
+                    float fitHeight = r.width / spriteAspect;
+                    float yOffset = (r.height - fitHeight) * 0.5f;
+                    drawRect = new Rect(r.xMin, r.yMin + yOffset, r.width, fitHeight);
+                }
+                else
+                {
+                    // Fit height, adjust width
+                    float fitWidth = r.height * spriteAspect;
+                    float xOffset = (r.width - fitWidth) * 0.5f;
+                    drawRect = new Rect(r.xMin + xOffset, r.yMin, fitWidth, r.height);
+                }
+            }
+        }
+
+        Vector3 bl = new Vector3(drawRect.xMin, drawRect.yMin);
+        Vector3 tl = new Vector3(drawRect.xMin, drawRect.yMax);
+        Vector3 tr = new Vector3(drawRect.xMax, drawRect.yMax);
+        Vector3 br = new Vector3(drawRect.xMax, drawRect.yMin);
+
+        // Compute gradient colors per corner
+        Color c1 = m_Color1;
+        Color c2 = m_Color2;
+
+        Color blColor;
+        Color tlColor;
+        Color trColor;
+        Color brColor;
 
         if (m_Direction == Direction.Horizontal)
         {
-            // left = c1, right = c2
-            vh.AddVert(bl, c1, new Vector2(0, 0));
-            vh.AddVert(tl, c1, new Vector2(0, 1));
-            vh.AddVert(tr, c2, new Vector2(1, 1));
-            vh.AddVert(br, c2, new Vector2(1, 0));
+            blColor = c1;
+            tlColor = c1;
+            trColor = c2;
+            brColor = c2;
         }
         else if (m_Direction == Direction.Vertical)
         {
-            // bottom = c2, top = c1
-            vh.AddVert(bl, c2, new Vector2(0, 0));
-            vh.AddVert(tl, c1, new Vector2(0, 1));
-            vh.AddVert(tr, c1, new Vector2(1, 1));
-            vh.AddVert(br, c2, new Vector2(1, 0));
+            blColor = c1;
+            tlColor = c2;
+            trColor = c2;
+            brColor = c1;
         }
         else // Diagonal: bottom-left (c1) -> top-right (c2)
         {
-            // interpolation factor for a vertex at normalized coords (x,y) is (x + y) / 2
-            // bl (0,0) -> t=0, tl (0,1) -> t=0.5, br (1,0) -> t=0.5, tr (1,1) -> t=1
-            Color tlColor = Color.Lerp(c1, c2, 0.5f);
-            Color brColor = Color.Lerp(c1, c2, 0.5f);
-
-            vh.AddVert(bl, c1, new Vector2(0, 0));
-            vh.AddVert(tl, tlColor, new Vector2(0, 1));
-            vh.AddVert(tr, c2, new Vector2(1, 1));
-            vh.AddVert(br, brColor, new Vector2(1, 0));
+            blColor = c1;
+            trColor = c2;
+            // top-left and bottom-right are midpoints for a smooth diagonal
+            var mid = 0.5f;
+            tlColor = Color.Lerp(c1, c2, mid);
+            brColor = Color.Lerp(c1, c2, mid);
         }
+
+        // Determine UVs. If a sprite is assigned, map to the sprite.textureRect region.
+        Vector2 uvBL;
+        Vector2 uvTL;
+        Vector2 uvTR;
+        Vector2 uvBR;
+
+        if (m_Sprite != null && m_Sprite.texture != null)
+        {
+            Rect texRect = m_Sprite.textureRect; // pixel rect within the texture
+            float texW = m_Sprite.texture.width;
+            float texH = m_Sprite.texture.height;
+
+            float uMin = texRect.x / texW;
+            float vMin = texRect.y / texH;
+            float uMax = (texRect.x + texRect.width) / texW;
+            float vMax = (texRect.y + texRect.height) / texH;
+
+            // Map corners BL, TL, TR, BR to rect UVs
+            uvBL = new Vector2(uMin, vMin);
+            uvTL = new Vector2(uMin, vMax);
+            uvTR = new Vector2(uMax, vMax);
+            uvBR = new Vector2(uMax, vMin);
+        }
+        else
+        {
+            // fallback to normalized quad UVs so shader still works with default white texture
+            uvBL = new Vector2(0f, 0f);
+            uvTL = new Vector2(0f, 1f);
+            uvTR = new Vector2(1f, 1f);
+            uvBR = new Vector2(1f, 0f);
+        }
+
+        // Add vertices (position, color, uv)
+        vh.AddVert(bl, blColor, uvBL);
+        vh.AddVert(tl, tlColor, uvTL);
+        vh.AddVert(tr, trColor, uvTR);
+        vh.AddVert(br, brColor, uvBR);
 
         vh.AddTriangle(0, 1, 2);
         vh.AddTriangle(2, 3, 0);

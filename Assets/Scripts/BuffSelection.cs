@@ -9,17 +9,17 @@ public class BuffSelection : MonoBehaviour
     public TextMeshProUGUI buffName;
     public TextMeshProUGUI description;
     public TextMeshProUGUI rarity;
-    public Image image;
     public GradientImage BG;
+    public Transform icon;
 
     public static int current = -1;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Buff source = AllCards.Instance.buffs[ID]; Debug.Log(ID + "    " + source);
-        image.sprite = source.GetImage();
-        image.color = Color.Lerp(Buff.classColors[source.buffClass], Color.white, 0.5f);
+        Buff source = AllCards.Instance.buffs[ID];
+        var b = Instantiate(source, icon).GetComponent<Buff>();
+        b.SetVisualMode();
         buffName.text = source.name;
         description.text = source.description;
         rarity.text = source.rarity.ToString();

@@ -18,8 +18,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Name
-      value: Mood of Volatility
+      value: Crash Out
       objectReference: {fileID: 0}
+    - target: {fileID: 4398987987412575606, guid: d306f9effc3093640949af61915d7b07, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 233cb7dd5899aa54cb5622e045cea29e, type: 3}
+    - target: {fileID: 6528579000735427259, guid: d306f9effc3093640949af61915d7b07, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 233cb7dd5899aa54cb5622e045cea29e, type: 3}
     - target: {fileID: 8499147558775820694, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -129,5 +137,7 @@ MonoBehaviour:
   rarity: 2
   description: Your cards have +1 attack for the rest of the game
   buffClass: 1
+  duoSecondClass: 0
   lore: 
   team: 0
+  visualOnly: 0
