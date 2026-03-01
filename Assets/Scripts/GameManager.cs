@@ -874,30 +874,29 @@ public class GameManager : NetworkBehaviour
 		shuffledListsNextExpectedCount = 1;
     }
 
-	private IEnumerator OfferBuffs()
+	private IEnumerator OfferBuffs(bool notFirst = false)
 	{
         foreach (Transform child in buffList) Destroy(child.gameObject);
-        if (buffChoices.Count == 0)
+		// TODO: duos
+		List<int> temp = new();
+		for (int i = 0; i < 3 && availableBuffDatabase.Count > temp.Count; i++)
 		{
-			// TODO: duos
-			List<int> temp = new();
-			for (int i = 0; i < 3 && availableBuffDatabase.Count > temp.Count; i++)
+			int cur;
+			do
 			{
-				int cur;
-				do
-				{
-					cur = availableBuffDatabase[UnityEngine.Random.Range(0, availableBuffDatabase.Count)];
-				}
-				while (temp.Contains(cur));
-				temp.Add(cur);
+				cur = availableBuffDatabase[UnityEngine.Random.Range(0, availableBuffDatabase.Count)];
 			}
-			while (temp.Count < 4) temp.Add(-1);
-			OfferBuffsRpc(temp[0], temp[1], temp[2], temp[3]);
-			yield return new WaitUntil(() => buffChoices.Count > 0 && buffChoices[^1] == -69);
+			while (temp.Contains(cur));
+			temp.Add(cur);
 		}
-		chosenBuff = new int[] { -1, -1 };
+		while (temp.Count < 4) temp.Add(-1);
+        OfferBuffsRpc(IsHost, temp[0], temp[1], temp[2], temp[3]);
+		waiting.SetActive(true);
+		yield return new WaitUntil(() => buffChoices.Count > 0 && buffChoices[^1] == -69);
+        waiting.SetActive(false);
+        chosenBuff = new int[] { -1, -1 };
+		if (buffChoices.Count == 1) yield break;//lockInButton.interactable = true; // No options
 		buffSelectionUI.SetActive(true);
-        if (buffChoices.Count == 1) lockInButton.interactable = true; // No options
 		rerollText.text = rerolls + " remaining";
 		rerollButton.interactable = rerolls > 0;
         foreach (int b in buffChoices)
@@ -908,7 +907,8 @@ public class GameManager : NetworkBehaviour
 		}
 		timerBOn = true;
 		timer = buffTimerMax;
-		//TODO: handle when a player can't get a buff (no option)
+
+		if (notFirst) yield break;
 		yield return new WaitUntil(() => chosenBuff[0] != -1 && chosenBuff[1] != -1);
         buffSelectionUI.SetActive(false);
 
@@ -922,14 +922,32 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.ClientsAndHost)]
-    public void OfferBuffsRpc(int a, int b, int c, int d)
+    public void OfferBuffsRpc(bool isHost, int a, int b, int c, int d)
 	{
-		if (a != -1) buffChoices.Add(a);
-        if (a != -1) buffChoices.Add(b);
-        if (a != -1) buffChoices.Add(c);
-        if (a != -1) buffChoices.Add(d);
-		buffChoices.Add(-69);
+		if (isHost)
+		{
+            if (a != -1) buffChoices.Add(a);
+			if (a != -1) buffChoices.Add(b);
+			if (a != -1) buffChoices.Add(c);
+			if (a != -1) buffChoices.Add(d);
+			buffChoices.Add(-69);
+		}
     }
+
+	public void RerollBuffs()
+	{
+		rerolls -= 1;
+		rerollButton.interactable = rerolls > 0;
+		RerollBuffsRpc();
+    }
+
+	[Rpc(SendTo.ClientsAndHost)]
+	public void RerollBuffsRpc()
+	{
+		buffChoices.Clear();
+		lockInButton.interactable = false;
+        StartCoroutine(OfferBuffs(true));
+	}
 
 	public void LockIn()
 	{
