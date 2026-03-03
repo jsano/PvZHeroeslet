@@ -142,6 +142,11 @@ public class Buff : MonoBehaviour
         gi.Color1 = Color.Lerp(classColors[buffClass], Color.white, 0.5f);
         if (rarity == Rarity.Duo) gi.Color2 = Color.Lerp(classColors[duoSecondClass], Color.white, 0.5f);
         else gi.Color2 = gi.Color1;
+
+        gi = transform.Find("BG").GetComponent<GradientImage>();
+        gi.Color1 = Color.Lerp(classColors[buffClass], Color.white, 0.5f);
+        if (rarity == Rarity.Duo) gi.Color2 = Color.Lerp(classColors[duoSecondClass], Color.white, 0.5f);
+        else gi.Color2 = gi.Color1;
     }
 
     public static bool PlayerHasBuff(string name, Card.Team team)

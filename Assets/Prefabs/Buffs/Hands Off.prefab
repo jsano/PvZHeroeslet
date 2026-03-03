@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hands Off
       objectReference: {fileID: 0}
+    - target: {fileID: 6528579000735427259, guid: d306f9effc3093640949af61915d7b07, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1fe56a9e40e8c494c9f161e09f0e0194, type: 3}
     - target: {fileID: 8499147558775820694, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
