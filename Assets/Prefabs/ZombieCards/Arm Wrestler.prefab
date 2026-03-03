@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   type: 0
-  _class: 0
+  _class: 5
   tribes: 1f000000
   token: 0
   cost: 1
