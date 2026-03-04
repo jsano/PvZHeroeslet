@@ -14,8 +14,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3073203788100394026, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Name
-      value: External Pressure
+      value: Seeing Red
       objectReference: {fileID: 0}
+    - target: {fileID: 6528579000735427259, guid: d306f9effc3093640949af61915d7b07, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a2b6e182d02041c42ae1d3b56dda1bc3, type: 3}
     - target: {fileID: 8499147558775820694, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -125,5 +129,6 @@ MonoBehaviour:
   rarity: 0
   description: Your Anti-hero effects are more effective by 1
   buffClass: 1
+  duoSecondClass: 0
   lore: 
   team: 0

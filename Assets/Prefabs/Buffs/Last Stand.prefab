@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Last Stand
       objectReference: {fileID: 0}
+    - target: {fileID: 6528579000735427259, guid: d306f9effc3093640949af61915d7b07, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8fc27d8c111e8434c88808563df53071, type: 3}
     - target: {fileID: 8499147558775820694, guid: d306f9effc3093640949af61915d7b07, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -126,5 +130,6 @@ MonoBehaviour:
   description: Once your hero has no more than 10 HP, your cards have +3 attack for
     the rest of the game
   buffClass: 1
+  duoSecondClass: 0
   lore: 
   team: 0
