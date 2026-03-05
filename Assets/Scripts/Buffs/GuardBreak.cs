@@ -11,6 +11,7 @@ public class GuardBreak : Buff
 
     protected override void Start()
     {
+        StartCoroutine(Glow());
         GameManager.Instance.GetTeamHero(Card.GetOpponent(team)).blockActivationLimit -= 1;
         base.Start();
     }

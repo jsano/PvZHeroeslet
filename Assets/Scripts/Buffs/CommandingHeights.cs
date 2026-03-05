@@ -9,6 +9,7 @@ public class CommandingHeights : Buff
     {
         if (played.team == team && played.type == Card.Type.Unit && played.col == Tile.HEIGHTS)
         {
+            StartCoroutine(Glow());
             played.armor += 1;
         }
         yield return base.OnCardPlay(played);

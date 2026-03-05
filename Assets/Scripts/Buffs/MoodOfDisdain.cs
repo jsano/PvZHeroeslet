@@ -19,7 +19,11 @@ public class MoodOfDisdain : Buff
                 Tile t = Tile.GetTeamTiles(team)[i, j];
                 if (t.HasRevealedPlanted() && t.planted._class == Card.Class.Contempt) count++;
             }
-            if (count >= 3) played.ChangeStats(-1, -1);
+            if (count >= 3)
+            {
+                StartCoroutine(Glow());
+                played.ChangeStats(-1, -1);
+            }
         }
         yield return base.OnCardPlay(played);
     }

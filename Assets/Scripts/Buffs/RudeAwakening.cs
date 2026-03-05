@@ -14,6 +14,7 @@ public class RudeAwakening : Buff
         {
             if (played.type == Card.Type.Unit && played.HP > 1)
             {
+                StartCoroutine(Glow());
                 yield return played.ReceiveDamage(1, null);
             }
         }

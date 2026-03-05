@@ -13,7 +13,11 @@ public class PrimeTheMoment : Buff
 
     protected override IEnumerator OnTurnStart()
     {
-        if (GameManager.Instance.turn != prevTurn) GameManager.Instance.TriggerEvent("OnTurnStart", null);
+        if (GameManager.Instance.turn != prevTurn)
+        {
+            StartCoroutine(Glow());
+            GameManager.Instance.TriggerEvent("OnTurnStart", null);
+        }
         prevTurn = GameManager.Instance.turn;
         yield return base.OnTurnStart();
     }

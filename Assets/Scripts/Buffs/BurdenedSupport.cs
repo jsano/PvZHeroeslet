@@ -10,7 +10,8 @@ public class BurdenedSupport : Buff
         if (played.team == team && played.type == Card.Type.Unit &&
             Tile.GetTeamTiles(team)[0, played.col].HasRevealedPlanted() && Tile.GetTeamTiles(team)[1, played.col].HasRevealedPlanted())
         {
-                Tile.GetTeamTiles(team)[1, played.col].planted.ChangeStats(0, 3);
+            StartCoroutine(Glow());
+            Tile.GetTeamTiles(team)[1, played.col].planted.ChangeStats(0, 3);
         }
         yield return base.OnCardPlay(played);
     }

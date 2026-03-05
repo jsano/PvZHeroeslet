@@ -16,11 +16,17 @@ public class MoodOfNovelty : Buff
         turns += 1;
         if (turns % 2 == 0)
         {
+            int count = 0;
             for (int i = 0; i < 2; i++) for (int j = 0; j < 5; j++) if (Tile.GetTeamTiles(team)[i, j].HasRevealedPlanted())
                     {
                         Card c = Tile.GetTeamTiles(team)[i, j].planted;
-                        if (c._class == Card.Class.Awe) c.ChangeStats(c.atk, c.HP);
+                        if (c._class == Card.Class.Awe)
+                        {
+                            c.ChangeStats(c.atk, c.HP);
+                            count += 1;
+                        }
                     }
+            if (count > 0) StartCoroutine(Glow());
         }
         yield return base.OnTurnStart();
     }

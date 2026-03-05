@@ -13,6 +13,7 @@ public class FirstBlood : Buff
     {
         if (hurt.Item1 == GameManager.Instance.GetTeamHero(Card.GetOpponent(team)))
         {
+            StartCoroutine(Glow());
             return Math.Max(0, 5 - GameManager.Instance.turn);
         }
         return base.CardHurtModifiers(hurt);

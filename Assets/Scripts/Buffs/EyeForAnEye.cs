@@ -13,6 +13,7 @@ public class EyeForAnEye : Buff
     {
         if (hurt.Item1 == GameManager.Instance.GetTeamHero(team))
         {
+            StartCoroutine(Glow());
             yield return GameManager.Instance.GetTeamHero(Card.GetOpponent(team)).ReceiveDamage((int)(hurt.Item3 / 2), null);
         }
         yield return base.OnCardHurt(hurt);

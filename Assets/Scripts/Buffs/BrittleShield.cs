@@ -11,6 +11,7 @@ public class BrittleShield : Buff
 
     protected override void Start()
     {
+        StartCoroutine(Glow());
         GameManager.Instance.GetTeamHero(team).segmentsToActivation = 6;
         base.Start();
     }

@@ -13,6 +13,7 @@ public class SuddenDeath : Buff
     {
         if (GameManager.Instance.turn >= 10)
         {
+            StartCoroutine(Glow());
             StartCoroutine(GameManager.Instance.GetTeamHero(team).ReceiveDamage(10, null, true));
             yield return GameManager.Instance.GetTeamHero(Card.GetOpponent(team)).ReceiveDamage(10, null, true);
         }

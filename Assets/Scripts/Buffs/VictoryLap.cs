@@ -13,7 +13,11 @@ public class VictoryLap : Buff
     {
         int mine = GameManager.Instance.GetTeamHero(team).HP;
         int opponent = GameManager.Instance.GetTeamHero(Card.GetOpponent(team)).HP;
-        if (mine > opponent) yield return GameManager.Instance.DrawCard(team);
+        if (mine > opponent)
+        {
+            StartCoroutine(Glow());
+            yield return GameManager.Instance.DrawCard(team);
+        }
         yield return base.OnTurnEnd();
     }
 

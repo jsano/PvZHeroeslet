@@ -18,6 +18,7 @@ public class MoodOfVolatility : Buff
         {
             if (played._class == Card.Class.Wrath && played.type == Card.Type.Unit)
             {
+                StartCoroutine(Glow());
                 played.ChangeStats(4, 0);
                 affectedCards.Add(played);
             }
@@ -27,6 +28,7 @@ public class MoodOfVolatility : Buff
 
     protected override IEnumerator OnTurnStart()
     {
+        if (affectedCards.Count > 0) StartCoroutine(Glow());
         foreach (Card card in affectedCards)
         {
             if (card == null) continue;

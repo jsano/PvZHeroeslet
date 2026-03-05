@@ -15,7 +15,11 @@ public class HarmonicGain : Buff
     {
         if (played.team == team) 
         {
-            if (!done.Contains(played._class)) yield return GameManager.Instance.UpdateRemaining(1, team);
+            if (!done.Contains(played._class))
+            {
+                StartCoroutine(Glow());
+                yield return GameManager.Instance.UpdateRemaining(1, team);
+            }
             done.Add(played._class);
         }
         yield return base.OnCardPlay(played);

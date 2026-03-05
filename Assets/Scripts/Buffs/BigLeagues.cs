@@ -13,6 +13,7 @@ public class BigLeagues : Buff
     {
         if (hurt.Item2.team == team && hurt.Item3 < 2)
         {
+            StartCoroutine(Glow());
             return 2 - hurt.Item3;
         }
         return base.CardHurtModifiers(hurt);

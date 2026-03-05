@@ -14,6 +14,7 @@ public class MercyKill : Buff
         Card c = hurt.Item1.GetComponent<Card>();
         if (c != null && c.team != team && c.HP == 1 && c.isDamaged())
         {
+            StartCoroutine(Glow());
             c.Destroy();
         }
         yield return base.OnCardHurt(hurt);

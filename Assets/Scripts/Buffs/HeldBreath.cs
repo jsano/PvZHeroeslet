@@ -22,9 +22,10 @@ public class HeldBreath : Buff
 
     protected override IEnumerator OnTurnStart()
     {
-        if (active && team == GameManager.Instance.team)
+        if (active)
         {
-            foreach (HandCard hc in GameManager.Instance.GetHandCards()) if (hc.orig.type == Card.Type.Unit) hc.ChangeCost(-2);
+            StartCoroutine(Glow());
+            if (team == GameManager.Instance.team) foreach (HandCard hc in GameManager.Instance.GetHandCards()) if (hc.orig.type == Card.Type.Unit) hc.ChangeCost(-2);
         }
         active = true;
         return base.OnTurnStart();

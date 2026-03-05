@@ -13,8 +13,16 @@ public class ShortFuse : Buff
 
     protected override IEnumerator OnTurnStart()
     {
-        if (state == 0) yield return GameManager.Instance.UpdateRemaining(3, team);
-        else if (state == 1) yield return GameManager.Instance.UpdateRemaining(-2, team);
+        if (state == 0)
+        {
+            StartCoroutine(Glow());
+            yield return GameManager.Instance.UpdateRemaining(3, team);
+        }
+        else if (state == 1)
+        {
+            StartCoroutine(Glow());
+            yield return GameManager.Instance.UpdateRemaining(-2, team);
+        }
         state += 1;
         yield return base.OnTurnStart();
     }

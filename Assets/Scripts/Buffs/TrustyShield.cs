@@ -11,6 +11,7 @@ public class TrustyShield : Buff
 
     protected override void Start()
     {
+        StartCoroutine(Glow());
         GameManager.Instance.GetTeamHero(team).blockActivationLimit += 2;
         base.Start();
     }

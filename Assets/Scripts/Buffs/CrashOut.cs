@@ -26,6 +26,7 @@ public class CrashOut : Buff
                 hc.ChangeAttack(0);
                 hc.ChangeHP(0);
             }
+        StartCoroutine(Glow());
         base.Start();
     }
 

@@ -18,6 +18,7 @@ public class DenialOfService : Buff
             GameManager.Instance.playerTrickPermanentDiscount -= 0.5f;
         }
         if (team == GameManager.Instance.team) foreach (HandCard hc in GameManager.Instance.GetHandCards()) hc.ChangeCost(0);
+        StartCoroutine(Glow());
         base.Start();
     }
 

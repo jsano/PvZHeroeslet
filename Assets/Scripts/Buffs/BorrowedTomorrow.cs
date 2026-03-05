@@ -20,6 +20,7 @@ public class BorrowedTomorrow : Buff
             GameManager.Instance.playerTrickPermanentDiscount += 100;
         }
         if (team == GameManager.Instance.team) foreach (HandCard hc in GameManager.Instance.GetHandCards()) hc.ChangeCost(0);
+        StartCoroutine(Glow());
         base.Start();
     }
 
@@ -30,15 +31,22 @@ public class BorrowedTomorrow : Buff
             state -= 1;
             if (state == 0)
             {
-                GameManager.Instance.playerUnitPermanentDiscount -= 103;
-                GameManager.Instance.playerTrickPermanentDiscount -= 103;
-                foreach (HandCard hc in GameManager.Instance.GetHandCards()) hc.ChangeCost(0);
+                if (team == GameManager.Instance.team)
+                {
+                    GameManager.Instance.playerUnitPermanentDiscount -= 103;
+                    GameManager.Instance.playerTrickPermanentDiscount -= 103;
+                    foreach (HandCard hc in GameManager.Instance.GetHandCards()) hc.ChangeCost(0);
+                }
+                StartCoroutine(Glow());
             }
-            else
+            else if (state == -1)
             {
-                GameManager.Instance.playerUnitPermanentDiscount += 3;
-                GameManager.Instance.playerTrickPermanentDiscount += 3;
-                foreach (HandCard hc in GameManager.Instance.GetHandCards()) hc.ChangeCost(0);
+                if (team == GameManager.Instance.team)
+                {
+                    GameManager.Instance.playerUnitPermanentDiscount += 3;
+                    GameManager.Instance.playerTrickPermanentDiscount += 3;
+                    foreach (HandCard hc in GameManager.Instance.GetHandCards()) hc.ChangeCost(0);
+                }
             }
         }
         base.OnHandCardPlayImmediate(played);

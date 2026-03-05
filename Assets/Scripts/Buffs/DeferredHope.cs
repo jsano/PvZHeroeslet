@@ -14,6 +14,7 @@ public class DeferredHope : Buff
     protected override void Start()
     {
         GameManager.Instance.GetTeamHero(team).ChangeStats(0, -15, true, true);
+        StartCoroutine(Glow());
         base.Start();
     }
 
@@ -22,6 +23,7 @@ public class DeferredHope : Buff
         turns += 1;
         if (turns == 2)
         {
+            StartCoroutine(Glow());
             GameManager.Instance.GetTeamHero(team).ChangeStats(0, 30, true, true);
         }
         yield return base.OnTurnStart();

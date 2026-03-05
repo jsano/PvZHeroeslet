@@ -21,6 +21,7 @@ public class MadRespect : Buff
                     if (Tile.GetTeamTiles(Card.GetOpponent(team))[i, j].HasRevealedPlanted()) count++;
                 }
             }
+            if (count > 0) StartCoroutine(Glow());
             return count * 2;
         }
         return base.CardHurtModifiers(hurt);

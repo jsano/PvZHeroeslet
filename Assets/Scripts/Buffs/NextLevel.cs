@@ -32,6 +32,7 @@ public class NextLevel : Buff
                         hc.ChangeAttack(0);
                         hc.ChangeHP(0);
                     }
+            StartCoroutine(Glow());
         }
         yield return base.OnTurnStart();
     }

@@ -34,6 +34,7 @@ public class ClosingIn : Buff
                     {
                         found = true;
                         Tile.GetTeamTiles(Card.GetOpponent(team))[i, j].planted.Destroy();
+                        StartCoroutine(Glow());
                         break;
                     }
             }

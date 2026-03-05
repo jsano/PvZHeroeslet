@@ -13,6 +13,7 @@ public class FirstStrike : Buff
     {
         if (GameManager.Instance.WentFirst() == team) 
         {
+            StartCoroutine(Glow());
             yield return GameManager.Instance.UpdateRemaining(1, team);
         }
         yield return base.OnTurnStart();

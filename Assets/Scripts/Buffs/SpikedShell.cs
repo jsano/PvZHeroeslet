@@ -13,7 +13,11 @@ public class SpikedShell : Buff
     {
         if (hurt.Item1 == GameManager.Instance.GetTeamHero(team))
         {
-            if (hurt.Item2 != null) yield return hurt.Item2.ReceiveDamage(1, null);
+            if (hurt.Item2 != null)
+            {
+                StartCoroutine(Glow());
+                yield return hurt.Item2.ReceiveDamage(1, null);
+            }
         }
         yield return base.OnCardHurt(hurt);
     }

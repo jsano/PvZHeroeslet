@@ -18,6 +18,7 @@ public class SlowSuffocation : Buff
             GameManager.Instance.blockTimerMax += 10;
             GameManager.Instance.buffTimerMax += 10;
         }
+        StartCoroutine(Glow());
         base.Start();
     }
 

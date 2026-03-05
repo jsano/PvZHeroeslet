@@ -10,7 +10,8 @@ public class ColdWar : Buff
         if (played.team != team && played.type == Card.Type.Unit &&
             Tile.GetTeamTiles(Card.GetOpponent(team))[0, played.col].HasRevealedPlanted() && Tile.GetTeamTiles(Card.GetOpponent(team))[1, played.col].HasRevealedPlanted())
         {
-                Tile.GetTeamTiles(Card.GetOpponent(team))[0, played.col].planted.ChangeStats(-2, 0);
+            StartCoroutine(Glow());
+            Tile.GetTeamTiles(Card.GetOpponent(team))[0, played.col].planted.ChangeStats(-2, 0);
         }
         yield return base.OnCardPlay(played);
     }

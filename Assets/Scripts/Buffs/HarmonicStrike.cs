@@ -19,6 +19,7 @@ public class HarmonicStrike : Buff
         }
         if (done.Count > 0) 
         {
+            StartCoroutine(Glow());
             yield return GameManager.Instance.GetTeamHero(Card.GetOpponent(team)).ReceiveDamage(done.Count, null);
         }
         yield return base.OnTurnStart();

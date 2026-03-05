@@ -14,6 +14,7 @@ public class VengefulHeart : Buff
         Card c = hurt.Item1.GetComponent<Card>();
         if (c != null && c.team == team && !c.died)
         {
+            StartCoroutine(Glow());
             yield return c.Heal(1000);
         }
         yield return base.OnCardHurt(hurt);

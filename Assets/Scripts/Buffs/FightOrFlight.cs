@@ -25,7 +25,11 @@ public class FightOrFlight : Buff
                         break;
                     }
                 }
-                if (hasOpponentInCol) played.ChangeStats(2, 0);
+                if (hasOpponentInCol)
+                {
+                    StartCoroutine(Glow());
+                    played.ChangeStats(2, 0);
+                }
             }
         }
         yield return base.OnCardPlay(played);

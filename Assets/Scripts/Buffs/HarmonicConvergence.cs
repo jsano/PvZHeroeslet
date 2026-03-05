@@ -75,6 +75,7 @@ public class HarmonicConvergence : Buff
             GameManager.Instance.opponentPermanentAttackBonus += 2;
             GameManager.Instance.opponentPermanentHPBonus += 2;
         }
+        StartCoroutine(Glow());
     }
 
 }

@@ -18,7 +18,11 @@ public class RunnersHigh : Buff
             if (Tile.GetTeamTiles(team)[i, j].HasRevealedPlanted()) mine += 1;
             if (Tile.GetTeamTiles(Card.GetOpponent(team))[i, j].HasRevealedPlanted()) opponent += 1;
         }
-        if (mine > opponent) yield return GameManager.Instance.DrawCard(team);
+        if (mine > opponent)
+        {
+            StartCoroutine(Glow());
+            yield return GameManager.Instance.DrawCard(team);
+        }
         yield return base.OnTurnEnd();
     }
 

@@ -15,6 +15,7 @@ public class ColdSweat : Buff
         {
             int gold = (int)(team == GameManager.Instance.team ? GameManager.Instance.remaining : GameManager.Instance.opponentRemaining);
             StartCoroutine(GameManager.Instance.UpdateRemaining(-gold, team, false));
+            if (gold > 0) StartCoroutine(Glow());
             return -gold;
         }
         return base.OnCardHurtImmediate(hurt);

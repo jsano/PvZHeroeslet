@@ -15,6 +15,7 @@ public class DulledPain : Buff
     {
         if (hurt.Item1 == GameManager.Instance.GetTeamHero(team) && active)
         {
+            StartCoroutine(Glow());
             active = false;
             return -(int)Mathf.Ceil(hurt.Item3 / 2f);
         }

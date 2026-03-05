@@ -13,10 +13,15 @@ public class Starstruck : Buff
 
     protected override IEnumerator OnCardStatsChanged(Tuple<Card, int, int> changed)
     {
-        if (changed.Item1.team != team && !done[changed.Item1.col]) for (int i = 0; i < Tile.ROWS; i++) if (Tile.GetTeamTiles(team)[i, changed.Item1.col].HasRevealedPlanted()) {
+        if (changed.Item1.team != team && !done[changed.Item1.col])
+        {
+            for (int i = 0; i < Tile.ROWS; i++) if (Tile.GetTeamTiles(team)[i, changed.Item1.col].HasRevealedPlanted())
+                {
                     done[changed.Item1.col] = true;
                     Tile.GetTeamTiles(team)[i, changed.Item1.col].planted.ChangeStats(Mathf.Max(0, changed.Item2), Mathf.Max(0, changed.Item3));
                 }
+            if (done[changed.Item1.col]) StartCoroutine(Glow());
+        }
         return base.OnCardStatsChanged(changed);
     }
 

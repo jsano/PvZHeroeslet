@@ -18,6 +18,7 @@ public class HyperFixation : Buff
                 if (Tile.GetTeamTiles(team)[i, j].HasRevealedPlanted()) mine.Add(Tile.GetTeamTiles(team)[i, j].planted);
         if (mine.Count == 1 && !affected.Contains(mine[0]))
         {
+            StartCoroutine(Glow());
             mine[0].doubleStrike += 1;
             affected.Add(mine[0]);
         }

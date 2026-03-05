@@ -31,6 +31,7 @@ public class Buff : MonoBehaviour
     public Card.Class buffClass;
     public Card.Class duoSecondClass;
     public string lore;
+    private Image glow;
 
     [HideInInspector] public Card.Team team;
 
@@ -115,12 +116,17 @@ public class Buff : MonoBehaviour
         }
         return result;
     }
+    
+    void Awake()
+    {
+        glow = transform.Find("Glow").GetComponent<Image>();
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
         SetColors();
-
+        LeanTween.rotateAroundLocal(glow.gameObject, Vector3.forward, -360f, 2f).setRepeat(-1);
         GetComponent<Button>().onClick.AddListener(ShowBuffInfo);
         CallAllImmediate("OnBuffGainedImmediate", this);
     }
@@ -154,6 +160,21 @@ public class Buff : MonoBehaviour
         Transform search = GameManager.Instance.team == team ? GameManager.Instance.playerBuffs : GameManager.Instance.opponentBuffs;
         foreach (Transform t in search) if (AllCards.InstanceToPrefab(t.GetComponent<Buff>()).name == name) return true;
         return false;
+    }
+
+    public IEnumerator Glow()
+    {
+        //LeanTween.alpha(glow, 1, 0.5f).setRepeat(2).setLoopPingPong().setOnComplete(() => glow.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0));
+        while (glow.color.a < 1)
+        {
+            glow.color = new Color(glow.color.r, glow.color.g, glow.color.b, glow.color.a + Time.deltaTime * 1.5f);
+            yield return null;
+        }
+        while (glow.color.a > 0)
+        {
+            glow.color = new Color(glow.color.r, glow.color.g, glow.color.b, glow.color.a - Time.deltaTime * 1.5f);
+            yield return null;
+        }
     }
 
     public Sprite GetImage()

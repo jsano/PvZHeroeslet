@@ -29,6 +29,7 @@ public class StoodAghast : Buff
                 GameManager.Instance.opponentPermanentAttackBonus += 1;
                 GameManager.Instance.opponentPermanentHPBonus += 1;
             }
+            StartCoroutine(Glow());
         }
         base.OnBlock(hero);
     }

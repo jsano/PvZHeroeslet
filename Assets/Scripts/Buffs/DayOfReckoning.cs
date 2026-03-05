@@ -25,6 +25,7 @@ public class DayOfReckoning : Buff
             {
                 c.GetComponent<SpriteRenderer>().material.color = Color.red;
                 markedCards.Add(c);
+                StartCoroutine(Glow());
             }
         }
         return base.OnCardHurt(hurt);

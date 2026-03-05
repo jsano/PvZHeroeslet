@@ -13,6 +13,7 @@ public class ShockingReveal : Buff
     {
         if (played.baseGravestone)
         {
+            StartCoroutine(Glow());
             played.ChangeStats(1, 0);
         }
         base.OnCardPlayImmediate(played);

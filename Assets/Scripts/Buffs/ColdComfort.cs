@@ -15,6 +15,7 @@ public class ColdComfort : Buff
         {
             if (Tile.GetTeamTiles(team)[i, Tile.WATER].HasRevealedPlanted()) StartCoroutine(Tile.GetTeamTiles(team)[i, Tile.WATER].planted.Heal(1));
         }
+        StartCoroutine(Glow());
         yield return base.OnTurnEnd();
     }
 

@@ -17,6 +17,7 @@ public class OnEdge : Buff
             GameManager.Instance.playerTrickPermanentDiscount += 1;
         }
         if (team == GameManager.Instance.team) foreach (HandCard hc in GameManager.Instance.GetHandCards()) hc.ChangeCost(0);
+        StartCoroutine(Glow());
         base.Start();
     }
 

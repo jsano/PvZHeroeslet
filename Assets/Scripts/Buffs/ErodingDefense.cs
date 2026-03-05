@@ -11,6 +11,7 @@ public class ErodingDefense: Buff
 
     protected override IEnumerator OnTurnStart()
     {
+        StartCoroutine(Glow());
         GameManager.Instance.GetTeamHero(Card.GetOpponent(team)).StealBlock(1);
         yield return base.OnTurnStart();
     }

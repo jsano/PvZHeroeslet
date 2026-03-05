@@ -34,6 +34,7 @@ public class PhantomPain : Buff
                         }
                 }
             }
+            StartCoroutine(Glow());
         }
         yield return base.OnCardHurt(hurt);
     }  
