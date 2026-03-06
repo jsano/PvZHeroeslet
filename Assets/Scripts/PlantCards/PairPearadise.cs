@@ -12,7 +12,7 @@ public class PairPearadise : Card
         {
             if (Tile.CanPlantInCol(col, Tile.GetTeamTiles(team), true, false))
             {
-                yield return new WaitForSeconds(1);
+                yield return Glow();
                 Card c = Instantiate(AllCards.InstanceToPrefab(played)).GetComponent<Card>();
                 c.teamUp = true;
                 Tile.GetTeamTiles(team)[1, col].Plant(c);

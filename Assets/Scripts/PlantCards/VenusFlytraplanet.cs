@@ -10,8 +10,8 @@ public class VenusFlytraplanet : Card
 	{
 		if (!hurt.Item2.died && hurt.Item2.col == col && hurt.Item2.team == team && hurt.Item2.type == Type.Unit) 
 		{
-            yield return new WaitForSeconds(1);
-			yield return GameManager.Instance.GetTeamHero(team).Heal(hurt.Item3);
+            yield return Glow();
+            yield return GameManager.Instance.GetTeamHero(team).Heal(hurt.Item3);
         }
 		yield return base.OnCardHurt(hurt);
 	}

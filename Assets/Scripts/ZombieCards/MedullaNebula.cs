@@ -10,7 +10,7 @@ public class MedullaNebula : Card
     {
         if (played.type == Type.Unit && played.team == team && played.col == col)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             yield return GameManager.Instance.UpdateRemaining(2, team);
         }
         yield return base.OnCardPlay(played);

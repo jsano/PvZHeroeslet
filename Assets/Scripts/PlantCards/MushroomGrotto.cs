@@ -17,7 +17,7 @@ public class MushroomGrotto : Card
             }
             if (choices.Count > 0)
             {
-                yield return new WaitForSeconds(1);
+                yield return Glow();
                 var choice = choices[UnityEngine.Random.Range(0, choices.Count)];
                 yield return SyncRandomChoiceAcrossNetwork(choice.GetComponent<Tile>().row + " - " + choice.GetComponent<Tile>().col);
                 Card c = Instantiate(AllCards.Instance.cards[AllCards.NameToID("Puff-shroom")]).GetComponent<Card>();

@@ -12,8 +12,8 @@ public class HotLava : Card
         for (int i = 0; i < Tile.ROWS; i++) if (Tile.opponentTiles[i, col].HasRevealedPlanted()) targets.Add(Tile.opponentTiles[i, col].planted);
 
         if (targets.Count > 0) {
-			yield return new WaitForSeconds(1);
-			foreach (Damagable d in targets) StartCoroutine(d.ReceiveDamage(1, this));
+            yield return Glow();
+            foreach (Damagable d in targets) StartCoroutine(d.ReceiveDamage(1, this));
 		}
 		yield return base.BeforeCombat();
 	}

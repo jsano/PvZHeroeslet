@@ -11,8 +11,8 @@ public class TrapperTerritory : Card
 		for (int i = 0; i < 2; i++) if (Tile.GetTeamTiles(GetOpponent(team))[i, col].HasRevealedPlanted()) targets.Add(Tile.GetTeamTiles(GetOpponent(team))[i, col].planted);
 		if (targets.Count > 0)
 		{
-			yield return new WaitForSeconds(1);
-			foreach (Damagable c in targets) StartCoroutine(c.ReceiveDamage(1, this));
+            yield return Glow();
+            foreach (Damagable c in targets) StartCoroutine(c.ReceiveDamage(1, this));
 		}
 		yield return base.BeforeCombat();
 	}

@@ -20,7 +20,7 @@ public class BlackHole : Card
         }
         if (played.type == Type.Unit && played.team != team && played.col != col && Tile.CanPlantInCol(col, Tile.GetTeamTiles(GetOpponent(team)), played.teamUp, played.amphibious))
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             played.Move(played.row, col);
         }
         yield return base.OnCardPlay(played);

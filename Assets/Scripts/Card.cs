@@ -225,7 +225,12 @@ public class Card : Damagable
             atkSprite.gameObject.SetActive(false);
             hpSprite.gameObject.SetActive(false);
         }
-        if (type == Type.Terrain) SR.sortingOrder = -2;
+        if (type == Type.Terrain)
+        {
+            SR.sortingOrder = -2;
+            glow.GetComponent<SpriteRenderer>().sortingOrder = -3;
+            glow.transform.localScale = new Vector3(1.5f, 1.5f, 1);
+        }
         
         initializedStats = true;
 
@@ -431,14 +436,19 @@ public class Card : Damagable
             {
                 Tile.GetTeamTiles(team)[row, col].Unplant();
             }
-            yield return new WaitForSeconds(0.4f);
+            yield return null;
             StartCoroutine(DestroyAfterCoroutineFinishes());
         }
     }
 
     private IEnumerator DestroyAfterCoroutineFinishes()
     {
-        yield return new WaitForSeconds(0.1f);
+        while (SR.color.a > 0)
+        {
+            SR.color = new Color(SR.color.r, SR.color.g, SR.color.b, SR.color.a - Time.deltaTime*2);
+            if (fusionBase != null) fusionBase.SR.color = new Color(fusionBase.SR.color.r, fusionBase.SR.color.g, fusionBase.SR.color.b, fusionBase.SR.color.a - Time.deltaTime*2);
+            yield return null;
+        }
         if (fusionBase != null) Destroy(fusionBase.gameObject);
         Destroy(gameObject);
     }

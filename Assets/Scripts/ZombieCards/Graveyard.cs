@@ -10,7 +10,7 @@ public class Graveyard : Card
     {
         if (played.type == Type.Unit && played.team == team && played.col == col && played.baseGravestone)
         {
-            yield return new WaitForSeconds(1);
+            yield return Glow();
             played.ChangeStats(1, 0);
         }
         yield return base.OnCardPlay(played);
