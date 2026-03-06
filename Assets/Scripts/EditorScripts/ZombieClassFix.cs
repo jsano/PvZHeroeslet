@@ -72,6 +72,8 @@ public class ZombieClassFix : EditorWindow
                 {
                     // Modify the value based on the property type
                     // This example assumes a float; adjust for other types (intValue, boolValue, stringValue, etc)
+                    property.stringValue = property.stringValue.Replace("Gravestone", "Repression");
+
                     property.stringValue = property.stringValue.Replace("sun", "energy");
                     property.stringValue = property.stringValue.Replace("brains", "energy");
                     property.stringValue = property.stringValue.Replace("brain", "energy");

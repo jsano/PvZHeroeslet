@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: An ally hides in a gravestone. Draw a card
+  description: An ally becomes a Repression. Draw a card
   lore: 'Requires eight characters, one upper case, a number, and the letter Z. '
   row: 0
   col: 0

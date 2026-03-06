@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Destroy a Gravestone
+  description: Destroy a Repression
   lore: '"MUST. DESTROY. GRAVES."'
   row: 0
   col: 0

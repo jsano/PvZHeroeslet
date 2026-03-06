@@ -653,7 +653,7 @@ public class GameManager : NetworkBehaviour
     {
 		yield return new WaitUntil(() => opponentPlayedQueue.Count == 0 && isProcessing == false);
 
-		string[] pnames = new string[] { "", "Initiative\nPlay", "Reactive\nPlay", "Initiative\nTricks", "FIGHT!" };
+		string[] pnames = new string[] { "", "Initiative\nUnits", "Reactive\nPlay", "Initiative\nTricks", "FIGHT!" };
 
 		// Only start the next turn when both players are ready
 		if (phase == 0 || phase == 4)

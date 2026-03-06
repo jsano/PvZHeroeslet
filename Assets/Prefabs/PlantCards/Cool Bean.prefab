@@ -168,7 +168,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played: Freeze all Gravestones'
+  description: 'When played: Freeze all Repressions'
   lore: '"Chance of meeting Gravestones? Never tell me the odds!" '
   row: 0
   col: 0

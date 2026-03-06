@@ -184,7 +184,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'When played in a Terrain: Bounce an enemy or Gravestone'
+  description: 'When played in a Terrain: Bounce an enemy or Repression'
   lore: '"You wanna keep your lawn tidy? Tired of lookin'' at those unsightly Zombies?
     Then I''M your guy." '
   row: 0

@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarity: 0
-  description: When a gravestone is revealed, it gets +1 attack
+  description: When a Repression is revealed, it gets +1 attack
   buffClass: 3
   duoSecondClass: 0
   lore: 

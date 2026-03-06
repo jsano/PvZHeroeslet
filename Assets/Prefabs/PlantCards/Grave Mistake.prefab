@@ -180,7 +180,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: Bounce a Gravestone. Draw a card
+  description: Bounce a Repression. Draw a card
   lore: 'Warning: Don''t flick gravestones in real life. '
   row: 0
   col: 0

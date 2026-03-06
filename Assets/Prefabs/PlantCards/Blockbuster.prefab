@@ -152,7 +152,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Ally Evolution: Destroy all Gravestones here and next door'
+  description: 'Ally Evolution: Destroy all Repressions here and next door'
   lore: 'They call it a graveyard. She calls it a buffet. '
   row: 0
   col: 0

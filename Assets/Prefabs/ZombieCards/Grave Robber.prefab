@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: This gets +1 attack when an ally is revealed from a Gravestone
+  description: This gets +1 attack when an ally Repression is revealed
   lore: 'Why not rob graves? They''re not going to miss it. It''s not like the dead
     are rising up or anything. '
   row: 0
