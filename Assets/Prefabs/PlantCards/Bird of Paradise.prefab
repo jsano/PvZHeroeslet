@@ -156,7 +156,7 @@ MonoBehaviour:
   fusion: 0
   fusionBase: {fileID: 0}
   fig: 0
-  description: 'Start of turn: Conjure a Superpower'
+  description: 'Start of turn: Conjure a Unique card'
   lore: 'Her beautiful melodies are echoed by the roars of dinosaurs. '
   row: 0
   col: 0

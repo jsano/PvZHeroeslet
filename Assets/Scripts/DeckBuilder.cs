@@ -1,5 +1,3 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -30,6 +28,7 @@ public class DeckBuilder : MonoBehaviour
     public Transform allDeckCards;
     public GameObject deckCardPrefab;
     public GameObject superpowerCardPrefab;
+    public GradientImage BG;
 
     public Transform[] positions;
     private List<Transform> superpowerCards = new();
@@ -76,6 +75,14 @@ public class DeckBuilder : MonoBehaviour
         {
             foreach (Transform t in allDeckCards) t.GetComponent<DeckCard>().add.interactable = false;
         }
+
+        var a = Buff.classColors[AllCards.Instance.heroes[deck.heroID].classes[0]];
+        Color.RGBToHSV(a, out float hue, out float oldSaturation, out float value);
+        var b = Buff.classColors[AllCards.Instance.heroes[deck.heroID].classes[1]];
+        Color.RGBToHSV(b, out float hue1, out float oldSaturation1, out float value1);
+
+        BG.Color1 = Color.HSVToRGB(hue, oldSaturation - 0.3f, value);
+        BG.Color2 = Color.HSVToRGB(hue1, oldSaturation1 - 0.3f, value1);
     }
 
     public void OnDeckNameChange(string s)
