@@ -390,7 +390,7 @@ public class GameManager : NetworkBehaviour
             opponentHero = Instantiate(AllCards.Instance.heroes[UserAccounts.GameStats.BHero]).GetComponent<Hero>();
         }
 		playerHero.transform.position = new Vector2(0, -3.25f);
-        opponentHero.transform.position = new Vector2(0, 3.5f);
+        opponentHero.transform.position = new Vector2(0, 3.7f);
         opponentHero.GetComponent<SpriteRenderer>().sortingOrder = -1;
         opponentHero.transform.Find("HeroUI").position *= new Vector2(-1, 1);
 		playerHero.team = team;
