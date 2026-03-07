@@ -72,7 +72,7 @@ public class CardInfo : InfoUI
 		if (baseCard.deadly > 0) description.text += "Deadly\n";
 		if (baseCard.doubleStrike > 0) description.text += "Double Strike\n";
 		if (baseCard.frenzy > 0) description.text += "Frenzy\n";
-		if (baseCard.gravestone) description.text += "Gravestone\n";
+		if (baseCard.gravestone) description.text += "Repression\n";
 		if (baseCard.hunt > 0) description.text += "Hunt\n";
 		if (baseCard.overshoot > 0) description.text += "Overshoot " + baseCard.overshoot + "\n";
 		if (baseCard.splash > 0) description.text += "Splash Damage " + baseCard.splash + "\n";
@@ -98,7 +98,7 @@ public class CardInfo : InfoUI
 				if (s.Contains("deadly")) gained.text += "Gained Deadly\n";
 				if (s.Contains("doubleStrike")) gained.text += "Gained Double Strike\n";
 				if (s.Contains("frenzy")) gained.text += "Gained Frenzy\n";
-				if (s.Contains("gravestone")) gained.text += "Gained Gravestone\n";
+				if (s.Contains("gravestone")) gained.text += "Gained Repression\n";
 				if (s.Contains("hunt")) gained.text += "Gained Hunt\n";
 				if (s.Contains("overshoot")) gained.text += "Gained Overshoot " + ExtractValue(s) + "\n";
 				if (s.Contains("splash")) gained.text += "Gained Splash Damage " + ExtractValue(s) + "\n";

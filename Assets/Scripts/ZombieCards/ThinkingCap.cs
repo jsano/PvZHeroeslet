@@ -9,7 +9,7 @@ public class ThinkingCap : Card
 	protected override IEnumerator OnThisPlay()
 	{
         yield return new WaitForSeconds(1);
-        for (int i = 0; i < 2; i++) yield return GameManager.Instance.GainHandCard(team, AllCards.RandomFromTribe((Tribe.Superpower, Tribe.Superpower), false, false));
+        for (int i = 0; i < 2; i++) yield return GameManager.Instance.GainHandCard(team, AllCards.RandomFromTribe((Tribe.Unique, Tribe.Unique), false, false));
         yield return base.OnThisPlay();
 	}
 

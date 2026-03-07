@@ -30,7 +30,7 @@ public class StartButtons : NetworkBehaviour
     // DEBUG ===
     public void StartHost()
     {
-        UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(0));
+        UserAccounts.allDecks.Add("temp10", new DeckBuilder.Deck(11));
         UserAccounts.allDecks["temp10"].cards = new() {
             { AllCards.NameToID("Conga Zombie"), 4 },
             { AllCards.NameToID("Embiggen"), 4 },
@@ -63,7 +63,7 @@ public class StartButtons : NetworkBehaviour
 
     public void StartClient()
     {
-        UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(10));
+        UserAccounts.allDecks.Add("temp11", new DeckBuilder.Deck(11));
         UserAccounts.allDecks["temp11"].cards = new() {
             { AllCards.NameToID("Toxic Waste Imp"), 2 },
             { AllCards.NameToID("Overstuffed Zombie"), 4 },

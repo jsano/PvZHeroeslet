@@ -9,7 +9,7 @@ public class Photosynthesizer : Card
     {
         yield return new WaitForSeconds(1);
         Tile.GetTeamTiles(team)[row, col].planted.ChangeStats(0, 2);
-        yield return GameManager.Instance.GainHandCard(team, AllCards.RandomFromTribe((Tribe.Superpower, Tribe.Superpower))); // TODO: GALACTIC
+        yield return GameManager.Instance.GainHandCard(team, AllCards.RandomFromTribe((Tribe.Unique, Tribe.Unique))); // TODO: GALACTIC
         yield return base.OnThisPlay();
     }
 

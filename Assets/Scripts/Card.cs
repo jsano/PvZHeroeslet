@@ -67,7 +67,7 @@ public class Card : Damagable
         Seed,
         Sports,
         Squash,
-        Superpower,
+        Unique,
         Tree
     }
 
@@ -204,6 +204,7 @@ public class Card : Damagable
         {
             sourceFS = new(AllCards.NameToID(AllCards.InstanceToPrefab(this).name));
             sourceFS.cost = 0;
+            team = Tile.playerTiles[row, col].planted == this ? GameManager.Instance.team : GetOpponent(GameManager.Instance.team);
         }
 
         AddPermanentBuffs();
