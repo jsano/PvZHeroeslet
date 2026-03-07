@@ -777,7 +777,7 @@ public class Card : Damagable
         HP += hpAmount;
         if (hpUI != null) hpUI.text = HP + "";
 
-        if (!silent && (atkAmount > 0 || hpAmount > 0)) GameManager.Instance.TriggerEvent("OnCardStatsChanged", new Tuple<Card, int, int>(this, atkAmount, hpAmount));
+        if (!silent && (atkAmount != 0 || hpAmount != 0)) GameManager.Instance.TriggerEvent("OnCardStatsChanged", new Tuple<Card, int, int>(this, atkAmount, hpAmount));
         if (HP <= 0)
         {
             died = true;
@@ -882,7 +882,7 @@ public class Card : Damagable
         atkUI.text = atk + "";
         hpUI.text = HP + "";
         if (!isDamaged()) hpUI.color = Color.white;
-        if (team != GameManager.Instance.team) StartCoroutine(GameManager.Instance.UpdateRemaining(-sourceFS.cost, team, false));
+        if (team != GameManager.Instance.team && GameManager.Instance.phase == 3) StartCoroutine(GameManager.Instance.UpdateRemaining(-sourceFS.cost, team, false));
         UpdateAntihero();
         GameManager.Instance.currentlySpawningCards += 1;
         //play animation

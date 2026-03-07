@@ -1367,6 +1367,7 @@ public class GameManager : NetworkBehaviour
     /// </summary>
     public async void GameEnded(Team won)
     {
+		if (ENDED) return;
         AudioManager.Instance.PlaySFX("Dead");
         ENDED = true;
 		

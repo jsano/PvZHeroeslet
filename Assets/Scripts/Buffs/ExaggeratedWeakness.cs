@@ -13,7 +13,7 @@ public class ExaggeratedWeakness : Buff
     {
         if (changed.Item1.team != team)
         {
-            StartCoroutine(Glow());
+            if (changed.Item2 < 0 || changed.Item3 < 0) StartCoroutine(Glow());
             changed.Item1.ChangeStats(changed.Item2 < 0 ? -1 : 0, changed.Item3 < 0 ? -1 : 0, false, true);
         }
         return base.OnCardStatsChanged(changed);
