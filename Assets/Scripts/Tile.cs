@@ -71,7 +71,7 @@ public class Tile : Damagable
             return;
         }
         else isTerrainTile = false;
-        if (transform.position.y < 0)
+        if (transform.position.y <= 0)
         {
             if (row == -1) playerHeroTiles[col] = this;
             else playerTiles[row, col] = this;

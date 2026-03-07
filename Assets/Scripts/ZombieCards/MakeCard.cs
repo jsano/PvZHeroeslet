@@ -20,7 +20,7 @@ public class MakeCard : Card
 		Tile t = bc.GetComponent<Tile>();
 		if (t == null) return false;
 		if (!t.isPlayerTile) return false;
-        if (t.row == 0 && t.planted == null && Tile.CanPlantInCol(t.col, Tile.GetTeamTiles(team), toMake.teamUp, toMake.amphibious)) return true;
+        if (t.row == 0 && t.planted == null && Tile.CanPlantInCol(t.col, Tile.GetTeamTiles(GameManager.Instance.team), toMake.teamUp, toMake.amphibious)) return true;
 		return false;
 	}
 
