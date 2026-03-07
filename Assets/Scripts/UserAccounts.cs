@@ -85,7 +85,7 @@ public class UserAccounts : MonoBehaviour
             // Shows how to get an access token
             Debug.Log($"Access Token: {AuthenticationService.Instance.AccessToken}");
 
-			new StrategyDecks();
+			//new StrategyDecks(); // DEBUG
         };
 
 		AuthenticationService.Instance.SignInFailed += (err) => {

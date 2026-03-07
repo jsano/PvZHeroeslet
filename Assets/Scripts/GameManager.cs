@@ -359,7 +359,7 @@ public class GameManager : NetworkBehaviour
 		if (!combatVersion)
 		{
 			// Recursively handle frenzy if applicable
-			while (frenzyActivate != null)
+			while (frenzyActivate != null && !frenzyActivate.died)
 			{
 				Card temp = frenzyActivate;
 				frenzyActivate = null;
@@ -983,13 +983,12 @@ public class GameManager : NetworkBehaviour
 
 	private void PlayCardHelper(FinalStats fs, int row, int col, Team playingTeam)
 	{
-		Card card = AllCards.Instance.cards[fs.ID];
 		if (playingTeam != team)
 		{
 			Destroy(opponentHandCards.GetChild(opponentHandCards.childCount - 1).gameObject);
 		}
 		
-		card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
+		Card card = Instantiate(AllCards.Instance.cards[fs.ID]).GetComponent<Card>();
 		card.sourceFS = fs;
 		card.team = playingTeam;
 
@@ -1318,7 +1317,7 @@ public class GameManager : NetworkBehaviour
 		blockChoiceMade = false;
 		if (team == h.team)
 		{
-			superpowerIndex += 1;
+			superpowerIndex = (superpowerIndex + 1) % h.superpowers.Length;
 			GameObject c = Instantiate(handcardPrefab, handCards);
 			c.SetActive(false);
 			c.transform.localPosition = new Vector3(0, 4, -2);
