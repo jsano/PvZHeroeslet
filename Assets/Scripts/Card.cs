@@ -694,8 +694,9 @@ public class Card : Damagable
         if (Tile.IsOnField("Binary Stars", GetOpponent(team)) != null) dmg *= 2;
         dmg = Mathf.Max(0, dmg - armor);
         HP -= dmg;
-        if (_class == Class.Misery && HP < 1 && Buff.PlayerHasBuff("Mood of Attrition", team) && !moaUsed)
+        if (_class == Class.Misery && HP < 1 && Buff.PlayerHasBuff("Mood of Attrition", team) != null && !moaUsed)
         {
+            StartCoroutine(Buff.PlayerHasBuff("Mood of Attrition", team).Glow());
             moaUsed = true;
             HP = 1;
         }
@@ -913,7 +914,13 @@ public class Card : Damagable
     /// </summary>
     public void Freeze()
     {
-        frozen = atk >= 4 && Buff.PlayerHasBuff("Deep Freeze", GetOpponent(team)) ? 2 : 1;
+        Buff b = Buff.PlayerHasBuff("Deep Freeze", GetOpponent(team));
+        if (b != null && atk >= 4)
+        {
+            StartCoroutine(b.Glow());
+            frozen = 2;
+        }
+        else frozen = 1;
         transform.Find("ATK/Frozen").gameObject.SetActive(true);
         SR.material.color = Color.blue;
         GameManager.Instance.TriggerEvent("OnCardFreeze", this);

@@ -31,7 +31,7 @@ public class Spawn2 : Card
     {
         Tile t = bc.GetComponent<Tile>();
         if (t == null) return false;
-        if (t.isTerrainTile && Tile.CanPlantInCol(t.col, Tile.GetTeamTiles(team), toPlay.teamUp, toPlay.amphibious)) return true;
+        if (t.isTerrainTile && Tile.CanPlantInCol(t.col, Tile.GetTeamTiles(GameManager.Instance.team), toPlay.teamUp, toPlay.amphibious)) return true;
         return false;
     }
 

@@ -155,11 +155,11 @@ public class Buff : MonoBehaviour
         else gi.Color2 = gi.Color1;
     }
 
-    public static bool PlayerHasBuff(string name, Card.Team team)
+    public static Buff PlayerHasBuff(string name, Card.Team team)
     {
         Transform search = GameManager.Instance.team == team ? GameManager.Instance.playerBuffs : GameManager.Instance.opponentBuffs;
-        foreach (Transform t in search) if (AllCards.InstanceToPrefab(t.GetComponent<Buff>()).name == name) return true;
-        return false;
+        foreach (Transform t in search) if (AllCards.InstanceToPrefab(t.GetComponent<Buff>()).name == name) return t.GetComponent<Buff>();
+        return null;
     }
 
     public IEnumerator Glow()

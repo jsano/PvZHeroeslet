@@ -110,9 +110,17 @@ public class Hero : Damagable
 			dmg = Math.Min(dmg, HP - 1);
 		}
 
-		if (Buff.PlayerHasBuff("Death by 1000 Cuts", Card.GetOpponent(team)) && dmg == 1) bullseye = true;
+		if (Buff.PlayerHasBuff("Death by 1000 Cuts", Card.GetOpponent(team)) != null && dmg == 1)
+		{
+			StartCoroutine(Buff.PlayerHasBuff("Death by 1000 Cuts", Card.GetOpponent(team)).Glow());
+            bullseye = true;
+		}
 
-        if (dmg >= 5 && !bullseye && Buff.PlayerHasBuff("Panic Reflex", team)) block += 10;
+		if (dmg >= 5 && !bullseye && Buff.PlayerHasBuff("Panic Reflex", team) != null)
+		{
+			StartCoroutine(Buff.PlayerHasBuff("Panic Reflex", team).Glow());
+            block += 10;
+		}
 
         if (!bullseye && timesBlocked < blockActivationLimit)
 		{
@@ -121,8 +129,15 @@ public class Hero : Damagable
 			else if (dmg <= 3) block += 2;
 			else block += 3;
 		}
-
-		int max = Buff.PlayerHasBuff("Suffocating Limits", Card.GetOpponent(team)) ? 8 : 10;
+		
+		int max;
+		Buff b = Buff.PlayerHasBuff("Suffocating Limits", Card.GetOpponent(team));
+		if (b != null)
+		{
+			StartCoroutine(b.Glow());
+            max = 8;
+		}
+		else max = 10;
         if (block >= segmentsToActivation && !bullseye && 
             (GameManager.Instance.team == team && GameManager.Instance.GetHandCards().Count < max || GameManager.Instance.team != team && GameManager.Instance.opponentHandCards.childCount < max))
 		{ if (blockMeter.color != Color.yellow)
@@ -131,7 +146,11 @@ public class Hero : Damagable
 				GameManager.Instance.TriggerEvent("OnBlock", this);
 				blockMeter.color = Color.yellow;
 				timesBlocked++;
-				if (Buff.PlayerHasBuff("Hands Off", team)) source.ChangeStats(-100, 0);
+				if (Buff.PlayerHasBuff("Hands Off", team) != null)
+				{
+					StartCoroutine(Buff.PlayerHasBuff("Hands Off", team).Glow());
+                    source.ChangeStats(-100, 0);
+				}
 			}
 		}
 		else
